@@ -1,5 +1,5 @@
 {
-  "estado": "Propuesta fase 1, versión 10, pendiente de validación",
+  "estado": "Propuesta fase 1, versión 11, pendiente de validación",
   "colores": {
     "blanco": {
       "hex": "#FFFFFF",
@@ -22,9 +22,9 @@
       "tinte-50": "#F3F3F2",
       "uso": "Superficies y etiquetas con texto grafito (11,1:1). Juego suave sobre el degradado verde (3,4 a 4,6:1)."
     },
-    "carballo": {
-      "hex": "#42501E",
-      "uso": "Resalte: cajas oscuras con todo en blanco (8,8:1), palabras verdes sobre blanco (8,8:1) y subrayado en tamaños menores de 72 px."
+    "verde-sendero": {
+      "hex": "#506718",
+      "uso": "Resalte: cajas oscuras con todo en blanco (6,4:1), subrayado dentro de cajas verde Ways y CTA sobre foto opción B. Sustituye al carballo."
     }
   },
   "descartados": [
@@ -33,7 +33,8 @@
     "teja",
     "atlántico",
     "verde Camino #668814 (fuera de la paleta en la versión 8; sustituido por carballo en textos verdes y subrayados pequeños)",
-    "verde Camino #668814 (no gusta; sustituido en pruebas por verde sendero)"
+    "verde Camino #668814 (no gusta; sustituido en pruebas por verde sendero)",
+    "carballo #42501E (sustituido por verde sendero en la versión 11)"
   ],
   "recurso-grafico": {
     "concepto": "La concha, nuestro sello: como el sello de cada etapa en la credencial, cada pieza lleva la concha del logo.",
@@ -56,7 +57,7 @@
   "fondo": "Blanco siempre.",
   "subrayado-ways": {
     "estilo": "Bloque verde detrás de una o dos palabras del titular, girado -1,5 grados.",
-    "color": "Sobre blanco y foto: verde Ways con letra blanca. Sobre cajas verde Ways: carballo con letra blanca. Sobre cajas carballo: verde Ways con letra blanca."
+    "color": "Sobre blanco y foto: verde Ways con letra blanca. Sobre cajas verde Ways: verde sendero con letra blanca. Sobre cajas verde sendero: verde Ways con letra blanca."
   },
   "recurso-curva": {
     "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",
@@ -66,7 +67,7 @@
     "portada": "Borde izquierdo de la foto: se abre hacia fuera arriba, escalón en S en medio y esquina redondeada hacia dentro abajo. SVG: M0 0 C 56 0, 80 24, 80 80 V404 C 80 454, 101 480, 145 482 C 189 484, 210 510, 210 560 V1016 C 210 1052, 230 1080, 266 1080 H0 Z",
     "regla-concha": "No combinar la concha con la caja Camino como firma de esquina."
   },
-  "regla-cajas-oscuras": "Todo en blanco dentro de las cajas carballo, titular incluido.",
+  "regla-cajas-oscuras": "Todo en blanco dentro de las cajas verde sendero, titular incluido.",
   "alternativa-guardada": {
     "roca": {
       "hex": "#4A4A49",
@@ -76,9 +77,9 @@
   },
   "jerarquia": {
     "principal": "blanco #FFFFFF",
-    "protagonista": "verde-ways #7AA606 (principal secundario, al menos 30%)",
+    "protagonista": "verde-ways #7AA606 (al menos 30%)",
     "resalte": [
-      "carballo #42501E",
+      "verde-sendero #506718",
       "grafito #2E2E2D (como mucho)"
     ],
     "apoyo": [
@@ -89,7 +90,7 @@
   "ratio": {
     "blanco": 50,
     "verde-ways": 30,
-    "carballo": 10,
+    "verde-sendero": 10,
     "grafito": 7,
     "apoyo": 3
   },
@@ -97,24 +98,17 @@
     "sobre-blanco": "Verde Ways con letra blanca.",
     "sobre-foto": {
       "A (por defecto)": "Blanco con letra verde Ways",
-      "B": "Blanco con letra carballo",
+      "B": "Blanco con letra verde sendero",
       "C": "Contorno blanco con letra blanca"
     },
     "regla": "Nunca CTAs dentro de cajas de color."
   },
-  "cajas-verde-ways": "Dentro de cajas verde Ways: texto blanco en negrita, concha blanca, subrayado carballo y CTA carballo con texto blanco.",
+  "cajas-verde-ways": "Dentro de cajas verde Ways: texto blanco en negrita, concha blanca, subrayado verde sendero y CTA verde sendero con texto blanco.",
   "nota-contraste": "Blanco sobre verde Ways da 2,9:1, por debajo de WCAG AA; decisión de marca: usarlo en titulares, CTAs y cajas siempre en negrita.",
   "regla-verde-sobre-verde": "Nunca verde sobre verde. Dentro de cajas verdes (verde Ways o carballo) el texto, etiquetas y CTAs van siempre en blanco. Verde Ways sobre blanco solo en formas, líneas y concha, nunca en texto.",
-  "en-prueba": {
-    "verde-sendero": {
-      "hex": "#506718",
-      "blanco": "6,4:1",
-      "nota": "Mezcla de carballo y verde Camino, oscurecida un 5%."
-    }
-  },
   "letra-verde-vs-subrayado": {
     "por-defecto": "Subrayado SW en todos los titulares: la promesa, una o dos palabras, una vez por titular.",
-    "excepcion-letra-verde": "Letra verde Ways solo cuando la pieza ya lleva un subrayado carballo sobre verde Ways, para no mezclar dos tipos de subrayado.",
+    "excepcion-letra-verde": "Letra verde Ways solo cuando la pieza ya lleva un subrayado verde sendero sobre verde Ways, para no mezclar dos tipos de subrayado.",
     "regla": "Un solo tipo de subrayado por pieza."
   }
 }

@@ -1,56 +1,16 @@
 {
-  "estado": "Propuesta fase 1, versión 2, pendiente de validación",
+  "estado": "Propuesta fase 1, versión 3, pendiente de validación",
   "colores": {
-    "blanco": {
-      "hex": "#FFFFFF",
-      "uso": "Fondo. Siempre limpio."
-    },
-    "negro": {
-      "hex": "#1D1D1B",
-      "uso": "Texto principal."
-    },
-    "verde-camino": {
-      "hex": "#668814",
-      "uso": "Titulares verdes sobre blanco y fondos con texto blanco en negrita (4,1:1).",
-      "degradado": {
-        "css": "linear-gradient(135deg, #668814 0%, #54700F 100%)",
-        "uso": "Todos los fondos verdes enteros con texto blanco o amarillo. Contraste con blanco de 4,1 a 5,7:1."
-      }
-    },
-    "verde-ways": {
-      "hex": "#7AA606",
-      "uso": "Logo, líneas, iconos y recurso gráfico. Con texto negro (5,9:1). Nunca texto blanco encima."
-    },
-    "gris": {
-      "hex": "#6F6F6E",
-      "uso": "Texto secundario (5,0:1 sobre blanco).",
-      "tinte-10": "#F3F3F2"
-    },
-    "amarillo-luz": {
-      "hex": "#FFE38A",
-      "uso": "Color de juego sobre verde Camino (3,3:1, titulares grandes y recurso). Fondo de etiquetas con texto negro (13,4:1)."
-    }
+    "blanco":       {"hex": "#FFFFFF", "uso": "Fondo. Siempre limpio."},
+    "verde-camino": {"hex": "#668814", "uso": "Titulares verdes sobre blanco (4,1:1) y fondos con texto blanco en negrita.",
+                     "degradado": {"css": "linear-gradient(135deg, #668814 0%, #54700F 100%)", "uso": "Todos los fondos verdes enteros. Blanco encima de 4,1 a 5,7:1."}},
+    "verde-ways":   {"hex": "#7AA606", "uso": "Logo, líneas, iconos y la concha. Sobre grafito se lee como texto (4,7:1). Nunca texto blanco encima."},
+    "grafito":      {"hex": "#2E2E2D", "uso": "Texto principal (13,6:1 sobre blanco) y fondos premium."},
+    "gris":         {"hex": "#6F6F6E", "uso": "Texto secundario y pies (5,0:1 sobre blanco)."},
+    "niebla":       {"hex": "#E8E8E6", "tinte-50": "#F3F3F2", "uso": "Superficies y etiquetas con texto grafito (11,1:1). Juego suave sobre el degradado verde (3,4 a 4,6:1)."}
   },
-  "proporcion": {
-    "blanco": 60,
-    "negro": 15,
-    "verde-camino": 12,
-    "verde-ways": 8,
-    "gris": 3,
-    "amarillo-luz": 2
-  },
-  "recurso-grafico": {
-    "principal": "rayos",
-    "apoyo": "senda (solo itinerarios y etapas)"
-  },
-  "tipografia": {
-    "familia": "Montserrat",
-    "pesos": [
-      400,
-      500,
-      600,
-      700,
-      800
-    ]
-  }
+  "descartados": ["amarillo Luz #FFE38A (infantil con el verde)", "brezo", "teja", "atlántico"],
+  "proporcion": {"blanco": 60, "grafito": 15, "verde-camino": 12, "verde-ways": 7, "niebla": 4, "gris": 2},
+  "recurso-grafico": {"principal": "la concha del isotipo", "usos": ["recorte desde una esquina", "sello pequeño junto a una prueba", "ventana para fotos con su contorno"]},
+  "tipografia": {"familia": "Montserrat", "pesos": [400, 500, 600, 700, 800]}
 }

@@ -73,53 +73,28 @@
     "estilo": "Bloque verde detrás de una o dos palabras del titular, girado -1,5 grados.",
     "color": "Verde Ways con letra blanca en titulares de 72 px o más; verde Camino con letra blanca en tamaños menores y sobre foto; blanco con letra roca dentro de recuadros roca. En prueba: gris roca con letra blanca dentro de cajas verde Ways."
   },
-  "alternativas-roca": {
-    "petroleo": {
-      "hex": "#2F4F57",
-      "blanco": "8,8:1"
-    },
-    "tierra": {
-      "hex": "#554436",
-      "blanco": "9,3:1"
-    },
-    "pizarra-suave": {
-      "hex": "#434B52",
-      "blanco": "8,9:1"
-    },
-    "marino": {
-      "hex": "#2A3F5A",
-      "blanco": "10,7:1"
-    },
-    "granito": {
-      "hex": "#57524C",
-      "blanco": "7,7:1"
-    },
-    "burdeos": {
-      "hex": "#63303A",
-      "blanco": "10,4:1"
-    },
-    "oliva-noche": {
-      "hex": "#41472C",
-      "blanco": "9,7:1"
-    },
-    "verde-noche": {
-      "hex": "#43590D",
-      "blanco": "7,9:1"
-    },
-    "verde-monte": {
-      "hex": "#3E4D19",
-      "blanco": "9,2:1"
-    },
-    "verde-piedra": {
-      "hex": "#40482E",
-      "blanco": "9,6:1",
-      "nota": "recomendado: mismo tono que los verdes de marca, poca saturación"
-    }
-  },
   "recurso-curva": {
     "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",
     "svg-foto": "M0 0 H110 V250 C 110 288, 92 308, 56 310 C 18 312, 1 330, 1 370 V552 C 1 569, 12 580, 28 580 H0 Z (máscara blanca sobre el borde izquierdo de la foto, 120 x 580; la zona ancha queda arriba para el titular)",
     "regla": "El titular siempre va en la parte ancha del escalón, nunca cortado por la curva."
   },
-  "regla-cajas-oscuras": "Todo en blanco dentro de las cajas oscuras, titular incluido. Descartado el titular en verde Ways."
+  "regla-cajas-oscuras": "Todo en blanco dentro de las cajas oscuras, titular incluido. Descartado el titular en verde Ways.",
+  "tonos-oscuros-finalistas": {
+    "roca": {
+      "hex": "#4A4A49",
+      "blanco": "8,9:1"
+    },
+    "pizarra-suave": {
+      "hex": "#434B52",
+      "blanco": "8,9:1"
+    },
+    "verde-noche": {
+      "hex": "#43590D",
+      "blanco": "7,9:1"
+    },
+    "verde-piedra": {
+      "hex": "#40482E",
+      "blanco": "9,6:1"
+    }
+  }
 }

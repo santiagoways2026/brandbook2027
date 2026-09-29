@@ -1,0 +1,19 @@
+{
+  "estado": "Propuesta fase 1, pendiente de validación",
+  "base": {
+    "verde-ways":   {"hex": "#7AA606", "uso": "Marca y fondos vivos. Siempre con texto bosque (5,2:1)."},
+    "verde-camino": {"hex": "#668814", "uso": "Titulares grandes y detalles de marca."},
+    "musgo":        {"hex": "#4F6B10", "uso": "Botones y enlaces con texto blanco (5,9:1)."},
+    "bosque":       {"hex": "#1E2A12", "uso": "Texto principal y fondos oscuros."},
+    "brote":        {"hex": "#E3EFC4", "uso": "Tintes, etiquetas y fondos suaves."},
+    "piedra":       {"hex": "#F4F1EA", "uso": "Fondo general; sustituye al beige."},
+    "blanco-calido":{"hex": "#FCFCF9", "uso": "Tarjetas y superficies."}
+  },
+  "acento": {
+    "brezo": {"hex": "#6D4C7D", "uso": "Acento principal recomendado (6,9:1 con blanco)."},
+    "teja":  {"hex": "#B5522C", "uso": "Acento secundario puntual; nunca como único indicador junto al verde."},
+    "atlantico": {"hex": "#24566A", "uso": "Candidato descartado provisionalmente."}
+  },
+  "texto": {"cuerpo-claro": "#4A5340", "secundario-claro": "#5E6653", "cuerpo-oscuro": "#C9D3B8", "secundario-oscuro": "#9BA88A"},
+  "tipografia": {"familia": "Montserrat", "pesos": [400, 500, 600, 700, 800]}
+}

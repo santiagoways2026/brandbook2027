@@ -94,5 +94,12 @@
   },
   "botones": "CTAs siempre con texto blanco sobre verde: verde Ways sobre blanco o foto; carballo dentro de cajas verde Ways.",
   "cajas-verde-ways": "Dentro de cajas verde Ways: texto blanco en negrita, concha blanca, subrayado carballo y CTA carballo con texto blanco.",
-  "nota-contraste": "Blanco sobre verde Ways da 2,9:1, por debajo de WCAG AA; decisión de marca: usarlo en titulares, CTAs y cajas siempre en negrita."
+  "nota-contraste": "Blanco sobre verde Ways da 2,9:1, por debajo de WCAG AA; decisión de marca: usarlo en titulares, CTAs y cajas siempre en negrita.",
+  "regla-verde-sobre-verde": "Nunca verde sobre verde. Dentro de cajas verdes (verde Ways o carballo) el texto, etiquetas y CTAs van siempre en blanco. Verde Ways sobre blanco solo en formas, líneas y concha, nunca en texto.",
+  "en-prueba": {
+    "verde-camino": {
+      "hex": "#668814",
+      "uso-propuesto": "Verde intermedio para palabras verdes sobre blanco y CTAs con letra blanca (4,1:1 frente a 2,9:1 del verde Ways)."
+    }
+  }
 }

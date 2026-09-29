@@ -1,19 +1,14 @@
 {
-  "estado": "Propuesta fase 1, pendiente de validación",
-  "base": {
-    "verde-ways":   {"hex": "#7AA606", "uso": "Marca y fondos vivos. Siempre con texto bosque (5,2:1)."},
-    "verde-camino": {"hex": "#668814", "uso": "Titulares grandes y detalles de marca."},
-    "musgo":        {"hex": "#4F6B10", "uso": "Botones y enlaces con texto blanco (5,9:1)."},
-    "bosque":       {"hex": "#1E2A12", "uso": "Texto principal y fondos oscuros."},
-    "brote":        {"hex": "#E3EFC4", "uso": "Tintes, etiquetas y fondos suaves."},
-    "piedra":       {"hex": "#F4F1EA", "uso": "Fondo general; sustituye al beige."},
-    "blanco-calido":{"hex": "#FCFCF9", "uso": "Tarjetas y superficies."}
+  "estado": "Propuesta fase 1, versión 2, pendiente de validación",
+  "colores": {
+    "blanco":       {"hex": "#FFFFFF", "uso": "Fondo. Siempre limpio."},
+    "negro":        {"hex": "#1D1D1B", "uso": "Texto principal."},
+    "verde-camino": {"hex": "#668814", "uso": "Titulares verdes sobre blanco y fondos con texto blanco en negrita (4,1:1)."},
+    "verde-ways":   {"hex": "#7AA606", "uso": "Logo, líneas, iconos y recurso gráfico. Con texto negro (5,9:1). Nunca texto blanco encima."},
+    "gris":         {"hex": "#6F6F6E", "uso": "Texto secundario (5,0:1 sobre blanco).", "tinte-10": "#F3F3F2"},
+    "amarillo-luz": {"hex": "#FFE38A", "uso": "Color de juego sobre verde Camino (3,3:1, titulares grandes y recurso). Fondo de etiquetas con texto negro (13,4:1)."}
   },
-  "acento": {
-    "brezo": {"hex": "#6D4C7D", "uso": "Acento principal recomendado (6,9:1 con blanco)."},
-    "teja":  {"hex": "#B5522C", "uso": "Acento secundario puntual; nunca como único indicador junto al verde."},
-    "atlantico": {"hex": "#24566A", "uso": "Candidato descartado provisionalmente."}
-  },
-  "texto": {"cuerpo-claro": "#4A5340", "secundario-claro": "#5E6653", "cuerpo-oscuro": "#C9D3B8", "secundario-oscuro": "#9BA88A"},
+  "proporcion": {"blanco": 60, "negro": 15, "verde-camino": 12, "verde-ways": 8, "gris": 3, "amarillo-luz": 2},
+  "recurso-grafico": {"principal": "rayos", "apoyo": "senda (solo itinerarios y etapas)"},
   "tipografia": {"familia": "Montserrat", "pesos": [400, 500, 600, 700, 800]}
 }

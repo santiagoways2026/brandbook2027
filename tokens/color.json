@@ -32,7 +32,8 @@
     "brezo",
     "teja",
     "atlántico",
-    "verde Camino #668814 (fuera de la paleta en la versión 8; sustituido por carballo en textos verdes y subrayados pequeños)"
+    "verde Camino #668814 (fuera de la paleta en la versión 8; sustituido por carballo en textos verdes y subrayados pequeños)",
+    "verde Camino #668814 (no gusta; sustituido en pruebas por verde sendero)"
   ],
   "recurso-grafico": {
     "concepto": "La concha, nuestro sello: como el sello de cada etapa en la credencial, cada pieza lleva la concha del logo.",
@@ -92,14 +93,28 @@
     "grafito": 7,
     "apoyo": 3
   },
-  "botones": "CTAs siempre con texto blanco sobre verde: verde Ways sobre blanco o foto; carballo dentro de cajas verde Ways.",
+  "botones": {
+    "sobre-blanco": "Verde Ways con letra blanca.",
+    "sobre-foto": {
+      "A (por defecto)": "Blanco con letra verde Ways",
+      "B": "Blanco con letra carballo",
+      "C": "Contorno blanco con letra blanca"
+    },
+    "regla": "Nunca CTAs dentro de cajas de color."
+  },
   "cajas-verde-ways": "Dentro de cajas verde Ways: texto blanco en negrita, concha blanca, subrayado carballo y CTA carballo con texto blanco.",
   "nota-contraste": "Blanco sobre verde Ways da 2,9:1, por debajo de WCAG AA; decisión de marca: usarlo en titulares, CTAs y cajas siempre en negrita.",
   "regla-verde-sobre-verde": "Nunca verde sobre verde. Dentro de cajas verdes (verde Ways o carballo) el texto, etiquetas y CTAs van siempre en blanco. Verde Ways sobre blanco solo en formas, líneas y concha, nunca en texto.",
   "en-prueba": {
-    "verde-camino": {
-      "hex": "#668814",
-      "uso-propuesto": "Verde intermedio para palabras verdes sobre blanco y CTAs con letra blanca (4,1:1 frente a 2,9:1 del verde Ways)."
+    "verde-sendero": {
+      "hex": "#546C19",
+      "blanco": "5,9:1",
+      "nota": "Mezcla al 50% de carballo y verde Camino; candidato a sustituir al carballo como resalte si este resulta demasiado oscuro."
     }
+  },
+  "letra-verde-vs-subrayado": {
+    "letra-verde": "Verde Ways en una palabra de titular grande sobre blanco (nombre, lugar o cifra). Da color. Piezas informativas.",
+    "subrayado-sw": "La promesa o beneficio, una o dos palabras, una vez por pieza. Da énfasis. Piezas de impacto.",
+    "regla": "Nunca los dos en el mismo titular."
   }
 }

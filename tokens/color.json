@@ -1,5 +1,5 @@
 {
-  "estado": "Propuesta fase 1, versión 8, pendiente de validación",
+  "estado": "Propuesta fase 1, versión 9, pendiente de validación",
   "colores": {
     "blanco": {
       "hex": "#FFFFFF",
@@ -73,7 +73,7 @@
   },
   "jerarquia": {
     "principal": "blanco #FFFFFF",
-    "protagonista": "verde-ways #7AA606",
+    "protagonista": "verde-ways #7AA606 (principal secundario, al menos 30%)",
     "resalte": [
       "carballo #42501E",
       "grafito #2E2E2D (como mucho)"
@@ -84,12 +84,13 @@
     ]
   },
   "ratio": {
-    "blanco": 60,
-    "verde-ways": 20,
+    "blanco": 50,
+    "verde-ways": 30,
     "carballo": 10,
     "grafito": 7,
     "apoyo": 3
   },
   "botones": "Verde Ways con letra grafito (4,7:1); blanco con letra grafito dentro de cajas carballo o sobre foto.",
-  "caja-camino-esquina": "Pestaña verde Ways con escalón en la esquina superior derecha de cada diapositiva, con la concha blanca."
+  "caja-camino-firma": "Caja verde Ways con escalón en la esquina inferior derecha de cada diapositiva, con la concha blanca, como en la portada.",
+  "cajas-verde-ways": "Dentro de cajas verde Ways: texto grafito (4,7:1), concha blanca, botones blancos con letra grafito."
 }

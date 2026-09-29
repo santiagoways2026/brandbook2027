@@ -121,7 +121,5 @@
     "svg-foto": "M0 0 H110 V250 C 110 288, 92 308, 56 310 C 18 312, 1 330, 1 370 V552 C 1 569, 12 580, 28 580 H0 Z (máscara blanca sobre el borde izquierdo de la foto, 120 x 580; la zona ancha queda arriba para el titular)",
     "regla": "El titular siempre va en la parte ancha del escalón, nunca cortado por la curva."
   },
-  "pruebas-en-curso": {
-    "titular-caja-oscura": "Titular en verde Ways sobre caja oscura (roca 3,1:1; verde piedra 3,3:1; solo titulares grandes en negrita)"
-  }
+  "regla-cajas-oscuras": "Todo en blanco dentro de las cajas oscuras, titular incluido. Descartado el titular en verde Ways."
 }

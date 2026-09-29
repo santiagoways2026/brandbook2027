@@ -95,6 +95,11 @@
     "verde-piedra": {
       "hex": "#40482E",
       "blanco": "9,6:1"
+    },
+    "carballo": {
+      "hex": "#42501E",
+      "blanco": "8,8:1",
+      "nota": "mezcla al 50% de verde piedra y verde noche; propuesta para los recuadros oscuros"
     }
   }
 }

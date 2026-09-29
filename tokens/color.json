@@ -77,7 +77,8 @@
       "por-defecto": "Sobre blanco o foto: bloque verde Ways, letra blanca.",
       "en-negativo": "Sobre caja verde Ways: bloque verde sendero, letra blanca.",
       "excepcion": "Letra verde Ways sin bloque, solo si la pieza ya lleva un subrayado en negativo."
-    }
+    },
+    "anatomia": "Bloque de color detrás de 1 o 2 palabras de la promesa, girado -1,5°, recto, sin redondeo ni sombra."
   },
   "recurso-curva": {
     "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",
@@ -132,5 +133,9 @@
     "por-defecto": "Subrayado SW en todos los titulares: la promesa, una o dos palabras, una vez por titular.",
     "excepcion-letra-verde": "Letra verde Ways solo cuando la pieza ya lleva un subrayado verde sendero sobre verde Ways, para no mezclar dos tipos de subrayado.",
     "regla": "Un solo tipo de subrayado por pieza."
+  },
+  "sombra-cajas": {
+    "css": "0 8px 32px rgba(46,46,45,0.12)",
+    "regla": "Todas las cajas llevan sombra suave para separarse del blanco. Botones, etiquetas y subrayados, sin sombra."
   }
 }

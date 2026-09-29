@@ -6,3 +6,4 @@ Material de trabajo del rebranding continuista de Santiago Ways.
 - `investigacion/competencia.md`: análisis de competencia y hueco de posicionamiento.
 - `tokens/color.json`: paleta propuesta (blanco, dos verdes, grafito, gris y niebla), con usos y contrastes.
 - `recursos/`: versiones descartadas del recurso (rayos y senda). El recurso vigente es la concha entera: `logos/isotipo_*.svg`.
+- `fotografia/`: fotos de referencia aportadas por el cliente, reducidas para las maquetas.

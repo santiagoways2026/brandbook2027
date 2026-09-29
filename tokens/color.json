@@ -1,5 +1,5 @@
 {
-  "estado": "Propuesta fase 1, versión 5, pendiente de validación",
+  "estado": "Propuesta fase 1, versión 6, pendiente de validación",
   "colores": {
     "blanco": {
       "hex": "#FFFFFF",
@@ -32,7 +32,7 @@
     },
     "roca": {
       "hex": "#4A4A49",
-      "uso": "Recuadros oscuros con letra blanca (8,9:1). El verde dentro siempre es verde Ways (3,1:1, titulares y destacados en negrita) o etiquetas verde Ways con letra grafito."
+      "uso": "Recuadros oscuros, siempre con todo en blanco dentro: texto, concha y botones (8,9:1). Nunca verde sobre roca."
     }
   },
   "descartados": [
@@ -71,6 +71,6 @@
   "fondo": "Blanco siempre.",
   "subrayado-ways": {
     "estilo": "Bloque verde detrás de una o dos palabras del titular, girado -1,5 grados.",
-    "color": "Verde Ways con letra blanca en titulares de 72 px o más; verde Camino con letra blanca en tamaños menores; verde Ways con letra grafito sobre roca."
+    "color": "Verde Ways con letra blanca en titulares de 72 px o más; verde Camino con letra blanca en tamaños menores y sobre foto; blanco con letra roca dentro de recuadros roca. En prueba: gris roca con letra blanca dentro de cajas verde Ways."
   }
 }

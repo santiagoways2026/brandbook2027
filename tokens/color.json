@@ -11,10 +11,10 @@
       "degradado-cajas": {
         "css": "linear-gradient(135deg, #7AA606 0%, #628A04 100%)",
         "reglas": [
-          "En todo lo que va en verde Ways: cajas, CTA, etiquetas y subrayados, como en la web.",
+          "En todo lo que va en verde Ways: cajas, CTA y etiquetas, como en la web.",
           "Siempre a 135°: #7AA606 arriba a la izquierda, #628A04 abajo a la derecha.",
           "Muy sutil, no debe notarse como efecto.",
-          "Planos solo las líneas finas, las barras, los textos y la concha.",
+          "Planos siempre: el subrayado, las líneas finas, las barras, los textos y la concha.",
           "Blanco y verde sendero siempre planos."
         ]
       }

@@ -1,16 +1,66 @@
 {
-  "estado": "Propuesta fase 1, versión 3, pendiente de validación",
+  "estado": "Propuesta fase 1, versión 4, pendiente de validación",
   "colores": {
-    "blanco":       {"hex": "#FFFFFF", "uso": "Fondo. Siempre limpio."},
-    "verde-camino": {"hex": "#668814", "uso": "Titulares verdes sobre blanco (4,1:1) y fondos con texto blanco en negrita.",
-                     "degradado": {"css": "linear-gradient(135deg, #668814 0%, #54700F 100%)", "uso": "Todos los fondos verdes enteros. Blanco encima de 4,1 a 5,7:1."}},
-    "verde-ways":   {"hex": "#7AA606", "uso": "Logo, líneas, iconos y la concha. Sobre grafito se lee como texto (4,7:1). Nunca texto blanco encima."},
-    "grafito":      {"hex": "#2E2E2D", "uso": "Texto principal (13,6:1 sobre blanco) y fondos premium."},
-    "gris":         {"hex": "#6F6F6E", "uso": "Texto secundario y pies (5,0:1 sobre blanco)."},
-    "niebla":       {"hex": "#E8E8E6", "tinte-50": "#F3F3F2", "uso": "Superficies y etiquetas con texto grafito (11,1:1). Juego suave sobre el degradado verde (3,4 a 4,6:1)."}
+    "blanco": {
+      "hex": "#FFFFFF",
+      "uso": "Fondo. Siempre limpio."
+    },
+    "verde-camino": {
+      "hex": "#668814",
+      "uso": "Titulares verdes sobre blanco (4,1:1) y fondos con texto blanco en negrita.",
+      "degradado": {
+        "css": "linear-gradient(135deg, #668814 0%, #54700F 100%)",
+        "uso": "Todos los fondos verdes enteros. Blanco encima de 4,1 a 5,7:1."
+      }
+    },
+    "verde-ways": {
+      "hex": "#7AA606",
+      "uso": "La concha, la línea Ways (barra de 80 x 8 px sobre los titulares), botones y etiquetas con letra grafito (4,7:1). Sobre grafito como destacado. Nunca texto blanco encima ni texto verde Ways sobre blanco."
+    },
+    "grafito": {
+      "hex": "#2E2E2D",
+      "uso": "Texto principal (13,6:1 sobre blanco) y bloques oscuros con letra blanca (13,6:1)."
+    },
+    "gris": {
+      "hex": "#6F6F6E",
+      "uso": "Texto secundario y pies (5,0:1 sobre blanco)."
+    },
+    "niebla": {
+      "hex": "#E8E8E6",
+      "tinte-50": "#F3F3F2",
+      "uso": "Superficies y etiquetas con texto grafito (11,1:1). Juego suave sobre el degradado verde (3,4 a 4,6:1)."
+    }
   },
-  "descartados": ["amarillo Luz #FFE38A (infantil con el verde)", "brezo", "teja", "atlántico"],
-  "proporcion": {"blanco": 60, "grafito": 15, "verde-camino": 12, "verde-ways": 7, "niebla": 4, "gris": 2},
-  "recurso-grafico": {"principal": "la concha del isotipo", "usos": ["recorte desde una esquina", "sello pequeño junto a una prueba", "ventana para fotos con su contorno"]},
-  "tipografia": {"familia": "Montserrat", "pesos": [400, 500, 600, 700, 800]}
+  "descartados": [
+    "amarillo Luz #FFE38A (infantil con el verde)",
+    "brezo",
+    "teja",
+    "atlántico"
+  ],
+  "proporcion": {
+    "blanco": 55,
+    "grafito": 15,
+    "verde-ways": 14,
+    "verde-camino": 10,
+    "niebla": 4,
+    "gris": 2
+  },
+  "recurso-grafico": {
+    "concepto": "La concha, nuestro sello: como el sello de cada etapa en la credencial, cada pieza lleva la concha del logo.",
+    "reglas": [
+      "siempre entera",
+      "una por pieza",
+      "en una esquina como firma, pequeña como sello o su contorno como ventana de foto"
+    ]
+  },
+  "tipografia": {
+    "familia": "Montserrat",
+    "pesos": [
+      400,
+      500,
+      600,
+      700,
+      800
+    ]
+  }
 }

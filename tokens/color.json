@@ -72,5 +72,19 @@
   "subrayado-ways": {
     "estilo": "Bloque verde detrás de una o dos palabras del titular, girado -1,5 grados.",
     "color": "Verde Ways con letra blanca en titulares de 72 px o más; verde Camino con letra blanca en tamaños menores y sobre foto; blanco con letra roca dentro de recuadros roca. En prueba: gris roca con letra blanca dentro de cajas verde Ways."
+  },
+  "alternativas-roca": {
+    "petroleo": {
+      "hex": "#2F4F57",
+      "blanco": "8,8:1"
+    },
+    "tierra": {
+      "hex": "#554436",
+      "blanco": "9,3:1"
+    },
+    "pizarra-suave": {
+      "hex": "#434B52",
+      "blanco": "8,9:1"
+    }
   }
 }

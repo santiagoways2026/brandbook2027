@@ -113,8 +113,8 @@
     }
   },
   "letra-verde-vs-subrayado": {
-    "letra-verde": "Verde Ways en una palabra de titular grande sobre blanco (nombre, lugar o cifra). Da color. Piezas informativas.",
-    "subrayado-sw": "La promesa o beneficio, una o dos palabras, una vez por pieza. Da énfasis. Piezas de impacto.",
-    "regla": "Nunca los dos en el mismo titular."
+    "por-defecto": "Subrayado SW en todos los titulares: la promesa, una o dos palabras, una vez por titular.",
+    "excepcion-letra-verde": "Letra verde Ways solo cuando la pieza ya lleva un subrayado carballo sobre verde Ways, para no mezclar dos tipos de subrayado.",
+    "regla": "Un solo tipo de subrayado por pieza."
   }
 }

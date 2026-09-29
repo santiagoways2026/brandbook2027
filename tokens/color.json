@@ -107,9 +107,9 @@
   "regla-verde-sobre-verde": "Nunca verde sobre verde. Dentro de cajas verdes (verde Ways o carballo) el texto, etiquetas y CTAs van siempre en blanco. Verde Ways sobre blanco solo en formas, líneas y concha, nunca en texto.",
   "en-prueba": {
     "verde-sendero": {
-      "hex": "#546C19",
-      "blanco": "5,9:1",
-      "nota": "Mezcla al 50% de carballo y verde Camino; candidato a sustituir al carballo como resalte si este resulta demasiado oscuro."
+      "hex": "#506718",
+      "blanco": "6,4:1",
+      "nota": "Mezcla de carballo y verde Camino, oscurecida un 5%."
     }
   },
   "letra-verde-vs-subrayado": {

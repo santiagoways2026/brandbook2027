@@ -7,7 +7,11 @@
     },
     "verde-ways": {
       "hex": "#7AA606",
-      "uso": "La concha, la línea Ways (barra de 80 x 8 px sobre los titulares), botones y etiquetas con letra grafito (4,7:1). Sobre grafito como destacado. Nunca texto blanco encima ni texto verde Ways sobre blanco."
+      "uso": "La concha, la línea Ways (barra de 80 x 8 px sobre los titulares), botones y etiquetas con letra grafito (4,7:1). Sobre grafito como destacado. Nunca texto blanco encima ni texto verde Ways sobre blanco.",
+      "degradado-cajas": {
+        "css": "linear-gradient(135deg, #7AA606 0%, #6F9905 100%)",
+        "uso": "Solo en cajas de fondo verde Ways (en prueba). Botones, etiquetas, subrayados y líneas siguen en verde plano."
+      }
     },
     "grafito": {
       "hex": "#2E2E2D",

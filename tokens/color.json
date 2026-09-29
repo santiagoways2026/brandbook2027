@@ -76,7 +76,8 @@
   "recurso-curva": {
     "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",
     "svg-foto": "M0 0 H110 V250 C 110 288, 92 308, 56 310 C 18 312, 1 330, 1 370 V552 C 1 569, 12 580, 28 580 H0 Z (máscara blanca sobre el borde izquierdo de la foto, 120 x 580; la zona ancha queda arriba para el titular)",
-    "regla": "El titular siempre va en la parte ancha del escalón, nunca cortado por la curva."
+    "regla": "El titular siempre va en la parte ancha del escalón, nunca cortado por la curva.",
+    "aplicaciones": "Redes: caja carballo con escalón sobre foto, foto con escalón sobre blanco, ventana dentro de caja carballo y story."
   },
   "regla-cajas-oscuras": "Todo en blanco dentro de las cajas carballo, titular incluido.",
   "alternativa-guardada": {
@@ -85,5 +86,18 @@
       "blanco": "8,9:1",
       "nota": "Gris oscuro alternativo para los recuadros, por si se prefiere un neutro."
     }
+  },
+  "jerarquia": {
+    "marca": [
+      "blanco #FFFFFF",
+      "verde-ways #7AA606",
+      "verde-camino #668814",
+      "carballo #42501E",
+      "grafito #2E2E2D"
+    ],
+    "apoyo": [
+      "gris #6F6F6E",
+      "niebla #E8E8E6"
+    ]
   }
 }

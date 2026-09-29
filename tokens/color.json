@@ -35,6 +35,10 @@
     "verde-sendero": {
       "hex": "#506718",
       "uso": "Resalte: cajas oscuras con todo en blanco (6,4:1), subrayado dentro de cajas verde Ways y CTA sobre foto opción B. Sustituye al carballo."
+    },
+    "brote": {
+      "hex": "#FAFFEE",
+      "uso": "Apoyo: superficies claras de tarjetas, recuadros de texto y etiquetas sobre fondo blanco. Es el verde casi blanco de la web actual. Nunca como fondo de pieza."
     }
   },
   "descartados": [
@@ -95,7 +99,8 @@
     ],
     "apoyo": [
       "gris #6F6F6E",
-      "niebla #E8E8E6"
+      "niebla #E8E8E6",
+      "brote #FAFFEE"
     ]
   },
   "ratio": {

@@ -85,6 +85,39 @@
     "pizarra-suave": {
       "hex": "#434B52",
       "blanco": "8,9:1"
+    },
+    "marino": {
+      "hex": "#2A3F5A",
+      "blanco": "10,7:1"
+    },
+    "granito": {
+      "hex": "#57524C",
+      "blanco": "7,7:1"
+    },
+    "burdeos": {
+      "hex": "#63303A",
+      "blanco": "10,4:1"
+    },
+    "oliva-noche": {
+      "hex": "#41472C",
+      "blanco": "9,7:1"
+    },
+    "verde-noche": {
+      "hex": "#43590D",
+      "blanco": "7,9:1"
+    },
+    "verde-monte": {
+      "hex": "#3E4D19",
+      "blanco": "9,2:1"
+    },
+    "verde-piedra": {
+      "hex": "#40482E",
+      "blanco": "9,6:1",
+      "nota": "recomendado: mismo tono que los verdes de marca, poca saturación"
     }
+  },
+  "recurso-curva": {
+    "concepto": "La curva del Camino: bordes curvos e irregulares en fotos y recuadros, como un sendero.",
+    "uso": "Recorte del borde de la foto con una curva en forma de S; recuadros con el borde superior ondulado."
   }
 }

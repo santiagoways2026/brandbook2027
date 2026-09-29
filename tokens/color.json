@@ -38,7 +38,8 @@
     },
     "brote": {
       "hex": "#FAFFEE",
-      "uso": "Apoyo: superficies claras de tarjetas, recuadros de texto y etiquetas sobre fondo blanco. Es el verde casi blanco de la web actual. Nunca como fondo de pieza."
+      "uso": "Apoyo: superficies claras de tarjetas, recuadros de texto y etiquetas sobre fondo blanco. Es el verde casi blanco de la web actual. Nunca como fondo de pieza.",
+      "sombra": "Las superficies brote llevan siempre sombra suave (0 6px 24px, grafito al 10%); las etiquetas, 0 2px 8px al 12%."
     }
   },
   "descartados": [
@@ -71,7 +72,12 @@
   "fondo": "Blanco siempre.",
   "subrayado-ways": {
     "estilo": "Bloque verde detrás de una o dos palabras del titular, girado -1,5 grados.",
-    "color": "Sobre blanco y foto: verde Ways con letra blanca. Sobre cajas verde Ways: verde sendero con letra blanca. Sobre cajas verde sendero: verde Ways con letra blanca."
+    "color": "Sobre blanco y foto: verde Ways con letra blanca. Sobre cajas verde Ways: verde sendero con letra blanca. Sobre cajas verde sendero: verde Ways con letra blanca.",
+    "versiones": {
+      "por-defecto": "Sobre blanco o foto: bloque verde Ways, letra blanca.",
+      "en-negativo": "Sobre caja verde Ways: bloque verde sendero, letra blanca.",
+      "excepcion": "Letra verde Ways sin bloque, solo si la pieza ya lleva un subrayado en negativo."
+    }
   },
   "recurso-curva": {
     "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",

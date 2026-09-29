@@ -1,17 +1,9 @@
 {
-  "estado": "Propuesta fase 1, versión 7, pendiente de validación",
+  "estado": "Propuesta fase 1, versión 8, pendiente de validación",
   "colores": {
     "blanco": {
       "hex": "#FFFFFF",
       "uso": "Fondo. Siempre limpio."
-    },
-    "verde-camino": {
-      "hex": "#668814",
-      "uso": "Titulares verdes sobre blanco (4,1:1) y fondos con texto blanco en negrita.",
-      "degradado": {
-        "css": "linear-gradient(135deg, #668814 0%, #5F8012 100%)",
-        "uso": "Fondos verdes enteros dentro de las piezas. Muy suave, para que siga leyéndose como #668814."
-      }
     },
     "verde-ways": {
       "hex": "#7AA606",
@@ -32,24 +24,16 @@
     },
     "carballo": {
       "hex": "#42501E",
-      "uso": "Recuadros oscuros, siempre con todo en blanco dentro (8,8:1). Mezcla al 50% de verde piedra #40482E y verde noche #43590D."
+      "uso": "Resalte: cajas oscuras con todo en blanco (8,8:1), palabras verdes sobre blanco (8,8:1) y subrayado en tamaños menores de 72 px."
     }
   },
   "descartados": [
     "amarillo Luz #FFE38A (infantil con el verde)",
     "brezo",
     "teja",
-    "atlántico"
+    "atlántico",
+    "verde Camino #668814 (fuera de la paleta en la versión 8; sustituido por carballo en textos verdes y subrayados pequeños)"
   ],
-  "proporcion": {
-    "blanco": 55,
-    "verde-ways": 14,
-    "verde-camino": 10,
-    "grafito": 8,
-    "carballo": 7,
-    "niebla": 4,
-    "gris": 2
-  },
   "recurso-grafico": {
     "concepto": "La concha, nuestro sello: como el sello de cada etapa en la credencial, cada pieza lleva la concha del logo.",
     "reglas": [
@@ -71,7 +55,7 @@
   "fondo": "Blanco siempre.",
   "subrayado-ways": {
     "estilo": "Bloque verde detrás de una o dos palabras del titular, girado -1,5 grados.",
-    "color": "Verde Ways con letra blanca en titulares de 72 px o más; verde Camino con letra blanca en tamaños menores y sobre foto; blanco con letra roca dentro de recuadros roca. En prueba: carballo con letra blanca dentro de cajas verde Ways."
+    "color": "Verde Ways con letra blanca en titulares de 72 px o más; carballo con letra blanca en tamaños menores y sobre foto; blanco con letra carballo dentro de cajas carballo."
   },
   "recurso-curva": {
     "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",
@@ -88,16 +72,24 @@
     }
   },
   "jerarquia": {
-    "marca": [
-      "blanco #FFFFFF",
-      "verde-ways #7AA606",
-      "verde-camino #668814",
+    "principal": "blanco #FFFFFF",
+    "protagonista": "verde-ways #7AA606",
+    "resalte": [
       "carballo #42501E",
-      "grafito #2E2E2D"
+      "grafito #2E2E2D (como mucho)"
     ],
     "apoyo": [
       "gris #6F6F6E",
       "niebla #E8E8E6"
     ]
-  }
+  },
+  "ratio": {
+    "blanco": 60,
+    "verde-ways": 20,
+    "carballo": 10,
+    "grafito": 7,
+    "apoyo": 3
+  },
+  "botones": "Verde Ways con letra grafito (4,7:1); blanco con letra grafito dentro de cajas carballo o sobre foto.",
+  "caja-camino-esquina": "Pestaña verde Ways con escalón en la esquina superior derecha de cada diapositiva, con la concha blanca."
 }

@@ -117,7 +117,10 @@
     }
   },
   "recurso-curva": {
-    "concepto": "La curva del Camino: bordes curvos e irregulares en fotos y recuadros, como un sendero.",
-    "uso": "Recorte del borde de la foto con una curva en forma de S; recuadros con el borde superior ondulado."
+    "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",
+    "svg-foto": "M0 0 H28 C 12 0, 1 11, 1 28 V210 C 1 250, 18 268, 56 270 C 92 272, 110 292, 110 330 V580 H0 Z (máscara blanca sobre el borde izquierdo de la foto, 120 x 580)"
+  },
+  "pruebas-en-curso": {
+    "titular-caja-oscura": "Titular en verde Ways sobre caja oscura (roca 3,1:1; verde piedra 3,3:1; solo titulares grandes en negrita)"
   }
 }

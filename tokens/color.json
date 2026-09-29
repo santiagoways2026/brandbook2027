@@ -10,7 +10,13 @@
       "uso": "La concha, la línea Ways (barra de 80 x 8 px sobre los titulares), botones y etiquetas con letra grafito (4,7:1). Sobre grafito como destacado. Nunca texto blanco encima ni texto verde Ways sobre blanco.",
       "degradado-cajas": {
         "css": "linear-gradient(135deg, #7AA606 0%, #6F9905 100%)",
-        "uso": "Solo en cajas de fondo verde Ways (en prueba). Botones, etiquetas, subrayados y líneas siguen en verde plano."
+        "reglas": [
+          "Solo en cajas de fondo verde Ways de tamaño medio o grande.",
+          "Siempre a 135°: #7AA606 arriba a la izquierda, #6F9905 abajo a la derecha.",
+          "Muy sutil, no debe notarse como efecto.",
+          "Nunca en botones, etiquetas, subrayados, líneas, textos ni en la concha.",
+          "Blanco y verde sendero siempre planos."
+        ]
       }
     },
     "grafito": {
@@ -69,7 +75,8 @@
     "regla": "El titular siempre va en la parte ancha del escalón, nunca cortado por la curva.",
     "aplicaciones": "Redes: caja carballo con escalón sobre foto, foto con escalón sobre blanco, ventana dentro de caja carballo y story.",
     "portada": "Borde izquierdo de la foto: se abre hacia fuera arriba, escalón en S en medio y esquina redondeada hacia dentro abajo. SVG: M0 0 C 56 0, 80 24, 80 80 V404 C 80 454, 101 480, 145 482 C 189 484, 210 510, 210 560 V1016 C 210 1052, 230 1080, 266 1080 H0 Z",
-    "regla-concha": "No combinar la concha con la caja Camino como firma de esquina."
+    "regla-concha": "No combinar la concha con la caja Camino como firma de esquina.",
+    "escalon-cajas": "En cajas, el escalón es muy sutil: unos 28 px de desnivel con una transición larga. En fotos puede ser más marcado."
   },
   "regla-cajas-oscuras": "Todo en blanco dentro de las cajas verde sendero, titular incluido.",
   "alternativa-guardada": {

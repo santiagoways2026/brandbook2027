@@ -1,5 +1,5 @@
 {
-  "estado": "Propuesta fase 1, versión 9, pendiente de validación",
+  "estado": "Propuesta fase 1, versión 10, pendiente de validación",
   "colores": {
     "blanco": {
       "hex": "#FFFFFF",
@@ -55,7 +55,7 @@
   "fondo": "Blanco siempre.",
   "subrayado-ways": {
     "estilo": "Bloque verde detrás de una o dos palabras del titular, girado -1,5 grados.",
-    "color": "Verde Ways con letra blanca en titulares de 72 px o más; carballo con letra blanca en tamaños menores y sobre foto; blanco con letra carballo dentro de cajas carballo."
+    "color": "Sobre blanco y foto: verde Ways con letra blanca. Sobre cajas verde Ways: carballo con letra blanca. Sobre cajas carballo: verde Ways con letra blanca."
   },
   "recurso-curva": {
     "concepto": "La curva del Camino: un escalón suave en forma de S en el borde de fotos y recuadros, como una curva del sendero.",
@@ -92,6 +92,7 @@
     "grafito": 7,
     "apoyo": 3
   },
-  "botones": "Verde Ways con letra grafito (4,7:1); blanco con letra grafito dentro de cajas carballo o sobre foto.",
-  "cajas-verde-ways": "Dentro de cajas verde Ways: texto grafito (4,7:1), concha blanca, botones blancos con letra grafito."
+  "botones": "CTAs siempre con texto blanco sobre verde: verde Ways sobre blanco o foto; carballo dentro de cajas verde Ways.",
+  "cajas-verde-ways": "Dentro de cajas verde Ways: texto blanco en negrita, concha blanca, subrayado carballo y CTA carballo con texto blanco.",
+  "nota-contraste": "Blanco sobre verde Ways da 2,9:1, por debajo de WCAG AA; decisión de marca: usarlo en titulares, CTAs y cajas siempre en negrita."
 }

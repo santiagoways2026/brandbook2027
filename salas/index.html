@@ -600,6 +600,9 @@ const MARCOS=[
   {id:"g_control",grupo:"control",dato:true,nombre:"Sala de Control / Google Analytics 4",x:1600,y:2260,w:1300},
   {id:"mdirecto",grupo:"mdirecto",nombre:"Marketing directo / Sala",x:2600,y:4000,w:1200},
   {id:"mdirecto_mision",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Misión, equipo y fuentes",x:2600,y:4800,w:1300},
+  {id:"i_radar",grupo:"radar",dato:true,nombre:"Radar Viral / Instagram EN",x:-5000,y:-3000,w:1300},
+  {id:"i_comunidad",grupo:"comunidad",dato:true,nombre:"Comunidad / Instagram EN",x:-3500,y:-3000,w:1300},
+  {id:"i_competencia",grupo:"competencia",dato:true,nombre:"Competencia / Instagram EN",x:-2000,y:-3000,w:1300},
   {id:"mdirecto_wf",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Workflows del CRM y plantillas",x:2600,y:7200,w:1300},
   {id:"mdirecto_datos",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Lo que ya sabemos",x:2600,y:5600,w:1300},
   {id:"g_mdirecto",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Google Analytics 4",x:2600,y:6400,w:1300},
@@ -613,7 +616,7 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
 ];
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
-const SALAS_ACT={diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar"],competencia:["competencia","players","cambios","comprrss","compbit"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
+const SALAS_ACT={diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar","i_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 const PASILLOS_DEF=[
   {id:"pa5",d:"M150 156 V1500",c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:210,ly:620},
@@ -1766,16 +1769,17 @@ function pintarSalasN(){pintarWorkflows();
 }
 const GRAV_C={alta:"#ff6b3d",media:"#f5d76e",baja:"#8fb3ff"};
 const GA_QUIEN={seo:"Noelia",paid:"Mónica",radar:"Marta",comunidad:"Bea",diseno:"Paula",control:"Marina",mdirecto:"Teresa",producto:"Rodrigo",comercial:"Lidia"};
-function pintarGA4(){
-  const D=st.ga4;
-  for(const sala of Object.keys(GA_QUIEN)){const el=document.getElementById("c-g_"+sala);if(!el||st.dentro!==sala)continue;
+function pintarGA4(){pintarFuente(st.ga4,"g_","Google Analytics 4","Windsor.ai · propiedad Santiago Ways - GA4",GA_QUIEN,"#f5d76e");pintarFuente(st.igen,"i_","Instagram EN","Windsor.ai · @santiagoways_en",IG_QUIEN,"#e1306c")}
+const IG_QUIEN={radar:"Lucía",comunidad:"Carla",competencia:"Álex"};
+function pintarFuente(D,pre,etq,fuente,QUIEN,col){
+  for(const sala of Object.keys(QUIEN)){const el=document.getElementById("c-"+pre+sala);if(!el||st.dentro!==sala)continue;
     const S=D?.salas?.[sala],tabla=(cols,filas)=>`<div class="mc-sec"><table class="tabla"><thead><tr>${cols.map((c,i)=>`<th${i?"":` style="text-align:left"`}>${esc(c)}</th>`).join("")}</tr></thead><tbody>${filas.map(f=>`<tr>${f.map((c,i)=>`<td${i?"":` style="text-align:left"`}>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
-    el.innerHTML=`<div class="mcab"><div><h2>Google Analytics 4: ${esc(S?.titulo||"lo que dice la web")}</h2><div class="fuente-mc" style="margin-top:6px">Windsor.ai · propiedad Santiago Ways - GA4 · ${esc(D?.periodo||"")}</div></div><div class="meta">${D?.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>
+    el.innerHTML=`<div class="mcab"><div><h2>${etq}: ${esc(S?.titulo||"datos de la cuenta")}</h2><div class="fuente-mc" style="margin-top:6px">${fuente} · ${esc(D?.periodo||"")}</div></div><div class="meta">${D?.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>
     ${S?`${S.resumen?`<p style="padding:14px 20px 0;margin:0;font-size:15px;line-height:1.55;color:#e6eaee">${esc(S.resumen)}</p>`:""}
-    ${(S.kpis||[]).length?`<div class="k-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">${S.kpis.map(k=>`<div class="k-c"><div class="k-num" style="color:#f5d76e;font-size:22px">${esc(k.valor)}</div><p>${esc(k.nombre)}</p></div>`).join("")}</div>`:""}
+    ${(S.kpis||[]).length?`<div class="k-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">${S.kpis.map(k=>`<div class="k-c"><div class="k-num" style="color:${col};font-size:22px">${esc(k.valor)}</div><p>${esc(k.nombre)}</p></div>`).join("")}</div>`:""}
     ${(S.insights||[]).length?`<div class="seccion-t">Insights</div><ol class="prios">${S.insights.map(x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.titulo)} ${x.prioridad?`<span class="k-tag" style="background:${PRIO_C[x.prioridad]||"#555"}22;color:${PRIO_C[x.prioridad]||"#ccc"}">${esc(x.prioridad)}</span>`:""}</p><p style="margin-top:4px">${esc(x.detalle||"")}</p>${x.quien?`<p style="margin-top:4px;font:500 11px/1.3 var(--f-mono);color:var(--tenue)">${esc(x.quien)}</p>`:""}</div></li>`).join("")}</ol>`:""}
     ${(S.tablas||[]).map(t=>`<div class="seccion-t">${esc(t.titulo)}</div>${t.nota?`<p style="padding:0 20px;margin:0 0 6px;font-size:12.5px;color:var(--tenue)">${esc(t.nota)}</p>`:""}${tabla(t.cols,t.filas||[])}`).join("")}
-    ${D.limitaciones?`<div class="k-aviso">${esc(D.limitaciones)}</div>`:""}`:`<div class="vacio">${GA_QUIEN[sala]} está analizando los datos de Google Analytics 4.</div>`}`}
+    ${D.limitaciones?`<div class="k-aviso">${esc(D.limitaciones)}</div>`:""}`:`<div class="vacio">${QUIEN[sala]} está analizando los datos de ${etq}.</div>`}`}
 }
 function pintarSeo(){
   const A=st.seo.audit,E=st.seo.estado||{},set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
@@ -1909,6 +1913,7 @@ function contextoSala(s){
   Object.assign(base,compartido);
   if(s==="mdirecto"&&st.mkd)base.workflowsCRM={resumen:st.mkd.resumen,kpis:st.mkd.kpis,hallazgos:(st.mkd.hallazgos||[]).map(h=>h.titulo+": "+h.detalle),recomendaciones:(st.mkd.recomendaciones||[]).map(h=>h.titulo+": "+h.detalle),plantillas:(st.mkd.plantillas||[]).map(t=>({nombre:t.nombre,cuando:t.cuando,problemas:t.problemas,asuntoPropuesto:t.propuesta?.asunto})),firma:st.mkd.firma};
   if(st.peticiones?.length)base.peticiones=st.peticiones.filter(x=>x.de===s||x.para===s).map(x=>({titulo:x.titulo,de:x.de,para:x.para,estado:x.estado,requisitos:x.requisitos,respuesta:x.respuesta?.texto}));
+  if(st.igen?.salas?.[s])base.instagramEN={periodo:st.igen.periodo,...st.igen.salas[s]};
   if(st.ga4?.salas?.[s])base.googleAnalytics4={periodo:st.ga4.periodo,...st.ga4.salas[s]};
   if(s==="paid")Object.assign(base,{googleAds:st.paid.google?{periodo:st.paid.google.periodo,resumen:st.paid.google.resumen,kpis:st.paid.google.kpis,tablas:st.paid.google.tablas}:"cargando",metaAds:st.paid.analisis?{periodo:st.paid.analisis.periodo,kpis:st.paid.analisis.kpis,campanas:st.paid.analisis.campanas,paises:st.paid.analisis.paises,ubicaciones:st.paid.analisis.ubicaciones,anuncios_top:st.paid.analisis.anuncios_top,diagnostico:st.paid.analisis.diagnostico,recomendaciones:st.paid.analisis.recomendaciones}:"extracción en curso",briefing:st.paid.briefing?{secciones:st.paid.briefing.secciones}:null});
   if(s==="seo"){const A=st.seo.audit||{};Object.assign(base,{auditoria:{urls:A.urls_sitemap,rastreadas:A.urls_rastreadas,por_idioma:A.por_idioma,problemas:(A.problemas||[]).map(p=>({tipo:p.tipo,gravedad:p.gravedad,n:p.n,solucion:p.solucion})),arquitectura:A.arquitectura,puntos_fuertes:A.puntos_fuertes},estado:st.seo.estado?{conexiones:st.seo.estado.conexiones,plan:st.seo.estado.plan}:null})}
@@ -2214,6 +2219,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   for(const S of SALAS_N)db.doc("estado/"+S.id).onSnapshot(s=>{st.salasN=st.salasN||{};st.salasN[S.id]={estado:s.exists?s.data():null};pintarSalasN()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});
+  db.doc("ig_en/actual").onSnapshot(s=>{st.igen=s.exists?s.data():null;pintarGA4()});
   db.doc("ga4/actual").onSnapshot(s=>{st.ga4=s.exists?s.data():null;pintarGA4()});
   db.doc("estado/paid").onSnapshot(s=>{st.paid.estado=s.exists?s.data():null;pintarPaid()});
   db.doc("seo_auditoria/actual").onSnapshot(s=>{st.seo.audit=s.exists?s.data():null;pintarSeo()});

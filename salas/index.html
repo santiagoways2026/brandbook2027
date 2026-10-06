@@ -79,6 +79,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .pn-chat .chat-msgs{flex:1;min-height:0}
 .pn-chat.min{height:auto}.pn-chat.min .chat-msgs,.pn-chat.min .chat-sug,.pn-chat.min .chat-nota,.pn-chat.min .chat-form{display:none}
 #panel .k-grid,#panel .cb-grid,#panel .tend{grid-template-columns:minmax(0,1fr)!important}
+#panel .tabla{font-size:12.5px}#panel .tabla td:not(:first-child),#panel .tabla th{white-space:nowrap}
 #panel .k-grid[style*="repeat(4"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 #panel .piezas{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 #panel .vids,#panel .bib{grid-template-columns:repeat(2,minmax(0,1fr))!important}
@@ -785,7 +786,7 @@ function construir(){
          <div class="grupo-titulo" style="left:0;top:3170px;font-size:56px">Competencia<small><span class="ok">● Sala activa</span> · 6 investigadores · webs, precios, noticias, redes y alianzas</small></div>
          <div class="grupo-titulo" style="left:1900px;top:-230px;font-size:56px;color:#d8b4fe">Comunidad<small><span class="ok">● Activa</span> · 6 especialistas · comentarios, preguntas e interacción</small></div>
          <div class="grupo-titulo" style="left:3900px;top:1070px;color:#5eead4;font-size:56px">SEO<small><span class="ok">● Activa</span> · 6 especialistas · auditoría, palabras clave y analítica</small></div>
-         <div class="grupo-titulo" style="left:3900px;top:2020px;color:#f9a8d4;font-size:56px">Paid Media<small><span class="ok">● Activa</span> · 7 especialistas · Meta Ads conectado</small></div>`;
+         <div class="grupo-titulo" style="left:3900px;top:2020px;color:#f9a8d4;font-size:56px">Paid Media<small><span class="ok">● Activa</span> · 7 especialistas · Meta Ads y Google Ads</small></div>`;
   for(const m of MARCOS){
     h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
   }
@@ -1513,7 +1514,7 @@ function svgPaid(){
   <rect x="6" y="6" width="588" height="288" rx="3" fill="none" stroke="#3b2232" stroke-width="1.5"/>
   <path d="M6 20V6H20M580 6H594V20M594 280V294H580M20 294H6V280" fill="none" stroke="#f472b6" stroke-width="1.5"/>
   <rect x="160" y="12" width="280" height="40" rx="3" fill="#120b10" stroke="#5a2f4a"/>
-  <text x="172" y="27" font-family="Geist Mono" font-size="7.5" fill="#f9a8d4">META ADS · GASTO DEL PERIODO</text>
+  <text x="172" y="27" font-family="Geist Mono" font-size="7.5" fill="#f9a8d4">META + GOOGLE ADS · INVERSIÓN 12 MESES</text>
   <text x="172" y="44" font-family="Geist" font-weight="700" font-size="13" fill="#fde7f3" id="pantP">conectando…</text>
   <path d="M352 44 L366 36 L378 40 L392 26 L406 30 L420 18" fill="none" stroke="#3ddc97" stroke-width="1.6" filter="url(#brilloP2)"/>
   <rect x="16" y="236" width="38" height="22" rx="2" fill="none" stroke="#3b2232"/><circle cx="26" cy="247" r="2.5" fill="#f5c518" filter="url(#brilloP2)"/><text x="16" y="270" font-family="Geist Mono" font-size="7" fill="#7a5a6c">CAFÉ</text>
@@ -1531,7 +1532,8 @@ const PRIO_C={alta:"#ff6b3d",media:"#f5d76e",baja:"#8fb3ff"};
 function pintarPaid(){
   const A=st.paid.analisis,E=st.paid.estado||{},B=st.paid.briefing,set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
   const g=(A?.kpis||[]).find(k=>/gasto/i.test(k.nombre));
-  set("paidN",A?`${g?g.valor+" invertidos · ":""}${(A.campanas||[]).length} campañas`:"Extrayendo campañas");set("pantP",g?g.valor:(A?"sin gasto":"conectando…"));
+  set("paidN",A?`${g?g.valor+" invertidos · ":""}${(A.campanas||[]).length} campañas`:"Extrayendo campañas");const num=v=>+String(v||"").replace(/[^0-9,]/g,"").replace(",",".")||0,gg=(st.paid.google?.kpis||[]).find(k=>/coste/i.test(k.nombre)),tot=num(g?.valor)+num(gg?.valor);
+  set("pantP",tot?(tot>=1e6?(tot/1e6).toFixed(2).replace(".",",")+" M€":Math.round(tot).toLocaleString("es-ES")+" €"):(A?"sin gasto":"conectando…"));
   const v=document.getElementById("vivoPaid");if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
   if(st.dentro!=="paid")return;
   const tabla=(cols,filas)=>`<div class="mc-sec"><table class="tabla"><thead><tr>${cols.map((c,i)=>`<th${i?"":` style="text-align:left"`}>${c}</th>`).join("")}</tr></thead><tbody>${filas}</tbody></table></div>`;
@@ -1683,9 +1685,9 @@ const CHAT_SALAS={
   diseno:{lider:"Paula",nombre:"Diseño",equipo:()=>EQUIPO_S,saludo:"Hola, Álvaro. Somos el estudio creativo: piezas con el brandbook 2027 y ediciones de vídeo con tu material de Drive. ¿Qué te parecen?",
     persona:"Eres el estudio de Diseño: Paula (dirección de arte y guardiana del brandbook 2027), Nico (Instagram), Sara (edición de vídeo), Leo (YouTube), Irene (copy y LinkedIn) y Bruno (TikTok).",
     sug:["Haz una versión más corta del reel","¿Qué pieza publicarías primero?","Quiero más vídeo con personas reales"]},
-  paid:{lider:"Ricardo",nombre:"Paid Media",equipo:()=>EQUIPO_P,saludo:"Hola, Álvaro. Soy Ricardo, Paid Media Manager. Con el equipo analizamos tus campañas de Meta Ads y proponemos cómo invertir mejor. ¿Por dónde empezamos?",
-    persona:"Eres el equipo de Paid Media de Santiago Ways, liderado por Ricardo (Paid Media Manager con 14 años en turismo premium y viajes de experiencia). Equipo: Nerea (Meta Ads), Gonzalo (creatividades y copy), Mónica (medición y atribución), Adrián (mercados de alto ticket: USA, UK, Canadá, Alemania), Celia (funnel y conversión) y Lucas (Google Ads, pendiente de conexión). Conocéis a fondo el research de 2026, las buyer personas, la competencia y el brandbook. Hablad con cifras de las campañas cuando estén en los datos; si no están, decidlo.",
-    sug:["¿Qué campaña pausaríais hoy?","¿Cómo atacamos USA con 1.000 € al mes?","¿Qué creatividades deberíamos probar?"]},
+  paid:{lider:"Ricardo",nombre:"Paid Media",equipo:()=>EQUIPO_P,saludo:"Hola, Álvaro. Soy Ricardo, Paid Media Manager. Con el equipo analizamos tus campañas de Meta Ads y Google Ads y proponemos cómo invertir mejor. ¿Por dónde empezamos?",
+    persona:"Eres el equipo de Paid Media de Santiago Ways, liderado por Ricardo (Paid Media Manager con 14 años en turismo premium y viajes de experiencia). Equipo: Nerea (Meta Ads), Gonzalo (creatividades y copy), Mónica (medición y atribución), Adrián (mercados de alto ticket: USA, UK, Canadá, Alemania), Celia (funnel y conversión) y Lucas (Google Ads: Search, Performance Max y Demand Gen). Medís por ventas y ROAS, no solo por coste por lead: Google Ads importa del CRM las ventas («presupuesto vendido»). Conocéis a fondo el research de 2026, las buyer personas, la competencia y el brandbook. Hablad con cifras de las campañas cuando estén en los datos; si no están, decidlo.",
+    sug:["¿Qué campaña pausaríais hoy?","¿Cómo repartiríais el presupuesto entre Google y Meta?","¿Qué creatividades deberíamos probar?"]},
   seo:{lider:"Elisa",nombre:"SEO",equipo:()=>EQUIPO_O,saludo:"Hola, Álvaro. Somos el equipo de SEO: auditoría técnica, palabras clave y analítica. ¿Qué quieres posicionar?",
     persona:"Eres el equipo de SEO de Santiago Ways: Elisa (jefa de SEO), Jaime (palabras clave, Semrush), Noelia (analítica web, Google Analytics), Pedro (SEO técnico), Carlota (contenidos SEO en cinco idiomas) y Óscar (competencia orgánica y enlaces). Si un dato depende de Semrush o de Google Analytics y no está en los datos, di que la conexión está pendiente.",
     sug:["¿Qué arreglaríais primero en la web?","¿Qué rutas faltan en inglés o alemán?","¿Cómo atacamos el Año Santo 2027 en búsquedas?"]},
@@ -1732,7 +1734,7 @@ function contextoSala(s){
   const C=st.ctrl,base={briefingControl:C.briefing?{titular:C.briefing.titular,prioridades:(C.briefing.prioridades||[]).filter(p=>p.sala===s||p.sala==="global").map(p=>p.titulo+": "+(p.porque||""))}:null,directricesDeControl:C.directrices?.[s]?{resumen:C.directrices[s].resumen,foco:C.directrices[s].foco}:"sin directrices específicas todavía"};
   const compartido=s==="radar"?{deComunidad:st.com.analisis?{preguntas:(st.com.analisis.preguntas||[]).slice(0,10).map(p=>p.tema+": "+p.que),queGeneraComentarios:(st.com.analisis.porFormato||[]).slice(0,5).map(x=>x.tipo+" ("+x.media+" coment./post)")}:null}:s==="comunidad"?{delRadar:activos().slice().sort((a,b)=>(b.buzz||0)-(a.buzz||0)).slice(0,10).map(i=>({titulo:i.titulo,plataforma:i.plataforma,mercado:mercadoDe(i),metricas:i.metricas||null}))}:{};
   Object.assign(base,compartido);
-  if(s==="paid")Object.assign(base,{metaAds:st.paid.analisis?{periodo:st.paid.analisis.periodo,kpis:st.paid.analisis.kpis,campanas:st.paid.analisis.campanas,paises:st.paid.analisis.paises,ubicaciones:st.paid.analisis.ubicaciones,anuncios_top:st.paid.analisis.anuncios_top,diagnostico:st.paid.analisis.diagnostico,recomendaciones:st.paid.analisis.recomendaciones}:"extracción en curso",briefing:st.paid.briefing?{secciones:st.paid.briefing.secciones}:null});
+  if(s==="paid")Object.assign(base,{googleAds:st.paid.google?{periodo:st.paid.google.periodo,resumen:st.paid.google.resumen,kpis:st.paid.google.kpis,tablas:st.paid.google.tablas}:"cargando",metaAds:st.paid.analisis?{periodo:st.paid.analisis.periodo,kpis:st.paid.analisis.kpis,campanas:st.paid.analisis.campanas,paises:st.paid.analisis.paises,ubicaciones:st.paid.analisis.ubicaciones,anuncios_top:st.paid.analisis.anuncios_top,diagnostico:st.paid.analisis.diagnostico,recomendaciones:st.paid.analisis.recomendaciones}:"extracción en curso",briefing:st.paid.briefing?{secciones:st.paid.briefing.secciones}:null});
   if(s==="seo"){const A=st.seo.audit||{};Object.assign(base,{auditoria:{urls:A.urls_sitemap,rastreadas:A.urls_rastreadas,por_idioma:A.por_idioma,problemas:(A.problemas||[]).map(p=>({tipo:p.tipo,gravedad:p.gravedad,n:p.n,solucion:p.solucion})),arquitectura:A.arquitectura,puntos_fuertes:A.puntos_fuertes},estado:st.seo.estado?{conexiones:st.seo.estado.conexiones,plan:st.seo.estado.plan}:null})}
   if(s==="radar")Object.assign(base,{radar:activos().slice().sort((a,b)=>(b.buzz||0)-(a.buzz||0)).slice(0,15).map(i=>({titulo:i.titulo,plataforma:i.plataforma,mercado:mercadoDe(i),buzz:i.buzz,fuente:i.fuente,metricas:i.metricas||null,porque:i.porque})),bitacora:(st.estado?.bitacora||[]).slice(0,6)});
   if(s==="competencia")Object.assign(base,{cambios:st.cambios.slice(0,15).map(c=>({player:c.player,tipo:c.tipo,titulo:c.titulo,impacto:c.impacto,detectado:c.detectado})),players:st.players.map(p=>p.nombre||p.id),bitacora:(st.estadoC?.bitacora||[]).slice(0,6)});

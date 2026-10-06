@@ -63,7 +63,9 @@ body[data-dentro] .marco.dato{display:none!important}
 .pn-cab h2{margin:0;font:700 18px/1.2 var(--f-ui);flex:1}
 .pn-cab small{display:block;font:500 11.5px/1.3 var(--f-mono);color:var(--tenue);margin-top:4px}
 .pn-cab .acc{display:flex;gap:6px}
-.pn-mods{flex:1;overflow:auto;padding:10px 12px 16px;display:grid;gap:10px;align-content:start}
+.pn-mods{flex:1 1 auto;min-height:0;overflow-y:auto;padding:10px 12px 16px;display:block;overscroll-behavior:contain}
+.pn-mod+.pn-mod{margin-top:10px}
+.pn-mod .cont{height:auto!important;max-height:none!important}
 .pn-mod{border:1px solid var(--borde);border-radius:8px;background:var(--marco-2);overflow:hidden}
 .pn-mod>summary{list-style:none;cursor:pointer;display:flex;align-items:center;gap:10px;padding:12px 14px;font:600 14px/1.2 var(--f-ui);color:#eef1f4;user-select:none}
 .pn-mod>summary::-webkit-details-marker{display:none}
@@ -72,7 +74,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .pn-mod>summary span{margin-left:auto;font:500 10.5px/1 var(--f-mono);color:var(--tenue);text-transform:uppercase;letter-spacing:.08em}
 .pn-mod .cont{border-top:1px solid var(--borde);overflow-x:auto}
 .pn-mod .cont>.mcab{display:none}
-.pn-chat{border-top:1px solid var(--borde-2);display:flex;flex-direction:column;height:min(42vh,380px);background:#0a0c10}
+.pn-chat{flex:none;border-top:1px solid var(--borde-2);display:flex;flex-direction:column;height:min(36vh,340px);background:#0a0c10}
 .pn-chat .chat-cab{padding:10px 16px}
 .pn-chat .chat-msgs{flex:1;min-height:0}
 .pn-chat.min{height:auto}.pn-chat.min .chat-msgs,.pn-chat.min .chat-sug,.pn-chat.min .chat-nota,.pn-chat.min .chat-form{display:none}
@@ -1921,12 +1923,12 @@ function pintarListado(){
     <input class="campo buscar" id="q" type="search" placeholder="Buscar: Muxía, albergue, Primitivo…" value="${esc(st.q)}" aria-label="Buscar">
     <select class="campo" id="periodo" aria-label="Periodo"><option value="1">24 horas</option><option value="7">7 días</option><option value="30">30 días</option><option value="todo">Todo</option></select>
     <select class="campo" id="orden" aria-label="Orden"><option value="buzz">Más buzz</option><option value="interacciones">Más interacciones</option><option value="recientes">Más recientes</option></select>
-    <select class="campo" id="vista" aria-label="Vista"><option value="todo">Todo</option><option value="guardados">Guardados</option><option value="descartados">Descartados</option></select>
+    <select class="campo" id="vistaSel" aria-label="Vista"><option value="todo">Todo</option><option value="guardados">Guardados</option><option value="descartados">Descartados</option></select>
     <button class="btn prim" id="exportar">Exportar CSV</button>
   </div>
   <ul class="lista">${lista.length?lista.slice(0,st.limite).map(fila).join(""):`<li class="vacio"><b>${st.items.length?"Nada con estos filtros":st.conectado?"El equipo está en su primera barrida":"Conectando con la sala"}</b>${st.items.length?"Prueba con otro periodo o plataforma.":"Los hallazgos aparecerán aquí ordenados por buzz."}</li>`}</ul>
   ${lista.length>st.limite?`<button class="btn mas" id="verMas">Mostrar ${Math.min(25,lista.length-st.limite)} más de ${lista.length-st.limite}</button>`:""}`;
-  $("#periodo").value=st.periodo;$("#orden").value=st.orden;$("#vista").value=st.vista;
+  $("#periodo").value=st.periodo;$("#orden").value=st.orden;$("#vistaSel").value=st.vista;
   if(foco==="q"){const q=$("#q");q.focus();try{q.setSelectionRange(selS,selS)}catch(_){}}
 }
 function fila(i){
@@ -1988,7 +1990,7 @@ document.addEventListener("click",async e=>{
   catch(_){toast("Solo el propietario puede marcar contenidos")}
 });
 document.addEventListener("input",e=>{if(e.target.id==="q"){st.q=e.target.value;st.limite=12;clearTimeout(pintarListado.t);pintarListado.t=setTimeout(pintarListado,180)}});
-document.addEventListener("change",e=>{if(["periodo","orden","vista"].includes(e.target.id)){st[e.target.id]=e.target.value;st.limite=12;pintarListado()}});
+document.addEventListener("change",e=>{if(["periodo","orden","vistaSel"].includes(e.target.id)){st[e.target.id==="vistaSel"?"vista":e.target.id]=e.target.value;st.limite=12;pintarListado()}});
 
 async function exportar(){
   const rows=filtrados();const cols=["buzz","mercado","formato","plataforma","titulo","url","fuente","publicado","detectado","vistas","likes","reacciones","comentarios","compartidos","guardados","seguidores","interacciones","resumen","porque","senales","etiquetas","agente"];

@@ -9,6 +9,6 @@ Sistema de salas con especialistas de IA trabajando sobre el Camino de Santiago.
 
 | Sala | Estado | Protocolo |
 |---|---|---|
-| Radar Viral | Activa, barrida automática cada 2 h | `salas/radar-viral/AGENTE.md` |
+| Radar Viral | Activa, barrida automática cada 2 h (minuto 18, hora UTC) | `salas/radar-viral/AGENTE.md` |
 | Redacción | En obras | |
 | Análisis | En obras | |

@@ -1,0 +1,355 @@
+<title>Salas del Camino</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..900&family=IBM+Plex+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<style>
+/* Layout: un edificio de salas. Raíl lateral con las salas (pestañas en móvil), la sala activa ocupa el resto: cabecera, equipo de especialistas, filtros y el listado vivo. */
+:root{
+  --piedra:#eef0f2;      /* granito claro, fondo */
+  --losa:#ffffff;        /* superficies */
+  --tinta:#16233a;       /* texto principal, azul de señal oscurecido */
+  --tinta-2:#55617a;     /* texto secundario */
+  --linea:#d6dbe3;
+  --vieira:#1f4fa0;      /* azul de los mojones */
+  --flecha:#f4c21a;      /* amarillo flecha */
+  --flecha-tinta:#3a2c00;
+  --ok:#1f8a5b; --aviso:#b86e00; --alto:#c2362b;
+  --f-display:"Archivo","Arial Narrow",system-ui,sans-serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  --r:10px;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --piedra:#0f1522;--losa:#172033;--tinta:#e7ecf5;--tinta-2:#9aa7bf;--linea:#28344b;
+  --vieira:#7fa6ee;--flecha:#f4c21a;--flecha-tinta:#2a2000;--ok:#4cc58e;--aviso:#f0a53a;--alto:#ff7a6e;color-scheme:dark}}
+:root[data-theme="dark"]{
+  --piedra:#0f1522;--losa:#172033;--tinta:#e7ecf5;--tinta-2:#9aa7bf;--linea:#28344b;
+  --vieira:#7fa6ee;--flecha:#f4c21a;--flecha-tinta:#2a2000;--ok:#4cc58e;--aviso:#f0a53a;--alto:#ff7a6e;color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--piedra);color:var(--tinta);font:15px/1.5 var(--f-body)}
+a{color:inherit}
+button,input,select{font:inherit;color:inherit}
+:focus-visible{outline:2px solid var(--vieira);outline-offset:2px}
+
+.app{display:grid;grid-template-columns:248px minmax(0,1fr);min-height:100%}
+/* Raíl de salas */
+.rail{background:var(--tinta);color:var(--piedra);padding:22px 16px;display:flex;flex-direction:column;gap:22px;position:sticky;top:0;height:100vh}
+:root[data-theme="dark"] .rail{background:#0a0f19}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]) .rail{background:#0a0f19}}
+.marca{display:flex;align-items:center;gap:10px}
+.marca svg{flex:none}
+.marca b{font:800 19px/1 var(--f-display);font-stretch:118%;letter-spacing:.01em;text-transform:uppercase;color:#fff}
+.marca small{display:block;font:500 11px/1.3 var(--f-mono);color:#aab6cc;letter-spacing:.06em;text-transform:uppercase;margin-top:4px}
+.rail h2{font:600 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:#8d9ab3;margin:0 0 8px}
+.salas{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:4px}
+.sala-btn{width:100%;text-align:left;background:none;border:0;border-radius:8px;padding:10px 12px;cursor:pointer;display:grid;grid-template-columns:1fr auto;gap:2px 8px;color:#dfe5f0}
+.sala-btn:hover{background:rgba(255,255,255,.06)}
+.sala-btn[aria-current="true"]{background:rgba(255,255,255,.1);box-shadow:inset 3px 0 0 var(--flecha)}
+.sala-btn .n{font:600 14px/1.25 var(--f-body)}
+.sala-btn .d{grid-column:1/-1;font-size:12px;color:#97a4bb}
+.sala-btn .pill{align-self:center}
+.sala-btn[disabled]{opacity:.55;cursor:default}
+.sala-btn[disabled]:hover{background:none}
+.rail .pie{margin-top:auto;font:12px/1.5 var(--f-mono);color:#8d9ab3}
+.vivo{display:inline-flex;align-items:center;gap:6px;font:600 11px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ok)}
+.vivo::before{content:"";width:7px;height:7px;border-radius:50%;background:currentColor;animation:latido 2s ease-in-out infinite}
+.vivo.off{color:#8d9ab3}.vivo.off::before{animation:none}
+@keyframes latido{50%{opacity:.25}}
+@media (prefers-reduced-motion: reduce){.vivo::before{animation:none}}
+
+/* Sala */
+main{padding-block:28px 60px;padding-inline:clamp(16px,3.5vw,44px);min-width:0;display:flex;flex-direction:column;gap:26px}
+.cab{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px}
+.eyebrow{font:600 11px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-2);display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+h1{font:850 clamp(30px,4.6vw,50px)/.98 var(--f-display);font-stretch:112%;letter-spacing:-.01em;margin:10px 0 8px;text-wrap:balance}
+.cab p{margin:0;color:var(--tinta-2);max-width:62ch}
+.mojon{display:flex;flex-direction:column;align-items:center;justify-content:center;min-width:132px;padding:12px 16px;background:var(--vieira);color:#fff;border-radius:8px 8px 3px 3px;font-family:var(--f-mono);text-align:center}
+.mojon .k{font:800 34px/1 var(--f-display);font-stretch:100%;font-variant-numeric:tabular-nums;color:var(--flecha)}
+.mojon span{font-size:11px;letter-spacing:.08em;text-transform:uppercase;opacity:.9}
+
+/* Resumen */
+.resumen{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;background:var(--linea);border:1px solid var(--linea);border-radius:var(--r);overflow:hidden}
+.dato{background:var(--losa);padding:14px 16px;min-width:0}
+.dato .v{font:750 24px/1.1 var(--f-display);font-stretch:105%;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.dato .l{font:500 11.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2);margin-top:4px}
+
+/* Equipo */
+.bloque h3{font:750 13px/1 var(--f-display);font-stretch:118%;text-transform:uppercase;letter-spacing:.06em;margin:0 0 12px;display:flex;align-items:center;gap:10px}
+.bloque h3 .c{font:500 12px/1 var(--f-mono);color:var(--tinta-2);text-transform:none;letter-spacing:0}
+.equipo{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px}
+.agente{background:var(--losa);border:1px solid var(--linea);border-radius:var(--r);padding:12px 14px;display:grid;grid-template-columns:36px minmax(0,1fr);gap:4px 12px;align-items:start}
+.avatar{grid-row:span 3;width:36px;height:36px;border-radius:50%;display:grid;place-items:center;font:700 13px/1 var(--f-mono);color:#fff}
+.agente .nom{font-weight:600;font-size:14px;line-height:1.25}
+.agente .rol{font-size:12.5px;color:var(--tinta-2);line-height:1.35}
+.agente .act{font:12px/1.35 var(--f-mono);color:var(--tinta-2);display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+
+/* Filtros */
+.filtros{display:flex;flex-wrap:wrap;gap:10px;align-items:center;position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--piedra);padding-block:10px;margin-block:-10px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{border:1px solid var(--linea);background:var(--losa);border-radius:999px;padding:6px 12px;font-size:13px;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.chip[aria-pressed="true"]{background:var(--tinta);color:var(--piedra);border-color:var(--tinta)}
+.chip .cnt{font:12px/1 var(--f-mono);opacity:.7}
+.buscar{flex:1 1 200px;min-width:0;border:1px solid var(--linea);background:var(--losa);border-radius:8px;padding:8px 12px}
+select{border:1px solid var(--linea);background:var(--losa);border-radius:8px;padding:8px 10px}
+.btn{border:1px solid var(--linea);background:var(--losa);border-radius:8px;padding:8px 12px;cursor:pointer;font-size:13.5px;font-weight:500}
+.btn:hover{border-color:var(--tinta-2)}
+.btn.prim{background:var(--flecha);border-color:var(--flecha);color:var(--flecha-tinta)}
+
+/* Listado */
+.dos{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:24px;align-items:start}
+.lista{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:10px}
+.item{background:var(--losa);border:1px solid var(--linea);border-radius:var(--r);padding:14px 16px;display:grid;grid-template-columns:58px minmax(0,1fr);gap:14px}
+.item.nuevo{border-color:color-mix(in srgb,var(--flecha) 70%,var(--linea))}
+.buzz{display:flex;flex-direction:column;align-items:center;gap:6px}
+.buzz .num{font:800 24px/1 var(--f-display);font-variant-numeric:tabular-nums}
+.buzz .barra{width:8px;height:44px;border-radius:4px;background:var(--linea);position:relative;overflow:hidden}
+.buzz .barra i{position:absolute;inset:auto 0 0 0;border-radius:4px}
+.buzz small{font:10px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--tinta-2)}
+.meta{display:flex;flex-wrap:wrap;gap:6px 10px;align-items:center;font:12px/1.3 var(--f-mono);color:var(--tinta-2)}
+.plat{display:inline-flex;align-items:center;gap:5px;font:600 11px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;padding:4px 7px;border-radius:5px;color:#fff}
+.pill{display:inline-flex;font:600 10.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;padding:4px 7px;border-radius:5px;background:var(--flecha);color:var(--flecha-tinta)}
+.pill.gris{background:var(--linea);color:var(--tinta-2)}
+.item h4{margin:6px 0 4px;font:650 17px/1.3 var(--f-body);text-wrap:balance}
+.item h4 a{text-decoration:none}
+.item h4 a:hover{text-decoration:underline;text-decoration-color:var(--flecha);text-decoration-thickness:2px;text-underline-offset:3px}
+.item p{margin:0 0 6px;color:var(--tinta);max-width:75ch}
+.porque{font-size:13.5px;color:var(--tinta-2);border-left:3px solid var(--flecha);padding-left:10px;margin:8px 0}
+.senales{font:12.5px/1.4 var(--f-mono);color:var(--tinta)}
+.tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:8px}
+.tag{font:12px/1 var(--f-mono);color:var(--tinta-2);background:var(--piedra);padding:4px 7px;border-radius:5px}
+.acciones{display:flex;gap:6px;margin-top:10px;flex-wrap:wrap}
+.acciones .btn{padding:5px 10px;font-size:12.5px}
+.btn[aria-pressed="true"]{background:var(--tinta);color:var(--piedra);border-color:var(--tinta)}
+
+.vacio{background:var(--losa);border:1px dashed var(--linea);border-radius:var(--r);padding:28px;color:var(--tinta-2)}
+.vacio b{color:var(--tinta);display:block;font:700 18px/1.3 var(--f-display);margin-bottom:6px}
+
+/* Bitácora */
+.bitacora{background:var(--losa);border:1px solid var(--linea);border-radius:var(--r);padding:16px;position:sticky;top:76px}
+.bitacora ol{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:12px;max-height:60vh;overflow:auto}
+.bitacora li{font-size:13px;line-height:1.4;display:grid;gap:2px}
+.bitacora time{font:11.5px/1 var(--f-mono);color:var(--tinta-2)}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--tinta);color:var(--piedra);padding:10px 16px;border-radius:8px;font-size:13.5px;z-index:20}
+
+.proxima{display:grid;gap:14px;max-width:640px}
+
+@media (max-width:1080px){.dos{grid-template-columns:minmax(0,1fr)}.bitacora{position:static}.resumen{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:760px){
+  .app{grid-template-columns:minmax(0,1fr)}
+  .rail{position:static;height:auto;padding:14px 16px;gap:12px}
+  .rail h2,.rail .pie,.sala-btn .d{display:none}
+  .salas{flex-direction:row;overflow-x:auto;gap:6px}
+  .sala-btn{white-space:nowrap;padding:8px 12px}
+  .sala-btn[aria-current="true"]{box-shadow:inset 0 -3px 0 var(--flecha)}
+  .item{grid-template-columns:44px minmax(0,1fr);gap:10px;padding:12px}
+  .mojon{min-width:0;flex-direction:row;gap:8px;padding:8px 12px}
+  .mojon .k{font-size:24px}
+  .filtros{position:static;margin-block:0;padding-block:0}
+}
+</style>
+
+<div class="app">
+  <nav class="rail" aria-label="Salas">
+    <div class="marca">
+      <svg width="34" height="34" viewBox="0 0 40 40" aria-hidden="true"><rect width="40" height="40" rx="8" fill="#1f4fa0"/><g fill="none" stroke="#f4c21a" stroke-width="2.2" stroke-linecap="round"><path d="M20 31 L8 15"/><path d="M20 31 L12.5 11.5"/><path d="M20 31 L20 9.5"/><path d="M20 31 L27.5 11.5"/><path d="M20 31 L32 15"/></g></svg>
+      <div><b>Salas</b><small>del Camino</small></div>
+    </div>
+    <div>
+      <h2>Edificio</h2>
+      <ul class="salas" id="listaSalas"></ul>
+    </div>
+    <div class="pie" id="pieEstado">Conectando con la sala…</div>
+  </nav>
+  <main id="sala"></main>
+</div>
+<div class="toast" id="toast" hidden></div>
+
+<script>
+const SALAS=[
+  {id:"radar",nombre:"Radar Viral",desc:"Lo que más circula sobre el Camino",activa:true},
+  {id:"redaccion",nombre:"Redacción",desc:"Convierte tendencias en piezas",activa:false},
+  {id:"analisis",nombre:"Análisis",desc:"Rendimiento de nuestras redes",activa:false},
+];
+const PLAT={
+  instagram:{n:"Instagram",c:"#c13584"},tiktok:{n:"TikTok",c:"#111111"},youtube:{n:"YouTube",c:"#d62a1e"},
+  facebook:{n:"Facebook",c:"#1b62d6"},x:{n:"X",c:"#3c4656"},reddit:{n:"Reddit",c:"#e2531c"},
+  blog:{n:"Blog",c:"#2f7d5b"},prensa:{n:"Prensa",c:"#6b4fb0"},foro:{n:"Foro",c:"#8a6a1e"}
+};
+const EQUIPO=[
+  {id:"insta",n:"Lucía",rol:"Rastreadora de Instagram y TikTok: reels, hashtags y creadores",c:"#c13584"},
+  {id:"yt",n:"Mateo",rol:"Analista de YouTube: vídeos con tracción reciente",c:"#d62a1e"},
+  {id:"fb",n:"Carmen",rol:"Observadora de Facebook y grupos de peregrinos",c:"#1b62d6"},
+  {id:"prensa",n:"Andrés",rol:"Vigía de prensa: noticias que generan conversación",c:"#6b4fb0"},
+  {id:"blogs",n:"Inés",rol:"Sabueso de blogs, Reddit y foros",c:"#2f7d5b"},
+  {id:"jefa",n:"Marta",rol:"Jefa de sala: puntúa el buzz y depura duplicados",c:"#1f4fa0"},
+];
+
+const st={sala:"radar",items:[],estado:null,plat:"todas",periodo:"30",orden:"buzz",q:"",vista:"todo",conectado:false,db:null,dl:null};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const safeUrl=u=>/^https?:\/\//i.test(u||"")?u:"#";
+function hace(iso){
+  if(!iso)return"";const t=Date.parse(iso);if(isNaN(t))return"";
+  const m=Math.round((Date.now()-t)/60000);
+  if(m<1)return"ahora";if(m<60)return`hace ${m} min`;const h=Math.round(m/60);if(h<24)return`hace ${h} h`;
+  const d=Math.round(h/24);if(d<30)return`hace ${d} d`;return new Date(t).toLocaleDateString("es-ES",{day:"numeric",month:"short"});
+}
+const colorBuzz=b=>b>=80?"var(--alto)":b>=60?"var(--aviso)":"var(--vieira)";
+function toast(t){const el=$("#toast");el.textContent=t;el.hidden=false;clearTimeout(toast.t);toast.t=setTimeout(()=>el.hidden=true,2200)}
+function lsGet(k){try{return localStorage.getItem(k)}catch(e){return null}}
+function lsSet(k,v){try{localStorage.setItem(k,v)}catch(e){}}
+
+function pintarSalas(){
+  $("#listaSalas").innerHTML=SALAS.map(s=>`<li><button class="sala-btn" data-sala="${s.id}" aria-current="${s.id===st.sala}">
+    <span class="n">${esc(s.nombre)}</span>${s.activa?'':'<span class="pill gris">En obras</span>'}<span class="d">${esc(s.desc)}</span></button></li>`).join("");
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-sala]");if(b){st.sala=b.dataset.sala;lsSet("sala",st.sala);pintarSalas();pintar();return}
+});
+
+function filtrados(){
+  const lim=st.periodo==="todo"?Infinity:+st.periodo*864e5;const q=st.q.trim().toLowerCase();
+  let r=st.items.filter(i=>{
+    if(st.vista==="guardados"&&!i.guardado)return false;
+    if(st.vista!=="descartados"&&i.descartado)return false;
+    if(st.vista==="descartados"&&!i.descartado)return false;
+    if(st.plat!=="todas"&&i.plataforma!==st.plat)return false;
+    const f=Date.parse(i.publicado||i.detectado);if(!isNaN(f)&&Date.now()-f>lim)return false;
+    if(q&&!`${i.titulo} ${i.resumen} ${i.fuente} ${(i.etiquetas||[]).join(" ")}`.toLowerCase().includes(q))return false;
+    return true});
+  r.sort(st.orden==="buzz"?(a,b)=>(b.buzz||0)-(a.buzz||0):(a,b)=>Date.parse(b.detectado||0)-Date.parse(a.detectado||0));
+  return r;
+}
+
+function pintar(){
+  const s=SALAS.find(x=>x.id===st.sala);
+  if(!s.activa){$("#sala").innerHTML=`<header class="cab"><div><div class="eyebrow">Sala en obras</div><h1>${esc(s.nombre)}</h1><p>${esc(s.desc)}.</p></div></header>
+    <div class="vacio proxima"><b>Esta sala todavía no tiene equipo</b>La montaremos en una próxima fase. Cuando esté lista, aparecerá aquí con sus especialistas trabajando y sus resultados en vivo.</div>`;return}
+  pintarRadar();
+}
+
+function pintarRadar(){
+  const items=st.items.filter(i=>!i.descartado);
+  const dia=items.filter(i=>Date.now()-Date.parse(i.detectado)<864e5).length;
+  const top=items.slice().sort((a,b)=>(b.buzz||0)-(a.buzz||0))[0];
+  const porPlat={};items.forEach(i=>porPlat[i.plataforma]=(porPlat[i.plataforma]||0)+1);
+  const platTop=Object.entries(porPlat).sort((a,b)=>b[1]-a[1])[0];
+  const e=st.estado||{};
+  const lista=filtrados();
+  const foco=document.activeElement?.id;const selS=document.activeElement?.selectionStart;
+  $("#sala").innerHTML=`
+  <header class="cab">
+    <div>
+      <div class="eyebrow"><span class="vivo ${st.conectado?'':'off'}">${st.conectado?'En directo':'Sin conexión'}</span><span>Última barrida ${esc(hace(e.ultimaBarrida)||'pendiente')}</span></div>
+      <h1>Radar Viral del Camino</h1>
+      <p>Seis especialistas rastrean redes, prensa y blogs buscando los contenidos sobre el Camino de Santiago que más están funcionando. El listado se actualiza solo en cada barrida.</p>
+    </div>
+    <div class="mojon" title="Contenidos detectados en las últimas 24 horas"><span>Últimas 24 h</span><div class="k">${String(dia).padStart(3,"0")}</div><span>hallazgos</span></div>
+  </header>
+
+  <section class="resumen" aria-label="Resumen">
+    <div class="dato"><div class="v">${items.length}</div><div class="l">En el radar</div></div>
+    <div class="dato"><div class="v">${top?top.buzz:"–"}</div><div class="l">Buzz máximo</div></div>
+    <div class="dato"><div class="v">${platTop?esc(PLAT[platTop[0]]?.n||platTop[0]):"–"}</div><div class="l">Plataforma más activa</div></div>
+    <div class="dato"><div class="v">${esc(e.proximaBarrida?hace(e.proximaBarrida).replace("hace","en"):"cada 2 h")}</div><div class="l">Próxima barrida</div></div>
+  </section>
+
+  <section class="bloque" aria-label="Equipo">
+    <h3>Equipo de la sala <span class="c">${EQUIPO.length} especialistas</span></h3>
+    <div class="equipo">${EQUIPO.map(a=>{const ac=(e.agentes||{})[a.id]||{};return`<div class="agente">
+      <div class="avatar" style="background:${a.c}">${esc(a.n.slice(0,2).toUpperCase())}</div>
+      <div class="nom">${esc(a.n)}</div><div class="rol">${esc(a.rol)}</div>
+      <div class="act">${ac.ultima?`<span>${esc(hace(ac.ultima))}</span>·<span>${ac.hallazgos??0} nuevos</span>`:'<span>Esperando primera barrida</span>'}</div></div>`}).join("")}</div>
+  </section>
+
+  <div class="filtros" role="group" aria-label="Filtros">
+    <div class="chips">
+      <button class="chip" data-plat="todas" aria-pressed="${st.plat==='todas'}">Todas <span class="cnt">${items.length}</span></button>
+      ${Object.keys(PLAT).filter(p=>porPlat[p]).map(p=>`<button class="chip" data-plat="${p}" aria-pressed="${st.plat===p}">${PLAT[p].n} <span class="cnt">${porPlat[p]}</span></button>`).join("")}
+    </div>
+    <input class="buscar" id="q" type="search" placeholder="Buscar: Muxía, albergue, Primitivo…" value="${esc(st.q)}" aria-label="Buscar">
+    <select id="periodo" aria-label="Periodo"><option value="1">24 horas</option><option value="7">7 días</option><option value="30">30 días</option><option value="todo">Todo</option></select>
+    <select id="orden" aria-label="Orden"><option value="buzz">Más buzz</option><option value="recientes">Más recientes</option></select>
+    <select id="vista" aria-label="Vista"><option value="todo">Todo</option><option value="guardados">Guardados</option><option value="descartados">Descartados</option></select>
+    <button class="btn prim" id="exportar">Exportar CSV</button>
+  </div>
+
+  <div class="dos">
+    <ul class="lista" aria-live="polite">${lista.length?lista.map(fila).join(""):vacio()}</ul>
+    <aside class="bitacora" aria-label="Bitácora">
+      <div class="bloque"><h3>Bitácora del equipo</h3></div>
+      <ol>${(e.bitacora||[]).slice(0,30).map(b=>`<li><time>${esc(hace(b.t))} · ${esc(b.quien||"")}</time><span>${esc(b.texto)}</span></li>`).join("")||'<li><span>Aquí verás qué hace cada especialista en cada barrida.</span></li>'}</ol>
+    </aside>
+  </div>`;
+  $("#periodo").value=st.periodo;$("#orden").value=st.orden;$("#vista").value=st.vista;
+  if(foco==="q"){const q=$("#q");q.focus();try{q.setSelectionRange(selS,selS)}catch(_){}}
+}
+
+function fila(i){
+  const p=PLAT[i.plataforma]||{n:i.plataforma||"Web",c:"#55617a"};
+  const nuevo=Date.now()-Date.parse(i.detectado)<6*36e5;
+  return`<li class="item${nuevo?' nuevo':''}" data-id="${esc(i.id)}">
+    <div class="buzz" title="Índice de buzz 0-100"><div class="num">${i.buzz??"–"}</div><div class="barra"><i style="height:${Math.max(4,Math.min(100,i.buzz||0))}%;background:${colorBuzz(i.buzz||0)}"></i></div><small>buzz</small></div>
+    <div style="min-width:0">
+      <div class="meta"><span class="plat" style="background:${p.c}">${esc(p.n)}</span>${nuevo?'<span class="pill">Nuevo</span>':''}<span>${esc(i.fuente||"")}</span><span>· publicado ${esc(hace(i.publicado)||"s/f")}</span><span>· por ${esc(i.agente||"el equipo")}</span></div>
+      <h4><a href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">${esc(i.titulo)}</a></h4>
+      <p>${esc(i.resumen)}</p>
+      ${i.porque?`<div class="porque">${esc(i.porque)}</div>`:''}
+      ${i.senales?`<div class="senales">${esc(i.senales)}</div>`:''}
+      ${(i.etiquetas||[]).length?`<div class="tags">${i.etiquetas.map(t=>`<span class="tag">#${esc(t)}</span>`).join("")}</div>`:''}
+      <div class="acciones">
+        <button class="btn" data-acc="guardar" aria-pressed="${!!i.guardado}">${i.guardado?'Guardado':'Guardar'}</button>
+        <button class="btn" data-acc="copiar">Copiar ficha</button>
+        <button class="btn" data-acc="descartar" aria-pressed="${!!i.descartado}">${i.descartado?'Recuperar':'Descartar'}</button>
+      </div>
+    </div></li>`;
+}
+function vacio(){
+  if(!st.items.length)return`<li class="vacio"><b>${st.conectado?'El equipo está en su primera barrida':'Conectando con la sala'}</b>Cuando los especialistas terminen de rastrear Instagram, TikTok, YouTube, Facebook, prensa y blogs, los hallazgos aparecerán aquí ordenados por buzz.</li>`;
+  return`<li class="vacio"><b>Nada con estos filtros</b>Prueba con otro periodo o plataforma.</li>`;
+}
+
+document.addEventListener("click",async e=>{
+  const c=e.target.closest("[data-plat]");if(c){st.plat=c.dataset.plat;pintar();return}
+  if(e.target.id==="exportar"){exportar();return}
+  const a=e.target.closest("[data-acc]");if(!a)return;
+  const id=a.closest("[data-id]").dataset.id;const it=st.items.find(x=>x.id===id);if(!it)return;
+  if(a.dataset.acc==="copiar"){
+    const t=`${it.titulo}\n${it.url}\n${PLAT[it.plataforma]?.n||it.plataforma} · ${it.fuente} · buzz ${it.buzz}\n${it.resumen}${it.porque?"\nPor qué funciona: "+it.porque:""}${it.senales?"\nSeñales: "+it.senales:""}`;
+    try{await navigator.clipboard.writeText(t);toast("Ficha copiada")}catch(_){toast("No se pudo copiar en este visor")}
+    return}
+  if(!st.db){toast("Sin conexión con la sala");return}
+  const campo=a.dataset.acc==="guardar"?"guardado":"descartado";
+  try{await st.db.doc("radar/"+id).update({[campo]:!it[campo]});toast(campo==="guardado"?(it[campo]?"Quitado de guardados":"Guardado"):(it[campo]?"Recuperado":"Descartado"))}
+  catch(err){toast("Solo el propietario puede marcar contenidos")}
+});
+document.addEventListener("input",e=>{if(e.target.id==="q"){st.q=e.target.value;clearTimeout(pintar.t);pintar.t=setTimeout(pintar,180)}});
+document.addEventListener("change",e=>{if(["periodo","orden","vista"].includes(e.target.id)){st[e.target.id]=e.target.value;pintar()}});
+
+async function exportar(){
+  const rows=filtrados();const cols=["buzz","plataforma","titulo","url","fuente","publicado","detectado","resumen","porque","senales","etiquetas","agente"];
+  const q=v=>`"${String(Array.isArray(v)?v.join(" "):v??"").replace(/"/g,'""')}"`;
+  const csv="﻿"+[cols.join(";"),...rows.map(r=>cols.map(c=>q(r[c])).join(";"))].join("\n");
+  if(!st.dl){toast("La descarga no está disponible en este visor");return}
+  try{await st.dl.save({filename:`radar-viral-camino-${new Date().toISOString().slice(0,10)}.csv`,data:csv})}catch(err){if(err?.code!=="declined")toast("No se pudo exportar")}
+}
+
+const g=lsGet("sala");if(g&&SALAS.some(s=>s.id===g))st.sala=g;
+if(location.hash&&SALAS.some(s=>"#"+s.id===location.hash))st.sala=location.hash.slice(1);
+pintarSalas();pintar();
+setInterval(()=>{if(document.activeElement?.id!=="q")pintar()},60000);
+
+(async()=>{
+  const db=await window.claude?.use?.("db");
+  st.dl=await window.claude?.use?.("downloads");
+  if(!db){$("#pieEstado").textContent="Abre esta página desde claude.ai para ver el radar en vivo.";pintar();return}
+  st.db=db;
+  db.collection("radar").orderBy("detectado","desc").limit(600).onSnapshot(s=>{
+    st.conectado=true;st.items=s.docs.map(d=>({id:d.id,...d.data()}));
+    $("#pieEstado").innerHTML=`<span class="vivo">En directo</span><br>${st.items.length} contenidos en el radar`;
+    if(document.activeElement?.id!=="q")pintar();
+  },()=>{st.conectado=false;pintar()});
+  db.doc("estado/radar").onSnapshot(s=>{st.estado=s.exists?s.data():null;if(document.activeElement?.id!=="q")pintar()});
+})();
+</script>

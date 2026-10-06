@@ -572,6 +572,7 @@ const MARCOS=[
   {id:"d_yt",grupo:"diseno",dato:true,nombre:"Diseño / YouTube · miniaturas, guion y SEO",x:-5400,y:3000,w:1950},
   {id:"d_li",grupo:"diseno",dato:true,nombre:"Diseño / LinkedIn",x:-5400,y:4500,w:1950},
   {id:"d_tk",grupo:"diseno",dato:true,nombre:"Diseño / TikTok",x:-5400,y:6000,w:1950},
+  {id:"d_pet",grupo:"diseno",dato:true,nombre:"Diseño / Peticiones de otras salas",x:-11800,y:0,w:1300},
   {id:"d_tend",grupo:"diseno",dato:true,nombre:"Diseño / Tendencias y pautas para RRSS",x:-7500,y:0,w:1950},
   {id:"competencia",grupo:"competencia",nombre:"Competencia / Sala",x:0,y:3900,w:1200},
   {id:"cambios",grupo:"competencia",dato:true,nombre:"Competencia / Alertas y cambios",x:0,y:4560,w:1240},
@@ -599,6 +600,7 @@ const MARCOS=[
   {id:"g_control",grupo:"control",dato:true,nombre:"Sala de Control / Google Analytics 4",x:1600,y:2260,w:1300},
   {id:"mdirecto",grupo:"mdirecto",nombre:"Marketing directo / Sala",x:2600,y:4000,w:1200},
   {id:"mdirecto_mision",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Misión, equipo y fuentes",x:2600,y:4800,w:1300},
+  {id:"mdirecto_wf",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Workflows del CRM y plantillas",x:2600,y:7200,w:1300},
   {id:"mdirecto_datos",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Lo que ya sabemos",x:2600,y:5600,w:1300},
   {id:"g_mdirecto",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Google Analytics 4",x:2600,y:6400,w:1300},
   {id:"producto",grupo:"producto",nombre:"Análisis de producto / Sala",x:4300,y:4000,w:1200},
@@ -611,7 +613,7 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
 ];
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
-const SALAS_ACT={diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar"],competencia:["competencia","players","cambios","comprrss","compbit"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
+const SALAS_ACT={diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar"],competencia:["competencia","players","cambios","comprrss","compbit"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 const PASILLOS_DEF=[
   {id:"pa5",d:"M150 156 V1500",c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:210,ly:620},
@@ -724,7 +726,7 @@ function cerrarPanel(){
 }
 const chatVisible=()=>!$("#chat").hidden||!$("#panel").hidden;
 function entrar(sala="radar",foco){
-  st.dentro=sala;document.body.dataset.dentro=sala;st.marcoSel=foco||sala;pintarCapas();marcarSel();pintarDatos();pintarCompetencia();pintarControl();pintarDiseno();pintarComunidad();pintarSeo();pintarPaid();pintarSalasN();pintarGA4();if(sala==="comunidad")suscribirComunidad();
+  st.dentro=sala;document.body.dataset.dentro=sala;st.marcoSel=foco||sala;pintarCapas();marcarSel();pintarDatos();pintarCompetencia();pintarControl();pintarDiseno();pintarComunidad();pintarSeo();pintarPaid();pintarSalasN();pintarPeticionesDiseno();pintarGA4();if(sala==="comunidad")suscribirComunidad();
   abrirPanel(sala,foco);
   requestAnimationFrame(()=>volarA(caja(MARCOS.find(m=>m.id===sala)),innerWidth<900?20:60));
 }
@@ -1717,7 +1719,34 @@ function svgSalaN(S){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" style="fill:#000">${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-function pintarSalasN(){
+function htmlPeticiones(lista,modo){
+  if(!lista.length)return`<div class="vacio">${modo==="para"?"No hay peticiones pendientes.":"Esta sala no ha enviado peticiones."}</div>`;
+  return`<ol class="prios">${lista.map(x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.titulo)} <span class="k-tag">${esc(x.estado||"pendiente")}</span>${x.prioridad?` <span class="k-tag" style="background:${PRIO_C[x.prioridad]||"#555"}22;color:${PRIO_C[x.prioridad]||"#ccc"}">${esc(x.prioridad)}</span>`:""}</p>
+   <p style="margin-top:4px;font:500 11px/1.3 var(--f-mono);color:var(--tenue)">${esc(SALA_TIT[x.de]||x.de)} → ${esc(SALA_TIT[x.para]||x.para)} · ${esc(x.quien||"")} · ${esc(hace(x.t))}</p>
+   <p style="margin-top:6px">${esc(x.detalle||"")}</p>${(x.requisitos||[]).length?`<ul style="margin:6px 0 0;padding-left:16px;display:grid;gap:3px">${x.requisitos.map(q=>`<li style="font-size:12.5px;color:#c9d1da">${esc(q)}</li>`).join("")}</ul>`:""}
+   ${x.respuesta?`<div class="k-c" style="margin-top:10px;border-left:3px solid #7AA606"><h4>Respuesta de ${esc(SALA_TIT[x.para]||x.para)}${x.respuesta.quien?" · "+esc(x.respuesta.quien):""}</h4><p>${esc(x.respuesta.texto||"")}</p>${x.respuesta.imagen?`<img src="${esc(x.respuesta.imagen)}" alt="${esc(x.respuesta.alt||"Propuesta de diseño")}" style="width:100%;border-radius:6px;margin-top:8px;background:#fff">`:""}</div>`:""}
+   </div></li>`).join("")}</ol>`}
+function pintarWorkflows(){
+  const el=document.getElementById("c-mdirecto_wf");if(!el||st.dentro!=="mdirecto")return;const A=st.mkd;
+  const mias=(st.peticiones||[]).filter(x=>x.de==="mdirecto");
+  el.innerHTML=`<div class="mcab"><div><h2>Workflows del CRM y plantillas</h2><div class="fuente-mc" style="margin-top:6px">Análisis del archivo de workflows de Zoho · todo pasa por la revisión de la Sala de Control</div></div><div class="meta">${A?.fecha?`actualizado ${esc(hace(A.fecha))}`:""}</div></div>
+   ${A?`<div style="padding:12px 20px 0">${selloControl(A.control)}</div>${A.resumen?`<p style="padding:14px 20px 0;margin:0;font-size:15px;line-height:1.55;color:#e6eaee">${esc(A.resumen)}</p>`:""}
+   ${(A.kpis||[]).length?`<div class="k-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">${A.kpis.map(k=>`<div class="k-c"><div class="k-num" style="color:#38bdf8;font-size:22px">${esc(k.valor)}</div><p>${esc(k.nombre)}</p></div>`).join("")}</div>`:""}
+   ${(A.hallazgos||[]).length?`<div class="seccion-t">Hallazgos</div><ol class="prios">${A.hallazgos.map(x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.titulo)} ${x.prioridad?`<span class="k-tag" style="background:${PRIO_C[x.prioridad]||"#555"}22;color:${PRIO_C[x.prioridad]||"#ccc"}">${esc(x.prioridad)}</span>`:""}</p><p style="margin-top:4px">${esc(x.detalle||"")}</p>${x.quien?`<p style="margin-top:4px;font:500 11px/1.3 var(--f-mono);color:var(--tenue)">${esc(x.quien)}</p>`:""}</div></li>`).join("")}</ol>`:""}
+   ${A.journey?`<div class="seccion-t">Journey del cliente</div><p style="padding:0 20px;margin:0;font-size:14px;line-height:1.55;color:#d6dbe1;white-space:pre-line">${esc(typeof A.journey==="string"?A.journey:JSON.stringify(A.journey))}</p>`:""}
+   ${(A.mapa||[]).length?`<div class="seccion-t">Mapa de workflows</div><div class="mc-sec"><table class="tabla"><thead><tr><th style="text-align:left">Módulo</th><th>Activos</th><th>Inactivos</th><th style="text-align:left">Notas</th></tr></thead><tbody>${A.mapa.map(m=>`<tr><td style="text-align:left">${esc(m.modulo)}</td><td>${esc(m.activos)}</td><td>${esc(m.inactivos)}</td><td style="text-align:left;white-space:normal">${esc(m.notas||"")}</td></tr>`).join("")}</tbody></table></div>`:""}
+   ${(A.plantillas||[]).length?`<div class="seccion-t">Plantillas: original y propuesta</div>${A.plantillas.map(t=>`<details class="k-c" style="margin:0 20px 10px"><summary style="cursor:pointer;font-weight:600;color:#f1f3f5">${esc(t.nombre)} <span style="font:500 11px/1 var(--f-mono);color:var(--tenue)">${esc(t.cuando||"")} · ${esc(t.idioma||"")}</span></summary>
+     ${(t.problemas||[]).length?`<p style="margin-top:8px;color:#ffb38a">Problemas: ${esc(t.problemas.join("; "))}</p>`:""}
+     ${t.extracto_original?`<p style="margin-top:8px;color:var(--tenue);font-size:12.5px">Original: «${esc(t.extracto_original)}»</p>`:""}
+     ${t.propuesta?`<div style="margin-top:10px;padding:12px;border-radius:6px;background:#0b1117;border:1px solid #18384a"><p style="font:600 12px/1.3 var(--f-mono);color:#38bdf8">Asunto: ${esc(t.propuesta.asunto||"")}</p>${t.propuesta.preheader?`<p style="font:500 11.5px/1.3 var(--f-mono);color:var(--tenue);margin-top:4px">Preheader: ${esc(t.propuesta.preheader)}</p>`:""}<p style="margin-top:8px;white-space:pre-line;font-size:13.5px;line-height:1.55;color:#e6eaee">${esc(t.propuesta.cuerpo||"")}</p>${t.propuesta.cta?`<p style="margin-top:8px"><span class="k-tag" style="background:#7AA60633;color:#b5dd4a">${esc(t.propuesta.cta)}</span></p>`:""}</div>`:""}
+     ${t.propuesta_en?`<div style="margin-top:8px;padding:12px;border-radius:6px;background:#0b1117;border:1px solid #18384a"><p style="font:600 12px/1.3 var(--f-mono);color:#38bdf8">EN · Subject: ${esc(t.propuesta_en.asunto||"")}</p><p style="margin-top:8px;white-space:pre-line;font-size:13.5px;line-height:1.55;color:#e6eaee">${esc(t.propuesta_en.cuerpo||"")}</p></div>`:""}
+     ${t.porque?`<p style="margin-top:8px;color:#b5dd4a;font-size:12.5px">${esc(t.porque)}</p>`:""}</details>`).join("")}`:""}
+   ${(A.recomendaciones||[]).length?`<div class="seccion-t">Recomendaciones</div><ol class="prios">${A.recomendaciones.map(x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.titulo)} ${x.prioridad?`<span class="k-tag">${esc(x.prioridad)}</span>`:""}</p><p style="margin-top:4px">${esc(x.detalle||"")}</p>${x.quien?`<p style="margin-top:4px;font:500 11px/1.3 var(--f-mono);color:var(--tenue)">${esc(x.quien)}</p>`:""}</div></li>`).join("")}</ol>`:""}`:`<div class="vacio">Lorena y el equipo están analizando el archivo de workflows.</div>`}
+   <div class="seccion-t">Peticiones enviadas a otras salas</div>${htmlPeticiones(mias,"de")}`;
+}
+function pintarPeticionesDiseno(){const el=document.getElementById("c-d_pet");if(!el||st.dentro!=="diseno")return;
+  el.innerHTML=`<div class="mcab"><div><h2>Peticiones de otras salas</h2><div class="fuente-mc" style="margin-top:6px">Encargos que llegan al estudio · Paula los asigna</div></div></div>${htmlPeticiones((st.peticiones||[]).filter(x=>x.para==="diseno"),"para")}`}
+function pintarSalasN(){pintarWorkflows();
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -2181,6 +2210,8 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("paid_analisis/google").onSnapshot(s=>{st.paid.google=s.exists?s.data():null;pintarPaid()});
   db.doc("paid_contexto/briefing").onSnapshot(s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
   for(const S of SALAS_N)db.doc("estado/"+S.id).onSnapshot(s=>{st.salasN=st.salasN||{};st.salasN[S.id]={estado:s.exists?s.data():null};pintarSalasN()});
+  db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
+  db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});
   db.doc("ga4/actual").onSnapshot(s=>{st.ga4=s.exists?s.data():null;pintarGA4()});
   db.doc("estado/paid").onSnapshot(s=>{st.paid.estado=s.exists?s.data():null;pintarPaid()});
   db.doc("seo_auditoria/actual").onSnapshot(s=>{st.seo.audit=s.exists?s.data():null;pintarSeo()});

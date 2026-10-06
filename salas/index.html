@@ -79,6 +79,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .pn-chat .chat-msgs{flex:1;min-height:0}
 .pn-chat.min{height:auto}.pn-chat.min .chat-msgs,.pn-chat.min .chat-sug,.pn-chat.min .chat-nota,.pn-chat.min .chat-form{display:none}
 #panel .k-grid,#panel .cb-grid,#panel .tend{grid-template-columns:minmax(0,1fr)!important}
+#panel .k-grid[style*="repeat(4"]{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 #panel .piezas{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 #panel .vids,#panel .bib{grid-template-columns:repeat(2,minmax(0,1fr))!important}
 @media (max-width:700px){#panel .piezas{grid-template-columns:minmax(0,1fr)!important}.pn-chat{height:46vh}}
@@ -1538,6 +1539,8 @@ function pintarPaid(){
    <div class="k-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">${(A.kpis||[]).map(k=>`<div class="k-c"><div class="k-num" style="color:#f9a8d4;font-size:22px">${esc(k.valor)}</div><p>${esc(k.nombre)}</p></div>`).join("")}</div>
    ${(A.campanas||[]).length?`<div class="seccion-t">Campañas</div>${tabla(["Campaña","Objetivo","Gasto","Impr.","CTR","CPC","Resultados","Coste/res."],A.campanas.map(c=>`<tr><td style="text-align:left">${esc(c.nombre)}<span class="sub">${esc(c.estado||"")}</span></td><td>${esc(c.objetivo||"")}</td><td>${esc(c.gasto||"")}</td><td>${esc(c.impresiones||"")}</td><td>${esc(c.ctr||"")}</td><td>${esc(c.cpc||"")}</td><td>${esc(c.resultados||"")}</td><td>${esc(c.cpr||"")}</td></tr>`).join(""))}`:""}
    ${(A.paises||[]).length?`<div class="seccion-t">Por país</div>${tabla(["País","Gasto","Clics","CTR","CPC","Resultados"],A.paises.map(c=>`<tr><td style="text-align:left">${esc(c.pais)}</td><td>${esc(c.gasto||"")}</td><td>${esc(c.clics||"")}</td><td>${esc(c.ctr||"")}</td><td>${esc(c.cpc||"")}</td><td>${esc(c.resultados||"")}</td></tr>`).join(""))}`:""}
+   ${(A.meses||[]).length?`<div class="seccion-t">Evolución mensual</div>${tabla(["Mes","Gasto","Leads","Coste/lead","CTR enlace","CPC enlace"],A.meses.map(c=>`<tr><td style="text-align:left">${esc(c.mes)}</td><td>${esc(c.gasto)}</td><td>${esc(c.leads)}</td><td>${esc(c.cpl)}</td><td>${esc(c.ctr)}</td><td>${esc(c.cpc)}</td></tr>`).join(""))}`:""}
+   ${(A.edades||[]).length?`<div class="seccion-t">Edad y género</div>${tabla(["Segmento","Gasto","Leads","Coste/lead"],A.edades.map(c=>`<tr><td style="text-align:left">${esc(c.segmento)}</td><td>${esc(c.gasto)}</td><td>${esc(c.leads)}</td><td>${esc(c.cpl)}</td></tr>`).join(""))}`:""}
    ${(A.ubicaciones||[]).length?`<div class="seccion-t">Por ubicación</div>${tabla(["Ubicación","Gasto","CTR","CPC","CPM"],A.ubicaciones.map(c=>`<tr><td style="text-align:left">${esc(c.ubicacion)}</td><td>${esc(c.gasto||"")}</td><td>${esc(c.ctr||"")}</td><td>${esc(c.cpc||"")}</td><td>${esc(c.cpm||"")}</td></tr>`).join(""))}`:""}
    ${(A.anuncios_top||[]).length?`<div class="seccion-t">Anuncios destacados</div><div class="k-grid">${A.anuncios_top.map(x=>`<div class="k-c"><h4>${esc(corta(x.nombre||"",70))}</h4>${x.texto?`<p>${esc(corta(x.texto,220))}</p>`:""}<div class="k-ref">${esc(x.metricas||"")}</div></div>`).join("")}</div>`:""}
    ${A.limitaciones?`<div class="k-aviso">${esc(A.limitaciones)}</div>`:""}`:`<div class="vacio">Nerea está extrayendo las campañas de Meta Ads.</div>`}`;

@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Anuncio ChatGPT · Santiago Ways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* Imagen cuadrada para anuncio de ChatGPT: 1080 x 1080 px. Brandbook 2027. */
+  :root {
+    --blanco: #FFFFFF;
+    --ways: #7AA606;
+    --ways-fin: #628A04;
+    --sendero: #506718;
+    --grafito: #2E2E2D;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1080px; height: 1080px; overflow: hidden; background: var(--blanco); }
+  body { font-family: "Montserrat", sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .pieza { position: relative; width: 1080px; height: 1080px; overflow: hidden; color: var(--blanco); }
+
+  /* Foto a sangre; overlay oscuro suave desde abajo para dar contraste al texto. */
+  .foto {
+    position: absolute; inset: 0;
+    background: url("assets/peregrina-catedral.jpg") 34% 50% / cover no-repeat;
+  }
+  .overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(to top, rgba(46,46,45,.72) 0%, rgba(46,46,45,.35) 38%, rgba(46,46,45,0) 60%);
+  }
+
+  /* Concha como sello: arriba a la derecha, entera, en blanco sobre foto. */
+  .isotipo { position: absolute; top: 64px; right: 64px; width: 120px; height: auto; }
+
+  .contenido { position: absolute; left: 72px; right: 72px; bottom: 72px; }
+
+  h1 { font-weight: 800; font-size: 104px; line-height: 1.05; letter-spacing: -.01em; }
+
+  /* Subrayado SW por defecto: sobre foto, bloque verde Ways, letra blanca, -1,5°. */
+  .sw { position: relative; display: inline-block; padding: 0 16px; margin: 0 -4px; z-index: 0; }
+  .sw::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 10%; bottom: 2%;
+    background: var(--ways); transform: rotate(-1.5deg); z-index: -1;
+  }
+
+  .selling { margin-top: 28px; font-weight: 500; font-size: 34px; line-height: 1.35; max-width: 860px; }
+
+  .web { margin-top: 28px; font-weight: 700; font-size: 28px; letter-spacing: .02em; }
+
+  /* Variante sin texto: solo foto y concha, para formatos donde la plataforma pone el texto. */
+  .sin-texto .contenido, .sin-texto .overlay { display: none; }
+</style>
+</head>
+<body>
+  <div class="pieza">
+    <div class="foto" role="img" aria-label="Peregrina descansando en un banco con la catedral de Santiago al fondo"></div>
+    <div class="overlay"></div>
+    <img class="isotipo" src="assets/isotipo-blanco.png" alt="Santiago Ways">
+    <div class="contenido">
+      <h1 data-i18n="titular">Tu <span class="sw">Camino</span><br>te espera.</h1>
+      <p class="selling" data-i18n="selling">En hoteles, con asesoramiento experto y asistencia 24/7.</p>
+      <p class="web">santiagoways.com</p>
+    </div>
+  </div>
+  <script>
+    // ?lang=en cambia el idioma; ?variante=sin-texto deja solo foto y concha.
+    const textos = {
+      en: {
+        titular: 'Your <span class="sw">Camino</span><br>awaits.',
+        selling: 'In hotels, with expert advice and 24/7 assistance.'
+      }
+    };
+    const params = new URLSearchParams(location.search);
+    const lang = params.get('lang');
+    if (textos[lang]) {
+      document.documentElement.lang = lang;
+      for (const [k, v] of Object.entries(textos[lang])) {
+        document.querySelector(`[data-i18n="${k}"]`).innerHTML = v;
+      }
+    }
+    if (params.get('variante') === 'sin-texto') document.body.classList.add('sin-texto');
+  </script>
+</body>
+</html>

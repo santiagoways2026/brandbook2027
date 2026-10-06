@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>LinkedIn header · Santiago Ways</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+<style>
+  /* LinkedIn banner: 1584 x 396 px. Brandbook 2027: Montserrat, verde Ways, subrayado SW. */
+  :root {
+    --blanco: #FFFFFF;
+    --ways: #7AA606;
+    --ways-fin: #628A04;
+    --sendero: #506718;
+    --grafito: #2E2E2D;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body { width: 1584px; height: 396px; overflow: hidden; background: var(--blanco); }
+  body { font-family: "Montserrat", sans-serif; -webkit-font-smoothing: antialiased; }
+
+  .banner { position: relative; width: 1584px; height: 396px; overflow: hidden; }
+
+  /* Foto a la izquierda: la foto de perfil de LinkedIn cae aquí, nunca sobre el texto. */
+  .foto {
+    position: absolute; inset: 0 auto 0 0; width: 760px;
+    background: url("assets/peregrina-catedral.jpg") 62% 55% / cover no-repeat;
+  }
+
+  /* Caja verde Ways: degradado sutil a 135° (#7AA606 → #628A04). */
+  .caja {
+    position: absolute; top: 0; bottom: 0; left: 700px; right: 0;
+    background: linear-gradient(135deg, var(--ways) 0%, var(--ways-fin) 100%);
+    clip-path: polygon(60px 0, 100% 0, 100% 100%, 0 100%);
+  }
+
+  .contenido {
+    position: absolute; left: 836px; right: 72px; top: 0; bottom: 0;
+    display: flex; flex-direction: column; justify-content: center;
+    color: var(--blanco);
+  }
+
+  /* Antetítulo: mayúsculas, 700, tracking +0,15 em; etiqueta sobre niebla/blanco. */
+  .antetitulo {
+    align-self: flex-start;
+    background: var(--blanco); color: var(--sendero);
+    font-weight: 700; font-size: 15px; letter-spacing: .15em; text-transform: uppercase;
+    padding: 7px 12px 6px; border-radius: 4px; margin-bottom: 22px;
+  }
+
+  /* Titular: ExtraBold, minúscula de frase, interlineado 1,05. */
+  h1 { font-weight: 800; font-size: 66px; line-height: 1.05; letter-spacing: -.01em; }
+
+  /* Subrayado SW en negativo: sobre caja verde Ways, bloque verde sendero, letra blanca, -1,5°. */
+  .sw { position: relative; display: inline-block; padding: 0 12px; margin: 0 -2px; z-index: 0; }
+  .sw::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 10%; bottom: 2%;
+    background: var(--sendero); transform: rotate(-1.5deg); z-index: -1;
+  }
+
+  .selling { margin-top: 20px; font-weight: 500; font-size: 22px; line-height: 1.4; max-width: 620px; }
+
+  .pie {
+    margin-top: 26px; display: flex; align-items: center; gap: 18px;
+    font-weight: 700; font-size: 18px; letter-spacing: .02em;
+  }
+  .pie .sep { width: 6px; height: 6px; border-radius: 50%; background: var(--blanco); opacity: .7; }
+
+  /* Logo horizontal en blanco, arriba a la derecha de la caja. */
+  .logo { position: absolute; top: 40px; right: 72px; width: 230px; height: auto; }
+</style>
+</head>
+<body>
+  <div class="banner">
+    <div class="foto" role="img" aria-label="Peregrina descansando con la catedral de Santiago al fondo"></div>
+    <div class="caja"></div>
+    <img class="logo" src="assets/logo-horizontal-blanco.png" alt="Santiago Ways">
+    <div class="contenido">
+      <span class="antetitulo" data-i18n="antetitulo">Xacobeo 2027</span>
+      <h1 data-i18n="titular">Your <span class="sw">Camino</span> awaits.</h1>
+      <p class="selling" data-i18n="selling">The Camino de Santiago organised in hotels, with expert advice and 24/7 assistance.</p>
+      <div class="pie">
+        <span>santiagoways.com</span>
+        <span class="sep"></span>
+        <span data-i18n="pie">10 years on the Camino</span>
+      </div>
+    </div>
+  </div>
+  <script>
+    // ?lang=es cambia a la versión en español.
+    const textos = {
+      es: {
+        titular: 'Tu <span class="sw">Camino</span> te espera.',
+        selling: 'Camino de Santiago organizado en hoteles, con asesoramiento experto y asistencia 24/7.',
+        pie: '10 años organizando el Camino'
+      }
+    };
+    const lang = new URLSearchParams(location.search).get('lang');
+    if (textos[lang]) {
+      document.documentElement.lang = lang;
+      for (const [k, v] of Object.entries(textos[lang])) {
+        document.querySelector(`[data-i18n="${k}"]`).innerHTML = v;
+      }
+    }
+  </script>
+</body>
+</html>

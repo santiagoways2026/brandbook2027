@@ -582,11 +582,12 @@ const MARCOS=[
   {id:"o_plan",grupo:"seo",dato:true,nombre:"SEO / Conexiones, rutas y plan",x:6860,y:1300,w:1200},
   {id:"paid",grupo:"paid",nombre:"Paid Media / Sala",x:3900,y:2250,w:1200},
   {id:"p_rend",grupo:"paid",dato:true,nombre:"Paid Media / Meta Ads: rendimiento",x:5260,y:2250,w:1500},
+  {id:"p_google",grupo:"paid",dato:true,nombre:"Paid Media / Google Ads: rendimiento",x:9560,y:2250,w:1400},
   {id:"p_plan",grupo:"paid",dato:true,nombre:"Paid Media / Diagnóstico y plan",x:6860,y:2250,w:1200},
   {id:"p_brief",grupo:"paid",dato:true,nombre:"Paid Media / Briefing del equipo",x:8160,y:2250,w:1300},
 ];
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
-const SALAS_ACT={diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_tend"],control:["control","briefing","decisiones","brujula","cerebro"],radar:["radar","metricool","metricas","listado","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo"],seo:["seo","o_audit","o_plan"],paid:["paid","p_rend","p_plan","p_brief"]};
+const SALAS_ACT={diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_tend"],control:["control","briefing","decisiones","brujula","cerebro"],radar:["radar","metricool","metricas","listado","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo"],seo:["seo","o_audit","o_plan"],paid:["paid","p_rend","p_google","p_plan","p_brief"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 const PASILLOS_DEF=[
   {id:"pa5",d:"M800 656 V1500",c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:860,ly:1070},
@@ -1486,7 +1487,7 @@ const EQUIPO_P=[
   {id:"medicion",n:"Mónica",rol:"Medición y atribución: píxel, API de conversiones, GA4 y CRM",c:"#22d3ee"},
   {id:"intl",n:"Adrián",rol:"Mercados de alto ticket: USA, UK, Canadá y Alemania",c:"#f5d76e"},
   {id:"funnel",n:"Celia",rol:"Funnel y conversión: landings, presupuesto y remarketing",c:"#fb923c"},
-  {id:"google",n:"Lucas",rol:"Google Ads y YouTube Ads (pendiente de conexión)",c:"#a78bfa"},
+  {id:"google",n:"Lucas",rol:"Google Ads y YouTube Ads: búsqueda, Performance Max y vídeo",c:"#a78bfa"},
 ];
 const PUESTOS_P={jefe:[300,96],meta:[120,95],crea:[480,95],medicion:[120,200],intl:[300,200],funnel:[480,200],google:[300,268]};
 const FRASES_P={jefe:["¿Cuánto nos cuesta cada lead por mercado?","Margen antes que volumen","Esto va a la Sala de Control"],
@@ -1495,7 +1496,7 @@ const FRASES_P={jefe:["¿Cuánto nos cuesta cada lead por mercado?","Margen ante
   medicion:["¿Está bien configurado el píxel?","Sin conversiones no hay optimización","Cruzar leads con Zoho"],
   intl:["USA paga el doble por viajero","Richard busca habitaciones privadas","UK y Alemania: Portugués y Norte"],
   funnel:["El formulario de presupuesto pierde gente","Remarketing a quien vio el Francés","WhatsApp para Laura"],
-  google:["Esperando la conexión de Google Ads","YouTube como buscador del Camino","Búsquedas de marca en USA"]};
+  google:["Revisando términos de búsqueda","YouTube como buscador del Camino","Búsquedas de marca en USA"]};
 function fraseRealP(p){const A=st.paid.analisis;if(!A)return azar(FRASES_P[p.a.id]);
   if(p.a.id==="jefe"&&(A.kpis||[]).length){const k=azar(A.kpis);return`${k.nombre}: ${k.valor}`}
   if(p.a.id==="meta"&&(A.campanas||[]).length){const c=azar(A.campanas.slice(0,6));return`${corta(c.nombre,40)}: ${c.gasto} y CTR ${c.ctr}`}
@@ -1544,6 +1545,12 @@ function pintarPaid(){
    ${(A.ubicaciones||[]).length?`<div class="seccion-t">Por ubicación</div>${tabla(["Ubicación","Gasto","CTR","CPC","CPM"],A.ubicaciones.map(c=>`<tr><td style="text-align:left">${esc(c.ubicacion)}</td><td>${esc(c.gasto||"")}</td><td>${esc(c.ctr||"")}</td><td>${esc(c.cpc||"")}</td><td>${esc(c.cpm||"")}</td></tr>`).join(""))}`:""}
    ${(A.anuncios_top||[]).length?`<div class="seccion-t">Anuncios destacados</div><div class="k-grid">${A.anuncios_top.map(x=>`<div class="k-c"><h4>${esc(corta(x.nombre||"",70))}</h4>${x.texto?`<p>${esc(corta(x.texto,220))}</p>`:""}<div class="k-ref">${esc(x.metricas||"")}</div></div>`).join("")}</div>`:""}
    ${A.limitaciones?`<div class="k-aviso">${esc(A.limitaciones)}</div>`:""}`:`<div class="vacio">Nerea está extrayendo las campañas de Meta Ads.</div>`}`;
+  const G=st.paid.google;
+  $("#c-p_google").innerHTML=`<div class="mcab"><div><h2>Google Ads: rendimiento</h2><div class="fuente-mc" style="margin-top:6px">Windsor.ai · ${esc(G?.cuenta||"cuenta Santiago Ways")} · ${esc(G?.periodo||"")}</div></div><div class="meta">${G?.fecha?`actualizado ${esc(hace(G.fecha))}`:""}</div></div>
+   ${G?`${G.resumen?`<p style="padding:14px 20px 0;margin:0;font-size:15px;line-height:1.55;color:#e6eaee">${esc(G.resumen)}</p>`:""}
+   <div class="k-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">${(G.kpis||[]).map(k=>`<div class="k-c"><div class="k-num" style="color:#a78bfa;font-size:22px">${esc(k.valor)}</div><p>${esc(k.nombre)}</p></div>`).join("")}</div>
+   ${(G.tablas||[]).map(t=>`<div class="seccion-t">${esc(t.titulo)}</div>${t.nota?`<p style="padding:0 20px;margin:0 0 6px;font-size:12.5px;color:var(--tenue)">${esc(t.nota)}</p>`:""}${tabla(t.cols.map(esc),(t.filas||[]).map(f=>`<tr>${f.map((c,i)=>`<td${i?"":` style="text-align:left"`}>${esc(c)}</td>`).join("")}</tr>`).join(""))}`).join("")}
+   ${G.limitaciones?`<div class="k-aviso">${esc(G.limitaciones)}</div>`:""}`:`<div class="vacio">Lucas está extrayendo las campañas de Google Ads.</div>`}`;
   $("#c-p_plan").innerHTML=`<div class="mcab"><div><h2>Diagnóstico y plan del equipo</h2><div class="fuente-mc" style="margin-top:6px">Lidera Ricardo · todo pasa por la revisión de la Sala de Control</div></div></div>
    ${A?`<div style="padding:12px 20px 0">${selloControl(A.control)}</div>`:""}
    ${(A?.diagnostico||[]).length?`<div class="seccion-t">Diagnóstico</div><ol class="prios">${A.diagnostico.map(x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.titulo)} ${x.gravedad?`<span class="k-tag" style="background:${PRIO_C[x.gravedad]||"#555"}22;color:${PRIO_C[x.gravedad]||"#ccc"}">${esc(x.gravedad)}</span>`:""}</p><p style="margin-top:4px">${esc(x.detalle||"")}</p>${x.quien?`<div class="imeta"><span>${esc(x.quien)}</span></div>`:""}</div></li>`).join("")}</ol>`:""}
@@ -2024,6 +2031,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.collection("diseno_piezas").limit(200).onSnapshot(s=>{st.dis.piezas=s.docs.map(d=>({id:d.id,...d.data()}));pintarDiseno()});
   db.doc("diseno_tendencias/actual").onSnapshot(s=>{st.dis.tend=s.exists?s.data():null;pintarDiseno()});
   db.doc("paid_analisis/actual").onSnapshot(s=>{st.paid.analisis=s.exists?s.data():null;pintarPaid()});
+  db.doc("paid_analisis/google").onSnapshot(s=>{st.paid.google=s.exists?s.data():null;pintarPaid()});
   db.doc("paid_contexto/briefing").onSnapshot(s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
   db.doc("estado/paid").onSnapshot(s=>{st.paid.estado=s.exists?s.data():null;pintarPaid()});
   db.doc("seo_auditoria/actual").onSnapshot(s=>{st.seo.audit=s.exists?s.data():null;pintarSeo()});

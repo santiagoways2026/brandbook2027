@@ -241,6 +241,36 @@ body[data-dentro] .marco.dato{display:none!important}
 .rm-it .pie{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;font:500 12px/1 var(--f-mono);color:var(--tenue)}
 .rm-it .pie span{background:#05070a;border:1px solid var(--borde);border-radius:999px;padding:5px 8px}
 .rm-it.hecho{opacity:.55}.rm-it.hecho h4{text-decoration:line-through}
+
+.vir-top{display:grid;gap:14px;padding:12px 20px 0}
+#panel.full .vir-top{grid-template-columns:repeat(3,minmax(0,1fr))}
+.vir-card{background:var(--marco-2);border:1px solid var(--borde);border-top:4px solid var(--c);border-radius:10px;overflow:hidden;display:flex;flex-direction:column}
+.vir-pv{position:relative;display:flex;flex-direction:column;justify-content:flex-end;aspect-ratio:16/10;background:radial-gradient(120% 90% at 20% 10%,color-mix(in srgb,var(--c) 55%,#000) 0%,#07090d 70%);color:#fff;text-decoration:none;overflow:hidden;padding:14px}
+.vir-pv.peq{aspect-ratio:auto;min-height:120px;border-radius:8px;margin-bottom:4px}
+.vir-pv img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.85}
+.vir-pv:has(img)::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 35%,rgba(0,0,0,.8))}
+.vir-pv .pv-red,.vir-pv .pv-tit,.vir-pv .pv-play{position:relative;z-index:1}
+.vir-pv .pv-red{font:700 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;opacity:.9}
+.vir-pv .pv-tit{margin-top:6px;font:700 17px/1.25 var(--f-ui);text-shadow:0 2px 10px #000}
+.vir-pv .pv-play{position:absolute;top:12px;right:12px;width:38px;height:38px;border-radius:50%;background:rgba(0,0,0,.55);display:grid;place-items:center;font-size:15px}
+.vir-body{padding:14px;display:grid;gap:8px;min-width:0}
+#panel:not(.full) .vir-card{flex-direction:row}#panel:not(.full) .vir-pv{width:170px;flex:none;aspect-ratio:auto}
+.vir-pv .pv-red{font-size:14px!important}
+.vir-pos{display:flex;align-items:center;gap:10px}.vir-pos b{font:800 22px/1 var(--f-ui);color:var(--c)}
+.vir-num{font:800 34px/1 var(--f-ui);color:#fff}.vir-num small{display:block;margin-top:4px;font:500 12px/1 var(--f-mono);color:var(--tenue);text-transform:uppercase;letter-spacing:.08em}
+.vir-body h4{margin:0;font:650 17px/1.3 var(--f-ui);color:#f1f3f5}.vir-body p{margin:0;font-size:15px;color:#c3cad4;line-height:1.45}
+.vir-body .btn{justify-self:start}
+.sint-res{padding:14px 20px 0;margin:0;font:600 19px/1.45 var(--f-ui);color:#fff}
+.sint-grid{display:grid;gap:10px;padding:14px 20px 0}#panel.full .sint-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+.sint-c{background:var(--marco-2);border:1px solid var(--borde);border-left:4px solid #3d7bff;border-radius:10px;padding:14px 16px;display:grid;gap:6px;position:relative}
+.sint-n{position:absolute;top:12px;right:14px;font:800 22px/1 var(--f-ui);color:#3d7bff;opacity:.6}
+.sint-c h4{margin:0;font:700 17.5px/1.25 var(--f-ui);color:#fff;padding-right:28px}.sint-c p{margin:0;font-size:15.5px;line-height:1.45;color:#c9d0da}.sint-c .sint-rep{color:#8fb3ff;font-weight:600}
+.sint-chips{display:flex;flex-wrap:wrap;gap:8px;padding:10px 20px 0}.sint-chips span{background:#0f1726;border:1px solid #24324a;border-radius:999px;padding:9px 14px;font-size:15px;color:#dbe4f3}
+.act-l{display:grid;gap:8px;padding:12px 20px 0}
+.act-it{display:block;background:var(--marco-2);border:1px solid var(--borde);border-radius:10px;padding:14px 16px;text-decoration:none;color:inherit}
+.act-it:hover{border-color:var(--sel)}.act-meta{font:500 12.5px/1.2 var(--f-mono);color:var(--tenue);text-transform:uppercase;letter-spacing:.05em}
+.act-it h4{margin:6px 0 0;font:650 17px/1.3 var(--f-ui);color:#f1f3f5}.act-it p{margin:6px 0 0;font-size:15px;line-height:1.45;color:#c3cad4}
+#panel .pn-mods{zoom:1.1}#panel.full .pn-mods{zoom:1.18}
 .cola{display:grid;gap:6px;padding:0 20px}
 .cola-it{border:1px solid var(--borde);border-radius:6px;background:var(--marco-2)}
 .cola-it[open]{border-color:var(--sel)}
@@ -633,8 +663,10 @@ const esVideo=i=>["video","short","reel"].includes(i.formato)||["youtube","tikto
 const MARCOS=[
   {id:"radar",grupo:"radar",nombre:"Radar Viral / Sala",x:-950,y:-500,w:1200},
   {id:"metricool",grupo:"radar",dato:true,nombre:"Radar Viral / Metricool en vivo",x:-1660,y:0,w:1540},
-  {id:"metricas",grupo:"radar",dato:true,nombre:"Radar Viral / Métricas",x:-320,y:-340,w:1520,arriba:true},
-  {id:"listado",grupo:"radar",dato:true,nombre:"Radar Viral / Listado en vivo",x:1300,y:-340,w:900,arriba:true},
+  {id:"metricas",grupo:"radar",dato:true,nombre:"Radar Viral / Lo más viral ahora",x:-320,y:-340,w:1520,arriba:true},
+  {id:"listado",grupo:"radar",dato:true,nombre:"Radar Viral / Buscador",x:1300,y:-340,w:900,arriba:true},
+  {id:"radar_sintesis",grupo:"radar",dato:true,nombre:"Radar Viral / Qué está funcionando",x:0,y:-9000,w:1300},
+  {id:"radar_actualidad",grupo:"radar",dato:true,nombre:"Radar Viral / Actualidad",x:0,y:-9000,w:1300},
   {id:"bitacora",grupo:"radar",dato:true,nombre:"Radar Viral / Equipo y bitácora",x:2300,y:-340,w:560,arriba:true},
   {id:"control",grupo:"control",nombre:"Sala de Control / Sala",x:0,y:1500,w:1200},
   {id:"briefing",grupo:"control",dato:true,nombre:"Sala de Control / Briefing estratégico",x:-1700,y:1300,w:1580},
@@ -670,7 +702,6 @@ const MARCOS=[
   {id:"p_brief",grupo:"paid",dato:true,nombre:"Paid Media / Briefing del equipo",x:8160,y:2250,w:1300},
   {id:"g_seo",grupo:"seo",dato:true,nombre:"SEO / Google Analytics 4",x:8160,y:1300,w:1300},
   {id:"g_paid",grupo:"paid",dato:true,nombre:"Paid Media / Google Analytics 4",x:11060,y:2250,w:1300},
-  {id:"g_radar",grupo:"radar",dato:true,nombre:"Radar Viral / Google Analytics 4",x:-3200,y:-340,w:1300,arriba:true},
   {id:"g_comunidad",grupo:"comunidad",dato:true,nombre:"Comunidad / Google Analytics 4",x:9100,y:-340,w:1300,arriba:true},
   {id:"g_diseno",grupo:"diseno",dato:true,nombre:"Diseño / Google Analytics 4",x:-9600,y:0,w:1300},
   {id:"g_control",grupo:"control",dato:true,nombre:"Sala de Control / Google Analytics 4",x:1600,y:2260,w:1300},
@@ -712,7 +743,7 @@ const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunid
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","metricool","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -976,7 +1007,7 @@ function pintarCapas(){
   $("#listaCapas").innerHTML=`
     <button class="capa-it" data-todo>${ICO_MARCO}Edificio completo</button>
     ${[["control","Sala de Control"],["radar","Radar Viral"],["competencia","Competencia"],["diseno","Diseño"],["seo","SEO"],["paid","Paid Media"],...SALAS_N.map(S=>[S.id,S.nombre])].map(([id,n])=>{
-      const hijos=MARCOS.filter(m=>m.grupo===id),ab=st.capasAb[id]??(st.dentro===id);
+      const ord=SALAS_ACT[id]||[],hijos=MARCOS.filter(m=>m.grupo===id).sort((a,b)=>(ord.indexOf(a.id)+1||99)-(ord.indexOf(b.id)+1||99)),ab=st.capasAb[id]??(st.dentro===id);
       return `<div class="capa-fila">${hijos.length?`<button class="capa-fl" data-capafl="${id}" aria-expanded="${ab}" aria-label="${ab?"Plegar":"Desplegar"} ${esc(n)}">${CHEV_CAPA}</button>`:`<span class="capa-fl" aria-hidden="true"></span>`}<button class="capa-it" data-entrar="${id}" style="padding-left:4px">${ICO_MARCO}${n}<span class="t" style="color:var(--vivo)">${st.dentro===id?"Dentro":"Activa"}</span></button></div>
       ${ab?hijos.map(m=>`<button class="capa-it hijo${st.marcoSel===m.id?" sel":""}" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre.split(" / ")[1]||m.nombre)}</button>`).join(""):""}`}).join("")}
     ${MARCOS.filter(m=>m.obra).map(m=>`<button class="capa-it" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}<span class="t">Obras</span></button>`).join("")}`;
@@ -2394,6 +2425,21 @@ function filtrados(){
     return true});
   return r.sort(st.orden==="buzz"?(a,b)=>(b.buzz||0)-(a.buzz||0):st.orden==="interacciones"?porGanador:(a,b)=>Date.parse(b.detectado||0)-Date.parse(a.detectado||0));
 }
+function ytId(u){const m=String(u||"").match(/(?:youtu\.be\/|v=|shorts\/|embed\/)([\w-]{11})/);return m?m[1]:null}
+function previewPost(i,p,peq){const img=i.imagen||(ytId(i.url)?`https://i.ytimg.com/vi/${ytId(i.url)}/hqdefault.jpg`:"");
+  return`<a class="vir-pv${peq?" peq":""}" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener" style="--c:${p.c}" aria-label="Abrir el post">${img?`<img src="${esc(img)}" alt="" loading="lazy" referrerpolicy="no-referrer" onerror="this.remove()">`:""}<span class="pv-red">${esc(p.n)}</span><span class="pv-play">▶</span></a>`}
+function pintarSintesis(){const el=document.getElementById("c-radar_sintesis");if(!el)return;const S=st.rsint;
+  const items=activos(),porPlat={};items.forEach(i=>{porPlat[i.plataforma]=(porPlat[i.plataforma]||0)+1});
+  el.innerHTML=`<div class="mcab"><div><h2>Qué está funcionando</h2><div class="fuente-mc" style="margin-top:6px">Síntesis del radar · ${items.length} piezas analizadas</div></div><div class="meta">${S?.fecha?`actualizado ${esc(hace(S.fecha))}`:""}</div></div>
+   ${S?`<p class="sint-res">${esc(S.resumen||"")}</p>
+   <div class="sint-grid">${(S.tematicas||[]).map((t,k)=>`<div class="sint-c"><span class="sint-n">${k+1}</span><h4>${esc(t.tema)}</h4><p>${esc(t.dato||"")}</p>${t.replicar?`<p class="sint-rep">→ ${esc(t.replicar)}</p>`:""}</div>`).join("")}</div>
+   ${(S.formatos||[]).length?`<div class="seccion-t">Formatos que funcionan</div><div class="sint-chips">${S.formatos.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}
+   ${(S.plataformas||[]).length?`<div class="seccion-t">Por plataforma</div><div class="sint-chips">${S.plataformas.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}`:`<div class="vacio">Marta está preparando la síntesis.</div>`}`}
+function pintarActualidad(){const el=document.getElementById("c-radar_actualidad");if(!el)return;
+  const N=activos().filter(i=>i.plataforma==="prensa").sort((a,b)=>Date.parse(b.publicado||b.detectado||0)-Date.parse(a.publicado||a.detectado||0)).slice(0,st.actLim||15);
+  el.innerHTML=`<div class="mcab"><div><h2>Actualidad del Camino</h2><div class="fuente-mc" style="margin-top:6px">Noticias recientes que importan para Santiago Ways</div></div></div>
+   ${N.length?`<div class="act-l">${N.map(i=>`<a class="act-it" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener"><div class="act-meta">${esc(i.fuente||"")}${i.publicado||i.detectado?` · ${esc(hace(i.publicado||i.detectado))}`:""}${i.mercado?` · ${esc(String(i.mercado).toUpperCase())}`:""}</div><h4>${esc(i.titulo)}</h4>${i.resumen?`<p>${esc(corta(i.resumen,200))}</p>`:""}</a>`).join("")}</div>
+   ${activos().filter(i=>i.plataforma==="prensa").length>N.length?`<button class="btn" type="button" id="actMas" style="margin:10px 20px 0">Ver más noticias</button>`:""}`:`<div class="vacio">Andrés está leyendo la prensa.</div>`}`}
 function pintarDatos(){
   const items=activos(),e=st.estado||{};
   const dia=items.filter(i=>Date.now()-Date.parse(i.detectado)<864e5).length;
@@ -2405,29 +2451,23 @@ function pintarDatos(){
   for(const id of["vivo","vivoSala"]){const v=document.getElementById(id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}}
   set("barrida",e.ultimaBarrida?`Última barrida ${hace(e.ultimaBarrida)} · próxima ${enCuanto(e.proximaBarrida)}`:"");
   // métricas
-  $("#c-metricas").innerHTML=`<div class="mcab"><h2>Métricas y posts ganadores</h2><div class="meta">Interacciones = me gusta + reacciones + comentarios + compartidos + guardados</div></div>
-    <div class="kpis">
-      <div class="kpi"><b>${items.length}</b><span>En el radar</span></div>
-      <div class="kpi"><b>${dia}</b><span>Últimas 24 h</span></div>
-      <div class="kpi"><b>${top?top.buzz:"–"}</b><span>Buzz máximo</span></div>
-      <div class="kpi"><b>${gan[0]&&interacciones(gan[0])?fmt(interacciones(gan[0])):"–"}</b><span>Interacciones del top 1</span></div>
-      <div class="kpi"><b>${esc(enCuanto(e.proximaBarrida))}</b><span>Próxima barrida</span></div>
-    </div>
-    <div class="seccion-t">Podio por interacciones</div>
-    ${gan.length?`<div class="podio">${gan.slice(0,3).map((i,k)=>{const p=PLAT[i.plataforma]||{n:i.plataforma,c:"#7f8a99"};const t=interacciones(i),m=i.metricas||{};
-      return`<div class="ganador" data-id="${esc(i.id)}"><div class="pos"><span>#${k+1}</span><span class="plat" style="--c:${p.c}">${esc(p.n)}</span></div>
-        <div class="total">${t>0?fmt(t):fmt(vistas(i))}<small>${t>0?"interacciones":"visualizaciones"}${m.aprox?" · aprox.":""}</small></div>
-        <div class="tit">${esc(corta(i.titulo,90))}</div><div class="desg">${esc(MET.filter(([key])=>fmt(m[key])).map(([key,l])=>`${fmt(m[key])} ${l.toLowerCase()}`).join(" · "))}</div></div>`}).join("")}</div>`
-      :`<div class="vacio"><b>Aún no hay interacciones medidas</b>En cada barrida el equipo apunta visualizaciones, me gusta, comentarios y compartidos de los posts ganadores.</div>`}
-    ${gan.length>3?`<div class="seccion-t">En cola · siguientes posts</div><div class="cola">${gan.slice(3,3+(st.colaLim||12)).map((i,k)=>{const p=PLAT[i.plataforma]||{n:i.plataforma,c:"#7f8a99"};const t=interacciones(i),m=i.metricas||{};
-      return`<details class="cola-it" data-cola="${esc(i.id)}"${st.colaAb===i.id?" open":""}><summary><span class="n">#${k+4}</span><span class="plat" style="--c:${p.c}">${esc(p.n)}</span><span class="t">${esc(corta(i.titulo,110))}</span><b>${t>0?fmt(t):fmt(vistas(i))||"–"}<small>${t>0?"interac.":"vistas"}</small></b></summary>
-        <div class="cola-det">
-          ${i.resumen?`<p>${esc(i.resumen)}</p>`:""}
-          <div class="desg">${esc(MET.filter(([key])=>fmt(m[key])).map(([key,l])=>`${fmt(m[key])} ${l.toLowerCase()}`).join(" · "))||"Sin métricas todavía"}${m.aprox?" · aprox.":""}</div>
+  const SOCIAL=x=>!["prensa","blog","foro","web"].includes(x.plataforma);
+  const vir=activos().filter(SOCIAL).sort((a,b)=>porGanador(a,b)||(b.buzz||0)-(a.buzz||0));
+  const cifra=i=>{const t=interacciones(i),v=vistas(i);return t>0?[fmt(t),"interacciones"]:v>0?[fmt(v),"visualizaciones"]:[String(i.buzz??"–"),"buzz"]};
+  $("#c-metricas").innerHTML=`<div class="mcab"><div><h2>Lo más viral ahora</h2><div class="fuente-mc" style="margin-top:6px">Posts del Camino con más engagement en todas las plataformas</div></div></div>
+    ${vir.length?`<div class="seccion-t">Top 3</div><div class="vir-top">${vir.slice(0,3).map((i,k)=>{const p=PLAT[i.plataforma]||{n:i.plataforma,c:"#7f8a99"},[n,l]=cifra(i);
+      return`<article class="vir-card" style="--c:${p.c}">${previewPost(i,p)}<div class="vir-body"><div class="vir-pos"><b>#${k+1}</b><span class="plat" style="--c:${p.c}">${esc(p.n)}</span></div>
+        <div class="vir-num">${esc(n)}<small>${esc(l)}</small></div><h4>${esc(corta(i.titulo,80))}</h4>${i.porque?`<p>${esc(corta(i.porque,95))}</p>`:""}
+        ${i.url?`<a class="btn prim" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">Ver el post ↗</a>`:""}</div></article>`}).join("")}</div>
+    ${vir.length>3?`<div class="seccion-t">En cola</div><div class="cola">${vir.slice(3,3+(st.colaLim||12)).map((i,k)=>{const p=PLAT[i.plataforma]||{n:i.plataforma,c:"#7f8a99"};const m=i.metricas||{},[n,l]=cifra(i);
+      return`<details class="cola-it" data-cola="${esc(i.id)}"${st.colaAb===i.id?" open":""}><summary><span class="n">#${k+4}</span><span class="plat" style="--c:${p.c}">${esc(p.n)}</span><span class="t">${esc(corta(i.titulo,110))}</span><b>${esc(n)}<small>${esc(l==="interacciones"?"interac.":l==="visualizaciones"?"vistas":"buzz")}</small></b></summary>
+        <div class="cola-det">${previewPost(i,p,true)}${i.resumen?`<p>${esc(i.resumen)}</p>`:""}
+          <div class="desg">${esc(MET.filter(([key])=>fmt(m[key])).map(([key,l])=>`${fmt(m[key])} ${l.toLowerCase()}`).join(" · "))||"Sin métricas todavía"}</div>
           ${i.porque?`<p><b>Por qué funciona:</b> ${esc(i.porque)}</p>`:""}
-          <p class="meta-c">Buzz ${esc(i.buzz??"–")} · ${esc(mercadoDe(i)||"")}${i.agente?" · lo encontró "+esc(i.agente):""}${i.publicado?" · publicado "+esc(hace(i.publicado)):""}${i.detectado?" · detectado "+esc(hace(i.detectado)):""}${i.fuente?" · "+esc(i.fuente):""}</p>
-          <div class="cola-acc">${i.url?`<a class="btn prim" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">Abrir el post ↗</a>`:`<span class="meta-c">Sin enlace</span>`}<button class="btn" type="button" data-coladet="${esc(i.id)}">Ficha completa</button></div>
-        </div></details>`}).join("")}</div>${gan.length>3+(st.colaLim||12)?`<button class="btn" type="button" id="colaMas" style="margin:10px 20px 0">Ver más posts (${gan.length-3-(st.colaLim||12)} en cola)</button>`:""}`:""}`;
+          <div class="cola-acc">${i.url?`<a class="btn prim" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">Ver el post ↗</a>`:""}<button class="btn" type="button" data-coladet="${esc(i.id)}">Ficha completa</button></div>
+        </div></details>`}).join("")}</div>${vir.length>3+(st.colaLim||12)?`<button class="btn" type="button" id="colaMas" style="margin:10px 20px 0">Ver más (${vir.length-3-(st.colaLim||12)})</button>`:""}`:""}`
+    :`<div class="vacio">El equipo está buscando los posts con más engagement.</div>`}`;
+  pintarSintesis();pintarActualidad();
   // listado
   pintarListado();
   // equipo y bitácora
@@ -2510,6 +2550,7 @@ document.addEventListener("click",async e=>{
   if(e.target.id==="exportar"){exportar();return}
   {const b=e.target.closest("[data-igc]");if(b){ig.cuenta=b.dataset.igc;ig.lim=10;pintarIG();return}}
   if(e.target.id==="igMas"){ig.lim+=15;pintarIG();return}
+  if(e.target.id==="actMas"){st.actLim=(st.actLim||15)+15;pintarActualidad();return}
   if(e.target.id==="colaMas"){st.colaLim=(st.colaLim||12)+15;pintarDatos();return}
   {const cd=e.target.closest("[data-coladet]");if(cd){st.sel=cd.dataset.coladet;pintarInsp();return}}
   {const cs=e.target.closest(".cola-it>summary");if(cs){const d=cs.parentElement;setTimeout(()=>{st.colaAb=d.open?d.dataset.cola:null},0)}}
@@ -2564,6 +2605,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   for(const S of SALAS_N)db.doc("estado/"+S.id).onSnapshot(s=>{st.salasN=st.salasN||{};st.salasN[S.id]={estado:s.exists?s.data():null};pintarSalasN()});
   db.doc("youtube_analisis/actual").onSnapshot(s=>{st.yt=s.exists?s.data():null;pintarYouTube()});
   ["instagram","youtube","seo"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
+  db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});

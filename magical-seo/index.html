@@ -122,6 +122,12 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .pub h3 a:hover{border-bottom-color:var(--ways)}
 .pub p{margin:0 0 9px;font-size:15px;color:var(--texto);line-height:1.55}
 .pub .porque{border-left:2px solid var(--borde2);padding-left:10px;font-size:14.5px;color:var(--tenue);margin:0 0 9px}
+.contraste{margin:0 0 9px;padding:7px 11px;border-radius:6px;font:600 13.5px/1.4 var(--f-ui);
+  border-left:3px solid currentColor}
+.contraste.bien{color:var(--baja);background:color-mix(in srgb,var(--baja) 12%,transparent)}
+.contraste.medio{color:var(--media);background:color-mix(in srgb,var(--media) 13%,transparent)}
+.contraste.mal{color:var(--alta);background:color-mix(in srgb,var(--alta) 12%,transparent)}
+.contraste.pend{color:var(--tenue);background:var(--sup2);font-weight:500}
 .etiquetas{display:flex;gap:5px;flex-wrap:wrap}
 .tag{font:500 12.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--tenue);
   border:1px solid var(--borde2);border-radius:4px;padding:4px 7px}
@@ -301,6 +307,19 @@ function pasaFiltro(p){
 }
 const nombreRival=id=>(st.rivales.find(r=>r.id===id)||{}).nombre||id||"sin asignar";
 
+/* Donde estamos nosotros en lo que ellos atacan. Lo rellena la barrida
+   cruzando sus palabras clave con nuestras posiciones de Search Console. */
+function contraste(p){
+  const pos=Number(p.nuestraPosicion);
+  if(p.verificar&&!Number.isFinite(pos))
+    return `<p class="contraste pend">Nuestra posición sin comprobar · pendiente del análisis semanal</p>`;
+  if(!Number.isFinite(pos))return "";
+  const clase=pos<=10?"bien":pos<=30?"medio":"mal";
+  const q=p.nuestraConsulta?` en «${esc(p.nuestraConsulta)}»`:"";
+  const quien=pos<=10?"Defendemos":pos<=30?"Estamos pero no nos ven":"Ahí no competimos";
+  return `<p class="contraste ${clase}">${quien}: posición ${pos.toLocaleString("es-ES",{maximumFractionDigits:1})}${q}</p>`;
+}
+
 function pintarPubs(){
   const vis=st.pubs.filter(pasaFiltro);
   $("#n-pubs").textContent=st.pubs.length?`(${st.pubs.length})`:"";
@@ -325,6 +344,7 @@ function pintarPubs(){
       <h3>${tit}</h3>
       ${p.resumen?`<p>${esc(p.resumen)}</p>`:""}
       ${p.porque?`<p class="porque">${esc(p.porque)}</p>`:""}
+      ${contraste(p)}
       <div class="etiquetas">
         ${p.tipo?`<span class="tag">${esc(p.tipo)}</span>`:""}
         ${p.idioma?`<span class="tag">${esc(p.idioma)}</span>`:""}

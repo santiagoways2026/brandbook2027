@@ -72,7 +72,14 @@ titulo, url, rival, tipo, idioma, publicado, detectado
 resumen, porque, tema, keywords[], senales, agente
 relevancia: 0-100
 amenaza: alta | media | baja
+nuestraPosicion, nuestraConsulta, nuestraUrl, verificar
 ```
+
+Los cuatro últimos son la **triangulación**: dónde estamos nosotros en lo que esa pieza ataca. La barrida los rellena cruzando las palabras clave de cada publicación con nuestras posiciones reales de Search Console, y ajusta la amenaza con eso. Una pieza rival sobre una consulta que ya defendemos no vale lo mismo que una sobre una donde no aparecemos.
+
+La sala lo muestra en cada ficha con un color: verde si defendemos (posición 1 a 10), ámbar si estamos pero no nos ven (11 a 30), rojo si ahí no competimos (más de 30). Cuando la barrida no ha podido comprobarlo, lo dice en gris y lo deja pendiente del análisis semanal en lugar de suponerlo.
+
+Cuesta **dos llamadas para toda la barrida**, no una por publicación: una consulta trae nuestras mil consultas principales y el cruce se hace en memoria.
 
 `relevancia` se guarda pero **no se muestra en la sala**. Se quitó de la vista porque, a diferencia de la amenaza, no tiene un baremo escrito: el agente la asigna a ojo, así que aparentaba más precisión de la que tenía. El dato se sigue registrando por si algún día se le define un criterio; mientras tanto, la señal buena es la amenaza.
 

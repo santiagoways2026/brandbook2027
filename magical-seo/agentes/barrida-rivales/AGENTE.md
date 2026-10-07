@@ -33,13 +33,40 @@ Los datos se escriben con `ArtifactData`. Carga lo que necesitas con ToolSearch:
 
 3. **Completa con buscadores.** Lanza al menos 4 consultas con `WebSearch` cubriendo el espacio comercial: rutas y puntos de partida (Sarria, Tui, Ponferrada, León), duraciones ("Camino en 5 días"), Xacobeo 2027 y Año Santo, y las consultas en inglés del mercado anglosajón. Anota qué rival aparece y con qué contenido.
 
-4. **Registra lo nuevo.** Para cada URL que no esté ya en `publicaciones`, crea un documento con el esquema de abajo. Si una página ya registrada ha cambiado de forma relevante (nuevo precio, reescritura, nueva fecha), actualiza `senales` y `relevancia` con `update` y su `if_version`.
+4. **Triangula con lo nuestro, antes de puntuar.** Un artículo rival no vale lo mismo si estamos los primeros en esa consulta que si no aparecemos. Esto no es el análisis semanal, que concluye; esto es solo saber dónde estamos para puntuar bien la amenaza.
 
-5. **Propón rivales.** Si en los buscadores aparece de forma repetida un operador que no está en `rivales`, créalo con `estado: "propuesto"` y una nota explicando por qué. Nunca lo marques como `vigilado` por tu cuenta: eso lo decide una persona.
+   Hazlo con **dos llamadas para toda la barrida**, no una por publicación:
 
-6. **Poda.** Si `publicaciones` pasa de 600 documentos, borra las de menor `relevancia` con más de 120 días, salvo las que tengan `guardado: true`. Nunca toques los campos `guardado` ni `descartado`.
+   **a) Nuestras posiciones.** Una consulta a Search Console con `dimensions: ['query']` y `rowLimit: 1000`, sin filtros, sobre `https://santiagoways.com/`. Devuelve las mil consultas donde aparecemos, con posición, clics e impresiones. Guárdala en memoria como tabla de consulta.
 
-7. **Cierra la barrida.** `update` de `estado/magicalseo` con su `if_version`: `ultimaBarrida` (la hora real de ahora), `proximaBarrida` (la siguiente ejecución programada: mañana a las 6:06 hora de Canarias), `agentes.<id>.ultima` y `agentes.<id>.hallazgos` con lo encontrado por cada uno, y añade al principio de `bitacora` entre 3 y 6 entradas nuevas `{t, quien, texto}` (máximo 40 en total) contando qué ha visto cada miembro y hacia dónde se mueve la competencia.
+   **b) Nuestro inventario.** Un `WebFetch` a `https://santiagoways.com/sitemap_index.xml` y, si hace falta para el tema del día, al sitemap hijo que corresponda.
+
+   Después, para cada publicación que vayas a marcar como amenaza **alta o media**, busca sus `keywords` en esa tabla y rellena:
+
+   - `nuestraPosicion`: la posición media en la consulta que mejor encaje, o vacío si no aparecemos en las mil
+   - `nuestraConsulta`: la consulta concreta con la que has cruzado
+   - `nuestraUrl`: nuestra página, si la has identificado
+
+   Y ajusta la amenaza con eso:
+
+   | Dónde estamos | Qué significa |
+   |---|---|
+   | Entre la 1 y la 10 | Defendemos. Baja un escalón la amenaza salvo que la pieza rival sea claramente mejor |
+   | Entre la 11 y la 30 | Estamos pero no nos ven. Mantén la amenaza |
+   | Más allá de la 30 | Sube un escalón: ahí no competimos |
+   | No aparecemos en las mil | Puede ser que no tengamos nada o que estemos muy abajo. **No lo des por sabido.** Marca `verificar: true` y que lo mire el análisis semanal |
+
+   Para las cinco publicaciones de mayor relevancia sin coincidencia, puedes gastar una consulta dirigida cada una, filtrando por esa palabra clave, para confirmar antes de concluir. No más de cinco.
+
+   Recuerda la regla: si no has comprobado algo sobre nuestra web, no lo afirmes.
+
+5. **Registra lo nuevo.** Para cada URL que no esté ya en `publicaciones`, crea un documento con el esquema de abajo. Si una página ya registrada ha cambiado de forma relevante (nuevo precio, reescritura, nueva fecha), actualiza `senales` y `relevancia` con `update` y su `if_version`.
+
+6. **Propón rivales.** Si en los buscadores aparece de forma repetida un operador que no está en `rivales`, créalo con `estado: "propuesto"` y una nota explicando por qué. Nunca lo marques como `vigilado` por tu cuenta: eso lo decide una persona.
+
+7. **Poda.** Si `publicaciones` pasa de 600 documentos, borra las de menor `relevancia` con más de 120 días, salvo las que tengan `guardado: true`. Nunca toques los campos `guardado` ni `descartado`.
+
+8. **Cierra la barrida.** `update` de `estado/magicalseo` con su `if_version`: `ultimaBarrida` (la hora real de ahora), `proximaBarrida` (la siguiente ejecución programada: mañana a las 6:06 hora de Canarias), `agentes.<id>.ultima` y `agentes.<id>.hallazgos` con lo encontrado por cada uno, y añade al principio de `bitacora` entre 3 y 6 entradas nuevas `{t, quien, texto}` (máximo 40 en total) contando qué ha visto cada miembro y hacia dónde se mueve la competencia.
 
 ## Ir diciendo por dónde vas
 
@@ -97,6 +124,9 @@ Escribe siempre en lotes con `action: "batch"`, máximo 50 escrituras por lote.
 - `relevancia` (0-100), `amenaza`: `alta` | `media` | `baja`
 - `senales` (lo observable: posición en buscador, antigüedad, si tiene fecha y autoría, si está en varios idiomas)
 - `agente` (nombre del miembro que lo encontró)
+- `nuestraPosicion` (número, nuestra posición media en la consulta que mejor encaje; vacío si no aparecemos)
+- `nuestraConsulta` (la consulta con la que has cruzado), `nuestraUrl` (nuestra página, si la identificas)
+- `verificar` (`true` cuando no has podido comprobar dónde estamos y lo deja pendiente para el análisis semanal)
 
 ### Cómo puntuar la amenaza
 

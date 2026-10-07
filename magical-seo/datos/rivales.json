@@ -1,0 +1,104 @@
+{
+  "_nota": "Lista de partida de Magical SEO. Los 'vigilado' los fijó Samuel el 2026-10-07. Los 'propuesto' los propone el agente y esperan validación. Verificado con visita real a cada web ese mismo día.",
+  "rivales": [
+    {
+      "id": "caminoways",
+      "nombre": "CaminoWays",
+      "web": "https://caminoways.com/",
+      "blog": "https://caminoways.com/blog",
+      "pais": "Irlanda",
+      "idiomas": ["en", "es", "fr", "de", "it"],
+      "estado": "vigilado",
+      "orden": 1,
+      "notas": "El rival de contenido más fuerte. Blog con 18 categorías por ruta, publicación casi diaria y fechas visibles. Ya publica sobre el Año Santo 2027 en inglés."
+    },
+    {
+      "id": "followthecamino",
+      "nombre": "Follow the Camino",
+      "web": "https://followthecamino.com/",
+      "blog": "https://followthecamino.com/en/blog/",
+      "pais": "Irlanda",
+      "idiomas": ["en", "es", "fr", "de"],
+      "estado": "vigilado",
+      "orden": 2,
+      "notas": "20 años en el mercado. Blog con autoría firmada y fechas visibles, cadencia semanal o quincenal. Cubre temas administrativos (ETIAS, Compostela) que atraen búsquedas informativas."
+    },
+    {
+      "id": "viajecamino",
+      "nombre": "Viaje Camino de Santiago",
+      "web": "https://viajecaminodesantiago.com/",
+      "blog": "https://viajecaminodesantiago.com/blog/",
+      "pais": "España",
+      "idiomas": ["es"],
+      "estado": "vigilado",
+      "orden": 3,
+      "notas": "Con sede en Santiago, desde 2014, más de 30.000 peregrinos. Contenido estacional y local (fiestas, vendimia, rutas menores). Su blog no muestra fechas de publicación."
+    },
+    {
+      "id": "mundicamino",
+      "nombre": "MundiCamino",
+      "web": "https://www.mundicamino.com/",
+      "blog": "https://www.mundicamino.com/category/noticias/",
+      "pais": "España",
+      "idiomas": ["es"],
+      "estado": "vigilado",
+      "orden": 4,
+      "notas": "Burgos. Publica como 'noticias' con fechas visibles. Mezcla contenido del Camino con destinos ajenos al nicho, lo que diluye su autoridad temática."
+    },
+    {
+      "id": "pilgrim",
+      "nombre": "Pilgrim",
+      "web": "https://www.pilgrim.es/",
+      "blog": "https://www.pilgrim.es/blog/",
+      "pais": "España",
+      "idiomas": ["es"],
+      "estado": "vigilado",
+      "orden": 5,
+      "notas": "Agencia desde 2016. 'El Blog del Camino', orientado a páginas de punto de partida (Ponferrada, León). Sin fechas visibles."
+    },
+    {
+      "id": "teetravel",
+      "nombre": "Tee Travel",
+      "web": "https://www.tee-travel.com/es/camino-de-santiago",
+      "blog": "https://www.tee-travel.com/blog/",
+      "pais": "España",
+      "idiomas": ["es", "en"],
+      "estado": "vigilado",
+      "orden": 6,
+      "notas": "Más de 20 años. No es monotemática del Camino: cubre senderismo y cicloturismo en general, así que compite solo en parte del espacio de búsqueda."
+    },
+    {
+      "id": "tubuencamino",
+      "nombre": "Tu Buen Camino",
+      "web": "https://tubuencamino.com/",
+      "blog": "",
+      "pais": "España",
+      "idiomas": ["es"],
+      "estado": "vigilado",
+      "orden": 7,
+      "notas": "Sin blog detectado el 2026-10-07. Compite en producto (planes Premium y Adventure) pero no en contenido. Vigilar por si lo abre: sería un cambio relevante."
+    },
+    {
+      "id": "galiwonders",
+      "nombre": "Galiwonders",
+      "web": "https://galiwonders.com/",
+      "blog": "https://galiwonders.com/en/blog/",
+      "pais": "España",
+      "idiomas": ["en", "es"],
+      "estado": "propuesto",
+      "orden": 20,
+      "notas": "Propuesto por el agente, no estaba en la lista inicial. Agencia gallega que ataca el mercado anglosajón. Ya tiene publicado un artículo de Xacobeo 2027 y una serie de 'Camino en 3, 4 y 7 días' que compite de frente con las páginas de duración."
+    },
+    {
+      "id": "macsadventure",
+      "nombre": "Macs Adventure",
+      "web": "https://www.macsadventure.com/",
+      "blog": "https://www.macsadventure.com/us/blog/",
+      "pais": "Reino Unido",
+      "idiomas": ["en"],
+      "estado": "propuesto",
+      "orden": 21,
+      "notas": "Propuesto por el agente, no estaba en la lista inicial. Operador británico de senderismo mundial con una división fuerte de Camino y mucha autoridad de dominio. Compite en el mercado estadounidense."
+    }
+  ]
+}

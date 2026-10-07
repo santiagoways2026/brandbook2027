@@ -724,6 +724,23 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .lk-acc{display:flex;justify-content:space-around;padding:1.4cqw 1cqw 2cqw}
 .lk-acc span{display:flex;flex-direction:column;align-items:center;gap:.6cqw;color:rgba(0,0,0,.6)}
 .lk-acc svg{width:5cqw;height:5cqw}.lk-acc em{font:600 2.7cqw/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-style:normal}
+
+/* Calendario del roadmap */
+.cal-horas{display:flex;flex-wrap:wrap;gap:10px;padding:10px 20px 0}
+.cal-horas>div{background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:10px 14px;display:grid;gap:3px;min-width:150px;flex:1}
+.cal-horas b{font:700 18px/1.1 var(--f-ui);color:var(--rm-c,#fff)}.cal-horas span{font-size:13px;color:#e6eaee}.cal-horas small{font-size:12px;color:var(--tenue)}
+.cal-sem{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:8px;padding:12px 20px 0}
+.cal-dia{background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:10px 8px;display:grid;gap:7px;align-content:start;min-height:150px}
+.cal-dia h4{margin:0 0 2px;font:600 12px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tenue);text-align:center}
+.cal-it{border-left:4px solid var(--c);background:color-mix(in srgb,var(--c) 14%,transparent);border-radius:4px;padding:6px 7px;display:grid;gap:2px}
+.cal-it time{font:600 11.5px/1 var(--f-mono);color:#cfd6df}.cal-it b{font:700 13.5px/1.2 var(--f-ui);color:#fff}.cal-it span{font-size:12px;line-height:1.35;color:#c3cad4}
+.cal-libre{font-size:12px;color:var(--tenue);text-align:center;padding-top:10px}
+.cal-ley{display:flex;flex-wrap:wrap;gap:12px;padding:10px 20px 0;font-size:12.5px;color:#c3cad4}.cal-ley span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c);margin-right:6px;vertical-align:-1px}
+.cal-ciclo{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:8px;padding:10px 20px 0}
+.cal-ciclo>div{background:var(--marco-2);border:1px solid var(--borde);border-top:3px solid var(--rm-c,#ff4d4d);border-radius:8px;padding:10px 12px;display:grid;gap:4px}
+.cal-ciclo em{font:600 11px/1 var(--f-mono);font-style:normal;color:var(--tenue);text-transform:uppercase;letter-spacing:.08em}.cal-ciclo b{font-size:15px;color:#fff}.cal-ciclo span{font-size:12.5px;color:#c3cad4;line-height:1.4}
+.cal-reglas{margin:10px 20px 6px;padding-left:20px;display:grid;gap:7px;font-size:14.5px;line-height:1.45;color:#e6eaee}
+@media (max-width:900px){.cal-sem{grid-template-columns:repeat(2,minmax(0,1fr))}}
 </style>
 
 <div id="vista" aria-label="Lienzo de salas. Arrastra para moverte y usa la rueda o pellizca para hacer zoom.">
@@ -2409,12 +2426,24 @@ function pintarIG(){
     if(!d.rows.length)return`<div class="mc-sec"><h3>${esc(C.n)} · ${esc(C.cuenta)}</h3><div class="aviso">No hay competidores de Instagram configurados en esta marca de Metricool. Añádelos en Metricool → Competidores → Instagram.</div></div>`;
     return`<div class="mc-sec"><h3>${esc(C.n)} · ${esc(C.cuenta)}<span>${d.rows.length} competidores</span></h3><div style="overflow-x:auto"><table class="tabla"><thead><tr><th>Cuenta</th><th>Seguidores</th><th>Posts</th><th>Reels</th><th>Me gusta medios</th><th>Coment. medios</th><th>Engagement</th></tr></thead><tbody>${[...d.rows].sort((a,b)=>+b[2]-+a[2]).map(x=>`<tr><td><a href="https://instagram.com/${encodeURIComponent(x[0])}" target="_blank" rel="noopener">@${esc(x[0])}</a><span class="sub">${esc(x[1]||"")}</span></td><td>${fmt(+x[2])||"–"}</td><td>${fmt(+x[3])||"0"}</td><td>${fmt(+x[4])||"0"}</td><td>${fmt(Math.round(+x[5]))||"0"}</td><td>${fmt(Math.round(+x[6]))||"0"}</td><td>${x[7]!=null?(+x[7]).toFixed(1).replace(".",","):"–"}</td></tr>`).join("")}</tbody></table></div></div>`}).join("")}
 }
+
+/* Calendario de publicación del roadmap: semana tipo, franjas reales de Metricool, ciclo de hubs y reglas para combinar formatos */
+const CAL_C={"Reel UGC":"#e1306c","Reel de texto":"#f58529","Carrusel":"#7AA606","Estático":"#3d7bff","Stories":"#a78bfa","Vídeo largo":"#ff4d4d","Short":"#f5c518","Comunidad":"#2dd4bf"};
+function calendarioRM(C){if(!C)return"";
+  const col=f=>CAL_C[f]||"#8a96a6";
+  return`<div class="seccion-t">${esc(C.titulo||"Calendario de publicación")}</div>${C.fuente?`<div class="fuente-mc" style="padding:0 20px">${esc(C.fuente)}</div>`:""}
+   ${(C.horas||[]).length?`<div class="cal-horas">${C.horas.map(h=>`<div><b>${esc(h.pico)}</b><span>${esc(h.cuenta)}</span>${h.nota?`<small>${esc(h.nota)}</small>`:""}</div>`).join("")}</div>`:""}
+   <div class="cal-sem">${(C.semana||[]).map(d=>`<div class="cal-dia"><h4>${esc(d.dia)}</h4>${(d.items||[]).map(i=>`<div class="cal-it" style="--c:${col(i.f)}"><time>${esc(i.h||"")}</time><b>${esc(i.f)}</b>${i.t?`<span>${esc(i.t)}</span>`:""}</div>`).join("")||`<div class="cal-libre">Sin publicación</div>`}</div>`).join("")}</div>
+   <div class="cal-ley">${[...new Set((C.semana||[]).flatMap(d=>(d.items||[]).map(i=>i.f)))].map(f=>`<span style="--c:${col(f)}">${esc(f)}</span>`).join("")}</div>
+   ${(C.ciclo||[]).length?`<div class="seccion-t">${esc(C.ciclo_titulo||"Ciclo mensual")}</div><div class="cal-ciclo">${C.ciclo.map(c=>`<div><em>${esc(c.s)}</em><b>${esc(c.hub)}</b>${c.ej?`<span>${esc(c.ej)}</span>`:""}</div>`).join("")}</div>`:""}
+   ${(C.reglas||[]).length?`<div class="seccion-t">Cómo combinarlos</div><ol class="cal-reglas">${C.reglas.map(r=>`<li>${esc(r)}</li>`).join("")}</ol>`:""}`}
 function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadmap");if(!el||st.dentro!==sala)return;const R=st.roadmap?.[sala],c={instagram:"#e1306c",youtube:"#ff4d4d",seo:"#2dd4bf"}[sala]||"#3d7bff";
   el.style.setProperty("--rm-c",c);
   if(!R){el.innerHTML=`<div class="mcab"><div><h2>Roadmap</h2></div></div><div class="vacio">El equipo está preparando el roadmap.</div>`;return}
   const EST={hecho:"✓ hecho",curso:"en curso",pendiente:"pendiente"};
   el.innerHTML=`<div class="mcab"><div><h2>Roadmap</h2><div class="fuente-mc" style="margin-top:6px">${esc(R.fuente||"")}</div></div><div class="meta">${R.fecha?`actualizado ${esc(hace(R.fecha))}`:""}</div></div>
    ${(R.objetivos||[]).length?`<div class="rm-obj">${R.objetivos.map(o=>`<div><b>${esc(o.hoy)} → <i>${esc(o.meta)}</i></b><span>${esc(o.nombre)}</span></div>`).join("")}</div>`:""}
+   ${calendarioRM(R.calendario)}
    <div class="rm-fases">${(R.fases||[]).map(f=>`<div class="rm-fase"><h3>${esc(f.nombre)}</h3>${(f.items||[]).map((x,i)=>`<div class="rm-it${x.estado==="hecho"?" hecho":""}"><span class="num">${i+1}</span><div><h4>${esc(x.titulo)}</h4>${x.dato?`<p>${esc(x.dato)}</p>`:""}<div class="pie">${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.quien?`<span>${esc(x.quien)}</span>`:""}<span>${esc(EST[x.estado]||x.estado||"pendiente")}</span></div></div></div>`).join("")}</div>`).join("")}</div>`}
 function pintarSalasN(){if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){

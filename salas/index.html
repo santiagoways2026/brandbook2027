@@ -783,6 +783,23 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .jm-carril .jm-n{background:var(--o)}
 .jm-paso{text-align:center;padding:10px 0;font:700 13px/1.3 var(--f-ui);color:var(--o)}
 @media (max-width:900px){.jm-objs{grid-template-columns:1fr}}
+
+/* Análisis por asesor */
+.as-ctl{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:12px 20px 0;font-size:13.5px;color:#d6dbe1}.as-modo{display:flex;gap:6px}
+.as-ctl select{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:5px 8px;font:13.5px var(--f-ui);margin-left:4px}
+.as-res{display:flex;flex-wrap:wrap;gap:8px;padding:12px 20px 0}.as-res>div{flex:1;min-width:100px;background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:9px 11px;display:grid;gap:2px}
+.as-res b{font:700 19px/1 var(--f-ui);color:#818cf8}.as-res span{font-size:12px;color:var(--tenue)}
+.as-tw{overflow:auto;margin:12px 20px 0;border:1px solid var(--borde);border-radius:8px}
+.as-t{border-collapse:collapse;width:100%;font:13.5px/1.2 var(--f-ui);color:#e6eaee;white-space:nowrap}
+.as-t th{background:#2d5a12;color:#fff;font-weight:700;padding:7px 9px;border:1px solid #1d3a0b;text-align:center;position:sticky;top:0}
+.as-t thead tr:nth-child(2) th{background:#3a7016;font-size:12px;top:31px}
+.as-t td{padding:6px 9px;border:1px solid #20262f;text-align:right;font-variant-numeric:tabular-nums}
+.as-t td.as-n,.as-t th.as-n{text-align:left;position:sticky;left:0;background:#11151b;z-index:1}.as-t th.as-n{background:#2d5a12;z-index:2}
+.as-t td.as-n.as-nuevo{color:#f59e0b}
+.as-t td.vac{background:#171b21}
+.as-t td.cr.bueno{color:#3ddc97;font-weight:700}.as-t td.cr.malo{color:#ff8a8a}
+.as-t tfoot td{background:#2d5a12;color:#fff;font-weight:700;border-color:#1d3a0b}.as-t tfoot td.as-n{background:#2d5a12}
+.as-nota{margin:10px 20px 18px;font-size:12.5px;line-height:1.5;color:var(--tenue)}
 </style>
 
 <div id="vista" aria-label="Lienzo de salas. Arrastra para moverte y usa la rueda o pellizca para hacer zoom.">
@@ -940,6 +957,7 @@ const MARCOS=[
   {id:"journey_mision",grupo:"journey",dato:true,nombre:"Journey de cliente / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"journey_datos",grupo:"journey",dato:true,nombre:"Journey de cliente / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"comercial",grupo:"comercial",nombre:"Análisis comercial / Sala",x:6000,y:4000,w:1200},
+  {id:"comercial_asesores",grupo:"comercial",dato:true,nombre:"Análisis comercial / Análisis por asesor",x:0,y:-9000,w:1300},
   {id:"comercial_mision",grupo:"comercial",dato:true,nombre:"Análisis comercial / Misión, equipo y fuentes",x:6000,y:4800,w:1300},
   {id:"comercial_datos",grupo:"comercial",dato:true,nombre:"Análisis comercial / Lo que ya sabemos",x:6000,y:5600,w:1300},
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
@@ -953,7 +971,7 @@ const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunid
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_mision","lifecycle_datos"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_mision","lifecycle_datos"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -2551,6 +2569,37 @@ function abrirPlantilla(id){const n=(st.jmapa?.etapas||[]).flatMap(e=>e.ramas.fl
 document.addEventListener("click",e=>{const b=e.target.closest("[data-jmnodo]");if(b){abrirPlantilla(b.dataset.jmnodo);return}
   const f=e.target.closest("[data-jmfil]");if(f){st.jmFiltro=f.dataset.jmfil;pintarJourneyMapa();return}
   const ob=e.target.closest("[data-jmobj]");if(ob){st.jmObj=ob.dataset.jmobj;pintarJourneyMapa()}});
+
+/* ===== Análisis comercial: deals y CR por asesor y mercado (Zoho Analytics) ===== */
+const MERC=["ES","EN","DE","IT","PT"],MESN=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const ymTxt=ym=>`${MESN[ym%100-1]} ${String(Math.floor(ym/100)).slice(2)}`;
+function pintarAsesores(){const el=document.getElementById("c-comercial_asesores");if(!el||st.dentro!=="comercial")return;const A=st.ases;
+  if(!A){el.innerHTML=`<div class="mcab"><div><h2>Análisis por asesor</h2></div></div><div class="vacio">Rocío está leyendo los deals de Zoho.</div>`;return}
+  const F=A.filas||[],meses=[...new Set(F.map(f=>f[2]))].sort((a,b)=>a-b),ult=meses[meses.length-1];
+  const V=st.asV||(st.asV={modo:"acum",desde:A.desde_defecto||meses[0],hasta:ult,mes:meses[meses.length-2]||ult,orden:"vol"});
+  const enRango=ym=>V.modo==="mes"?ym===V.mes:ym>=V.desde&&ym<=V.hasta;
+  const recientes=new Set(F.filter(f=>f[2]>=meses[Math.max(0,meses.length-3)]).map(f=>f[0]));
+  const primero={};F.forEach(f=>{primero[f[0]]=Math.min(primero[f[0]]||9e9,f[2])});
+  const ag={};F.forEach(([a,m,ym,v,w])=>{if(!enRango(ym)||!recientes.has(a))return;const x=ag[a]||(ag[a]={T:[0,0]});x.T[0]+=v;x.T[1]+=w;const k=MERC.includes(m)?m:null;if(k){x[k]=x[k]||[0,0];x[k][0]+=v;x[k][1]+=w}});
+  const tot={T:[0,0]};Object.values(ag).forEach(x=>{tot.T[0]+=x.T[0];tot.T[1]+=x.T[1];MERC.forEach(k=>{if(x[k]){tot[k]=tot[k]||[0,0];tot[k][0]+=x[k][0];tot[k][1]+=x[k][1]}})});
+  const cr=p=>p&&p[0]?p[1]/p[0]:null,pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %",num=n=>n==null?"":n.toLocaleString("es-ES");
+  const col=(x,ref)=>x==null||!ref?"":x>=ref*1.15?"bueno":x<=ref*.85?"malo":"";
+  const lista=Object.entries(ag).filter(([a,x])=>x.T[0]>=50).sort((a,b)=>V.orden==="cr"?(cr(b[1].T)||0)-(cr(a[1].T)||0):b[1].T[0]-a[1].T[0]);
+  const celdas=(p,ref)=>p&&p[0]>=20?`<td>${num(p[0])}</td><td>${num(p[1])}</td><td class="cr ${col(cr(p),ref)}">${pct(cr(p))}</td>`:`<td class="vac"></td><td class="vac"></td><td class="vac"></td>`;
+  const periodo=V.modo==="mes"?ymTxt(V.mes):`${ymTxt(V.desde)} a ${ymTxt(V.hasta)}`;
+  const opt=(sel)=>meses.map(m=>`<option value="${m}"${m===sel?" selected":""}>${ymTxt(m)}</option>`).join("");
+  el.innerHTML=`<div class="mcab"><div><h2>Análisis por asesor</h2><div class="fuente-mc" style="margin-top:6px">${esc(A.fuente||"")}</div></div><div class="meta">${A.fecha?`actualizado ${esc(hace(A.fecha))}`:""}</div></div>
+   <div class="as-ctl"><div class="as-modo"><button class="btn${V.modo==="acum"?" prim":""}" data-asmodo="acum">Acumulado</button><button class="btn${V.modo==="mes"?" prim":""}" data-asmodo="mes">Mensual</button></div>
+    ${V.modo==="acum"?`<label>Desde <select data-asv="desde">${opt(V.desde)}</select></label><label>Hasta <select data-asv="hasta">${opt(V.hasta)}</select></label>`:`<label>Mes <select data-asv="mes">${opt(V.mes)}</select></label>`}
+    <label>Ordenar <select data-asv="orden"><option value="vol"${V.orden==="vol"?" selected":""}>por volumen</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label></div>
+   <div class="as-res"><div><b>${num(tot.T[0])}</b><span>deals · ${esc(periodo)}</span></div><div><b>${num(tot.T[1])}</b><span>ganados (DW)</span></div><div><b>${pct(cr(tot.T))}</b><span>CR del equipo</span></div>${MERC.map(k=>`<div><b>${pct(cr(tot[k]))}</b><span>CR ${k}</span></div>`).join("")}</div>
+   <div class="as-tw"><table class="as-t"><thead><tr><th rowspan="2" class="as-n">Asesor</th><th colspan="3">Acumulado total</th>${MERC.map(k=>`<th colspan="3">${k}</th>`).join("")}</tr>
+    <tr>${["T",...MERC].map(()=>`<th>Volumen</th><th>DW</th><th>CR</th>`).join("")}</tr></thead>
+    <tbody>${lista.map(([a,x])=>`<tr><td class="as-n${primero[a]>=meses[Math.max(0,meses.length-8)]?" as-nuevo":""}">${esc(a)}</td>${celdas(x.T,cr(tot.T))}${MERC.map(k=>celdas(x[k],cr(tot[k]))).join("")}</tr>`).join("")}</tbody>
+    <tfoot><tr><td class="as-n">Total del equipo</td>${celdas(tot.T)}${MERC.map(k=>celdas(tot[k])).join("")}</tr></tfoot></table></div>
+   <p class="as-nota">Verde: CR al menos un 15 % por encima de la media del mercado; rojo: un 15 % o más por debajo. En naranja, asesores con menos de 8 meses de datos. Solo aparecen asesores con deals en los últimos 3 meses y al menos 50 en el periodo; los mercados con menos de 20 deals se dejan en gris. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-asmodo]");if(b&&st.asV){st.asV.modo=b.dataset.asmodo;pintarAsesores()}});
+document.addEventListener("change",e=>{const s=e.target.closest("[data-asv]");if(!s||!st.asV)return;const k=s.dataset.asv;st.asV[k]=k==="orden"?s.value:Number(s.value);if(st.asV.desde>st.asV.hasta)[st.asV.desde,st.asV.hasta]=[st.asV.hasta,st.asV.desde];pintarAsesores()});
 function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadmap");if(!el||st.dentro!==sala)return;const R=st.roadmap?.[sala],c={instagram:"#e1306c",youtube:"#ff4d4d",seo:"#2dd4bf"}[sala]||"#3d7bff";
   el.style.setProperty("--rm-c",c);
   if(!R){el.innerHTML=`<div class="mcab"><div><h2>Roadmap</h2></div></div><div class="vacio">El equipo está preparando el roadmap.</div>`;return}
@@ -2559,7 +2608,7 @@ function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadma
    ${(R.objetivos||[]).length?`<div class="rm-obj">${R.objetivos.map(o=>`<div><b>${esc(o.hoy)} → <i>${esc(o.meta)}</i></b><span>${esc(o.nombre)}</span></div>`).join("")}</div>`:""}
    ${calendarioRM(R.calendario)}
    <div class="rm-fases">${(R.fases||[]).map(f=>`<div class="rm-fase"><h3>${esc(f.nombre)}</h3>${(f.items||[]).map((x,i)=>`<div class="rm-it${x.estado==="hecho"?" hecho":""}"><span class="num">${i+1}</span><div><h4>${esc(x.titulo)}</h4>${x.dato?`<p>${esc(x.dato)}</p>`:""}<div class="pie">${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.quien?`<span>${esc(x.quien)}</span>`:""}<span>${esc(EST[x.estado]||x.estado||"pendiente")}</span></div></div></div>`).join("")}</div>`).join("")}</div>`}
-function pintarSalasN(){pintarJourneyMapa();if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarJourneyMapa();pintarAsesores();if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -3061,6 +3110,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   ["instagram","youtube","seo"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
   db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
+  db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores()});
   db.doc("journey_mapa/actual").onSnapshot(s=>{st.jmapa=s.exists?s.data():null;pintarJourneyMapa()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});

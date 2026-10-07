@@ -890,9 +890,9 @@ const MARCOS=[
   {id:"producto_mision",grupo:"producto",dato:true,nombre:"Análisis de producto / Misión, equipo y fuentes",x:4300,y:4800,w:1300},
   {id:"producto_datos",grupo:"producto",dato:true,nombre:"Análisis de producto / Lo que ya sabemos",x:4300,y:5600,w:1300},
   {id:"g_producto",grupo:"producto",dato:true,nombre:"Análisis de producto / Google Analytics 4",x:4300,y:6400,w:1300},
-  {id:"mercado",grupo:"mercado",nombre:"Mercado / Sala",x:0,y:0,w:1200},
-  {id:"mercado_mision",grupo:"mercado",dato:true,nombre:"Mercado / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
-  {id:"mercado_datos",grupo:"mercado",dato:true,nombre:"Mercado / Lo que ya sabemos",x:0,y:-9000,w:1300},
+  {id:"lifecycle",grupo:"lifecycle",nombre:"Lifecycle / Sala",x:0,y:0,w:1200},
+  {id:"lifecycle_mision",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
+  {id:"lifecycle_datos",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"journey",grupo:"journey",nombre:"Journey de cliente / Sala",x:0,y:0,w:1200},
   {id:"journey_mision",grupo:"journey",dato:true,nombre:"Journey de cliente / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"journey_datos",grupo:"journey",dato:true,nombre:"Journey de cliente / Lo que ya sabemos",x:0,y:-9000,w:1300},
@@ -905,12 +905,12 @@ const MARCOS=[
 for(let i=MARCOS.length-1;i>=0;i--)if(MARCOS[i].grupo==="producto")MARCOS.splice(i,1);
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
-const TAM={control:2400,radar:1500,mercado:1500};
-const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],mercado:[-150,3400],competencia:[-1500,5100],journey:[300,5100],comercial:[2100,5100],mdirecto:[5600,4700],producto:[5000,7800]};
+const TAM={control:2400,radar:1500,lifecycle:1500};
+const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,3400],competencia:[-5200,-2600],journey:[-900,5100],comercial:[900,5100],mdirecto:[5600,4700],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"],mercado:["mercado","mercado_mision","mercado_datos"],journey:["journey","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_mision","lifecycle_datos"],journey:["journey","journey_mision","journey_datos"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -922,13 +922,12 @@ const PASILLOS_DEF=[
   {id:"pa22",d:ruta([[1500,-1934],[1500,-800],[1350,-800]],140),c:"#ff4d4d",txt:"YouTube ↔ Radar",sub:"canales · benchmark · tendencias",lx:1560,ly:-1450},
   {id:"pa20",d:"M300 -2267 H900",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:330,ly:-2330},
   {id:"pa21",d:"M2100 -2300 C4600 -2300 5800 -1300 5800 400",c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:2400,ly:-2370},
-  {id:"pa4",d:"M750 3400 V2632",c:"#22d3ee",txt:"Inteligencia de mercado → Control",sub:"mercado · competencia · journey · comercial",lx:800,ly:3000},
-  {id:"pa7",d:"M450 2632 V3400",c:"#f5d76e",txt:"Directrices → Mercado",sub:"control.directrices.mercado",lx:-330,ly:3000,fin:true},
-  {id:"pa23",d:ruta([[-900,5100],[-900,3900],[-150,3900]],140),c:"#ff6b3d",txt:"Competencia ↔ Mercado",sub:"precios · ofertas · movimientos",lx:-1640,ly:4500},
-  {id:"pa24",d:"M900 4232 V5100",c:"#a78bfa",txt:"Journey ↔ Mercado",sub:"etapas del cliente · fricciones",lx:950,ly:4650},
-  {id:"pa25",d:ruta([[2700,5100],[2700,3900],[1350,3900]],140),c:"#818cf8",txt:"Comercial ↔ Mercado",sub:"ventas por idioma · embudo (Zoho)",lx:2760,ly:4500},
-  {id:"pa26",d:"M-300 5433 H300",c:"#c084fc",txt:"",sub:"",lx:0,ly:0},
-  {id:"pa27",d:"M1500 5433 H2100",c:"#c084fc",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa4",d:"M750 3400 V2632",c:"#22d3ee",txt:"Lifecycle → Control",sub:"embudo · repetición · valor del cliente",lx:800,ly:3000},
+  {id:"pa7",d:"M450 2632 V3400",c:"#f5d76e",txt:"Directrices → Lifecycle",sub:"control.directrices.lifecycle",lx:-330,ly:3000,fin:true},
+  {id:"pa23",d:ruta([[-4600,-1934],[-4600,-400],[-1500,-400],[-1500,1400],[-600,1400]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4100,ly:-470},
+  {id:"pa24",d:ruta([[-300,5100],[-300,3900],[-150,3900]],140),c:"#a78bfa",txt:"Journey ↔ Lifecycle",sub:"etapas del cliente · fricciones",lx:-1040,ly:4500},
+  {id:"pa25",d:ruta([[1500,5100],[1500,3900],[1350,3900]],140),c:"#818cf8",txt:"Comercial ↔ Lifecycle",sub:"ventas por idioma · embudo (Zoho)",lx:1560,ly:4500},
+  {id:"pa26",d:"M300 5433 H900",c:"#c084fc",txt:"Journey ↔ Comercial",sub:"",lx:330,ly:5370},
   {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
   {id:"pa9",d:"M-4000 1760 C-2800 2060 -1700 2060 -600 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
   {id:"pa14",d:ruta([[1800,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1940,ly:1300},
@@ -947,7 +946,7 @@ const PERSONALIDAD={
   paid:{c:"#f472b6",caracter:"El parqué",lema:"Cada euro tiene que volver con amigos",ambiente:"Teletipos, pujas en directo y gráficos en verde",tono:"Eres directo y numérico, como un trader: CPA, ROAS, presupuesto y qué mover hoy.",suelo:"velas",obj:"grafico"},
   mdirecto:{c:"#38bdf8",caracter:"La oficina de correos",lema:"El mensaje justo, en el momento justo",ambiente:"Buzones, sellos y los flujos del CRM dibujados en la pared",tono:"Eres ordenado y orientado a conversión: asunto, momento de envío, segmento y siguiente paso.",suelo:"sobres",obj:"sobre"},
   producto:{c:"#fdba74",caracter:"El taller",lema:"Cada etapa, probada a mano",ambiente:"Banco de trabajo, mapas de etapas y prototipos de rutas",tono:"Eres práctico y detallista, como un artesano del producto: etapas, alojamientos, márgenes y qué mejorar.",suelo:"plano",obj:"concha"},
-  mercado:{c:"#22d3ee",caracter:"El observatorio",lema:"Primero entender el mercado, luego mover ficha",ambiente:"Un mapamundi iluminado, banderas de cada mercado y pantallas con la demanda en directo",tono:"Hablas como un director de mercado: demanda por país, tamaño, ticket y tendencia; resumes lo que dicen Competencia, Journey y Comercial y siempre con cifras.",suelo:"hex",obj:"antena"},
+  lifecycle:{c:"#22d3ee",caracter:"El ciclo",lema:"Del primer clic a la siguiente ruta",ambiente:"Una espiral luminosa con cada etapa del cliente y pantallas con el embudo en directo",tono:"Hablas como una directora de lifecycle: adquisición, conversión, repetición y recomendación por mercado, resumiendo lo que dicen Journey y Comercial y siempre con cifras.",suelo:"hex",obj:"antena"},
   journey:{c:"#a78bfa",caracter:"El recorrido",lema:"Cada paso del cliente, sin piedras en el zapato",ambiente:"Un mapa del viaje del cliente en la pared, con post-its en cada fricción",tono:"Hablas desde el cliente: en qué paso duda, qué le frena y qué le haría reservar y repetir; con datos del CRM y de la web.",suelo:"plano",obj:"concha"},
   comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
 };
@@ -1013,7 +1012,7 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   if(!m.dato&&st.dentro&&!SALAS_ACT[st.dentro].includes(id))salir(false);
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
-const SALA_TIT={mercado:"Mercado",journey:"Journey de cliente",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+const SALA_TIT={lifecycle:"Lifecycle",journey:"Journey de cliente",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
 /* Resumen: deja lo esencial (3 puntos por lista, 6 filas por tabla, 3 líneas por párrafo) */
 const RES_LISTA=3,RES_TABLA=6,RES_TARJ=4;
 function resumir(raiz){if(!raiz)return;
@@ -1248,7 +1247,7 @@ function svgPasillos(){
       <path d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".08" stroke-width="40" stroke-linejoin="round"/>
       <path class="flujo" d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".45" stroke-width="2" stroke-dasharray="8 32"/>
       ${p.txt?`<text x="${p.lx}" y="${p.ly}" class="p-txt"${p.fin?' text-anchor="end"':""}><tspan fill="${p.c}">■ </tspan>${esc(p.txt)}</text><text x="${p.fin?p.lx:p.lx+30}" y="${p.ly+28}" class="p-sub"${p.fin?' text-anchor="end"':""}>${esc(p.sub)}</text>`:""}`;
-    if(!quieto){const N=["pa17","pa18","pa19","pa26","pa27"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12","pa23","pa24","pa25"].includes(p.id)?4:7,dur={pa3:16,pa4:9,pa5:9,pa6:9,pa7:9,pa8:9,pa9:9,pa10:9,pa11:5,pa12:5,pa2:10,pa13:11,pa16:14,pa17:3,pa18:3,pa19:3,pa23:5,pa24:4,pa25:5,pa26:3,pa27:3,pa20:6,pa21:8}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
+    if(!quieto){const N=["pa17","pa18","pa19","pa26"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12","pa23","pa24","pa25"].includes(p.id)?4:7,dur={pa3:16,pa4:9,pa5:9,pa6:9,pa7:9,pa8:9,pa9:9,pa10:9,pa11:5,pa12:5,pa2:10,pa13:11,pa16:14,pa17:3,pa18:3,pa19:3,pa23:5,pa24:4,pa25:5,pa26:3,pa27:3,pa20:6,pa21:8}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
       d+=`<g><rect x="-11" y="-4" width="22" height="8" rx="2" fill="${col}" filter="url(#brilloP)"/><animateMotion dur="${dur}s" begin="-${(k*dur/N).toFixed(2)}s" repeatCount="indefinite" rotate="auto"${p.inv?' keyPoints="1;0" keyTimes="0;1" calcMode="linear"':""}><mpath href="#${p.id}"/></animateMotion></g>`}}
   }
   // Placa con el carácter y el lema de cada sala, por encima de los pasillos
@@ -1623,7 +1622,7 @@ function svgControl(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-const SALA_N={mercado:"Mercado",journey:"Journey de cliente",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
+const SALA_N={lifecycle:"Lifecycle",journey:"Journey de cliente",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
 const SEM={bien:["#3ddc97","Bien"],vigilar:["#f5c518","Vigilar"],mal:["#ff5d5d","Actuar"]};
 function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
   if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
@@ -2261,30 +2260,30 @@ const SALAS_N=[
   saber:["Búsquedas pagadas: «camino de santiago» (152.117 € en el término) y «camino de santiago desde sarria» (27.038 € a 23,34 € por lead) concentran la demanda.","Rutas con coste por lead más del doble de la media en Google Ads: Camino Primitivo (68,66 €), «portugal coastal camino» (50,97 €) y «the portuguese way» (61,71 €).","Ticket medio por campaña: EN_SEARCH 3.341 €, ES_TOP_SEARCH 2.293 € e IT_SEARCH 2.143 €.","SEO: hay rutas sin página comercial en algún idioma (auditoría de la Sala SEO).","Comunidad: el post del mito de los albergues suma 730 comentarios; la gente pregunta por alojamiento, etapas y precio."],
   tareas:["Conectar Zoho para cruzar ventas y margen por ruta","Ficha por ruta: búsquedas, leads, ventas y ticket","Revisar el producto Portugués: mucha búsqueda y lead caro","Propuesta de producto para el Año Santo 2027"],
   sug:["¿Qué ruta deberíamos empujar en 2027?","¿Dónde perdemos más ventas por producto?","¿Qué precio proponéis para el Año Santo?"]},
- {id:"mercado",nombre:"Mercado",tit:"Mercado · demanda, países y Año Santo 2027",color:"#22d3ee",fondo:"#04090b",borde:"#164a55",lider:"Lucía",pant:"ES · EN · DE · IT · PT · LATAM",
-  sub:"demanda por país, competencia, cliente y ventas",
-  equipo:[{id:"jefa",n:"Lucía",rol:"Directora de mercado: une Competencia, Journey y Comercial y reporta a la Sala de Control",c:"#22d3ee"},
-   {id:"dem",n:"Íñigo",rol:"Demanda y tamaño de mercado por país y ruta",c:"#f5d76e"},
-   {id:"en",n:"Emma",rol:"Mercado anglosajón: Estados Unidos, Reino Unido e Irlanda",c:"#3d7bff"},
-   {id:"de",n:"Paul",rol:"Centroeuropa: Alemania, Austria y Suiza",c:"#3ddc97"},
-   {id:"it",n:"Giulia",rol:"Italia y Portugal",c:"#fb923c"},
-   {id:"lat",n:"Andrés",rol:"LATAM y tendencias del sector (Xacobeo 2027)",c:"#e1306c"}],
-  frases:{jefa:["¿Qué mercado crece y cuál se enfría?","Esto va a la Sala de Control","Competencia, journey y ventas en una sola foto"],dem:["Sarria concentra la demanda","¿Cuánta demanda trae el Año Santo?","Demanda por ruta y mes"],en:["EN tiene el ticket más alto","Estados Unidos reserva con más antelación","El cliente EN quiere confort"],de:["DE pregunta mucho antes de comprar","Reels en alemán, pendiente","Ticket DE por debajo de EN"],it:["Italia vende barato","Portugués por la Costa en IT","¿Merece la pena PT?"],lat:["LATAM: leads baratos, ¿ventas?","500.000 peregrinos antes de octubre","Xacobeo 2027 en el horizonte"]},
-  mision:"Entender el mercado del Camino para Santiago Ways: qué países y rutas crecen, cuánto valen, qué hace la competencia, cómo decide el cliente y qué se vende. Sintetiza las salas de Competencia, Journey de cliente y Comercial y lleva a la Sala de Control una sola foto del mercado.",
-  objetivos:["Mapa de demanda y ventas por mercado (ES, EN, DE, IT, PT y LATAM)","Previsión del Año Santo 2027 por país y ruta","Qué mercado priorizar cada trimestre según ticket y conversión","Una síntesis semanal de Competencia, Journey y Comercial para Control"],
-  fuentes:[["Zoho CRM","Conectado en lectura: ventas mensuales por vendedor e idioma, embudo y atribución",true],["Google Ads y Meta Ads","Conectados vía Paid Media: demanda y coste por mercado",true],["Google Analytics 4","Conectado: visitas y conversión por país",true],["Sala de Competencia","Precios, ofertas 2027 y movimientos de los rivales",true],["Semrush","Conectado: búsquedas por país y ruta",true]],
-  saber:["Ticket medio de venta atribuida en Google Ads: 2.797 €; en EN_SEARCH, 3.341 € (el más alto).","ROAS por campaña: EN_OTHERS_SEARCH 12,2, EN_SEARCH 7,6 e IT_SEARCH 2,4.","Embudo de Google Ads en 12 meses: 78.093 leads, 25.821 cualificados (33 %) y 3.846 ventas (4,9 %).","Zoho CRM ya está conectado: hay informes de ventas mensuales y anuales por vendedor e idioma, «Stage history» y «Marketing Attribution»."],
-  tareas:["Leer en Zoho las ventas por idioma de los últimos 12 meses","Ficha por mercado: demanda, leads, ventas, ticket y competencia","Previsión 2027 por mercado con el efecto del Año Santo","Síntesis semanal de Competencia, Journey y Comercial para Control"],
-  sug:["¿Qué mercado deberíamos empujar en 2027?","¿Dónde perdemos cuota frente a la competencia?","¿Cuánto vale cada mercado?"]},
+ {id:"lifecycle",nombre:"Lifecycle",tit:"Lifecycle · del primer clic a la siguiente ruta",color:"#22d3ee",fondo:"#04090b",borde:"#164a55",lider:"Lucía",pant:"Adquirir · Convertir · Viajar · Repetir · Recomendar",
+  sub:"ciclo de vida del cliente, conversión y repetición",
+  equipo:[{id:"jefa",n:"Lucía",rol:"Directora de lifecycle: une Journey de cliente y Comercial y reporta a la Sala de Control",c:"#22d3ee"},
+   {id:"adq",n:"Íñigo",rol:"Adquisición: de dónde llega cada cliente y cuánto cuesta",c:"#f5d76e"},
+   {id:"conv",n:"Emma",rol:"Conversión: de lead a presupuesto y de presupuesto a venta",c:"#3d7bff"},
+   {id:"ret",n:"Paul",rol:"Retención y repetición: otra ruta, otro año",c:"#3ddc97"},
+   {id:"ref",n:"Giulia",rol:"Recomendación y reseñas: clientes que traen clientes",c:"#fb923c"},
+   {id:"ltv",n:"Andrés",rol:"Valor del cliente y cohortes por mercado e idioma",c:"#e1306c"}],
+  frases:{jefa:["¿Cuánto vale un cliente a tres años?","Esto va a la Sala de Control","Journey y Comercial en una sola foto"],adq:["¿Qué canal trae clientes que repiten?","Coste por venta por canal","Sarria concentra la demanda"],conv:["Solo el 4,9 % acaba en venta","¿Dónde se cae el embudo?","Presupuestos sin respuesta"],ret:["¿Cuántos repiten ruta?","El Primitivo como segundo Camino","Newsletter para antiguos clientes"],ref:["Pedir la reseña al llegar","¿Nos recomiendan?","Programa de recomendación"],ltv:["EN tiene el ticket más alto","Cohortes por año de viaje","Ventas por idioma en Zoho"]},
+  mision:"Gestionar el ciclo de vida completo del cliente de Santiago Ways: cómo llega, cómo convierte, cómo vive el viaje y cómo vuelve o nos recomienda. Sintetiza las salas de Journey de cliente y Análisis comercial y lleva a la Sala de Control una sola foto del valor de cada cliente.",
+  objetivos:["Embudo de vida del cliente por mercado: lead, presupuesto, venta, viaje y repetición","Subir la tasa de lead a venta del 4,9 % actual","Más clientes que repiten o recomiendan","Valor del cliente por mercado, idioma y canal"],
+  fuentes:[["Zoho CRM","Conectado en lectura: ventas por vendedor e idioma, Stage history y Marketing Attribution",true],["Google Ads y Meta Ads","Conectados vía Paid Media: coste por lead y por venta",true],["Google Analytics 4","Conectado: recorrido y conversión en la web",true],["Marketing directo","Email, WhatsApp y secuencias de recuperación",true],["Reseñas (Google, Trustpilot)","Pendiente de conectar",false]],
+  saber:["Embudo de Google Ads en 12 meses: 78.093 leads, 25.821 cualificados (33 %) y 3.846 ventas (4,9 %).","Ticket medio de venta atribuida en Google Ads: 2.797 €; en EN_SEARCH, 3.341 € (el más alto).","Coste publicitario por venta en Google Ads: 497 €; ROAS sobre ventas de 5,6.","Zoho CRM ya está conectado: hay informes de ventas mensuales y anuales por vendedor e idioma, «Stage history» y «Marketing Attribution»."],
+  tareas:["Leer en Zoho las ventas por idioma y el Stage history","Embudo de vida del cliente por mercado","Medir cuántos clientes repiten y cuántos llegan recomendados","Síntesis semanal de Journey y Comercial para Control"],
+  sug:["¿Cuánto vale un cliente en cada mercado?","¿Dónde perdemos más clientes?","¿Cómo hacemos que repitan?"]},
  {id:"journey",nombre:"Journey de cliente",tit:"Journey de cliente · del primer clic a la recomendación",color:"#a78bfa",fondo:"#08060c",borde:"#33285a",lider:"Nerea",pant:"Descubre · Pide · Reserva · Camina · Recomienda",
   sub:"etapas del cliente, fricciones y experiencia",
-  equipo:[{id:"jefa",n:"Nerea",rol:"Directora de journey de cliente: reporta a Mercado y a la Sala de Control",c:"#a78bfa"},
+  equipo:[{id:"jefa",n:"Nerea",rol:"Directora de journey de cliente: reporta a Lifecycle y a la Sala de Control",c:"#a78bfa"},
    {id:"desc",n:"Pablo",rol:"Descubrimiento: anuncios, redes, SEO y primera visita a la web",c:"#f5d76e"},
    {id:"dec",n:"Celia",rol:"Presupuesto y decisión: tiempos de respuesta, dudas y objeciones",c:"#3ddc97"},
    {id:"prep",n:"Óscar",rol:"Antes del viaje: pagos, documentación y confirmaciones (OPS)",c:"#38bdf8"},
    {id:"ruta",n:"Laura",rol:"En ruta: hoteles, maletas e incidencias",c:"#fb923c"},
    {id:"post",n:"Adrián",rol:"Después del viaje: reseñas, recomendación y repetición",c:"#e1306c"}],
-  frases:{jefa:["¿En qué paso se nos cae el cliente?","Esto va a Mercado y a Control","El journey se mide, no se imagina"],desc:["81 % de las visitas es móvil","¿Qué ve primero quien llega de Instagram?","De la búsqueda al formulario"],dec:["¿Cuánto tardamos en responder?","La duda de precio, la primera","Solo el 4,9 % acaba en venta"],prep:["¿Viajes de este mes con todo confirmado?","Informe OPS de octubre","Documentación antes de salir"],ruta:["La maleta que viaja sola, lo más valorado","Incidencias por hotel","Atención 24/7"],post:["Pedir la reseña al llegar","Otra ruta, otro año","¿Nos recomiendan?"]},
+  frases:{jefa:["¿En qué paso se nos cae el cliente?","Esto va a Lifecycle y a Control","El journey se mide, no se imagina"],desc:["81 % de las visitas es móvil","¿Qué ve primero quien llega de Instagram?","De la búsqueda al formulario"],dec:["¿Cuánto tardamos en responder?","La duda de precio, la primera","Solo el 4,9 % acaba en venta"],prep:["¿Viajes de este mes con todo confirmado?","Informe OPS de octubre","Documentación antes de salir"],ruta:["La maleta que viaja sola, lo más valorado","Incidencias por hotel","Atención 24/7"],post:["Pedir la reseña al llegar","Otra ruta, otro año","¿Nos recomiendan?"]},
   mision:"Dibujar y mejorar el recorrido completo del cliente: cómo nos descubre, pide presupuesto, decide, prepara el viaje, camina y nos recomienda. Detectar dónde se pierde y qué le haría reservar antes y repetir.",
   objetivos:["Mapa del journey por mercado con la conversión de cada paso","Reducir el tiempo de respuesta a presupuestos","Cero viajes sin confirmar a 30 días de la salida","Más reseñas y clientes que repiten o recomiendan"],
   fuentes:[["Zoho CRM","Conectado en lectura: «Stage history», embudo e informes OPS de viajes confirmados",true],["Google Analytics 4","Conectado: recorrido en la web y formularios",true],["Sala de Comunidad","Preguntas frecuentes y dudas reales",true],["Reseñas (Google, Trustpilot)","Pendiente de conectar",false]],

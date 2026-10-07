@@ -183,6 +183,10 @@ Cuando las haya, Semrush entra **solo en el protocolo semanal**, nunca en el dia
 
 Cuatro vistas, y cada una se puede marcar directamente en el navegador añadiendo `#pubs`, `#rivales`, `#huecos` o `#bitacora` al final de la dirección.
 
+**La barra de progreso.** Aparece en la cabecera solo mientras hay una barrida en curso, y desaparece sola al terminar. Muestra la etapa en la que está, el paso de ocho, cuántos rivales lleva recorridos, cuántas publicaciones nuevas ha encontrado y el tiempo transcurrido. El tiempo restante solo sale cuando hay histórico de barridas anteriores para estimarlo; en las primeras lo dice abiertamente en lugar de inventar una cifra.
+
+Si una barrida muere a medias sin cerrar su estado, la sala la da por caducada a los 45 minutos y oculta la barra.
+
 **Publicaciones.** Lo que han publicado, lo más reciente arriba. La franja de color del borde izquierdo es la amenaza: roja alta, ámbar media, verde baja. Los filtros de arriba acotan por amenaza, por tipo y por Xacobeo 2027. El buscador entra en títulos, temas y palabras clave.
 
 **Rivales.** Una ficha por competidor, con cuántas publicaciones le hemos detectado y cuándo fue la última. Los `propuesto` llevan sello ámbar: son los que esperan tu validación.

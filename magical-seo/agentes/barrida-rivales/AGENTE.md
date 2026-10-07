@@ -32,6 +32,34 @@ Los datos se escriben con `ArtifactData`. Carga lo que necesitas con ToolSearch:
 
 7. **Cierra la barrida.** `update` de `estado/magicalseo` con su `if_version`: `ultimaBarrida` (la hora real de ahora), `proximaBarrida` (la siguiente ejecución programada: mañana a las 6:06 hora de Canarias), `agentes.<id>.ultima` y `agentes.<id>.hallazgos` con lo encontrado por cada uno, y añade al principio de `bitacora` entre 3 y 6 entradas nuevas `{t, quien, texto}` (máximo 40 en total) contando qué ha visto cada miembro y hacia dónde se mueve la competencia.
 
+## Ir diciendo por dónde vas
+
+La sala enseña una barra de progreso mientras hay una barrida en curso. Se alimenta del campo `barrida` de `estado/magicalseo`, así que si no lo escribes, no aparece nada.
+
+**Nada más empezar**, antes del paso 1, marca la barrida como activa:
+
+```json
+"barrida": {"activa": true, "inicio": "<ahora en ISO>", "paso": 1, "totalPasos": 8,
+            "etapa": "Leyendo el estado de la sala",
+            "rivalesHechos": 0, "rivalesTotal": 0, "nuevas": 0}
+```
+
+**Al entrar en cada paso**, actualiza `paso` y `etapa` con una frase corta en presente que diga qué estás haciendo: «Recorriendo los blogs rivales», «Buscando en Google», «Registrando hallazgos». Durante el paso 4, que es el más largo, actualiza además `rivalesHechos` según vayas terminando cada rival, y `rivalesTotal` con los que vas a recorrer. Lleva también la cuenta de `nuevas`.
+
+**Al terminar**, en el mismo `update` final del paso 8:
+
+```json
+"barrida": {"activa": false},
+"duracionMediaSeg": <media entre la duración de esta barrida y la que hubiera>
+```
+
+`duracionMediaSeg` es lo que permite a la sala estimar cuánto queda en las barridas siguientes. Sin ese dato la barra avanza igual, pero sin tiempo restante.
+
+Dos cosas que importan:
+
+- **Cierra siempre `activa: false`**, aunque la barrida acabe mal o incompleta. Si no, la sala muestra una barrida en curso que no existe. Como red de seguridad, la sala da por caducada cualquier barrida de más de 45 minutos, pero no te apoyes en eso.
+- **No abuses de las escrituras.** Una por paso y una por rival recorrido es suficiente. No escribas en bucle.
+
 ## Horas
 
 Todas las marcas de tiempo se guardan **en UTC**, con la `Z` al final. La sala las convierte a **hora de Canarias** al mostrarlas.

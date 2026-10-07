@@ -284,7 +284,8 @@ body[data-dentro] .marco.dato{display:none!important}
 .neg-s:hover{border-color:var(--e)}.neg-s b{display:flex;justify-content:space-between;gap:8px;font:700 15px/1.2 var(--f-ui);color:#fff}.neg-s b i{font:600 11px/1 var(--f-mono);font-style:normal;color:var(--e);text-transform:uppercase}.neg-s span{font-size:13.5px;line-height:1.4;color:#c3cad4}
 .neg-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px}
 .neg-l{margin:0;padding:10px 20px 0 38px;display:grid;gap:6px;font-size:14.5px;line-height:1.45;color:#d6dde5}.neg-l.r li::marker{color:#ff5d5d}.neg-l.o li::marker{color:#3ddc97}
-.pz-ok{font:600 12.5px/1 var(--f-mono);color:var(--vivo)}.pz-del{color:#f3b7bd}
+.pz-ok{font:600 12.5px/1 var(--f-mono);color:var(--vivo)}.pz-del{color:#f3b7bd}.yt-ab{display:grid;gap:6px}.yt-ab .mock{position:relative}.yt-abv{position:absolute;right:6px;bottom:6px;font:700 12px/1 var(--f-mono);background:#2dd4bf;color:#002520;padding:4px 7px;border-radius:3px}
+.pz-del.armado{background:#5a1d22;border-color:#ff6b6b;color:#fff;flex:3}.pz-ic.armado .t{display:inline;font-size:12px}
 .pz-fb{width:100%;font-size:13px;line-height:1.4;color:#f5d76e;border-left:2px solid #f5c518;padding-left:8px;margin-bottom:4px}
 .pz-modf{width:100%;display:grid;gap:6px;margin-top:6px}.pz-modf textarea{width:100%;min-height:80px;resize:vertical;background:#07090c;color:var(--texto);border:1px solid var(--borde-2);border-radius:6px;padding:9px;font:13.5px/1.45 var(--f-ui)}
 .pieza .acciones,.vid .acc{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
@@ -714,6 +715,7 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .lk-seg{margin-left:auto;color:#0a66c2;font:600 3.5cqw/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;white-space:nowrap;padding-top:1cqw}
 .lk-txt{padding:0 3.4cqw 2.6cqw;font:400 3.5cqw/1.42 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 .lk-mas{color:rgba(0,0,0,.6)}
+.g-caja.cara-top,.mock.igcaja .caja.cara-top{top:7cqw;bottom:auto}.lk-caja.cara-top{top:5cqw;bottom:auto}.g-sl.cara-top .g-sombra{background:linear-gradient(0deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.62))}.mock.conimg.cara-top{background-blend-mode:normal}
 .lk-arte{position:relative;aspect-ratio:1.2/1;background-size:cover;background-position:center;overflow:hidden}
 .lk-arte.sinfoto{background:linear-gradient(135deg,#7AA606,#628A04)}
 .lk-caja{position:absolute;left:5cqw;bottom:5cqw;max-width:78%;background:linear-gradient(135deg,#7AA606,#628A04);color:#fff;padding:4.6cqw 5cqw;display:grid;gap:2cqw;border-radius:.8cqw;font-family:"Montserrat",sans-serif}
@@ -1953,7 +1955,7 @@ function mockPieza(x){
   const vert=(x.tipo==="reel"||x.tipo==="tiktok")?`<div class="vert-ui"><i></i><i></i><i></i></div>`:"";
   const dur=x.tipo==="yt"?`<span class="yt-dur">${esc((x.formato||"").match(/\d+/)?.[0]||"10")}:00</span>`:"";
   const just=x.tipo==="yt"?"justify-content:flex-end;":x.tipo==="ig"&&fondo!=="blanco"?"justify-content:center;":"";
-  if(x.tipo==="yt"&&(x.ab||[]).length)return`<div class="mock r169 vid-mock"><img src="${esc(x.ab[0].img)}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`;
+  if(x.tipo==="yt"&&(x.ab||[]).length)return`<div class="yt-ab">${x.ab.map(v=>`<div class="mock r169 vid-mock"><img src="${esc(v.img)}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"><span class="yt-abv">${esc(v.v)}</span></div>`).join("")}</div>`;
   if((x.tipo==="reel"||x.tipo==="tiktok")&&x.video)return`<div class="mock r916 vid-mock"><video controls playsinline preload="none" poster="${esc(x.poster?x.poster+"?v=4":"")}" src="${esc(x.video+"?v=4")}"></video></div>`;
   const ov=x.id==="ig-2-xacobeo-claves"?"linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.62))":x.tipo==="ig"&&fondo!=="blanco"?"linear-gradient(180deg,rgba(10,14,8,.50) 0%,rgba(10,14,8,.58) 45%,rgba(10,14,8,.80) 100%)":"linear-gradient(180deg,rgba(10,14,8,.22) 0%,rgba(10,14,8,.45) 40%,rgba(10,14,8,.85) 100%)";
   const cajaIG=x.tipo==="ig"&&x.imagen&&x.id!=="ig-2-xacobeo-claves";
@@ -1963,6 +1965,25 @@ function mockPieza(x){
     <div class="in" style="${just}">${x.tipo==="yt"?"":ante}<h5>${sw}</h5>${sub}${lista}${etq}</div>${vert}${dur}
     ${x.foto&&fondo==="foto"?`<div class="fotolbl">Foto: ${esc(corta(x.foto,90))}</div>`:""}</div>`;
 }
+const CARAS={"drive/14QZk1DDM_vdbhOFYTdyGdSAg0uSM69Qa.jpg":[480,318,[[0.289,0.321,0.058,0.124],[0.445,0.397,0.046,0.089],[0.391,0.376,0.046,0.093]]],"drive/1A4ke_uE28BXzG6SQs9BcqmxJp-h0_Ucd.jpg":[360,480,[[0.431,0.199,0.103,0.1]]],"drive/1T4s-8Z1QjmCwL2ElTOt1C6Pv8vVuv0rN.jpg":[270,480,[[0.322,0.405,0.039,0.027]]],"drive/1aht0fSGN35nBfolGEk2aDoYLHANLU-xb.jpg":[480,270,[[0.363,0.185,0.022,0.047]]],"drive/1ak6eroupHaI4HeMLafqyAeuyzaJkZZ5R.jpg":[480,360,[[0.637,0.371,0.155,0.276],[0.386,0.555,0.122,0.215]]],"drive/1fMYPQE7d85gYCdziVctfx0vocj1nheRL.jpg":[360,480,[[0.69,0.309,0.08,0.07],[0.327,0.336,0.079,0.067],[0.508,0.378,0.071,0.065]]],"drive/1p3ucCPELWaMlEBBFpQxyZpccjjL6Sb9S.jpg":[360,480,[[0.301,0.276,0.092,0.082],[0.621,0.223,0.113,0.102]]],"drive/1s-u2PBUZLSh1hdzvmSF4ZUuwq5NmRhMy.jpg":[360,480,[[0.661,0.285,0.067,0.066],[0.409,0.205,0.07,0.064],[0.218,0.293,0.057,0.055]]],"drive/1yHZsiGNVd4d0aaTCWxbZtu_Z1T23B61t.jpg":[480,360,[[0.081,0.23,0.216,0.385],[0.706,0.335,0.039,0.064],[0.757,0.318,0.033,0.054]]],"img/bici.jpg":[1400,788,[[0.399,0.163,0.021,0.046],[0.363,0.182,0.024,0.047],[0.326,0.142,0.016,0.034],[0.218,0.125,0.029,0.07]]],"img/frances-portugues.jpg":[1280,720,[[0.547,0.209,0.172,0.412],[0.218,0.203,0.051,0.117]]],"img/pareja.jpg":[1400,1050,[[0.632,0.361,0.166,0.293],[0.385,0.562,0.123,0.21]]],"img/peregrina-km100.jpg":[1050,1400,[[0.434,0.2,0.103,0.105]]],"img/peregrinas-estatua.jpg":[1050,1400,[[0.662,0.286,0.066,0.061],[0.219,0.291,0.058,0.052],[0.416,0.208,0.063,0.063]]],"img/selfie-arcade.jpg":[1024,768,[[0.079,0.197,0.224,0.425],[0.758,0.316,0.029,0.05],[0.706,0.329,0.034,0.053]]],"img/tres-km100.jpg":[1050,1400,[[0.692,0.31,0.077,0.069],[0.324,0.333,0.078,0.071],[0.51,0.375,0.066,0.062]]],"img/yt/yt-2-A.jpg":[1280,720,[[0.434,0.134,0.101,0.236]]],"img/yt/yt-2-B.jpg":[1280,720,[[0.619,0.001,0.116,0.203]]],"img/yt/yt-3-A.jpg":[1280,720,[[0.691,0.514,0.077,0.168],[0.509,0.685,0.068,0.142],[0.321,0.589,0.084,0.159]]],"img/yt/yt-3-B.jpg":[1280,720,[[0.629,0.453,0.169,0.391],[0.384,0.707,0.125,0.279]]],"img/yt/yt-4-B.jpg":[1280,720,[[0.079,0.173,0.218,0.556]]],"img/yt/yt-5-A.jpg":[1280,720,[[0.547,0.209,0.171,0.41],[0.218,0.203,0.051,0.117]]],"img/yt/yt-5-B.jpg":[1280,720,[[0.399,0.165,0.02,0.047],[0.363,0.182,0.024,0.048],[0.326,0.142,0.016,0.034],[0.218,0.124,0.029,0.071]]],"videos/reel-3-xacobeo-fechas.jpg":[540,960,[[0.734,0.432,0.066,0.057]]]};
+/* ===== Caras: las cajas de texto y los titulares se recolocan para no tapar caras (mapa detectado con YuNet sobre cada foto) ===== */
+function carasDe(el){const m=(el.style.backgroundImage||"").match(/url\(["']?([^"')]+)/g);if(!m)return null;
+  for(const u of m){const k=u.replace(/^url\(["']?/,"").split("?")[0].replace(/^\.\//,"");if(CARAS[k])return CARAS[k]}return null}
+function rectsCaras(el,c,bp){const r=el.getBoundingClientRect();if(r.width<20||r.height<20)return[];const[iw,ih,fs]=c;
+  const s=Math.max(r.width/iw,r.height/ih),dw=iw*s,dh=ih*s,[px,py]=bp,ox=r.left+(r.width-dw)*px,oy=r.top+(r.height-dh)*py;
+  return fs.map(([x,y,w,h])=>{const L=ox+x*dw,T=oy+y*dh,W=w*dw,H=h*dh,p=.18;return{l:Math.max(r.left,L-W*p),t:Math.max(r.top,T-H*p),r:Math.min(r.right,L+W*(1+p)),b:Math.min(r.bottom,T+H*(1+p))}}).filter(q=>q.r>q.l&&q.b>q.t)}
+function rectTexto(box){if(!box.matches(".in,.g-txt"))return box.getBoundingClientRect();let u=null;
+  [...box.children].forEach(k=>{const q=k.getBoundingClientRect();if(!q.width)return;u=u?{left:Math.min(u.left,q.left),top:Math.min(u.top,q.top),right:Math.max(u.right,q.right),bottom:Math.max(u.bottom,q.bottom)}:{left:q.left,top:q.top,right:q.right,bottom:q.bottom}});return u}
+function solape(a,fs){if(!a)return 0;return fs.reduce((t,f)=>t+Math.max(0,Math.min(a.right,f.r)-Math.max(a.left,f.l))*Math.max(0,Math.min(a.bottom,f.b)-Math.max(a.top,f.t)),0)}
+function evitarCaras(raiz){(raiz||document).querySelectorAll('[style*="url("]').forEach(el=>{const c=carasDe(el);if(!c)return;
+  const box=el.querySelector(":scope>.g-caja,:scope>.lk-caja,:scope>.caja,:scope>.g-txt.g-abajo,:scope>.in")||(el.classList.contains("g-foto")?el.parentElement.querySelector(":scope>.g-caja,:scope>.g-txt.g-abajo"):null);
+  const r=el.getBoundingClientRect(),clave=Math.round(r.width)+"x"+Math.round(r.height);if(!box||r.width<20||el.dataset.cz===clave)return;el.dataset.cz=clave;
+  const flex=box.matches(".in,.g-txt"),arr=v=>{if(flex){box.style.setProperty("justify-content",v?"flex-start":"flex-end","important");(box.parentElement||box).classList.toggle("cara-top",v)}else box.classList.toggle("cara-top",v)};
+  const ys=[.5,0,1,.25,.75],xs=[.5,0,1];let mejor=null;
+  for(const top of [false,true])for(const y of ys)for(const x of xs){arr(top);el.style.setProperty("background-position",`${x*100}% ${y*100}%`,"important");
+    const s=solape(rectTexto(box),rectsCaras(el,c,[x,y]))+(top?1:0)+(y!==.5?2:0)+(x!==.5?2:0);if(!mejor||s<mejor.s)mejor={s,top,x,y};if(s<1)break}
+  arr(mejor.top);el.style.setProperty("background-position",`${mejor.x*100}% ${mejor.y*100}%`,"important")})}
+{let t=0;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(()=>evitarCaras(),120)}).observe(document.body,{childList:true,subtree:true});addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(()=>evitarCaras(),200)});document.addEventListener("click",()=>{clearTimeout(t);t=setTimeout(()=>evitarCaras(),300)})}
 function selloControl(c){
   if(!c||!c.estado)return`<div><span class="ctrl-sello">◷ Pendiente de revisión de la Sala de Control</span></div>`;
   return`<div style="display:grid;gap:6px"><span class="ctrl-sello ${esc(c.estado)}">${c.estado==="validada"?"✓ Validada por la Sala de Control":"↺ Control pide ajustes"}${c.director?" · "+esc(c.director):""}</span>${c.nota?`<div class="ctrl-nota">${esc(c.nota)}</div>`:""}</div>`;
@@ -1997,7 +2018,7 @@ document.addEventListener("click",e=>{
   if(e.target.closest("[data-pzcerrar]")){cerrarPieza();return}
   const m=e.target.closest(".piezas .pieza .igf,.piezas .pieza .mock,.piezas .pieza .li-mock,.piezas .pieza .lkf");
   if(m&&!e.target.closest("button,a,video,[data-ignav]")&&!m.closest("#pzModal")){abrirPieza(m.closest(".pieza"));return}
-  if(e.target.closest("#pzModal [data-pacc],#pzModal [data-vacc]"))setTimeout(cerrarPieza,250)});
+  const pa=e.target.closest("#pzModal [data-pacc],#pzModal [data-vacc]");if(pa&&((pa.dataset.pacc||pa.dataset.vacc)!=="descartada"||pa.dataset.armado))setTimeout(cerrarPieza,250)});
 document.addEventListener("submit",e=>{if(e.target.closest("#pzModal .pz-modf"))setTimeout(cerrarPieza,400)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.getElementById("pzModal")){e.stopPropagation();cerrarPieza()}},true);
 
@@ -2034,8 +2055,12 @@ async function descargarPieza(id,btn){
 document.addEventListener("click",e=>{const b=e.target.closest("[data-pdesc]");if(!b)return;e.preventDefault();e.stopPropagation();descargarPieza(b.closest("[data-pieza]").dataset.pieza,b)},true);
 function aprender(col,x,clase,texto){if(!st.db)return Promise.resolve();const t=new Date().toISOString(),id=(clase+"-"+(x.id||"x")+"-"+t.replace(/[^0-9]/g,"")).slice(0,180);
   return st.db.doc("diseno_aprendizajes/"+id).set({clase,texto:texto||"",t,coleccion:col,pieza:{id:x.id||"",tipo:x.tipo||"",mercado:x.mercado||"",formato:x.formato||"",fondo:x.fondo||"",tema:x.tema||"",titular:x.titular||"",antetitulo:x.antetitulo||"",version:x.version||1,disenador:x.disenador||""},procesado:false}).catch(()=>{})}
+/* Confirmación en el propio botón: el visor de claude.ai bloquea confirm() y el descarte se cancelaba solo */
+function armado(a){if(a.dataset.armado){delete a.dataset.armado;return true}
+  a.dataset.armado="1";const t=a.querySelector(".t"),o=t?t.textContent:a.textContent;a.classList.add("armado");if(t)t.textContent=" ¿Seguro? Pulsa otra vez";else a.textContent="¿Seguro? Pulsa otra vez";
+  toast("Pulsa otra vez Descartar para eliminar la pieza");setTimeout(()=>{if(a.dataset.armado){delete a.dataset.armado;a.classList.remove("armado");if(t)t.textContent=o;else a.textContent=o}},4000);return false}
 async function decidirPieza(col,id,acc){
-  try{if(acc==="descartada"){if(!confirm("¿Descartar esta pieza? Se elimina por completo y el equipo prepara otra."))return;{const x=(col==="diseno_piezas"?st.dis.piezas:st.dis.videos).find(y=>y.id===id)||{id};await aprender(col,x,"descarte","")}await st.db.doc(col+"/"+id).delete();toast("Pieza eliminada: el equipo prepara otra")}
+  try{if(acc==="descartada"){{const x=(col==="diseno_piezas"?st.dis.piezas:st.dis.videos).find(y=>y.id===id)||{id};await aprender(col,x,"descarte","")}await st.db.doc(col+"/"+id).delete();toast("Pieza eliminada: el equipo prepara otra")}
     else{{const x=(col==="diseno_piezas"?st.dis.piezas:st.dis.videos).find(y=>y.id===id)||{id};aprender(col,x,"aprobada","")}await st.db.doc(col+"/"+id).update({estado:"aprobada",revisado:new Date().toISOString()});toast("Aceptada: pasa a Inspiración")}}
   catch(_){toast("Solo el propietario puede decidir")}}
 document.addEventListener("submit",async e=>{const f=e.target.closest(".pz-modf");if(!f)return;e.preventDefault();
@@ -2070,7 +2095,7 @@ document.addEventListener("click",async e=>{
   if(cp){const x=st.dis.piezas.find(y=>y.id===cp.closest("[data-pieza]").dataset.pieza);const t=x.texto||((x.caption||"")+((x.hashtags||[]).length&&!/#/.test(x.caption||"")?"\n\n"+x.hashtags.map(h=>"#"+h).join(" "):""));
     try{await navigator.clipboard.writeText(t);toast("Copy copiado")}catch(_){toast("No se pudo copiar en este visor")}return}
   const pm=e.target.closest("[data-pmod]");if(pm){const f=pm.parentElement.querySelector(".pz-modf");if(f){f.hidden=!f.hidden;if(!f.hidden)f.querySelector("textarea").focus()}return}
-  const a=e.target.closest("[data-pacc]");if(!a)return;
+  const a=e.target.closest("[data-pacc]");if(!a)return;if(a.dataset.pacc==="descartada"&&!armado(a))return;
   const id=a.closest("[data-pieza]")?.dataset.pieza;if(!id||!st.db){toast("Sin conexión con la sala");return}
   await decidirPieza("diseno_piezas",id,a.dataset.pacc);
 });
@@ -2697,24 +2722,24 @@ const zBtn=k=>`<a class="btn zlink" href="${ZLINK[k]}" target="_blank" rel="noop
 /* ===== Captación: deals, won y CR por canal (Utm_Source / Utm_Medium del módulo Deals de Zoho CRM) ===== */
 
 /* Estructura Organic / Paid acordada con dirección: cada utm_source/utm_medium cae en un medio */
-const CN_ORG=["B2B","LLAMADA","EMAIL",["RRSS",["INSTAGRAM ORG","FACEBOOK ORG","YOUTUBE ORG","TIK TOK ORG"]],"GENERATIVA","CHATBOT WEB","TRUSTPILOT","TRIPADVISOR","BLOG","MEDIOS PATROCINADOS","GOOGLE MY BUSINESS","COMUNIDAD","CAMPAIGNS","OTROS","SIN DATA"];
+const CN_ORG=["B2B","LLAMADA","EMAIL",["RRSS",["INSTAGRAM ORG","FACEBOOK ORG","YOUTUBE ORG","TIK TOK ORG"]],"GENERATIVA","TRUSTPILOT","TRIPADVISOR","BLOG","MEDIOS PATROCINADOS","GOOGLE MY BUSINESS","COMUNIDAD","CAMPAIGNS","SIN DATA"];
 const CN_PAID=["BING",["GOOGLE",["DGEN","PMAX","CPC","RMKTN","SEARCH","SIN DATA"]],["META",["META"]],"CAMINOFY","CHATGPT ADS"];
-const CN_OPC=new Set(["CHATBOT WEB","OTROS"]);
+const CN_OPC=new Set();
 function cnClasif(s,m){const a=(s||"").toLowerCase(),b=(m||"").toLowerCase();
   if(a==="(sin utm)")return["ORGANIC","SIN DATA"];
-  const o={llamada:"LLAMADA",email:"EMAIL",b2b:"B2B",trustpilot:"TRUSTPILOT",tripadvisor:"TRIPADVISOR",blog_org:"BLOG",medios_patrocinados:"MEDIOS PATROCINADOS",googlemybusiness:"GOOGLE MY BUSINESS",zoho_campaigns:"CAMPAIGNS",newsletter:"CAMPAIGNS",comunidad:"COMUNIDAD",chatbot:"CHATBOT WEB"}[a];if(o)return["ORGANIC",o];
+  const o={llamada:"LLAMADA",email:"EMAIL",b2b:"B2B",trustpilot:"TRUSTPILOT",tripadvisor:"TRIPADVISOR",blog_org:"BLOG",medios_patrocinados:"MEDIOS PATROCINADOS",googlemybusiness:"GOOGLE MY BUSINESS",zoho_campaigns:"CAMPAIGNS",newsletter:"CAMPAIGNS",comunidad:"COMUNIDAD"}[a];if(o)return["ORGANIC",o];
   const r={instagram_org:"INSTAGRAM ORG",facebook_org:"FACEBOOK ORG",youtube_org:"YOUTUBE ORG",tiktok_org:"TIK TOK ORG"}[a];if(r)return["ORGANIC","RRSS",r];
   if(["chatgpt.com","perplexity","gemini","copilot.com","claude.ai"].includes(a))return["ORGANIC","GENERATIVA"];
   if(a==="bing")return["PAID","BING"];if(a==="caminofy")return["PAID","CAMINOFY"];if(a==="chatgpt_ads")return["PAID","CHATGPT ADS"];
   if(a==="meta"||["facebook","fb","fb-sitelink","ig"].includes(a))return["PAID","META","META"];
   if(a.startsWith("google&"))return["PAID","GOOGLE","PMAX"];
   if(a==="google")return["PAID","GOOGLE",{dgen:"DGEN",pmax:"PMAX",cpc:"CPC",remarketing:"RMKTN",search:"SEARCH"}[b]||"SIN DATA"];
-  return["ORGANIC","OTROS"]}
+  return["ORGANIC","SIN DATA"]}
 /* utm_source conocidos (con sus medium habituales). Un source que no esté aquí se marca en amarillo para revisar */
-const CN_OK={"(sin utm)":["(sin medium)"],llamada:["inbound"],email:["inbound"],chatbot:["rutas","cotizacion"],trustpilot:["company_profile"],tripadvisor:["referral"],blog_org:["(sin medium)","organic"],medios_patrocinados:["referral"],googlemybusiness:["organic"],zoho_campaigns:["email","webinar"],newsletter:["email"],instagram_org:["social","bio","mensajes"],facebook_org:["social"],tiktok_org:["social","bio","mensajes"],youtube_org:["social"],"chatgpt.com":["(sin medium)"],perplexity:["(sin medium)"],gemini:["(sin medium)"],"copilot.com":["(sin medium)"],bing:["cpc"],google:["search","pmax","dgen","cpc","remarketing"],meta:["social_paid","paid","fb_crm_remarketing","fb_pixel_remarketing","ig_crm_remarketing","ig_pixel_remarketing","an_crm_remarketing","an_pixel_remarketing","th_pixel_remarketing"],caminofy:["(sin medium)"],chatgpt_ads:["cpc"]};
+const CN_OK={"(sin utm)":["(sin medium)"],llamada:["inbound"],email:["inbound"],trustpilot:["company_profile"],tripadvisor:["referral"],blog_org:["(sin medium)","organic"],medios_patrocinados:["referral"],googlemybusiness:["organic"],zoho_campaigns:["email","webinar"],instagram_org:["social","bio","mensajes"],facebook_org:["social"],tiktok_org:["social","bio","mensajes"],youtube_org:["social"],"chatgpt.com":["(sin medium)"],perplexity:["(sin medium)"],gemini:["(sin medium)"],"copilot.com":["(sin medium)"],bing:["cpc"],google:["search","pmax","dgen","cpc","remarketing"],meta:["social_paid","paid","fb_crm_remarketing","fb_pixel_remarketing","ig_crm_remarketing","ig_pixel_remarketing","an_crm_remarketing","an_pixel_remarketing","th_pixel_remarketing"],caminofy:["(sin medium)"],chatgpt_ads:["cpc"]};
 const cnRara=s=>!CN_OK[(s||"").toLowerCase()];
 function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={},V=st.cnV;
-  const raw={};(C.filas||[]).forEach(([s,m,d,w])=>{const k=cnClasif(s,m).join("|"),x=ag[k]||(ag[k]=[0,0]);x[0]+=d;x[1]+=w;(det[k]=det[k]||[]).push(`${s} / ${m}: ${num(d)}`);const rr=raw[k]||(raw[k]={}),y=rr[s]||(rr[s]=[s,0,0]);y[1]+=d;y[2]+=w});
+  const raw={};(C.filas||[]).forEach(([s,m,d,w])=>{const k=cnClasif(s,m).join("|"),x=ag[k]||(ag[k]=[0,0]);x[0]+=d;x[1]+=w;(det[k]=det[k]||[]).push(s);const rr=raw[k]||(raw[k]={}),y=rr[s]||(rr[s]=[s,0,0]);y[1]+=d;y[2]+=w});
   const g=k=>ag[k]||[0,0],suma=ks=>ks.reduce((t,k)=>{const x=g(k);return[t[0]+x[0],t[1]+x[1]]},[0,0]);
   const hojas=[];const arbol=(grp,L)=>L.map(it=>Array.isArray(it)?{n:it[0],k:grp+"|"+it[0],subs:it[1].map(sb=>{const k=[grp,it[0],sb].join("|");hojas.push({k,n:it[0]===sb?sb:`${it[0]} · ${sb}`,sd:sb==="SIN DATA"});return{n:sb,k}})}:{n:it,k:grp+"|"+it,opc:CN_OPC.has(it)}).filter(it=>{if(!it.subs)hojas.push({k:it.k,n:it.n,sd:it.n==="SIN DATA"});return !(it.opc&&!g(it.k)[0])});
   const T={ORGANIC:arbol("ORGANIC",CN_ORG),PAID:arbol("PAID",CN_PAID)};
@@ -2725,10 +2750,10 @@ function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={
   const crCell=(p,k)=>`<td class="cr cn-crb ${k?col(p):""}">${p[0]?`<i style="width:${Math.min(100,p[1]/p[0]/maxCr*100)}%"></i><span>${pct(p[1]/p[0])}</span>`:"<span>–</span>"}</td>`;
   const datos=(p,k)=>`<td>${num(p[0])}</td><td class="cn-pc">${p[0]?(p[0]/TD*100).toFixed(1).replace(".",",")+" %":""}</td><td>${num(p[1])}</td>${crCell(p,k)}`;
   const tag=k=>eT.has(k)?`<span class="cn-tag top">mejor</span>`:eB.has(k)?`<span class="cn-tag bot">peor</span>`:"";
-  const tit=k=>det[k]?` title="${esc(det[k].join("\n"))}"`:"";
-  const verU=V.utm!==false,lr=k=>Object.values(raw[k]||{}),nR=k=>lr(k).filter(([s])=>cnRara(s)).length;
+  const tit=k=>det[k]?` title="${esc([...new Set(det[k])].join("\n"))}"`:"";
+  const verU=V.utm===true,lr=k=>Object.values(raw[k]||{}),nR=k=>lr(k).filter(([s])=>cnRara(s)).length;
   const marca=k=>nR(k)?`<span class="cn-tag rev" title="${nR(k)} utm_source a revisar">⚠ ${nR(k)}</span>`:"";
-  const crudas=(k,cls,ind)=>verU?lr(k).sort((a,b)=>b[1]-a[1]).map(([s,d,w])=>{const r=cnRara(s);return`<tr class="cn-raw ${cls}${r?" cn-rara":""}"><td class="${ind}"><code>${esc(s.length>60?s.slice(0,60)+"…":s)}</code>${r?'<span class="cn-tag rev">revisar</span>':""}</td><td>${num(d)}</td><td class="cn-pc">${(d/TD*100).toFixed(1).replace(".",",")} %</td><td>${num(w)}</td><td class="cr cn-crb"><span>${d?pct(w/d):"–"}</span></td></tr>`}).join(""):"";
+  const crudas=(k,cls,ind)=>lr(k).filter(([s])=>verU||cnRara(s)).sort((a,b)=>b[1]-a[1]).map(([s,d,w])=>{const r=cnRara(s);return`<tr class="cn-raw ${cls}${r?" cn-rara":""}"><td class="${ind}"><code>${esc(s.length>60?s.slice(0,60)+"…":s)}</code>${r?'<span class="cn-tag rev">revisar</span>':""}</td><td>${num(d)}</td><td class="cn-pc">${(d/TD*100).toFixed(1).replace(".",",")} %</td><td>${num(w)}</td><td class="cr cn-crb"><span>${d?pct(w/d):"–"}</span></td></tr>`}).join("");
   const cerr=V.cerrados||(V.cerrados=new Set());
   let h="";const grT={};
   for(const grp of ["ORGANIC","PAID"]){const kk=Object.keys(ag).filter(k=>k.startsWith(grp+"|")),tot=suma(kk);grT[grp]=tot;const cls=grp==="PAID"?"cn-paid":"cn-org";
@@ -2741,7 +2766,7 @@ function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={
   const li=a=>a.map(x=>`<li>${esc(x.n)} · <b>${pct(x.w/x.d)}</b> <small>(${num(x.w)} de ${num(x.d)})</small></li>`).join("")||"<li><small>No hay medios con datos suficientes en este periodo.</small></li>";
   const [O,P]=[grT.ORGANIC,grT.PAID],po=O[0]+P[0]?O[0]/(O[0]+P[0])*100:0;
   const rS={};(C.filas||[]).forEach(([s,m,d])=>{if(cnRara(s))rS[s]=(rS[s]||0)+d});const rar=Object.entries(rS).sort((a,b)=>b[1]-a[1]),rD=rar.reduce((t,f)=>t+f[1],0);
-  const revisar=rar.length?`<div class="cn-revw"><b>⚠ ${rar.length} utm_source a revisar</b> · ${num(rD)} deals (${(rD/TD*100).toFixed(1).replace(".",",")} % del periodo). Salen en amarillo dentro del canal donde los he colocado: ${rar.map(([s,d])=>`<code>${esc(s.length>30?s.slice(0,30)+"…":s)}</code> (${num(d)})`).join(", ")}.</div>`:"";
+  const revisar=rar.length?`<div class="cn-revw"><b>⚠ ${rar.length} utm_source a revisar</b> · ${num(rD)} deals (${(rD/TD*100).toFixed(2).replace(".",",")} % del periodo). Salen en amarillo dentro del canal donde los he colocado: ${rar.map(([s,d])=>`<code>${esc(s.length>30?s.slice(0,30)+"…":s)}</code> (${num(d)})`).join(", ")}.</div>`:"";
   return{po:[O,P],revisar,
    split:`<div class="cn-split"><div class="cn-sbar"><span class="cn-org" style="width:${po}%"></span><span class="cn-paid" style="width:${100-po}%"></span></div>
     <div class="cn-sleg"><div class="cn-org"><b>Organic</b> ${num(O[0])} deals · ${po.toFixed(1).replace(".",",")} % · CR <b>${pct(O[0]?O[1]/O[0]:null)}</b></div><div class="cn-paid"><b>Paid</b> ${num(P[0])} deals · ${(100-po).toFixed(1).replace(".",",")} % · CR <b>${pct(P[0]?P[1]/P[0]:null)}</b></div></div></div>`,
@@ -2749,7 +2774,7 @@ function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={
    tabla:`<div class="as-tw"><table class="as-t cn-e"><thead><tr><th class="as-n">Canal</th><th>Deals</th><th>% del total</th><th>Won</th><th>CR</th></tr></thead><tbody>${h}</tbody></table></div>`}}
 function pintarCanales(){const el=document.getElementById("c-captacion_canales");if(!el||st.dentro!=="captacion")return;let C=st.canales;
   if(!C){el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div><div class="vacio">Álex está leyendo los deals de Zoho.</div>`;return}
-  const V=st.cnV||(st.cnV={vista:"grupo",abiertos:new Set(),orden:"vol"}),MIN=C.min_deals||100;
+  const V=st.cnV||(st.cnV={vista:"grupo",abiertos:new Set(),orden:"vol"}),MIN=C.min_deals||100;if(V.vista==="medium")V.vista="grupo";
   const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."),pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %";
   const mens=(C.filas||[]).length>0&&C.filas[0].length===5,meses=mens?[...new Set(C.filas.map(f=>f[2]))].sort((a,b)=>a-b):[];
   if(mens){if(V.desde==null){V.desde=C.desde_defecto||meses[0];V.hasta=meses[meses.length-1]}
@@ -2760,14 +2785,14 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   const resta=(ym,n)=>{let y=Math.floor(ym/100),m=ym%100-n;while(m<1){m+=12;y--}return y*100+m};
   const pres=mens?[["Este año",y0*100+1,ult],["Últimos 3 meses",resta(ult,2),ult],["Mes pasado",resta(ult,1),resta(ult,1)],["Año pasado",(y0-1)*100+1,(y0-1)*100+12],["Todo",meses[0],ult]].filter(p=>meses.includes(p[2])).map(([n,a,b])=>[n,Math.max(a,meses[0]),b]):[];
   const fechas=mens?`<div class="cn-fechas"><label>Desde <select data-cnf="desde">${optM(V.desde)}</select></label><label>Hasta <select data-cnf="hasta">${optM(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cnpre="${a}-${b}">${n}</button>`).join("")}</div></div>`:"";
-  const vistas=`<div class="as-modo"><button class="btn${V.vista==="grupo"?" prim":""}" data-cnvista="grupo">Organic / Paid</button><button class="btn${V.vista==="source"?" prim":""}" data-cnvista="source">Por utm_source</button><button class="btn${V.vista==="medium"?" prim":""}" data-cnvista="medium">Por source + medium</button></div>`;
+  const vistas=`<div class="as-modo"><button class="btn${V.vista==="grupo"?" prim":""}" data-cnvista="grupo">Organic / Paid</button><button class="btn${V.vista==="source"?" prim":""}" data-cnvista="source">Por utm_source</button></div>`;
   if(!TD){el.innerHTML=`<div class="as-ctl">${vistas}${zBtn("canales")}</div>${fechas}<div class="vacio">No hay deals en ese periodo.</div>`;return}
   if(V.vista==="grupo"){const E=cnEstructura(C,num,pct,MIN);
     el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div>
      <div class="as-ctl">${vistas}${zBtn("canales")}</div>${fechas}
      <div class="as-res"><div><b>${num(TD)}</b><span>deals · ${esc(C.periodo||"")}</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div></div>
-     ${E.split}${E.rank}${E.revisar}<div class="cn-utmtg"><label><input type="checkbox" data-cnutm${V.utm!==false?" checked":""}> Ver los utm_source del CRM dentro de cada canal</label></div>${E.tabla}
-     <p class="as-nota">CR = deals won / deals creados en el periodo (por mes de creación del deal). Mejores y peores: solo medios con al menos ${MIN} deals en el periodo y sin contar SIN DATA. Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pulsa RRSS o Google para plegar o desplegar; debajo de cada canal aparecen los utm_source tal como llegan del CRM; en amarillo los que no son ninguno de los conocidos, para revisarlos y limpiarlos. SIN DATA en Organic son deals sin utm_source; en Google, deals con source google sin medium (más display). Las fuentes antiguas fb, fb-SiteLink, ig y Facebook cuentan como Meta. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`;return}
+     ${E.split}${E.rank}${E.revisar}<div class="cn-utmtg"><label><input type="checkbox" data-cnutm${V.utm===true?" checked":""}> Ver también los utm_source conocidos dentro de cada canal</label></div>${E.tabla}
+     <p class="as-nota">CR = deals won / deals creados en el periodo (por mes de creación del deal). Mejores y peores: solo medios con al menos ${MIN} deals en el periodo y sin contar SIN DATA. Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pulsa RRSS o Google para plegar o desplegar; las filas son las del cuadro de dirección; solo aparecen debajo, en amarillo, los utm_source del CRM que no encajan en él, para revisarlos y limpiarlos. SIN DATA en Organic son deals sin utm_source y los utm_source que no tienen fila en el cuadro (salen en amarillo); en Google, deals con source google sin medium (más display). Las fuentes antiguas fb, fb-SiteLink, ig y Facebook cuentan como Meta. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`;return}
   const src={};(C.filas||[]).forEach(([s,m,d,w])=>{const x=src[s]||(src[s]={d:0,w:0,m:[]});x.d+=d;x.w+=w;x.m.push([m,d,w])});
   const grupos=V.vista==="source"?Object.entries(src).map(([s,x])=>({k:s,n:s,d:x.d,w:x.w,m:x.m})):(C.filas||[]).map(([s,m,d,w])=>({k:s+"|"+m,n:s+" / "+m,d,w}));
   const fiables=grupos.filter(g=>g.d>=MIN&&!g.k.startsWith("(sin utm)")).sort((a,b)=>b.w/b.d-a.w/a.d);
@@ -2775,17 +2800,17 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   const lista=grupos.sort((a,b)=>V.orden==="cr"?(b.d>=MIN)-(a.d>=MIN)||b.w/b.d-a.w/a.d:b.d-a.d);
   const col=(g)=>g.d<MIN?"":g.w/g.d>=ref*1.15?"bueno":g.w/g.d<=ref*.85?"malo":"";
   const maxCr=Math.max(...fiables.map(g=>g.w/g.d),ref);
-  const fila=(g,sub)=>`<tr class="${sub?"cn-sub":""}${V.abiertos.has(g.k)?" abierto":""}"${!sub&&V.vista==="source"&&g.m.length>1?` data-cnsrc="${esc(g.k)}"`:""}><td class="as-n${!sub&&V.vista==="source"&&g.m.length>1?" cn-src":""}">${esc(g.n)}${esTop.has(g.k)?`<span class="cn-tag top">mejor</span>`:""}${esBot.has(g.k)?`<span class="cn-tag bot">peor</span>`:""}</td><td>${num(g.d)}</td><td>${(g.d/TD*100).toFixed(1).replace(".",",")} %</td><td>${num(g.w)}</td><td class="cr cr-bar ${col(g)}">${g.d>=MIN?`<i style="width:${Math.min(100,g.w/g.d/maxCr*100)}%"></i>`:""}<span style="position:relative">${pct(g.w/g.d)}</span></td></tr>`;
-  const cuerpo=lista.map(g=>fila(g)+(V.vista==="source"&&V.abiertos.has(g.k)?g.m.slice().sort((a,b)=>b[1]-a[1]).map(([m,d,w])=>fila({k:g.k+"|"+m,n:m,d,w},true)).join(""):"")).join("");
+  const fila=(g,sub)=>`<tr class="${sub?"cn-sub":""}${V.abiertos.has(g.k)?" abierto":""}"${!sub&&false?` data-cnsrc="${esc(g.k)}"`:""}><td class="as-n${!sub&&false?" cn-src":""}">${esc(g.n)}${esTop.has(g.k)?`<span class="cn-tag top">mejor</span>`:""}${esBot.has(g.k)?`<span class="cn-tag bot">peor</span>`:""}</td><td>${num(g.d)}</td><td>${(g.d/TD*100).toFixed(1).replace(".",",")} %</td><td>${num(g.w)}</td><td class="cr cr-bar ${col(g)}">${g.d>=MIN?`<i style="width:${Math.min(100,g.w/g.d/maxCr*100)}%"></i>`:""}<span style="position:relative">${pct(g.w/g.d)}</span></td></tr>`;
+  const cuerpo=lista.map(g=>fila(g)+("")).join("");
   const li=a=>a.map(g=>`<li>${esc(g.n)} · <b>${pct(g.w/g.d)}</b> <small>(${num(g.w)} de ${num(g.d)})</small></li>`).join("");
   el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2><div class="fuente-mc" style="margin-top:6px">${esc(C.fuente||"")} · ${esc(C.periodo||"")}</div></div><div class="meta">${C.actualizado?`datos del ${esc(C.actualizado)}`:""}</div></div>
    <div class="as-ctl">${vistas}
     <label>Ordenar <select data-cnorden><option value="vol"${V.orden==="vol"?" selected":""}>por deals</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label>${zBtn("canales")}</div>${fechas}
    <div class="as-res"><div><b>${num(TD)}</b><span>deals entrados</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div><div><b>${num(Object.keys(src).length)}</b><span>valores de utm_source</span></div></div>
    <div class="cn-rank"><div class="top"><h4>Mejor convierten</h4><ol>${li(top)}</ol></div><div class="bot"><h4>Peor convierten</h4><ol>${li(bot)}</ol></div></div>
-   <div class="as-tw"><table class="as-t cn-t"><thead><tr><th class="as-n">${V.vista==="source"?"Canal (utm_source)":"utm_source / utm_medium"}</th><th>Deals</th><th>% del total</th><th>Won</th><th>CR</th></tr></thead>
+   <div class="as-tw"><table class="as-t cn-t"><thead><tr><th class="as-n">utm_source</th><th>Deals</th><th>% del total</th><th>Won</th><th>CR</th></tr></thead>
     <tbody>${cuerpo}</tbody><tfoot><tr><td class="as-n">Total</td><td>${num(TD)}</td><td>100 %</td><td>${num(TW)}</td><td>${pct(ref)}</td></tr></tfoot></table></div>
-   <p class="as-nota">CR = deals won / deals entrados. Mejores y peores se calculan solo entre canales con al menos ${MIN} deals, para que un canal con 2 deals y 1 venta no salga como el mejor. Verde: CR al menos un 15 % por encima de la media; rojo: un 15 % o más por debajo. Con "Por utm_source" pulsa un canal para ver sus utm_medium. "(sin utm)" son deals que entraron sin utm_source; no entran en el ranking porque no son un canal identificable. Muchos deals de 2026 siguen abiertos, así que el CR de los canales más recientes todavía subirá.</p>`}
+   <p class="as-nota">CR = deals won / deals entrados. Mejores y peores se calculan solo entre canales con al menos ${MIN} deals, para que un canal con 2 deals y 1 venta no salga como el mejor. Verde: CR al menos un 15 % por encima de la media; rojo: un 15 % o más por debajo. "(sin utm)" son deals que entraron sin utm_source; no entran en el ranking porque no son un canal identificable. Muchos deals de 2026 siguen abiertos, así que el CR de los canales más recientes todavía subirá.</p>`}
 document.addEventListener("click",e=>{const v=e.target.closest("[data-cnvista]");if(v&&st.cnV){st.cnV.vista=v.dataset.cnvista;pintarCanales();return}
   const r=e.target.closest("[data-cnsrc]");if(r&&st.cnV){const k=r.dataset.cnsrc;st.cnV.abiertos.has(k)?st.cnV.abiertos.delete(k):st.cnV.abiertos.add(k);pintarCanales()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-cnorden]");if(s&&st.cnV){st.cnV.orden=s.value;pintarCanales()}});
@@ -3038,7 +3063,7 @@ function pintarBiblio(){
 }
 document.addEventListener("click",async e=>{
   const bf=e.target.closest("[data-bfil]");if(bf){st.dis.bFiltro=bf.dataset.bfil;pintarBiblio();return}
-  const a=e.target.closest("[data-vacc]");if(!a)return;
+  const a=e.target.closest("[data-vacc]");if(!a)return;if(a.dataset.vacc==="descartada"&&!armado(a))return;
   const id=a.closest("[data-video]")?.dataset.video;if(!id||!st.db){toast("Sin conexión con la sala");return}
   await decidirPieza("diseno_videos",id,a.dataset.vacc);
 });

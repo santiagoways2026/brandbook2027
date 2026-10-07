@@ -1,0 +1,59 @@
+<!-- ============================================================
+     BLOQUE · tabla-responsive
+     Estado: CONFIRMADO (markup aportado por el cliente)
+     Uso: cualquier tabla de datos dentro de un artículo o página.
+     ============================================================
+     REGLAS DE MARCADO (respetar al pie de la letra)
+     1. Siempre envuelta en <div class="tabla-responsive-wrap">.
+     2. La tabla lleva class="tabla-responsive".
+     3. <thead> con un <th> por columna.
+     4. En <tbody>, CADA <td> salvo el primero lleva data-label="<texto del th>".
+        El primer <td> NO lleva data-label: hace de título de la tarjeta en móvil.
+     5. El primer <td> de cada fila va siempre dentro de <strong>.
+     6. En la columna de estado, los valores cerrados o definitivos van en <strong>;
+        los pendientes o aproximados, en texto plano.
+     ============================================================ -->
+
+<div class="tabla-responsive-wrap">
+<table class="tabla-responsive">
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Hito</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>31 dic 2026, 17:00</strong></td>
+<td data-label="Hito">Apertura solemne de la Puerta Santa</td>
+<td data-label="Estado"><strong>Confirmado</strong></td>
+</tr>
+<tr>
+<td><strong>Todo 2027</strong></td>
+<td data-label="Hito">Año Santo Jacobeo en vigor</td>
+<td data-label="Estado"><strong>Confirmado</strong></td>
+</tr>
+<tr>
+<td><strong>21–28 mar 2027 (aprox.)</strong></td>
+<td data-label="Hito">Semana Santa</td>
+<td data-label="Estado">Fechas confirmadas; programa pendiente</td>
+</tr>
+<tr>
+<td><strong>15–25 jul 2027</strong></td>
+<td data-label="Hito">Ventana religiosa crítica: novena, vísperas y solemnidad</td>
+<td data-label="Estado">Pendiente de programa detallado</td>
+</tr>
+<tr>
+<td><strong>25 jul 2027</strong></td>
+<td data-label="Hito">Día del Apóstol Santiago, en domingo</td>
+<td data-label="Estado"><strong>Confirmado</strong></td>
+</tr>
+<tr>
+<td><strong>31 dic 2027</strong></td>
+<td data-label="Hito">Posible clausura del Año Santo</td>
+<td data-label="Estado">Pendiente de confirmación</td>
+</tr>
+</tbody>
+</table>
+</div>

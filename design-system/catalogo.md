@@ -29,7 +29,7 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 | 8 | `guides` | Guías descargables: tarjetas con botón | CSS ✓ HTML ✗ |
 | 9 | `features` | Características con icono en `<img>` | CSS ✓ HTML ✗ |
 | 10 | `checklist` | Listas de comprobación en tarjetas | CSS ✓ HTML ✗ |
-| 11 | `heroblogsw` | Cabecera de artículo con foto de fondo y overlay | CSS ✓ HTML ✗ |
+| 11 | `heroblogsw` | Cabecera de artículo con foto de fondo y overlay | CSS ✓ HTML ✓ |
 | 12 | `roads` | Tarjetas de rutas con foto, banderola lima y etiquetas | CSS ✓ HTML ✗ |
 | 13 | `finder` | Selector de preguntas con enlaces de respuesta | CSS ✓ HTML ✗ |
 | 14 | `durations` | Comparativa de rutas con **barras de progreso** | CSS ✓ HTML ✗ |
@@ -82,6 +82,22 @@ márgenes). `quote` espera exactamente `.quote__text` y `.quote__author`.
 `.finder__link::after` pone `›`, `.durations__link::after` pone `›` y `.gear__link::after`
 pone `→`. **No se escriben en el HTML**: saldrían duplicados.
 
+### `heroblogsw` · la raíz es `<section>` y el overlay no se salta
+La raíz es `<section class="heroblogsw">`, no un `<div>`. El `<img>` va pegado a la
+etiqueta de apertura, en la misma línea. El `<div class="heroblogsw__overlay">` va vacío
+y va siempre: es lo que oscurece la foto para que el texto blanco se lea.
+
+El velo va de `rgba(0,0,0,.72)` a la izquierda a `rgba(0,0,0,.15)` a la derecha, así que
+la foto necesita una zona despejada en el lado izquierdo.
+
+Dentro de `__content` el orden es fijo: badge, título, actions. El título es `<h2>`; solo
+se usa `<h1>` si el bloque abre la página y no hay ningún encabezado por encima.
+
+Aquí los símbolos **sí se escriben en el HTML**: el `✔` del badge y el `→` del botón. Es
+lo contrario de lo que pasa en `finder`, `durations` y `gear`, donde los pone el `::after`.
+
+`__actions` es flex con `gap` y `flex-wrap`, así que admite más de un botón.
+
 ### `tabla-responsive` · el tema se cambia desde el HTML
 La tabla declara sus colores como variables en `.tabla-responsive`. Para cambiar el color
 de **una** tabla concreta se redefinen en el propio elemento:
@@ -110,7 +126,7 @@ móvil no se vean.
 
 ## Lo que falta
 
-**Los 21 HTML de referencia.** Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
+**Los 21 HTML de referencia que faltan.** Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
    Con ellos se confirma la estructura exacta de cada bloque y se cierra el catálogo.
 `tabla-responsive` ya está completo: [`tabla-responsive.css`](tabla-responsive.css) es el
 original y [`../bloques/tabla-responsive.html`](../bloques/tabla-responsive.html) el markup.

@@ -55,7 +55,9 @@ design-system/
   tokens.css       tokens del brandbook (referencia, no se usa en producción)
   preview.html     vista previa
 bloques/           un .html por componente, con su markup de referencia
-tools/inventario.py  regenera inventario.md desde bloques.css
+tools/
+  servidor.py      servidor de desarrollo sin caché
+  inventario.py    regenera inventario.md desde las hojas de design-system/
 inbox/             aquí deja el usuario HTML nuevo sin catalogar
 salidas/           HTML generado
 emails/            pieza heredada de email. Fuera del alcance de este proyecto.
@@ -65,7 +67,9 @@ Si cambia `bloques.css`, hay que lanzar `python tools/inventario.py`.
 
 ## La herramienta
 
-`app/` es la versión navegable de esto mismo: `python -m http.server 8899` y
-http://localhost:8899/app/ . Un módulo nuevo se añade en `app/modulos.js`, y su `render()`
+`app/` es la versión navegable de esto mismo: `python tools/servidor.py` y
+http://localhost:8899/app/ . Ese servidor manda `Cache-Control: no-store`; con
+`python -m http.server` el navegador sirve el `modulos.js` antiguo y parece que los
+cambios no entran. Un módulo nuevo se añade en `app/modulos.js`, y su `render()`
 tiene que devolver exactamente el markup del `bloques/<id>.html` de referencia. El panel
 «El módulo» se pinta con esa misma función, así que una desviación se ve al momento.

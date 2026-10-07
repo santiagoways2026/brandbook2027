@@ -6,10 +6,10 @@ le das contenido en bruto y te devuelve el HTML ya maquetado con las clases corr
 ## La herramienta
 
 ```bash
-python -m http.server 8899
+python tools/servidor.py
 ```
 
-Y abre **http://localhost:8899/app/** . Tiene cuatro paneles:
+Abre solo **http://localhost:8899/app/** . Tiene cuatro paneles:
 
 | Panel | Qué hace |
 |---|---|
@@ -65,7 +65,8 @@ A partir de ese momento el transformador ya sabe usarlo.
 | `design-system/tabla-responsive.css` | Hoja de la tabla. Se tematiza con variables CSS |
 | `design-system/tokens.css` | Tokens del brandbook como referencia |
 | `bloques/` | Un `.html` por componente con su markup de referencia |
-| `tools/inventario.py` | Regenera el inventario cuando cambia `bloques.css` |
+| `tools/servidor.py` | Servidor de desarrollo sin caché |
+| `tools/inventario.py` | Regenera el inventario cuando cambia el CSS |
 | `inbox/` | Buzón de entrada: HTML sin catalogar |
 | `salidas/` | HTML generado |
 | `emails/` | Pieza de email heredada. Fuera del alcance de este proyecto |
@@ -75,9 +76,10 @@ A partir de ese momento el transformador ya sabe usarlo.
 | | CSS | HTML de referencia | Módulo |
 |---|---|---|---|
 | `tabla-responsive` | ✓ original | ✓ original | ✓ listo |
-| Los 23 bloques de `bloques.css` | ✓ original | ✗ pendiente | ✗ pendiente |
+| `heroblogsw` | ✓ original | ✓ original | ✓ listo |
+| Los otros 22 bloques | ✓ original | ✗ pendiente | ✗ pendiente |
 
-Falta el markup de referencia de los 23 bloques de `bloques.css`.
+Faltan 22 HTML de referencia.
 
 Hay además **un aviso de contraste**: `#668814`, el color de texto más usado del sistema
 (33 veces, casi siempre en tamaños de 11-13 px), da 4,12:1 sobre blanco y no llega al

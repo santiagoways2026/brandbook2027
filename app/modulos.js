@@ -105,6 +105,87 @@ function leerTabla(bruto) {
   return { cabeceras, filas, avisos };
 }
 
+/** Normaliza un nombre de campo: minúsculas y sin tildes. */
+function normalizar(clave) {
+  return String(clave)
+    .trim()
+    .toLowerCase()
+    .normalize('NFD')
+    .replace(/[\u0300-\u036f]/g, '');
+}
+
+/**
+ * Lee un bloque de campos «clave: valor», uno por línea.
+ *
+ * Solo se abre campo nuevo si la clave está en `permitidas`; así una URL con
+ * «https:» dentro no se confunde con una clave.
+ *
+ * Una línea que no abre campo se pega a la anterior SOLO si ese campo está en
+ * `multilinea`, que son los de texto corrido. Pegarla a una URL o a un botón
+ * rompería el dato en silencio, así que ahí se avisa en vez de adivinar.
+ *
+ * Una clave puede repetirse: el valor se acumula en una lista.
+ * Devuelve { campos, avisos }, donde campos es un Map clave -> [valores].
+ */
+function leerCampos(bruto, permitidas, multilinea) {
+  const seguidas = multilinea || [];
+  const campos = new Map();
+  const avisos = [];
+  const sueltas = [];
+  let ultima = null;
+
+  String(bruto).split(/\r?\n/).forEach((cruda) => {
+    const l = cruda.trim();
+    if (!l) return;
+
+    const corte = l.indexOf(':');
+    const posible = corte > 0 ? normalizar(l.slice(0, corte)) : null;
+
+    if (posible && permitidas.indexOf(posible) !== -1) {
+      ultima = posible;
+      if (!campos.has(ultima)) campos.set(ultima, []);
+      campos.get(ultima).push(l.slice(corte + 1).trim());
+      return;
+    }
+
+    if (ultima && seguidas.indexOf(ultima) !== -1) {
+      // Continuación del campo anterior: párrafo partido en varias líneas.
+      const lista = campos.get(ultima);
+      lista[lista.length - 1] = (lista[lista.length - 1] + ' ' + l).trim();
+      return;
+    }
+
+    sueltas.push(l);
+  });
+
+  if (sueltas.length) {
+    avisos.push(
+      'No sé dónde poner ' + (sueltas.length === 1 ? 'esta línea' : 'estas líneas') +
+        ': «' + sueltas.slice(0, 2).join('», «') + '»' +
+        (sueltas.length > 2 ? ' y ' + (sueltas.length - 2) + ' más' : '') +
+        '. Los campos de este módulo son: ' + permitidas.join(', ') + '.'
+    );
+  }
+
+  return { campos, avisos };
+}
+
+/** Primer valor de un campo, o '' si no está. */
+function campo(campos, clave) {
+  const v = campos.get(clave);
+  return v && v.length ? v[0] : '';
+}
+
+/**
+ * Parte «Texto -> url» en { texto, url }. Acepta ->, → y |.
+ * Sin separador, todo es texto y la url queda vacía.
+ */
+function enlace(bruto) {
+  const m = String(bruto).match(/^([\s\S]*?)\s*(?:->|\u2192|\|)\s*(\S+)$/);
+  if (!m) return { texto: String(bruto).trim(), url: '' };
+  return { texto: m[1].trim(), url: m[2].trim() };
+}
+
 /* ---------- módulos ---------- */
 
 const MODULOS = [
@@ -187,6 +268,111 @@ const MODULOS = [
     },
   },
 
+  {
+    id: 'heroblogsw',
+    nombre: 'Hero de artículo',
+    clase: '.heroblogsw',
+    grupo: 'Cabeceras',
+    descripcion:
+      'Cabecera de artículo: foto a sangre, velo oscuro de izquierda a derecha y, encima, etiqueta, titular y botones.',
+    estado: { texto: 'HTML y CSS originales', tono: 'ok' },
+    reglas: [
+      'La raíz es <section>, no <div>. El overlay va siempre: sin él, el texto blanco pierde contraste sobre la foto.',
+      'El velo es más oscuro a la izquierda, así que la foto debe tener aire por ese lado.',
+      'Los símbolos del botón (→) y de la etiqueta (✔) van escritos en el HTML: aquí el CSS no los pone.',
+      'El titular es <h2>. Si el bloque abre la página y no hay nada por encima, usa nivel: h1.',
+      'La foto necesita texto alternativo: ocupa todo el bloque y no es decorativa.',
+    ],
+    entrada: {
+      etiqueta: 'Un campo por línea',
+      ayuda:
+        'Campos: imagen, alt, etiqueta, titulo, boton, nivel. El botón se escribe «Texto -> url». Puedes repetir boton para poner varios. Etiqueta y botón son opcionales; imagen y titulo, no.',
+      filas: 9,
+    },
+
+    demo: [
+      'imagen: https://santiagoways.com/wp-content/uploads/2019/10/feature-singles.webp',
+      'alt: Peregrinos caminando por una etapa del Camino de Santiago',
+      'etiqueta: \u2714 Actualizado 2026',
+      'titulo: Todo lo que necesitas saber para organizar tu Camino paso a paso',
+      'boton: Ver rutas principales \u2192 -> /?page_id=11888',
+    ].join('\n'),
+
+    ejemplo: [
+      'imagen: https://santiagoways.com/wp-content/uploads/2019/10/feature-singles.webp',
+      'alt: Peregrina cruzando un puente de piedra al amanecer',
+      'etiqueta: \u2714 Año Santo 2027',
+      'titulo: El Camino Francés desde Sarria, etapa a etapa',
+      'boton: Ver la ruta \u2192 -> /camino-frances-desde-sarria',
+      'boton: Pedir presupuesto \u2192 -> /contacto',
+    ].join('\n'),
+
+    render(bruto) {
+      const PERMITIDAS = ['imagen', 'alt', 'etiqueta', 'titulo', 'boton', 'nivel'];
+      // Solo el texto corrido admite partirse en varias líneas.
+      const MULTILINEA = ['titulo', 'alt'];
+      const { campos, avisos } = leerCampos(bruto, PERMITIDAS, MULTILINEA);
+
+      const imagen = campo(campos, 'imagen');
+      const alt = campo(campos, 'alt');
+      const etiqueta = campo(campos, 'etiqueta');
+      const titulo = campo(campos, 'titulo');
+      const botones = (campos.get('boton') || []).filter((b) => b.trim());
+
+      if (!imagen) throw new Error('Falta la imagen. Escribe una línea «imagen: https://…».');
+      if (!titulo) throw new Error('Falta el titular. Escribe una línea «titulo: …».');
+
+      // Nivel del encabezado: h1 solo si se pide a mano.
+      let nivel = normalizar(campo(campos, 'nivel')) || 'h2';
+      if (nivel !== 'h1' && nivel !== 'h2') {
+        avisos.push('«nivel: ' + nivel + '» no vale: solo h1 o h2. Se usa h2.');
+        nivel = 'h2';
+      }
+
+      if (!alt) {
+        avisos.push(
+          'La foto va sin texto alternativo. Ocupa todo el bloque y no es decorativa: ' +
+            'añade una línea «alt: …» describiendo lo que se ve.'
+        );
+      }
+      if (titulo.length > 100) {
+        avisos.push(
+          'El titular tiene ' + titulo.length + ' caracteres. A 56 px en escritorio ocupará ' +
+            'varias líneas y empujará los botones fuera de la foto.'
+        );
+      }
+      if (botones.length > 2) {
+        avisos.push(botones.length + ' botones: en móvil se apilan y tapan la foto. Dos como mucho.');
+      }
+
+      const out = [];
+      out.push(
+        '<section class="heroblogsw"><img class="heroblogsw__img" src="' +
+          esc(imagen) + '" alt="' + esc(alt) + '" />'
+      );
+      out.push('<div class="heroblogsw__overlay"></div>');
+      out.push('<div class="heroblogsw__content">');
+      if (etiqueta) {
+        out.push('<div class="heroblogsw__badge">' + linea(etiqueta) + '</div>');
+      }
+      out.push('<' + nivel + ' class="heroblogsw__title">' + linea(titulo) + '</' + nivel + '>');
+      if (botones.length) {
+        const marcados = botones.map((b) => {
+          const par = enlace(b);
+          if (!par.url) {
+            avisos.push('El botón «' + par.texto + '» no tiene enlace. Escríbelo como «Texto -> /ruta».');
+          }
+          return '<a class="heroblogsw__button" href="' + esc(par.url) + '">' + linea(par.texto) + '</a>';
+        });
+        out.push('<div class="heroblogsw__actions">' + marcados.join('') + '</div>');
+      }
+      out.push('</div>');
+      out.push('</section>');
+
+      return { html: out.join('\n'), avisos };
+    },
+  },
+
   /* ============================================================
      PLANTILLA para los módulos que faltan.
      Descomenta, rellena y añádelo al array. El orden del array es
@@ -218,7 +404,6 @@ const PENDIENTES = [
   { id: 'cta-box', nombre: 'Caja comercial', grupo: 'Conversión' },
   { id: 'guides', nombre: 'Guías descargables', grupo: 'Conversión' },
   { id: 'gr-planner', nombre: 'Promo planificador', grupo: 'Conversión' },
-  { id: 'heroblogsw', nombre: 'Hero de artículo', grupo: 'Cabeceras' },
   { id: 'quote', nombre: 'Cita destacada', grupo: 'Texto' },
   { id: 'note', nombre: 'Nota al margen', grupo: 'Texto' },
   { id: 'steps', nombre: 'Pasos numerados', grupo: 'Listas' },

@@ -4,7 +4,9 @@
     {
       "name": "bloques",
       "runtimeExecutable": "python",
-      "runtimeArgs": ["-m", "http.server", "8899"],
+      "runtimeArgs": [
+        "tools/servidor.py"
+      ],
       "port": 8899
     }
   ]

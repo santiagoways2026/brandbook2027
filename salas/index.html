@@ -902,7 +902,7 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
 ];
 /* Análisis de producto: eliminada de momento (petición de Álvaro) */
-for(let i=MARCOS.length-1;i>=0;i--)if(MARCOS[i].grupo==="producto")MARCOS.splice(i,1);
+for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i].grupo))MARCOS.splice(i,1);
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,radar:1500,lifecycle:1500};
@@ -932,7 +932,6 @@ const PASILLOS_DEF=[
   {id:"pa9",d:"M-4000 1760 C-2800 2060 -1700 2060 -600 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
   {id:"pa14",d:ruta([[1800,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1940,ly:1300},
   {id:"pa15",d:ruta([[1800,1700],[3600,1700],[3600,2900],[5600,2900]],260),c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:1940,ly:1590},
-  {id:"pa16",d:ruta([[1800,2300],[3200,2300],[3200,5000],[5600,5000]],260),c:"#38bdf8",txt:"Marketing directo ↔ Control",sub:"email · WhatsApp · CRM",lx:3260,ly:3700},
 ];
 /* Personalidad de cada sala: carácter, lema, ambiente, suelo y objeto propio */
 const PERSONALIDAD={
@@ -950,7 +949,7 @@ const PERSONALIDAD={
   journey:{c:"#a78bfa",caracter:"El recorrido",lema:"Cada paso del cliente, sin piedras en el zapato",ambiente:"Un mapa del viaje del cliente en la pared, con post-its en cada fricción",tono:"Hablas desde el cliente: en qué paso duda, qué le frena y qué le haría reservar y repetir; con datos del CRM y de la web.",suelo:"plano",obj:"concha"},
   comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
 };
-const OCULTAS=["comunidad","producto"];
+const OCULTAS=["comunidad","producto","mdirecto"];
 const visibles=()=>MARCOS.filter(m=>!OCULTAS.includes(m.grupo)&&(!m.dato||st.dentro===m.sala));
 
 const st={items:[],estado:null,plat:"todas",mk:"todos",soloVideo:false,periodo:"30",orden:"buzz",q:"",vista:"todo",limite:12,sel:null,marcoSel:null,dentro:null,conectado:false,chat:[],chatOcupado:false,chatSala:"control",dis:{piezas:[],tend:null,estado:null,videos:[],biblio:[],bFiltro:"todo"},seo:{audit:null,estado:null},paid:{analisis:null,estado:null,briefing:null},com:{analisis:null,estado:null,lotes:[],snapT:{},ocupado:false},ctrl:{briefing:null,decisiones:[],estado:null,research:null,directrices:{},cerebro:null},dFiltro:"abiertas",players:[],cambios:[],estadoC:null,cTipo:"todos",cPlayer:"todos",cImpacto:"todos",cLimite:20,db:null,dl:null};
@@ -2340,7 +2339,7 @@ SALAS_N.unshift({id:"youtube",nombre:"YouTube",tit:"YouTube · SEO, Hub & Spoke 
   tareas:["Auditar los dos canales: títulos, miniaturas, descripciones, listas y enlaces","Investigar búsquedas y competencia en YouTube ES y EN","Definir los hubs y sus spokes","Enlaces con UTM y comentario fijado en todos los vídeos"],
   sug:["¿Qué hub grabaríais primero?","¿Qué errores tienen nuestros vídeos?","¿Cómo conseguimos más presupuestos desde YouTube?"]});
 const PUESTOS_8=[[460,200],[85,95],[210,95],[335,95],[85,200],[210,200],[460,95],[335,200]];
-SALAS_N.splice(SALAS_N.findIndex(x=>x.id==="producto")>>>0,SALAS_N.some(x=>x.id==="producto")?1:0);
+for(let i=SALAS_N.length-1;i>=0;i--)if(["producto","mdirecto"].includes(SALAS_N[i].id))SALAS_N.splice(i,1);
 {const css=document.createElement("style");css.textContent=SALAS_N.map(S=>`#m-${S.id}{cursor:pointer}body[data-dentro="${S.id}"] #m-${S.id}{cursor:inherit}body[data-dentro="${S.id}"] #m-${S.id} .entrar-pista{display:none}body[data-dentro="${S.id}"] #m-${S.id} .salir{display:inline-flex}`).join("");document.head.appendChild(css)}
 SALAS_N.forEach(S=>S.puestos=Object.fromEntries(S.equipo.map((a,i)=>[a.id,(S.equipo.length>6?PUESTOS_8:PUESTOS_N)[i]])));
 const salaN=id=>SALAS_N.find(s=>s.id===id);

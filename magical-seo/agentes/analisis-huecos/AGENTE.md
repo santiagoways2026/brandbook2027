@@ -98,6 +98,36 @@ Contexto fijo que conviene tener presente al priorizar:
 - El sitio rinde en cinco idiomas: español, inglés, alemán, italiano y portugués. Search Console solo tiene vistas de `es`, `en` y `de`, así que para italiano y portugués hay posición ciega: ahí Analytics es la única señal.
 - Existe un canal de asistentes de IA, pequeño pero creciente. Si una página pierde orgánico y gana por ese canal, no es lo mismo que perderlo sin más.
 
+## Consultar nuestro propio inventario
+
+Search Console y Analytics dicen cómo rinde lo que ya posiciona. **No dicen qué tenemos publicado.** Una página nuestra sin una sola impresión es invisible para las dos, así que sin este paso se puede abrir un hueco de contenido sobre algo que ya existe, y recomendar crear cuando lo que toca es mejorar.
+
+Antes de declarar que no tenemos algo, comprueba estas dos cosas.
+
+**El inventario, desde el sitemap.** `WebFetch` sobre `https://santiagoways.com/sitemap_index.xml` da el índice de sitemaps y, desde ahí, las URL publicadas. Es la lista de lo que existe, posicione o no.
+
+**La indexación, página a página.** Desde el directorio de scripts de Google:
+
+```python
+r = s.urlInspection().index().inspect(body={
+    'inspectionUrl': '<la URL>',
+    'siteUrl': 'https://santiagoways.com/'}).execute()
+i = r['inspectionResult']['indexStatusResult']
+print(i.get('verdict'), i.get('coverageState'), i.get('googleCanonical'))
+```
+
+Tres resultados y tres diagnósticos distintos:
+
+| Lo que sale | Qué significa | Tipo de hueco |
+|---|---|---|
+| No existe la página | No tenemos nada | `hueco` |
+| Existe pero no está indexada | Existe y Google no la tiene | `mejora` técnica, no de contenido |
+| Indexada pero sin impresiones | Existe, Google la tiene, nadie la busca así | `mejora` de enfoque |
+
+**No te fíes del recuento de indexadas del informe de sitemaps.** Google dejó de mantenerlo fiable y da porcentajes alarmantes que no se corresponden con la realidad. Comprobado el 7 de octubre de 2026: el informe sugería un 19 % de indexación y las páginas revisadas una a una salían todas indexadas. Para saberlo, pregunta por URL.
+
+Lo que sí vale de ese informe son los **errores**: un sitemap enviado que responde 404, o envíos duplicados, son problemas reales.
+
 ## Consultar Clarity
 
 Search Console dice dónde estamos. Analytics dice cuánto hay en juego. **Clarity dice si la página cumple cuando la gente llega.** Esa es la diferencia entre "traer más tráfico" y "arreglar la página antes de traer nada".

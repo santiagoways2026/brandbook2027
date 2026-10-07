@@ -1821,7 +1821,7 @@ function tarjetaPieza(x){
       ${(x.ab||[]).length?`<div class="ab"><div class="ab-t">Test A/B de miniatura</div><div class="ab-g">${x.ab.map(v=>`<a href="${esc(v.img)}" download title="Descargar variante ${esc(v.v)}"><img src="${esc(v.img)}" alt=""><span>${esc(v.v)}</span></a>`).join("")}</div></div>`:""}${x.material?`<div class="pz-falta">${esc(x.material)}</div>`:""}${x.video?`<a class="btn" href="${esc(x.video)}" download style="justify-self:start">Descargar vídeo</a>`:""}
       ${refMin(x)}
       ${x.tipo==="ig"?"":mini+seo+g+cap}
-      <div class="acciones">${acc}${x.caption||x.texto?`<button class="btn" data-pcopiar>Copiar copy</button>`:""}</div></div></div>`;
+      <div class="acciones">${acc}<button class="btn pz-ic" data-pdesc title="Descargar la pieza">⬇<span class="t"> Descargar</span></button>${x.caption||x.texto?`<button class="btn" data-pcopiar>Copiar copy</button>`:""}</div></div></div>`;
 }
 
 /* Vista ampliada de una pieza: en la fila solo se ve la pieza; al pulsarla se abre en grande con todo */
@@ -1835,6 +1835,38 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#pzModal [data-pacc],#pzModal [data-vacc]"))setTimeout(cerrarPieza,250)});
 document.addEventListener("submit",e=>{if(e.target.closest("#pzModal .pz-modf"))setTimeout(cerrarPieza,400)});
 document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.getElementById("pzModal")){e.stopPropagation();cerrarPieza()}},true);
+
+/* ===== Descargar piezas: IG y LinkedIn se renderizan a PNG (1080 px) en el navegador; YouTube y reels bajan su archivo ===== */
+function cargarScript(src){return new Promise((ok,ko)=>{if([...document.scripts].some(x=>x.src===src))return ok();const t=document.createElement("script");t.src=src;t.onload=ok;t.onerror=ko;document.head.appendChild(t)})}
+async function slideAPng(slide,ancho,alto){
+  await cargarScript("https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js");
+  await document.fonts?.ready;
+  const host=document.createElement("div");host.className=slide.classList.contains("lk-arte")?"lkf":"igf";
+  host.style.cssText=`position:fixed;left:-20000px;top:0;width:${ancho}px;z-index:-1`;
+  const c=slide.cloneNode(true);c.querySelectorAll(".g-cnt,.g-nav,.lk-pag").forEach(n=>n.remove());
+  c.style.cssText+=`;width:${ancho}px;height:${alto}px;flex:none;aspect-ratio:auto`;host.appendChild(c);document.body.appendChild(host);
+  await Promise.all([...c.querySelectorAll("img")].map(i=>i.complete?0:new Promise(r=>{i.onload=i.onerror=r})));
+  try{const cv=await html2canvas(c,{scale:1,width:ancho,height:alto,backgroundColor:"#ffffff",useCORS:true,logging:false});
+    return await new Promise(r=>cv.toBlob(r,"image/png"))}finally{host.remove()}}
+async function piezaArchivos(x,card){
+  const slug=(x.id||"pieza").replace(/[^a-z0-9-]/gi,"");
+  if(x.tipo==="ig"){const sl=[...card.querySelectorAll(".igs .g-sl")];const out=[];
+    for(let i=0;i<sl.length;i++)out.push({name:`${slug}${sl.length>1?"-"+String(i+1).padStart(2,"0"):""}.png`,blob:await slideAPng(sl[i],1080,1350)});return out}
+  if(x.tipo==="linkedin"){const a=card.querySelector(".lk-arte");return a?[{name:slug+".png",blob:await slideAPng(a,1200,1000)}]:[]}
+  if(x.tipo==="yt"&&(x.ab||[]).length){const out=[];for(const v of x.ab){const r=await fetch(String(v.img));out.push({name:`${slug}-miniatura-${v.v}.jpg`,blob:await r.blob()})}return out}
+  if(x.video){const r=await fetch(x.video);return[{name:slug+".mp4",blob:await r.blob()}]}
+  return[]}
+async function descargarPieza(id,btn){
+  const x=st.dis.piezas.find(y=>y.id===id);const card=btn.closest(".pieza");if(!x||!card)return;
+  if(!st.dl){toast("La descarga no está disponible en este visor");return}
+  const txt=btn.innerHTML;btn.disabled=true;btn.innerHTML="…";
+  try{const fs=await piezaArchivos(x,card);if(!fs.length){toast("Esta pieza aún no tiene archivo para descargar");return}
+    let file=fs[0];
+    if(fs.length>1){await cargarScript("https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js");const z=new JSZip();fs.forEach(f=>z.file(f.name,f.blob));file={name:(x.id||"pieza")+".zip",blob:await z.generateAsync({type:"blob"})}}
+    await st.dl.save({filename:file.name,data:file.blob});toast(fs.length>1?`Descargado: ${fs.length} diapositivas en un zip`:"Descargado")}
+  catch(err){if(err?.code!=="declined")toast("No se pudo preparar la descarga")}
+  finally{btn.disabled=false;btn.innerHTML=txt}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-pdesc]");if(!b)return;e.preventDefault();e.stopPropagation();descargarPieza(b.closest("[data-pieza]").dataset.pieza,b)},true);
 function aprender(col,x,clase,texto){if(!st.db)return Promise.resolve();const t=new Date().toISOString(),id=(clase+"-"+(x.id||"x")+"-"+t.replace(/[^0-9]/g,"")).slice(0,180);
   return st.db.doc("diseno_aprendizajes/"+id).set({clase,texto:texto||"",t,coleccion:col,pieza:{id:x.id||"",tipo:x.tipo||"",mercado:x.mercado||"",formato:x.formato||"",fondo:x.fondo||"",tema:x.tema||"",titular:x.titular||"",antetitulo:x.antetitulo||"",version:x.version||1,disenador:x.disenador||""},procesado:false}).catch(()=>{})}
 async function decidirPieza(col,id,acc){

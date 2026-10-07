@@ -271,6 +271,19 @@ body[data-dentro] .marco.dato{display:none!important}
 .act-it:hover{border-color:var(--sel)}.act-meta{font:500 12.5px/1.2 var(--f-mono);color:var(--tenue);text-transform:uppercase;letter-spacing:.05em}
 .act-it h4{margin:6px 0 0;font:650 17px/1.3 var(--f-ui);color:#f1f3f5}.act-it p{margin:6px 0 0;font-size:15px;line-height:1.45;color:#c3cad4}
 #panel .pn-mods{zoom:1.1}#panel.full .pn-mods{zoom:1.18}
+.neg-tit{padding:16px 20px 0;margin:0;font:700 21px/1.35 var(--f-ui);color:#fff}
+.neg-kpis{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:10px;padding:14px 20px 0}
+.neg-k{background:var(--marco-2);border:1px solid var(--borde);border-top:4px solid var(--e);border-radius:10px;padding:12px 14px;display:grid;gap:4px}
+.neg-k b{font:800 26px/1.1 var(--f-ui);color:#fff}.neg-area{font:600 11px/1 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--e)}
+.neg-n{font-size:14.5px;color:#d6dde5;line-height:1.3}.neg-nota{font-size:13px;color:var(--tenue);line-height:1.35}.neg-nota i{font-style:normal;color:var(--e)}
+.neg-dec{display:grid;gap:8px;padding:12px 20px 0}
+.neg-d{display:grid;grid-template-columns:34px minmax(0,1fr);gap:10px;background:#17150d;border:1px solid #4a4128;border-radius:10px;padding:12px 14px}
+.neg-d>span{font:800 22px/1 var(--f-ui);color:#f5d76e}.neg-d h4{margin:0;font:700 16.5px/1.3 var(--f-ui);color:#fff}.neg-d p{margin:5px 0 0;font-size:14.5px;line-height:1.45;color:#d8cfae}.neg-d .neg-quien{font:500 12px/1.2 var(--f-mono);color:#a89a6a}
+.neg-salas{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px;padding:12px 20px 0}
+.neg-s{text-align:left;background:var(--marco-2);border:1px solid var(--borde);border-left:4px solid var(--e);border-radius:10px;padding:10px 12px;cursor:pointer;display:grid;gap:4px;color:inherit}
+.neg-s:hover{border-color:var(--e)}.neg-s b{display:flex;justify-content:space-between;gap:8px;font:700 15px/1.2 var(--f-ui);color:#fff}.neg-s b i{font:600 11px/1 var(--f-mono);font-style:normal;color:var(--e);text-transform:uppercase}.neg-s span{font-size:13.5px;line-height:1.4;color:#c3cad4}
+.neg-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px}
+.neg-l{margin:0;padding:10px 20px 0 38px;display:grid;gap:6px;font-size:14.5px;line-height:1.45;color:#d6dde5}.neg-l.r li::marker{color:#ff5d5d}.neg-l.o li::marker{color:#3ddc97}
 .cola-it{min-width:0}.cola-det .vir-pv.peq{max-width:420px}.cola{grid-template-columns:minmax(0,1fr);display:grid;gap:6px;padding:0 20px}
 .cola-it{border:1px solid var(--borde);border-radius:6px;background:var(--marco-2)}
 .cola-it[open]{border-color:var(--sel)}
@@ -709,6 +722,7 @@ const MARCOS=[
   {id:"mdirecto_mision",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Misión, equipo y fuentes",x:2600,y:4800,w:1300},
   {id:"instagram",grupo:"instagram",nombre:"Instagram / Sala",x:3700,y:-3600,w:1200},
   {id:"instagram_roadmap",grupo:"instagram",dato:true,nombre:"Instagram / Roadmap",x:0,y:-9000,w:1300},
+  {id:"control_negocio",grupo:"control",dato:true,nombre:"Sala de Control / Cuadro de mando de negocio",x:0,y:-9000,w:1300},
   {id:"seo_roadmap",grupo:"seo",dato:true,nombre:"SEO / Roadmap",x:0,y:-9000,w:1300},
   {id:"youtube_roadmap",grupo:"youtube",dato:true,nombre:"YouTube / Roadmap",x:0,y:-9000,w:1300},
   {id:"instagram_cuentas",grupo:"instagram",dato:true,nombre:"Instagram / Tus cuentas: ES, EN y DE",x:0,y:-9000,w:1300},
@@ -738,12 +752,12 @@ const MARCOS=[
 ];
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
-const TAM={control:1800,radar:1500};
-const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-300,1300],seo:[5400,400],paid:[5600,2600],competencia:[-400,4500],mdirecto:[2400,5400],producto:[5000,5800],comercial:[7700,5400]};
+const TAM={control:2400,radar:1500};
+const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],competencia:[-400,4500],mdirecto:[2400,5400],producto:[5000,5800],comercial:[7700,5400]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -755,14 +769,14 @@ const PASILLOS_DEF=[
   {id:"pa22",d:ruta([[1500,-1934],[1500,-800],[1350,-800]],140),c:"#ff4d4d",txt:"YouTube ↔ Radar",sub:"canales · benchmark · tendencias",lx:1560,ly:-1450},
   {id:"pa20",d:"M300 -2267 H900",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:330,ly:-2330},
   {id:"pa21",d:"M2100 -2300 C4600 -2300 5800 -1300 5800 400",c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:2400,ly:-2370},
-  {id:"pa4",d:"M400 4500 C400 3200 800 3500 800 2299",c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:860,ly:3350},
-  {id:"pa7",d:"M400 2299 C400 3500 0 3200 0 4500",c:"#f5d76e",txt:"Directrices → Competencia",sub:"control.directrices.competencia",lx:90,ly:3350,fin:true},
-  {id:"pa8",d:"M-300 1500 C-1500 1200 -2700 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
-  {id:"pa9",d:"M-4000 1760 C-2700 2060 -1500 2060 -300 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
-  {id:"pa14",d:ruta([[1500,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1640,ly:1300},
-  {id:"pa15",d:ruta([[1500,1700],[3600,1700],[3600,2900],[5600,2900]],260),c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:1640,ly:1590},
-  {id:"pa16",d:ruta([[1500,1880],[2200,1880],[2200,4900]],260)+" C3600 4900 4200 5200 5600 5200 S7600 4900 8300 4900",c:"#818cf8",txt:"Brazo comercial ↔ Control",sub:"marketing directo · producto · comercial",lx:2290,ly:3300},
-  {id:"pa17",d:"M2200 4900 C2200 5250 3000 5050 3000 5400",c:"#38bdf8",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa4",d:"M400 4500 C400 3200 800 3500 800 2632",c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:860,ly:3350},
+  {id:"pa7",d:"M400 2632 C400 3500 0 3200 0 4500",c:"#f5d76e",txt:"Directrices → Competencia",sub:"control.directrices.competencia",lx:90,ly:3350,fin:true},
+  {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
+  {id:"pa9",d:"M-4000 1760 C-2800 2060 -1700 2060 -600 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
+  {id:"pa14",d:ruta([[1800,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1940,ly:1300},
+  {id:"pa15",d:ruta([[1800,1700],[3600,1700],[3600,2900],[5600,2900]],260),c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:1940,ly:1590},
+  {id:"pa16",d:ruta([[1800,1880],[2400,1880],[2400,4900]],260)+" C3600 4900 4200 5200 5600 5200 S7600 4900 8300 4900",c:"#818cf8",txt:"Brazo comercial ↔ Control",sub:"marketing directo · producto · comercial",lx:2490,ly:3300},
+  {id:"pa17",d:"M2400 4900 C2400 5200 3000 5100 3000 5400",c:"#38bdf8",txt:"",sub:"",lx:0,ly:0},
   {id:"pa18",d:"M5600 5200 V5800",c:"#fdba74",txt:"",sub:"",lx:0,ly:0},
   {id:"pa19",d:"M8300 4900 V5400",c:"#818cf8",txt:"",sub:"",lx:0,ly:0},
 ];
@@ -983,14 +997,14 @@ function pintarMapa(){
 /* ---------- Construcción del mundo ---------- */
 const ICO_MARCO=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 0v12M9 0v12M0 3h12M0 9h12"/></svg>`;
 function construir(){
-  const TIT=[["radar","Radar Viral","#e8eaed","● Sala activa"," · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT"],["diseno","Diseño","#a3cf2e","● Activa"," · 6 creativos · piezas con el brandbook 2027"],["control","Sala de Control","#f5d76e","● Activa"," · 6 directores, 5 especialistas y Cerebro · revisa y reorienta todo el flujo"],["competencia","Competencia","#e8eaed","● Sala activa"," · 6 investigadores · webs, precios, noticias, redes y alianzas"],["seo","SEO","#5eead4","● Activa"," · 6 especialistas · auditoría, palabras clave y analítica"],["paid","Paid Media","#f9a8d4","● Activa"," · 7 especialistas · Meta Ads y Google Ads"],...SALAS_N.map(S=>[S.id,S.nombre,S.color,"● Nueva",` · ${S.equipo.length} especialistas · `+S.sub])];
+  const TIT=[["radar","Radar Viral","#e8eaed","● Sala activa"," · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT"],["diseno","Diseño","#a3cf2e","● Activa"," · 6 creativos · piezas con el brandbook 2027"],["control","Sala de Control","#f5d76e","● Activa"," · 17 personas y Cerebro · dirección de negocio: sintetiza todas las salas"],["competencia","Competencia","#e8eaed","● Sala activa"," · 6 investigadores · webs, precios, noticias, redes y alianzas"],["seo","SEO","#5eead4","● Activa"," · 6 especialistas · auditoría, palabras clave y analítica"],["paid","Paid Media","#f9a8d4","● Activa"," · 7 especialistas · Meta Ads y Google Ads"],...SALAS_N.map(S=>[S.id,S.nombre,S.color,"● Nueva",` · ${S.equipo.length} especialistas · `+S.sub])];
   let h=svgPasillos()+TIT.map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);return`<div class="grupo-titulo" style="left:${m.x}px;top:${m.y-230}px;font-size:${id==="control"?96:id==="radar"?72:56}px;color:${c}">${esc(n)}<small><span class="ok">${ok}</span>${esc(sub)}</small></div>`}).join("");
   for(const m of MARCOS){
     h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}${!m.dato&&PERSONALIDAD[m.id]?`;border-color:${PERSONALIDAD[m.id].c}66;box-shadow:0 0 0 1px ${PERSONALIDAD[m.id].c}22,0 30px 80px rgba(0,0,0,.6),0 0 160px ${PERSONALIDAD[m.id].c}1f`:""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
   }
   mundo.innerHTML=h;
   $("#c-radar").innerHTML=`<div class="mcab"><div><h2>Radar Viral · RRSS</h2></div><div class="meta"><span class="vivo off" id="vivoSala">Conectando</span><span id="salaN">0 en el radar</span><span id="salaUlt"></span><span class="entrar-pista">Pulsa para entrar</span><button class="btn" data-abrirchat="radar">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-radar">${svgRadar()}</div>`;
-  $("#c-control").innerHTML=`<div class="mcab"><div><h2>Sala de Control · Dirección de marketing</h2></div><div class="meta"><span class="vivo off" id="vivoCtrl">Conectando</span><span id="ctrlN">0 decisiones</span><span id="ctrlUlt"></span><span class="entrar-pista" style="background:#c9a227;color:#000">Pulsa para entrar</span><button class="btn" data-abrirchat="control">Hablar con la dirección</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-control">${svgControl()}</div>`;
+  $("#c-control").innerHTML=`<div class="mcab"><div><h2>Sala de Control · Dirección de negocio</h2></div><div class="meta"><span class="vivo off" id="vivoCtrl">Conectando</span><span id="ctrlN">0 decisiones</span><span id="ctrlUlt"></span><span class="entrar-pista" style="background:#c9a227;color:#000">Pulsa para entrar</span><button class="btn" data-abrirchat="control">Hablar con la dirección</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-control">${svgControl()}</div>`;
   $("#c-diseno").innerHTML=`<div class="mcab"><div><h2>Diseño · Estudio creativo</h2></div><div class="meta"><span class="vivo off" id="vivoDis">Conectando</span><span id="disN">0 piezas</span><span class="entrar-pista" style="background:#7AA606">Pulsa para entrar</span><button class="btn" data-abrirchat="diseno">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-diseno">${svgDiseno()}</div>`;
   $("#c-competencia").innerHTML=`<div class="mcab"><div><h2>Competencia · Agencia de investigación</h2></div><div class="meta"><span class="vivo off" id="vivoComp">Conectando</span><span id="compN">0 cambios</span><span id="compUlt"></span><span class="entrar-pista" style="background:#ff6b3d">Pulsa para entrar</span><button class="btn" data-abrirchat="competencia">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-competencia">${svgCompetencia()}</div>`;
   $("#c-comunidad").innerHTML=`<div class="mcab"><div><h2>Comunidad · Escucha social</h2></div><div class="meta"><span class="vivo off" id="vivoCom">Conectando</span><span id="comN">Analizando comentarios</span><span class="entrar-pista" style="background:#9b5de5">Pulsa para entrar</span><button class="btn" data-abrirchat="comunidad">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-comunidad">${svgComunidad()}</div>`;
@@ -999,7 +1013,7 @@ function construir(){
   for(const S of SALAS_N)$("#c-"+S.id).innerHTML=`<div class="mcab"><div><h2>${esc(S.tit)}</h2></div><div class="meta"><span class="vivo off" id="vivo-${S.id}">Conectando</span><span>Sala nueva · lidera ${esc(S.lider)}</span><span class="entrar-pista" style="background:${S.color};color:#000">Pulsa para entrar</span><button class="btn" data-abrirchat="${S.id}">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-${S.id}">${svgSalaN(S)}</div>`;
   for(const m of MARCOS.filter(x=>x.obra))$("#c-"+m.id).innerHTML=`<div class="mcab"><h2>${esc(m.nombre)}</h2><span class="obra-tag">En construcción</span></div><div class="plano">${svgObra(m)}</div>`;
   pintarCapas();
-  $("#avatares").innerHTML=[...EQUIPO_D,...EQUIPO_S,...EQUIPO,...EQUIPO_C,...EQUIPO_K,...EQUIPO_O,...EQUIPO_P,...SALAS_N.flatMap(S=>S.equipo)].map(a=>`<span class="av" style="--c:${a.c}" title="${esc(a.n)}: ${esc(a.rol)}">${esc(a.n.slice(0,2).toUpperCase())}</span>`).join("");
+  $("#avatares").innerHTML=[...EQUIPO_D,...EQUIPO_S,...EQUIPO,...EQUIPO_C,...EQUIPO_O,...EQUIPO_P,...SALAS_N.flatMap(S=>S.equipo)].map(a=>`<span class="av" style="--c:${a.c}" title="${esc(a.n)}: ${esc(a.rol)}">${esc(a.n.slice(0,2).toUpperCase())}</span>`).join("");
 }
 const CHEV_CAPA=`<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>`;
 function pintarCapas(){
@@ -1216,7 +1230,7 @@ function iniciarMundos(){
   mundos.push(crearMundo({cont:$("#plano-competencia"),equipo:EQUIPO_C,puestos:PUESTOS_C,sillaDy:34,pref:"c-",pasillos:[30,210,390,570],cafe:{x:70,y:262},
     corr:pt=>pt.y<=70?62:pt.y<=170?160:268,fraseReal:fraseRealC,fraseMesa:fraseMesaC,
     visita:(p,q)=>q.a.id==="directora"?`Elena, esto merece alerta: ${azar(["han tocado la web","hay un cambio de precios","nueva alianza a la vista"])}`:p.a.id==="directora"?`${q.a.n}, ¿tienes la captura del antes y el después?`:`${q.a.n}, cruza esto con lo tuyo`}));
-  mundos.push(crearMundo({cont:$("#plano-control"),equipo:EQUIPO_D,puestos:PUESTOS_D,sillaDy:0,pref:"d-",pasillos:[110,490],cafe:{x:530,y:262},
+  mundos.push(crearMundo({cont:$("#plano-control"),equipo:EQUIPO_D,puestos:PUESTOS_D,sillaDy:0,pref:"d-",pasillos:[110,490],cafe:{x:50,y:46},
     corr:pt=>pt.y<=150?62:262,fraseReal:fraseRealD,fraseMesa:fraseMesaD,
     visita:(p,q)=>q.a.id==="cmo"?`Victoria, propongo cambiar el foco: ${azar(["más vídeo en EN","Camino Portugués para DE","más USA"])}`:p.a.id==="cmo"?`${q.a.n}, ¿cómo afecta esto al ticket medio?`:`${q.a.n}, ¿lo cruzamos con el research?`}));
   mundos.push(crearMundo({cont:$("#plano-diseno"),equipo:EQUIPO_S,puestos:PUESTOS_S,sillaDy:34,pref:"s-",pasillos:[30,210,390,570],cafe:{x:70,y:262},
@@ -1371,9 +1385,15 @@ const EQUIPO_D=[
   {id:"ops",n:"Raúl",rol:"Operaciones: gestiona la cola de revisión y los tiempos de cada sala",c:"#fb923c",nuevo:true},
   {id:"paid",n:"Daniel",rol:"Paid media: prepara Meta Ads y Google Ads",c:"#f472b6",nuevo:true},
   {id:"seo",n:"Alba",rol:"SEO y contenido orgánico",c:"#2dd4bf",nuevo:true},
+  {id:"negocio",n:"Bea",rol:"Directora de negocio: sintetiza todas las salas en el cuadro de mando",c:"#c084fc",nuevo:true},
+  {id:"mercado",n:"Martín",rol:"Mercado y competencia: precios, ofertas y movimientos de los rivales",c:"#ff8a5c",nuevo:true},
+  {id:"embudo",n:"Ana",rol:"Embudo y ventas: de lead a reserva (Paid, CRM y Comercial)",c:"#38bdf8",nuevo:true},
+  {id:"redes",n:"Carla",rol:"Redes: consolida Radar, Instagram y YouTube",c:"#ff5c8a",nuevo:true},
+  {id:"organico",n:"Rubén",rol:"Orgánico: SEO, contenido y Diseño",c:"#5eead4",nuevo:true},
+  {id:"acciones",n:"Olga",rol:"Seguimiento de acciones: que cada sala cumpla lo decidido",c:"#9ccc2a",nuevo:true},
 ];
-const PUESTOS_D={cmo:[300,72],growth:[200,104],marca:[400,104],intl:[200,222],crm:[300,240],intel:[400,222],datos:[150,150],calidad:[150,262],ops:[450,150],paid:[450,262],seo:[300,276]};
-const FRASES_D={cmo:["Revisando el briefing del día","¿Qué mueve hoy la aguja del margen?","Priorizando USA y UK sin perder España"],
+const PUESTOS_D={cmo:[300,72],growth:[200,104],marca:[400,104],intl:[200,222],crm:[232,272],intel:[400,222],datos:[150,150],calidad:[150,262],ops:[450,150],paid:[450,262],seo:[368,272],negocio:[62,78],mercado:[62,164],embudo:[62,250],redes:[525,78],organico:[525,164],acciones:[525,250]};
+const FRASES_D={negocio:["Cuadro de mando al día","¿Qué sala mueve hoy las ventas?","Tres decisiones para esta semana"],mercado:["Follow the Camino congela precios de 2026","Pilgrim da un 10 % de descuento","Hay que responder antes de noviembre"],embudo:["4,9 % de lead a venta","Meta no recibe ventas del CRM","Coste por venta: 497 €"],redes:["Instagram ES ya tiene 100.000 seguidores","YouTube trae 0 presupuestos","El top viral de hoy"],organico:["Leads orgánicos −52 %","Arreglar el hreflang pt-po","Fichas de ruta sin llamada a presupuesto"],acciones:["¿Quién tiene pendiente el roadmap?","Revisando lo que se aprobó ayer","Recordatorio a la sala SEO"],cmo:["Revisando el briefing del día","¿Qué mueve hoy la aguja del margen?","Priorizando USA y UK sin perder España"],
   growth:["El ticket medio por pax manda","Revisando el funnel de presupuestos","Sarria escala volumen; St Jean da margen"],
   marca:["El vídeo es la palanca de 2026","Necesitamos creators y UGC","Comunidad: «soy peregrino»"],
   intl:["USA vale el doble por viajero","Alemania compra Portugués y Norte","Italia entra por Sarria"],
@@ -1411,39 +1431,53 @@ function svgControl(){
    <linearGradient id="chapaK" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd11a"/><stop offset="1" stop-color="#5f8a05"/></linearGradient>
    <linearGradient id="chapaK2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f4410"/><stop offset="1" stop-color="#1a2608"/></linearGradient></defs>
    <ellipse rx="92" ry="70" fill="url(#haloK)"/>
-   <ellipse cy="60" rx="62" ry="7" fill="#000" opacity=".45"/>
-   <ellipse cy="60" rx="58" ry="5.5" fill="none" stroke="#7AA606" stroke-opacity=".6" stroke-dasharray="3 3">${quieto?"":`<animate attributeName="stroke-dashoffset" values="0;12" dur="1.6s" repeatCount="indefinite"/>`}</ellipse>
+   <linearGradient id="hazK" x1="0" y1="1" x2="0" y2="0"><stop offset="0" stop-color="#eaffb0" stop-opacity=".35"/><stop offset="1" stop-color="#eaffb0" stop-opacity="0"/></linearGradient>
+   <rect x="-78" y="-70" width="8" height="140" fill="url(#hazK)">${quieto?"":`<animate attributeName="opacity" values=".4;1;.4" dur="3s" repeatCount="indefinite"/>`}</rect><rect x="70" y="-70" width="8" height="140" fill="url(#hazK)">${quieto?"":`<animate attributeName="opacity" values="1;.4;1" dur="3s" repeatCount="indefinite"/>`}</rect>
+   <ellipse cy="72" rx="86" ry="11" fill="#000" opacity=".5"/>
+   <ellipse cy="69" rx="82" ry="10" fill="#141d07" stroke="#7AA606" stroke-width="1.2"/>
+   <path d="M-82 69V73A82 10 0 0 0 82 73V69" fill="#0e1405" stroke="#7AA606" stroke-width="1"/>
+   <ellipse cy="63" rx="66" ry="8" fill="#26360d" stroke="#9fd11a" stroke-width="1"/>
+   <path d="M-66 63V67A66 8 0 0 0 66 67V63" fill="#1a2608" stroke="#9fd11a" stroke-width=".8"/>
+   <ellipse cy="58" rx="50" ry="6" fill="#f4f6f0" stroke="#f5d76e" stroke-width="1.2"/>
+   <ellipse cy="58" rx="40" ry="4.2" fill="none" stroke="#7AA606" stroke-width="1" stroke-dasharray="3 3">${quieto?"":`<animate attributeName="stroke-dashoffset" values="0;12" dur="1.6s" repeatCount="indefinite"/>`}</ellipse>
+   <path d="M-14 74H14L12 79H-12Z M-11 79H11L9 83H-9Z" fill="#f4f6f0" opacity=".85"/>
    <g stroke="#0a0f05" stroke-width="1.3" stroke-linejoin="round">
     <path d="M-15 -60V-46H-11M15 -60V-46H11" fill="none" stroke="#7AA606" stroke-width="2.4"/>
     <circle cx="-15" cy="-61" r="2" fill="#f5d76e" stroke="none">${quieto?"":`<animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/>`}</circle><circle cx="15" cy="-61" r="2" fill="#f5d76e" stroke="none">${quieto?"":`<animate attributeName="opacity" values=".2;1;.2" dur="1.4s" repeatCount="indefinite"/>`}</circle>
-    <path d="M-11 -50H11L13 -37L7 -31H-7L-13 -37Z" fill="url(#chapaK)"/>
-    <rect x="-9" y="-44" width="18" height="4.5" rx="1" fill="#eaffb0" stroke="none" filter="url(#brilloD)">${quieto?"":`<animate attributeName="opacity" values="1;.55;1" dur="2.2s" repeatCount="indefinite"/>`}</rect>
+    <path d="M-11 -50H11L13 -37L7 -31H-7L-13 -37Z" fill="#f4f6f0"/>
+    <rect x="-9" y="-44" width="18" height="4.5" rx="1" fill="#7AA606" stroke="none" filter="url(#brilloD)">${quieto?"":`<animate attributeName="opacity" values="1;.55;1" dur="2.2s" repeatCount="indefinite"/>`}</rect>
     <path d="M-56 -30H-30L-22 -24V2L-52 5L-58 -22Z" fill="url(#chapaK)"/><path d="M56 -30H30L22 -24V2L52 5L58 -22Z" fill="url(#chapaK)"/>
     <path d="M-25 -28H-9L0 -19L9 -28H25L29 -6L11 6L7 20H-7L-11 6L-29 -6Z" fill="url(#chapaK)"/>
-    <path d="M-18 -20L-6 -13H6L18 -20L20 -8L6 -1H-6L-20 -8Z" fill="url(#chapaK2)"/>
+    <path d="M-18 -20L-6 -13H6L18 -20L20 -8L6 -1H-6L-20 -8Z" fill="#f4f6f0"/>
     <path d="M-19 8H19L15 26L0 34L-15 26Z" fill="url(#chapaK2)"/>
     <path d="M-59 7L-41 4L-37 31L-55 34Z" fill="url(#chapaK2)"/><path d="M59 7L41 4L37 31L55 34Z" fill="url(#chapaK2)"/>
-    <path d="M-62 34L-39 32L-37 41L-49 46L-58 43Z" fill="url(#chapaK)"/><path d="M62 34L39 32L37 41L49 46L58 43Z" fill="url(#chapaK)"/>
+    <path d="M-62 34L-39 32L-37 41L-49 46L-58 43Z" fill="#f4f6f0"/><path d="M62 34L39 32L37 41L49 46L58 43Z" fill="#f4f6f0"/><path d="M-56 -30H-30L-27 -26H-55Z M56 -30H30L27 -26H55Z" fill="#f4f6f0"/>
     <path d="M-25 28H-8V57H-27Z" fill="url(#chapaK)"/><path d="M25 28H8V57H27Z" fill="url(#chapaK)"/>
     <path d="M-30 36V53M30 36V53" stroke="#7AA606" stroke-width="2.2"/>
    </g>
-   <g transform="translate(0 -7)"><circle r="8.5" fill="#0d1405" stroke="#f5d76e" stroke-width="1"/>
+   <g transform="translate(0 -7)"><circle r="8.5" fill="#7AA606" stroke="#f5d76e" stroke-width="1.2"/>
     <g stroke="#fff" stroke-width="1.2" stroke-linecap="round">${[-60,-35,-12,12,35,60].map(g=>`<path d="M0 4 L${(Math.sin(g*Math.PI/180)*6).toFixed(2)} ${(4-Math.cos(g*Math.PI/180)*9).toFixed(2)}"/>`).join("")}</g>
     <circle r="11" fill="none" stroke="#9fd11a" stroke-opacity=".7">${quieto?"":`<animate attributeName="r" values="9;15;9" dur="2.6s" repeatCount="indefinite"/><animate attributeName="stroke-opacity" values=".8;0;.8" dur="2.6s" repeatCount="indefinite"/>`}</circle></g>
    ${["RAD","IG","YT","CMP","DIS","SEO","PAI","MKD","CML"].map((t,i)=>{const x=-48+i*12,c=["#3d7bff","#e1306c","#ff4d4d","#ff6b3d","#7AA606","#2dd4bf","#f472b6","#38bdf8","#818cf8"][i],du=(3+i*.37).toFixed(2),be=(i*.41).toFixed(2);return`<circle cx="${x}" cy="60" r="2.2" fill="${c}">${quieto?"":`<animate attributeName="cy" values="60;-7;60" dur="${du}s" begin="-${be}s" repeatCount="indefinite"/><animate attributeName="cx" values="${x};0;${x}" dur="${du}s" begin="-${be}s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0;1" dur="${du}s" begin="-${be}s" repeatCount="indefinite"/>`}</circle>`}).join("")}
    <title>Cerebro de Santiago Ways</title>
   </g>
-  <rect x="514" y="70" width="70" height="150" rx="3" fill="#0d0c09" stroke="#3a3420"/>
-  <path d="M522 200 L536 180 L550 186 L564 150 L578 130" fill="none" stroke="#3ddc97" stroke-width="1.5"/>
-  <text x="522" y="88" font-family="Geist Mono" font-size="8" fill="#8f8466">TICKET</text><text x="522" y="102" font-family="Geist Mono" font-size="11" fill="#f5d76e">+22 %</text>
-  <text x="514" y="232" font-family="Geist Mono" font-size="7" fill="#6b6046">2025 VS HIST.</text>
-  <rect x="510" y="250" width="40" height="24" rx="2" fill="none" stroke="#3a3420"/><circle cx="520" cy="262" r="2.5" fill="#ff6b3d" filter="url(#brilloD)"/><text x="510" y="245" font-family="Geist Mono" font-size="7" fill="#6b6046">CAFÉ</text>`;
+  <rect x="30" y="16" width="40" height="24" rx="2" fill="none" stroke="#3a3420"/><circle cx="40" cy="28" r="2.5" fill="#ff6b3d" filter="url(#brilloD)"/><text x="30" y="11" font-family="Geist Mono" font-size="7" fill="#6b6046">CAFÉ</text>`;
   EQUIPO_D.forEach(a=>{const ancho=a.n.length*6.4+12;const oscuro=["cmo","growth"].includes(a.id);d+=`<g id="d-${a.id}"><g class="cuerpo"><circle r="13" fill="${a.c}" opacity=".14"/><circle r="7" fill="${a.c}" filter="url(#brilloD)"/><circle r="2.6" fill="#fff"/></g>
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
 const SALA_N={youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
-function pintarControl(){
+const SEM={bien:["#3ddc97","Bien"],vigilar:["#f5c518","Vigilar"],mal:["#ff5d5d","Actuar"]};
+function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
+  if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
+  const fl={sube:"▲",baja:"▼",igual:"■"};
+  el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2><div class="fuente-mc" style="margin-top:6px">Síntesis de todas las salas · ${esc(N.periodo||"")}</div></div><div class="meta">${N.fecha?`actualizado ${esc(hace(N.fecha))}`:""}</div></div>
+   ${N.titular?`<p class="neg-tit">${esc(N.titular)}</p>`:""}
+   <div class="neg-kpis">${(N.kpis||[]).map(k=>{const e=SEM[k.estado]||SEM.vigilar;return`<div class="neg-k" style="--e:${e[0]}"><span class="neg-area">${esc(k.area||"")}</span><b>${esc(k.valor)}</b><span class="neg-n">${esc(k.nombre)}</span>${k.nota?`<span class="neg-nota">${k.tendencia?`<i>${fl[k.tendencia]||""}</i> `:""}${esc(k.nota)}</span>`:""}</div>`}).join("")}</div>
+   ${(N.decisiones||[]).length?`<div class="seccion-t">Decisiones de esta semana</div><div class="neg-dec">${N.decisiones.map((d,i)=>`<div class="neg-d"><span>${i+1}</span><div><h4>${esc(d.titulo)}</h4>${d.porque?`<p>${esc(d.porque)}</p>`:""}<p class="neg-quien">${esc([d.sala?SALA_N[d.sala]||d.sala:"",d.quien].filter(Boolean).join(" · "))}</p></div></div>`).join("")}</div>`:""}
+   ${(N.salas||[]).length?`<div class="seccion-t">Estado de cada sala</div><div class="neg-salas">${N.salas.map(x=>{const e=SEM[x.estado]||SEM.vigilar;return`<button type="button" class="neg-s" data-entrar="${esc(x.sala)}" style="--e:${e[0]}"><b>${esc(SALA_N[x.sala]||x.sala)}<i>${e[1]}</i></b><span>${esc(x.resumen||"")}</span></button>`}).join("")}</div>`:""}
+   <div class="neg-2">${(N.riesgos||[]).length?`<div><div class="seccion-t">Riesgos</div><ul class="neg-l r">${N.riesgos.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}${(N.oportunidades||[]).length?`<div><div class="seccion-t">Oportunidades</div><ul class="neg-l o">${N.oportunidades.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}</div>`}
+function pintarControl(){pintarNegocio();
   const C=st.ctrl,e=C.estado||{},set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
   const abiertas=C.decisiones.filter(d=>d.estado==="propuesta"||d.estado==="aprobada");
   set("ctrlN",`${abiertas.length} decisiones abiertas`);set("ctrlUlt",e.ultimaRevision?`Última revisión ${hace(e.ultimaRevision)}`:"");
@@ -2216,8 +2250,8 @@ Siempre que menciones un post o vídeo de redes, cita sus métricas tal como con
 Nunca uses guiones largos; usa punto, dos puntos o punto y coma. Tildes correctas.`;
 const REVISION=`Regla de la casa: todo lo que hace tu sala pasa por la revisión de la Sala de Control (dirección de marketing) antes de aplicarse. Si Álvaro pide un cambio, explica cómo lo plantearíais y aclara que la Sala de Control lo revisará en su próxima revisión (8:50, 14:50 o 20:50) y fijará las directrices. Respeta las directrices actuales de Control para tu sala.`;
 const CHAT_SALAS={
-  control:{lider:"Victoria (CMO)",nombre:"Sala de Control",equipo:()=>EQUIPO_D,saludo:"Hola, Álvaro. Somos la dirección de marketing. Pregúntanos por cualquier estrategia o danos feedback: lo aplicaremos en el briefing, las decisiones y las directrices de cada sala.",
-    persona:"Eres la Sala de Control de Santiago Ways: seis directores de marketing de primer nivel. Victoria (CMO), Hugo (growth y performance), Clara (marca, vídeo y comunidad), Iván (mercados internacionales), Lola (CRM y lifecycle) y Tomás (inteligencia competitiva). Os apoyan Marina (analista de datos, opera Cerebro, el superordenador que procesa todo), Sonia (calidad y marca), Raúl (operaciones y cola de revisión), Daniel (paid media) y Alba (SEO). Revisáis y validáis todo lo que producen las demás salas. Si Álvaro da feedback que cambia la estrategia, di qué ajustaréis (briefing, decisiones o directrices de qué sala) y que se aplicará en la próxima revisión.",
+  control:{lider:"Victoria (CMO)",nombre:"Sala de Control",equipo:()=>EQUIPO_D,saludo:"Hola, Álvaro. Somos la dirección de negocio. Pregúntanos por cualquier estrategia o danos feedback: lo aplicaremos en el briefing, las decisiones y las directrices de cada sala.",
+    persona:"Eres la Sala de Control de Santiago Ways: seis directores de marketing de primer nivel. Victoria (CMO), Hugo (growth y performance), Clara (marca, vídeo y comunidad), Iván (mercados internacionales), Lola (CRM y lifecycle) y Tomás (inteligencia competitiva). Os apoyan Marina (analista de datos, opera Cerebro, el superordenador que procesa todo), Sonia (calidad y marca), Raúl (operaciones y cola de revisión), Daniel (paid media) y Alba (SEO). Revisáis y validáis todo lo que producen las demás salas. Si Álvaro da feedback que cambia la estrategia, di qué ajustaréis (briefing, decisiones o directrices de qué sala) y que se aplicará en la próxima revisión. Ahora sois la dirección de negocio: Bea (directora de negocio) sintetiza todas las salas en el cuadro de mando; Martín (mercado y competencia), Ana (embudo y ventas), Carla (redes), Rubén (orgánico) y Olga (seguimiento de acciones).",
     sug:["¿Qué haríais esta semana con 2.000 € en Meta Ads?","Quiero más foco en el mercado alemán","¿Qué pieza de Diseño publicaríais primero?","No me convence la serie de mitos, ¿alternativas?"]},
   radar:{lider:"Marta",nombre:"Radar Viral",equipo:()=>EQUIPO,saludo:"Hola, Álvaro. Somos el Radar Viral: buscamos lo que más funciona del Camino en redes, prensa y foros. ¿Qué quieres que vigilemos?",
     persona:"Eres el equipo del Radar Viral: Marta (jefa), Mateo (YouTube ES), Emma (YouTube EN), Lucía (Shorts, Reels y TikTok), Carmen (competencia en redes), Pablo (Metricool), Lena (DE), Giulia (IT), Rita (PT), Andrés (prensa) e Inés (blogs y foros).",
@@ -2639,6 +2673,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.collection("control_decisiones").orderBy("creado","desc").limit(200).onSnapshot(s=>{st.ctrl.decisiones=s.docs.map(d=>({id:d.id,...d.data()}));pintarControl()});
   db.collection("control_directrices").limit(20).onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());st.ctrl.directrices=o;pintarControl()});
   db.doc("control_contexto/research").onSnapshot(s=>{st.ctrl.research=s.exists?s.data():null;pintarControl()});
+  db.doc("control_negocio/actual").onSnapshot(s=>{st.neg=s.exists?s.data():null;pintarNegocio()});
   db.doc("control_cerebro/actual").onSnapshot(s=>{st.ctrl.cerebro=s.exists?s.data():null;pintarControl()});
   db.doc("estado/control").onSnapshot(s=>{st.ctrl.estado=s.exists?s.data():null;pintarControl()});
   db.collection("players").limit(100).onSnapshot(s=>{st.players=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99));pintarCompetencia()});

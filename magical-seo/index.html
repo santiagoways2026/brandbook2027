@@ -300,7 +300,6 @@ function pintarPubs(){
       <div class="etiquetas">
         ${p.tipo?`<span class="tag">${esc(p.tipo)}</span>`:""}
         ${p.idioma?`<span class="tag">${esc(p.idioma)}</span>`:""}
-        ${Number.isFinite(p.relevancia)?`<span class="tag rel">rel ${p.relevancia}</span>`:""}
         ${kws}
       </div></div></article>`;
   }).join("");

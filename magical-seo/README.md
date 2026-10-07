@@ -74,6 +74,8 @@ relevancia: 0-100
 amenaza: alta | media | baja
 ```
 
+`relevancia` se guarda pero **no se muestra en la sala**. Se quitó de la vista porque, a diferencia de la amenaza, no tiene un baremo escrito: el agente la asigna a ojo, así que aparentaba más precisión de la que tenía. El dato se sigue registrando por si algún día se le define un criterio; mientras tanto, la señal buena es la amenaza.
+
 `tipo` es uno de: `blog`, `ruta`, `producto`, `precio`, `landing`, `home`, `otro`.
 
 **Cómo se puntúa la amenaza:**

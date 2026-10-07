@@ -212,7 +212,14 @@ La primera vez conviene usar la ejecución inmediata: **los permisos de herramie
 
 ### Validar un rival propuesto
 
-Dile a Claude que cambie su `estado` a `vigilado` en la colección `rivales`. A partir de la siguiente barrida entra en el recorrido.
+En la pestaña **Rivales**, las fichas con sello ámbar llevan dos botones:
+
+- **Vigilar**: entra en el recorrido de la siguiente barrida. Se le asigna el orden siguiente al último vigilado.
+- **Descartar**: queda registrado como descartado y el agente no lo volverá a proponer. Si cambias de idea, la ficha ofrece **Recuperar**.
+
+El cambio se guarda al momento y la sala se repinta sola. No hace falta pasar por Claude.
+
+Este es el único punto del sistema donde una persona decide y el agente no puede: el agente propone, tú dispones. Es a propósito, para que la lista no crezca sola hasta volverse ruido.
 
 ### Añadir un rival nuevo
 

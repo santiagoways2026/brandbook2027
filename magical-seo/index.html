@@ -127,6 +127,14 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .sello{font:600 12px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;padding:4px 7px;border-radius:4px;flex:none}
 .sello.vigilado{background:color-mix(in srgb,var(--ways) 18%,transparent);color:var(--ways)}
 .sello.propuesto{background:color-mix(in srgb,var(--media) 20%,transparent);color:var(--media)}
+.sello.descartado{background:color-mix(in srgb,var(--tenue) 14%,transparent);color:var(--tenue)}
+.acc-rival{display:flex;gap:7px;margin-top:12px;padding-top:11px;border-top:1px solid var(--borde)}
+.acc-rival button{padding:6px 13px;border:1px solid var(--ways);border-radius:6px;color:var(--ways);
+  font:600 13px/1.2 var(--f-ui);transition:background .15s,color .15s}
+.acc-rival button:hover{background:var(--ways);color:#fff}
+.acc-rival button.no{border-color:var(--borde2);color:var(--tenue)}
+.acc-rival button.no:hover{background:var(--borde2);color:var(--texto)}
+.acc-rival button[disabled]{opacity:.5;cursor:default}
 
 /* Huecos */
 .huecos{display:flex;flex-direction:column;gap:9px}
@@ -316,6 +324,12 @@ function pintarRivales(){
     const n=st.pubs.filter(p=>p.rival===r.id).length;
     const ult=st.pubs.filter(p=>p.rival===r.id).map(p=>p.publicado||p.detectado).filter(Boolean).sort().pop();
     const web=/^https?:\/\//i.test(r.web||"")?r.web:null;
+    const acc=r.estado==="propuesto"
+      ? `<div class="acc-rival"><button type="button" data-vigilar="${esc(r.id)}">Vigilar</button>
+         <button type="button" class="no" data-descartar="${esc(r.id)}">Descartar</button></div>`
+      : r.estado==="descartado"
+      ? `<div class="acc-rival"><button type="button" data-vigilar="${esc(r.id)}">Recuperar</button></div>`
+      : "";
     return `<article class="rival-f"><header><h3>${esc(r.nombre)}</h3>
       <span class="sello ${esc(r.estado||"propuesto")}">${esc(r.estado||"propuesto")}</span></header>
       <div class="web">${web?`<a href="${esc(web)}" target="_blank" rel="noopener noreferrer">${esc(r.web.replace(/^https?:\/\//,""))}</a>`:esc(r.web||"")}</div>
@@ -324,9 +338,38 @@ function pintarRivales(){
       ${r.pais?`<dt>País</dt><dd>${esc(r.pais)}</dd>`:""}
       ${r.idiomas?.length?`<dt>Idiomas</dt><dd>${esc(r.idiomas.join(", "))}</dd>`:""}</dl>
       ${r.notas?`<p style="margin:10px 0 0;font-size:14.5px;color:var(--tenue);line-height:1.5">${esc(r.notas)}</p>`:""}
+      ${acc}
     </article>`;
   }).join("");
 }
+
+/* Aceptar o descartar un rival propuesto. El agente solo puede proponer:
+   pasar a vigilado es decision de una persona, y se toma desde aqui. */
+async function decidirRival(id,estado,boton){
+  if(!st.db)return;
+  const r=st.rivales.find(x=>x.id===id); if(!r)return;
+  const fila=boton.closest(".acc-rival");
+  [...fila.querySelectorAll("button")].forEach(b=>b.disabled=true);
+  boton.textContent="Guardando";
+  const parche={estado};
+  if(estado==="vigilado"&&(r.orden??99)>=20){
+    const max=Math.max(0,...st.rivales.filter(x=>x.estado==="vigilado"&&(x.orden??99)<20).map(x=>x.orden??0));
+    parche.orden=max+1;
+  }
+  try{
+    await st.db.doc("rivales/"+id).update(parche);
+    /* onSnapshot repinta solo; no hace falta tocar el DOM */
+  }catch(e){
+    console.error(e);
+    boton.textContent="No se pudo guardar";
+    setTimeout(()=>pintarRivales(),2200);
+  }
+}
+$("#rivales").addEventListener("click",e=>{
+  const v=e.target.closest("[data-vigilar]"), d=e.target.closest("[data-descartar]");
+  if(v)decidirRival(v.dataset.vigilar,"vigilado",v);
+  else if(d)decidirRival(d.dataset.descartar,"descartado",d);
+});
 
 function pintarHuecos(){
   $("#n-huecos").textContent=st.huecos.length?`(${st.huecos.length})`:"";
@@ -363,11 +406,13 @@ function pintarCifras(){
   const p7=st.pubs.filter(p=>dias(p.detectado||p.publicado)<=7).length;
   const vig=st.rivales.filter(r=>r.estado==="vigilado").length;
   const prop=st.rivales.filter(r=>r.estado==="propuesto").length;
+  const desc=st.rivales.filter(r=>r.estado==="descartado").length;
   const ame=st.pubs.filter(p=>p.amenaza==="alta"&&dias(p.detectado||p.publicado)<=30).length;
   $("#c-pubs").firstChild.nodeValue=st.pubs.length?String(p7):"·";
   $("#c-pubs-sub").textContent=st.pubs.length?`${st.pubs.length} guardadas en total`:"a la espera de la primera barrida";
   $("#c-riv").firstChild.nodeValue=st.rivales.length?String(vig):"·";
-  $("#c-riv-sub").textContent=prop?`${prop} propuestos por validar`:(st.rivales.length?"todos validados":"sin cargar");
+  $("#c-riv-sub").textContent=prop?`${prop} propuestos esperan tu decisión`
+    :(st.rivales.length?(desc?`${desc} descartados`:"todos decididos"):"sin cargar");
   $("#c-hue").firstChild.nodeValue=st.huecos.length?String(st.huecos.filter(h=>h.estado!=="cerrado").length):"·";
   $("#c-hue-sub").textContent=st.huecos.length?`${st.huecos.length} detectados en total`:"sin analizar";
   $("#c-ame").firstChild.nodeValue=st.pubs.length?String(ame):"·";
@@ -393,7 +438,7 @@ pintar();
     $("#pie").textContent="Esta página muestra datos en vivo solo cuando se abre desde claude.ai con la sesión iniciada. Lo que ves ahora es el estado vacío.";
     return;
   }
-  st.conectado=true;
+  st.db=db;st.conectado=true;
   const seguro=(f)=>(s)=>{try{f(s)}catch(err){console.error(err)}finally{pintar()}};
   db.collection("publicaciones").orderBy("detectado","desc").limit(500)
     .onSnapshot(seguro(s=>{st.pubs=s.docs.map(d=>({id:d.id,...d.data()}))}),()=>{st.conectado=false;pintar()});

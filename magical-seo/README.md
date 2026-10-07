@@ -64,8 +64,19 @@ Sigue magical-seo/agentes/barrida-rivales/AGENTE.md y haz una barrida completa
 - Los huecos se llenan con la primera ejecución del protocolo semanal.
 - La interfaz solo muestra datos en vivo abierta desde claude.ai con la sesión iniciada. Abierta como archivo local enseña el estado vacío.
 
+## Fuentes de datos conectadas
+
+| Fuente | Estado | Qué aporta |
+|---|---|---|
+| Web y blogs de los rivales | Activa | Qué publican y cuándo. Gratis, vía lectura directa |
+| Google Search Console | Activa desde el 7 de octubre de 2026 | Nuestra posición, impresiones y clics reales en las consultas que ellos atacan |
+| Semrush | Pendiente | Volúmenes de búsqueda. Bloqueado: la subcuenta no tiene unidades de API asignadas |
+| Google Analytics 4 | Pendiente | Tráfico orgánico por página. Falta el ID de propiedad |
+
+Las credenciales de Google viven en `~/.config/claude-seo/` (OAuth, nivel 1). La propiedad por defecto es `https://santiagoways.com/`, con tres vistas por idioma disponibles: `/es/`, `/en/` y `/de/`.
+
 ## Lo que esta sala todavía no hace
 
-- **No mide volúmenes de búsqueda.** No hay ninguna fuente de datos de keywords conectada, así que la prioridad de un hueco se razona por intención y por cuántos rivales lo atacan, no por cifras.
-- **No mide posiciones de forma estable.** Lo que observa en los buscadores es de un momento y un lugar concretos, y así queda anotado.
+- **No mide volúmenes de búsqueda.** Hasta que Semrush tenga unidades, la prioridad de un hueco se razona por intención, por posición en Search Console y por cuántos rivales lo atacan.
 - **No vigila sus redes ni su publicidad.** Solo web, blog y señales de búsqueda.
+- **No sabe qué posición ocupan ellos**, solo la nuestra. Search Console es un espejo de nuestro sitio, no de los suyos.

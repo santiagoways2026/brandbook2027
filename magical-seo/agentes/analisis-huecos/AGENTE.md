@@ -23,11 +23,48 @@ Un tema, una consulta o un formato donde los rivales están presentes y nosotros
 
 3. **Comprueba qué tenemos nosotros.** Para cada tema con peso, busca en https://santiagoways.com/es/blog/ y en el resto del sitio con `WebFetch`, y contrasta con `WebSearch` usando `site:santiagoways.com` más la consulta. Anota la URL propia si existe.
 
-4. **Mira el buscador de verdad.** Para las consultas que importan, lanza `WebSearch` sin filtro de dominio y observa quién aparece. Si varios rivales están por delante y nosotros no aparecemos, es un hueco con prueba, no una hipótesis.
+4. **Pregunta a Search Console dónde estamos.** Esta es la prueba principal, y pesa más que cualquier observación de buscador. Usa el patrón de abajo para sacar nuestra posición real, impresiones y clics en las consultas que atacan los rivales. Un hueco respaldado por Search Console es un hecho; sin él, es una hipótesis.
 
-5. **Escribe los huecos.** Un documento por hueco, con el esquema de abajo. Si un hueco ya existe y la situación ha cambiado, actualízalo con `update` y su `if_version`; si lo hemos resuelto, pon `estado: "cerrado"` en vez de borrarlo.
+5. **Mira además el buscador en vivo.** Para las consultas que importan, lanza `WebSearch` sin filtro de dominio y observa quién aparece. Sirve para saber quién ocupa el sitio que no ocupamos nosotros.
 
-6. **Cierra.** `update` de `estado/magicalseo` con `if_version`: `agentes.huecos.ultima`, `agentes.huecos.hallazgos`, y 2 o 3 entradas nuevas al principio de `bitacora` explicando qué se ha abierto o cerrado esta semana.
+6. **Escribe los huecos.** Un documento por hueco, con el esquema de abajo. Si un hueco ya existe y la situación ha cambiado, actualízalo con `update` y su `if_version`; si lo hemos resuelto, pon `estado: "cerrado"` en vez de borrarlo.
+
+7. **Cierra.** `update` de `estado/magicalseo` con `if_version`: `agentes.huecos.ultima`, `agentes.huecos.hallazgos`, y 2 o 3 entradas nuevas al principio de `bitacora` explicando qué se ha abierto o cerrado esta semana.
+
+## Consultar Search Console
+
+Las credenciales están configuradas (OAuth, nivel 1) en `~/.config/claude-seo/`. La propiedad por defecto es `https://santiagoways.com/`, y existen además tres vistas por idioma: `https://santiagoways.com/es/`, `/en/` y `/de/`. Comparar entre ellas es especialmente útil, porque los rivales irlandeses atacan por el inglés.
+
+Ejecuta desde `C:\Users\swcan\.claude\skills\seo\scripts`:
+
+```python
+import sys; sys.path.insert(0,'.')
+from google_auth import get_oauth_credentials, SCOPES
+from googleapiclient.discovery import build
+from datetime import date, timedelta
+c = get_oauth_credentials([SCOPES['gsc_readonly']])
+s = build('searchconsole','v1',credentials=c)
+fin = date.today()-timedelta(days=3); ini = fin-timedelta(days=28)
+r = s.searchanalytics().query(siteUrl='https://santiagoways.com/', body={
+    'startDate': ini.isoformat(), 'endDate': fin.isoformat(),
+    'dimensions': ['query'],
+    'dimensionFilterGroups': [{'filters': [
+        {'dimension':'query','operator':'contains','expression':'<el término>'}]}],
+    'rowLimit': 25}).execute()
+for row in r.get('rows', []):
+    print(row['keys'][0], row['clicks'], row['impressions'], round(row['position'],1))
+```
+
+Deja siempre tres días de margen con la fecha de hoy: Search Console no tiene los datos más recientes.
+
+Cómo leer lo que sale, y qué hueco corresponde:
+
+- **Posición mala (más de 20) con impresiones**: hueco real. Google sabe que existimos para esa consulta pero no nos considera buena respuesta.
+- **Posición buena (menos de 10) y pocos clics**: no es un problema de ranking, es de qué enseña el resultado. Es una `mejora` de título y descripción, no una página nueva.
+- **Cero impresiones**: no existimos para esa consulta. Hueco de contenido.
+- **Misma posición en dos idiomas y clics muy distintos**: el idioma que rinde peor tiene un problema propio. Merece hueco aparte.
+
+Cita siempre en `evidencia` las cifras concretas y el periodo consultado. Sin eso, el hueco no vale.
 
 ## Esquema de un documento de `huecos`
 

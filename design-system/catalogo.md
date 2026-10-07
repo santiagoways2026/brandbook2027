@@ -20,15 +20,15 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 |---|---|---|---|
 | 1 | `cta-box` | Caja comercial: titular, texto y un botón | CSS ✓ HTML ⚠ |
 | 2 | `steps` | Pasos numerados en vertical, unidos por una línea verde | CSS ✓ HTML ⚠ |
-| 3 | `stats` | Cifras en fila: km, etapas, días, desnivel | CSS ✓ HTML ✗ |
+| 3 | `stats` | Cifras en fila: km, etapas, días, desnivel | CSS ✓ HTML ✓ |
 | 4 | `roadmap` | Recorrido de etapas en línea. En móvil pasa a vertical | CSS ✓ HTML ✗ |
-| 5 | `cards` | Rejilla de tarjetas con icono dentro de una caja verde claro | CSS ✓ HTML ✗ |
-| 6 | `timeline` | Línea de tiempo (años Xacobeo). **Doble marcado** | CSS ✓ HTML ✗ |
+| 5 | `cards` | Rejilla de tarjetas con icono dentro de una caja verde claro | CSS ⚠ HTML ✓ |
+| 6 | `timeline` | Línea de tiempo (años Xacobeo). **Doble marcado** | CSS ✓ HTML ✓ |
 | 7a | `note` | Aviso lateral discreto. Contenido libre dentro | CSS ✓ HTML ✓ |
 | 7b | `quote` | Cita destacada, centrada, con autor | CSS ✓ HTML ✓ |
-| 8 | `guides` | Guías descargables: tarjetas con botón | CSS ✓ HTML ✗ |
-| 9 | `features` | Características con icono en `<img>` | CSS ✓ HTML ✗ |
-| 10 | `checklist` | Listas de comprobación en tarjetas | CSS ✓ HTML ✗ |
+| 8 | `guides` | Guías descargables: tarjetas con botón | CSS ✓ HTML ✓ |
+| 9 | `features` | Características con icono en `<img>` | CSS ✓ HTML ✓ |
+| 10 | `checklist` | Listas de comprobación en tarjetas | CSS ✓ HTML ✓ |
 | 11 | `heroblogsw` | Cabecera de artículo con foto de fondo y overlay | CSS ✓ HTML ✓ |
 | 12 | `roads` | Tarjetas de rutas con foto, banderola lima y etiquetas | CSS ⚠ HTML ✓ |
 | 13 | `finder` | Selector de preguntas con enlaces de respuesta | CSS ✓ HTML ✓ |
@@ -39,8 +39,8 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 | 17 | `safety` | Seguridad: bloques con etiqueta y teléfono de emergencia | CSS ✓ HTML ✓ |
 | 18 | `mistakes` | Errores frecuentes: el error y, al lado, la alternativa | CSS ✓ HTML ✓ |
 | 19 | `arrival` | Dos fichas con foto a media anchura | CSS ✓ HTML ✓ |
-| 20 | `gr-ficha` | Ficha de datos: foto + pares etiqueta/valor | CSS ✓ HTML ✗ |
-| 21 | `gr-planner` | Promo del planificador, con columna oscura y checklist | CSS ✓ HTML ✗ |
+| 20 | `gr-ficha` | Ficha de datos: foto + pares etiqueta/valor | CSS ✓ HTML ✓ |
+| 21 | `gr-planner` | Promo del planificador, con columna oscura y checklist | CSS ✓ HTML ✓ |
 | 22 | `tabla-responsive` | Tabla de datos. En móvil cada fila es una tarjeta | CSS ✓ HTML ✓ |
 
 ---
@@ -167,6 +167,59 @@ un `<h3>` altera la estructura del documento, así que se respeta lo que hay.
 Escribir un símbolo donde lo pone el CSS lo duplica; no escribirlo donde va en el HTML lo
 pierde. Es el error más fácil de cometer en este sistema.
 
+### `steps` · el paso final NO se marca solo
+De los dos bloques `steps` publicados, el de la Credencial **sí** marca su último paso con
+`steps__number--final` (verde oscuro) y el del traslado de equipaje **no**, aunque también
+tiene cinco pasos y también acaba. Es una decisión editorial, no una regla.
+
+Lo había deducido como automático a partir de un solo ejemplo y era falso. En el módulo se
+pide a mano con `final: si` en el paso que cierre.
+
+### `cards` · usa una clase por otra
+El título de cada tarjeta lleva `cards__title`, que en el CSS es la clase del título del
+**bloque** (`margin: 0 0 20px`). La pensada para la tarjeta es `cards__title-card`
+(`font-size: 18px; margin: 0 0 12px`) y **no se usa en ninguna parte**: es CSS muerto.
+
+Consecuencia: los títulos salen al tamaño del cuerpo en vez de a 18 px, y con 20 px de
+separación en vez de 12. Además, el bloque no usa nunca su título propio.
+
+Se reproduce lo publicado para no cambiar el aspecto de las páginas vivas. Cambiarlo es
+un arreglo de una línea por tarjeta, pero afecta a lo que ya está publicado.
+
+### `timeline` · los saltos son calculables
+El salto de cada punto («5 años») es la diferencia con el año **siguiente**, no con el
+anterior, y por eso el último punto no lleva salto. Coincide en los siete saltos publicados:
+1999→2004 = 5, 2010→2021 = 11, 2027→2032 = 5. El módulo los calcula solos.
+
+El año destacado es el único que lleva etiqueta debajo. En la vista móvil su fila mete el
+año y la etiqueta dentro de un `<div>` extra que las demás filas no tienen, y el salto
+lleva una flecha `↓` delante que en escritorio no aparece.
+
+### `gr-planner` · el orden del código no es el orden visual
+En el HTML van `__head`, `__side`, `__body`, en ese orden. La rejilla usa
+`grid-template-areas: "head side" "body side"`, así que la columna oscura ocupa las dos
+filas aunque en el código esté en medio. Por debajo de 700 px la rejilla se deshace y el
+orden visual pasa a ser el del código: titular, columna oscura, cuerpo.
+
+### `features` · el `alt=""` está bien puesto
+Los iconos llevan `alt=""` **a propósito**: son decorativos y el `<h3>` que va justo debajo
+ya dice lo mismo. Ponerles texto alternativo haría que los lectores de pantalla lo
+repitieran dos veces. Es el único bloque donde un `alt` vacío es correcto.
+
+Además escribe `width="40" height="40"` en el HTML aunque el CSS ya fuerce ese tamaño: eso
+reserva el hueco y evita que la página salte mientras carga. Bien hecho.
+
+### `checklist` · el único bloque con `<h2>`
+`checklist__title` es un `<h2>`. Todos los demás titulares de bloque son `<h3>`, y el del
+hero es `<h2>` por ser cabecera de artículo. Dentro de un artículo que ya tiene `<h2>`
+conviene bajarlo a `<h3>` para no romper el índice; el módulo lo permite con `nivel: h3`.
+
+### Imágenes sin clase
+En `gr-ficha` y en `features`, el `<img>` **no lleva clase**: el CSS lo selecciona con
+`.gr-ficha__media img` y `.features__icon img`. En el resto de bloques la imagen sí lleva
+su clase (`roads__img`, `prep__img`, `gear__img`, `arrival__img`, `heroblogsw__img`). No
+hay un criterio único; se respeta lo que hay en cada bloque.
+
 ### `tabla-responsive` · el tema se cambia desde el HTML
 La tabla declara sus colores como variables en `.tabla-responsive`. Para cambiar el color
 de **una** tabla concreta se redefinen en el propio elemento:
@@ -195,10 +248,7 @@ móvil no se vean.
 
 ## Lo que falta
 
-**Los 9 HTML de referencia que faltan:** `guides`, `gr-planner`, `checklist`,
-`cards`, `features`, `roadmap`, `gr-ficha`, `stats` y `timeline`.
-
-Antes decía 21. Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
+**Un solo HTML de referencia:** `roadmap`. Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
    Con ellos se confirma la estructura exacta de cada bloque y se cierra el catálogo.
 `tabla-responsive` ya está completo: [`tabla-responsive.css`](tabla-responsive.css) es el
 original y [`../bloques/tabla-responsive.html`](../bloques/tabla-responsive.html) el markup.

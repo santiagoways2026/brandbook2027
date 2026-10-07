@@ -75,18 +75,19 @@ A partir de ese momento el transformador ya sabe usarlo.
 
 | | CSS | HTML de referencia | Módulo |
 |---|---|---|---|
-| 15 bloques | ✓ original | ✓ original | ✓ listo |
-| 9 bloques | ✓ original | ✗ pendiente | ✗ pendiente |
+| 23 bloques | ✓ original | ✓ original | ✓ listo |
+| `roadmap` | ✓ original | ✗ pendiente | ✗ pendiente |
 
-Listos: `tabla-responsive`, `heroblogsw`, `roads`, `finder`, `durations`, `prep`, `gear`,
-`cta-box`, `steps`, `note`, `quote`, `tips`, `safety`, `mistakes` y `arrival`.
+Falta un solo bloque: `roadmap`.
 
-Faltan: `guides`, `gr-planner`, `checklist`, `cards`, `features`, `roadmap`, `gr-ficha`,
-`stats` y `timeline`.
+Tres avisos sobre el HTML publicado, detallados en
+[`design-system/catalogo.md`](design-system/catalogo.md):
 
-Dos avisos sobre el HTML publicado, detallados en
-[`design-system/catalogo.md`](design-system/catalogo.md): `cta-box` circula con estilos
-inline en vez de clases, y el `steps` publicado va dentro de un `<div>` que nunca se cierra.
+- `cta-box` circula con estilos inline en vez de clases, y pierde el `:hover` y el
+  comportamiento en móvil.
+- El `steps` publicado va dentro de un `<div>` que nunca se cierra.
+- `cards` usa `cards__title` donde el CSS esperaba `cards__title-card`, así que los
+  títulos de tarjeta salen al tamaño del cuerpo. `cards__title-card` es CSS muerto.
 
 Hay además **un aviso de contraste**: `#668814`, el color de texto más usado del sistema
 (33 veces, casi siempre en tamaños de 11-13 px), da 4,12:1 sobre blanco y no llega al

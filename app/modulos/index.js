@@ -2,7 +2,7 @@
    Registro de módulos.
 
    Para añadir uno: crea su archivo en esta carpeta, impórtalo aquí
-   y mételo en MODULOS. Luego quítalo de PENDIENTES.
+   y mételo en MODULOS. Luego quítalo de PENDIENTES, si estaba.
    El orden de MODULOS no importa: el selector agrupa por `grupo`.
    ============================================================ */
 
@@ -21,6 +21,14 @@ import tips from './tips.js';
 import safety from './safety.js';
 import mistakes from './mistakes.js';
 import arrival from './arrival.js';
+import grFicha from './gr-ficha.js';
+import timeline from './timeline.js';
+import cards from './cards.js';
+import grPlanner from './gr-planner.js';
+import stats from './stats.js';
+import guides from './guides.js';
+import features from './features.js';
+import checklist from './checklist.js';
 
 export const MODULOS = [
   tablaResponsive,
@@ -38,18 +46,18 @@ export const MODULOS = [
   safety,
   mistakes,
   arrival,
+  grFicha,
+  timeline,
+  cards,
+  grPlanner,
+  stats,
+  guides,
+  features,
+  checklist,
 ];
 
-/* Bloques que ya tienen CSS pero todavía no tienen módulo.
+/* Bloques que tienen CSS pero todavía no tienen módulo.
    Se listan en el selector en gris para saber qué queda. */
 export const PENDIENTES = [
-  { id: 'guides', nombre: 'Guías descargables', grupo: 'Conversión' },
-  { id: 'gr-planner', nombre: 'Promo planificador', grupo: 'Conversión' },
-  { id: 'checklist', nombre: 'Listas de comprobación', grupo: 'Listas' },
-  { id: 'cards', nombre: 'Tarjetas con icono', grupo: 'Rejillas' },
-  { id: 'features', nombre: 'Características', grupo: 'Rejillas' },
   { id: 'roadmap', nombre: 'Recorrido de etapas', grupo: 'Rutas' },
-  { id: 'gr-ficha', nombre: 'Ficha de datos', grupo: 'Rutas' },
-  { id: 'stats', nombre: 'Cifras', grupo: 'Datos' },
-  { id: 'timeline', nombre: 'Línea de tiempo', grupo: 'Datos' },
 ];

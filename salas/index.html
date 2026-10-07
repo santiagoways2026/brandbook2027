@@ -982,7 +982,7 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={instagram:[-1500,-2600],youtube:[300,-2600],radar:[2100,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,3400],competencia:[-5200,-2600],journey:[-900,5100],comercial:[900,5100],mdirecto:[5600,4700],producto:[5000,7800]};
+const POS={instagram:[-1500,-2600],youtube:[300,-2600],radar:[2100,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],mdirecto:[5600,4700],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
@@ -1000,12 +1000,12 @@ const PASILLOS_DEF=[
   {id:"pa29",d:"M1500 -2267 H2100",c:"#3d7bff",txt:"",sub:"",lx:0,ly:0},
   {id:"pa20",d:"M-300 -2267 H300",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:-270,ly:-2330},
   {id:"pa21",d:ruta([[900,-2600],[900,-2950],[5800,-2950],[5800,400]],320),c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:3700,ly:-3020},
-  {id:"pa4",d:"M750 3400 V2632",c:"#22d3ee",txt:"Lifecycle → Control",sub:"embudo · repetición · valor del cliente",lx:800,ly:3000},
-  {id:"pa7",d:"M450 2632 V3400",c:"#f5d76e",txt:"Directrices → Lifecycle",sub:"control.directrices.lifecycle",lx:-330,ly:3000,fin:true},
+  {id:"pa4",d:"M750 4300 V2632",c:"#22d3ee",txt:"Lifecycle → Control",sub:"embudo · repetición · valor del cliente",lx:800,ly:3450},
+  {id:"pa7",d:"M450 2632 V4300",c:"#f5d76e",txt:"Directrices → Lifecycle",sub:"control.directrices.lifecycle",lx:-330,ly:3450,fin:true},
   {id:"pa23",d:ruta([[-4600,-1934],[-4600,-400],[-1500,-400],[-1500,1400],[-600,1400]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4100,ly:-470},
-  {id:"pa24",d:ruta([[-300,5100],[-300,3900],[-150,3900]],140),c:"#a78bfa",txt:"Journey ↔ Lifecycle",sub:"etapas del cliente · fricciones",lx:-1040,ly:4500},
-  {id:"pa25",d:ruta([[1500,5100],[1500,3900],[1350,3900]],140),c:"#818cf8",txt:"Comercial ↔ Lifecycle",sub:"ventas por idioma · embudo (Zoho)",lx:1560,ly:4500},
-  {id:"pa26",d:"M300 5433 H900",c:"#c084fc",txt:"Journey ↔ Comercial",sub:"",lx:330,ly:5370},
+  {id:"pa24",d:ruta([[-300,6000],[-300,4800],[-150,4800]],140),c:"#a78bfa",txt:"Journey ↔ Lifecycle",sub:"etapas del cliente · fricciones",lx:-1040,ly:5400},
+  {id:"pa25",d:ruta([[1500,6000],[1500,4800],[1350,4800]],140),c:"#818cf8",txt:"Comercial ↔ Lifecycle",sub:"ventas por idioma · embudo (Zoho)",lx:1560,ly:5400},
+  {id:"pa26",d:"M300 6333 H900",c:"#c084fc",txt:"Journey ↔ Comercial",sub:"",lx:330,ly:6270},
   {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
   {id:"pa9",d:"M-4000 1760 C-2800 2060 -1700 2060 -600 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
   {id:"pa14",d:ruta([[1800,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1940,ly:1300},

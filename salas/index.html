@@ -2710,11 +2710,11 @@ function cnClasif(s,m){const a=(s||"").toLowerCase(),b=(m||"").toLowerCase();
   if(a.startsWith("google&"))return["PAID","GOOGLE","PMAX"];
   if(a==="google")return["PAID","GOOGLE",{dgen:"DGEN",pmax:"PMAX",cpc:"CPC",remarketing:"RMKTN",search:"SEARCH"}[b]||"SIN DATA"];
   return["ORGANIC","OTROS"]}
-/* Combinaciones utm_source / utm_medium esperadas. Todo lo demás se marca en amarillo para revisar */
+/* utm_source conocidos (con sus medium habituales). Un source que no esté aquí se marca en amarillo para revisar */
 const CN_OK={"(sin utm)":["(sin medium)"],llamada:["inbound"],email:["inbound"],chatbot:["rutas","cotizacion"],trustpilot:["company_profile"],tripadvisor:["referral"],blog_org:["(sin medium)","organic"],medios_patrocinados:["referral"],googlemybusiness:["organic"],zoho_campaigns:["email","webinar"],newsletter:["email"],instagram_org:["social","bio","mensajes"],facebook_org:["social"],tiktok_org:["social","bio","mensajes"],youtube_org:["social"],"chatgpt.com":["(sin medium)"],perplexity:["(sin medium)"],gemini:["(sin medium)"],"copilot.com":["(sin medium)"],bing:["cpc"],google:["search","pmax","dgen","cpc","remarketing"],meta:["social_paid","paid","fb_crm_remarketing","fb_pixel_remarketing","ig_crm_remarketing","ig_pixel_remarketing","an_crm_remarketing","an_pixel_remarketing","th_pixel_remarketing"],caminofy:["(sin medium)"],chatgpt_ads:["cpc"]};
-const cnRara=(s,m)=>!(CN_OK[(s||"").toLowerCase()]||[]).includes((m||"").toLowerCase());
+const cnRara=s=>!CN_OK[(s||"").toLowerCase()];
 function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={},V=st.cnV;
-  const raw={};(C.filas||[]).forEach(([s,m,d,w])=>{const k=cnClasif(s,m).join("|"),x=ag[k]||(ag[k]=[0,0]);x[0]+=d;x[1]+=w;(det[k]=det[k]||[]).push(`${s} / ${m}: ${num(d)}`);(raw[k]=raw[k]||[]).push([s,m,d,w])});
+  const raw={};(C.filas||[]).forEach(([s,m,d,w])=>{const k=cnClasif(s,m).join("|"),x=ag[k]||(ag[k]=[0,0]);x[0]+=d;x[1]+=w;(det[k]=det[k]||[]).push(`${s} / ${m}: ${num(d)}`);const rr=raw[k]||(raw[k]={}),y=rr[s]||(rr[s]=[s,0,0]);y[1]+=d;y[2]+=w});
   const g=k=>ag[k]||[0,0],suma=ks=>ks.reduce((t,k)=>{const x=g(k);return[t[0]+x[0],t[1]+x[1]]},[0,0]);
   const hojas=[];const arbol=(grp,L)=>L.map(it=>Array.isArray(it)?{n:it[0],k:grp+"|"+it[0],subs:it[1].map(sb=>{const k=[grp,it[0],sb].join("|");hojas.push({k,n:it[0]===sb?sb:`${it[0]} · ${sb}`,sd:sb==="SIN DATA"});return{n:sb,k}})}:{n:it,k:grp+"|"+it,opc:CN_OPC.has(it)}).filter(it=>{if(!it.subs)hojas.push({k:it.k,n:it.n,sd:it.n==="SIN DATA"});return !(it.opc&&!g(it.k)[0])});
   const T={ORGANIC:arbol("ORGANIC",CN_ORG),PAID:arbol("PAID",CN_PAID)};
@@ -2726,9 +2726,9 @@ function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={
   const datos=(p,k)=>`<td>${num(p[0])}</td><td class="cn-pc">${p[0]?(p[0]/TD*100).toFixed(1).replace(".",",")+" %":""}</td><td>${num(p[1])}</td>${crCell(p,k)}`;
   const tag=k=>eT.has(k)?`<span class="cn-tag top">mejor</span>`:eB.has(k)?`<span class="cn-tag bot">peor</span>`:"";
   const tit=k=>det[k]?` title="${esc(det[k].join("\n"))}"`:"";
-  const verU=V.utm!==false,nR=k=>(raw[k]||[]).filter(([s,m])=>cnRara(s,m)).length;
-  const marca=k=>nR(k)?`<span class="cn-tag rev" title="${nR(k)} combinación(es) UTM a revisar">⚠ ${nR(k)}</span>`:"";
-  const crudas=(k,cls,ind)=>verU?(raw[k]||[]).slice().sort((a,b)=>b[2]-a[2]).map(([s,m,d,w])=>{const r=cnRara(s,m);return`<tr class="cn-raw ${cls}${r?" cn-rara":""}"><td class="${ind}"><code>${esc(s.length>48?s.slice(0,48)+"…":s)}</code> / <code>${esc(m)}</code>${r?'<span class="cn-tag rev">revisar</span>':""}</td><td>${num(d)}</td><td class="cn-pc">${(d/TD*100).toFixed(1).replace(".",",")} %</td><td>${num(w)}</td><td class="cr cn-crb"><span>${d?pct(w/d):"–"}</span></td></tr>`}).join(""):"";
+  const verU=V.utm!==false,lr=k=>Object.values(raw[k]||{}),nR=k=>lr(k).filter(([s])=>cnRara(s)).length;
+  const marca=k=>nR(k)?`<span class="cn-tag rev" title="${nR(k)} utm_source a revisar">⚠ ${nR(k)}</span>`:"";
+  const crudas=(k,cls,ind)=>verU?lr(k).sort((a,b)=>b[1]-a[1]).map(([s,d,w])=>{const r=cnRara(s);return`<tr class="cn-raw ${cls}${r?" cn-rara":""}"><td class="${ind}"><code>${esc(s.length>60?s.slice(0,60)+"…":s)}</code>${r?'<span class="cn-tag rev">revisar</span>':""}</td><td>${num(d)}</td><td class="cn-pc">${(d/TD*100).toFixed(1).replace(".",",")} %</td><td>${num(w)}</td><td class="cr cn-crb"><span>${d?pct(w/d):"–"}</span></td></tr>`}).join(""):"";
   const cerr=V.cerrados||(V.cerrados=new Set());
   let h="";const grT={};
   for(const grp of ["ORGANIC","PAID"]){const kk=Object.keys(ag).filter(k=>k.startsWith(grp+"|")),tot=suma(kk);grT[grp]=tot;const cls=grp==="PAID"?"cn-paid":"cn-org";
@@ -2740,8 +2740,8 @@ function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={
   h+=`<tr class="cn-gen"><td>TOTAL GENERAL</td>${datos([TD,TW])}</tr>`;
   const li=a=>a.map(x=>`<li>${esc(x.n)} · <b>${pct(x.w/x.d)}</b> <small>(${num(x.w)} de ${num(x.d)})</small></li>`).join("")||"<li><small>No hay medios con datos suficientes en este periodo.</small></li>";
   const [O,P]=[grT.ORGANIC,grT.PAID],po=O[0]+P[0]?O[0]/(O[0]+P[0])*100:0;
-  const rar=(C.filas||[]).filter(([s,m])=>cnRara(s,m)).sort((a,b)=>b[2]-a[2]),rD=rar.reduce((t,f)=>t+f[2],0);
-  const revisar=rar.length?`<div class="cn-revw"><b>⚠ ${rar.length} combinaciones UTM a revisar</b> · ${num(rD)} deals (${(rD/TD*100).toFixed(1).replace(".",",")} % del periodo). Salen en amarillo dentro de su canal. Las más grandes: ${rar.slice(0,5).map(([s,m,d])=>`<code>${esc(s.length>30?s.slice(0,30)+"…":s)} / ${esc(m)}</code> (${num(d)})`).join(", ")}.</div>`:"";
+  const rS={};(C.filas||[]).forEach(([s,m,d])=>{if(cnRara(s))rS[s]=(rS[s]||0)+d});const rar=Object.entries(rS).sort((a,b)=>b[1]-a[1]),rD=rar.reduce((t,f)=>t+f[1],0);
+  const revisar=rar.length?`<div class="cn-revw"><b>⚠ ${rar.length} utm_source a revisar</b> · ${num(rD)} deals (${(rD/TD*100).toFixed(1).replace(".",",")} % del periodo). Salen en amarillo dentro del canal donde los he colocado: ${rar.map(([s,d])=>`<code>${esc(s.length>30?s.slice(0,30)+"…":s)}</code> (${num(d)})`).join(", ")}.</div>`:"";
   return{po:[O,P],revisar,
    split:`<div class="cn-split"><div class="cn-sbar"><span class="cn-org" style="width:${po}%"></span><span class="cn-paid" style="width:${100-po}%"></span></div>
     <div class="cn-sleg"><div class="cn-org"><b>Organic</b> ${num(O[0])} deals · ${po.toFixed(1).replace(".",",")} % · CR <b>${pct(O[0]?O[1]/O[0]:null)}</b></div><div class="cn-paid"><b>Paid</b> ${num(P[0])} deals · ${(100-po).toFixed(1).replace(".",",")} % · CR <b>${pct(P[0]?P[1]/P[0]:null)}</b></div></div></div>`,
@@ -2766,8 +2766,8 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
     el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div>
      <div class="as-ctl">${vistas}${zBtn("canales")}</div>${fechas}
      <div class="as-res"><div><b>${num(TD)}</b><span>deals · ${esc(C.periodo||"")}</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div></div>
-     ${E.split}${E.rank}${E.revisar}<div class="cn-utmtg"><label><input type="checkbox" data-cnutm${V.utm!==false?" checked":""}> Ver las UTMs del CRM dentro de cada canal</label></div>${E.tabla}
-     <p class="as-nota">CR = deals won / deals creados en el periodo (por mes de creación del deal). Mejores y peores: solo medios con al menos ${MIN} deals en el periodo y sin contar SIN DATA. Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pulsa RRSS o Google para plegar o desplegar; debajo de cada canal aparecen las combinaciones utm_source / utm_medium tal como llegan del CRM; en amarillo las que no son las esperadas, para revisarlas y limpiarlas. SIN DATA en Organic son deals sin utm_source; en Google, deals con source google sin medium (más display). Las fuentes antiguas fb, fb-SiteLink, ig y Facebook cuentan como Meta. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`;return}
+     ${E.split}${E.rank}${E.revisar}<div class="cn-utmtg"><label><input type="checkbox" data-cnutm${V.utm!==false?" checked":""}> Ver los utm_source del CRM dentro de cada canal</label></div>${E.tabla}
+     <p class="as-nota">CR = deals won / deals creados en el periodo (por mes de creación del deal). Mejores y peores: solo medios con al menos ${MIN} deals en el periodo y sin contar SIN DATA. Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pulsa RRSS o Google para plegar o desplegar; debajo de cada canal aparecen los utm_source tal como llegan del CRM; en amarillo los que no son ninguno de los conocidos, para revisarlos y limpiarlos. SIN DATA en Organic son deals sin utm_source; en Google, deals con source google sin medium (más display). Las fuentes antiguas fb, fb-SiteLink, ig y Facebook cuentan como Meta. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`;return}
   const src={};(C.filas||[]).forEach(([s,m,d,w])=>{const x=src[s]||(src[s]={d:0,w:0,m:[]});x.d+=d;x.w+=w;x.m.push([m,d,w])});
   const grupos=V.vista==="source"?Object.entries(src).map(([s,x])=>({k:s,n:s,d:x.d,w:x.w,m:x.m})):(C.filas||[]).map(([s,m,d,w])=>({k:s+"|"+m,n:s+" / "+m,d,w}));
   const fiables=grupos.filter(g=>g.d>=MIN&&!g.k.startsWith("(sin utm)")).sort((a,b)=>b.w/b.d-a.w/a.d);

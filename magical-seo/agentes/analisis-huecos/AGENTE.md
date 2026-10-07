@@ -33,7 +33,18 @@ Un tema, una consulta o un formato donde los rivales están presentes y nosotros
 
 ## Consultar Search Console
 
-Las credenciales están configuradas (OAuth, nivel 1) en `~/.config/claude-seo/`. La propiedad por defecto es `https://santiagoways.com/`, y existen además tres vistas por idioma: `https://santiagoways.com/es/`, `/en/` y `/de/`. Comparar entre ellas es especialmente útil, porque los rivales irlandeses atacan por el inglés.
+Las credenciales están configuradas (OAuth) en `~/.config/claude-seo/`.
+
+**Usa siempre `https://santiagoways.com/` y solo esa.** Existen otras propiedades por idioma (`/es/`, `/en/`, `/de/`), pero no las uses: se crearon sin tener en cuenta que el sitio publica un único sitemap con todos los idiomas, así que son duplicados y no aportan nada que no esté en la raíz.
+
+Para analizar un idioma concreto, filtra por ruta dentro de la propiedad raíz en lugar de cambiar de propiedad:
+
+```python
+'dimensionFilterGroups': [{'filters': [
+    {'dimension':'page','operator':'contains','expression':'/en/'}]}],
+```
+
+Eso da el mismo corte por idioma, con una sola propiedad y sin depender de cómo se configuraron las demás.
 
 Ejecuta desde `C:\Users\swcan\.claude\skills\seo\scripts`:
 
@@ -104,7 +115,18 @@ Search Console y Analytics dicen cómo rinde lo que ya posiciona. **No dicen qu�
 
 Antes de declarar que no tenemos algo, comprueba estas dos cosas.
 
-**El inventario, desde el sitemap.** `WebFetch` sobre `https://santiagoways.com/sitemap_index.xml` da el índice de sitemaps y, desde ahí, las URL publicadas. Es la lista de lo que existe, posicione o no.
+**El inventario, desde el sitemap.** `https://santiagoways.com/sitemap_index.xml` es el índice completo del sitio: **un solo sitemap con todos los idiomas**, dividido por tipo de contenido y no por idioma. Siete hijos, comprobados el 7 de octubre de 2026:
+
+| Sitemap | Qué contiene |
+|---|---|
+| `post-sitemap.xml` y `post-sitemap2.xml` | El blog, partido en dos porque pasa de 1.000 entradas |
+| `page-sitemap.xml` | Páginas: rutas, producto, informativas |
+| `news-sitemap.xml` | Noticias |
+| `category-sitemap.xml` | Categorías |
+| `video-sitemap.xml` | Vídeos |
+| `geo-sitemap.xml` | Datos geográficos |
+
+Es la lista de lo que existe, posicione o no. Para saber si tenemos algo sobre un tema, mira aquí antes que en el buscador.
 
 **La indexación, página a página.** Desde el directorio de scripts de Google:
 

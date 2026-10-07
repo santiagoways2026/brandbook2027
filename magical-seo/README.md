@@ -158,7 +158,8 @@ Viven en `~/.config/claude-seo/`:
 | `oauth-token.json` | Token de acceso y refresco |
 | `google-api.json` | Configuración: propiedades por defecto |
 
-- **Propiedad de Search Console:** `https://santiagoways.com/`, con vistas adicionales en `/es/`, `/en/` y `/de/`
+- **Propiedad de Search Console:** `https://santiagoways.com/`, y solo esa. Existen propiedades por idioma (`/es/`, `/en/`, `/de/`) pero son duplicados: se crearon sin tener en cuenta que el sitio publica un único sitemap con todos los idiomas. Para analizar un idioma, filtra por ruta dentro de la raíz
+- **Sitemap:** `https://santiagoways.com/sitemap_index.xml`, un único índice con todos los idiomas, dividido por tipo de contenido en siete hijos
 - **Propiedad de Analytics:** `properties/309135189`
 - **Nivel de credenciales:** 2
 
@@ -245,7 +246,7 @@ Cuidado al calcular la próxima barrida: Canarias es UTC+1 en verano y UTC+0 en 
 
 - **No mide volúmenes de búsqueda.** Hasta que Semrush tenga unidades, la prioridad se razona por intención, por posición y por cuántos rivales atacan el tema.
 - **No sabe en qué posición están ellos**, solo nosotros. Search Console es un espejo de nuestro sitio, no del suyo.
-- **No cubre italiano ni portugués en posiciones.** Hay tráfico orgánico en italiano, pero Search Console solo tiene vistas de `es`, `en` y `de`. Se arregla creando esas vistas.
+- **No separa por idioma de serie.** La propiedad raíz cubre los cinco idiomas, así que para analizar uno concreto hay que filtrar por ruta. No hace falta crear propiedades nuevas: las que hay por idioma ya son duplicados.
 - **No vigila sus redes sociales ni su publicidad.** Solo web, blog y señales de búsqueda.
 - **Clarity solo ve 3 días.** Sirve para decidir sobre una página concreta, no para medir evolución. Y su cuota es de 10 peticiones diarias para todo el proyecto.
 - **No promete posiciones.** Describe huecos y acciones, nunca resultados garantizados.

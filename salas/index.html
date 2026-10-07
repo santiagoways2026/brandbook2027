@@ -628,28 +628,48 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
 ];
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
+/* Planta del edificio: salas más separadas */
+const POS={radar:[-2000,-1700],comunidad:[800,-1900],youtube:[3700,-1600],diseno:[-5200,1300],control:[0,1300],seo:[5400,400],paid:[5600,2600],competencia:[-400,4500],mdirecto:[2400,5400],producto:[5000,5800],comercial:[7700,5400]};
+MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id]});
 const SALAS_ACT={youtube:["youtube","youtube_audit","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar","i_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
+/* Pasillos: esquinas redondeadas y curvas, como un edificio real */
+function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
+  d+=` L${b[0]-(b[0]-a[0])/l1*k} ${b[1]-(b[1]-a[1])/l1*k} Q${b[0]} ${b[1]} ${b[0]+(c[0]-b[0])/l2*k} ${b[1]+(c[1]-b[1])/l2*k}`}const z=p[p.length-1];return d+` L${z[0]} ${z[1]}`}
 const PASILLOS_DEF=[
-  {id:"pa5",d:"M150 156 V1500",c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:210,ly:620},
-  {id:"pa6",d:"M350 1500 V1000 H-350 V156",c:"#f5d76e",txt:"Directrices → Radar",sub:"control.directrices.radar",lx:-410,ly:620,fin:true},
-  {id:"pa4",d:"M800 3900 V2156",c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:860,ly:3050},
-  {id:"pa7",d:"M400 2156 V3900",c:"#f5d76e",txt:"Directrices → Competencia",sub:"control.directrices.competencia",lx:340,ly:3050,fin:true},
-  {id:"pa2",d:"M1550 156 V1100 H1000 V1500",c:"#c084fc",txt:"Insights de comunidad → Control",sub:"comunidad.insights · cada 4 h",lx:1490,ly:620,fin:true},
-  {id:"pa13",d:"M1150 1500 V1300 H1850 V156",c:"#f5d76e",txt:"Directrices → Comunidad",sub:"control.directrices.comunidad",lx:1910,ly:620},
-  {id:"pa11",d:"M250 -230 H950",c:"#3d7bff",txt:"Lo viral → Comunidad",sub:"radar.hallazgos",lx:300,ly:-285},
-  {id:"pa12",d:"M950 -50 H250",c:"#c084fc",txt:"Lo que pregunta tu audiencia → Radar",sub:"comunidad.preguntas",lx:300,ly:40},
-  {id:"pa14",d:"M1200 1600 H3600 V1230 H4300",c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:2300,ly:1560},
-  {id:"pa15",d:"M1200 1900 H3600 V2600 H4300",c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:2300,ly:1860},
-  {id:"pa8",d:"M0 1700 H-2600",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2560,ly:1660},
-  {id:"pa9",d:"M-2600 1960 H0",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2560,ly:2030},
-  {id:"pa20",d:"M2150 -140 H2950",c:"#ff4d4d",txt:"Comentarios ↔ YouTube",sub:"comunidad.preguntas · youtube.comentarios",lx:2190,ly:-195},
-  {id:"pa21",d:"M3950 156 V600 H4900 V900",c:"#ff4d4d",txt:"YouTube ↔ SEO y Control",sub:"youtube.analisis · busquedas · hub & spoke",lx:4010,ly:420},
-  {id:"pa16",d:"M1200 2080 H2000 V4900 H6600",c:"#818cf8",txt:"Brazo comercial ↔ Control",sub:"marketing directo · producto · comercial",lx:2060,ly:3200},
-  {id:"pa17",d:"M3200 4900 V4656",c:"#38bdf8",txt:"",sub:"",lx:0,ly:0},
-  {id:"pa18",d:"M4900 4900 V4656",c:"#fdba74",txt:"",sub:"",lx:0,ly:0},
-  {id:"pa19",d:"M6600 4900 V4656",c:"#818cf8",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa5",d:ruta([[-1200,-1034],[-1200,250],[350,250],[350,1300]],260),c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:-1110,ly:160},
+  {id:"pa6",d:ruta([[150,1300],[150,450],[-1500,450],[-1500,-1034]],260),c:"#f5d76e",txt:"Directrices → Radar",sub:"control.directrices.radar",lx:-1400,ly:540},
+  {id:"pa4",d:"M400 4500 C400 3000 800 3400 800 1966",c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:860,ly:3250},
+  {id:"pa7",d:"M400 1966 C400 3400 0 3000 0 4500",c:"#f5d76e",txt:"Directrices → Competencia",sub:"control.directrices.competencia",lx:90,ly:3250,fin:true},
+  {id:"pa2",d:"M1300 -1234 C1300 300 1000 0 1000 1300",c:"#c084fc",txt:"Insights de comunidad → Control",sub:"comunidad.insights · cada 4 h",lx:1210,ly:-650,fin:true},
+  {id:"pa13",d:"M1150 1300 C1150 0 1600 300 1600 -1234",c:"#f5d76e",txt:"Directrices → Comunidad",sub:"control.directrices.comunidad",lx:1700,ly:-650},
+  {id:"pa11",d:"M-800 -1500 C0 -1500 0 -1700 800 -1700",c:"#3d7bff",txt:"Lo viral → Comunidad",sub:"radar.hallazgos",lx:-600,ly:-1660},
+  {id:"pa12",d:"M800 -1450 C0 -1450 0 -1250 -800 -1250",c:"#c084fc",txt:"Lo que pregunta tu audiencia → Radar",sub:"comunidad.preguntas",lx:-600,ly:-1130},
+  {id:"pa14",d:ruta([[1200,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1340,ly:1300},
+  {id:"pa15",d:ruta([[1200,1700],[3600,1700],[3600,2900],[5600,2900]],260),c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:1340,ly:1590},
+  {id:"pa8",d:"M0 1500 C-1400 1200 -2600 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2700,ly:1170},
+  {id:"pa9",d:"M-4000 1760 C-2600 2060 -1400 2060 0 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2700,ly:2090},
+  {id:"pa20",d:"M2000 -1600 C2850 -1600 2850 -1300 3700 -1300",c:"#ff4d4d",txt:"Comentarios ↔ YouTube",sub:"comunidad.preguntas · youtube.comentarios",lx:2080,ly:-1730},
+  {id:"pa21",d:"M4300 -934 C4300 -150 5800 -350 5800 400",c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"youtube.analisis · búsquedas · hub & spoke",lx:5000,ly:-420},
+  {id:"pa16",d:ruta([[1200,1880],[2200,1880],[2200,4900]],260)+" C3600 4900 4200 5200 5600 5200 S7600 4900 8300 4900",c:"#818cf8",txt:"Brazo comercial ↔ Control",sub:"marketing directo · producto · comercial",lx:2290,ly:3300},
+  {id:"pa17",d:"M2200 4900 C2200 5250 3000 5050 3000 5400",c:"#38bdf8",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa18",d:"M5600 5200 V5800",c:"#fdba74",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa19",d:"M8300 4900 V5400",c:"#818cf8",txt:"",sub:"",lx:0,ly:0},
 ];
+/* Personalidad de cada sala: carácter, lema, ambiente, suelo y objeto propio */
+const PERSONALIDAD={
+  radar:{c:"#3d7bff",caracter:"Sala de guardia 24/7",lema:"Si se mueve, lo vemos antes",ambiente:"Luz azul de vigilancia, pantallas en penumbra y café de madrugada",tono:"Hablas rápido y en titulares, como un equipo de guardia: primero el dato, luego el porqué. Siempre con métricas.",suelo:"sonar",obj:"antena"},
+  comunidad:{c:"#c084fc",caracter:"El salón",lema:"Aquí se escucha antes de hablar",ambiente:"Sofás, luz cálida y un tablón lleno de comentarios reales",tono:"Eres cercano y empático; citas lo que dice la gente con sus palabras y propones cómo responder.",suelo:"hex",obj:"bocadillos"},
+  youtube:{c:"#ff4d4d",caracter:"El plató",lema:"Cada segundo de retención cuenta",ambiente:"Focos, croma y un letrero ON AIR siempre encendido",tono:"Hablas como un creador obsesionado con el CTR, la retención y las búsquedas; propones títulos y ganchos concretos.",suelo:"claqueta",obj:"onair"},
+  control:{c:"#f5d76e",caracter:"La sala de mando",lema:"Una dirección, todas las salas",ambiente:"Mesa redonda de cristal, mármol y el Cerebro en el centro",tono:"",suelo:"marmol",obj:"brujula"},
+  diseno:{c:"#a3cf2e",caracter:"El estudio",lema:"Brandbook 2027 o no sale",ambiente:"Mesas de luz, muestras de color, plantas y música baja",tono:"Eres creativo pero innegociable con el brandbook 2027; hablas de piezas, encuadres y tipografía.",suelo:"paleta",obj:"paleta"},
+  competencia:{c:"#ff6b3d",caracter:"La agencia de detectives",lema:"Nadie mueve ficha sin que lo sepamos",ambiente:"Corcho con hilos rojos, lupas y persianas a medio bajar",tono:"Eres frío y analítico, como un detective: pruebas, fuentes y qué significa cada movimiento del rival.",suelo:"persiana",obj:"lupa"},
+  seo:{c:"#2dd4bf",caracter:"La biblioteca",lema:"Lo que se busca, se encuentra aquí",ambiente:"Estanterías, silencio y lámparas verdes de lectura",tono:"Eres metódico y preciso, como un bibliotecario: URLs, intención de búsqueda y prioridades ordenadas.",suelo:"libros",obj:"libro"},
+  paid:{c:"#f472b6",caracter:"El parqué",lema:"Cada euro tiene que volver con amigos",ambiente:"Teletipos, pujas en directo y gráficos en verde",tono:"Eres directo y numérico, como un trader: CPA, ROAS, presupuesto y qué mover hoy.",suelo:"velas",obj:"grafico"},
+  mdirecto:{c:"#38bdf8",caracter:"La oficina de correos",lema:"El mensaje justo, en el momento justo",ambiente:"Buzones, sellos y los flujos del CRM dibujados en la pared",tono:"Eres ordenado y orientado a conversión: asunto, momento de envío, segmento y siguiente paso.",suelo:"sobres",obj:"sobre"},
+  producto:{c:"#fdba74",caracter:"El taller",lema:"Cada etapa, probada a mano",ambiente:"Banco de trabajo, mapas de etapas y prototipos de rutas",tono:"Eres práctico y detallista, como un artesano del producto: etapas, alojamientos, márgenes y qué mejorar.",suelo:"plano",obj:"concha"},
+  comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
+};
 const visibles=()=>MARCOS.filter(m=>!m.dato||st.dentro===m.sala);
 
 const st={items:[],estado:null,plat:"todas",mk:"todos",soloVideo:false,periodo:"30",orden:"buzz",q:"",vista:"todo",limite:12,sel:null,marcoSel:null,dentro:null,conectado:false,chat:[],chatOcupado:false,chatSala:"control",dis:{piezas:[],tend:null,estado:null,videos:[],biblio:[],bFiltro:"todo"},seo:{audit:null,estado:null},paid:{analisis:null,estado:null,briefing:null},com:{analisis:null,estado:null,lotes:[],snapT:{},ocupado:false},ctrl:{briefing:null,decisiones:[],estado:null,research:null,directrices:{},cerebro:null},dFiltro:"abiertas",players:[],cambios:[],estadoC:null,cTipo:"todos",cPlayer:"todos",cImpacto:"todos",cLimite:20,db:null,dl:null};
@@ -718,7 +738,7 @@ function abrirPanel(sala,foco){
   const ids=(SALAS_ACT[sala]||[]).filter(id=>id!==sala);
   const S=CHAT_SALAS[sala];
   $("#pnTit").textContent=SALA_TIT[sala]||sala;
-  $("#pnSub").textContent=S?`Responsable: ${S.lider||""} · ${ids.length} módulos`:`${ids.length} módulos`;
+  {const P=PERSONALIDAD[sala];$("#pnSub").textContent=(P?`${P.caracter} · ${P.ambiente} · `:"")+(S?`Responsable: ${S.lider||""} · ${ids.length} módulos`:`${ids.length} módulos`)}
   mods.innerHTML="";
   ids.forEach((id,i)=>{const m=MARCOS.find(x=>x.id===id);const c=document.getElementById("c-"+id);if(!m||!c)return;
     const d=document.createElement("details");d.className="pn-mod";d.dataset.mod=id;if(foco?foco===id:i===0)d.open=true;
@@ -829,15 +849,10 @@ function pintarMapa(){
 /* ---------- Construcción del mundo ---------- */
 const ICO_MARCO=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 0v12M9 0v12M0 3h12M0 9h12"/></svg>`;
 function construir(){
-  let h=svgPasillos()+`<div class="grupo-titulo" style="left:-950px;top:-730px">Radar Viral<small><span class="ok">● Sala activa</span> · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT</small></div>
-         <div class="grupo-titulo" style="left:-3800px;top:1270px;font-size:56px;color:#a3cf2e">Diseño<small><span class="ok">● Activa</span> · 6 creativos · piezas con el brandbook 2027</small></div>
-         <div class="grupo-titulo" style="left:0;top:1270px;font-size:56px;color:#f5d76e">Sala de Control<small><span class="ok">● Activa</span> · 6 directores, 5 especialistas y Cerebro · revisa y reorienta todo el flujo</small></div>
-         <div class="grupo-titulo" style="left:0;top:3670px;font-size:56px">Competencia<small><span class="ok">● Sala activa</span> · 6 investigadores · webs, precios, noticias, redes y alianzas</small></div>
-         <div class="grupo-titulo" style="left:950px;top:-730px;font-size:56px;color:#d8b4fe">Comunidad<small><span class="ok">● Activa</span> · 6 especialistas · comentarios, preguntas e interacción</small></div>
-         <div class="grupo-titulo" style="left:4300px;top:670px;color:#5eead4;font-size:56px">SEO<small><span class="ok">● Activa</span> · 6 especialistas · auditoría, palabras clave y analítica</small></div>
-         <div class="grupo-titulo" style="left:4300px;top:2070px;color:#f9a8d4;font-size:56px">Paid Media<small><span class="ok">● Activa</span> · 7 especialistas · Meta Ads y Google Ads</small></div>`+SALAS_N.map(S=>`<div class="grupo-titulo" style="left:${MARCOS.find(m=>m.id===S.id).x}px;top:${MARCOS.find(m=>m.id===S.id).y-230}px;font-size:56px;color:${S.color}">${esc(S.nombre)}<small><span class="ok">● Nueva</span> · 6 especialistas · ${esc(S.sub)}</small></div>`).join("");
+  const TIT=[["radar","Radar Viral","#e8eaed","● Sala activa"," · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT"],["diseno","Diseño","#a3cf2e","● Activa"," · 6 creativos · piezas con el brandbook 2027"],["control","Sala de Control","#f5d76e","● Activa"," · 6 directores, 5 especialistas y Cerebro · revisa y reorienta todo el flujo"],["competencia","Competencia","#e8eaed","● Sala activa"," · 6 investigadores · webs, precios, noticias, redes y alianzas"],["comunidad","Comunidad","#d8b4fe","● Activa"," · 6 especialistas · comentarios, preguntas e interacción"],["seo","SEO","#5eead4","● Activa"," · 6 especialistas · auditoría, palabras clave y analítica"],["paid","Paid Media","#f9a8d4","● Activa"," · 7 especialistas · Meta Ads y Google Ads"],...SALAS_N.map(S=>[S.id,S.nombre,S.color,"● Nueva"," · 6 especialistas · "+S.sub])];
+  let h=svgPasillos()+TIT.map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);return`<div class="grupo-titulo" style="left:${m.x}px;top:${m.y-230}px;font-size:${id==="radar"?72:56}px;color:${c}">${esc(n)}<small><span class="ok">${ok}</span>${esc(sub)}</small></div>`}).join("");
   for(const m of MARCOS){
-    h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
+    h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}${!m.dato&&PERSONALIDAD[m.id]?`;border-color:${PERSONALIDAD[m.id].c}66;box-shadow:0 0 0 1px ${PERSONALIDAD[m.id].c}22,0 30px 80px rgba(0,0,0,.6),0 0 160px ${PERSONALIDAD[m.id].c}1f`:""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
   }
   mundo.innerHTML=h;
   $("#c-radar").innerHTML=`<div class="mcab"><div><h2>Radar Viral · RRSS</h2></div><div class="meta"><span class="vivo off" id="vivoSala">Conectando</span><span id="salaN">0 en el radar</span><span id="salaUlt"></span><span class="entrar-pista">Pulsa para entrar</span><button class="btn" data-abrirchat="radar">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-radar">${svgRadar()}</div>`;
@@ -865,22 +880,81 @@ function pintarCapas(){
 }
 function plegarCapas(pl){$("#capas").classList.toggle("plegado",pl);$("#capasTog").setAttribute("aria-expanded",String(!pl));try{localStorage.setItem("capasPlegado",pl?"1":"0")}catch(e){}}
 try{if(localStorage.getItem("capasPlegado")==="1")plegarCapas(true)}catch(e){}
+const SUELOS={
+  sonar:c=>`<pattern id="sl-sonar" width="180" height="180" patternUnits="userSpaceOnUse"><circle cx="90" cy="90" r="30" fill="none" stroke="${c}" stroke-width="1.5"/><circle cx="90" cy="90" r="62" fill="none" stroke="${c}" stroke-width="1"/><path d="M90 0V180M0 90H180" stroke="${c}" stroke-width=".6"/></pattern>`,
+  hex:c=>`<pattern id="sl-hex" width="84" height="146" patternUnits="userSpaceOnUse"><path d="M42 0L84 24V73L42 97L0 73V24Z M42 97V146" fill="none" stroke="${c}" stroke-width="1.6"/></pattern>`,
+  claqueta:c=>`<pattern id="sl-claqueta" width="70" height="70" patternUnits="userSpaceOnUse" patternTransform="rotate(-35)"><rect width="35" height="70" fill="${c}" fill-opacity=".45"/></pattern>`,
+  marmol:c=>`<pattern id="sl-marmol" width="320" height="320" patternUnits="userSpaceOnUse"><path d="M0 60C80 40 120 120 200 90S300 30 320 70M0 230C70 260 140 180 210 220S290 300 320 260M100 0C120 80 60 160 110 320" fill="none" stroke="${c}" stroke-width="1.2"/><path d="M0 0H320V320" fill="none" stroke="${c}" stroke-width=".8"/></pattern>`,
+  paleta:c=>`<pattern id="sl-paleta" width="200" height="200" patternUnits="userSpaceOnUse"><circle cx="30" cy="40" r="14" fill="#7AA606"/><circle cx="120" cy="30" r="9" fill="#f5d76e"/><circle cx="170" cy="120" r="16" fill="#3d7bff"/><circle cx="70" cy="140" r="11" fill="#ff6b3d"/><circle cx="140" cy="180" r="7" fill="#f472b6"/><circle cx="100" cy="90" r="5" fill="#fff"/></pattern>`,
+  persiana:c=>`<pattern id="sl-persiana" width="40" height="34" patternUnits="userSpaceOnUse"><rect width="40" height="14" fill="${c}" fill-opacity=".5"/></pattern>`,
+  libros:c=>`<pattern id="sl-libros" width="150" height="130" patternUnits="userSpaceOnUse"><rect x="4" y="30" width="16" height="96" fill="${c}"/><rect x="24" y="12" width="22" height="114" fill="${c}" fill-opacity=".6"/><rect x="50" y="40" width="12" height="86" fill="${c}"/><rect x="66" y="20" width="26" height="106" fill="${c}" fill-opacity=".45"/><rect x="96" y="34" width="18" height="92" fill="${c}"/><rect x="118" y="8" width="20" height="118" fill="${c}" fill-opacity=".7"/><path d="M0 128H150" stroke="${c}" stroke-width="4"/></pattern>`,
+  velas:c=>`<pattern id="sl-velas" width="220" height="200" patternUnits="userSpaceOnUse"><path d="M20 40V150M60 70V180M100 30V120M140 60V160M180 20V110" stroke="${c}" stroke-width="2"/><rect x="12" y="70" width="16" height="50" fill="${c}"/><rect x="52" y="100" width="16" height="50" fill="none" stroke="${c}" stroke-width="2"/><rect x="92" y="50" width="16" height="44" fill="${c}"/><rect x="132" y="80" width="16" height="56" fill="none" stroke="${c}" stroke-width="2"/><rect x="172" y="40" width="16" height="44" fill="${c}"/></pattern>`,
+  sobres:c=>`<pattern id="sl-sobres" width="170" height="130" patternUnits="userSpaceOnUse"><rect x="30" y="30" width="100" height="64" rx="4" fill="none" stroke="${c}" stroke-width="2"/><path d="M30 34L80 70L130 34" fill="none" stroke="${c}" stroke-width="2"/></pattern>`,
+  plano:c=>`<pattern id="sl-plano" width="200" height="200" patternUnits="userSpaceOnUse"><path d="M40 0V200M80 0V200M120 0V200M160 0V200M0 40H200M0 80H200M0 120H200M0 160H200" stroke="${c}" stroke-width=".6"/><path d="M0 0V200M0 0H200" stroke="${c}" stroke-width="2"/></pattern>`,
+  embudo:c=>`<pattern id="sl-embudo" width="120" height="110" patternUnits="userSpaceOnUse"><path d="M20 20H100L72 60V90L48 100V60Z" fill="none" stroke="${c}" stroke-width="2"/></pattern>`,
+};
+/* Objeto propio de cada sala, dibujado en su esquina */
+function objetoSala(o,c){const an=(x)=>quieto?"":x;switch(o){
+  case"antena":return`<path d="M-60 40A70 70 0 0 1 40 -60" fill="none" stroke="${c}" stroke-width="10"/><path d="M-10 -10L-60 40M-10 -10L40 -60" stroke="${c}" stroke-width="3"/><circle r="70" fill="none" stroke="${c}" stroke-opacity=".35" stroke-width="2"/><circle r="40" fill="none" stroke="${c}" stroke-opacity=".25"/><g><path d="M0 0L70 0A70 70 0 0 0 49 -49Z" fill="${c}" fill-opacity=".35"/>${an(`<animateTransform attributeName="transform" type="rotate" from="0" to="360" dur="4s" repeatCount="indefinite"/>`)}</g><circle r="7" fill="${c}" filter="url(#brilloP)"/>`;
+  case"bocadillos":return`<g>${an(`<animateTransform attributeName="transform" type="translate" values="0 0;0 -10;0 0" dur="3s" repeatCount="indefinite"/>`)}<rect x="-80" y="-60" width="110" height="64" rx="18" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="3"/><path d="M-50 4L-62 30L-30 4" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="3" stroke-linejoin="round"/><circle cx="-50" cy="-28" r="6" fill="${c}"/><circle cx="-25" cy="-28" r="6" fill="${c}"/><circle cx="0" cy="-28" r="6" fill="${c}"/></g><g>${an(`<animateTransform attributeName="transform" type="translate" values="0 0;0 8;0 0" dur="3.4s" repeatCount="indefinite"/>`)}<rect x="0" y="10" width="90" height="52" rx="16" fill="#05070a" stroke="${c}" stroke-width="3"/><path d="M60 62L74 84L44 62" fill="#05070a" stroke="${c}" stroke-width="3" stroke-linejoin="round"/><text x="45" y="45" text-anchor="middle" font-family="Geist Mono" font-size="26" fill="${c}">♥</text></g>`;
+  case"onair":return`<rect x="-95" y="-38" width="190" height="66" rx="10" fill="#1a0505" stroke="${c}" stroke-width="4"/><text x="0" y="8" text-anchor="middle" font-family="Geist Mono" font-weight="700" font-size="34" letter-spacing="4" fill="${c}" filter="url(#brilloP)">ON AIR${an(`<animate attributeName="opacity" values="1;.25;1" dur="1.6s" repeatCount="indefinite"/>`)}</text><path d="M-20 44L18 66L-20 88Z" fill="${c}" fill-opacity=".8"/><path d="M-120 -80L-60 -38M120 -80L60 -38" stroke="#fff" stroke-opacity=".25" stroke-width="3"/>`;
+  case"brujula":return`<circle r="72" fill="none" stroke="${c}" stroke-width="3"/><circle r="56" fill="none" stroke="${c}" stroke-opacity=".4" stroke-dasharray="4 8"/><path d="M0 -66L12 -12L66 0L12 12L0 66L-12 12L-66 0L-12 -12Z" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="2"/><g>${an(`<animateTransform attributeName="transform" type="rotate" values="-12;14;-12" dur="6s" repeatCount="indefinite"/>`)}<path d="M0 -50L8 0L0 50L-8 0Z" fill="${c}"/></g><text y="-80" text-anchor="middle" font-family="Geist Mono" font-size="20" fill="${c}">N</text>`;
+  case"paleta":return`<path d="M-70 10C-80 -50 -20 -80 30 -70C80 -60 90 -10 60 10C40 24 20 10 10 30C0 54 -50 60 -70 10Z" fill="${c}" fill-opacity=".2" stroke="${c}" stroke-width="3"/><circle cx="-40" cy="-30" r="11" fill="#f5d76e"/><circle cx="-6" cy="-48" r="11" fill="#3d7bff"/><circle cx="32" cy="-40" r="11" fill="#ff6b3d"/><circle cx="-46" cy="10" r="11" fill="#f472b6"/><circle cx="20" cy="-6" r="9" fill="#05070a" stroke="${c}" stroke-width="2"/><g>${an(`<animateTransform attributeName="transform" type="rotate" values="0 60 40;10 60 40;0 60 40" dur="2.4s" repeatCount="indefinite"/>`)}<path d="M40 70L100 -10" stroke="#e5e7eb" stroke-width="6" stroke-linecap="round"/><path d="M100 -10L110 -26" stroke="${c}" stroke-width="8" stroke-linecap="round"/></g>`;
+  case"lupa":return`<path d="M-90 -60L-20 -20L60 -70L90 30L-40 50" fill="none" stroke="#ef4444" stroke-width="2"/><circle cx="-90" cy="-60" r="6" fill="#ef4444"/><circle cx="60" cy="-70" r="6" fill="#ef4444"/><circle cx="90" cy="30" r="6" fill="#ef4444"/><circle cx="-40" cy="50" r="6" fill="#ef4444"/><g>${an(`<animateTransform attributeName="transform" type="translate" values="0 0;-30 10;10 -12;0 0" dur="7s" repeatCount="indefinite"/>`)}<circle cx="-10" cy="-10" r="34" fill="${c}" fill-opacity=".12" stroke="${c}" stroke-width="7"/><path d="M14 14L48 48" stroke="${c}" stroke-width="12" stroke-linecap="round"/></g>`;
+  case"libro":return`<path d="M0 -40C-30 -56 -70 -56 -96 -44V48C-70 36 -30 36 0 52C30 36 70 36 96 48V-44C70 -56 30 -56 0 -40Z" fill="${c}" fill-opacity=".15" stroke="${c}" stroke-width="3"/><path d="M0 -40V52M-80 -24C-56 -32 -28 -32 -14 -24M-80 -4C-56 -12 -28 -12 -14 -4M14 -24C28 -32 56 -32 80 -24M14 -4C28 -12 56 -12 80 -4" fill="none" stroke="${c}" stroke-width="2"/><path d="M60 -48V0L70 -10L80 0V-46" fill="#f5d76e"/><circle cx="0" cy="-80" r="10" fill="#f5d76e" filter="url(#brilloP)">${an(`<animate attributeName="opacity" values=".5;1;.5" dur="3s" repeatCount="indefinite"/>`)}</circle>`;
+  case"grafico":return`<rect x="-100" y="-70" width="200" height="130" rx="8" fill="#05070a" stroke="${c}" stroke-width="3"/><path id="gf-${c.slice(1)}" d="M-84 40L-50 10L-20 24L14 -14L46 0L84 -50" fill="none" stroke="#3ddc97" stroke-width="5" stroke-linejoin="round"/><circle r="8" fill="#3ddc97" filter="url(#brilloP)">${an(`<animateMotion dur="3s" repeatCount="indefinite"><mpath href="#gf-${c.slice(1)}"/></animateMotion>`)}</circle><text x="0" y="90" text-anchor="middle" font-family="Geist Mono" font-size="20" fill="${c}">ROAS ▲</text>`;
+  case"sobre":return`<g>${an(`<animateTransform attributeName="transform" type="translate" values="0 0;8 -10;0 0" dur="2.6s" repeatCount="indefinite"/>`)}<rect x="-80" y="-50" width="160" height="104" rx="8" fill="${c}" fill-opacity=".15" stroke="${c}" stroke-width="3"/><path d="M-80 -46L0 12L80 -46" fill="none" stroke="${c}" stroke-width="3"/><path d="M-110 -20H-90M-120 4H-90M-106 28H-90" stroke="${c}" stroke-width="3" stroke-linecap="round"/><circle cx="58" cy="30" r="14" fill="#f5d76e"/></g>`;
+  case"concha":return`<path d="M0 60L-80 -20C-60 -70 60 -70 80 -20Z" fill="${c}" fill-opacity=".2" stroke="${c}" stroke-width="3" stroke-linejoin="round"/><path d="M0 60L-56 -46M0 60L-26 -60M0 60L0 -62M0 60L26 -60M0 60L56 -46" stroke="${c}" stroke-width="2.5"/><path d="M-16 60H16V76H-16Z" fill="${c}"/>`;
+  case"campana":return`<g>${an(`<animateTransform attributeName="transform" type="rotate" values="0 0 -60;14 0 -60;-14 0 -60;0 0 -60" dur="2s" repeatCount="indefinite"/>`)}<path d="M-56 40C-56 -10 -46 -50 0 -54C46 -50 56 -10 56 40Z" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="4"/><path d="M-70 40H70" stroke="${c}" stroke-width="6" stroke-linecap="round"/><circle cy="54" r="10" fill="${c}"/><path d="M0 -54V-70" stroke="${c}" stroke-width="4"/></g><text x="0" y="96" text-anchor="middle" font-family="Geist Mono" font-size="18" fill="${c}">¡RESERVA!</text>`;
+  }return""}
 function svgPasillos(){
-  const X=-4200,Y=-800,W=11400,H=6000;
+  const X=-6000,Y=-2700,W=15800,H=10000;
   let d=`<svg class="pasillos" style="left:${X}px;top:${Y}px" width="${W}" height="${H}" viewBox="${X} ${Y} ${W} ${H}" aria-hidden="true"><defs>
-    <filter id="brilloP" x="-100%" y="-300%" width="300%" height="700%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter></defs>`;
+    <filter id="brilloP" x="-100%" y="-300%" width="300%" height="700%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    ${Object.entries(PERSONALIDAD).map(([k,P])=>SUELOS[P.suelo](P.c)).join("")}
+    <radialGradient id="patioG"><stop offset="0" stop-color="#3ddc97" stop-opacity=".16"/><stop offset="1" stop-color="#3ddc97" stop-opacity="0"/></radialGradient></defs>`;
+  // Fachada del edificio
+  d+=`<rect x="-5750" y="-2550" width="15100" height="9500" rx="260" fill="#06080b" stroke="#1b222c" stroke-width="16"/>
+    <rect x="-5718" y="-2518" width="15036" height="9436" rx="236" fill="none" stroke="#24405f" stroke-opacity=".45" stroke-width="8" stroke-dasharray="160 70"/>
+    <rect x="700" y="6900" width="600" height="90" rx="10" fill="#05070a" stroke="#3d7bff" stroke-opacity=".6" stroke-width="3"/><text x="1000" y="6958" text-anchor="middle" class="p-txt">ENTRADA PRINCIPAL</text>`;
+  // Plantas de cada sala con su suelo propio
+  for(const[k,P]of Object.entries(PERSONALIDAD)){const m=MARCOS.find(x=>x.id===k);if(!m)continue;const x=m.x,y=m.y;
+    d+=`<g class="planta"><rect x="${x-140}" y="${y-310}" width="1480" height="1120" rx="70" fill="#090c11" stroke="${P.c}" stroke-opacity=".35" stroke-width="6"/>
+      <rect x="${x-140}" y="${y-310}" width="1480" height="1120" rx="70" fill="url(#sl-${P.suelo})" opacity=".13"/>
+      <rect x="${x-118}" y="${y-288}" width="1436" height="1076" rx="54" fill="none" stroke="${P.c}" stroke-opacity=".18" stroke-width="2" stroke-dasharray="14 10"/>
+
+      <g transform="translate(${x+1235} ${y-170})">${objetoSala(P.obj,P.c)}</g></g>`}
+  // Patio central
+  d+=`<g transform="translate(700 600)"><circle r="240" fill="#081009" stroke="#1f5c36" stroke-width="6"/><circle r="240" fill="url(#patioG)"/><circle r="170" fill="none" stroke="#1f5c36" stroke-opacity=".6" stroke-dasharray="10 12" stroke-width="3"/>
+    ${[0,60,120,180,240,300].map(g=>{const r=g*Math.PI/180;return`<circle cx="${(Math.cos(r)*175).toFixed(0)}" cy="${(Math.sin(r)*175).toFixed(0)}" r="34" fill="#12301e" stroke="#2f8f52" stroke-width="3"/><circle cx="${(Math.cos(r)*175).toFixed(0)}" cy="${(Math.sin(r)*175).toFixed(0)}" r="12" fill="#2f8f52"/>`}).join("")}
+    <circle r="62" fill="#05141f" stroke="#38bdf8" stroke-width="4"/>${quieto?"":`<circle r="20" fill="none" stroke="#38bdf8" stroke-width="3"><animate attributeName="r" values="18;58" dur="3s" repeatCount="indefinite"/><animate attributeName="opacity" values=".9;0" dur="3s" repeatCount="indefinite"/></circle>`}
+    <path d="M0 26L-30 -6C-22 -26 22 -26 30 -6Z" fill="#f5d76e" fill-opacity=".85"/>
+    <text y="300" text-anchor="middle" class="p-txt" style="fill:#3ddc97">PATIO DEL CAMINO</text></g>`;
+  // Escaleras y ascensores
+  for(const[x,y,t]of[[2550,-100,"ESCALERAS"],[-3000,3300,"ASCENSORES"],[7900,1500,"ESCALERAS"]]){d+=`<rect x="${x}" y="${y}" width="300" height="260" rx="14" fill="#0b0f15" stroke="#2a3240" stroke-width="4"/>${t==="ESCALERAS"?Array.from({length:7},(_,i)=>`<path d="M${x+30} ${y+30+i*30}H${x+270}" stroke="#2a3240" stroke-width="3"/>`).join(""):`<rect x="${x+30}" y="${y+40}" width="110" height="180" fill="none" stroke="#2a3240" stroke-width="3"/><rect x="${x+160}" y="${y+40}" width="110" height="180" fill="none" stroke="#2a3240" stroke-width="3"/>`}<text x="${x+150}" y="${y+300}" text-anchor="middle" class="p-sub">${t}</text>`}
+  // Plantas de interior
+  for(const[x,y]of[[-3200,-800],[-3200,700],[-600,3000],[1700,3000],[3000,3500],[4300,1900],[7200,1500],[7600,3800],[-4800,3200],[-2600,4500],[3200,-400],[6500,-1200],[2600,-2250],[-3500,-2200],[4600,4300],[9000,4300],[-1600,6400],[6400,6700]])d+=`<g transform="translate(${x} ${y})"><circle r="46" fill="#0d1a12" stroke="#1f5c36" stroke-width="4"/><circle cx="-14" cy="-10" r="18" fill="#2f8f52"/><circle cx="14" cy="-6" r="16" fill="#3a9d5d"/><circle cx="0" cy="14" r="17" fill="#277a45"/></g>`;
+  // Pasillos
   for(const p of PASILLOS_DEF){
-    d+=`<path d="${p.d}" fill="none" stroke="#1b222c" stroke-width="96" stroke-linejoin="miter"/>
-      <path id="${p.id}" d="${p.d}" fill="none" stroke="#05070a" stroke-width="90" stroke-linejoin="miter"/>
-      <path d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".08" stroke-width="40"/>
+    d+=`<path d="${p.d}" fill="none" stroke="#1b222c" stroke-width="106" stroke-linejoin="round"/>
+      <path id="${p.id}" d="${p.d}" fill="none" stroke="#05070a" stroke-width="90" stroke-linejoin="round"/>
+      <path d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".08" stroke-width="40" stroke-linejoin="round"/>
       <path class="flujo" d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".45" stroke-width="2" stroke-dasharray="8 32"/>
       ${p.txt?`<text x="${p.lx}" y="${p.ly}" class="p-txt"${p.fin?' text-anchor="end"':""}><tspan fill="${p.c}">■ </tspan>${esc(p.txt)}</text><text x="${p.fin?p.lx:p.lx+30}" y="${p.ly+28}" class="p-sub"${p.fin?' text-anchor="end"':""}>${esc(p.sub)}</text>`:""}`;
-    if(!quieto){const N=["pa17","pa18","pa19"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12"].includes(p.id)?4:7,dur={pa3:16,pa4:7,pa5:6,pa6:7,pa7:7,pa8:7,pa9:7,pa10:9,pa11:4,pa12:4,pa2:8,pa13:9,pa16:18,pa17:2,pa18:2,pa19:2}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
+    if(!quieto){const N=["pa17","pa18","pa19"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12"].includes(p.id)?4:7,dur={pa3:16,pa4:9,pa5:9,pa6:9,pa7:9,pa8:9,pa9:9,pa10:9,pa11:5,pa12:5,pa2:10,pa13:11,pa16:22,pa17:3,pa18:3,pa19:3,pa20:6,pa21:8}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
       d+=`<g><rect x="-11" y="-4" width="22" height="8" rx="2" fill="${col}" filter="url(#brilloP)"/><animateMotion dur="${dur}s" begin="-${(k*dur/N).toFixed(2)}s" repeatCount="indefinite" rotate="auto"${p.inv?' keyPoints="1;0" keyTimes="0;1" calcMode="linear"':""}><mpath href="#${p.id}"/></animateMotion></g>`}}
   }
-  // nodos en los giros
-  const nodos=[[350,1000],[-350,1000],[1550,1100],[1000,1100],[1150,1300],[1850,1300],[3600,1600],[3600,1230],[3600,1900],[3600,2600],[2000,2080],[2000,4900],[3200,4900],[4900,4900],[3950,600],[4900,600]];
-  for(const[x,y]of nodos)d+=`<rect x="${x-14}" y="${y-14}" width="28" height="28" fill="#05070a" stroke="#3d7bff" stroke-width="2"/><rect x="${x-4}" y="${y-4}" width="8" height="8" fill="#3d7bff" filter="url(#brilloP)"/>`;
+  // Placa con el carácter y el lema de cada sala, por encima de los pasillos
+  for(const[k,P]of Object.entries(PERSONALIDAD)){const m=MARCOS.find(x=>x.id===k);if(!m)continue;const x=m.x,y=m.y,w=Math.max(P.caracter.length*24,(P.lema.length+2)*11.5)+48;
+    d+=`<rect x="${x-24}" y="${y+706}" width="${w}" height="94" rx="12" fill="#090c11" fill-opacity=".92" stroke="${P.c}" stroke-opacity=".3" stroke-width="2"/>
+      <text x="${x}" y="${y+748}" font-family="Geist" font-weight="800" font-size="34" fill="${P.c}">${esc(P.caracter.toUpperCase())}</text>
+      <text x="${x}" y="${y+782}" class="p-sub" style="fill:#8792a2">«${esc(P.lema)}»</text>`}
+  // Puertas: donde cada pasillo toca la pared de una sala
+  const salas=MARCOS.filter(m=>!m.dato);
+  for(const p of PASILLOS_DEF){const n=p.d.match(/-?\d+(\.\d+)?/g).map(Number);for(const[x,y]of[[n[0],n[1]],[n[n.length-2],n[n.length-1]]]){
+    const m=salas.find(r=>x>=r.x&&x<=r.x+1200&&y>=r.y-2&&y<=r.y+668);if(!m)continue;const P=PERSONALIDAD[m.id]||{c:"#3d7bff"};
+    const hz=Math.abs(y-m.y)<3||Math.abs(y-(m.y+666))<3;
+    d+=hz?`<rect x="${x-66}" y="${y-12}" width="132" height="24" rx="4" fill="#05070a" stroke="${P.c}" stroke-width="4"/>`:`<rect x="${x-12}" y="${y-66}" width="24" height="132" rx="4" fill="#05070a" stroke="${P.c}" stroke-width="4"/>`}}
   return d+`</svg>`;
 }
 document.addEventListener("click",e=>{
@@ -1937,6 +2011,7 @@ const CHAT_SALAS={
 SALAS_N.forEach(S=>{CHAT_SALAS[S.id]={lider:S.lider,nombre:S.nombre,equipo:()=>S.equipo,saludo:`Hola, Álvaro. Soy ${S.lider}, responsable de ${S.nombre}. La sala acaba de abrir y ya tenemos los datos de Paid Media y SEO para empezar. ¿Por dónde quieres que empecemos?`,
   persona:`Eres el equipo de la sala ${S.nombre} de Santiago Ways: ${S.equipo.map(a=>a.n+" ("+a.rol+")").join(", ")}. Misión: ${S.mision} Lo que ya sabéis de otras salas: ${S.saber.join(" ")} Fuentes pendientes: ${S.fuentes.filter(f=>!f[2]).map(f=>f[0]).join(", ")}; si un dato depende de ellas, decid que falta la conexión. No inventes cifras.`,sug:S.sug}});
 const salaDe=m=>m.sala||"control";
+Object.entries(PERSONALIDAD).forEach(([k,P])=>{if(CHAT_SALAS[k]&&P.tono&&!CHAT_SALAS[k].persona?.includes("Carácter de la sala"))CHAT_SALAS[k].persona=(CHAT_SALAS[k].persona||"")+` Carácter de la sala: ${P.caracter} («${P.lema}»). ${P.tono}`});
 function abrirChat(sala){if(!$("#panel").hidden&&(!sala||sala===st.dentro)){$("#pnChat").classList.remove("min");{const sp=$("#pnMin span");if(sp)sp.textContent="Minimizar";try{localStorage.setItem("pnChatMin","0")}catch(_){}}$("#pnChat").scrollIntoView({block:"end",behavior:"smooth"});setTimeout(()=>$("#chatTxt")?.focus(),50);return}if(!$("#panel").hidden)salir(false);st.chatSala=CHAT_SALAS[sala]?sala:(CHAT_SALAS[st.dentro]?st.dentro:"control");$("#chat").hidden=false;pintarChat();setTimeout(()=>$("#chatTxt")?.focus(),50)}
 function pintarChat(){
   const el=$("#chatMsgs");if(!el||!chatVisible())return;

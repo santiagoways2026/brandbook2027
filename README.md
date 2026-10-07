@@ -34,10 +34,15 @@ A partir de ese momento el transformador ya sabe usarlo.
 
 ## Estructura
 
-| Carpeta | Qué hay |
+| Archivo | Qué hay |
 |---|---|
-| `design-system/` | `tokens.css` (colores, tipografía y escala del Brandbook 2027), `catalogo.md` (índice de bloques) y `preview.html` |
-| `bloques/` | Un `.html` por componente con su markup de referencia y sus reglas. `.css` cuando lo tenemos |
+| `design-system/bloques.css` | **La hoja de estilos original.** 23 bloques, 208 clases. Fuente de verdad |
+| `design-system/inventario.md` | Lista cerrada de clases, generada desde el CSS |
+| `design-system/catalogo.md` | Qué es cada bloque, cuándo se usa y sus reglas de marcado |
+| `design-system/paleta.md` | Paleta real vs. Brandbook 2027, con los avisos de contraste |
+| `design-system/tokens.css` | Tokens del brandbook como referencia |
+| `bloques/` | Un `.html` por componente con su markup de referencia |
+| `tools/inventario.py` | Regenera el inventario cuando cambia `bloques.css` |
 | `inbox/` | Buzón de entrada: HTML sin catalogar |
 | `salidas/` | HTML generado |
 | `emails/` | Pieza de email heredada. Fuera del alcance de este proyecto |
@@ -48,10 +53,14 @@ Abre [`design-system/preview.html`](design-system/preview.html) en el navegador.
 
 ## Estado
 
-| Bloque | HTML | CSS |
+| | CSS | HTML de referencia |
 |---|---|---|
-| `tabla-responsive` | Confirmado | ⚠️ Reconstruido · falta el original |
+| Los 23 bloques de `bloques.css` | ✓ original | ✗ pendiente |
+| `tabla-responsive` | ✗ reconstruido | ✓ original |
 
-El CSS de `tabla-responsive` está escrito por nosotros a partir del Brandbook, porque el
-original no se ha aportado. Si existe en el tema de WordPress o en una hoja personalizada,
-déjalo en `inbox/` y sustituimos el nuestro.
+Falta el markup de referencia de los 23 bloques y el CSS de `tabla-responsive`, que no
+está en `bloques.css`.
+
+Hay además **un aviso de contraste**: `#668814`, el color de texto más usado de la hoja
+(32 veces, casi siempre en tamaños de 11-13 px), da 4,12:1 sobre blanco y no llega al
+mínimo AA de 4,5:1. Está detallado en [`design-system/paleta.md`](design-system/paleta.md).

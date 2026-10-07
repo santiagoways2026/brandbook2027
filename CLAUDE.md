@@ -12,7 +12,8 @@ crear nada nuevo. Una clase inventada rompe la coherencia del sitio y no tiene C
 
 ## Flujo al recibir contenido
 
-1. Leer `design-system/catalogo.md` **siempre**, antes de escribir una línea de HTML.
+1. Leer `design-system/inventario.md` y `design-system/catalogo.md` **siempre**, antes de
+   escribir una línea de HTML. El inventario se genera desde el CSS: es la lista cerrada.
 2. Identificar qué bloque corresponde al contenido recibido.
 3. Abrir el `bloques/<nombre>.html` de referencia y copiar su estructura exacta.
 4. Sustituir solo el contenido. Nombres de clase, orden de atributos y anidamiento
@@ -21,7 +22,8 @@ crear nada nuevo. Una clase inventada rompe la coherencia del sitio y no tiene C
 
 ## Qué NO se hace nunca
 
-- Añadir atributos `style=""` inline.
+- Añadir atributos `style=""` inline. Única excepción: `--pct` en `.durations__bar`,
+  que es el dato de la barra, no un estilo.
 - Renombrar, abreviar o traducir nombres de clase.
 - Añadir `id`, `role`, `aria-*` o `data-*` que no estén en el bloque de referencia
   (la excepción es `data-label`, que es obligatorio en `tabla-responsive`).
@@ -43,9 +45,18 @@ Reglas que afectan al HTML:
 ## Estructura
 
 ```
-design-system/     tokens.css · catalogo.md   ← la fuente de verdad
-bloques/           un .html (y .css) por componente, con sus reglas de marcado
+design-system/
+  bloques.css      hoja de estilos ORIGINAL del cliente ← la fuente de verdad
+  inventario.md    lista cerrada de clases, generada desde bloques.css
+  catalogo.md      qué es cada bloque, cuándo se usa y sus reglas de marcado
+  paleta.md        paleta real vs. Brandbook 2027, con avisos de contraste
+  tokens.css       tokens del brandbook (referencia, no se usa en producción)
+  preview.html     vista previa
+bloques/           un .html por componente, con su markup de referencia
+tools/inventario.py  regenera inventario.md desde bloques.css
 inbox/             aquí deja el usuario HTML nuevo sin catalogar
 salidas/           HTML generado
 emails/            pieza heredada de email. Fuera del alcance de este proyecto.
 ```
+
+Si cambia `bloques.css`, hay que lanzar `python tools/inventario.py`.

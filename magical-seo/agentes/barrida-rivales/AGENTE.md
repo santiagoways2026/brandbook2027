@@ -9,12 +9,12 @@ Los datos se escriben con `ArtifactData`. Carga lo que necesitas con ToolSearch:
 
 | id | Nombre | Qué rastrea |
 |---|---|---|
-| blogs | Marina | Los blogs de los rivales: artículos nuevos, ritmo de publicación y ángulos que eligen |
-| producto | Bruno | Páginas de ruta, producto y precio: rutas nuevas, reestructuras, cambios de oferta |
-| serp | Olivia | Buscadores: con qué consultas aparecen y qué contenido suyo posiciona |
-| tecnico | Iván | Señales técnicas visibles: fechas de publicación, autoría, datos estructurados, versiones por idioma |
-| huecos | Nerea | Temas que ellos cubren y nosotros no, o que cubrimos peor |
-| jefa | Valeria | Puntúa la amenaza, elimina duplicados y escribe la bitácora |
+| blogs | Varys | Los blogs de los rivales: artículos nuevos, ritmo de publicación y ángulos que eligen |
+| producto | Davos | Páginas de ruta, producto y precio: rutas nuevas, reestructuras, cambios de oferta |
+| serp | Bran | Buscadores: con qué consultas aparecen y qué contenido suyo posiciona |
+| tecnico | Samwell | Señales técnicas visibles: fechas de publicación, autoría, datos estructurados, versiones por idioma |
+| huecos | Arya | Temas que ellos cubren y nosotros no, o que cubrimos peor |
+| jefa | Olenna | Puntúa la amenaza, elimina duplicados y escribe la bitácora |
 
 ## Pasos
 

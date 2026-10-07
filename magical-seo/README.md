@@ -126,13 +126,13 @@ Siete especialistas, repartidos entre los dos protocolos:
 
 | Quién | Qué mira | Protocolo |
 |---|---|---|
-| Marina | Blogs rivales: artículos nuevos, ritmo y ángulos | Diario |
-| Bruno | Páginas de ruta, producto y precio | Diario |
-| Iván | Señales técnicas: fechas, autoría, datos estructurados, idiomas | Diario |
-| Olivia | Buscadores: nuestra posición en lo que ellos atacan | Semanal |
-| Noelia | Analítica: cuánto tráfico hay en juego en cada página | Semanal |
-| Nerea | Huecos: lo que cubren ellos y nosotros no | Semanal |
-| Valeria | Jefa: prioriza, puntúa la amenaza y escribe la bitácora | Ambos |
+| Varys | Blogs rivales: artículos nuevos, ritmo y ángulos | Diario |
+| Davos | Páginas de ruta, producto y precio | Diario |
+| Samwell | Señales técnicas: fechas, autoría, datos estructurados, idiomas | Diario |
+| Bran | Buscadores: nuestra posición en lo que ellos atacan | Semanal |
+| Baelish | Analítica: cuánto tráfico hay en juego en cada página | Semanal |
+| Arya | Huecos: lo que cubren ellos y nosotros no | Semanal |
+| Olenna | Jefa: prioriza, puntúa la amenaza y escribe la bitácora | Ambos |
 
 No son personas ni procesos separados: son el reparto de atención dentro de cada ejecución. Sirven para que la bitácora se lea como un parte de equipo en vez de como un volcado de datos, y para que ninguna parcela se quede sin mirar.
 

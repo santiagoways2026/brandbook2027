@@ -1623,7 +1623,7 @@ function selloControl(c){
 const VIVA=x=>x.estado==="propuesta"||x.estado==="modificar";
 function chipEstado(x){const ult=(x.feedback||[]).slice(-1)[0];return x.estado==="aprobada"?`<span class="estado-dec aprobada">aprobada</span>`:x.estado==="modificar"?`<span class="estado-dec propuesta" title="${esc(ult?.texto||"")}">en modificación</span>`:`<span class="estado-dec propuesta">${x.version>1?"versión "+x.version:"propuesta"}</span>`}
 function accionesPieza(x,k){if(x.estado==="aprobada")return`<span class="pz-ok">✓ En Inspiración</span>`;const ult=(x.feedback||[]).slice(-1)[0];
-  return`${x.estado==="modificar"&&ult?`<div class="pz-fb">Tu feedback: «${esc(ult.texto)}» · el equipo prepara la nueva versión</div>`:""}<button class="btn prim" data-${k}="aprobada">Aceptar</button><button class="btn" data-pmod>Modificar</button><button class="btn pz-del" data-${k}="descartada">Descartar</button>
+  return`<button class="btn prim" data-${k}="aprobada">Aceptar</button><button class="btn" data-pmod>Modificar</button><button class="btn pz-del" data-${k}="descartada">Descartar</button>
    <form class="pz-modf" hidden><textarea placeholder="Qué cambiarías de esta pieza (texto, imagen, planos, tono…)" required></textarea><button class="btn prim" type="submit">Enviar feedback</button></form>`}
 function tarjetaPieza(x){
   const g=(x.guion||[]).length?`<details><summary>Guion</summary><ol class="guion">${x.guion.map(l=>`<li><b>${esc(l.t)}</b> · ${esc(l.plano)}: ${esc(l.texto)}</li>`).join("")}</ol></details>`:"";
@@ -1633,21 +1633,23 @@ function tarjetaPieza(x){
   const cap=x.caption?`<details><summary>Copy para publicar</summary><p>${esc(x.caption)}${(x.hashtags||[]).length&&!/#/.test(x.caption)?"\n\n"+x.hashtags.map(h=>"#"+h).join(" "):""}</p></details>`:"";
   const acc=accionesPieza(x,"pacc");
   return`<div class="pieza ${esc(x.estado)}" data-pieza="${esc(x.id)}">${mockPieza(x)}
-    <div class="pz-info">${selloControl(x.control)}<div class="pz-meta">${chipEstado(x)}<span class="mk">${esc((x.mercado||"").toUpperCase())}</span>${x.valor?`<span class="sala-tag">${esc(x.valor)}</span>`:""}<span>${esc(x.disenador||"")}</span></div>
+    <div class="pz-info"><div class="pz-meta">${chipEstado(x)}<span class="mk">${esc((x.mercado||"").toUpperCase())}</span>${x.valor?`<span class="sala-tag">${esc(x.valor)}</span>`:""}<span>${esc(x.disenador||"")}</span></div>
       <h4>${esc(x.tema)}</h4><div class="pz-meta">${esc(x.formato||"")}</div>
       <div class="pz-por">${esc(x.porque||"")}</div>${(x.ab||[]).length?`<div class="ab"><div class="ab-t">Test A/B de miniatura</div><div class="ab-g">${x.ab.map(v=>`<a href="${esc(v.img)}" download title="Descargar variante ${esc(v.v)}"><img src="${esc(v.img)}" alt=""><span>${esc(v.v)}</span></a>`).join("")}</div>${x.ab.map(v=>`<p><b>${esc(v.v)}:</b> ${esc(v.idea)}</p>`).join("")}${x.hipotesis?`<p class="ab-h">Hipótesis: ${esc(x.hipotesis)}</p>`:""}</div>`:""}${x.material?`<div class="pz-falta">${esc(x.material)}</div>`:""}${x.video?`<a class="btn" href="${esc(x.video)}" download style="justify-self:start">Descargar vídeo</a>`:""}
       <div class="pz-ref">${(x.referencias||[]).map(r=>r.url?`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${esc(r.texto)} ↗</a>`:`<span>${esc(r.texto)}</span>`).join("")}</div>
       ${mini}${seo}${c}${g}${cap}
       <div class="acciones">${acc}${x.caption||x.texto?`<button class="btn" data-pcopiar>Copiar copy</button>`:""}</div></div></div>`;
 }
+function aprender(col,x,clase,texto){if(!st.db)return Promise.resolve();const t=new Date().toISOString(),id=(clase+"-"+(x.id||"x")+"-"+t.replace(/[^0-9]/g,"")).slice(0,180);
+  return st.db.doc("diseno_aprendizajes/"+id).set({clase,texto:texto||"",t,coleccion:col,pieza:{id:x.id||"",tipo:x.tipo||"",mercado:x.mercado||"",formato:x.formato||"",fondo:x.fondo||"",tema:x.tema||"",titular:x.titular||"",antetitulo:x.antetitulo||"",version:x.version||1,disenador:x.disenador||""},procesado:false}).catch(()=>{})}
 async function decidirPieza(col,id,acc){
-  try{if(acc==="descartada"){if(!confirm("¿Descartar esta pieza? Se elimina por completo y el equipo prepara otra."))return;await st.db.doc(col+"/"+id).delete();toast("Pieza eliminada: el equipo prepara otra")}
-    else{await st.db.doc(col+"/"+id).update({estado:"aprobada",revisado:new Date().toISOString()});toast("Aceptada: pasa a Inspiración")}}
+  try{if(acc==="descartada"){if(!confirm("¿Descartar esta pieza? Se elimina por completo y el equipo prepara otra."))return;{const x=(col==="diseno_piezas"?st.dis.piezas:st.dis.videos).find(y=>y.id===id)||{id};await aprender(col,x,"descarte","")}await st.db.doc(col+"/"+id).delete();toast("Pieza eliminada: el equipo prepara otra")}
+    else{{const x=(col==="diseno_piezas"?st.dis.piezas:st.dis.videos).find(y=>y.id===id)||{id};aprender(col,x,"aprobada","")}await st.db.doc(col+"/"+id).update({estado:"aprobada",revisado:new Date().toISOString()});toast("Aceptada: pasa a Inspiración")}}
   catch(_){toast("Solo el propietario puede decidir")}}
 document.addEventListener("submit",async e=>{const f=e.target.closest(".pz-modf");if(!f)return;e.preventDefault();
   const card=f.closest("[data-pieza],[data-video]"),col=card.dataset.pieza?"diseno_piezas":"diseno_videos",id=card.dataset.pieza||card.dataset.video,txt=f.querySelector("textarea").value.trim();if(!txt||!st.db)return;
   const x=(col==="diseno_piezas"?st.dis.piezas:st.dis.videos).find(y=>y.id===id)||{};
-  try{await st.db.doc(col+"/"+id).update({estado:"modificar",feedback:[...(x.feedback||[]),{texto:txt.slice(0,2000),t:new Date().toISOString(),atendido:false}],revisado:new Date().toISOString()});toast("Feedback enviado: el equipo prepara la nueva versión")}
+  try{aprender(col,x,"feedback",txt.slice(0,2000));await st.db.doc(col+"/"+id).update({estado:"modificar",feedback:[...(x.feedback||[]),{texto:txt.slice(0,2000),t:new Date().toISOString(),atendido:false}],revisado:new Date().toISOString()});toast("Feedback enviado: el equipo prepara la nueva versión")}
   catch(_){toast("No se pudo enviar el feedback")}});
 function pintarDiseno(){
   const D=st.dis,set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
@@ -2254,7 +2256,7 @@ function pintarVideos(){
   const el=document.getElementById("c-d_vid");if(!el)return;const vs=st.dis.videos.filter(VIVA);
   el.innerHTML=`<div class="mcab"><div><h2>Ediciones de vídeo</h2><div class="fuente-mc" style="margin-top:6px">Montadas por Sara con el material de tu carpeta de Drive y el brandbook 2027 · pasan por la revisión de la Sala de Control</div></div><div class="meta">${vs.filter(v=>v.estado==="aprobada").length} de ${vs.length} aprobadas</div></div>
   <div class="vids">${vs.length?vs.map(v=>`<div class="vid ${esc(v.estado)}" data-video="${esc(v.id)}"><video controls playsinline preload="none" poster="${esc(v.poster||"")}" src="${esc(v.archivo||"")}"></video>
-    <div class="pz-info">${selloControl(v.control)}<div class="pz-meta">${chipEstado(v)}<span class="mk">${esc((v.mercado||"").toUpperCase())}</span><span>${esc(v.formato||"")} · ${esc(String(v.duracion||""))} s</span></div>
+    <div class="pz-info"><div class="pz-meta">${chipEstado(v)}<span class="mk">${esc((v.mercado||"").toUpperCase())}</span><span>${esc(v.formato||"")} · ${esc(String(v.duracion||""))} s</span></div>
       <h4>${esc(v.titulo)}</h4><div class="pz-por">${esc(v.porque||"")}</div>
       <div class="pz-ref">${(v.referencias||[]).map(r=>r.url?`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${esc(r.texto)} ↗</a>`:`<span>${esc(r.texto)}</span>`).join("")}</div>
       ${(v.guion||[]).length?`<details><summary>Montaje</summary><ol class="guion">${v.guion.map(l=>`<li><b>${esc(l.t)}</b> · ${esc(l.plano)}: ${esc(l.texto)}</li>`).join("")}</ol></details>`:""}

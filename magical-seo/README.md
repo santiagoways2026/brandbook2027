@@ -40,6 +40,15 @@ El análisis de huecos va más despacio. Una vez por semana agrupa lo acumulado 
 
 Las dos cosas están separadas a propósito: detectar es barato y conviene hacerlo a diario; concluir es caro y conviene hacerlo con perspectiva.
 
+## Cuándo se ejecuta
+
+| Tarea | Cadencia | Protocolo |
+|---|---|---|
+| `magical-seo-barrida-rivales` | Cada día a las 6:06 | `agentes/barrida-rivales/AGENTE.md` |
+| `magical-seo-analisis-huecos` | Lunes a las 8:13 | `agentes/analisis-huecos/AGENTE.md` |
+
+Las tareas programadas se ejecutan mientras la aplicación de Claude está abierta. Si está cerrada a la hora prevista, la barrida se lanza al abrirla.
+
 ## Lanzar una barrida a mano
 
 Pide a Claude que siga el protocolo:
@@ -50,6 +59,13 @@ Sigue magical-seo/agentes/barrida-rivales/AGENTE.md y haz una barrida completa
 
 ## Estado
 
-- La sala está publicada y con los rivales cargados.
+- La sala está publicada, con los rivales cargados y las dos tareas programadas.
+- Primera barrida hecha el 7 de octubre de 2026: 13 publicaciones de CaminoWays y Follow the Camino, tres de amenaza alta.
 - Los huecos se llenan con la primera ejecución del protocolo semanal.
 - La interfaz solo muestra datos en vivo abierta desde claude.ai con la sesión iniciada. Abierta como archivo local enseña el estado vacío.
+
+## Lo que esta sala todavía no hace
+
+- **No mide volúmenes de búsqueda.** No hay ninguna fuente de datos de keywords conectada, así que la prioridad de un hueco se razona por intención y por cuántos rivales lo atacan, no por cifras.
+- **No mide posiciones de forma estable.** Lo que observa en los buscadores es de un momento y un lugar concretos, y así queda anotado.
+- **No vigila sus redes ni su publicidad.** Solo web, blog y señales de búsqueda.

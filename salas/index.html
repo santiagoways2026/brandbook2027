@@ -363,6 +363,11 @@ body[data-dentro] .marco.dato{display:none!important}
 .nuevo-tag{font:600 9.5px/1 var(--f-mono);background:#22d3ee;color:#00151a;padding:3px 5px;border-radius:3px;margin-left:6px;letter-spacing:.06em}
 @media (max-width:700px){.cb-grid{grid-template-columns:minmax(0,1fr)}}
 .mock.conimg{background-size:cover!important;background-position:center!important;color:#fff}
+.mock.conimg h5,.mock.conimg .txt,.mock.conimg .ante{color:#fff;text-shadow:0 1px 2px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.45)}
+.mock.conimg .ante{opacity:1}
+.mock.conimg .sw{text-shadow:none}
+.li-img.conimg span{text-shadow:0 1px 2px rgba(0,0,0,.55),0 2px 14px rgba(0,0,0,.45)}
+.li-img.conimg .sw{text-shadow:none}
 .mock .iso{position:absolute;top:5%;right:5%;width:24px;height:auto}
 .mock.vid-mock{background:#000}.mock.vid-mock video{width:100%;height:100%;object-fit:cover;display:block}
 .li-img.conimg{background-size:cover!important;background-position:center!important}
@@ -1299,14 +1304,14 @@ function svgDiseno(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-function isoMock(c){return`<img class="iso" src="img/isotipo_${c}.png" alt="">`}
+function isoMock(c){return""} /* sin marca de agua en las piezas (petición de Álvaro) */
 function mockPieza(x){
   const fondo=x.fondo||"blanco",sw=conTitular(x.titular,x.subrayado);
   const conchaCol=fondo==="blanco"?"#7AA606":"#fff";
   const ante=x.antetitulo?`<div class="ante">${esc(x.antetitulo)}</div>`:"";
   if(x.tipo==="linkedin"){
     return`<div class="li-mock"><div class="li-cab"><span class="li-av"><img src="img/isotipo_blanco.png" alt="" style="width:19px;height:auto"></span><div><b>Santiago Ways</b><small>Empresa · ${esc(x.formato||"")}</small></div></div>
-      <div class="li-txt">${esc(x.texto||"")}</div><div class="li-img${x.imagen?" conimg":""}"${x.imagen?` style="background-image:linear-gradient(180deg,rgba(0,0,0,.05) 30%,rgba(0,0,0,.6)),url('${esc(x.imagen)}')"`:""}><span>${sw}</span></div></div>`;
+      <div class="li-txt">${esc(x.texto||"")}</div><div class="li-img${x.imagen?" conimg":""}"${x.imagen?` style="background-image:linear-gradient(180deg,rgba(10,14,8,.10) 20%,rgba(10,14,8,.55) 55%,rgba(10,14,8,.85)),url('${esc(x.imagen)}')"`:""}><span>${sw}</span></div></div>`;
   }
   const r=x.tipo==="ig"?"r45":x.tipo==="yt"?"r169":"r916";
   const lista=x.id==="ig-3-otono-mochila"?`<div class="lista">${(x.cuerpo||[]).map(c=>`<span>${esc(c)}</span>`).join("")}</div>`:"";
@@ -1317,7 +1322,8 @@ function mockPieza(x){
   const just=x.tipo==="yt"?"justify-content:flex-end;":x.tipo==="ig"&&fondo!=="blanco"?"justify-content:center;":"";
   if(x.tipo==="yt"&&(x.ab||[]).length)return`<div class="mock r169 vid-mock"><img src="${esc(x.ab[0].img)}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`;
   if((x.tipo==="reel"||x.tipo==="tiktok")&&x.video)return`<div class="mock r916 vid-mock"><video controls playsinline preload="none" poster="${esc(x.poster||"")}" src="${esc(x.video)}"></video></div>`;
-  const bg=x.imagen?` style="background-image:linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.62)),url('${esc(x.imagen)}')"`:"";
+  const ov=x.tipo==="ig"&&fondo!=="blanco"?"linear-gradient(180deg,rgba(10,14,8,.50) 0%,rgba(10,14,8,.58) 45%,rgba(10,14,8,.80) 100%)":"linear-gradient(180deg,rgba(10,14,8,.22) 0%,rgba(10,14,8,.45) 40%,rgba(10,14,8,.85) 100%)";
+  const bg=x.imagen?` style="background-image:${ov},url('${esc(x.imagen)}')"`:"";
   return`<div class="mock ${r} ${fondo}${x.imagen?" conimg":""}"${bg}>${isoMock(fondo==="blanco"?"verde":"blanco")}
     <div class="in" style="${just}">${x.tipo==="yt"?"":ante}<h5>${sw}</h5>${sub}${lista}${etq}</div>${vert}${dur}
     ${x.foto&&fondo==="foto"?`<div class="fotolbl">Foto: ${esc(corta(x.foto,90))}</div>`:""}</div>`;

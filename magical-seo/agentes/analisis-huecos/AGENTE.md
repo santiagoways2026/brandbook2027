@@ -98,6 +98,34 @@ Contexto fijo que conviene tener presente al priorizar:
 - El sitio rinde en cinco idiomas: español, inglés, alemán, italiano y portugués. Search Console solo tiene vistas de `es`, `en` y `de`, así que para italiano y portugués hay posición ciega: ahí Analytics es la única señal.
 - Existe un canal de asistentes de IA, pequeño pero creciente. Si una página pierde orgánico y gana por ese canal, no es lo mismo que perderlo sin más.
 
+## Consultar Clarity
+
+Search Console dice dónde estamos. Analytics dice cuánto hay en juego. **Clarity dice si la página cumple cuando la gente llega.** Esa es la diferencia entre "traer más tráfico" y "arreglar la página antes de traer nada".
+
+Úsalo solo sobre las dos o tres páginas que ya hayas marcado como prioritarias, nunca como exploración general: la cuota es de **10 peticiones por día** para todo el proyecto.
+
+```bash
+python magical-seo/scripts/clarity.py --cuota
+python magical-seo/scripts/clarity.py --dias 3 --dim URL \
+  --metricas "ScrollDepth,EngagementTime,QuickbackClick,DeadClickCount" \
+  --contiene "camino-frances" --limite 15
+```
+
+El script guarda en caché cada respuesta del día: repetir la misma consulta no gasta cuota. Agrupa por página real, quitando los parámetros de campaña, porque si no las 1.000 filas del límite se llenan de entradas de anuncios de una sola sesión.
+
+Cómo interpretar, con las referencias medidas el 7 de octubre de 2026:
+
+| Señal | Referencia del sitio | Qué significa |
+|---|---|---|
+| Scroll medio | 28-32 % en portadas, 48,8 % en la página de Sarria | Por debajo de 30 % en una página de contenido, la gente no baja |
+| Segundos activos | 26-28 en portadas, 63,5 en Sarria | Es la medida más fiable de si la página responde |
+| Quickback | 3,6 % en Sarria, 11,0 % en el Portugués de la costa inglés | Por encima del 8 % hay desajuste entre lo que prometes y lo que das |
+| Clics de rabia | Casi cero en todo el sitio | Cualquier página que destaque aquí tiene algo roto |
+
+**La regla que decide la acción:** si la página rinde bien y aun así perdemos, el hueco es de cobertura y la acción es crear contenido. Si la página rinde mal, traer más tráfico es tirar dinero: primero se arregla la página.
+
+Dos límites que hay que declarar siempre en `evidencia`: la ventana es de **3 días como máximo**, así que no sirve para tendencias, y la mayoría del tráfico del sitio es de pago, así que lo que mide Clarity no es solo comportamiento orgánico.
+
 ## Esquema de un documento de `huecos`
 
 - **doc_id**: slug del tema, minúsculas, solo `a-z0-9-`, máximo 80 caracteres. Por ejemplo `camino-en-5-dias-ingles`.

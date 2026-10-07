@@ -30,6 +30,8 @@ magical-seo/
 │   └── analisis-huecos/AGENTE.md       protocolo semanal
 ├── datos/
 │   └── rivales.json                    lista de partida, copia en disco
+├── scripts/
+│   └── clarity.py                      consulta a Clarity, con cache de cuota
 └── README.md                           este archivo
 ```
 
@@ -141,6 +143,7 @@ No son personas ni procesos separados: son el reparto de atención dentro de cad
 | Webs y blogs rivales | Activa | Qué publican y cuándo. Gratis |
 | Google Search Console | Activa desde el 7 oct 2026 | Nuestra posición, impresiones y clics reales |
 | Google Analytics 4 | Activa desde el 7 oct 2026 | Tráfico en juego por página y por canal |
+| Microsoft Clarity | Activa desde el 7 oct 2026 | Si la página cumple cuando la gente llega |
 | Semrush | **Bloqueada** | Volúmenes de búsqueda |
 
 ### Credenciales de Google
@@ -221,6 +224,7 @@ Las tareas están en `~/.claude/scheduled-tasks/`. Se gestionan desde la secció
 - **No sabe en qué posición están ellos**, solo nosotros. Search Console es un espejo de nuestro sitio, no del suyo.
 - **No cubre italiano ni portugués en posiciones.** Hay tráfico orgánico en italiano, pero Search Console solo tiene vistas de `es`, `en` y `de`. Se arregla creando esas vistas.
 - **No vigila sus redes sociales ni su publicidad.** Solo web, blog y señales de búsqueda.
+- **Clarity solo ve 3 días.** Sirve para decidir sobre una página concreta, no para medir evolución. Y su cuota es de 10 peticiones diarias para todo el proyecto.
 - **No promete posiciones.** Describe huecos y acciones, nunca resultados garantizados.
 
 ---
@@ -252,4 +256,6 @@ Montado el 7 de octubre de 2026. Primera barrida y primer análisis ejecutados e
 | Error 401 o 403 en Google | Token caducado | Volver a autorizar con `google_auth.py --auth --creds ~/.config/claude-seo/client_secret.json` |
 | Error 400 en Analytics | `dimensionFilterGroups` en vez de `dimensionFilter` | Analytics usa el singular. El plural es de Search Console |
 | `no_api_units` en Semrush | Subcuenta sin unidades | Pedir asignación al propietario de la cuenta |
+| Clarity devuelve 429 | Gastadas las 10 peticiones del día | Esperar a mañana. `clarity.py --cuota` dice cuántas quedan |
+| Clarity devuelve mil filas de anuncios | Consulta sin agrupar | Usar `clarity.py`, que agrupa por página real quitando los utm |
 | Un rival deja de dar resultados | Cambió la estructura de su blog | Actualizar su campo `blog` en la colección `rivales` |

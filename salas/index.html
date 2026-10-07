@@ -63,7 +63,7 @@ body[data-dentro="mdirecto"] #m-mdirecto .salir,body[data-dentro="producto"] #m-
 #chat[hidden]{display:none}
 body[data-dentro] .marco.dato{display:none!important}
 #panel{position:fixed;top:calc(56px + env(safe-area-inset-top,0px));right:0;bottom:0;width:min(760px,100vw);z-index:14;display:flex;flex-direction:column;background:var(--marco);border-left:1px solid var(--borde-2);box-shadow:-20px 0 60px rgba(0,0,0,.55)}
-#panel[hidden]{display:none}#mapa{display:none!important}
+#panel[hidden]{display:none}#panel:not([data-sala="control"]) #pnChat{display:none!important}[data-abrirchat]:not([data-abrirchat="control"]){display:none!important}#chatTabs{display:none!important}#mapa{display:none!important}
 /* Lectura en portátil: texto más grande dentro del panel */
 #panel .cont{font-size:16px}
 #panel .k-c h4{font-size:17px}#panel .k-c p,#panel .prio p,#panel .aviso,#panel .cola-det,#panel .bit li{font-size:15.5px;line-height:1.5}
@@ -862,7 +862,7 @@ function pantallaCompleta(on,silencio){const pn=$("#panel");pn.classList.toggle(
   if(on){const abiertos=[...document.querySelectorAll("#pnMods .pn-mod")].filter(d=>d.open);abiertos.slice(1).forEach(d=>d.open=false)}
   marcarNav();try{localStorage.setItem("pnFull",on?"1":"0")}catch(e){}if(!silencio&&typeof encuadrar==="function")encuadrar()}
 function abrirPanel(sala,foco){
-  const pn=$("#panel"),mods=$("#pnMods");
+  const pn=$("#panel"),mods=$("#pnMods");pn.dataset.sala=sala;
   devolverModulos();
   const ids=(SALAS_ACT[sala]||[]).filter(id=>id!==sala);
   const S=CHAT_SALAS[sala];
@@ -2242,7 +2242,7 @@ SALAS_N.forEach(S=>{CHAT_SALAS[S.id]={lider:S.lider,nombre:S.nombre,equipo:()=>S
   persona:`Eres el equipo de la sala ${S.nombre} de Santiago Ways: ${S.equipo.map(a=>a.n+" ("+a.rol+")").join(", ")}. Misión: ${S.mision} Lo que ya sabéis de otras salas: ${S.saber.join(" ")} Fuentes pendientes: ${S.fuentes.filter(f=>!f[2]).map(f=>f[0]).join(", ")}; si un dato depende de ellas, decid que falta la conexión. No inventes cifras.`,sug:S.sug}});
 const salaDe=m=>m.sala||"control";
 Object.entries(PERSONALIDAD).forEach(([k,P])=>{if(CHAT_SALAS[k]&&P.tono&&!CHAT_SALAS[k].persona?.includes("Carácter de la sala"))CHAT_SALAS[k].persona=(CHAT_SALAS[k].persona||"")+` Carácter de la sala: ${P.caracter} («${P.lema}»). ${P.tono}`});
-function abrirChat(sala){if(!$("#panel").hidden&&(!sala||sala===st.dentro)){$("#pnChat").classList.remove("min");{const sp=$("#pnMin span");if(sp)sp.textContent="Minimizar";try{localStorage.setItem("pnChatMin","0")}catch(_){}}$("#pnChat").scrollIntoView({block:"end",behavior:"smooth"});setTimeout(()=>$("#chatTxt")?.focus(),50);return}if(!$("#panel").hidden)salir(false);st.chatSala=CHAT_SALAS[sala]?sala:(CHAT_SALAS[st.dentro]?st.dentro:"control");$("#chat").hidden=false;pintarChat();setTimeout(()=>$("#chatTxt")?.focus(),50)}
+function abrirChat(sala){sala="control";if(!$("#panel").hidden&&sala===st.dentro){$("#pnChat").classList.remove("min");{const sp=$("#pnMin span");if(sp)sp.textContent="Minimizar";try{localStorage.setItem("pnChatMin","0")}catch(_){}}$("#pnChat").scrollIntoView({block:"end",behavior:"smooth"});setTimeout(()=>$("#chatTxt")?.focus(),50);return}if(!$("#panel").hidden)salir(false);st.chatSala="control";$("#chat").hidden=false;pintarChat();setTimeout(()=>$("#chatTxt")?.focus(),50)}
 function pintarChat(){
   const el=$("#chatMsgs");if(!el||!chatVisible())return;
   const S=CHAT_SALAS[st.chatSala]||CHAT_SALAS.control,ctrl=st.chatSala==="control";

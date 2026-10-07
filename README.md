@@ -3,7 +3,28 @@
 Librería de bloques HTML con el CSS propio de Santiago Ways, más un transformador:
 le das contenido en bruto y te devuelve el HTML ya maquetado con las clases correctas.
 
-## Cómo se usa
+## La herramienta
+
+```bash
+python -m http.server 8899
+```
+
+Y abre **http://localhost:8899/app/** . Tiene cuatro paneles:
+
+| Panel | Qué hace |
+|---|---|
+| Selector (izquierda) | Los módulos, agrupados y con buscador. En gris, los que esperan su HTML |
+| **El módulo** | Cómo se ve el bloque con su contenido de ejemplo |
+| **Con tus datos** | El mismo bloque con lo que escribes, en vivo |
+| **HTML generado** | El código listo para copiar, con los avisos |
+
+El conmutador **Escritorio / Móvil** cambia las dos vistas a la vez. No reduce el panel:
+simula una pantalla de 1120 px o de 390 px y la escala, así que los puntos de ruptura del
+bloque reaccionan a la anchura de verdad.
+
+Para añadir módulos, mira [`app/LEEME.md`](app/LEEME.md).
+
+## Cómo se usa desde el chat
 
 Pega el contenido en el chat y pide la transformación. Por ejemplo:
 
@@ -36,6 +57,7 @@ A partir de ese momento el transformador ya sabe usarlo.
 
 | Archivo | Qué hay |
 |---|---|
+| `app/` | La herramienta: selector, vistas previas y generador |
 | `design-system/bloques.css` | **La hoja de estilos original.** 23 bloques, 208 clases. Fuente de verdad |
 | `design-system/inventario.md` | Lista cerrada de clases, generada desde el CSS |
 | `design-system/catalogo.md` | Qué es cada bloque, cuándo se usa y sus reglas de marcado |
@@ -46,10 +68,6 @@ A partir de ese momento el transformador ya sabe usarlo.
 | `inbox/` | Buzón de entrada: HTML sin catalogar |
 | `salidas/` | HTML generado |
 | `emails/` | Pieza de email heredada. Fuera del alcance de este proyecto |
-
-## Ver los bloques
-
-Abre [`design-system/preview.html`](design-system/preview.html) en el navegador.
 
 ## Estado
 

@@ -45,6 +45,8 @@ Reglas que afectan al HTML:
 ## Estructura
 
 ```
+app/               la herramienta: selector de módulos y generador en el navegador
+  modulos.js       el registro de módulos: ahí se añaden los bloques nuevos
 design-system/
   bloques.css      hoja de estilos ORIGINAL del cliente ← la fuente de verdad
   inventario.md    lista cerrada de clases, generada desde bloques.css
@@ -60,3 +62,10 @@ emails/            pieza heredada de email. Fuera del alcance de este proyecto.
 ```
 
 Si cambia `bloques.css`, hay que lanzar `python tools/inventario.py`.
+
+## La herramienta
+
+`app/` es la versión navegable de esto mismo: `python -m http.server 8899` y
+http://localhost:8899/app/ . Un módulo nuevo se añade en `app/modulos.js`, y su `render()`
+tiene que devolver exactamente el markup del `bloques/<id>.html` de referencia. El panel
+«El módulo» se pinta con esa misma función, así que una desviación se ve al momento.

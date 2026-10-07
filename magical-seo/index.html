@@ -1,0 +1,397 @@
+<title>Magical SEO</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+/* Layout: consola de vigilancia en oscuro. Cabecera con el estado de la barrida, tira de equipo,
+   mosaico de cifras y cuatro paneles conmutables (publicaciones, rivales, huecos, bitácora). */
+:root{
+  --fondo:#12140F;        /* grafito con sesgo verde */
+  --sup:#1A1D15;          /* superficie de paneles */
+  --sup2:#22261B;         /* superficie elevada */
+  --borde:#2B3023;
+  --borde2:#3A4130;
+  --texto:#ECEFE6;
+  --tenue:#8E9487;
+  --ways:#8FBF0A;         /* verde Ways, aclarado para fondo oscuro */
+  --sendero:#506718;
+  --alta:#E4572E;
+  --media:#E8A33D;
+  --baja:#6F9E5A;
+  --f-ui:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,Menlo,Consolas,monospace;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){
+  :root:not([data-theme="dark"]){
+    --fondo:#FAFFEE; --sup:#FFFFFF; --sup2:#F3F5EC; --borde:#E8E8E6; --borde2:#D4D8C8;
+    --texto:#2E2E2D; --tenue:#6F6F6E; --ways:#7AA606; --sendero:#506718;
+    --alta:#C53D16; --media:#B47608; --baja:#4F7A3B; color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --fondo:#FAFFEE; --sup:#FFFFFF; --sup2:#F3F5EC; --borde:#E8E8E6; --borde2:#D4D8C8;
+  --texto:#2E2E2D; --tenue:#6F6F6E; --ways:#7AA606; --sendero:#506718;
+  --alta:#C53D16; --media:#B47608; --baja:#4F7A3B; color-scheme:light;
+}
+
+*{box-sizing:border-box}
+body{background:var(--fondo);color:var(--texto);font:400 14px/1.5 var(--f-ui);margin:0;-webkit-font-smoothing:antialiased}
+.envoltorio{max-width:1180px;margin:0 auto;padding:0 16px;padding-block:0 56px}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--ways);outline-offset:2px;border-radius:3px}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+h1,h2,h3{text-wrap:balance;margin:0}
+.num{font-variant-numeric:tabular-nums}
+
+/* Cabecera */
+header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--fondo);
+  border-bottom:1px solid var(--borde);padding-block:18px 14px;margin-bottom:22px}
+.marca{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.marca h1{font:800 30px/1.05 var(--f-ui);letter-spacing:-.025em;flex:1 1 240px;min-width:0}
+.sub{display:inline-block;background:var(--ways);color:#fff;padding:1px 9px 3px;transform:rotate(-1.5deg)}
+:root[data-theme="light"] .sub,:root:not([data-theme="dark"]) .sub{color:#fff}
+.marca p{margin:7px 0 0;color:var(--tenue);font-size:13px;max-width:62ch}
+.estado-barrida{display:flex;flex-direction:column;gap:5px;align-items:flex-start;font:500 11.5px/1.3 var(--f-mono)}
+.pulso{display:inline-flex;align-items:center;gap:7px;color:var(--tenue);text-transform:uppercase;letter-spacing:.08em}
+.pulso::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tenue);flex:none}
+.pulso.vivo{color:var(--ways)}
+.pulso.vivo::before{background:var(--ways);box-shadow:0 0 0 0 color-mix(in srgb,var(--ways) 70%,transparent);animation:late 2.4s ease-out infinite}
+@keyframes late{70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+@media (prefers-reduced-motion:reduce){.pulso.vivo::before{animation:none}}
+
+/* Mosaico de cifras */
+.cifras{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px;margin-bottom:22px}
+.cifra{background:var(--sup);border:1px solid var(--borde);border-radius:10px;padding:14px 16px;min-width:0}
+.cifra dt{font:600 10.5px/1.2 var(--f-mono);text-transform:uppercase;letter-spacing:.09em;color:var(--tenue);margin:0}
+.cifra dd{margin:8px 0 0;font:800 27px/1 var(--f-ui);letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.cifra dd small{display:block;font:500 11.5px/1.3 var(--f-mono);color:var(--tenue);margin-top:6px;letter-spacing:0}
+
+/* Equipo */
+.equipo{margin-bottom:22px}
+.tit-sec{font:600 10.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.11em;color:var(--tenue);margin:0 0 10px}
+.fichas{display:grid;grid-template-columns:repeat(auto-fit,minmax(176px,1fr));gap:9px}
+.ficha{background:var(--sup);border:1px solid var(--borde);border-left:3px solid var(--c,var(--ways));
+  border-radius:8px;padding:11px 13px;min-width:0}
+.ficha b{display:block;font:700 13.5px/1.2 var(--f-ui)}
+.ficha span{display:block;font-size:11.5px;color:var(--tenue);margin-top:3px;line-height:1.4}
+.ficha em{display:block;font:500 11px/1.4 var(--f-mono);color:var(--c,var(--ways));margin-top:7px;font-style:normal}
+
+/* Pestañas */
+.pestanas{display:flex;gap:4px;border-bottom:1px solid var(--borde);margin-bottom:18px;overflow-x:auto;scrollbar-width:thin}
+.pestanas button{padding:10px 14px;font:600 13px/1 var(--f-ui);color:var(--tenue);white-space:nowrap;
+  border-bottom:2px solid transparent;margin-bottom:-1px;transition:color .15s}
+.pestanas button:hover{color:var(--texto)}
+.pestanas button[aria-selected="true"]{color:var(--texto);border-bottom-color:var(--ways)}
+.pestanas .cuenta{font:500 11px/1 var(--f-mono);color:var(--tenue);margin-left:6px}
+
+/* Filtros */
+.filtros{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:16px;align-items:center}
+.chip{padding:5px 11px;border:1px solid var(--borde2);border-radius:999px;font:500 12px/1.3 var(--f-ui);color:var(--tenue)}
+.chip[aria-pressed="true"]{background:var(--ways);border-color:var(--ways);color:#fff}
+.busca{flex:1 1 180px;min-width:0;background:var(--sup);border:1px solid var(--borde2);border-radius:999px;
+  padding:6px 13px;font:400 13px/1.4 var(--f-ui);color:var(--texto)}
+.busca::placeholder{color:var(--tenue)}
+
+/* Lista de publicaciones */
+.lista{display:flex;flex-direction:column;gap:9px}
+.pub{display:grid;grid-template-columns:4px 1fr;gap:0;background:var(--sup);border:1px solid var(--borde);
+  border-radius:9px;overflow:hidden}
+.pub .raya{background:var(--baja)}
+.pub[data-amenaza="alta"] .raya{background:var(--alta)}
+.pub[data-amenaza="media"] .raya{background:var(--media)}
+.pub .cuerpo{padding:13px 15px;min-width:0}
+.pub-cab{display:flex;gap:10px;align-items:baseline;flex-wrap:wrap;margin-bottom:5px}
+.pub-cab .rival{font:600 11px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.07em;color:var(--ways)}
+.pub-cab time{font:500 11px/1 var(--f-mono);color:var(--tenue)}
+.pub h3{font:700 15.5px/1.35 var(--f-ui);margin:0 0 6px}
+.pub h3 a{text-decoration:none;border-bottom:1px solid transparent}
+.pub h3 a:hover{border-bottom-color:var(--ways)}
+.pub p{margin:0 0 9px;font-size:13px;color:var(--texto);opacity:.88;line-height:1.55}
+.pub .porque{border-left:2px solid var(--borde2);padding-left:10px;font-size:12.5px;color:var(--tenue);margin:0 0 9px}
+.etiquetas{display:flex;gap:5px;flex-wrap:wrap}
+.tag{font:500 10.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--tenue);
+  border:1px solid var(--borde2);border-radius:4px;padding:4px 7px}
+.tag.rel{color:var(--texto);border-color:var(--borde2);font-variant-numeric:tabular-nums}
+
+/* Rivales */
+.rivales{display:grid;grid-template-columns:repeat(auto-fit,minmax(252px,1fr));gap:10px}
+.rival-f{background:var(--sup);border:1px solid var(--borde);border-radius:9px;padding:14px 16px;min-width:0}
+.rival-f header{position:static;border:none;padding:0;margin:0 0 7px;background:none;display:flex;align-items:baseline;gap:8px;flex-wrap:wrap}
+.rival-f h3{font:700 15px/1.2 var(--f-ui)}
+.rival-f .web{font:500 11.5px/1.3 var(--f-mono);color:var(--tenue);word-break:break-all}
+.rival-f .web a{text-decoration:none;border-bottom:1px solid var(--borde2)}
+.rival-f dl{display:grid;grid-template-columns:auto 1fr;gap:4px 10px;margin:10px 0 0;font-size:12px}
+.rival-f dt{color:var(--tenue);font:500 11px/1.5 var(--f-mono)}
+.rival-f dd{margin:0;font-variant-numeric:tabular-nums}
+.sello{font:600 10px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;padding:4px 7px;border-radius:4px;flex:none}
+.sello.vigilado{background:color-mix(in srgb,var(--ways) 18%,transparent);color:var(--ways)}
+.sello.propuesto{background:color-mix(in srgb,var(--media) 20%,transparent);color:var(--media)}
+
+/* Huecos */
+.huecos{display:flex;flex-direction:column;gap:9px}
+.hueco{background:var(--sup);border:1px solid var(--borde);border-radius:9px;padding:13px 15px}
+.hueco h3{font:700 15px/1.35 var(--f-ui);margin:0 0 6px}
+.hueco p{margin:0 0 8px;font-size:13px;color:var(--texto);opacity:.88}
+.hueco .accion{background:var(--sup2);border-radius:6px;padding:9px 11px;font-size:12.5px;margin-bottom:9px}
+.hueco .accion b{color:var(--ways)}
+
+/* Bitácora */
+.bitacora{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--borde);padding-left:18px}
+.entrada{position:relative;padding:0 0 18px}
+.entrada::before{content:"";position:absolute;left:-23px;top:5px;width:9px;height:9px;border-radius:50%;
+  background:var(--sup);border:2px solid var(--ways)}
+.entrada .meta{font:500 11px/1 var(--f-mono);color:var(--tenue);margin-bottom:5px}
+.entrada .meta b{color:var(--ways);font-weight:600}
+.entrada p{margin:0;font-size:13.5px;line-height:1.55}
+
+/* Vacío y avisos */
+.vacio{border:1px dashed var(--borde2);border-radius:10px;padding:34px 24px;text-align:center}
+.vacio h3{font:700 17px/1.3 var(--f-ui);margin:0 0 9px}
+.vacio p{margin:0 auto;max-width:52ch;color:var(--tenue);font-size:13.5px;line-height:1.6}
+.vacio code{font:500 12px/1 var(--f-mono);background:var(--sup2);padding:2px 6px;border-radius:4px;color:var(--texto)}
+[hidden]{display:none!important}
+.pie{margin-top:30px;padding-top:18px;border-top:1px solid var(--borde);color:var(--tenue);font-size:12px;line-height:1.6}
+</style>
+
+<div class="envoltorio">
+<header>
+  <div class="marca">
+    <h1>Magical <span class="sub">SEO</span></h1>
+    <div class="estado-barrida">
+      <span class="pulso" id="pulso">Sin conexión</span>
+      <span id="ultima">Barrida: nunca</span>
+      <span id="proxima"></span>
+    </div>
+  </div>
+  <p>Vigilancia del contenido que publican los operadores rivales del Camino de Santiago: artículos de blog, páginas de ruta, señales de posicionamiento y los huecos que dejan abiertos.</p>
+</header>
+
+<dl class="cifras">
+  <div class="cifra"><dt>Publicaciones · 7 días</dt><dd class="num" id="c-pubs">·<small id="c-pubs-sub">a la espera de la primera barrida</small></dd></div>
+  <div class="cifra"><dt>Rivales vigilados</dt><dd class="num" id="c-riv">·<small id="c-riv-sub">sin cargar</small></dd></div>
+  <div class="cifra"><dt>Huecos abiertos</dt><dd class="num" id="c-hue">·<small id="c-hue-sub">sin analizar</small></dd></div>
+  <div class="cifra"><dt>Amenaza alta</dt><dd class="num" id="c-ame">·<small id="c-ame-sub">últimos 30 días</small></dd></div>
+</dl>
+
+<section class="equipo">
+  <h2 class="tit-sec">Equipo de la sala</h2>
+  <div class="fichas" id="fichas"></div>
+</section>
+
+<div class="pestanas" role="tablist">
+  <button role="tab" aria-selected="true" data-tab="pubs">Publicaciones<span class="cuenta" id="n-pubs"></span></button>
+  <button role="tab" aria-selected="false" data-tab="rivales">Rivales<span class="cuenta" id="n-rivales"></span></button>
+  <button role="tab" aria-selected="false" data-tab="huecos">Huecos<span class="cuenta" id="n-huecos"></span></button>
+  <button role="tab" aria-selected="false" data-tab="bitacora">Bitácora</button>
+</div>
+
+<section id="p-pubs">
+  <div class="filtros">
+    <input class="busca" id="q" type="search" placeholder="Buscar en títulos, temas y palabras clave" aria-label="Buscar publicaciones">
+    <button class="chip" data-f="todas" aria-pressed="true">Todas</button>
+    <button class="chip" data-f="alta" aria-pressed="false">Amenaza alta</button>
+    <button class="chip" data-f="blog" aria-pressed="false">Blog</button>
+    <button class="chip" data-f="producto" aria-pressed="false">Ruta y producto</button>
+    <button class="chip" data-f="2027" aria-pressed="false">Xacobeo 2027</button>
+  </div>
+  <div class="lista" id="lista"></div>
+</section>
+
+<section id="p-rivales" hidden><div class="rivales" id="rivales"></div></section>
+<section id="p-huecos" hidden><div class="huecos" id="huecos"></div></section>
+<section id="p-bitacora" hidden><div class="bitacora" id="bitacora"></div></section>
+
+<p class="pie" id="pie">Los datos los escriben los agentes de barrida. Cada ficha enlaza a la fuente original: contrasta siempre antes de tomar una decisión.</p>
+</div>
+
+<script>
+const EQUIPO=[
+  {id:"blogs",n:"Marina",rol:"Blogs rivales: artículos nuevos, ritmo y ángulos",c:"#8FBF0A"},
+  {id:"producto",n:"Bruno",rol:"Páginas de ruta, producto y precio",c:"#E8A33D"},
+  {id:"serp",n:"Olivia",rol:"Buscadores: qué posiciona cada rival",c:"#4FB0C6"},
+  {id:"tecnico",n:"Iván",rol:"Señales técnicas: fechas, schema, hreflang",c:"#C98BDB"},
+  {id:"huecos",n:"Nerea",rol:"Huecos: lo que cubren ellos y nosotros no",c:"#E4572E"},
+  {id:"jefa",n:"Valeria",rol:"Jefa: prioriza, puntúa amenaza y escribe la bitácora",c:"#6F9E5A"},
+];
+const st={pubs:[],rivales:[],huecos:[],estado:null,filtro:"todas",q:"",tab:"pubs",conectado:false};
+const $=s=>document.querySelector(s);
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const dias=iso=>{const t=Date.parse(iso);return isFinite(t)?(Date.now()-t)/864e5:Infinity};
+function fecha(iso){const t=Date.parse(iso);if(!isFinite(t))return "";
+  const d=dias(iso);
+  if(d<1)return "hoy";
+  if(d<2)return "ayer";
+  if(d<30)return Math.floor(d)+" días";
+  return new Date(t).toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});}
+function reloj(iso){const t=Date.parse(iso);return isFinite(t)?new Date(t).toLocaleString("es-ES",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"·"}
+
+/* Equipo */
+$("#fichas").innerHTML=EQUIPO.map(a=>`<article class="ficha" style="--c:${a.c}" id="f-${a.id}">
+  <b>${esc(a.n)}</b><span>${esc(a.rol)}</span><em data-est="${a.id}">A la espera</em></article>`).join("");
+
+/* Pestañas */
+document.querySelectorAll('[role="tab"]').forEach(b=>b.addEventListener("click",()=>{
+  st.tab=b.dataset.tab;
+  document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute("aria-selected",String(x===b)));
+  ["pubs","rivales","huecos","bitacora"].forEach(t=>{$("#p-"+t).hidden=(t!==st.tab)});
+  if(/^[a-z]+$/.test(st.tab))location.hash=st.tab;
+}));
+if(/^#(pubs|rivales|huecos|bitacora)$/.test(location.hash)){
+  const b=document.querySelector(`[data-tab="${location.hash.slice(1)}"]`);if(b)b.click();
+}
+
+/* Filtros */
+document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
+  st.filtro=c.dataset.f;
+  document.querySelectorAll(".chip").forEach(x=>x.setAttribute("aria-pressed",String(x===c)));
+  pintarPubs();
+}));
+$("#q").addEventListener("input",e=>{st.q=e.target.value.toLowerCase().trim();pintarPubs()});
+
+function pasaFiltro(p){
+  const f=st.filtro;
+  if(f==="alta"&&p.amenaza!=="alta")return false;
+  if(f==="blog"&&p.tipo!=="blog")return false;
+  if(f==="producto"&&!["ruta","producto","precio"].includes(p.tipo))return false;
+  if(f==="2027"){const t=(p.titulo+" "+(p.tema||"")+" "+(p.keywords||[]).join(" ")).toLowerCase();
+    if(!/2027|xacobeo|a[nñ]o santo|holy year/.test(t))return false}
+  if(st.q){const t=(p.titulo+" "+(p.resumen||"")+" "+(p.tema||"")+" "+(p.keywords||[]).join(" ")+" "+(p.rival||"")).toLowerCase();
+    if(!t.includes(st.q))return false}
+  return true;
+}
+const nombreRival=id=>(st.rivales.find(r=>r.id===id)||{}).nombre||id||"sin asignar";
+
+function pintarPubs(){
+  const vis=st.pubs.filter(pasaFiltro);
+  $("#n-pubs").textContent=st.pubs.length?`(${st.pubs.length})`:"";
+  if(!st.pubs.length){
+    $("#lista").innerHTML=`<div class="vacio"><h3>Todavía no hay publicaciones detectadas</h3>
+      <p>El agente de barrida escribe aquí cada artículo o página nueva que encuentra en las webs de los rivales.
+      Lanza la primera barrida con el protocolo <code>agentes/barrida-rivales/AGENTE.md</code> y esta lista se llenará sola.</p></div>`;
+    return;
+  }
+  if(!vis.length){
+    $("#lista").innerHTML=`<div class="vacio"><h3>Ningún resultado con este filtro</h3>
+      <p>Hay ${st.pubs.length} publicaciones guardadas, pero ninguna encaja con lo que buscas. Prueba a quitar el filtro o a cambiar la búsqueda.</p></div>`;
+    return;
+  }
+  $("#lista").innerHTML=vis.map(p=>{
+    const kws=(p.keywords||[]).slice(0,4).map(k=>`<span class="tag">${esc(k)}</span>`).join("");
+    const url=/^https?:\/\//i.test(p.url||"")?p.url:null;
+    const tit=url?`<a href="${esc(url)}" target="_blank" rel="noopener noreferrer">${esc(p.titulo)}</a>`:esc(p.titulo);
+    return `<article class="pub" data-amenaza="${esc(p.amenaza||"baja")}"><div class="raya"></div><div class="cuerpo">
+      <div class="pub-cab"><span class="rival">${esc(nombreRival(p.rival))}</span>
+        <time datetime="${esc(p.publicado||p.detectado||"")}">${esc(fecha(p.publicado||p.detectado))}</time></div>
+      <h3>${tit}</h3>
+      ${p.resumen?`<p>${esc(p.resumen)}</p>`:""}
+      ${p.porque?`<p class="porque">${esc(p.porque)}</p>`:""}
+      <div class="etiquetas">
+        ${p.tipo?`<span class="tag">${esc(p.tipo)}</span>`:""}
+        ${p.idioma?`<span class="tag">${esc(p.idioma)}</span>`:""}
+        ${Number.isFinite(p.relevancia)?`<span class="tag rel">rel ${p.relevancia}</span>`:""}
+        ${kws}
+      </div></div></article>`;
+  }).join("");
+}
+
+function pintarRivales(){
+  $("#n-rivales").textContent=st.rivales.length?`(${st.rivales.length})`:"";
+  if(!st.rivales.length){
+    $("#rivales").innerHTML=`<div class="vacio"><h3>Sin rivales cargados</h3>
+      <p>La lista de partida vive en <code>magical-seo/datos/rivales.json</code>. Súbela a la base de datos y el agente la ampliará con los que vaya encontrando.</p></div>`;
+    return;
+  }
+  $("#rivales").innerHTML=st.rivales.map(r=>{
+    const n=st.pubs.filter(p=>p.rival===r.id).length;
+    const ult=st.pubs.filter(p=>p.rival===r.id).map(p=>p.publicado||p.detectado).filter(Boolean).sort().pop();
+    const web=/^https?:\/\//i.test(r.web||"")?r.web:null;
+    return `<article class="rival-f"><header><h3>${esc(r.nombre)}</h3>
+      <span class="sello ${esc(r.estado||"propuesto")}">${esc(r.estado||"propuesto")}</span></header>
+      <div class="web">${web?`<a href="${esc(web)}" target="_blank" rel="noopener noreferrer">${esc(r.web.replace(/^https?:\/\//,""))}</a>`:esc(r.web||"")}</div>
+      <dl><dt>Publicaciones</dt><dd>${n}</dd>
+      <dt>Última vista</dt><dd>${ult?esc(fecha(ult)):"·"}</dd>
+      ${r.pais?`<dt>País</dt><dd>${esc(r.pais)}</dd>`:""}
+      ${r.idiomas?.length?`<dt>Idiomas</dt><dd>${esc(r.idiomas.join(", "))}</dd>`:""}</dl>
+      ${r.notas?`<p style="margin:10px 0 0;font-size:12.5px;color:var(--tenue);line-height:1.5">${esc(r.notas)}</p>`:""}
+    </article>`;
+  }).join("");
+}
+
+function pintarHuecos(){
+  $("#n-huecos").textContent=st.huecos.length?`(${st.huecos.length})`:"";
+  if(!st.huecos.length){
+    $("#huecos").innerHTML=`<div class="vacio"><h3>Sin huecos analizados</h3>
+      <p>Un hueco es un tema que cubren los rivales y vosotros no, o que cubrís peor. Los detecta el protocolo <code>agentes/analisis-huecos/AGENTE.md</code>.</p></div>`;
+    return;
+  }
+  $("#huecos").innerHTML=st.huecos.map(h=>`<article class="hueco">
+    <h3>${esc(h.titulo)}</h3>
+    ${h.descripcion?`<p>${esc(h.descripcion)}</p>`:""}
+    ${h.accion?`<div class="accion"><b>Acción:</b> ${esc(h.accion)}</div>`:""}
+    <div class="etiquetas">
+      ${h.tipo?`<span class="tag">${esc(h.tipo)}</span>`:""}
+      ${h.keyword?`<span class="tag">${esc(h.keyword)}</span>`:""}
+      ${Number.isFinite(h.prioridad)?`<span class="tag rel">prio ${h.prioridad}</span>`:""}
+      ${(h.rivalesQueLoCubren||[]).map(x=>`<span class="tag">${esc(nombreRival(x))}</span>`).join("")}
+    </div></article>`).join("");
+}
+
+function pintarBitacora(){
+  const b=st.estado?.bitacora||[];
+  if(!b.length){
+    $("#bitacora").innerHTML=`<div class="vacio" style="border:none;padding:24px 0;text-align:left">
+      <h3>La bitácora está vacía</h3><p>Cada barrida deja aquí lo que ha visto cada miembro del equipo y hacia dónde se mueve la competencia.</p></div>`;
+    return;
+  }
+  $("#bitacora").innerHTML=b.slice(0,40).map(e=>`<div class="entrada">
+    <div class="meta"><b>${esc(e.quien||"equipo")}</b> · ${esc(reloj(e.t))}</div>
+    <p>${esc(e.texto)}</p></div>`).join("");
+}
+
+function pintarCifras(){
+  const p7=st.pubs.filter(p=>dias(p.detectado||p.publicado)<=7).length;
+  const vig=st.rivales.filter(r=>r.estado==="vigilado").length;
+  const prop=st.rivales.filter(r=>r.estado==="propuesto").length;
+  const ame=st.pubs.filter(p=>p.amenaza==="alta"&&dias(p.detectado||p.publicado)<=30).length;
+  $("#c-pubs").firstChild.nodeValue=st.pubs.length?String(p7):"·";
+  $("#c-pubs-sub").textContent=st.pubs.length?`${st.pubs.length} guardadas en total`:"a la espera de la primera barrida";
+  $("#c-riv").firstChild.nodeValue=st.rivales.length?String(vig):"·";
+  $("#c-riv-sub").textContent=prop?`${prop} propuestos por validar`:(st.rivales.length?"todos validados":"sin cargar");
+  $("#c-hue").firstChild.nodeValue=st.huecos.length?String(st.huecos.filter(h=>h.estado!=="cerrado").length):"·";
+  $("#c-hue-sub").textContent=st.huecos.length?`${st.huecos.length} detectados en total`:"sin analizar";
+  $("#c-ame").firstChild.nodeValue=st.pubs.length?String(ame):"·";
+  $("#c-ame-sub").textContent="últimos 30 días";
+
+  const e=st.estado;
+  $("#ultima").textContent="Barrida: "+(e?.ultimaBarrida?reloj(e.ultimaBarrida):"nunca");
+  $("#proxima").textContent=e?.proximaBarrida?"Siguiente: "+reloj(e.proximaBarrida):"";
+  const pul=$("#pulso");
+  pul.textContent=st.conectado?(e?.ultimaBarrida?"En vigilancia":"Conectado, sin barridas"):"Sin conexión";
+  pul.classList.toggle("vivo",st.conectado&&!!e?.ultimaBarrida);
+  EQUIPO.forEach(a=>{
+    const d=e?.agentes?.[a.id];const el=document.querySelector(`[data-est="${a.id}"]`);
+    if(el)el.textContent=d?`${d.hallazgos??0} hallazgos · ${d.ultima?fecha(d.ultima):"sin fecha"}`:"A la espera";
+  });
+}
+function pintar(){pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarBitacora()}
+pintar();
+
+(async()=>{
+  const db=await window.claude?.use?.("db");
+  if(!db){
+    $("#pie").textContent="Esta página muestra datos en vivo solo cuando se abre desde claude.ai con la sesión iniciada. Lo que ves ahora es el estado vacío.";
+    return;
+  }
+  st.conectado=true;
+  const seguro=(f)=>(s)=>{try{f(s)}catch(err){console.error(err)}finally{pintar()}};
+  db.collection("publicaciones").orderBy("detectado","desc").limit(500)
+    .onSnapshot(seguro(s=>{st.pubs=s.docs.map(d=>({id:d.id,...d.data()}))}),()=>{st.conectado=false;pintar()});
+  db.collection("rivales").limit(100)
+    .onSnapshot(seguro(s=>{st.rivales=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99))}));
+  db.collection("huecos").orderBy("prioridad","desc").limit(200)
+    .onSnapshot(seguro(s=>{st.huecos=s.docs.map(d=>({id:d.id,...d.data()}))}));
+  db.doc("estado/magicalseo")
+    .onSnapshot(seguro(s=>{st.estado=s.exists?s.data():null}));
+})();
+</script>

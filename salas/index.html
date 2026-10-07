@@ -807,6 +807,13 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .cn-rank h4{margin:0 0 6px;font:700 13px var(--f-ui)}.cn-rank .top h4{color:#3ddc97}.cn-rank .bot h4{color:#ff8a8a}.cn-rank ol{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:#e6eaee}
 .cn-t td.cr-bar{position:relative}.cn-t td.cr-bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(129,140,248,.18)}
 @media (max-width:700px){.cn-rank{grid-template-columns:1fr}}
+.cn-e td.cn-grp{font-weight:800;text-align:left;vertical-align:middle;background:#11151b;font-size:14px}
+.cn-e td.cn-med{text-align:left;vertical-align:middle;background:#0f1318}.cn-e td.cn-sub2{text-align:left;background:#0d1015;color:#cfd5dc}
+.cn-e td.cn-sd{color:#ff6b6b}.cn-e td.cn-tg{background:#1a1f27;font-weight:700}
+.cn-e tr.cn-tot td{background:#3a3415;color:#fff3c4;font-weight:800}.cn-e tr.cn-tot td:first-child{text-align:left}
+.cn-e tr.cn-gen td{background:#40291a;color:#ffe2cc;font-weight:800}.cn-e tr.cn-gen td:first-child{text-align:left}
+.cn-e th.cn-ac{background:#c9b400;color:#111;text-align:left}
+a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.5px;padding:4px 10px}
 .as-nota{margin:10px 20px 18px;font-size:12.5px;line-height:1.5;color:var(--tenue)}
 
 /* Insights */
@@ -2654,12 +2661,58 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-jmnodo]");
   const f=e.target.closest("[data-jmfil]");if(f){st.jmFiltro=f.dataset.jmfil;pintarJourneyMapa();return}
   const ob=e.target.closest("[data-jmobj]");if(ob){st.jmObj=ob.dataset.jmobj;pintarJourneyMapa()}});
 
+const ZLINK={canales:"https://crm.zoho.com/crm/tab/Reports/2161768000878444244",asesores:"https://analytics.zoho.com/workspace/1421271000007002001/view/1421271000007786063"};
+const zBtn=k=>`<a class="btn zlink" href="${ZLINK[k]}" target="_blank" rel="noopener">Abrir informe en Zoho ↗</a>`;
 /* ===== Captación: deals, won y CR por canal (Utm_Source / Utm_Medium del módulo Deals de Zoho CRM) ===== */
+
+/* Estructura Organic / Paid acordada con dirección: cada utm_source/utm_medium cae en un medio */
+const CN_ORG=["B2B","LLAMADA","EMAIL",["RRSS",["INSTAGRAM ORG","FACEBOOK ORG","YOUTUBE ORG","TIK TOK ORG"]],"GENERATIVA","CHATBOT WEB","TRUSTPILOT","TRIPADVISOR","BLOG","MEDIOS PATROCINADOS","GOOGLE MY BUSINESS","COMUNIDAD","CAMPAIGNS","OTROS","SIN DATA"];
+const CN_PAID=["BING",["GOOGLE",["DGEN","PMAX","CPC","RMKTN","SEARCH","SIN DATA"]],["META",["META"]],"CAMINOFY","CHATGPT ADS"];
+const CN_OPC=new Set(["CHATBOT WEB","OTROS"]);
+function cnClasif(s,m){const a=(s||"").toLowerCase(),b=(m||"").toLowerCase();
+  if(a==="(sin utm)")return["ORGANIC","SIN DATA"];
+  const o={llamada:"LLAMADA",email:"EMAIL",b2b:"B2B",trustpilot:"TRUSTPILOT",tripadvisor:"TRIPADVISOR",blog_org:"BLOG",medios_patrocinados:"MEDIOS PATROCINADOS",googlemybusiness:"GOOGLE MY BUSINESS",zoho_campaigns:"CAMPAIGNS",newsletter:"CAMPAIGNS",comunidad:"COMUNIDAD",chatbot:"CHATBOT WEB"}[a];if(o)return["ORGANIC",o];
+  const r={instagram_org:"INSTAGRAM ORG",facebook_org:"FACEBOOK ORG",youtube_org:"YOUTUBE ORG",tiktok_org:"TIK TOK ORG"}[a];if(r)return["ORGANIC","RRSS",r];
+  if(["chatgpt.com","perplexity","gemini","copilot.com","claude.ai"].includes(a))return["ORGANIC","GENERATIVA"];
+  if(a==="bing")return["PAID","BING"];if(a==="caminofy")return["PAID","CAMINOFY"];if(a==="chatgpt_ads")return["PAID","CHATGPT ADS"];
+  if(a==="meta")return["PAID","META","META"];
+  if(a==="google")return["PAID","GOOGLE",{dgen:"DGEN",pmax:"PMAX",cpc:"CPC",remarketing:"RMKTN",search:"SEARCH"}[b]||"SIN DATA"];
+  return["ORGANIC","OTROS"]}
+function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={};
+  (C.filas||[]).forEach(([s,m,d,w])=>{const k=cnClasif(s,m).join("|"),x=ag[k]||(ag[k]=[0,0]);x[0]+=d;x[1]+=w;(det[k]=det[k]||[]).push(`${s} / ${m}: ${num(d)}`)});
+  const g=k=>ag[k]||[0,0],suma=ks=>ks.reduce((t,k)=>{const x=g(k);return[t[0]+x[0],t[1]+x[1]]},[0,0]);
+  const hojas=[];const arbol=(grp,L)=>L.map(it=>Array.isArray(it)?{n:it[0],subs:it[1].map(sb=>{const k=[grp,it[0],sb].join("|");hojas.push({k,n:`${grp} · ${it[0]} · ${sb}`,sd:sb==="SIN DATA"});return{n:sb,k}})}:{n:it,k:grp+"|"+it,opc:CN_OPC.has(it)}).filter(it=>{if(!it.subs)hojas.push({k:it.k,n:`${grp} · ${it.n}`,sd:it.n==="SIN DATA"});return !(it.opc&&!g(it.k)[0])});
+  const T={ORGANIC:arbol("ORGANIC",CN_ORG),PAID:arbol("PAID",CN_PAID)};
+  const fi=hojas.filter(h=>!h.sd&&g(h.k)[0]>=MIN).map(h=>({...h,d:g(h.k)[0],w:g(h.k)[1]})).sort((a,b)=>b.w/b.d-a.w/a.d);
+  const top=fi.slice(0,3),bot=fi.slice(-3).reverse(),eT=new Set(top.map(h=>h.k)),eB=new Set(bot.map(h=>h.k));
+  const col=p=>p[0]<MIN?"":p[1]/p[0]>=ref*1.15?"bueno":p[1]/p[0]<=ref*.85?"malo":"";
+  const datos=(p,k)=>`<td>${num(p[0])}</td><td>${p[0]?(p[0]/TD*100).toFixed(1).replace(".",",")+" %":""}</td><td>${num(p[1])}</td><td class="cr ${k?col(p):""}">${p[0]?pct(p[1]/p[0]):"–"}</td>`;
+  const tag=k=>eT.has(k)?`<span class="cn-tag top">mejor</span>`:eB.has(k)?`<span class="cn-tag bot">peor</span>`:"";
+  const tit=k=>det[k]?` title="${esc(det[k].join("\n"))}"`:"";
+  let h="";
+  for(const grp of ["ORGANIC","PAID"]){const L=T[grp],filas=[];
+    L.forEach(it=>{if(it.subs){const tot=it.n==="GOOGLE";it.subs.forEach((sb,i)=>filas.push(`${i===0?`<td class="cn-med" rowspan="${it.subs.length+(tot?1:0)}">${it.n}</td>`:""}<td class="cn-sub2${sb.n==="SIN DATA"?" cn-sd":""}"${tit(sb.k)}>${sb.n}${tag(sb.k)}</td>${datos(g(sb.k),sb.k)}`));
+        if(tot)filas.push(`<td class="cn-sub2 cn-tg">TOTAL GOOGLE</td>${datos(suma(it.subs.map(x=>x.k)))}`)}
+      else filas.push(`<td class="cn-med${it.n==="SIN DATA"?" cn-sd":""}" colspan="2"${tit(it.k)}>${it.n}${tag(it.k)}</td>${datos(g(it.k),it.k)}`)});
+    h+=filas.map((f,i)=>`<tr>${i===0?`<td class="cn-grp" rowspan="${filas.length}">${grp}</td>`:""}${f}</tr>`).join("");
+    const kk=Object.keys(ag).filter(k=>k.startsWith(grp+"|"));h+=`<tr class="cn-tot"><td colspan="3">TOTAL ${grp}</td>${datos(suma(kk))}</tr>`}
+  h+=`<tr class="cn-gen"><td colspan="3">TOTAL GENERAL</td>${datos([TD,TW])}</tr>`;
+  const li=a=>a.map(x=>`<li>${esc(x.n)} · <b>${pct(x.w/x.d)}</b> <small>(${num(x.w)} de ${num(x.d)})</small></li>`).join("");
+  return{rank:`<div class="cn-rank"><div class="top"><h4>Mejor convierten</h4><ol>${li(top)}</ol></div><div class="bot"><h4>Peor convierten</h4><ol>${li(bot)}</ol></div></div>`,
+   tabla:`<div class="as-tw"><table class="as-t cn-e"><thead><tr><th class="cn-ac">ACUMULADO</th><th colspan="2">MEDIO</th><th>Deals</th><th>% del total</th><th>Won</th><th>CR</th></tr></thead><tbody>${h}</tbody></table></div>`,
+   po:[suma(Object.keys(ag).filter(k=>k.startsWith("ORGANIC|"))),suma(Object.keys(ag).filter(k=>k.startsWith("PAID|")))]}}
 function pintarCanales(){const el=document.getElementById("c-captacion_canales");if(!el||st.dentro!=="captacion")return;const C=st.canales;
   if(!C){el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div><div class="vacio">Álex está leyendo los deals de Zoho.</div>`;return}
-  const V=st.cnV||(st.cnV={vista:"source",abiertos:new Set(),orden:"vol"}),MIN=C.min_deals||100;
+  const V=st.cnV||(st.cnV={vista:"grupo",abiertos:new Set(),orden:"vol"}),MIN=C.min_deals||100;
   const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."),pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %";
   const [TD,TW]=C.total,ref=TW/TD;
+  const vistas=`<div class="as-modo"><button class="btn${V.vista==="grupo"?" prim":""}" data-cnvista="grupo">Organic / Paid</button><button class="btn${V.vista==="source"?" prim":""}" data-cnvista="source">Por utm_source</button><button class="btn${V.vista==="medium"?" prim":""}" data-cnvista="medium">Por source + medium</button></div>`;
+  if(V.vista==="grupo"){const E=cnEstructura(C,num,pct,MIN),[O,P]=E.po;
+    el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2><div class="fuente-mc" style="margin-top:6px">${esc(C.fuente||"")} · ${esc(C.periodo||"")}</div></div><div class="meta">${C.actualizado?`datos del ${esc(C.actualizado)}`:""}</div></div>
+     <div class="as-ctl">${vistas}${zBtn("canales")}</div>
+     <div class="as-res"><div><b>${num(TD)}</b><span>deals · ${esc(C.periodo||"")}</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div><div><b>${pct(O[1]/O[0])}</b><span>CR organic · ${num(O[0])} deals</span></div><div><b>${pct(P[1]/P[0])}</b><span>CR paid · ${num(P[0])} deals</span></div></div>
+     ${E.rank}${E.tabla}
+     <p class="as-nota">CR = deals won / deals. Mejores y peores, solo entre medios con al menos ${MIN} deals y sin contar las filas "SIN DATA". Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pasa el ratón por una fila para ver qué utm_source / utm_medium incluye. SIN DATA en Organic son deals sin utm_source; en Google, deals con utm_source google sin medium (más display y "google"). Newsletter cuenta en CAMPAIGNS junto a zoho_campaigns; chatbot de la web y ChatGPT Ads van en filas propias. Muchos deals de 2026 siguen abiertos, así que el CR todavía subirá.</p>`;return}
   const src={};(C.filas||[]).forEach(([s,m,d,w])=>{const x=src[s]||(src[s]={d:0,w:0,m:[]});x.d+=d;x.w+=w;x.m.push([m,d,w])});
   const grupos=V.vista==="source"?Object.entries(src).map(([s,x])=>({k:s,n:s,d:x.d,w:x.w,m:x.m})):(C.filas||[]).map(([s,m,d,w])=>({k:s+"|"+m,n:s+" / "+m,d,w}));
   const fiables=grupos.filter(g=>g.d>=MIN&&!g.k.startsWith("(sin utm)")).sort((a,b)=>b.w/b.d-a.w/a.d);
@@ -2671,8 +2724,8 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   const cuerpo=lista.map(g=>fila(g)+(V.vista==="source"&&V.abiertos.has(g.k)?g.m.slice().sort((a,b)=>b[1]-a[1]).map(([m,d,w])=>fila({k:g.k+"|"+m,n:m,d,w},true)).join(""):"")).join("");
   const li=a=>a.map(g=>`<li>${esc(g.n)} · <b>${pct(g.w/g.d)}</b> <small>(${num(g.w)} de ${num(g.d)})</small></li>`).join("");
   el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2><div class="fuente-mc" style="margin-top:6px">${esc(C.fuente||"")} · ${esc(C.periodo||"")}</div></div><div class="meta">${C.actualizado?`datos del ${esc(C.actualizado)}`:""}</div></div>
-   <div class="as-ctl"><div class="as-modo"><button class="btn${V.vista==="source"?" prim":""}" data-cnvista="source">Por utm_source</button><button class="btn${V.vista==="medium"?" prim":""}" data-cnvista="medium">Por source + medium</button></div>
-    <label>Ordenar <select data-cnorden><option value="vol"${V.orden==="vol"?" selected":""}>por deals</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label></div>
+   <div class="as-ctl">${vistas}
+    <label>Ordenar <select data-cnorden><option value="vol"${V.orden==="vol"?" selected":""}>por deals</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label>${zBtn("asesores")}</div>
    <div class="as-res"><div><b>${num(TD)}</b><span>deals entrados</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div><div><b>${num(Object.keys(src).length)}</b><span>valores de utm_source</span></div></div>
    <div class="cn-rank"><div class="top"><h4>Mejor convierten</h4><ol>${li(top)}</ol></div><div class="bot"><h4>Peor convierten</h4><ol>${li(bot)}</ol></div></div>
    <div class="as-tw"><table class="as-t cn-t"><thead><tr><th class="as-n">${V.vista==="source"?"Canal (utm_source)":"utm_source / utm_medium"}</th><th>Deals</th><th>% del total</th><th>Won</th><th>CR</th></tr></thead>
@@ -2704,7 +2757,7 @@ function pintarAsesores(){const el=document.getElementById("c-comercial_asesores
   el.innerHTML=`<div class="mcab"><div><h2>Análisis por asesor</h2><div class="fuente-mc" style="margin-top:6px">${esc(A.fuente||"")}</div></div><div class="meta">${A.fecha?`actualizado ${esc(hace(A.fecha))}`:""}</div></div>
    <div class="as-ctl"><div class="as-modo"><button class="btn${V.modo==="acum"?" prim":""}" data-asmodo="acum">Acumulado</button><button class="btn${V.modo==="mes"?" prim":""}" data-asmodo="mes">Mensual</button></div>
     ${V.modo==="acum"?`<label>Desde <select data-asv="desde">${opt(V.desde)}</select></label><label>Hasta <select data-asv="hasta">${opt(V.hasta)}</select></label>`:`<label>Mes <select data-asv="mes">${opt(V.mes)}</select></label>`}
-    <label>Ordenar <select data-asv="orden"><option value="vol"${V.orden==="vol"?" selected":""}>por volumen</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label></div>
+    <label>Ordenar <select data-asv="orden"><option value="vol"${V.orden==="vol"?" selected":""}>por volumen</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label>${zBtn("canales")}</div>
    <div class="as-res"><div><b>${num(tot.T[0])}</b><span>deals · ${esc(periodo)}</span></div><div><b>${num(tot.T[1])}</b><span>ganados (DW)</span></div><div><b>${pct(cr(tot.T))}</b><span>CR del equipo</span></div>${MERC.map(k=>`<div><b>${pct(cr(tot[k]))}</b><span>CR ${k}</span></div>`).join("")}</div>
    <div class="as-tw"><table class="as-t"><thead><tr><th rowspan="2" class="as-n">Asesor</th><th colspan="3">Acumulado total</th>${MERC.map(k=>`<th colspan="3">${k}</th>`).join("")}</tr>
     <tr>${["T",...MERC].map(()=>`<th>Volumen</th><th>DW</th><th>CR</th>`).join("")}</tr></thead>

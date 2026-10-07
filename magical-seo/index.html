@@ -56,6 +56,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .pulso{display:inline-flex;align-items:center;gap:7px;color:var(--tenue);text-transform:uppercase;letter-spacing:.08em}
 .pulso::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tenue);flex:none}
 .pulso.vivo{color:var(--ways)}
+.tz{color:var(--tenue);opacity:.7;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
 .pulso.vivo::before{background:var(--ways);box-shadow:0 0 0 0 color-mix(in srgb,var(--ways) 70%,transparent);animation:late 2.4s ease-out infinite}
 @keyframes late{70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
 @media (prefers-reduced-motion:reduce){.pulso.vivo::before{animation:none}}
@@ -162,6 +163,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
       <span class="pulso" id="pulso">Sin conexión</span>
       <span id="ultima">Barrida: nunca</span>
       <span id="proxima"></span>
+      <span class="tz">hora de Canarias</span>
     </div>
   </div>
   <p>Vigilancia del contenido que publican los operadores rivales del Camino de Santiago: artículos de blog, páginas de ruta, señales de posicionamiento y los huecos que dejan abiertos.</p>
@@ -218,14 +220,24 @@ const EQUIPO=[
 const st={pubs:[],rivales:[],huecos:[],estado:null,filtro:"todas",q:"",tab:"pubs",conectado:false};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+/* Todo se guarda en UTC y se muestra en hora de Canarias, pase lo que pase
+   en el navegador de quien abra la sala. Santiago Ways opera desde ahí. */
+const TZ="Atlantic/Canary";
 const dias=iso=>{const t=Date.parse(iso);return isFinite(t)?(Date.now()-t)/864e5:Infinity};
-function fecha(iso){const t=Date.parse(iso);if(!isFinite(t))return "";
+const diaCanario=d=>{try{
+  return new Intl.DateTimeFormat("en-CA",{timeZone:TZ,year:"numeric",month:"2-digit",day:"2-digit"}).format(d);
+}catch(e){return d.toISOString().slice(0,10)}};
+function fecha(iso){
+  const t=Date.parse(iso);if(!isFinite(t))return "";
+  const ese=diaCanario(new Date(t));
+  if(ese===diaCanario(new Date()))return "hoy";
+  if(ese===diaCanario(new Date(Date.now()-864e5)))return "ayer";
   const d=dias(iso);
-  if(d<1)return "hoy";
-  if(d<2)return "ayer";
   if(d<30)return Math.floor(d)+" días";
-  return new Date(t).toLocaleDateString("es-ES",{day:"numeric",month:"short",year:"numeric"});}
-function reloj(iso){const t=Date.parse(iso);return isFinite(t)?new Date(t).toLocaleString("es-ES",{day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"}):"·"}
+  return new Date(t).toLocaleDateString("es-ES",{timeZone:TZ,day:"numeric",month:"short",year:"numeric"});}
+function reloj(iso){const t=Date.parse(iso);return isFinite(t)
+  ?new Date(t).toLocaleString("es-ES",{timeZone:TZ,day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})
+  :"·"}
 
 /* Equipo */
 $("#fichas").innerHTML=EQUIPO.map(a=>`<article class="ficha" style="--c:${a.c}" id="f-${a.id}">

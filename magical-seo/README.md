@@ -214,6 +214,10 @@ Cuando se haya resuelto, ponle `estado: "cerrado"` en vez de borrarlo. El histó
 
 Las tareas están en `~/.claude/scheduled-tasks/`. Se gestionan desde la sección de tareas programadas de la aplicación.
 
+**Horas.** Todo se guarda en UTC y la sala lo muestra en **hora de Canarias** (`Atlantic/Canary`), sea cual sea el navegador desde el que se abra. Las tareas programadas corren con la hora local de la máquina, que es la de Canarias.
+
+Cuidado al calcular la próxima barrida: Canarias es UTC+1 en verano y UTC+0 en invierno, con cambio el último domingo de octubre y el último de marzo. Las 6:06 de Canarias son las 05:06 UTC en verano y las 06:06 UTC en invierno.
+
 **Importante:** las tareas programadas corren mientras la aplicación de Claude está abierta. Si está cerrada a las 6:06, la barrida se lanza al abrirla. No se pierde, se retrasa.
 
 ---

@@ -30,7 +30,15 @@ Los datos se escriben con `ArtifactData`. Carga lo que necesitas con ToolSearch:
 
 6. **Poda.** Si `publicaciones` pasa de 600 documentos, borra las de menor `relevancia` con más de 120 días, salvo las que tengan `guardado: true`. Nunca toques los campos `guardado` ni `descartado`.
 
-7. **Cierra la barrida.** `update` de `estado/magicalseo` con su `if_version`: `ultimaBarrida` (ahora), `proximaBarrida` (+24 h), `agentes.<id>.ultima` y `agentes.<id>.hallazgos` con lo encontrado por cada uno, y añade al principio de `bitacora` entre 3 y 6 entradas nuevas `{t, quien, texto}` (máximo 40 en total) contando qué ha visto cada miembro y hacia dónde se mueve la competencia.
+7. **Cierra la barrida.** `update` de `estado/magicalseo` con su `if_version`: `ultimaBarrida` (la hora real de ahora), `proximaBarrida` (la siguiente ejecución programada: mañana a las 6:06 hora de Canarias), `agentes.<id>.ultima` y `agentes.<id>.hallazgos` con lo encontrado por cada uno, y añade al principio de `bitacora` entre 3 y 6 entradas nuevas `{t, quien, texto}` (máximo 40 en total) contando qué ha visto cada miembro y hacia dónde se mueve la competencia.
+
+## Horas
+
+Todas las marcas de tiempo se guardan **en UTC**, con la `Z` al final. La sala las convierte a **hora de Canarias** al mostrarlas.
+
+Escribe siempre la hora real de ejecución, nunca una hora redondeada ni aproximada. En un sistema que vive de evidencias fechadas, una hora inventada contamina el registro.
+
+Cuidado al calcular `proximaBarrida`: Canarias es UTC+1 en horario de verano y UTC+0 en invierno, y el cambio es el último domingo de octubre y el último de marzo. Las 6:06 de Canarias son las 05:06 UTC en verano y las 06:06 UTC en invierno. No sumes 24 horas sin más: calcula la siguiente ejecución real.
 
 Escribe siempre en lotes con `action: "batch"`, máximo 50 escrituras por lote.
 

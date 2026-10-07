@@ -799,6 +799,7 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .as-t td.vac{background:#171b21}
 .as-t td.cr.bueno{color:#3ddc97;font-weight:700}.as-t td.cr.malo{color:#ff8a8a}
 .as-t tfoot td{background:#2d5a12;color:#fff;font-weight:700;border-color:#1d3a0b}.as-t tfoot td.as-n{background:#2d5a12}
+.as-t tfoot tr.as-all td{background:#1d3a0b}
 .as-nota{margin:10px 20px 18px;font-size:12.5px;line-height:1.5;color:var(--tenue)}
 
 /* Insights */
@@ -2614,6 +2615,7 @@ function pintarAsesores(){const el=document.getElementById("c-comercial_asesores
   const recientes=new Set(F.filter(f=>f[2]>=meses[Math.max(0,meses.length-3)]).map(f=>f[0]));
   const primero={};F.forEach(f=>{primero[f[0]]=Math.min(primero[f[0]]||9e9,f[2])});
   const ag={};F.forEach(([a,m,ym,v,w])=>{if(!enRango(ym)||!recientes.has(a))return;const x=ag[a]||(ag[a]={T:[0,0]});x.T[0]+=v;x.T[1]+=w;const k=MERC.includes(m)?m:null;if(k){x[k]=x[k]||[0,0];x[k][0]+=v;x[k][1]+=w}});
+  const totAll={T:[0,0]},antiguos=new Set();F.forEach(([a,m,ym,v,w])=>{if(!enRango(ym))return;if(!recientes.has(a)&&v)antiguos.add(a);totAll.T[0]+=v;totAll.T[1]+=w;if(MERC.includes(m)){totAll[m]=totAll[m]||[0,0];totAll[m][0]+=v;totAll[m][1]+=w}});
   const tot={T:[0,0]};Object.values(ag).forEach(x=>{tot.T[0]+=x.T[0];tot.T[1]+=x.T[1];MERC.forEach(k=>{if(x[k]){tot[k]=tot[k]||[0,0];tot[k][0]+=x[k][0];tot[k][1]+=x[k][1]}})});
   const cr=p=>p&&p[0]?p[1]/p[0]:null,pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %",num=n=>n==null?"":n.toLocaleString("es-ES");
   const col=(x,ref)=>x==null||!ref?"":x>=ref*1.15?"bueno":x<=ref*.85?"malo":"";
@@ -2629,8 +2631,8 @@ function pintarAsesores(){const el=document.getElementById("c-comercial_asesores
    <div class="as-tw"><table class="as-t"><thead><tr><th rowspan="2" class="as-n">Asesor</th><th colspan="3">Acumulado total</th>${MERC.map(k=>`<th colspan="3">${k}</th>`).join("")}</tr>
     <tr>${["T",...MERC].map(()=>`<th>Volumen</th><th>DW</th><th>CR</th>`).join("")}</tr></thead>
     <tbody>${lista.map(([a,x])=>`<tr><td class="as-n${primero[a]>=meses[Math.max(0,meses.length-8)]?" as-nuevo":""}">${esc(a)}</td>${celdas(x.T,cr(tot.T))}${MERC.map(k=>celdas(x[k],cr(tot[k]))).join("")}</tr>`).join("")}</tbody>
-    <tfoot><tr><td class="as-n">Total del equipo</td>${celdas(tot.T)}${MERC.map(k=>celdas(tot[k])).join("")}</tr></tfoot></table></div>
-   <p class="as-nota">Verde: CR al menos un 15 % por encima de la media del mercado; rojo: un 15 % o más por debajo. En naranja, asesores con menos de 8 meses de datos. Solo aparecen asesores con deals en los últimos 3 meses y al menos 50 en el periodo; los mercados con menos de 20 deals se dejan en gris. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`}
+    <tfoot><tr><td class="as-n">Total del equipo actual</td>${celdas(tot.T)}${MERC.map(k=>celdas(tot[k])).join("")}</tr><tr class="as-all"><td class="as-n" title="Incluye ${antiguos.size} asesores que ya no están en el equipo">Total con antiguos asesores (${antiguos.size})</td>${celdas(totAll.T)}${MERC.map(k=>celdas(totAll[k])).join("")}</tr></tfoot></table></div>
+   <p class="as-nota">Verde: CR al menos un 15 % por encima de la media del mercado; rojo: un 15 % o más por debajo. En naranja, asesores con menos de 8 meses de datos. Solo aparecen asesores con deals en los últimos 3 meses y al menos 50 en el periodo; los mercados con menos de 20 deals se dejan en gris. La última fila suma también a los asesores que ya no están en el equipo pero tienen deals y ventas en el periodo. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-asmodo]");if(b&&st.asV){st.asV.modo=b.dataset.asmodo;pintarAsesores()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-asv]");if(!s||!st.asV)return;const k=s.dataset.asv;st.asV[k]=k==="orden"?s.value:Number(s.value);if(st.asV.desde>st.asV.hasta)[st.asV.desde,st.asV.hasta]=[st.asV.hasta,st.asV.desde];pintarAsesores()});
 

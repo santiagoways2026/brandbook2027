@@ -63,7 +63,7 @@ body[data-dentro="mdirecto"] #m-mdirecto .salir,body[data-dentro="producto"] #m-
 #chat[hidden]{display:none}
 body[data-dentro] .marco.dato{display:none!important}
 #panel{position:fixed;top:calc(56px + env(safe-area-inset-top,0px));right:0;bottom:0;width:min(760px,100vw);z-index:14;display:flex;flex-direction:column;background:var(--marco);border-left:1px solid var(--borde-2);box-shadow:-20px 0 60px rgba(0,0,0,.55)}
-#panel[hidden]{display:none}
+#panel[hidden]{display:none}#mapa{display:none!important}
 /* Lectura en portátil: texto más grande dentro del panel */
 #panel .cont{font-size:16px}
 #panel .k-c h4{font-size:17px}#panel .k-c p,#panel .prio p,#panel .aviso,#panel .cola-det,#panel .bit li{font-size:15.5px;line-height:1.5}
@@ -523,7 +523,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .capa{position:fixed;z-index:10;background:rgba(10,12,16,.92);border:1px solid var(--borde);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
 #barra{top:0;left:0;right:0;height:calc(48px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 12px 0;border-width:0 0 1px;display:flex;align-items:center;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;white-space:nowrap}
-.logo svg{flex:none}.logo-c{flex:none;width:34px;height:34px;border-radius:50%;background:#7AA606;display:grid;place-items:center;box-shadow:0 0 0 2px rgba(255,255,255,.08)}.logo-c img{width:22px;height:auto;display:block;margin-top:2px}
+.logo svg{flex:none}.logo-c{flex:none;width:34px;height:34px;border-radius:50%;background:#000;border:1px solid #2a3240;display:grid;place-items:center;box-shadow:0 0 0 2px rgba(255,255,255,.08)}.logo-c img{width:22px;height:auto;display:block;margin-top:2px}
 .ruta{color:var(--tenue);font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;min-width:0}
 .ruta b{color:var(--texto);font-weight:500}
 .centro{margin:0 auto;display:flex;gap:12px;align-items:center;font:12px/1 var(--f-mono);color:var(--tenue);white-space:nowrap}
@@ -1406,19 +1406,32 @@ function svgControl(){
   <rect x="150" y="12" width="300" height="38" rx="3" fill="#07060a" stroke="#5a4d24"/>
   <text x="164" y="28" class="pant-t" style="fill:#f5d76e">SALA DE CONTROL · FLUJO EN VIVO</text><text x="164" y="44" class="pant-n" id="pantD">conectando…</text>
   ${[0,1,2,3,4,5].map(k=>`<rect x="${392+k*8}" y="${42-((k*5)%14)}" width="5" height="${4+((k*5)%14)}" fill="#f5d76e" fill-opacity=".7"/>`).join("")}
-  <g id="cerebro" transform="translate(300 165)">
-  <ellipse rx="96" ry="66" fill="#22d3ee" fill-opacity=".05"/>
-  <rect x="-70" y="-53" width="140" height="106" rx="5" fill="#05080d" stroke="#22d3ee" stroke-opacity=".6"/>
-  <text y="-44" text-anchor="middle" font-family="Geist Mono" font-size="6" font-weight="700" fill="#22d3ee" letter-spacing="1.2">CEREBRO · TRANSFORMER</text>
-  <rect x="-44" y="-39" width="88" height="9" rx="2" fill="#0b1626" stroke="#22d3ee" stroke-opacity=".5"/><text y="-32.6" text-anchor="middle" font-family="Geist Mono" font-size="4.6" fill="#a5f3fc">SALIDA → BRIEFING Y DECISIONES</text>
-  ${[0,1,2].map(k=>{const y=-26+k*16;return`<g transform="translate(0 ${y})"><rect x="-56" y="0" width="112" height="13" rx="2" fill="#0a1018" stroke="#1f4b5c"/>
-    <rect x="-52" y="2.5" width="50" height="8" rx="1.5" fill="#102233" stroke="#22d3ee" stroke-opacity=".45"/>${[0,1,2,3].map(h=>`<rect x="${-50+h*12}" y="4.5" width="9" height="4" rx="1" fill="${["#22d3ee","#f5d76e","#3ddc97","#c084fc"][h]}" class="glow" style="animation-delay:-${((k*4+h)*.23).toFixed(2)}s"/>`).join("")}
-    <rect x="2" y="2.5" width="50" height="8" rx="1.5" fill="#1a1608" stroke="#f5d76e" stroke-opacity=".45"/><text x="27" y="8.3" text-anchor="middle" font-family="Geist Mono" font-size="4.2" fill="#f5d76e">FEED FORWARD</text>
-    <path d="M58 1 C64 1 64 12 58 12" fill="none" stroke="#22d3ee" stroke-opacity=".5" stroke-width=".8"/></g>`}).join("")}
-  <text x="-66" y="-35" font-family="Geist Mono" font-size="4.6" fill="#22d3ee" opacity=".8">×12</text>
-  <text x="-27" y="26" text-anchor="middle" font-family="Geist Mono" font-size="3.8" fill="#67e8f9">MULTI-HEAD ATTENTION</text>
-  ${["RAD","COM","CMP","DIS","SEO","PAI","MKD","PRO","CML"].map((t,i)=>{const x=-52+i*13,c=["#3d7bff","#c084fc","#ff6b3d","#7AA606","#2dd4bf","#f472b6","#38bdf8","#fdba74","#818cf8"][i];return`<rect x="${x-5}" y="30" width="10" height="7" rx="1.2" fill="${c}" fill-opacity=".85"/><text x="${x}" y="43" text-anchor="middle" font-family="Geist Mono" font-size="3.4" fill="#7c8a99">${t}</text>${quieto?"":`<circle r="1.4" fill="${c}"><animateMotion dur="${(2.2+i*.17).toFixed(2)}s" begin="-${(i*.31).toFixed(2)}s" repeatCount="indefinite" path="M${x} 30 C${x} 10 ${(x/3).toFixed(1)} -10 0 -30"/></circle>`}`}).join("")}
-  <text y="50" text-anchor="middle" font-family="Geist Mono" font-size="4.2" fill="#22d3ee" id="pantC">PROCESANDO…</text>
+  <g id="cerebro" transform="translate(300 163)">
+   <defs><radialGradient id="haloK"><stop offset="0" stop-color="#7AA606" stop-opacity=".35"/><stop offset="1" stop-color="#7AA606" stop-opacity="0"/></radialGradient>
+   <linearGradient id="chapaK" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#9fd11a"/><stop offset="1" stop-color="#5f8a05"/></linearGradient>
+   <linearGradient id="chapaK2" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2f4410"/><stop offset="1" stop-color="#1a2608"/></linearGradient></defs>
+   <ellipse rx="92" ry="70" fill="url(#haloK)"/>
+   <ellipse cy="60" rx="62" ry="7" fill="#000" opacity=".45"/>
+   <ellipse cy="60" rx="58" ry="5.5" fill="none" stroke="#7AA606" stroke-opacity=".6" stroke-dasharray="3 3">${quieto?"":`<animate attributeName="stroke-dashoffset" values="0;12" dur="1.6s" repeatCount="indefinite"/>`}</ellipse>
+   <g stroke="#0a0f05" stroke-width="1.3" stroke-linejoin="round">
+    <path d="M-15 -60V-46H-11M15 -60V-46H11" fill="none" stroke="#7AA606" stroke-width="2.4"/>
+    <circle cx="-15" cy="-61" r="2" fill="#f5d76e" stroke="none">${quieto?"":`<animate attributeName="opacity" values="1;.2;1" dur="1.4s" repeatCount="indefinite"/>`}</circle><circle cx="15" cy="-61" r="2" fill="#f5d76e" stroke="none">${quieto?"":`<animate attributeName="opacity" values=".2;1;.2" dur="1.4s" repeatCount="indefinite"/>`}</circle>
+    <path d="M-11 -50H11L13 -37L7 -31H-7L-13 -37Z" fill="url(#chapaK)"/>
+    <rect x="-9" y="-44" width="18" height="4.5" rx="1" fill="#eaffb0" stroke="none" filter="url(#brilloD)">${quieto?"":`<animate attributeName="opacity" values="1;.55;1" dur="2.2s" repeatCount="indefinite"/>`}</rect>
+    <path d="M-56 -30H-30L-22 -24V2L-52 5L-58 -22Z" fill="url(#chapaK)"/><path d="M56 -30H30L22 -24V2L52 5L58 -22Z" fill="url(#chapaK)"/>
+    <path d="M-25 -28H-9L0 -19L9 -28H25L29 -6L11 6L7 20H-7L-11 6L-29 -6Z" fill="url(#chapaK)"/>
+    <path d="M-18 -20L-6 -13H6L18 -20L20 -8L6 -1H-6L-20 -8Z" fill="url(#chapaK2)"/>
+    <path d="M-19 8H19L15 26L0 34L-15 26Z" fill="url(#chapaK2)"/>
+    <path d="M-59 7L-41 4L-37 31L-55 34Z" fill="url(#chapaK2)"/><path d="M59 7L41 4L37 31L55 34Z" fill="url(#chapaK2)"/>
+    <path d="M-62 34L-39 32L-37 41L-49 46L-58 43Z" fill="url(#chapaK)"/><path d="M62 34L39 32L37 41L49 46L58 43Z" fill="url(#chapaK)"/>
+    <path d="M-25 28H-8V57H-27Z" fill="url(#chapaK)"/><path d="M25 28H8V57H27Z" fill="url(#chapaK)"/>
+    <path d="M-30 36V53M30 36V53" stroke="#7AA606" stroke-width="2.2"/>
+   </g>
+   <g transform="translate(0 -7)"><circle r="8.5" fill="#0d1405" stroke="#f5d76e" stroke-width="1"/>
+    <g stroke="#fff" stroke-width="1.2" stroke-linecap="round">${[-60,-35,-12,12,35,60].map(g=>`<path d="M0 4 L${(Math.sin(g*Math.PI/180)*6).toFixed(2)} ${(4-Math.cos(g*Math.PI/180)*9).toFixed(2)}"/>`).join("")}</g>
+    <circle r="11" fill="none" stroke="#9fd11a" stroke-opacity=".7">${quieto?"":`<animate attributeName="r" values="9;15;9" dur="2.6s" repeatCount="indefinite"/><animate attributeName="stroke-opacity" values=".8;0;.8" dur="2.6s" repeatCount="indefinite"/>`}</circle></g>
+   ${["RAD","IG","YT","CMP","DIS","SEO","PAI","MKD","CML"].map((t,i)=>{const x=-48+i*12,c=["#3d7bff","#e1306c","#ff4d4d","#ff6b3d","#7AA606","#2dd4bf","#f472b6","#38bdf8","#818cf8"][i],du=(3+i*.37).toFixed(2),be=(i*.41).toFixed(2);return`<circle cx="${x}" cy="60" r="2.2" fill="${c}">${quieto?"":`<animate attributeName="cy" values="60;-7;60" dur="${du}s" begin="-${be}s" repeatCount="indefinite"/><animate attributeName="cx" values="${x};0;${x}" dur="${du}s" begin="-${be}s" repeatCount="indefinite"/><animate attributeName="opacity" values="1;0;1" dur="${du}s" begin="-${be}s" repeatCount="indefinite"/>`}</circle>`}).join("")}
+   <title>Cerebro de Santiago Ways</title>
   </g>
   <rect x="514" y="70" width="70" height="150" rx="3" fill="#0d0c09" stroke="#3a3420"/>
   <path d="M522 200 L536 180 L550 186 L564 150 L578 130" fill="none" stroke="#3ddc97" stroke-width="1.5"/>
@@ -1436,7 +1449,7 @@ function pintarControl(){
   set("ctrlN",`${abiertas.length} decisiones abiertas`);set("ctrlUlt",e.ultimaRevision?`Última revisión ${hace(e.ultimaRevision)}`:"");
   set("pantD",`${st.items.filter(i=>!i.descartado).length} hallazgos · ${st.cambios.length} alertas · ${abiertas.length} decisiones`);
   const v=document.getElementById("vivoCtrl");if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
-  const K=C.cerebro;set("pantC",K?`${fmtK(K.procesado?.documentos||0)} DATOS`:"PROCESANDO…");
+  const K=C.cerebro;set("pantK",K?`${fmtK(K.procesado?.documentos||0)} DATOS`:"PROCESANDO…");
   if(st.dentro!=="control")return;
   pintarCerebro();
   const b=C.briefing;
@@ -2461,7 +2474,7 @@ function pintarDatos(){
         ${i.url?`<a class="btn prim" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">Ver el post ↗</a>`:""}</div></article>`}).join("")}</div>
     ${vir.length>3?`<div class="seccion-t">En cola</div><div class="cola">${vir.slice(3,3+(st.colaLim||12)).map((i,k)=>{const p=PLAT[i.plataforma]||{n:i.plataforma,c:"#7f8a99"};const m=i.metricas||{},[n,l]=cifra(i);
       return`<details class="cola-it" data-cola="${esc(i.id)}"${st.colaAb===i.id?" open":""}><summary><span class="n">#${k+4}</span><span class="plat" style="--c:${p.c}">${esc(p.n)}</span><span class="t">${esc(corta(i.titulo,110))}</span><b>${esc(n)}<small>${esc(l==="interacciones"?"interac.":l==="visualizaciones"?"vistas":"buzz")}</small></b></summary>
-        <div class="cola-det">${previewPost(i,p,true)}${i.resumen?`<p>${esc(i.resumen)}</p>`:""}
+        <div class="cola-det">${i.resumen?`<p>${esc(i.resumen)}</p>`:""}
           <div class="desg">${esc(MET.filter(([key])=>fmt(m[key])).map(([key,l])=>`${fmt(m[key])} ${l.toLowerCase()}`).join(" · "))||"Sin métricas todavía"}</div>
           ${i.porque?`<p><b>Por qué funciona:</b> ${esc(i.porque)}</p>`:""}
           <div class="cola-acc">${i.url?`<a class="btn prim" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener">Ver el post ↗</a>`:""}<button class="btn" type="button" data-coladet="${esc(i.id)}">Ficha completa</button></div>
@@ -2591,7 +2604,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   st.dl=await window.claude?.use?.("downloads");
   if(!db){$("#barrida").textContent="Abre esta página desde claude.ai para verla en vivo.";return}
   st.db=db;
-  db.collection("radar_prev").limit(500).onSnapshot(s=>{st.prev={};s.forEach(d=>{const x=d.data();if(x?.img)st.prev[d.id]=x.img});if(st.dentro==="radar")pintarDatos()});
+  db.collection("radar_prev").limit(500).onSnapshot(s=>{st.prev={};(s.docs||[]).forEach(d=>{const x=d.data();if(x?.img)st.prev[d.id]=x.img});if(st.dentro==="radar")pintarDatos()});
   db.collection("radar").orderBy("detectado","desc").limit(600).onSnapshot(s=>{
     st.conectado=true;st.items=s.docs.map(d=>({id:d.id,...d.data()}));
     if(document.activeElement?.id!=="q")pintarDatos();

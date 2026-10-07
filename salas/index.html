@@ -59,7 +59,7 @@ body[data-dentro="radar"] #m-radar .salir,body[data-dentro="competencia"] #m-com
 body[data-dentro="mdirecto"] #m-mdirecto,body[data-dentro="producto"] #m-producto,body[data-dentro="comercial"] #m-comercial{cursor:inherit}
 body[data-dentro="mdirecto"] #m-mdirecto .entrar-pista,body[data-dentro="producto"] #m-producto .entrar-pista,body[data-dentro="comercial"] #m-comercial .entrar-pista{display:none}
 body[data-dentro="mdirecto"] #m-mdirecto .salir,body[data-dentro="producto"] #m-producto .salir,body[data-dentro="comercial"] #m-comercial .salir{display:inline-flex}
-#m-mdirecto{border-color:#18384a}#m-producto{border-color:#4a3418}#m-comercial{border-color:#2b2b55}
+#m-youtube{cursor:pointer;border-color:#4a1a1a}body[data-dentro="youtube"] #m-youtube{cursor:inherit}body[data-dentro="youtube"] #m-youtube .entrar-pista{display:none}body[data-dentro="youtube"] #m-youtube .salir{display:inline-flex}#m-mdirecto{border-color:#18384a}#m-producto{border-color:#4a3418}#m-comercial{border-color:#2b2b55}
 #chat[hidden]{display:none}
 body[data-dentro] .marco.dato{display:none!important}
 #panel{position:fixed;top:calc(56px + env(safe-area-inset-top,0px));right:0;bottom:0;width:min(760px,100vw);z-index:14;display:flex;flex-direction:column;background:var(--marco);border-left:1px solid var(--borde-2);box-shadow:-20px 0 60px rgba(0,0,0,.55)}
@@ -610,6 +610,11 @@ const MARCOS=[
   {id:"i_radar",grupo:"radar",dato:true,nombre:"Radar Viral / Instagram EN",x:-5000,y:-3000,w:1300},
   {id:"i_comunidad",grupo:"comunidad",dato:true,nombre:"Comunidad / Instagram EN",x:-3500,y:-3000,w:1300},
   {id:"i_competencia",grupo:"competencia",dato:true,nombre:"Competencia / Instagram EN",x:-2000,y:-3000,w:1300},
+  {id:"youtube",grupo:"youtube",nombre:"YouTube / Sala",x:2950,y:-500,w:1200},
+  {id:"youtube_audit",grupo:"youtube",dato:true,nombre:"YouTube / Auditoría de canales y errores",x:2950,y:-9000,w:1300},
+  {id:"youtube_hub",grupo:"youtube",dato:true,nombre:"YouTube / Estrategia Hub & Spoke",x:4400,y:-9000,w:1300},
+  {id:"youtube_mision",grupo:"youtube",dato:true,nombre:"YouTube / Misión, equipo y fuentes",x:5800,y:-9000,w:1300},
+  {id:"youtube_datos",grupo:"youtube",dato:true,nombre:"YouTube / Lo que ya sabemos",x:7200,y:-9000,w:1300},
   {id:"mdirecto_wf",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Workflows del CRM y plantillas",x:2600,y:7200,w:1300},
   {id:"mdirecto_datos",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Lo que ya sabemos",x:2600,y:5600,w:1300},
   {id:"g_mdirecto",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Google Analytics 4",x:2600,y:6400,w:1300},
@@ -623,7 +628,7 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
 ];
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
-const SALAS_ACT={diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar","i_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
+const SALAS_ACT={youtube:["youtube","youtube_audit","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar","i_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 const PASILLOS_DEF=[
   {id:"pa5",d:"M150 156 V1500",c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:210,ly:620},
@@ -638,6 +643,8 @@ const PASILLOS_DEF=[
   {id:"pa15",d:"M1200 1900 H3600 V2600 H4300",c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:2300,ly:1860},
   {id:"pa8",d:"M0 1700 H-2600",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2560,ly:1660},
   {id:"pa9",d:"M-2600 1960 H0",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2560,ly:2030},
+  {id:"pa20",d:"M2150 -140 H2950",c:"#ff4d4d",txt:"Comentarios ↔ YouTube",sub:"comunidad.preguntas · youtube.comentarios",lx:2190,ly:-195},
+  {id:"pa21",d:"M3950 156 V600 H4900 V900",c:"#ff4d4d",txt:"YouTube ↔ SEO y Control",sub:"youtube.analisis · busquedas · hub & spoke",lx:4010,ly:420},
   {id:"pa16",d:"M1200 2080 H2000 V4900 H6600",c:"#818cf8",txt:"Brazo comercial ↔ Control",sub:"marketing directo · producto · comercial",lx:2060,ly:3200},
   {id:"pa17",d:"M3200 4900 V4656",c:"#38bdf8",txt:"",sub:"",lx:0,ly:0},
   {id:"pa18",d:"M4900 4900 V4656",c:"#fdba74",txt:"",sub:"",lx:0,ly:0},
@@ -704,7 +711,7 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   if(!m.dato&&st.dentro&&!SALAS_ACT[st.dentro].includes(id))salir(false);
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
-const SALA_TIT={radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+const SALA_TIT={youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
 function abrirPanel(sala,foco){
   const pn=$("#panel"),mods=$("#pnMods");
   devolverModulos();
@@ -828,7 +835,7 @@ function construir(){
          <div class="grupo-titulo" style="left:0;top:3670px;font-size:56px">Competencia<small><span class="ok">● Sala activa</span> · 6 investigadores · webs, precios, noticias, redes y alianzas</small></div>
          <div class="grupo-titulo" style="left:950px;top:-730px;font-size:56px;color:#d8b4fe">Comunidad<small><span class="ok">● Activa</span> · 6 especialistas · comentarios, preguntas e interacción</small></div>
          <div class="grupo-titulo" style="left:4300px;top:670px;color:#5eead4;font-size:56px">SEO<small><span class="ok">● Activa</span> · 6 especialistas · auditoría, palabras clave y analítica</small></div>
-         <div class="grupo-titulo" style="left:4300px;top:2070px;color:#f9a8d4;font-size:56px">Paid Media<small><span class="ok">● Activa</span> · 7 especialistas · Meta Ads y Google Ads</small></div>`+SALAS_N.map(S=>`<div class="grupo-titulo" style="left:${MARCOS.find(m=>m.id===S.id).x}px;top:3770px;font-size:56px;color:${S.color}">${esc(S.nombre)}<small><span class="ok">● Nueva</span> · 6 especialistas · ${esc(S.sub)}</small></div>`).join("");
+         <div class="grupo-titulo" style="left:4300px;top:2070px;color:#f9a8d4;font-size:56px">Paid Media<small><span class="ok">● Activa</span> · 7 especialistas · Meta Ads y Google Ads</small></div>`+SALAS_N.map(S=>`<div class="grupo-titulo" style="left:${MARCOS.find(m=>m.id===S.id).x}px;top:${MARCOS.find(m=>m.id===S.id).y-230}px;font-size:56px;color:${S.color}">${esc(S.nombre)}<small><span class="ok">● Nueva</span> · 6 especialistas · ${esc(S.sub)}</small></div>`).join("");
   for(const m of MARCOS){
     h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
   }
@@ -872,7 +879,7 @@ function svgPasillos(){
       d+=`<g><rect x="-11" y="-4" width="22" height="8" rx="2" fill="${col}" filter="url(#brilloP)"/><animateMotion dur="${dur}s" begin="-${(k*dur/N).toFixed(2)}s" repeatCount="indefinite" rotate="auto"${p.inv?' keyPoints="1;0" keyTimes="0;1" calcMode="linear"':""}><mpath href="#${p.id}"/></animateMotion></g>`}}
   }
   // nodos en los giros
-  const nodos=[[350,1000],[-350,1000],[1550,1100],[1000,1100],[1150,1300],[1850,1300],[3600,1600],[3600,1230],[3600,1900],[3600,2600],[2000,2080],[2000,4900],[3200,4900],[4900,4900]];
+  const nodos=[[350,1000],[-350,1000],[1550,1100],[1000,1100],[1150,1300],[1850,1300],[3600,1600],[3600,1230],[3600,1900],[3600,2600],[2000,2080],[2000,4900],[3200,4900],[4900,4900],[3950,600],[4900,600]];
   for(const[x,y]of nodos)d+=`<rect x="${x-14}" y="${y-14}" width="28" height="28" fill="#05070a" stroke="#3d7bff" stroke-width="2"/><rect x="${x-4}" y="${y-4}" width="8" height="8" fill="#3d7bff" filter="url(#brilloP)"/>`;
   return d+`</svg>`;
 }
@@ -1209,7 +1216,7 @@ function svgControl(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-const SALA_N={radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
+const SALA_N={youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
 function pintarControl(){
   const C=st.ctrl,e=C.estado||{},set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
   const abiertas=C.decisiones.filter(d=>d.estado==="propuesta"||d.estado==="aprobada");
@@ -1717,6 +1724,22 @@ const SALAS_N=[
   tareas:["Conectar Zoho CRM: ventas por canal, mercado, ruta y agente","Embudo semanal por mercado con objetivos","Previsión de ventas 2027 por mes y mercado","Atribución de ventas cruzando Google, Meta, GA4 y CRM"],
   sug:["¿Qué mercado nos deja más margen por venta?","¿Dónde se cae el embudo?","¿Cuánto venderemos en 2027?"]}
 ];
+SALAS_N.unshift({id:"youtube",nombre:"YouTube",tit:"YouTube · SEO, Hub & Spoke y algoritmo",color:"#ff4d4d",fondo:"#0c0505",borde:"#4a1a1a",lider:"Iker",pant:"@santiago_ways · @Santiagoways-EN",
+  sub:"SEO en YouTube, suscriptores y presupuestos",
+  equipo:[{id:"jefe",n:"Iker",rol:"Jefe de YouTube: estrategia Hub & Spoke y crecimiento de los dos canales; reporta a la Sala de Control",c:"#ff4d4d"},
+   {id:"seo",n:"Noa",rol:"SEO en YouTube: búsquedas, títulos, descripciones, capítulos y listas",c:"#2dd4bf"},
+   {id:"datos",n:"Saúl",rol:"Analítica: retención, CTR, fuentes de tráfico y suscriptores por perfil",c:"#3d7bff"},
+   {id:"mini",n:"Maite",rol:"Miniaturas y packaging: CTR y tests A/B",c:"#f5d76e"},
+   {id:"coment",n:"Darío",rol:"Comentarios y comunidad: preguntas, fijados y respuesta en la primera hora",c:"#c084fc"},
+   {id:"conv",n:"Elsa",rol:"Conversión: de vídeo a presupuesto (enlaces con UTM, tarjetas, pantallas finales)",c:"#3ddc97"},
+   {id:"merc",n:"Raquel",rol:"Mercados e idiomas: canal ES, canal EN y oportunidades DE, IT y PT",c:"#fb923c"}].slice(0,6),
+  frases:{jefe:["Un hub por ruta y los spokes alrededor","Esto va a la Sala de Control","Suscriptores que pidan presupuesto"],seo:["¿Qué se busca de verdad?","El título tiene que responder a la búsqueda","Capítulos en todos los vídeos largos"],datos:["¿Dónde se van en los primeros 30 s?","CTR de miniatura por debajo de la media","¿De dónde vienen las vistas?"],mini:["Una idea por miniatura","Test A/B de la portada","Cara y texto grande"],coment:["Pregunta cerrada en el fijado","Responder en la primera hora","Palabra clave en comentarios"],conv:["Enlace con UTM en la primera línea","Pantalla final a la ruta","157 sesiones en un año: hay que abrir el grifo"]},
+  mision:"Hacer de YouTube un canal de demanda: posicionar los vídeos en lo que la gente busca sobre el Camino, ganar suscriptores en el canal español y en el inglés con una estrategia Hub & Spoke, generar conversación en comentarios y convertir vistas en solicitudes de presupuesto.",
+  objetivos:["Un hub por ruta y tema clave, con sus spokes y listas de reproducción","Títulos, miniaturas y descripciones optimizados para búsqueda","Más suscriptores en @santiago_ways y @Santiagoways-EN","Más comentarios por vídeo con mecánicas claras","Más presupuestos desde YouTube, medidos en GA4 con UTM"],
+  fuentes:[["Metricool (YouTube)","Conectado: vídeos, vistas, suscriptores",true],["Google Analytics 4","Conectado: sesiones y leads desde YouTube",true],["Google Ads","Conectado vía Paid Media: vistas de seguimiento y suscripciones",true],["YouTube Studio","Pendiente: retención y CTR de miniatura por vídeo (YouTube Analytics)",false],["Semrush","Pendiente de unidades de API para volumen de búsqueda",false]],
+  saber:["GA4: YouTube trajo solo 157 sesiones a la web en 12 meses; las redes en general llevan muy poco tráfico y casi ningún presupuesto.","Instagram EN: lo que más funciona son las rutas concretas (Sarria, Portugués, Francés) y los consejos prácticos que se guardan; los reels que responden una duda de búsqueda («What is the Camino», «How long») superan las 2.000 vistas.","Comunidad: la audiencia EN es mayoritariamente de 45 años o más y pregunta por fechas, alojamiento, rutas y dificultad.","Google Ads cuenta vistas de seguimiento y suscripciones de YouTube como acciones secundarias."],
+  tareas:["Auditar los dos canales: títulos, miniaturas, descripciones, listas y enlaces","Investigar búsquedas y competencia en YouTube ES y EN","Definir los hubs y sus spokes","Enlaces con UTM y comentario fijado en todos los vídeos"],
+  sug:["¿Qué hub grabaríais primero?","¿Qué errores tienen nuestros vídeos?","¿Cómo conseguimos más presupuestos desde YouTube?"]});
 SALAS_N.forEach(S=>S.puestos=Object.fromEntries(S.equipo.map((a,i)=>[a.id,PUESTOS_N[i]])));
 const salaN=id=>SALAS_N.find(s=>s.id===id);
 function fraseRealN(S,p){const b=(st.salasN?.[S.id]?.estado?.bitacora||[]).filter(x=>x.quien===p.a.n);if(b.length&&Math.random()<.4)return corta(b[0].texto,90);return Math.random()<.3?corta(azar(S.saber),90):azar(S.frases[p.a.id])}
@@ -1770,7 +1793,28 @@ function pintarWorkflows(){
 }
 function pintarPeticionesDiseno(){const el=document.getElementById("c-d_pet");if(!el||st.dentro!=="diseno")return;
   el.innerHTML=`<div class="mcab"><div><h2>Peticiones de otras salas</h2><div class="fuente-mc" style="margin-top:6px">Encargos que llegan al estudio · Paula los asigna</div></div></div>${htmlPeticiones((st.peticiones||[]).filter(x=>x.para==="diseno"),"para")}`}
-function pintarSalasN(){pintarWorkflows();
+function pintarYouTube(){
+  if(st.dentro!=="youtube")return;const A=st.yt,li=(arr,f)=>`<ol class="prios">${arr.map(f).join("")}</ol>`,GRV={alta:"#ff6b3d",media:"#f5d76e",baja:"#8fb3ff"};
+  const tab=(cols,filas)=>`<div class="mc-sec"><table class="tabla"><thead><tr>${cols.map((c,i)=>`<th${i?"":` style="text-align:left"`}>${esc(c)}</th>`).join("")}</tr></thead><tbody>${filas.map(f=>`<tr>${f.map((c,i)=>`<td${i?"":` style="text-align:left;white-space:normal"`}>${esc(c??"")}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const a=document.getElementById("c-youtube_audit"),h=document.getElementById("c-youtube_hub");
+  if(a)a.innerHTML=`<div class="mcab"><div><h2>Auditoría de canales y errores</h2><div class="fuente-mc" style="margin-top:6px">Metricool, GA4, búsquedas y mercado · todo pasa por la Sala de Control</div></div><div class="meta">${A?.fecha?`actualizada ${esc(hace(A.fecha))}`:""}</div></div>
+   ${A?`<div style="padding:12px 20px 0">${selloControl(A.control)}</div>${A.resumen?`<p style="padding:12px 20px 0;margin:0;font-size:15px;line-height:1.55;color:#e6eaee">${esc(A.resumen)}</p>`:""}
+   ${(A.kpis||[]).length?`<div class="k-grid" style="grid-template-columns:repeat(4,minmax(0,1fr))">${A.kpis.map(k=>`<div class="k-c"><div class="k-num" style="color:#ff4d4d;font-size:18px;line-height:1.3">${esc(k.valor)}</div><p>${esc(k.nombre)}</p></div>`).join("")}</div>`:""}
+   ${(A.errores||[]).length?`<div class="seccion-t">Errores</div>${li(A.errores,x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.titulo)} <span class="k-tag" style="background:${GRV[x.gravedad]||"#555"}22;color:${GRV[x.gravedad]||"#ccc"}">${esc(x.gravedad||"")}</span></p><p style="margin-top:4px">${esc(x.detalle||"")}</p>${x.quien?`<p style="margin-top:4px;font:500 11px/1.3 var(--f-mono);color:var(--tenue)">${esc(x.quien)}</p>`:""}</div></li>`)}`:""}
+   ${(A.canales||[]).map(c=>`<div class="seccion-t">${esc(c.canal)}${c.suscriptores!=null?` · ${esc(c.suscriptores)} suscriptores`:""}</div>${(c.mejores||[]).length?tab(["Vídeo","Fecha","Vistas","Likes","Comentarios"],c.mejores.map(v=>[v.titulo,v.fecha,v.vistas,v.likes,v.comentarios])):""}${c.notas?`<p style="padding:0 20px;margin:6px 0 0;font-size:13px;color:var(--tenue)">${esc(c.notas)}</p>`:""}`).join("")}
+   ${(A.mercado||[]).length?`<div class="seccion-t">Mercado: qué funciona en YouTube</div>${tab(["Canal","Idioma","Métrica","Formato que funciona"],A.mercado.map(m=>[m.canal,m.idioma,m.suscriptores_o_vistas,m.formato_que_funciona]))}`:""}
+   ${(A.busquedas||[]).length?`<div class="seccion-t">Búsquedas</div>${tab(["Consulta","Idioma","Intención","Fuente"],A.busquedas.map(b=>[b.consulta,b.idioma,b.intencion,b.fuente]))}`:""}
+   ${(A.limitaciones||[]).length||A.limitaciones?`<div class="k-aviso">${esc(Array.isArray(A.limitaciones)?A.limitaciones.join(" · "):A.limitaciones)}</div>`:""}`:`<div class="vacio">Iker y el equipo están auditando los dos canales.</div>`}`;
+  if(h){const H=A?.hub_spoke;h.innerHTML=`<div class="mcab"><div><h2>Estrategia Hub & Spoke</h2><div class="fuente-mc" style="margin-top:6px">Hubs por ruta y tema, vídeos satélite, listas y destino con UTM</div></div></div>
+   ${A?`${H?.explicacion?`<p style="padding:12px 20px 0;margin:0;font-size:15px;line-height:1.55;color:#e6eaee">${esc(H.explicacion)}</p>`:""}
+   ${(H?.hubs||[]).map(x=>`<div class="k-c" style="margin:12px 20px 0;border-left:3px solid #ff4d4d"><h4>${esc(x.titulo_propuesto)} <span class="k-tag">${esc(x.idioma||"")}</span></h4><p style="font:500 12px/1.4 var(--f-mono);color:#ffb3b3">${esc(x.keyword_principal||"")}${x.volumen_o_evidencia?" · "+esc(x.volumen_o_evidencia):""}</p><ul style="margin:6px 0 0;padding-left:16px;display:grid;gap:3px">${(x.spokes||[]).map(t=>`<li style="font-size:13px;color:#d6dbe1">${esc(t)}</li>`).join("")}</ul>${x.lista_reproduccion?`<p style="margin-top:6px;font-size:12.5px;color:var(--tenue)">Lista: ${esc(x.lista_reproduccion)}</p>`:""}${x.enlace_destino?`<p style="margin-top:4px;font:500 11.5px/1.4 var(--f-mono);color:#b5dd4a;word-break:break-all">${esc(x.enlace_destino)}</p>`:""}</div>`).join("")}
+   ${(A.algoritmo||[]).length?`<div class="seccion-t">Cómo trabajar el algoritmo</div>${li(A.algoritmo,x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.tactica)}</p><p style="margin-top:4px">${esc(x.como||"")}</p>${x.kpi?`<p style="margin-top:4px;font:500 11px/1.3 var(--f-mono);color:var(--tenue)">KPI: ${esc(x.kpi)}</p>`:""}</div></li>`)}`:""}
+   ${(A.suscriptores||[]).length?`<div class="seccion-t">Suscriptores por perfil</div>${li(A.suscriptores,x=>`<li class="prio"><div><p style="color:#f1f3f5;font-weight:600">${esc(x.canal)}${x.objetivo_12_meses?" · objetivo: "+esc(x.objetivo_12_meses):""}</p><p style="margin-top:4px">${esc(Array.isArray(x.palancas)?x.palancas.join("; "):x.palancas||"")}</p></div></li>`)}`:""}
+   ${(A.comentarios||[]).length?`<div class="seccion-t">Generar comentarios</div>${li(A.comentarios,x=>`<li class="prio"><div><p>${esc(typeof x==="string"?x:(x.mecanica||x.titulo||"")+(x.ejemplo?": "+x.ejemplo:"")+(x.como?": "+x.como:""))}</p></div></li>`)}`:""}
+   ${A.presupuestos?`<div class="seccion-t">De vistas a presupuestos</div>${li(Array.isArray(A.presupuestos)?A.presupuestos:Object.entries(A.presupuestos).map(([k,v])=>k+": "+(typeof v==="string"?v:JSON.stringify(v))),x=>`<li class="prio"><div><p>${esc(typeof x==="string"?x:(x.accion||x.titulo||x.paso||"")+(x.detalle?": "+x.detalle:"")+(x.como?": "+x.como:""))}</p></div></li>`)}`:""}
+   ${(A.plan_30_dias||[]).length?`<div class="seccion-t">Plan de 30 días</div>${tab(["Semana","Tarea","Quién"],A.plan_30_dias.map(x=>[x.semana,x.tarea,x.quien]))}`:""}`:`<div class="vacio">El equipo está definiendo los hubs.</div>`}`}
+}
+function pintarSalasN(){pintarYouTube();pintarWorkflows();
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -1932,6 +1976,7 @@ function contextoSala(s){
   const C=st.ctrl,base={briefingControl:C.briefing?{titular:C.briefing.titular,prioridades:(C.briefing.prioridades||[]).filter(p=>p.sala===s||p.sala==="global").map(p=>p.titulo+": "+(p.porque||""))}:null,directricesDeControl:C.directrices?.[s]?{resumen:C.directrices[s].resumen,foco:C.directrices[s].foco}:"sin directrices específicas todavía"};
   const compartido=s==="radar"?{deComunidad:st.com.analisis?{preguntas:(st.com.analisis.preguntas||[]).slice(0,10).map(p=>p.tema+": "+p.que),queGeneraComentarios:(st.com.analisis.porFormato||[]).slice(0,5).map(x=>x.tipo+" ("+x.media+" coment./post)")}:null}:s==="comunidad"?{delRadar:activos().slice().sort((a,b)=>(b.buzz||0)-(a.buzz||0)).slice(0,10).map(i=>({titulo:i.titulo,plataforma:i.plataforma,mercado:mercadoDe(i),metricas:i.metricas||null}))}:{};
   Object.assign(base,compartido);
+  if(s==="youtube"&&st.yt)base.auditoriaYouTube={resumen:st.yt.resumen,kpis:st.yt.kpis,errores:st.yt.errores,hubs:st.yt.hub_spoke?.hubs,algoritmo:st.yt.algoritmo,presupuestos:st.yt.presupuestos,plan:st.yt.plan_30_dias};
   if(s==="mdirecto"&&st.mkd)base.workflowsCRM={resumen:st.mkd.resumen,kpis:st.mkd.kpis,hallazgos:(st.mkd.hallazgos||[]).map(h=>h.titulo+": "+h.detalle),recomendaciones:(st.mkd.recomendaciones||[]).map(h=>h.titulo+": "+h.detalle),plantillas:(st.mkd.plantillas||[]).map(t=>({nombre:t.nombre,cuando:t.cuando,problemas:t.problemas,asuntoPropuesto:t.propuesta?.asunto})),firma:st.mkd.firma};
   if(st.peticiones?.length)base.peticiones=st.peticiones.filter(x=>x.de===s||x.para===s).map(x=>({titulo:x.titulo,de:x.de,para:x.para,estado:x.estado,requisitos:x.requisitos,respuesta:x.respuesta?.texto}));
   if(st.igen?.salas?.[s])base.instagramEN={periodo:st.igen.periodo,...st.igen.salas[s]};
@@ -2239,6 +2284,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("paid_analisis/google").onSnapshot(s=>{st.paid.google=s.exists?s.data():null;pintarPaid()});
   db.doc("paid_contexto/briefing").onSnapshot(s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
   for(const S of SALAS_N)db.doc("estado/"+S.id).onSnapshot(s=>{st.salasN=st.salasN||{};st.salasN[S.id]={estado:s.exists?s.data():null};pintarSalasN()});
+  db.doc("youtube_analisis/actual").onSnapshot(s=>{st.yt=s.exists?s.data():null;pintarYouTube()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});
   db.doc("ig_en/actual").onSnapshot(s=>{st.igen=s.exists?s.data():null;pintarGA4()});

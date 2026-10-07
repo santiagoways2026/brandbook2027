@@ -838,6 +838,9 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .cn-mix .cn-ax{fill:#9aa3ad;font:11px var(--f-ui)}.cn-mix .cn-bl{fill:#06281a;font:700 11px var(--f-ui)}
 .cn-ley{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px;font-size:12.5px;color:#d6dbe1}.cn-ley i,.cn-sw{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:5px;vertical-align:-1px}.cn-ley small{color:#f97316}
 .cn-e tr.cn-r-d td{background:#11151b}.cn-e tr.cn-r-w td{background:#0f1318}.cn-e tr.cn-r-c td{background:#141922;font-weight:700}
+.cp-aviso{margin:12px 20px 0;padding:11px 14px;border:1px dashed #f5d76e;border-radius:8px;background:#221d0b;color:#f3e7b3;font-size:13px;line-height:1.5}.cp-aviso b{color:#f5d76e}
+.cp-ph{display:inline-block;padding:1px 7px;border-radius:9px;background:#1f242c;color:#6b7280;font-size:11.5px;font-style:italic}
+.cp-t td.cp-ok{color:#3ddc97;font-weight:700}.cp-t td.cp-ko{color:#ff8a8a;font-weight:700}
 a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.5px;padding:4px 10px}
 .as-nota{margin:10px 20px 18px;font-size:12.5px;line-height:1.5;color:var(--tenue)}
 
@@ -1006,6 +1009,7 @@ const MARCOS=[
   {id:"captacion",grupo:"captacion",nombre:"Captación / Sala",x:0,y:0,w:1200},
   {id:"captacion_canales",grupo:"captacion",dato:true,nombre:"Captación / Deals y CR por canal (UTM)",x:0,y:-9000,w:1300},
   {id:"captacion_evolucion",grupo:"captacion",dato:true,nombre:"Captación / Evolución del CR por canal",x:0,y:-9000,w:1300},
+  {id:"captacion_cpa",grupo:"captacion",dato:true,nombre:"Captación / CPA y retorno por canal",x:0,y:-9000,w:1300},
   {id:"captacion_mix",grupo:"captacion",dato:true,nombre:"Captación / Mix Paid / Organic",x:0,y:-9000,w:1300},
   {id:"community",grupo:"community",nombre:"Community / Sala",x:0,y:0,w:1200},
   {id:"community_insights",grupo:"community",dato:true,nombre:"Community / Insights",x:0,y:-9000,w:1300},
@@ -1029,7 +1033,7 @@ const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],ti
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -2853,6 +2857,39 @@ function pintarMix(){const el=document.getElementById("c-captacion_mix");if(!el|
 document.addEventListener("click",e=>{const r=e.target.closest("[data-mxr]");if(r&&st.cnMx){st.cnMx.rango=r.dataset.mxr;pintarMix();return}
   const n=e.target.closest("[data-mxn]");if(n&&st.cnMx){st.cnMx.nivel=n.dataset.mxn;pintarMix()}});
 
+/* ===== Captación: inversión, CPL, CPA y retorno por canal. Deals y won de Zoho; inversión e ingresos llegan de captacion_inversion/actual ===== */
+function pintarCPA(){const el=document.getElementById("c-captacion_cpa");if(!el||st.dentro!=="captacion")return;const C=st.canales;
+  if(!C||!(C.filas||[]).length||C.filas[0].length<5){el.innerHTML=`<div class="vacio">Álex está preparando los datos.</div>`;return}
+  const M=cnMensual(C),ult=M.meses[M.meses.length-1],y0=Math.floor(ult/100);
+  const V=st.cpV||(st.cpV={desde:y0*100+1,hasta:ult});const I=st.inversion||null;
+  const inv={};(I?.filas||[]).forEach(([k,ym,g,ing])=>{if(ym<V.desde||ym>V.hasta)return;const x=inv[k]||(inv[k]=[0,0]);x[0]+=g||0;x[1]+=ing||0});
+  const hayInv=Object.values(inv).some(x=>x[0]),hayIng=Object.values(inv).some(x=>x[1]);
+  const dw=k=>{let d=0,w=0;Object.entries(M.por[k]||{}).forEach(([ym,x])=>{ym=+ym;if(ym>=V.desde&&ym<=V.hasta){d+=x[0];w+=x[1]}});return[d,w]};
+  const eur=n=>n==null?"":n<100&&n>0?n.toFixed(2).replace(".",",")+" €":Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,".")+" €";
+  const ph=`<span class="cp-ph">pendiente</span>`;
+  const fila=(nom,keys,cls,lvl,sd)=>{const r=keys.reduce((t,k)=>{const a=dw(k),b=inv[k]||[0,0];return[t[0]+a[0],t[1]+a[1],t[2]+b[0],t[3]+b[1]]},[0,0,0,0]);const[d,w,g,ing]=r;
+    const cpl=g&&d?g/d:null,cpa=g&&w?g/w:null,roas=g&&ing?ing/g:null;
+    return{html:`<tr class="${lvl===0?"cn-gh":lvl===1&&keys.length>1?"cn-par":"cn-lf"} ${cls}"><td class="${lvl===0?"":lvl===1?"cn-l1":"cn-l2"}${sd?" cn-sd":""}">${lvl===0?'<span class="cn-dot"></span>':""}${nom}</td>
+      <td>${hayInv?(g?eur(g):(cls==="cn-org"?"–":eur(0))):ph}</td><td>${cnNum(d)}</td><td>${cnNum(w)}</td><td>${cnPct(d?w/d:null,2)}</td>
+      <td>${hayInv?(cpl?eur(cpl):"–"):ph}</td><td>${hayInv?(cpa?eur(cpa):"–"):ph}</td><td>${hayIng?(ing?eur(ing):"–"):ph}</td><td class="${roas!=null?(roas>=1?"cp-ok":"cp-ko"):""}">${hayInv&&hayIng?(roas!=null?roas.toFixed(2).replace(".",",")+"×":"–"):ph}</td></tr>`,r}};
+  let h="",tot=[0,0,0,0];
+  for(const [G,L,cls] of [["PAID",CN_PAID,"cn-paid"],["ORGANIC",CN_ORG,"cn-org"]]){const all=M.orden.filter(k=>k.startsWith(G+"|"));const f0=fila(G,all,cls,0);h+=f0.html;f0.r.forEach((v,i)=>tot[i]+=v);
+    L.forEach(it=>{if(Array.isArray(it)){const ks=it[1].map(sb=>[G,it[0],sb].join("|"));if(!ks.some(k=>dw(k)[0]||inv[k]))return;h+=fila(it[0],ks,cls,1).html;if(ks.length>1)ks.forEach(k=>{if(dw(k)[0]||inv[k])h+=fila(k.split("|")[2],[k],cls,2,k.endsWith("SIN DATA")).html})}
+      else{const k=G+"|"+it;if(!dw(k)[0]&&!inv[k])return;h+=fila(it,[k],cls,1,it==="SIN DATA").html}})}
+  const[TD,TW,TG,TI]=tot;const cK=Object.keys(inv).filter(k=>inv[k][0]>0),PD=cK.reduce((t,k)=>t+dw(k)[0],0),PW=cK.reduce((t,k)=>t+dw(k)[1],0);
+  h+=`<tr class="cn-gen"><td>TOTAL</td><td>${hayInv?eur(TG):ph}</td><td>${cnNum(TD)}</td><td>${cnNum(TW)}</td><td>${cnPct(TD?TW/TD:null,2)}</td><td>${hayInv&&PD?eur(TG/PD):ph}</td><td>${hayInv&&PW?eur(TG/PW):ph}</td><td>${hayIng?eur(TI):ph}</td><td>${hayInv&&hayIng&&TG?(TI/TG).toFixed(2).replace(".",",")+"×":ph}</td></tr>`;
+  const ms=M.meses,opt=sel=>ms.map(m=>`<option value="${m}"${m===sel?" selected":""}>${ymTxt(m)}</option>`).join("");
+  const res=(ym,n)=>{let y=Math.floor(ym/100),m=ym%100-n;while(m<1){m+=12;y--}return y*100+m};
+  const pres=[["Este año",y0*100+1,ult],["Últimos 3 meses",res(ult,2),ult],["Mes pasado",res(ult,1),res(ult,1)],["Año pasado",(y0-1)*100+1,(y0-1)*100+12]].filter(p=>ms.includes(p[2])).map(([n,a,b])=>[n,Math.max(a,ms[0]),b]);
+  el.innerHTML=`<div class="mcab"><div><h2>CPA y retorno por canal</h2></div></div>
+   ${hayInv?"":`<div class="cp-aviso"><b>Inversión e ingresos pendientes de conectar.</b> Deals, won y CR ya son reales (Zoho, por mes de creación). La inversión llegará de Windsor.ai (Google Ads, Meta Ads, Bing, ChatGPT Ads y el coste de Caminofy) y los ingresos del importe de los deals won. En cuanto estén, las columnas marcadas como pendiente se rellenan solas.</div>`}
+   <div class="cn-fechas"><label>Desde <select data-cpf="desde">${opt(V.desde)}</select></label><label>Hasta <select data-cpf="hasta">${opt(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cppre="${a}-${b}">${n}</button>`).join("")}</div>${zBtn("canales")}</div>
+   <div class="as-res"><div><b>${hayInv?eur(TG):"–"}</b><span>invertido</span></div><div><b>${cnNum(TD)}</b><span>deals (leads)</span></div><div><b>${cnNum(TW)}</b><span>deals won</span></div><div><b>${hayInv&&PD?eur(TG/PD):"–"}</b><span>CPL medio (canales con inversión)</span></div><div><b>${hayInv&&PW?eur(TG/PW):"–"}</b><span>CPA medio (canales con inversión)</span></div><div><b>${hayInv&&hayIng&&TG?(TI/TG).toFixed(2).replace(".",",")+"×":"–"}</b><span>retorno (ROAS)</span></div></div>
+   <div class="as-tw"><table class="as-t cn-e cp-t"><thead><tr><th class="as-n">Canal</th><th>Invertido</th><th>Deals</th><th>Won</th><th>CR</th><th>CPL</th><th>CPA</th><th>Ingresos won</th><th>Retorno</th></tr></thead><tbody>${h}</tbody></table></div>
+   <p class="as-nota">CPL = invertido / deals creados en el periodo. CPA = invertido / deals won. Retorno (ROAS) = ingresos de los deals won / invertido; por encima de 1× el canal devuelve más de lo que cuesta. Paid va primero porque es donde hay inversión; en Organic solo se rellenará si se le asigna coste (por ejemplo medios patrocinados o blog). Deals y won se cuentan por mes de creación del deal, igual que en las otras pestañas, así que el CPA de los meses recientes bajará a medida que se cierren ventas.</p>`}
+document.addEventListener("change",e=>{const s=e.target.closest("[data-cpf]");if(!s||!st.cpV)return;st.cpV[s.dataset.cpf]=Number(s.value);if(st.cpV.desde>st.cpV.hasta)[st.cpV.desde,st.cpV.hasta]=[st.cpV.hasta,st.cpV.desde];pintarCPA()});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-cppre]");if(b&&st.cpV){const[a,c]=b.dataset.cppre.split("-").map(Number);st.cpV.desde=a;st.cpV.hasta=c;pintarCPA()}});
+
 /* ===== Análisis comercial: deals y CR por asesor y mercado (Zoho Analytics) ===== */
 const MERC=["ES","EN","DE","IT","PT"],MESN=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
 const ymTxt=ym=>`${MESN[ym%100-1]} ${String(Math.floor(ym/100)).slice(2)}`;
@@ -2901,7 +2938,7 @@ function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadma
    ${(R.objetivos||[]).length?`<div class="rm-obj">${R.objetivos.map(o=>`<div><b>${esc(o.hoy)} → <i>${esc(o.meta)}</i></b><span>${esc(o.nombre)}</span></div>`).join("")}</div>`:""}
    ${calendarioRM(R.calendario)}
    <div class="rm-fases">${(R.fases||[]).map(f=>`<div class="rm-fase"><h3>${esc(f.nombre)}</h3>${(f.items||[]).map((x,i)=>`<div class="rm-it${x.estado==="hecho"?" hecho":""}"><span class="num">${i+1}</span><div><h4>${esc(x.titulo)}</h4>${x.dato?`<p>${esc(x.dato)}</p>`:""}<div class="pie">${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.quien?`<span>${esc(x.quien)}</span>`:""}<span>${esc(EST[x.estado]||x.estado||"pendiente")}</span></div></div></div>`).join("")}</div>`).join("")}</div>`}
-function pintarSalasN(){pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -3405,7 +3442,8 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores()});
-  db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix()});
+  db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA()});
+  db.doc("captacion_inversion/actual").onSnapshot(s=>{st.inversion=s.exists?s.data():null;pintarCPA()});
   db.doc("journey_mapa/actual").onSnapshot(s=>{st.jmapa=s.exists?s.data():null;pintarJourneyMapa()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});

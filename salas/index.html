@@ -800,6 +800,14 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .as-t td.cr.bueno{color:#3ddc97;font-weight:700}.as-t td.cr.malo{color:#ff8a8a}
 .as-t tfoot td{background:#2d5a12;color:#fff;font-weight:700;border-color:#1d3a0b}.as-t tfoot td.as-n{background:#2d5a12}
 .as-nota{margin:10px 20px 18px;font-size:12.5px;line-height:1.5;color:var(--tenue)}
+
+/* Insights */
+.ins-res{margin:12px 20px 0;padding:12px 14px;border-left:4px solid var(--c);background:var(--marco-2);border-radius:6px;font-size:15.5px;line-height:1.5;color:#f1f3f5}
+.ins-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;padding:12px 20px 20px}
+.ins{background:var(--marco-2);border:1px solid var(--borde);border-top:3px solid var(--c);border-radius:8px;padding:12px 14px;display:grid;gap:7px;align-content:start}
+.ins-cab{display:flex;gap:9px;align-items:flex-start}.ins-n{width:24px;height:24px;border-radius:50%;background:var(--c);color:#111;font:700 12px/24px var(--f-ui);text-align:center;flex:none}
+.ins-cab h4{margin:0;font:700 15px/1.3 var(--f-ui);color:#fff;flex:1}.ins-p{font:600 10.5px/1 var(--f-mono);text-transform:uppercase;color:var(--c);padding-top:4px}
+.ins-d{margin:0;font-size:14px;line-height:1.5;color:#d6dbe1}.ins-a{margin:0;font-size:14px;line-height:1.5;color:#e6eaee}.ins-a b{color:var(--c)}.ins small{font-size:11.5px;color:var(--tenue)}
 </style>
 
 <div id="vista" aria-label="Lienzo de salas. Arrastra para moverte y usa la rueda o pellizca para hacer zoom.">
@@ -950,6 +958,13 @@ const MARCOS=[
   {id:"producto_datos",grupo:"producto",dato:true,nombre:"Análisis de producto / Lo que ya sabemos",x:4300,y:5600,w:1300},
   {id:"g_producto",grupo:"producto",dato:true,nombre:"Análisis de producto / Google Analytics 4",x:4300,y:6400,w:1300},
   {id:"lifecycle",grupo:"lifecycle",nombre:"Lifecycle / Sala",x:0,y:0,w:1200},
+  {id:"lifecycle_insights",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Insights",x:0,y:-9000,w:1300},
+  {id:"lifecycle_roadmap",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Roadmap",x:0,y:-9000,w:1300},
+  {id:"community",grupo:"community",nombre:"Community / Sala",x:0,y:0,w:1200},
+  {id:"community_insights",grupo:"community",dato:true,nombre:"Community / Insights",x:0,y:-9000,w:1300},
+  {id:"community_roadmap",grupo:"community",dato:true,nombre:"Community / Roadmap",x:0,y:-9000,w:1300},
+  {id:"community_mision",grupo:"community",dato:true,nombre:"Community / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
+  {id:"community_datos",grupo:"community",dato:true,nombre:"Community / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"lifecycle_mision",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"lifecycle_datos",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"journey",grupo:"journey",nombre:"Journey de cliente / Sala",x:0,y:0,w:1200},
@@ -966,23 +981,25 @@ const MARCOS=[
 for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i].grupo))MARCOS.splice(i,1);
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
-const TAM={control:2400,radar:1500,lifecycle:1500};
-const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,3400],competencia:[-5200,-2600],journey:[-900,5100],comercial:[900,5100],mdirecto:[5600,4700],producto:[5000,7800]};
+const TAM={control:2400,community:1500,lifecycle:1500};
+const POS={instagram:[-1500,-2600],youtube:[300,-2600],radar:[2100,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,3400],competencia:[-5200,-2600],journey:[-900,5100],comercial:[900,5100],mdirecto:[5600,4700],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_mision","lifecycle_datos"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap","lifecycle_mision","lifecycle_datos"],community:["community","community_insights","community_roadmap","community_mision","community_datos"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
   d+=` L${b[0]-(b[0]-a[0])/l1*k} ${b[1]-(b[1]-a[1])/l1*k} Q${b[0]} ${b[1]} ${b[0]+(c[0]-b[0])/l2*k} ${b[1]+(c[1]-b[1])/l2*k}`}const z=p[p.length-1];return d+` L${z[0]} ${z[1]}`}
 const PASILLOS_DEF=[
-  {id:"pa5",d:"M950 -167 V1300",c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:1010,ly:300},
-  {id:"pa6",d:"M250 1300 V-167",c:"#f5d76e",txt:"Directrices → Radar y redes",sub:"control.directrices.radar · instagram · youtube",lx:190,ly:300,fin:true},
-  {id:"pa11",d:ruta([[-300,-1934],[-300,-800],[-150,-800]],140),c:"#e1306c",txt:"Instagram ↔ Radar",sub:"rendimiento de las cuentas · tendencias",lx:-360,ly:-1450,fin:true},
-  {id:"pa22",d:ruta([[1500,-1934],[1500,-800],[1350,-800]],140),c:"#ff4d4d",txt:"YouTube ↔ Radar",sub:"canales · benchmark · tendencias",lx:1560,ly:-1450},
-  {id:"pa20",d:"M300 -2267 H900",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:330,ly:-2330},
-  {id:"pa21",d:"M2100 -2300 C4600 -2300 5800 -1300 5800 400",c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:2400,ly:-2370},
+  {id:"pa5",d:"M950 -167 V1300",c:"#e879f9",txt:"Insights de redes → Control",sub:"community.insights · roadmap",lx:1010,ly:300},
+  {id:"pa6",d:"M250 1300 V-167",c:"#f5d76e",txt:"Directrices → Community y redes",sub:"control.directrices · instagram · youtube · radar",lx:190,ly:300,fin:true},
+  {id:"pa11",d:ruta([[-900,-1934],[-900,-800],[-150,-800]],140),c:"#e1306c",txt:"Instagram ↔ Community",sub:"rendimiento de las cuentas ES, EN y DE",lx:-1640,ly:-1450,fin:true},
+  {id:"pa22",d:"M900 -1934 V-1000",c:"#ff4d4d",txt:"YouTube ↔ Community",sub:"canales · benchmark · roadmap",lx:950,ly:-1450},
+  {id:"pa28",d:ruta([[2700,-1934],[2700,-800],[1350,-800]],140),c:"#3d7bff",txt:"Radar Viral ↔ Community",sub:"tendencias virales · cada 2 h",lx:2760,ly:-1450},
+  {id:"pa29",d:"M1500 -2267 H2100",c:"#3d7bff",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa20",d:"M-300 -2267 H300",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:-270,ly:-2330},
+  {id:"pa21",d:ruta([[900,-2600],[900,-2950],[5800,-2950],[5800,400]],320),c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:3700,ly:-3020},
   {id:"pa4",d:"M750 3400 V2632",c:"#22d3ee",txt:"Lifecycle → Control",sub:"embudo · repetición · valor del cliente",lx:800,ly:3000},
   {id:"pa7",d:"M450 2632 V3400",c:"#f5d76e",txt:"Directrices → Lifecycle",sub:"control.directrices.lifecycle",lx:-330,ly:3000,fin:true},
   {id:"pa23",d:ruta([[-4600,-1934],[-4600,-400],[-1500,-400],[-1500,1400],[-600,1400]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4100,ly:-470},
@@ -1006,6 +1023,7 @@ const PERSONALIDAD={
   paid:{c:"#f472b6",caracter:"El parqué",lema:"Cada euro tiene que volver con amigos",ambiente:"Teletipos, pujas en directo y gráficos en verde",tono:"Eres directo y numérico, como un trader: CPA, ROAS, presupuesto y qué mover hoy.",suelo:"velas",obj:"grafico"},
   mdirecto:{c:"#38bdf8",caracter:"La oficina de correos",lema:"El mensaje justo, en el momento justo",ambiente:"Buzones, sellos y los flujos del CRM dibujados en la pared",tono:"Eres ordenado y orientado a conversión: asunto, momento de envío, segmento y siguiente paso.",suelo:"sobres",obj:"sobre"},
   producto:{c:"#fdba74",caracter:"El taller",lema:"Cada etapa, probada a mano",ambiente:"Banco de trabajo, mapas de etapas y prototipos de rutas",tono:"Eres práctico y detallista, como un artesano del producto: etapas, alojamientos, márgenes y qué mejorar.",suelo:"plano",obj:"concha"},
+  community:{c:"#e879f9",caracter:"La plaza",lema:"Todas las redes, una sola conversación",ambiente:"Una plaza con bancos, pantallas con los comentarios en directo y un tablón de ideas",tono:"Hablas como una directora de comunidad y redes: sintetizas Instagram, YouTube y el Radar Viral en insights claros con su dato y una acción concreta.",suelo:"sobres",obj:"bocadillos"},
   lifecycle:{c:"#22d3ee",caracter:"El ciclo",lema:"Del primer clic a la siguiente ruta",ambiente:"Una espiral luminosa con cada etapa del cliente y pantallas con el embudo en directo",tono:"Hablas como una directora de lifecycle: adquisición, conversión, repetición y recomendación por mercado, resumiendo lo que dicen Journey y Comercial y siempre con cifras.",suelo:"hex",obj:"antena"},
   journey:{c:"#a78bfa",caracter:"El recorrido",lema:"Cada paso del cliente, sin piedras en el zapato",ambiente:"Un mapa del viaje del cliente en la pared, con post-its en cada fricción",tono:"Hablas desde el cliente: en qué paso duda, qué le frena y qué le haría reservar y repetir; con datos del CRM y de la web.",suelo:"plano",obj:"concha"},
   comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
@@ -1072,7 +1090,7 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   if(!m.dato&&st.dentro&&!SALAS_ACT[st.dentro].includes(id))salir(false);
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
-const SALA_TIT={lifecycle:"Lifecycle",journey:"Journey de cliente",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+const SALA_TIT={community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
 /* Resumen: deja lo esencial (3 puntos por lista, 6 filas por tabla, 3 líneas por párrafo) */
 const RES_LISTA=3,RES_TABLA=6,RES_TARJ=4;
 function resumir(raiz){if(!raiz)return;
@@ -1307,7 +1325,7 @@ function svgPasillos(){
       <path d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".08" stroke-width="40" stroke-linejoin="round"/>
       <path class="flujo" d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".45" stroke-width="2" stroke-dasharray="8 32"/>
       ${p.txt?`<text x="${p.lx}" y="${p.ly}" class="p-txt"${p.fin?' text-anchor="end"':""}><tspan fill="${p.c}">■ </tspan>${esc(p.txt)}</text><text x="${p.fin?p.lx:p.lx+30}" y="${p.ly+28}" class="p-sub"${p.fin?' text-anchor="end"':""}>${esc(p.sub)}</text>`:""}`;
-    if(!quieto){const N=["pa17","pa18","pa19","pa26"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12","pa23","pa24","pa25"].includes(p.id)?4:7,dur={pa3:16,pa4:9,pa5:9,pa6:9,pa7:9,pa8:9,pa9:9,pa10:9,pa11:5,pa12:5,pa2:10,pa13:11,pa16:14,pa17:3,pa18:3,pa19:3,pa23:5,pa24:4,pa25:5,pa26:3,pa27:3,pa20:6,pa21:8}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
+    if(!quieto){const N=["pa17","pa18","pa19","pa26","pa29"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12","pa23","pa24","pa25","pa28"].includes(p.id)?4:7,dur={pa3:16,pa4:9,pa5:9,pa6:9,pa7:9,pa8:9,pa9:9,pa10:9,pa11:5,pa12:5,pa2:10,pa13:11,pa16:14,pa17:3,pa18:3,pa19:3,pa23:5,pa24:4,pa25:5,pa26:3,pa27:3,pa20:6,pa21:8}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
       d+=`<g><rect x="-11" y="-4" width="22" height="8" rx="2" fill="${col}" filter="url(#brilloP)"/><animateMotion dur="${dur}s" begin="-${(k*dur/N).toFixed(2)}s" repeatCount="indefinite" rotate="auto"${p.inv?' keyPoints="1;0" keyTimes="0;1" calcMode="linear"':""}><mpath href="#${p.id}"/></animateMotion></g>`}}
   }
   // Placa con el carácter y el lema de cada sala, por encima de los pasillos
@@ -1682,7 +1700,7 @@ function svgControl(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-const SALA_N={lifecycle:"Lifecycle",journey:"Journey de cliente",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
+const SALA_N={community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
 const SEM={bien:["#3ddc97","Bien"],vigilar:["#f5c518","Vigilar"],mal:["#ff5d5d","Actuar"]};
 function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
   if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
@@ -2320,6 +2338,21 @@ const SALAS_N=[
   saber:["Búsquedas pagadas: «camino de santiago» (152.117 € en el término) y «camino de santiago desde sarria» (27.038 € a 23,34 € por lead) concentran la demanda.","Rutas con coste por lead más del doble de la media en Google Ads: Camino Primitivo (68,66 €), «portugal coastal camino» (50,97 €) y «the portuguese way» (61,71 €).","Ticket medio por campaña: EN_SEARCH 3.341 €, ES_TOP_SEARCH 2.293 € e IT_SEARCH 2.143 €.","SEO: hay rutas sin página comercial en algún idioma (auditoría de la Sala SEO).","Comunidad: el post del mito de los albergues suma 730 comentarios; la gente pregunta por alojamiento, etapas y precio."],
   tareas:["Conectar Zoho para cruzar ventas y margen por ruta","Ficha por ruta: búsquedas, leads, ventas y ticket","Revisar el producto Portugués: mucha búsqueda y lead caro","Propuesta de producto para el Año Santo 2027"],
   sug:["¿Qué ruta deberíamos empujar en 2027?","¿Dónde perdemos más ventas por producto?","¿Qué precio proponéis para el Año Santo?"]},
+ {id:"community",nombre:"Community",tit:"Community · todas las redes y el Radar en una sola foto",color:"#e879f9",fondo:"#0b050c",borde:"#4a1d52",lider:"Inés",pant:"Instagram · YouTube · Radar Viral",
+  sub:"síntesis de redes y Radar, insights y roadmap",
+  equipo:[{id:"jefa",n:"Inés",rol:"Directora de Community: sintetiza Instagram, YouTube y el Radar Viral y reporta a la Sala de Control",c:"#e879f9"},
+   {id:"ig",n:"Mateo",rol:"Síntesis de Instagram: cuentas ES, EN y DE",c:"#e1306c"},
+   {id:"yt",n:"Olivia",rol:"Síntesis de YouTube: canales, Shorts y benchmark",c:"#ff4d4d"},
+   {id:"radar",n:"Pau",rol:"Tendencias del Radar Viral: qué replicar esta semana",c:"#3d7bff"},
+   {id:"conv",n:"Elena",rol:"Conversación: comentarios, preguntas y comunidad",c:"#f5d76e"},
+   {id:"rm",n:"Lara",rol:"Roadmap y calendario editorial de todas las redes",c:"#3ddc97"}],
+  frases:{jefa:["¿Qué nos dicen hoy las redes?","Esto va a la Sala de Control","Un insight, un dato, una acción"],ig:["La cuenta ES pasó de 100.000","Los reels de utilidad triplican a los de marca","DE necesita reels"],yt:["El 69 % de las vistas viene de anuncios","Shorts con pregunta en el título","Hubs de YouTube"],radar:["Xacobeo 2027 es el tema del mes","Vídeo en primera persona","Humor que desmitifica"],conv:["¿Qué pregunta más la gente?","Palabra clave en comentarios","Responder en menos de 1 hora"],rm:["Calendario de la semana","Un tema, tres formatos","¿Qué publicamos el sábado?"]},
+  mision:"Sintetizar todo lo que pasa en las redes de Santiago Ways (Instagram ES, EN y DE y YouTube) y lo que detecta el Radar Viral, y convertirlo en insights claros y un roadmap único para todas las redes, conectado con el negocio.",
+  objetivos:["Insights semanales con dato y acción concreta","Un roadmap único de redes, coordinado con Instagram, YouTube y Diseño","Pasar del alcance a la solicitud de presupuesto","Responder a las tendencias del Radar en menos de una semana"],
+  fuentes:[["Sala de Instagram","Métricas de Metricool de las cuentas ES, EN y DE y su roadmap",true],["Sala de YouTube","Auditoría, benchmark de canales y roadmap",true],["Radar Viral","Lo más viral del Camino cada 2 horas y su síntesis",true],["Google Analytics 4","Tráfico y presupuestos que llegan desde redes",true]],
+  saber:["Instagram ES superó los 100.000 seguidores; EN tiene 21.027 (+340 en 30 días).","Los reels de utilidad hacen de 2.900 a 3.300 visualizaciones; el de los 100.000 seguidores, 816.","En YouTube el 69 % de las vistas viene de anuncios y el canal llevó 157 sesiones a la web en 12 meses, con 0 presupuestos.","Radar Viral: Xacobeo 2027, vídeo en primera persona y humor que desmitifica son lo que más se mueve."],
+  tareas:["Primer informe de insights de redes","Roadmap único de redes para el último trimestre","Unir el calendario de Instagram y YouTube con un tema por semana","Medir presupuestos que llegan desde redes"],
+  sug:["¿Qué tres cosas harías esta semana en redes?","¿Qué tendencia del Radar replicamos?","¿Qué red trae más presupuestos?"]},
  {id:"lifecycle",nombre:"Lifecycle",tit:"Lifecycle · del primer clic a la siguiente ruta",color:"#22d3ee",fondo:"#04090b",borde:"#164a55",lider:"Lucía",pant:"Adquirir · Convertir · Viajar · Repetir · Recomendar",
   sub:"ciclo de vida del cliente, conversión y repetición",
   equipo:[{id:"jefa",n:"Lucía",rol:"Directora de lifecycle: une Journey de cliente y Comercial y reporta a la Sala de Control",c:"#22d3ee"},
@@ -2600,7 +2633,16 @@ function pintarAsesores(){const el=document.getElementById("c-comercial_asesores
    <p class="as-nota">Verde: CR al menos un 15 % por encima de la media del mercado; rojo: un 15 % o más por debajo. En naranja, asesores con menos de 8 meses de datos. Solo aparecen asesores con deals en los últimos 3 meses y al menos 50 en el periodo; los mercados con menos de 20 deals se dejan en gris. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-asmodo]");if(b&&st.asV){st.asV.modo=b.dataset.asmodo;pintarAsesores()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-asv]");if(!s||!st.asV)return;const k=s.dataset.asv;st.asV[k]=k==="orden"?s.value:Number(s.value);if(st.asV.desde>st.asV.hasta)[st.asV.desde,st.asV.hasta]=[st.asV.hasta,st.asV.desde];pintarAsesores()});
-function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadmap");if(!el||st.dentro!==sala)return;const R=st.roadmap?.[sala],c={instagram:"#e1306c",youtube:"#ff4d4d",seo:"#2dd4bf"}[sala]||"#3d7bff";
+
+/* Insights de Community y Lifecycle: dato, qué significa y acción */
+const PRIO_I={alta:"#ff6b3d",media:"#f5d76e",baja:"#8fb3ff"};
+function pintarInsights(sala){const el=document.getElementById("c-"+sala+"_insights");if(!el||st.dentro!==sala)return;const I=st.insights?.[sala],c={community:"#e879f9",lifecycle:"#22d3ee"}[sala]||"#3d7bff";
+  if(!I){el.innerHTML=`<div class="mcab"><div><h2>Insights</h2></div></div><div class="vacio">El equipo está preparando los insights.</div>`;return}
+  el.innerHTML=`<div class="mcab"><div><h2>Insights</h2><div class="fuente-mc" style="margin-top:6px">${esc(I.fuente||"")}</div></div><div class="meta">${I.fecha?`actualizado ${esc(hace(I.fecha))}`:""}</div></div>
+   ${I.resumen?`<p class="ins-res" style="--c:${c}">${esc(I.resumen)}</p>`:""}
+   ${(I.kpis||[]).length?`<div class="jm-kpi">${I.kpis.map(k=>`<div><b style="color:${c}">${esc(k.valor)}</b><span>${esc(k.nombre)}</span></div>`).join("")}</div>`:""}
+   <div class="ins-g">${(I.insights||[]).map((x,i)=>`<div class="ins" style="--c:${PRIO_I[x.prioridad]||c}"><div class="ins-cab"><span class="ins-n">${i+1}</span><h4>${esc(x.titulo)}</h4>${x.prioridad?`<span class="ins-p">${esc(x.prioridad)}</span>`:""}</div>${x.dato?`<p class="ins-d">${esc(x.dato)}</p>`:""}${x.accion?`<p class="ins-a"><b>Acción:</b> ${esc(x.accion)}</p>`:""}${x.fuente?`<small>${esc(x.fuente)}</small>`:""}</div>`).join("")}</div>`}
+function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadmap");if(!el||st.dentro!==sala)return;const R=st.roadmap?.[sala],c={instagram:"#e1306c",youtube:"#ff4d4d",seo:"#2dd4bf",community:"#e879f9",lifecycle:"#22d3ee"}[sala]||"#3d7bff";
   el.style.setProperty("--rm-c",c);
   if(!R){el.innerHTML=`<div class="mcab"><div><h2>Roadmap</h2></div></div><div class="vacio">El equipo está preparando el roadmap.</div>`;return}
   const EST={hecho:"✓ hecho",curso:"en curso",pendiente:"pendiente"};
@@ -2608,7 +2650,7 @@ function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadma
    ${(R.objetivos||[]).length?`<div class="rm-obj">${R.objetivos.map(o=>`<div><b>${esc(o.hoy)} → <i>${esc(o.meta)}</i></b><span>${esc(o.nombre)}</span></div>`).join("")}</div>`:""}
    ${calendarioRM(R.calendario)}
    <div class="rm-fases">${(R.fases||[]).map(f=>`<div class="rm-fase"><h3>${esc(f.nombre)}</h3>${(f.items||[]).map((x,i)=>`<div class="rm-it${x.estado==="hecho"?" hecho":""}"><span class="num">${i+1}</span><div><h4>${esc(x.titulo)}</h4>${x.dato?`<p>${esc(x.dato)}</p>`:""}<div class="pie">${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.quien?`<span>${esc(x.quien)}</span>`:""}<span>${esc(EST[x.estado]||x.estado||"pendiente")}</span></div></div></div>`).join("")}</div>`).join("")}</div>`}
-function pintarSalasN(){pintarJourneyMapa();pintarAsesores();if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarJourneyMapa();pintarAsesores();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -3107,7 +3149,8 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("paid_contexto/briefing").onSnapshot(s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
   for(const S of SALAS_N)db.doc("estado/"+S.id).onSnapshot(s=>{st.salasN=st.salasN||{};st.salasN[S.id]={estado:s.exists?s.data():null};pintarSalasN()});
   db.doc("youtube_analisis/actual").onSnapshot(s=>{st.yt=s.exists?s.data():null;pintarYouTube()});
-  ["instagram","youtube","seo"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
+  ["community","lifecycle"].forEach(k=>db.doc("insights/"+k).onSnapshot(s=>{st.insights=st.insights||{};st.insights[k]=s.exists?s.data():null;pintarInsights(k)}));
+  ["instagram","youtube","seo","community","lifecycle"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
   db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores()});

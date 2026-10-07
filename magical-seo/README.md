@@ -194,9 +194,19 @@ Cuatro vistas, y cada una se puede marcar directamente en el navegador añadiend
 
 ### Lanzar una barrida a mano
 
+Tres formas, de más directa a menos:
+
+**1. Ejecutar ahora, en la tarea programada.** En la sección de tareas programadas de la aplicación de Claude, la tarea `magical-seo-barrida-rivales` tiene un botón de ejecución inmediata. Lanza exactamente lo mismo que lanzaría a las 6:06. Es el disparo de verdad.
+
+**2. Pedírselo a Claude** en cualquier sesión abierta sobre este repositorio:
+
 ```
 Sigue magical-seo/agentes/barrida-rivales/AGENTE.md y haz una barrida completa
 ```
+
+**3. El botón de la sala.** En la cabecera hay un botón que copia esa orden al portapapeles para pegarla en Claude.
+
+Importante, para que no haya malentendidos: **ese botón no ejecuta la barrida**. Una página publicada no puede lanzar agentes ni tareas programadas, así que lo único honesto que puede hacer es dejarte la orden lista en el portapapeles. Por eso se llama "copiar orden" y no "lanzar barrida".
 
 ### Validar un rival propuesto
 

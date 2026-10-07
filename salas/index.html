@@ -628,6 +628,102 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .mock.igcaja .caja h5,.mock.igcaja .caja .txt,.mock.igcaja .caja .ante{text-shadow:none;color:#fff}
 .mock.igcaja .caja h5{font-size:8cqw}.mock.igcaja .caja{width:80%}
 .mock.igcaja .caja .sw{background:#506718}
+
+/* Tarjeta mínima y mockup de Instagram */
+.pz-refmin{font:11px/1.35 var(--f-ui);color:var(--tenue);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.pz-refmin a{color:var(--tenue);text-decoration:none}.pz-refmin a:hover{text-decoration:underline}
+.pieza .pz-falta{font-size:11px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.igf{container-type:inline-size;background:#fff;color:#262626;font-family:"Montserrat",var(--f-ui)}
+.g-head{display:flex;align-items:center;gap:2.6cqw;padding:2.6cqw 3.4cqw}
+.g-av{width:8.6cqw;height:8.6cqw;border-radius:50%;background:#7AA606;display:grid;place-items:center;box-shadow:0 0 0 .5cqw #fff,0 0 0 1cqw #d6249f;flex:none}.g-av img{width:58%}
+.g-head b{display:block;font:600 3.6cqw/1.2 var(--f-ui);color:#262626}.g-head small{display:block;font:400 3.1cqw/1.2 var(--f-ui);color:#737373}
+.g-mas{margin-left:auto;font:700 4cqw/1 var(--f-ui);letter-spacing:.05em}
+.g-wrap{position:relative}
+.igs{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}.igs::-webkit-scrollbar{display:none}
+.g-sl{flex:0 0 100%;aspect-ratio:4/5;position:relative;overflow:hidden;scroll-snap-align:start;background:#fff;color:#2E2E2D}
+.g-nav{position:absolute;top:50%;transform:translateY(-50%);width:7cqw;height:7cqw;border-radius:50%;border:0;background:rgba(255,255,255,.85);color:#262626;font:700 5cqw/1 var(--f-ui);display:grid;place-items:center;cursor:pointer;padding:0;opacity:.85}
+.g-prev{left:2cqw}.g-next{right:2cqw}
+.g-cnt{position:absolute;top:3cqw;right:3cqw;background:rgba(18,18,18,.7);color:#fff;font:600 2.8cqw/1 var(--f-ui);padding:1.2cqw 2cqw;border-radius:99px}
+.g-acc{display:flex;align-items:center;justify-content:space-between;padding:2.6cqw 3.4cqw 1cqw;position:relative}
+.g-acc svg{width:6.4cqw;height:6.4cqw;margin-right:3cqw}.g-acc span:last-child svg{margin:0}
+.g-dots{position:absolute;left:50%;transform:translateX(-50%);display:flex;gap:1cqw}.g-dots i{width:1.5cqw;height:1.5cqw;border-radius:50%;background:#c7c7c7}.g-dots i.on{background:#0095f6}
+.g-cap{padding:0 3.4cqw 3cqw;font:400 3.3cqw/1.4 var(--f-ui);max-height:calc(2.8em + 3cqw);display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}.g-cap b{font-weight:600}
+.g-foto{position:absolute;inset:0;background-size:cover;background-position:center}
+.g-sinfoto{background:linear-gradient(135deg,#9fb7a0,#3c5435)}
+.g-ante{font:700 2.6cqw/1.2 "Montserrat",sans-serif;letter-spacing:.2em;text-transform:uppercase;color:#506718}
+.g-tit{font:800 9.4cqw/1.08 "Montserrat",sans-serif;letter-spacing:-.02em;text-wrap:balance}
+.g-baj{font:400 3.9cqw/1.5 "Montserrat",sans-serif;color:#6F6F6E}
+.g-sl .sw{padding:0 .16em;margin:.05em 0;transform:rotate(-1.2deg)}
+.g-txt{position:absolute;inset:0;padding:11cqw 8cqw;display:flex;flex-direction:column;gap:3.6cqw}
+.g-centro{justify-content:center}
+.g-web{font:600 2.8cqw/1 "Montserrat",sans-serif;color:#2E2E2D}.g-webabs{position:absolute;left:8cqw;bottom:8cqw}
+/* foto a sangre */
+.g-foto+.g-sombra{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(0,0,0,.62))}
+.g-abajo{justify-content:flex-end;color:#fff}.g-abajo .g-ante{color:#fff}.g-abajo .g-baj{color:#fff;font-weight:500}
+/* caja verde sobre foto */
+.gp-foto-caja .g-foto,.gp-testimonio .g-foto{bottom:auto;height:70%}.gp-testimonio .g-foto{height:100%}
+.g-caja{position:absolute;left:7cqw;right:7cqw;bottom:7cqw;background:linear-gradient(135deg,#7AA606,#628A04);color:#fff;padding:7cqw;display:flex;flex-direction:column;gap:3cqw;border-radius:1cqw}
+.g-caja .g-ante{color:#fff}.g-caja .g-baj{color:#fff;font-weight:700}.g-caja .sw{background:#506718}
+.g-caja .g-tit{font-size:8.2cqw}.g-cita{font-size:6.4cqw!important;line-height:1.2}.g-autor{font:500 2.9cqw/1.3 "Montserrat",sans-serif;opacity:.9}
+/* foto arriba, texto abajo */
+.gp-foto-blanco .g-foto,.gp-foto-verde .g-foto{bottom:auto;height:52%}
+.g-bajo{position:absolute;left:0;right:0;bottom:0;top:52%;padding:7cqw 8cqw;display:flex;flex-direction:column;gap:3cqw}
+.gp-foto-verde .g-bajo{background:linear-gradient(135deg,#7AA606,#628A04);color:#fff}.gp-foto-verde .g-ante,.gp-foto-verde .g-baj{color:#fff}.gp-foto-verde .g-baj{font-weight:700}.gp-foto-verde .sw{background:#506718}
+.gp-foto-blanco .g-tit,.gp-foto-verde .g-tit{font-size:7.8cqw}
+.g-tag{position:absolute;top:-3.4cqw;left:8cqw;background:#2E2E2D;color:#fff;font:700 3cqw/1 "Montserrat",sans-serif;padding:1.8cqw 3cqw;border-radius:1cqw}
+.g-desl{margin-top:auto;align-self:flex-end;font:700 3cqw/1 "Montserrat",sans-serif;color:#506718}.g-desl span{margin-left:1.4cqw}
+/* lista */
+.g-lista{display:grid;gap:2cqw}.g-lista span{background:#E8E8E6;border-radius:1cqw;padding:2.8cqw 3.4cqw;font:600 3.6cqw/1.2 "Montserrat",sans-serif;display:flex;gap:2.6cqw;align-items:center}
+.g-lista span::before{content:"✓";flex:none;width:4.6cqw;height:4.6cqw;border-radius:50%;background:#7AA606;color:#fff;font-size:3cqw;display:grid;place-items:center}
+.g-pie{margin-top:auto;font:400 3.1cqw/1.5 "Montserrat",sans-serif;color:#6F6F6E}
+/* verdes */
+.gp-verde,.gp-numero,.gp-cierre{background:linear-gradient(135deg,#7AA606,#628A04);color:#fff}
+.gp-verde .g-ante,.gp-numero .g-ante,.gp-sendero .g-ante{color:#fff}.gp-verde .g-baj{color:#fff;font-weight:700}
+.gp-verde .sw,.gp-numero .sw{background:#506718}
+.g-chips{display:flex;flex-wrap:wrap;gap:1.8cqw}.g-chips span{background:#506718;color:#fff;font:700 3.1cqw/1 "Montserrat",sans-serif;padding:2.4cqw 3.4cqw;border-radius:1cqw}
+.g-num{align-self:flex-start;background:#506718;font:800 22cqw/1 "Montserrat",sans-serif;padding:4cqw 6cqw;border-radius:1.4cqw}
+.gp-numero .g-chips span{background:#2E2E2D}
+.gp-sendero{background:#506718;color:#fff}.g-medio{margin:auto 0;display:grid;gap:3cqw}.gp-sendero .g-baj{color:#fff}
+.gp-sendero .g-chips span{background:#fff;color:#2E2E2D;border-radius:99px;padding:3cqw 4.6cqw}
+.g-franja{position:absolute;left:0;right:0;bottom:0;height:17%;background:#506718;color:#fff;font:700 3.8cqw/1.2 "Montserrat",sans-serif;display:flex;align-items:center;padding:0 8cqw}
+.gp-franja{border-top:1.4cqw solid #7AA606}
+.g-cierrein{align-items:center;justify-content:center;text-align:center}.g-cierrein img{width:16cqw}.g-cierrein .g-web{color:#fff}.g-cierrein .sw{background:#506718}
+
+/* Fila de piezas: solo lo esencial (estado, tema y tres iconos); el detalle va en la vista ampliada */
+.piezas .pieza .pz-info{gap:6px;padding:8px 9px 10px}
+.piezas .pieza .pz-meta>span:not(.estado-dec):not(.mk),.piezas .pieza .pz-formato,.piezas .pieza .pz-refmin,.piezas .pieza details,.piezas .pieza .ab,.piezas .pieza .pz-falta,.piezas .pieza [data-pcopiar],.piezas .pieza .pz-info>a.btn{display:none!important}
+.piezas .pieza .pz-info h4{font-size:12.5px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.piezas .pieza .pz-ic .t{display:none}
+.piezas .pieza .pz-ic{min-width:34px;padding:5px 0!important;font-size:14px!important;flex:1;text-align:center}
+.piezas .pieza .acciones{flex-wrap:nowrap;gap:5px}
+.piezas .pieza .igf,.piezas .pieza .mock,.piezas .pieza .li-mock,.piezas .pieza .lkf{cursor:zoom-in}
+#pzModal{position:fixed;inset:0;z-index:9999;display:grid;place-items:center}
+.pzm-fondo{position:absolute;inset:0;background:rgba(0,0,0,.72)}
+.pzm-caja{position:relative;width:min(440px,92vw);max-height:92vh;overflow:auto;border-radius:10px}
+.pzm-x{position:sticky;top:8px;float:right;margin:8px 8px -40px 0;z-index:2;width:32px;height:32px;border-radius:50%;border:0;background:rgba(0,0,0,.6);color:#fff;font-size:15px;cursor:pointer}
+#pzModal .pieza{border:0;border-radius:10px}
+#pzModal .pz-info{font-size:14px;gap:10px;padding:14px 16px 18px}#pzModal .pz-info h4{font-size:17px}
+#pzModal .pz-refmin{white-space:normal}
+#pzModal .btn{font-size:14px;padding:8px 12px}
+
+/* Mockup de LinkedIn */
+.lkf{container-type:inline-size;background:#fff;color:rgba(0,0,0,.9);font-family:-apple-system,"Segoe UI",Roboto,var(--f-ui),sans-serif}
+.lk-head{display:flex;gap:2.6cqw;padding:3.4cqw 3.4cqw 2cqw;align-items:flex-start}
+.lk-logo{width:11cqw;height:11cqw;flex:none;background:#7AA606;display:grid;place-items:center;border-radius:1cqw}.lk-logo img{width:62%}
+.lk-quien{display:grid;gap:.4cqw;min-width:0}.lk-quien b{font:600 3.7cqw/1.25 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif}.lk-quien small{font:400 3cqw/1.25 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;color:rgba(0,0,0,.6);display:flex;align-items:center;gap:1cqw}
+.lk-globo{width:3cqw;height:3cqw}
+.lk-seg{margin-left:auto;color:#0a66c2;font:600 3.5cqw/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;white-space:nowrap;padding-top:1cqw}
+.lk-txt{padding:0 3.4cqw 2.6cqw;font:400 3.5cqw/1.42 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.lk-mas{color:rgba(0,0,0,.6)}
+.lk-arte{position:relative;aspect-ratio:1.2/1;background-size:cover;background-position:center;overflow:hidden}
+.lk-arte.sinfoto{background:linear-gradient(135deg,#7AA606,#628A04)}
+.lk-caja{position:absolute;left:5cqw;bottom:5cqw;max-width:78%;background:linear-gradient(135deg,#7AA606,#628A04);color:#fff;padding:4.6cqw 5cqw;display:grid;gap:2cqw;border-radius:.8cqw;font-family:"Montserrat",sans-serif}
+.lk-caja .g-ante{color:#fff;font-size:2.4cqw}.lk-caja .g-tit{font-size:6.2cqw}.lk-caja .sw{background:#506718}
+.lk-pag{position:absolute;right:3cqw;top:3cqw;background:rgba(0,0,0,.7);color:#fff;font:600 2.8cqw/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;padding:1.2cqw 2.2cqw;border-radius:99px}
+.lk-reac{padding:2.4cqw 3.4cqw;border-bottom:1px solid #e8e8e8}
+.lk-ico{display:inline-flex}.lk-ico i{width:4.4cqw;height:4.4cqw;border-radius:50%;display:grid;place-items:center;font-size:2.4cqw;font-style:normal;color:#fff;border:.4cqw solid #fff;margin-left:-1.2cqw}.lk-ico i:first-child{margin:0}
+.lk-acc{display:flex;justify-content:space-around;padding:1.4cqw 1cqw 2cqw}
+.lk-acc span{display:flex;flex-direction:column;align-items:center;gap:.6cqw;color:rgba(0,0,0,.6)}
+.lk-acc svg{width:5cqw;height:5cqw}.lk-acc em{font:600 2.7cqw/1 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;font-style:normal}
 </style>
 
 <div id="vista" aria-label="Lienzo de salas. Arrastra para moverte y usa la rueda o pellizca para hacer zoom.">
@@ -1611,7 +1707,75 @@ function svgDiseno(){
   return d+`</svg>`;
 }
 function isoMock(c){return""} /* sin marca de agua en las piezas (petición de Álvaro) */
+
+/* ===== Mockup de Instagram (Brandbook 2027, ejemplos de Álvaro): marco de post + plantillas + carrusel ===== */
+const IG_SVG={
+  heart:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 21s-7.5-4.6-9.6-9.2C.9 8.4 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.4.7-1.2 2.2-2.4 4.3-2.4 3.7 0 5.8 3.9 4.3 7.3C19.5 16.4 12 21 12 21z"/></svg>',
+  com:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M20.7 16.5A9 9 0 1 0 17 20.3L21.5 21z"/></svg>',
+  send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M22 3 9.2 10.1M22 3l-6.8 18-6-10.9L2 6.5z"/></svg>',
+  save:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M19 21l-7-5-7 5V3h14z"/></svg>'};
+function igPlantilla(x){if(x.plantilla)return x.plantilla;const f=x.fondo||"blanco",lista=(x.cuerpo||[]).length>2&&!/^(\d+:|Diapositiva|Portada)/i.test(x.cuerpo[0]||"");
+  if(f==="blanco")return lista?"lista":"blanco";if(f==="verde")return"verde";return x.imagen?"foto-caja":"verde"}
+function igSlides(x){
+  if((x.slides||[]).length)return x.slides;
+  const lista=(x.cuerpo||[]).length>2&&!/^(\d+:|Diapositiva|Portada)/i.test(x.cuerpo[0]||"");
+  return[{p:igPlantilla(x),ante:x.antetitulo,tit:x.titular,sub:x.subrayado,baj:x.bajada,img:x.imagen,items:lista?x.cuerpo:null,chips:x.chips,tag:x.tag}]}
+function igSlide(s,i,n){
+  const p=s.p||"blanco",img=s.img?esc(s.img):"",ante=s.ante?`<div class="g-ante">${esc(s.ante)}</div>`:"";
+  const tit=s.tit?`<div class="g-tit">${p==="numero"?conTitular(s.tit,s.sub).replace(/^./,c=>s.tit[0]):conTitular(s.tit,s.sub)}</div>`:"",baj=s.baj?`<div class="g-baj">${esc(s.baj)}</div>`:"";
+  const chips=(s.chips||[]).length?`<div class="g-chips">${s.chips.map(c=>`<span>${esc(c)}</span>`).join("")}</div>`:"";
+  const tag=s.tag?`<span class="g-tag">${esc(s.tag)}</span>`:"";
+  const desl=n>1&&i===0?`<div class="g-desl">Desliza <span>⟶</span></div>`:"";
+  const foto=img?`<div class="g-foto" style="background-image:url('${img}')"></div>`:`<div class="g-foto g-sinfoto"></div>`;
+  let h="";
+  switch(p){
+    case"foto":h=`${foto}<div class="g-sombra"></div><div class="g-txt g-abajo">${ante}${tit}${baj}</div>`;break;
+    case"foto-caja":h=`${foto}<div class="g-caja">${ante}${tit}${baj}</div>`;break;
+    case"foto-blanco":h=`${foto}<div class="g-bajo">${ante}${tit}${baj}${desl}</div>`;break;
+    case"foto-verde":h=`${foto}<div class="g-bajo">${tag}${ante}${tit}${baj}</div>`;break;
+    case"testimonio":h=`${foto}<div class="g-caja">${ante}<div class="g-tit g-cita">“${esc(s.cita||s.tit||"")}”</div>${s.autor?`<div class="g-autor">${esc(s.autor)}</div>`:""}</div>`;break;
+    case"lista":h=`<div class="g-txt">${ante}${tit}<div class="g-lista">${(s.items||[]).slice(0,6).map(t=>`<span>${esc(t)}</span>`).join("")}</div>${baj?`<div class="g-pie">${esc(s.baj)}</div>`:""}</div>`;break;
+    case"numero":h=`<div class="g-txt g-centro">${ante}<div class="g-num">${esc(s.num||"")}</div>${tit}${chips}</div>`;break;
+    case"sendero":h=`<div class="g-txt">${ante}<div class="g-medio">${tit}${baj}</div>${chips}</div>`;break;
+    case"franja":h=`<div class="g-txt">${ante}${tit}${baj}</div><div class="g-franja">${esc(s.franja||"")}</div>`;break;
+    case"cierre":h=`<div class="g-txt g-cierrein"><img src="img/isotipo_blanco.png" alt=""><div class="g-tit">${conTitular(s.tit||"Tu Camino te espera",s.sub||"te espera")}</div><div class="g-web">santiagoways.com</div></div>`;break;
+    case"verde":h=`<div class="g-txt g-centro">${ante}${tit}${baj}${chips}</div>`;break;
+    default:h=`<div class="g-txt g-centro">${ante}${tit}${baj}</div><div class="g-web g-webabs">santiagoways.com</div>`;
+  }
+  return`<div class="g-sl gp-${esc(p)}">${h}${n>1?`<span class="g-cnt">${i+1}/${n}</span>`:""}</div>`;
+}
+
+/* ===== Mockup de LinkedIn: post de página de empresa ===== */
+const LI_SVG={
+  like:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M7 11v9H4v-9zM7 11l4-7c1.4 0 2.2 1 2 2.4L12.6 10H19a2 2 0 0 1 2 2.3l-1.2 6A2 2 0 0 1 17.8 20H7"/></svg>',
+  com:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M4 5h16v11H9l-5 4z"/></svg>',
+  rep:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M17 3l3 3-3 3M4 12V9a3 3 0 0 1 3-3h13M7 21l-3-3 3-3M20 12v3a3 3 0 0 1-3 3H4"/></svg>',
+  send:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"><path d="M21 3 3 10.5l7 2.5 2.5 7z"/></svg>'};
+function mockLI(x){
+  const en=x.mercado==="en"||/\(EN|EN\)|\bEN\b/.test(x.formato||"");
+  const L=en?{seg:"Follow",mas:"…more",acc:["Like","Comment","Repost","Send"],t:"1d"}:{seg:"Seguir",mas:"…más",acc:["Recomendar","Comentar","Compartir","Enviar"],t:"1 d"};
+  const txt=String(x.texto||"").trim(),primero=txt.split(/\n\s*\n/)[0];
+  const img=x.imagen?esc(x.imagen):"";
+  const pdf=/carrusel|pdf|document/i.test(x.formato||"");
+  const arte=`<div class="lk-arte${img?"":" sinfoto"}"${img?` style="background-image:url('${img}')"`:""}><div class="lk-caja">${x.antetitulo?`<div class="g-ante">${esc(x.antetitulo)}</div>`:""}<div class="g-tit">${conTitular(x.titular,x.subrayado)}</div></div>${pdf?`<span class="lk-pag">1 / 5</span>`:""}</div>`;
+  return`<div class="lkf"><div class="lk-head"><span class="lk-logo"><img src="img/isotipo_blanco.png" alt=""></span><div class="lk-quien"><b>Santiago Ways</b><small>${en?"Travel arrangements":"Viajes y turismo"}</small><small>${L.t} · <svg viewBox="0 0 16 16" class="lk-globo"><circle cx="8" cy="8" r="6.2" fill="none" stroke="currentColor" stroke-width="1.3"/><path d="M2 8h12M8 1.8c2 2 2 10.4 0 12.4M8 1.8c-2 2-2 10.4 0 12.4" fill="none" stroke="currentColor" stroke-width="1.1"/></svg></small></div><span class="lk-seg">+ ${L.seg}</span></div>
+    <div class="lk-txt">${esc(primero)}<span class="lk-mas"> ${L.mas}</span></div>${arte}
+    <div class="lk-reac"><span class="lk-ico"><i style="background:#378fe9">👍</i><i style="background:#df704d">❤</i><i style="background:#6dae4f">👏</i></span></div>
+    <div class="lk-acc">${[LI_SVG.like,LI_SVG.com,LI_SVG.rep,LI_SVG.send].map((v,i)=>`<span>${v}<em>${L.acc[i]}</em></span>`).join("")}</div></div>`;
+}
+function mockIG(x){
+  const sl=igSlides(x),n=sl.length;
+  const dots=n>1?`<div class="g-dots">${sl.map((_,i)=>`<i${i?"":' class="on"'}></i>`).join("")}</div>`:"";
+  const cap=x.caption?`<div class="g-cap"><b>santiagoways</b> ${esc(String(x.caption).split("\n")[0])}</div>`:"";
+  return`<div class="igf"><div class="g-head"><span class="g-av"><img src="img/isotipo_blanco.png" alt=""></span><div><b>${x.mercado==="en"?"santiagoways_en":x.mercado==="de"?"santiagoways_de":"santiagoways"}</b>${x.ubicacion?`<small>${esc(x.ubicacion)}</small>`:""}</div><span class="g-mas">···</span></div>
+    <div class="g-wrap"><div class="igs">${sl.map((s,i)=>igSlide(s,i,n)).join("")}</div>${n>1?`<button type="button" class="g-nav g-prev" data-ignav="-1" aria-label="Anterior">‹</button><button type="button" class="g-nav g-next" data-ignav="1" aria-label="Siguiente">›</button>`:""}</div>
+    <div class="g-acc"><span>${IG_SVG.heart}${IG_SVG.com}${IG_SVG.send}</span>${dots}<span>${IG_SVG.save}</span></div>${cap}</div>`;
+}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-ignav]");if(!b)return;const s=b.closest(".g-wrap").querySelector(".igs");s.scrollBy({left:s.clientWidth*Number(b.dataset.ignav),behavior:"smooth"})});
+document.addEventListener("scroll",e=>{const s=e.target;if(!s.classList||!s.classList.contains("igs"))return;const i=Math.round(s.scrollLeft/Math.max(1,s.clientWidth));s.closest(".igf").querySelectorAll(".g-dots i").forEach((d,k)=>d.classList.toggle("on",k===i))},true);
 function mockPieza(x){
+  if(x.tipo==="ig")return mockIG(x);
+  if(x.tipo==="linkedin")return mockLI(x);
   const fondo=x.fondo||"blanco",sw=conTitular(x.titular,x.subrayado);
   const conchaCol=fondo==="blanco"?"#7AA606":"#fff";
   const ante=x.antetitulo?`<div class="ante">${esc(x.antetitulo)}</div>`:"";
@@ -1643,8 +1807,9 @@ function selloControl(c){
 const VIVA=x=>x.estado==="propuesta"||x.estado==="modificar";
 function chipEstado(x){const ult=(x.feedback||[]).slice(-1)[0];return x.estado==="aprobada"?`<span class="estado-dec aprobada">aprobada</span>`:x.estado==="modificar"?`<span class="estado-dec propuesta" title="${esc(ult?.texto||"")}">en modificación</span>`:`<span class="estado-dec propuesta">${x.version>1?"versión "+x.version:"propuesta"}</span>`}
 function accionesPieza(x,k){if(x.estado==="aprobada")return`<span class="pz-ok">✓ En Inspiración</span>`;const ult=(x.feedback||[]).slice(-1)[0];
-  return`<button class="btn prim" data-${k}="aprobada">Aceptar</button><button class="btn" data-pmod>Modificar</button><button class="btn pz-del" data-${k}="descartada">Descartar</button>
+  return`<button class="btn prim pz-ic" data-${k}="aprobada" title="Aceptar: pasa a Inspiración">✓<span class="t"> Aceptar</span></button><button class="btn pz-ic" data-pmod title="Modificar: envía feedback de esta pieza">✎<span class="t"> Modificar</span></button><button class="btn pz-del pz-ic" data-${k}="descartada" title="Descartar: se elimina por completo">✕<span class="t"> Descartar</span></button>
    <form class="pz-modf" hidden><textarea placeholder="Qué cambiarías de esta pieza (texto, imagen, planos, tono…)" required></textarea><button class="btn prim" type="submit">Enviar feedback</button></form>`}
+function refMin(x){const r=(x.referencias||[])[0];if(!r)return"";const t=esc(corta(r.texto,70));return`<div class="pz-refmin">Ref: ${r.url?`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${t}</a>`:t}</div>`}
 function tarjetaPieza(x){
   const g=(x.guion||[]).length?`<details><summary>Guion</summary><ol class="guion">${x.guion.map(l=>`<li><b>${esc(l.t)}</b> · ${esc(l.plano)}: ${esc(l.texto)}</li>`).join("")}</ol></details>`:"";
   const c=(x.cuerpo||[]).length&&x.tipo==="ig"?`<details><summary>Diapositivas y textos</summary><ul>${x.cuerpo.map(l=>`<li>${esc(l)}</li>`).join("")}</ul></details>`:"";
@@ -1654,12 +1819,24 @@ function tarjetaPieza(x){
   const acc=accionesPieza(x,"pacc");
   return`<div class="pieza ${esc(x.estado)}" data-pieza="${esc(x.id)}">${mockPieza(x)}
     <div class="pz-info"><div class="pz-meta">${chipEstado(x)}<span class="mk">${esc((x.mercado||"").toUpperCase())}</span>${x.valor?`<span class="sala-tag">${esc(x.valor)}</span>`:""}<span>${esc(x.disenador||"")}</span></div>
-      <h4>${esc(x.tema)}</h4><div class="pz-meta">${esc(x.formato||"")}</div>
-      <div class="pz-por">${esc(x.porque||"")}</div>${(x.ab||[]).length?`<div class="ab"><div class="ab-t">Test A/B de miniatura</div><div class="ab-g">${x.ab.map(v=>`<a href="${esc(v.img)}" download title="Descargar variante ${esc(v.v)}"><img src="${esc(v.img)}" alt=""><span>${esc(v.v)}</span></a>`).join("")}</div>${x.ab.map(v=>`<p><b>${esc(v.v)}:</b> ${esc(v.idea)}</p>`).join("")}${x.hipotesis?`<p class="ab-h">Hipótesis: ${esc(x.hipotesis)}</p>`:""}</div>`:""}${x.material?`<div class="pz-falta">${esc(x.material)}</div>`:""}${x.video?`<a class="btn" href="${esc(x.video)}" download style="justify-self:start">Descargar vídeo</a>`:""}
-      <div class="pz-ref">${(x.referencias||[]).map(r=>r.url?`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${esc(r.texto)} ↗</a>`:`<span>${esc(r.texto)}</span>`).join("")}</div>
-      ${mini}${seo}${c}${g}${cap}
+      <h4>${esc(x.tema)}</h4><div class="pz-meta pz-formato">${esc(x.formato||"")}</div>
+      ${(x.ab||[]).length?`<div class="ab"><div class="ab-t">Test A/B de miniatura</div><div class="ab-g">${x.ab.map(v=>`<a href="${esc(v.img)}" download title="Descargar variante ${esc(v.v)}"><img src="${esc(v.img)}" alt=""><span>${esc(v.v)}</span></a>`).join("")}</div></div>`:""}${x.material?`<div class="pz-falta">${esc(x.material)}</div>`:""}${x.video?`<a class="btn" href="${esc(x.video)}" download style="justify-self:start">Descargar vídeo</a>`:""}
+      ${refMin(x)}
+      ${x.tipo==="ig"?"":mini+seo+g+cap}
       <div class="acciones">${acc}${x.caption||x.texto?`<button class="btn" data-pcopiar>Copiar copy</button>`:""}</div></div></div>`;
 }
+
+/* Vista ampliada de una pieza: en la fila solo se ve la pieza; al pulsarla se abre en grande con todo */
+function abrirPieza(card){cerrarPieza();const o=document.createElement("div");o.id="pzModal";o.innerHTML=`<div class="pzm-fondo" data-pzcerrar></div><div class="pzm-caja"><button type="button" class="pzm-x" data-pzcerrar aria-label="Cerrar">✕</button></div>`;
+  const c=card.cloneNode(true);c.classList.add("grande");o.querySelector(".pzm-caja").appendChild(c);document.body.appendChild(o)}
+function cerrarPieza(){document.getElementById("pzModal")?.remove()}
+document.addEventListener("click",e=>{
+  if(e.target.closest("[data-pzcerrar]")){cerrarPieza();return}
+  const m=e.target.closest(".piezas .pieza .igf,.piezas .pieza .mock,.piezas .pieza .li-mock,.piezas .pieza .lkf");
+  if(m&&!e.target.closest("button,a,video,[data-ignav]")&&!m.closest("#pzModal")){abrirPieza(m.closest(".pieza"));return}
+  if(e.target.closest("#pzModal [data-pacc],#pzModal [data-vacc]"))setTimeout(cerrarPieza,250)});
+document.addEventListener("submit",e=>{if(e.target.closest("#pzModal .pz-modf"))setTimeout(cerrarPieza,400)});
+document.addEventListener("keydown",e=>{if(e.key==="Escape"&&document.getElementById("pzModal")){e.stopPropagation();cerrarPieza()}},true);
 function aprender(col,x,clase,texto){if(!st.db)return Promise.resolve();const t=new Date().toISOString(),id=(clase+"-"+(x.id||"x")+"-"+t.replace(/[^0-9]/g,"")).slice(0,180);
   return st.db.doc("diseno_aprendizajes/"+id).set({clase,texto:texto||"",t,coleccion:col,pieza:{id:x.id||"",tipo:x.tipo||"",mercado:x.mercado||"",formato:x.formato||"",fondo:x.fondo||"",tema:x.tema||"",titular:x.titular||"",antetitulo:x.antetitulo||"",version:x.version||1,disenador:x.disenador||""},procesado:false}).catch(()=>{})}
 async function decidirPieza(col,id,acc){

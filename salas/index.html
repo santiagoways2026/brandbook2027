@@ -284,6 +284,10 @@ body[data-dentro] .marco.dato{display:none!important}
 .neg-s:hover{border-color:var(--e)}.neg-s b{display:flex;justify-content:space-between;gap:8px;font:700 15px/1.2 var(--f-ui);color:#fff}.neg-s b i{font:600 11px/1 var(--f-mono);font-style:normal;color:var(--e);text-transform:uppercase}.neg-s span{font-size:13.5px;line-height:1.4;color:#c3cad4}
 .neg-2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:4px}
 .neg-l{margin:0;padding:10px 20px 0 38px;display:grid;gap:6px;font-size:14.5px;line-height:1.45;color:#d6dde5}.neg-l.r li::marker{color:#ff5d5d}.neg-l.o li::marker{color:#3ddc97}
+.pz-ok{font:600 12.5px/1 var(--f-mono);color:var(--vivo)}.pz-del{color:#f3b7bd}
+.pz-fb{width:100%;font-size:13px;line-height:1.4;color:#f5d76e;border-left:2px solid #f5c518;padding-left:8px;margin-bottom:4px}
+.pz-modf{width:100%;display:grid;gap:6px;margin-top:6px}.pz-modf textarea{width:100%;min-height:80px;resize:vertical;background:#07090c;color:var(--texto);border:1px solid var(--borde-2);border-radius:6px;padding:9px;font:13.5px/1.45 var(--f-ui)}
+.pieza .acciones,.vid .acc{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
 .cola-it{min-width:0}.cola-det .vir-pv.peq{max-width:420px}.cola{grid-template-columns:minmax(0,1fr);display:grid;gap:6px;padding:0 20px}
 .cola-it{border:1px solid var(--borde);border-radius:6px;background:var(--marco-2)}
 .cola-it[open]{border-color:var(--sel)}
@@ -723,6 +727,9 @@ const MARCOS=[
   {id:"instagram",grupo:"instagram",nombre:"Instagram / Sala",x:3700,y:-3600,w:1200},
   {id:"instagram_roadmap",grupo:"instagram",dato:true,nombre:"Instagram / Roadmap",x:0,y:-9000,w:1300},
   {id:"control_negocio",grupo:"control",dato:true,nombre:"Sala de Control / Cuadro de mando de negocio",x:0,y:-9000,w:1300},
+  {id:"d_insp",grupo:"diseno",dato:true,nombre:"Diseño / Inspiración: piezas aprobadas",x:0,y:-9000,w:1300},
+  {id:"d_vid",grupo:"diseno",dato:true,nombre:"Diseño / Vídeos montados",x:0,y:-9000,w:1300},
+  {id:"d_bib",grupo:"diseno",dato:true,nombre:"Diseño / Biblioteca de Drive",x:0,y:-9000,w:1300},
   {id:"seo_roadmap",grupo:"seo",dato:true,nombre:"SEO / Roadmap",x:0,y:-9000,w:1300},
   {id:"youtube_roadmap",grupo:"youtube",dato:true,nombre:"YouTube / Roadmap",x:0,y:-9000,w:1300},
   {id:"instagram_cuentas",grupo:"instagram",dato:true,nombre:"Instagram / Tus cuentas: ES, EN y DE",x:0,y:-9000,w:1300},
@@ -757,7 +764,7 @@ const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunid
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_vid","d_insp","d_bib","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -1603,21 +1610,35 @@ function selloControl(c){
   if(!c||!c.estado)return`<div><span class="ctrl-sello">◷ Pendiente de revisión de la Sala de Control</span></div>`;
   return`<div style="display:grid;gap:6px"><span class="ctrl-sello ${esc(c.estado)}">${c.estado==="validada"?"✓ Validada por la Sala de Control":"↺ Control pide ajustes"}${c.director?" · "+esc(c.director):""}</span>${c.nota?`<div class="ctrl-nota">${esc(c.nota)}</div>`:""}</div>`;
 }
+const VIVA=x=>x.estado==="propuesta"||x.estado==="modificar";
+function chipEstado(x){const ult=(x.feedback||[]).slice(-1)[0];return x.estado==="aprobada"?`<span class="estado-dec aprobada">aprobada</span>`:x.estado==="modificar"?`<span class="estado-dec propuesta" title="${esc(ult?.texto||"")}">en modificación</span>`:`<span class="estado-dec propuesta">${x.version>1?"versión "+x.version:"propuesta"}</span>`}
+function accionesPieza(x,k){if(x.estado==="aprobada")return`<span class="pz-ok">✓ En Inspiración</span>`;const ult=(x.feedback||[]).slice(-1)[0];
+  return`${x.estado==="modificar"&&ult?`<div class="pz-fb">Tu feedback: «${esc(ult.texto)}» · el equipo prepara la nueva versión</div>`:""}<button class="btn prim" data-${k}="aprobada">Aceptar</button><button class="btn" data-pmod>Modificar</button><button class="btn pz-del" data-${k}="descartada">Descartar</button>
+   <form class="pz-modf" hidden><textarea placeholder="Qué cambiarías de esta pieza (texto, imagen, planos, tono…)" required></textarea><button class="btn prim" type="submit">Enviar feedback</button></form>`}
 function tarjetaPieza(x){
   const g=(x.guion||[]).length?`<details><summary>Guion</summary><ol class="guion">${x.guion.map(l=>`<li><b>${esc(l.t)}</b> · ${esc(l.plano)}: ${esc(l.texto)}</li>`).join("")}</ol></details>`:"";
   const c=(x.cuerpo||[]).length&&x.tipo==="ig"?`<details><summary>Diapositivas y textos</summary><ul>${x.cuerpo.map(l=>`<li>${esc(l)}</li>`).join("")}</ul></details>`:"";
   const seo=x.seo?`<details open><summary>SEO</summary><p><b>Título:</b> ${esc(x.seo.titulo)}</p><p><b>Palabras clave:</b> ${esc((x.seo.keywords||[]).join(", "))}</p><p><b>Descripción:</b> ${esc(x.seo.descripcion)}</p><p><b>Capítulos:</b>\n${esc((x.seo.capitulos||[]).join("\n"))}</p></details>`:"";
   const mini=x.miniatura?`<details><summary>Miniatura</summary><p>${esc(x.miniatura)}</p></details>`:"";
   const cap=x.caption?`<details><summary>Copy para publicar</summary><p>${esc(x.caption)}${(x.hashtags||[]).length&&!/#/.test(x.caption)?"\n\n"+x.hashtags.map(h=>"#"+h).join(" "):""}</p></details>`:"";
-  const acc=x.estado==="propuesta"?`<button class="btn prim" data-pacc="aprobada">Aprobar</button><button class="btn" data-pacc="descartada">Descartar</button>`:`<button class="btn" data-pacc="propuesta">Reabrir</button>`;
+  const acc=accionesPieza(x,"pacc");
   return`<div class="pieza ${esc(x.estado)}" data-pieza="${esc(x.id)}">${mockPieza(x)}
-    <div class="pz-info">${selloControl(x.control)}<div class="pz-meta"><span class="estado-dec ${esc(x.estado==="aprobada"?"aprobada":x.estado==="descartada"?"descartada":"propuesta")}">${esc(x.estado)}</span><span class="mk">${esc((x.mercado||"").toUpperCase())}</span>${x.valor?`<span class="sala-tag">${esc(x.valor)}</span>`:""}<span>${esc(x.disenador||"")}</span></div>
+    <div class="pz-info">${selloControl(x.control)}<div class="pz-meta">${chipEstado(x)}<span class="mk">${esc((x.mercado||"").toUpperCase())}</span>${x.valor?`<span class="sala-tag">${esc(x.valor)}</span>`:""}<span>${esc(x.disenador||"")}</span></div>
       <h4>${esc(x.tema)}</h4><div class="pz-meta">${esc(x.formato||"")}</div>
       <div class="pz-por">${esc(x.porque||"")}</div>${(x.ab||[]).length?`<div class="ab"><div class="ab-t">Test A/B de miniatura</div><div class="ab-g">${x.ab.map(v=>`<a href="${esc(v.img)}" download title="Descargar variante ${esc(v.v)}"><img src="${esc(v.img)}" alt=""><span>${esc(v.v)}</span></a>`).join("")}</div>${x.ab.map(v=>`<p><b>${esc(v.v)}:</b> ${esc(v.idea)}</p>`).join("")}${x.hipotesis?`<p class="ab-h">Hipótesis: ${esc(x.hipotesis)}</p>`:""}</div>`:""}${x.material?`<div class="pz-falta">${esc(x.material)}</div>`:""}${x.video?`<a class="btn" href="${esc(x.video)}" download style="justify-self:start">Descargar vídeo</a>`:""}
       <div class="pz-ref">${(x.referencias||[]).map(r=>r.url?`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${esc(r.texto)} ↗</a>`:`<span>${esc(r.texto)}</span>`).join("")}</div>
       ${mini}${seo}${c}${g}${cap}
       <div class="acciones">${acc}${x.caption||x.texto?`<button class="btn" data-pcopiar>Copiar copy</button>`:""}</div></div></div>`;
 }
+async function decidirPieza(col,id,acc){
+  try{if(acc==="descartada"){if(!confirm("¿Descartar esta pieza? Se elimina por completo y el equipo prepara otra."))return;await st.db.doc(col+"/"+id).delete();toast("Pieza eliminada: el equipo prepara otra")}
+    else{await st.db.doc(col+"/"+id).update({estado:"aprobada",revisado:new Date().toISOString()});toast("Aceptada: pasa a Inspiración")}}
+  catch(_){toast("Solo el propietario puede decidir")}}
+document.addEventListener("submit",async e=>{const f=e.target.closest(".pz-modf");if(!f)return;e.preventDefault();
+  const card=f.closest("[data-pieza],[data-video]"),col=card.dataset.pieza?"diseno_piezas":"diseno_videos",id=card.dataset.pieza||card.dataset.video,txt=f.querySelector("textarea").value.trim();if(!txt||!st.db)return;
+  const x=(col==="diseno_piezas"?st.dis.piezas:st.dis.videos).find(y=>y.id===id)||{};
+  try{await st.db.doc(col+"/"+id).update({estado:"modificar",feedback:[...(x.feedback||[]),{texto:txt.slice(0,2000),t:new Date().toISOString(),atendido:false}],revisado:new Date().toISOString()});toast("Feedback enviado: el equipo prepara la nueva versión")}
+  catch(_){toast("No se pudo enviar el feedback")}});
 function pintarDiseno(){
   const D=st.dis,set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
   const ap=D.piezas.filter(x=>x.estado==="aprobada").length;
@@ -1625,10 +1646,14 @@ function pintarDiseno(){
   const v=document.getElementById("vivoDis");if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
   if(st.dentro!=="diseno")return;
   for(const[t,id,nom]of DIS_TIPOS){
-    const ps=D.piezas.filter(x=>x.tipo===t&&x.estado!=="archivada").sort((a,b)=>(a.orden||0)-(b.orden||0));
-    $("#c-"+id).innerHTML=`<div class="mcab"><div><h2>${esc(nom)}</h2><div class="fuente-mc" style="margin-top:6px">${t==="linkedin"?"Basados en los valores del brandbook y la actualidad del sector":"Basadas en lo que funciona en tu cuenta, la competencia y el mercado"} · cada pieza cita sus referencias con métricas</div></div><div class="meta">${ps.filter(x=>x.estado==="aprobada").length} de ${ps.length} aprobadas</div></div>
-      <div class="piezas">${ps.length?ps.map(tarjetaPieza).join(""):`<div class="vacio">El equipo está preparando estas piezas.</div>`}</div>`;
+    const ps=D.piezas.filter(x=>x.tipo===t&&VIVA(x)).sort((a,b)=>(a.orden||0)-(b.orden||0));
+    $("#c-"+id).innerHTML=`<div class="mcab"><div><h2>${esc(nom)}</h2><div class="fuente-mc" style="margin-top:6px">${t==="linkedin"?"Basados en los valores del brandbook y la actualidad del sector":"Basadas en lo que funciona en tu cuenta, la competencia y el mercado"} · cada pieza cita sus referencias con métricas</div></div><div class="meta">${ps.length} versiones vivas</div></div>
+      <div class="piezas">${ps.length?ps.map(tarjetaPieza).join(""):`<div class="vacio">El equipo está preparando nuevas versiones.</div>`}</div>`;
   }
+  pintarVideos();pintarBiblio();
+  {const el=document.getElementById("c-d_insp");if(el){const ap=D.piezas.filter(x=>x.estado==="aprobada").sort((a,b)=>String(b.revisado||"").localeCompare(String(a.revisado||""))),av=(D.videos||[]).filter(v=>v.estado==="aprobada");
+    el.innerHTML=`<div class="mcab"><div><h2>Inspiración</h2><div class="fuente-mc" style="margin-top:6px">Lo que has aceptado: referencia para el equipo y listo para publicar</div></div><div class="meta">${ap.length+av.length} aprobadas</div></div>
+    ${ap.length||av.length?`<div class="piezas">${ap.map(tarjetaPieza).join("")}</div>${av.length?`<div class="seccion-t">Vídeos aprobados</div><div class="vids">${av.map(v=>`<div class="vid" data-video="${esc(v.id)}"><video controls playsinline preload="none" poster="${esc(v.poster||"")}" src="${esc(v.archivo||"")}"></video><div class="pz-info"><h4>${esc(v.titulo||"")}</h4></div></div>`).join("")}</div>`:""}`:`<div class="vacio">Aún no has aceptado ninguna pieza. Las que aceptes aparecerán aquí.</div>`}`}}
   const T=D.tend;
   $("#c-d_tend").innerHTML=`<div class="mcab"><div><h2>Tendencias del sector y pautas para RRSS</h2><div class="fuente-mc" style="margin-top:6px">Para la responsable de redes: qué está pasando, cómo aprovecharlo y reglas de trabajo</div></div><div class="meta">${T?.fecha?`actualizado ${esc(hace(T.fecha))}`:""}</div></div>
     ${T?`<div class="seccion-t">Tendencias y cómo aprovecharlas</div><div class="tend">${(T.tendencias||[]).map(x=>`<div class="tend-c"><h4>${esc(x.titulo)}</h4><p>${esc(x.que)}</p><p><b style="color:var(--texto)">Cómo aprovecharlo:</b> ${esc(x.aprovechar)}</p><div class="ev">${esc(x.evidencia)}</div></div>`).join("")}</div>
@@ -1640,10 +1665,10 @@ document.addEventListener("click",async e=>{
   const cp=e.target.closest("[data-pcopiar]");
   if(cp){const x=st.dis.piezas.find(y=>y.id===cp.closest("[data-pieza]").dataset.pieza);const t=x.texto||((x.caption||"")+((x.hashtags||[]).length&&!/#/.test(x.caption||"")?"\n\n"+x.hashtags.map(h=>"#"+h).join(" "):""));
     try{await navigator.clipboard.writeText(t);toast("Copy copiado")}catch(_){toast("No se pudo copiar en este visor")}return}
+  const pm=e.target.closest("[data-pmod]");if(pm){const f=pm.parentElement.querySelector(".pz-modf");if(f){f.hidden=!f.hidden;if(!f.hidden)f.querySelector("textarea").focus()}return}
   const a=e.target.closest("[data-pacc]");if(!a)return;
   const id=a.closest("[data-pieza]")?.dataset.pieza;if(!id||!st.db){toast("Sin conexión con la sala");return}
-  try{await st.db.doc("diseno_piezas/"+id).update({estado:a.dataset.pacc,revisado:new Date().toISOString()});toast({aprobada:"Pieza aprobada",descartada:"Pieza descartada",propuesta:"Pieza reabierta"}[a.dataset.pacc])}
-  catch(_){toast("Solo el propietario puede decidir")}
+  await decidirPieza("diseno_piezas",id,a.dataset.pacc);
 });
 
 /* ---------- Sala de Comunidad ---------- */
@@ -2216,16 +2241,16 @@ function pintarCerebro(){
 }
 /* ---------- Ediciones de vídeo y biblioteca de Drive ---------- */
 function pintarVideos(){
-  const el=document.getElementById("c-d_vid");if(!el)return;const vs=st.dis.videos.filter(v=>v.estado!=="archivada");
+  const el=document.getElementById("c-d_vid");if(!el)return;const vs=st.dis.videos.filter(VIVA);
   el.innerHTML=`<div class="mcab"><div><h2>Ediciones de vídeo</h2><div class="fuente-mc" style="margin-top:6px">Montadas por Sara con el material de tu carpeta de Drive y el brandbook 2027 · pasan por la revisión de la Sala de Control</div></div><div class="meta">${vs.filter(v=>v.estado==="aprobada").length} de ${vs.length} aprobadas</div></div>
   <div class="vids">${vs.length?vs.map(v=>`<div class="vid ${esc(v.estado)}" data-video="${esc(v.id)}"><video controls playsinline preload="none" poster="${esc(v.poster||"")}" src="${esc(v.archivo||"")}"></video>
-    <div class="pz-info">${selloControl(v.control)}<div class="pz-meta"><span class="estado-dec ${esc(v.estado==="aprobada"?"aprobada":v.estado==="descartada"?"descartada":"propuesta")}">${esc(v.estado)}</span><span class="mk">${esc((v.mercado||"").toUpperCase())}</span><span>${esc(v.formato||"")} · ${esc(String(v.duracion||""))} s</span></div>
+    <div class="pz-info">${selloControl(v.control)}<div class="pz-meta">${chipEstado(v)}<span class="mk">${esc((v.mercado||"").toUpperCase())}</span><span>${esc(v.formato||"")} · ${esc(String(v.duracion||""))} s</span></div>
       <h4>${esc(v.titulo)}</h4><div class="pz-por">${esc(v.porque||"")}</div>
       <div class="pz-ref">${(v.referencias||[]).map(r=>r.url?`<a href="${esc(safeUrl(r.url))}" target="_blank" rel="noopener">${esc(r.texto)} ↗</a>`:`<span>${esc(r.texto)}</span>`).join("")}</div>
       ${(v.guion||[]).length?`<details><summary>Montaje</summary><ol class="guion">${v.guion.map(l=>`<li><b>${esc(l.t)}</b> · ${esc(l.plano)}: ${esc(l.texto)}</li>`).join("")}</ol></details>`:""}
       ${v.caption?`<details><summary>Copy para publicar</summary><p>${esc(v.caption)}</p></details>`:""}
       ${v.nota?`<p style="color:var(--tenue);font-size:12px;margin:0">${esc(v.nota)}</p>`:""}
-      <div class="acc">${v.estado==="propuesta"?`<button class="btn prim" data-vacc="aprobada">Aprobar</button><button class="btn" data-vacc="descartada">Descartar</button>`:`<button class="btn" data-vacc="propuesta">Reabrir</button>`}<a class="btn" href="${esc(v.archivo||"#")}" download>Descargar MP4</a></div></div></div>`).join(""):`<div class="vacio">Sara está montando las primeras ediciones.</div>`}</div>`;
+      <div class="acc">${accionesPieza(v,"vacc")}<a class="btn" href="${esc(v.archivo||"#")}" download>Descargar MP4</a></div></div></div>`).join(""):`<div class="vacio">Sara está montando las primeras ediciones.</div>`}</div>`;
 }
 function pintarBiblio(){
   const el=document.getElementById("c-d_bib");if(!el)return;const B=st.dis.biblio,f=st.dis.bFiltro;
@@ -2239,8 +2264,7 @@ document.addEventListener("click",async e=>{
   const bf=e.target.closest("[data-bfil]");if(bf){st.dis.bFiltro=bf.dataset.bfil;pintarBiblio();return}
   const a=e.target.closest("[data-vacc]");if(!a)return;
   const id=a.closest("[data-video]")?.dataset.video;if(!id||!st.db){toast("Sin conexión con la sala");return}
-  try{await st.db.doc("diseno_videos/"+id).update({estado:a.dataset.vacc,revisado:new Date().toISOString()});toast({aprobada:"Vídeo aprobado",descartada:"Vídeo descartado",propuesta:"Vídeo reabierto"}[a.dataset.vacc])}
-  catch(_){toast("Solo el propietario puede decidir")}
+  await decidirPieza("diseno_videos",id,a.dataset.vacc);
 });
 /* ---------- Chat con la Sala de Control ---------- */
 let sampleFn=null,chatCtl=null,chatVivo="";

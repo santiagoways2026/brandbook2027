@@ -64,6 +64,29 @@ body[data-dentro="mdirecto"] #m-mdirecto .salir,body[data-dentro="producto"] #m-
 body[data-dentro] .marco.dato{display:none!important}
 #panel{position:fixed;top:calc(56px + env(safe-area-inset-top,0px));right:0;bottom:0;width:min(760px,100vw);z-index:14;display:flex;flex-direction:column;background:var(--marco);border-left:1px solid var(--borde-2);box-shadow:-20px 0 60px rgba(0,0,0,.55)}
 #panel[hidden]{display:none}
+#pnFull{display:inline-flex;align-items:center;gap:6px}#pnFull svg{width:15px;height:15px}#pnFull .ico-min,#panel.full #pnFull .ico-max{display:none}#panel.full #pnFull .ico-min{display:block}
+.pn-nav{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;border-bottom:1px solid var(--borde);scrollbar-width:thin;flex:none}
+.pn-nav button{flex:none;display:flex;align-items:center;gap:8px;background:#11151c;border:1px solid var(--borde-2);border-radius:999px;padding:7px 12px;color:#c9d0da;font:500 12.5px/1.2 var(--f-ui);cursor:pointer;white-space:nowrap}
+.pn-nav button i{font:600 10px/1 var(--f-mono);font-style:normal;color:var(--tenue);background:#05070a;border-radius:999px;padding:3px 6px}
+.pn-nav button:hover{border-color:var(--pn-c,#3d7bff)}
+.pn-nav button[aria-current="true"]{background:var(--pn-c,#3d7bff);border-color:var(--pn-c,#3d7bff);color:#05070a;font-weight:700}
+.pn-nav button[aria-current="true"] i{background:rgba(0,0,0,.25);color:#05070a}
+#panel.full{left:0;width:100vw;display:grid;grid-template-columns:260px minmax(0,1fr) auto;grid-template-rows:auto minmax(0,1fr);z-index:30}
+#panel.full .pn-cab{grid-column:1/-1}
+#panel.full .pn-nav{grid-column:1;grid-row:2;flex-direction:column;overflow-y:auto;overflow-x:hidden;border-bottom:0;border-right:1px solid var(--borde);padding:14px 12px}
+#panel.full .pn-nav button{border-radius:8px;padding:11px 12px;white-space:normal;text-align:left;font-size:13.5px;justify-content:space-between}
+#panel.full .pn-mods{grid-column:2;grid-row:2;padding:18px 26px 30px}
+#panel.full .pn-mod:not([open]){display:none}
+#panel.full .pn-mod{border:0;background:transparent}
+#panel.full .pn-mod>summary{font-size:22px;padding:4px 0 16px;cursor:default;pointer-events:none}
+#panel.full .pn-mod>summary::before{display:none}
+#panel.full .pn-mod .cont{border-top:0;font-size:15px}
+#panel.full .pn-chat{grid-column:3;grid-row:2;width:min(440px,32vw);height:auto;border-top:0;border-left:1px solid var(--borde-2)}
+#panel.full .pn-chat.min{position:absolute;right:22px;bottom:22px;width:300px;height:auto;border:1px solid var(--borde-2);border-radius:12px;box-shadow:0 20px 50px rgba(0,0,0,.6);z-index:2}
+#panel.full .k-grid,#panel.full .cb-grid,#panel.full .tend,#panel.full .k-grid[style*="repeat(4"]{grid-template-columns:repeat(auto-fit,minmax(280px,1fr))!important}
+#panel.full .piezas,#panel.full .vids,#panel.full .bib{grid-template-columns:repeat(auto-fill,minmax(300px,1fr))!important}
+#panel.full .tabla{font-size:13.5px}
+@media (max-width:900px){#panel.full{grid-template-columns:minmax(0,1fr);grid-template-rows:auto auto minmax(0,1fr) auto}#panel.full .pn-nav{grid-column:1;grid-row:2;flex-direction:row;overflow-x:auto;border-right:0;border-bottom:1px solid var(--borde)}#panel.full .pn-nav button{white-space:nowrap}#panel.full .pn-mods{grid-column:1;grid-row:3;padding:14px}#panel.full .pn-chat{grid-column:1;grid-row:4;width:auto;height:40vh;border-left:0;border-top:1px solid var(--borde-2)}#panel.full .pn-chat.min{width:auto;height:auto}}
 .pn-cab{display:flex;align-items:center;gap:12px;padding:14px 18px;border-bottom:1px solid var(--borde)}
 .pn-cab h2{margin:0;font:700 18px/1.2 var(--f-ui);flex:1}
 .pn-cab small{display:block;font:500 11.5px/1.3 var(--f-mono);color:var(--tenue);margin-top:4px}
@@ -517,7 +540,8 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 <div id="mapa" class="capa" aria-label="Minimapa"></div>
 <aside id="insp" class="capa" hidden aria-label="Inspector"></aside>
 <aside id="panel" hidden aria-label="Información de la sala">
-  <div class="pn-cab"><div style="flex:1"><h2 id="pnTit">Sala</h2><small id="pnSub"></small></div><div class="acc"><button class="btn" id="pnAbrir" title="Desplegar todo">Desplegar todo</button><button class="btn" id="pnPlegar" title="Plegar todo">Plegar todo</button><button class="h" id="pnCerrar" aria-label="Salir de la sala" style="width:30px;height:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div>
+  <div class="pn-cab"><div style="flex:1"><h2 id="pnTit">Sala</h2><small id="pnSub"></small></div><div class="acc"><button class="btn" id="pnFull" type="button" title="Ver a pantalla completa (F)"><svg class="ico-max" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><svg class="ico-min" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4v5H4M15 4v5h5M9 20v-5H4M15 20v-5h5"/></svg><span>Pantalla completa</span></button><button class="h" id="pnCerrar" aria-label="Salir de la sala" style="width:30px;height:30px"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg></button></div></div>
+  <nav class="pn-nav" id="pnNav" aria-label="Módulos de la sala"></nav>
   <div class="pn-mods" id="pnMods"></div>
   <div class="pn-chat" id="pnChat"></div>
 </aside>
@@ -732,6 +756,12 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
 const SALA_TIT={youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+function marcarNav(){const ab=[...document.querySelectorAll("#pnMods .pn-mod")].find(d=>d.open);document.querySelectorAll("#pnNav [data-pnir]").forEach(b=>b.setAttribute("aria-current",String(!!ab&&b.dataset.pnir===ab.dataset.mod)))}
+function irModulo(id){document.querySelectorAll("#pnMods .pn-mod").forEach(d=>d.open=d.dataset.mod===id);marcarNav();const d=$("#pnMods").querySelector(`[data-mod="${id}"]`);if($("#panel").classList.contains("full"))$("#pnMods").scrollTop=0;else d?.scrollIntoView({block:"start",behavior:"smooth"});$(`#pnNav [data-pnir="${id}"]`)?.scrollIntoView({block:"nearest",inline:"nearest"})}
+function pantallaCompleta(on,silencio){const pn=$("#panel");pn.classList.toggle("full",on);const b=$("#pnFull");if(b){b.querySelector("span").textContent=on?"Minimizar":"Pantalla completa";b.title=on?"Volver al panel lateral (Esc)":"Ver a pantalla completa (F)";b.setAttribute("aria-pressed",String(on))}
+  if(on&&![...document.querySelectorAll("#pnMods .pn-mod")].some(d=>d.open)){const f=document.querySelector("#pnMods .pn-mod");if(f)f.open=true}
+  if(on){const abiertos=[...document.querySelectorAll("#pnMods .pn-mod")].filter(d=>d.open);abiertos.slice(1).forEach(d=>d.open=false)}
+  marcarNav();try{localStorage.setItem("pnFull",on?"1":"0")}catch(e){}if(!silencio&&typeof encuadrar==="function")encuadrar()}
 function abrirPanel(sala,foco){
   const pn=$("#panel"),mods=$("#pnMods");
   devolverModulos();
@@ -744,6 +774,10 @@ function abrirPanel(sala,foco){
     const d=document.createElement("details");d.className="pn-mod";d.dataset.mod=id;if(foco?foco===id:i===0)d.open=true;
     d.innerHTML=`<summary>${esc(m.nombre.split(" / ").slice(1).join(" / ")||m.nombre)}<span>${i+1}/${ids.length}</span></summary>`;
     d.appendChild(c);mods.appendChild(d)});
+  const P0=PERSONALIDAD[sala];pn.style.setProperty("--pn-c",P0?P0.c:"#3d7bff");
+  $("#pnNav").innerHTML=ids.map((id,i)=>{const m=MARCOS.find(x=>x.id===id);if(!m)return"";return`<button type="button" data-pnir="${id}"><span>${esc(m.nombre.split(" / ").slice(1).join(" / ")||m.nombre)}</span><i>${i+1}</i></button>`}).join("");
+  marcarNav();
+  let full=false;try{full=localStorage.getItem("pnFull")==="1"}catch(e){}pantallaCompleta(full,true);
   // chat de la sala dentro del panel
   const ch=$("#pnChat"),src=$("#chat");
   ["chatMsgs","chatSug","chatNota","chatForm"].forEach(k=>{const n=document.getElementById(k);if(n)ch.appendChild(n)});
@@ -771,7 +805,7 @@ function entrar(sala="radar",foco){
   requestAnimationFrame(()=>volarA(caja(MARCOS.find(m=>m.id===sala)),innerWidth<900?20:60));
 }
 function irAModulo(id){const m=MARCOS.find(x=>x.id===id);if(!m||!m.dato)return false;
-  if(st.dentro!==m.sala)entrar(m.sala,id);else{const d=$("#pnMods").querySelector(`[data-mod="${id}"]`);if(d){d.open=true;d.scrollIntoView({block:"start",behavior:"smooth"})}}return true}
+  if(st.dentro!==m.sala)entrar(m.sala,id);else irModulo(id);return true}
 function salir(volar=true){
   st.dentro=null;delete document.body.dataset.dentro;cerrarInsp();cerrarPanel();st.marcoSel=null;pintarCapas();marcarSel();
   if(volar)volarA(cajaTotal());
@@ -825,7 +859,8 @@ addEventListener("keydown",e=>{
   else if(e.key.toLowerCase()==="d")entrar("control");
   else if(e.key.toLowerCase()==="s")entrar("diseno");
   else if(e.key.toLowerCase()==="m")entrar("comunidad");
-  else if(e.key==="Escape"){if(st.sel)cerrarInsp();else if(st.dentro)salir()}
+  else if(e.key==="Escape"){if(st.sel)cerrarInsp();else if($("#panel").classList.contains("full")&&!$("#panel").hidden)pantallaCompleta(false);else if(st.dentro)salir()}
+  else if((e.key==="f"||e.key==="F")&&!$("#panel").hidden){pantallaCompleta(!$("#panel").classList.contains("full"))}
   else if(e.key.startsWith("Arrow")){const s=60;cam.x+=e.key==="ArrowLeft"?s:e.key==="ArrowRight"?-s:0;cam.y+=e.key==="ArrowUp"?s:e.key==="ArrowDown"?-s:0;aplicar()}
   else return;e.preventDefault();
 });
@@ -2099,8 +2134,9 @@ document.addEventListener("click",e=>{
   if(e.target.closest("#pnCerrar")){salir();return}
   if(e.target.closest("#capasTog")){e.stopPropagation();plegarCapas(!$("#capas").classList.contains("plegado"));return}
   const fl=e.target.closest("[data-capafl]");if(fl){e.stopPropagation();const k=fl.dataset.capafl;st.capasAb=st.capasAb||{};st.capasAb[k]=!(st.capasAb[k]??(st.dentro===k));pintarCapas();return}
-  if(e.target.closest("#pnAbrir")){document.querySelectorAll("#pnMods details").forEach(d=>d.open=true);return}
-  if(e.target.closest("#pnPlegar")){document.querySelectorAll("#pnMods details").forEach(d=>d.open=false);return}
+  if(e.target.closest("#pnFull")){pantallaCompleta(!$("#panel").classList.contains("full"));return}
+  {const n=e.target.closest("[data-pnir]");if(n){irModulo(n.dataset.pnir);return}}
+  {const sm=e.target.closest("#pnMods .pn-mod>summary");if(sm){const d=sm.parentElement;if(!d.open){e.preventDefault();irModulo(d.dataset.mod)}else setTimeout(marcarNav,0);return}}
   if(e.target.closest("#pnMin")||(e.target.closest("#pnChat .chat-cab")&&!e.target.closest("button"))){const ch=$("#pnChat"),m=ch.classList.toggle("min");const sp=ch.querySelector("#pnMin span");if(sp)sp.textContent=m?"Abrir chat":"Minimizar";try{localStorage.setItem("pnChatMin",m?"1":"0")}catch(_){}return}
 });
 document.addEventListener("submit",e=>{if(e.target.id!=="chatForm")return;e.preventDefault();if(st.chatOcupado){chatCtl?.abort();return}enviarChat($("#chatTxt").value)});

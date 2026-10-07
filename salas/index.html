@@ -611,6 +611,23 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 #panel .piezas .pz-info h4{font-size:13px}
 #panel .piezas .pz-por{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
 #panel .piezas .btn{padding:5px 8px;font-size:11.5px}
+
+/* Piezas de IG según Brandbook 2027 (pág. 23 y 31): tipografía proporcional al lienzo */
+.mock{container-type:inline-size}
+.mock .in{padding:10cqw 9cqw;gap:4.5cqw}
+.mock .ante{font-size:2.7cqw;letter-spacing:.18em}
+.mock h5{font-size:10.5cqw;line-height:1.1;letter-spacing:-.015em}
+.mock.r916 h5{font-size:10cqw}.mock.r169 h5{font-size:7.6cqw}
+.mock .txt{font-size:4.1cqw;line-height:1.5;max-width:92%;display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.mock .lista{gap:2cqw}.mock .lista span{font-size:3.7cqw;padding:2.4cqw 3cqw;gap:2.4cqw}
+.mock .lista span::before{width:4.4cqw;height:4.4cqw;font-size:3cqw}
+.mock .etq{font-size:3.6cqw;padding:2.4cqw 4cqw}
+.mock .sw{padding:0 .2em;margin:.06em 0}
+.mock.blanco h5{color:#2E2E2D}
+.mock.igcaja .caja{position:absolute;left:0;bottom:7cqw;width:84%;padding:7cqw 7cqw 7.5cqw;background:linear-gradient(135deg,#7AA606,#628A04);display:flex;flex-direction:column;gap:3.5cqw}
+.mock.igcaja .caja h5,.mock.igcaja .caja .txt,.mock.igcaja .caja .ante{text-shadow:none;color:#fff}
+.mock.igcaja .caja h5{font-size:8cqw}.mock.igcaja .caja{width:80%}
+.mock.igcaja .caja .sw{background:#506718}
 </style>
 
 <div id="vista" aria-label="Lienzo de salas. Arrastra para moverte y usa la rueda o pellizca para hacer zoom.">
@@ -1567,7 +1584,8 @@ function fraseRealS(p){
 }
 function fraseMesaS(p){const b=(st.dis.estado?.bitacora||[]).filter(x=>x.quien===p.a.n);return b.length&&Math.random()<.5?corta(b[0].texto,120):azar(FRASES_S[p.a.id])}
 function conchaSVG(color){return`<svg class="concha" viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"><path d="M20 33 L6 16"/><path d="M20 33 L11 11"/><path d="M20 33 L20 8"/><path d="M20 33 L29 11"/><path d="M20 33 L34 16"/><path d="M5 17 Q20 0 35 17" stroke-width="2.2"/></g></svg>`}
-function conTitular(t,sub){t=esc(t||"");if(!sub)return t;const s=esc(sub);const i=t.toLowerCase().indexOf(s.toLowerCase());if(i<0)return t;let j=i+s.length;while(j<t.length&&/[,.:;!?»)]/.test(t[j]))j++;return t.slice(0,i)+`<span style="white-space:nowrap"><span class="sw">${t.slice(i,i+s.length)}</span>${t.slice(i+s.length,j)}</span>`+t.slice(j)}
+function fraseMay(t){t=String(t||"");const m=t.match(/\p{L}/u);return m?t.slice(0,m.index)+m[0].toUpperCase()+t.slice(m.index+1):t}
+function conTitular(t,sub){t=esc(fraseMay(t));if(!sub)return t;const s=esc(sub);const i=t.toLowerCase().indexOf(s.toLowerCase());if(i<0)return t;let j=i+s.length;while(j<t.length&&/[,.:;!?»)]/.test(t[j]))j++;return t.slice(0,i)+`<span style="white-space:nowrap"><span class="sw">${t.slice(i,i+s.length)}</span>${t.slice(i+s.length,j)}</span>`+t.slice(j)}
 function svgDiseno(){
   let d=`<svg viewBox="0 0 600 300" aria-hidden="true"><defs>
     <pattern id="rejS" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#121710" stroke-width=".6"/></pattern>
@@ -1603,7 +1621,7 @@ function mockPieza(x){
   }
   const r=x.tipo==="ig"?"r45":x.tipo==="yt"?"r169":"r916";
   const lista=x.id==="ig-3-otono-mochila"?`<div class="lista">${(x.cuerpo||[]).map(c=>`<span>${esc(c)}</span>`).join("")}</div>`:"";
-  const sub=x.tipo==="ig"&&!lista?`<div class="txt">${esc((x.cuerpo||[])[0]?.replace(/^\d+:\s*|^Diapositiva \d+:\s*/,"")||"")}</div>`:"";
+  const sub0=x.bajada||((x.cuerpo||[]).length===1||!/^(\d+:|Diapositiva|Portada|Slide|Cover)/i.test((x.cuerpo||[])[0]||"")?(x.cuerpo||[])[0]:"");const sub=x.tipo==="ig"&&!lista&&sub0&&!/^(\d+:|Diapositiva|Portada|Slide|Cover)/i.test(sub0)?`<div class="txt">${esc(sub0)}</div>`:"";
   const etq=x.id==="ig-4-maleta-llega"?`<span class="etq">Sarria · 5-7 días</span>`:"";
   const vert=(x.tipo==="reel"||x.tipo==="tiktok")?`<div class="vert-ui"><i></i><i></i><i></i></div>`:"";
   const dur=x.tipo==="yt"?`<span class="yt-dur">${esc((x.formato||"").match(/\d+/)?.[0]||"10")}:00</span>`:"";
@@ -1611,7 +1629,9 @@ function mockPieza(x){
   if(x.tipo==="yt"&&(x.ab||[]).length)return`<div class="mock r169 vid-mock"><img src="${esc(x.ab[0].img)}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`;
   if((x.tipo==="reel"||x.tipo==="tiktok")&&x.video)return`<div class="mock r916 vid-mock"><video controls playsinline preload="none" poster="${esc(x.poster?x.poster+"?v=3":"")}" src="${esc(x.video+"?v=3")}"></video></div>`;
   const ov=x.id==="ig-2-xacobeo-claves"?"linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.62))":x.tipo==="ig"&&fondo!=="blanco"?"linear-gradient(180deg,rgba(10,14,8,.50) 0%,rgba(10,14,8,.58) 45%,rgba(10,14,8,.80) 100%)":"linear-gradient(180deg,rgba(10,14,8,.22) 0%,rgba(10,14,8,.45) 40%,rgba(10,14,8,.85) 100%)";
-  const bg=x.imagen?` style="background-image:${ov},url('${esc(x.imagen)}')"`:"";
+  const cajaIG=x.tipo==="ig"&&x.imagen&&x.id!=="ig-2-xacobeo-claves";
+  const bg=x.imagen?` style="background-image:${cajaIG?"linear-gradient(180deg,rgba(0,0,0,0) 55%,rgba(0,0,0,.25))":ov},url('${esc(x.imagen)}')"`:"";
+  if(cajaIG)return`<div class="mock r45 foto conimg igcaja"${bg}><div class="caja">${ante}<h5>${sw}</h5>${sub}${etq}</div></div>`;
   return`<div class="mock ${r} ${fondo}${x.imagen?" conimg":""}"${bg}>${isoMock(fondo==="blanco"?"verde":"blanco")}
     <div class="in" style="${just}">${x.tipo==="yt"?"":ante}<h5>${sw}</h5>${sub}${lista}${etq}</div>${vert}${dur}
     ${x.foto&&fondo==="foto"?`<div class="fotolbl">Foto: ${esc(corta(x.foto,90))}</div>`:""}</div>`;

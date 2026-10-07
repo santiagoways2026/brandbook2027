@@ -29,6 +29,7 @@ import stats from './stats.js';
 import guides from './guides.js';
 import features from './features.js';
 import checklist from './checklist.js';
+import roadmap from './roadmap.js';
 
 export const MODULOS = [
   tablaResponsive,
@@ -54,10 +55,9 @@ export const MODULOS = [
   guides,
   features,
   checklist,
+  roadmap,
 ];
 
 /* Bloques que tienen CSS pero todavía no tienen módulo.
-   Se listan en el selector en gris para saber qué queda. */
-export const PENDIENTES = [
-  { id: 'roadmap', nombre: 'Recorrido de etapas', grupo: 'Rutas' },
-];
+   Ya no queda ninguno: los 24 están catalogados. */
+export const PENDIENTES = [];

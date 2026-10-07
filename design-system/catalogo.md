@@ -21,7 +21,7 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 | 1 | `cta-box` | Caja comercial: titular, texto y un botón | CSS ✓ HTML ⚠ |
 | 2 | `steps` | Pasos numerados en vertical, unidos por una línea verde | CSS ✓ HTML ⚠ |
 | 3 | `stats` | Cifras en fila: km, etapas, días, desnivel | CSS ✓ HTML ✓ |
-| 4 | `roadmap` | Recorrido de etapas en línea. En móvil pasa a vertical | CSS ✓ HTML ✗ |
+| 4 | `roadmap` | Recorrido de etapas en línea. En móvil pasa a vertical | CSS ⚠ HTML ✓ |
 | 5 | `cards` | Rejilla de tarjetas con icono dentro de una caja verde claro | CSS ⚠ HTML ✓ |
 | 6 | `timeline` | Línea de tiempo (años Xacobeo). **Doble marcado** | CSS ✓ HTML ✓ |
 | 7a | `note` | Aviso lateral discreto. Contenido libre dentro | CSS ✓ HTML ✓ |
@@ -65,10 +65,6 @@ es el dato.
 `.timeline__track` se oculta por debajo de 600 px y `.timeline__vertical` se oculta por encima.
 El bloque lleva las dos versiones del mismo contenido en el HTML. Si solo se escribe una, el
 bloque desaparece en la mitad de las pantallas.
-
-### `roadmap` · primer y último punto son distintos
-El punto de salida usa `roadmap__dot--start`, el de llegada `roadmap__dot--end`, y ambos
-llevan además `roadmap__marker--endpoint` y `roadmap__name--endpoint`.
 
 ### `roads` · la tarjeta entera es el enlace
 `.roads__card` tiene `text-decoration: none` y `color: inherit`: está pensada como `<a>`,
@@ -220,6 +216,53 @@ En `gr-ficha` y en `features`, el `<img>` **no lleva clase**: el CSS lo seleccio
 su clase (`roads__img`, `prep__img`, `gear__img`, `arrival__img`, `heroblogsw__img`). No
 hay un criterio único; se respeta lo que hay en cada bloque.
 
+### `roadmap` · estructura
+La primera y la última parada son distintas de las intermedias:
+
+| | Marcador | Punto | Antetítulo | Nombre |
+|---|---|---|---|---|
+| Primera | `roadmap__marker--endpoint` | `roadmap__dot--start` | sí | `roadmap__name--endpoint` |
+| Intermedias | `roadmap__marker` | `roadmap__dot` | **no** | `roadmap__name` |
+| Última | `roadmap__marker--endpoint` | `roadmap__dot--end` | sí | `roadmap__name--endpoint` |
+
+Es el único bloque que llega **indentado**; el resto viene plano. Se respeta su formato.
+
+### `roadmap` · tres cosas que revisar en el CSS
+Medidas tomadas en el navegador con el markup real de siete paradas, no deducidas.
+
+**1. La línea sobresale por los dos extremos.** Cada parada pinta su propio
+`.roadmap__line` con `left: 0; right: 0`, es decir, de borde a borde de su celda. Como el
+punto va centrado en la celda, la línea se extiende **media celda antes del primer punto y
+media celda después del último**. A 1100 px de ancho eso son unos 126 px de línea suelta a
+cada lado.
+
+Arreglo posible: `.roadmap__stop:first-child .roadmap__line { left: 50%; }` y
+`.roadmap__stop:last-child .roadmap__line { right: 50%; }`.
+
+**2. Con siete paradas se parte en dos filas antes de llegar al móvil.** Con
+`minmax(96px, 1fr)` y el padding del bloque, a partir de unos 770 px la séptima parada cae
+a una segunda fila. Como `gap: 26px 0` solo separa filas y cada parada lleva su propio
+tramo de línea, la segunda fila aparece con un trozo de línea suelto y el punto de meta
+descolgado. El salto a vertical no ocurre hasta los 600 px, así que hay una franja de unos
+170 px en la que el bloque se ve roto.
+
+Arreglo posible: subir el punto de ruptura del `@media` de 600 px a 768 px, o bajar el
+`minmax` para que quepan más columnas.
+
+**3. En móvil los puntos no están centrados en la línea vertical.** La línea
+(`.roadmap__track::before`) está en `left: 9px` con 3 px de ancho, así que su centro cae en
+10,5 px. Los puntos no llevan `box-sizing: border-box`, de modo que miden 20 px los
+normales (14 + 3 de borde a cada lado) y 26 px los extremos (18 + 4). Con el marcador en
+`left: 2px` y `left: 0`, sus centros caen en 12 px y 13 px.
+
+Desfase real: **1,5 px** en las paradas normales y **2,5 px** en salida y llegada. Se nota
+sobre todo porque los dos extremos se desvían más que el resto.
+
+Arreglo posible: `box-sizing: border-box` en `.roadmap__dot`, o ajustar los `left` del
+marcador en el bloque móvil.
+
+En escritorio el desfase vertical es de 0,5 px, que no se aprecia.
+
 ### `tabla-responsive` · el tema se cambia desde el HTML
 La tabla declara sus colores como variables en `.tabla-responsive`. Para cambiar el color
 de **una** tabla concreta se redefinen en el propio elemento:
@@ -246,9 +289,20 @@ móvil no se vean.
 
 ---
 
-## Lo que falta
+## Estado
 
-**Un solo HTML de referencia:** `roadmap`. Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
+**Catálogo completo.** Los 24 bloques tienen su CSS, su HTML de referencia y su módulo.
+
+Lo que queda son decisiones tuyas, no trabajo pendiente:
+
+| Qué | Dónde |
+|---|---|
+| `#668814` no llega al contraste AA en 33 sitios | [`paleta.md`](paleta.md) |
+| `cta-box` publicado con estilos inline | más arriba |
+| Al `steps` publicado le falta un `</div>` | más arriba |
+| `cards` usa `cards__title` donde tocaba `cards__title-card` | más arriba |
+| `roads` usa dos clases que no existen en el CSS | más arriba |
+| `roadmap`: línea que sobresale, reparto en dos filas y puntos descentrados en móvil | más arriba | Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
    Con ellos se confirma la estructura exacta de cada bloque y se cierra el catálogo.
 `tabla-responsive` ya está completo: [`tabla-responsive.css`](tabla-responsive.css) es el
 original y [`../bloques/tabla-responsive.html`](../bloques/tabla-responsive.html) el markup.

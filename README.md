@@ -73,21 +73,22 @@ A partir de ese momento el transformador ya sabe usarlo.
 
 ## Estado
 
-| | CSS | HTML de referencia | Módulo |
-|---|---|---|---|
-| 23 bloques | ✓ original | ✓ original | ✓ listo |
-| `roadmap` | ✓ original | ✗ pendiente | ✗ pendiente |
+**Los 24 bloques están catalogados**: cada uno con su CSS original, su HTML de
+referencia y su módulo en la herramienta.
 
-Falta un solo bloque: `roadmap`.
-
-Tres avisos sobre el HTML publicado, detallados en
+Quedan cinco cosas por decidir, todas detalladas en
 [`design-system/catalogo.md`](design-system/catalogo.md):
 
+- `#668814` no llega al contraste AA y se usa en 33 sitios. Ver [`paleta.md`](design-system/paleta.md).
 - `cta-box` circula con estilos inline en vez de clases, y pierde el `:hover` y el
   comportamiento en móvil.
-- El `steps` publicado va dentro de un `<div>` que nunca se cierra.
+- Al `steps` publicado le falta un `</div>`.
 - `cards` usa `cards__title` donde el CSS esperaba `cards__title-card`, así que los
   títulos de tarjeta salen al tamaño del cuerpo. `cards__title-card` es CSS muerto.
+- `roads` usa `.roads__subtitle` y `.roads__desc`, que no existen en el CSS.
+- `roadmap` tiene tres detalles de maquetación medidos en el navegador: la línea sobresale
+  por los extremos, con siete paradas se parte en dos filas antes de llegar al móvil, y en
+  móvil los puntos quedan 1,5–2,5 px descentrados respecto a la línea.
 
 Hay además **un aviso de contraste**: `#668814`, el color de texto más usado del sistema
 (33 veces, casi siempre en tamaños de 11-13 px), da 4,12:1 sobre blanco y no llega al

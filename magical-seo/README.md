@@ -71,9 +71,9 @@ Sigue magical-seo/agentes/barrida-rivales/AGENTE.md y haz una barrida completa
 | Web y blogs de los rivales | Activa | Qué publican y cuándo. Gratis, vía lectura directa |
 | Google Search Console | Activa desde el 7 de octubre de 2026 | Nuestra posición, impresiones y clics reales en las consultas que ellos atacan |
 | Semrush | Pendiente | Volúmenes de búsqueda. Bloqueado: la subcuenta no tiene unidades de API asignadas |
-| Google Analytics 4 | Pendiente | Tráfico orgánico por página. Falta el ID de propiedad |
+| Google Analytics 4 | Activa desde el 7 de octubre de 2026 | Cuánto tráfico hay en juego en cada página, y por qué canal llega |
 
-Las credenciales de Google viven en `~/.config/claude-seo/` (OAuth, nivel 1). La propiedad por defecto es `https://santiagoways.com/`, con tres vistas por idioma disponibles: `/es/`, `/en/` y `/de/`.
+Las credenciales de Google viven en `~/.config/claude-seo/` (OAuth, nivel 2). La propiedad de Analytics es `properties/309135189`. La propiedad por defecto es `https://santiagoways.com/`, con tres vistas por idioma disponibles: `/es/`, `/en/` y `/de/`.
 
 ## Lo que esta sala todavía no hace
 

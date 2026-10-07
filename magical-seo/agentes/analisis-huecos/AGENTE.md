@@ -66,6 +66,38 @@ Cómo leer lo que sale, y qué hueco corresponde:
 
 Cita siempre en `evidencia` las cifras concretas y el periodo consultado. Sin eso, el hueco no vale.
 
+## Consultar Analytics 4
+
+Search Console dice en qué posición estamos. Analytics dice **cuánto hay en juego**. Un hueco en una página que trae 1.800 sesiones al mes no es el mismo hueco que en una que trae 12.
+
+La propiedad es `properties/309135189`, configurada en el mismo archivo. Mismo directorio de scripts:
+
+```python
+import sys; sys.path.insert(0,'.')
+from google_auth import get_oauth_credentials, SCOPES
+from googleapiclient.discovery import build
+from datetime import date, timedelta
+c = get_oauth_credentials([SCOPES['ga4']])
+d = build('analyticsdata','v1beta',credentials=c)
+fin = date.today()-timedelta(days=1); ini = fin-timedelta(days=28)
+r = d.properties().runReport(property='properties/309135189', body={
+    'dateRanges': [{'startDate': ini.isoformat(), 'endDate': fin.isoformat()}],
+    'dimensions': [{'name':'landingPage'}],
+    'metrics': [{'name':'sessions'}],
+    'dimensionFilter': {'filter': {'fieldName':'sessionDefaultChannelGroup',
+                                   'stringFilter': {'value':'Organic Search'}}},
+    'orderBys': [{'metric': {'metricName':'sessions'}, 'desc': True}],
+    'limit': 25}).execute()
+```
+
+Cuidado con un error fácil: Analytics usa `dimensionFilter`, en singular. `dimensionFilterGroups` es de Search Console y aquí devuelve un 400.
+
+Contexto fijo que conviene tener presente al priorizar:
+
+- La búsqueda de pago aporta unas tres veces más sesiones que la orgánica. Lo que no se gana en orgánico se acaba comprando, así que un hueco en una consulta comercial tiene coste real, no solo coste de oportunidad.
+- El sitio rinde en cinco idiomas: español, inglés, alemán, italiano y portugués. Search Console solo tiene vistas de `es`, `en` y `de`, así que para italiano y portugués hay posición ciega: ahí Analytics es la única señal.
+- Existe un canal de asistentes de IA, pequeño pero creciente. Si una página pierde orgánico y gana por ese canal, no es lo mismo que perderlo sin más.
+
 ## Esquema de un documento de `huecos`
 
 - **doc_id**: slug del tema, minúsculas, solo `a-z0-9-`, máximo 80 caracteres. Por ejemplo `camino-en-5-dias-ingles`.

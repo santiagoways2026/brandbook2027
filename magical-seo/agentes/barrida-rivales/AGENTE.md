@@ -37,9 +37,17 @@ Los datos se escriben con `ArtifactData`. Carga lo que necesitas con ToolSearch:
 
    Hazlo con **dos llamadas para toda la barrida**, no una por publicación:
 
-   **a) Nuestras posiciones.** Una consulta a Search Console con `dimensions: ['query']` y `rowLimit: 1000`, sin filtros, sobre `https://santiagoways.com/`. Devuelve las mil consultas donde aparecemos, con posición, clics e impresiones. Guárdala en memoria como tabla de consulta.
+   Usa el script del repositorio, **no escribas Python suelto**: solo ese script tiene permiso concedido, y cualquier otra orden de shell dejará la barrida esperando una autorización que nadie va a dar. Ejecuta desde la raíz del repositorio:
+
+   ```bash
+   python magical-seo/scripts/gsc.py posiciones --limite 1000 --json
+   ```
+
+   **a) Nuestras posiciones.** Esa orden devuelve las mil consultas donde aparecemos, con posición, clics e impresiones. Guárdala en memoria como tabla de consulta. Si necesitas afinar sobre un tema concreto, `--contiene "xacobeo"` lo filtra.
 
    **b) Nuestro inventario.** Un `WebFetch` a `https://santiagoways.com/sitemap_index.xml` y, si hace falta para el tema del día, al sitemap hijo que corresponda.
+
+   El mismo script sirve para lo demás que puedas necesitar: `paginas --contiene "/en/"` para rendimiento por idioma, `inspecciona <url>` para saber si una página nuestra está indexada, `sitemaps` y `trafico`. Todas aceptan `--json`.
 
    Después, para cada publicación que vayas a marcar como amenaza **alta o media**, busca sus `keywords` en esa tabla y rellena:
 

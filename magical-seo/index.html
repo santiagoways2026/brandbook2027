@@ -460,13 +460,21 @@ function pintarProgreso(){
   if(!vivo){caja.hidden=true;return}
   caja.hidden=false;
 
+  /* El agente no siempre reporta cada paso: trabaja en tandas largas y a veces
+     deja el parte sin tocar. Si no llega nada nuevo en 3 minutos, la barra deja
+     de fingir que sabe por dónde va y pasa a indeterminada. */
+  const huella=JSON.stringify([b.paso,b.etapa,b.rivalesHechos,b.nuevas]);
+  if(huella!==st.progHuella){st.progHuella=huella;st.progDesde=Date.now()}
+  const quieto=(Date.now()-(st.progDesde||Date.now()))/1000>180;
+
   const paso=Number(b.paso)||0, total=Number(b.totalPasos)||8;
   const pct=total?Math.min(100,Math.round(paso/total*100)):0;
   const rel=$("#pg-rel");
-  rel.classList.toggle("indet",!paso);
-  rel.style.width=paso?pct+"%":"";
-  $("#pg-via").setAttribute("aria-valuenow",String(pct));
-  $("#pg-etapa").textContent=b.etapa||"Barrida en curso";
+  const fiable=paso&&!quieto;
+  rel.classList.toggle("indet",!fiable);
+  rel.style.width=fiable?pct+"%":"";
+  $("#pg-via").setAttribute("aria-valuenow",fiable?String(pct):"0");
+  $("#pg-etapa").textContent=quieto?"Barrida en curso":(b.etapa||"Barrida en curso");
 
   const media=Number(st.estado?.duracionMediaSeg)||0;
   const queda=media&&pct?Math.max(0,media-transcurrido):0;
@@ -475,11 +483,16 @@ function pintarProgreso(){
     : duracion(transcurrido);
 
   const trozos=[];
-  if(paso)trozos.push(`Paso ${paso} de ${total}`);
-  if(Number.isFinite(b.rivalesTotal)&&b.rivalesTotal)
-    trozos.push(`${b.rivalesHechos||0} de ${b.rivalesTotal} rivales`);
-  if(Number.isFinite(b.nuevas))trozos.push(`${b.nuevas} publicaciones nuevas`);
-  if(!media)trozos.push("sin histórico para estimar el tiempo restante");
+  if(quieto){
+    trozos.push(`Trabajando, sin parte desde hace ${duracion((Date.now()-st.progDesde)/1000)}`);
+    if(paso)trozos.push(`último aviso: paso ${paso} de ${total}`);
+  }else{
+    if(paso)trozos.push(`Paso ${paso} de ${total}`);
+    if(Number.isFinite(b.rivalesTotal)&&b.rivalesTotal)
+      trozos.push(`${b.rivalesHechos||0} de ${b.rivalesTotal} rivales`);
+    if(Number.isFinite(b.nuevas)&&b.nuevas)trozos.push(`${b.nuevas} publicaciones nuevas`);
+    if(!media)trozos.push("sin histórico para estimar el tiempo restante");
+  }
   $("#pg-pie").textContent=trozos.join("  ·  ");
 }
 /* El tiempo corre aunque no llegue ningun dato nuevo */

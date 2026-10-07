@@ -31,6 +31,7 @@ magical-seo/
 ├── datos/
 │   └── rivales.json                    lista de partida, copia en disco
 ├── scripts/
+│   ├── gsc.py                          Search Console y Analytics, orden fija
 │   └── clarity.py                      consulta a Clarity, con cache de cuota
 └── README.md                           este archivo
 ```
@@ -169,6 +170,16 @@ Viven en `~/.config/claude-seo/`:
 - **Sitemap:** `https://santiagoways.com/sitemap_index.xml`, un único índice con todos los idiomas, dividido por tipo de contenido en siete hijos
 - **Propiedad de Analytics:** `properties/309135189`
 - **Nivel de credenciales:** 2
+
+Los agentes consultan Google **a través de `scripts/gsc.py`**, nunca con Python suelto. El motivo es de permisos: una barrida sin nadie delante no puede responder a una autorización, así que solo ese script está autorizado y cualquier otra orden de shell dejaría la barrida colgada. Ya pasó una vez.
+
+```bash
+python magical-seo/scripts/gsc.py posiciones --limite 1000 --json
+python magical-seo/scripts/gsc.py paginas --contiene "/en/"
+python magical-seo/scripts/gsc.py inspecciona https://santiagoways.com/es/xacobeo/
+python magical-seo/scripts/gsc.py sitemaps
+python magical-seo/scripts/gsc.py trafico
+```
 
 Comprobar que sigue todo en pie:
 

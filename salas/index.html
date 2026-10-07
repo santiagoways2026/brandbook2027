@@ -227,6 +227,20 @@ body[data-dentro] .marco.dato{display:none!important}
 .ganador .total{font:800 40px/1 var(--f-ui);letter-spacing:-.03em;font-variant-numeric:tabular-nums}
 .ganador .total small{display:block;font:500 11px/1.2 var(--f-mono);letter-spacing:.08em;text-transform:uppercase;color:var(--tenue);margin-top:6px}
 .ganador .tit{font-weight:600;line-height:1.3}
+.rm-obj{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;padding:14px 20px 0}
+.rm-obj div{background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:12px 14px}
+.rm-obj b{display:block;font:700 22px/1.1 var(--f-ui);color:#fff}.rm-obj b i{font-style:normal;color:var(--rm-c)}
+.rm-obj span{display:block;margin-top:6px;font:500 12px/1.3 var(--f-mono);color:var(--tenue);text-transform:uppercase;letter-spacing:.06em}
+.rm-fases{display:grid;gap:14px;padding:16px 20px 0}
+#panel.full .rm-fases{grid-template-columns:repeat(3,minmax(0,1fr));align-items:start}
+.rm-fase h3{margin:0 0 8px;font:700 13px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--rm-c)}
+.rm-it{display:grid;grid-template-columns:28px minmax(0,1fr);gap:10px;background:var(--marco-2);border:1px solid var(--borde);border-left:3px solid var(--rm-c);border-radius:8px;padding:12px 14px;margin-bottom:8px}
+.rm-it .num{font:800 20px/1 var(--f-ui);color:var(--rm-c)}
+.rm-it h4{margin:0;font:650 16.5px/1.3 var(--f-ui);color:#f3f5f7}
+.rm-it p{margin:6px 0 0;font-size:14.5px;line-height:1.45;color:#c3cad4}
+.rm-it .pie{margin-top:8px;display:flex;flex-wrap:wrap;gap:6px;font:500 12px/1 var(--f-mono);color:var(--tenue)}
+.rm-it .pie span{background:#05070a;border:1px solid var(--borde);border-radius:999px;padding:5px 8px}
+.rm-it.hecho{opacity:.55}.rm-it.hecho h4{text-decoration:line-through}
 .cola{display:grid;gap:6px;padding:0 20px}
 .cola-it{border:1px solid var(--borde);border-radius:6px;background:var(--marco-2)}
 .cola-it[open]{border-color:var(--sel)}
@@ -663,6 +677,9 @@ const MARCOS=[
   {id:"mdirecto",grupo:"mdirecto",nombre:"Marketing directo / Sala",x:2600,y:4000,w:1200},
   {id:"mdirecto_mision",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Misión, equipo y fuentes",x:2600,y:4800,w:1300},
   {id:"instagram",grupo:"instagram",nombre:"Instagram / Sala",x:3700,y:-3600,w:1200},
+  {id:"instagram_roadmap",grupo:"instagram",dato:true,nombre:"Instagram / Roadmap",x:0,y:-9000,w:1300},
+  {id:"seo_roadmap",grupo:"seo",dato:true,nombre:"SEO / Roadmap",x:0,y:-9000,w:1300},
+  {id:"youtube_roadmap",grupo:"youtube",dato:true,nombre:"YouTube / Roadmap",x:0,y:-9000,w:1300},
   {id:"instagram_cuentas",grupo:"instagram",dato:true,nombre:"Instagram / Tus cuentas: ES, EN y DE",x:0,y:-9000,w:1300},
   {id:"instagram_comp",grupo:"instagram",dato:true,nombre:"Instagram / Competencia en Instagram",x:0,y:-9000,w:1300},
   {id:"i_instagram",grupo:"instagram",dato:true,nombre:"Instagram / Análisis de la cuenta EN",x:0,y:-9000,w:1300},
@@ -695,7 +712,7 @@ const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunid
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -2050,7 +2067,14 @@ function pintarIG(){
     if(!d.rows.length)return`<div class="mc-sec"><h3>${esc(C.n)} · ${esc(C.cuenta)}</h3><div class="aviso">No hay competidores de Instagram configurados en esta marca de Metricool. Añádelos en Metricool → Competidores → Instagram.</div></div>`;
     return`<div class="mc-sec"><h3>${esc(C.n)} · ${esc(C.cuenta)}<span>${d.rows.length} competidores</span></h3><div style="overflow-x:auto"><table class="tabla"><thead><tr><th>Cuenta</th><th>Seguidores</th><th>Posts</th><th>Reels</th><th>Me gusta medios</th><th>Coment. medios</th><th>Engagement</th></tr></thead><tbody>${[...d.rows].sort((a,b)=>+b[2]-+a[2]).map(x=>`<tr><td><a href="https://instagram.com/${encodeURIComponent(x[0])}" target="_blank" rel="noopener">@${esc(x[0])}</a><span class="sub">${esc(x[1]||"")}</span></td><td>${fmt(+x[2])||"–"}</td><td>${fmt(+x[3])||"0"}</td><td>${fmt(+x[4])||"0"}</td><td>${fmt(Math.round(+x[5]))||"0"}</td><td>${fmt(Math.round(+x[6]))||"0"}</td><td>${x[7]!=null?(+x[7]).toFixed(1).replace(".",","):"–"}</td></tr>`).join("")}</tbody></table></div></div>`}).join("")}
 }
-function pintarSalasN(){pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadmap");if(!el||st.dentro!==sala)return;const R=st.roadmap?.[sala],c={instagram:"#e1306c",youtube:"#ff4d4d",seo:"#2dd4bf"}[sala]||"#3d7bff";
+  el.style.setProperty("--rm-c",c);
+  if(!R){el.innerHTML=`<div class="mcab"><div><h2>Roadmap</h2></div></div><div class="vacio">El equipo está preparando el roadmap.</div>`;return}
+  const EST={hecho:"✓ hecho",curso:"en curso",pendiente:"pendiente"};
+  el.innerHTML=`<div class="mcab"><div><h2>Roadmap</h2><div class="fuente-mc" style="margin-top:6px">${esc(R.fuente||"")}</div></div><div class="meta">${R.fecha?`actualizado ${esc(hace(R.fecha))}`:""}</div></div>
+   ${(R.objetivos||[]).length?`<div class="rm-obj">${R.objetivos.map(o=>`<div><b>${esc(o.hoy)} → <i>${esc(o.meta)}</i></b><span>${esc(o.nombre)}</span></div>`).join("")}</div>`:""}
+   <div class="rm-fases">${(R.fases||[]).map(f=>`<div class="rm-fase"><h3>${esc(f.nombre)}</h3>${(f.items||[]).map((x,i)=>`<div class="rm-it${x.estado==="hecho"?" hecho":""}"><span class="num">${i+1}</span><div><h4>${esc(x.titulo)}</h4>${x.dato?`<p>${esc(x.dato)}</p>`:""}<div class="pie">${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.quien?`<span>${esc(x.quien)}</span>`:""}<span>${esc(EST[x.estado]||x.estado||"pendiente")}</span></div></div></div>`).join("")}</div>`).join("")}</div>`}
+function pintarSalasN(){if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -2082,7 +2106,7 @@ function pintarFuente(D,pre,etq,fuente,QUIEN,col){
     ${(S.tablas||[]).map(t=>`<div class="seccion-t">${esc(t.titulo)}</div>${t.nota?`<p style="padding:0 20px;margin:0 0 6px;font-size:12.5px;color:var(--tenue)">${esc(t.nota)}</p>`:""}${tabla(t.cols,t.filas||[])}`).join("")}
     ${D.limitaciones?`<div class="k-aviso">${esc(D.limitaciones)}</div>`:""}`:`<div class="vacio">${QUIEN[sala]} está analizando los datos de ${etq}.</div>`}`}
 }
-function pintarSeo(){
+function pintarSeo(){pintarRoadmap("seo");
   const A=st.seo.audit,E=st.seo.estado||{},set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
   set("seoN",A?`${fmtK(A.urls_rastreadas||0)} URLs auditadas · ${(A.problemas||[]).length} problemas`:"Auditoría en marcha");
   const v=document.getElementById("vivoSeo");if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
@@ -2214,6 +2238,7 @@ function contextoSala(s){
   const compartido=s==="radar"?{deComunidad:st.com.analisis?{preguntas:(st.com.analisis.preguntas||[]).slice(0,10).map(p=>p.tema+": "+p.que),queGeneraComentarios:(st.com.analisis.porFormato||[]).slice(0,5).map(x=>x.tipo+" ("+x.media+" coment./post)")}:null}:s==="comunidad"?{delRadar:activos().slice().sort((a,b)=>(b.buzz||0)-(a.buzz||0)).slice(0,10).map(i=>({titulo:i.titulo,plataforma:i.plataforma,mercado:mercadoDe(i),metricas:i.metricas||null}))}:{};
   Object.assign(base,compartido);
   if(s==="instagram")base.instagram=Object.fromEntries(IG_CUENTAS.map(C=>[C.cuenta,{seguidores:(mc.datos[`ig:${C.id}:ev`]?.rows||[]).map(x=>x[0]).filter(Boolean).slice(-1)[0]||null,top:piezasIG(C.id).slice(0,8).map(p=>({tipo:p.tipo,texto:corta(p.texto,140),url:p.url,vistas:p.vistas,me_gusta:p.likes,comentarios:p.com,compartidos:p.comp,guardados:p.guard,alcance:p.alcance,retencion:p.ret})),competencia:(mc.datos[`ig:${C.id}:comp`]?.rows||[]).map(x=>({cuenta:x[0],seguidores:x[2],posts:x[3],reels:x[4]}))}]));
+  if(st.roadmap?.[s])base.roadmap=st.roadmap[s];
   if(s==="youtube"&&st.ytb)base.benchmarkCanales={resumen:st.ytb.resumen,tips:st.ytb.tips,competencia_crece_por:st.ytb.competencia_crece_por,top5:st.ytb.inspiracion_top5,canales:(st.ytb.canales||[]).map(c=>({nombre:c.nombre,url:c.url,grupo:c.grupo,suscriptores:c.suscriptores,crecimiento:c.crecimiento,replicar:c.replicar}))};
   if(s==="youtube"&&st.yt)base.auditoriaYouTube={resumen:st.yt.resumen,kpis:st.yt.kpis,errores:st.yt.errores,hubs:st.yt.hub_spoke?.hubs,algoritmo:st.yt.algoritmo,presupuestos:st.yt.presupuestos,plan:st.yt.plan_30_dias};
   if(s==="mdirecto"&&st.mkd)base.workflowsCRM={resumen:st.mkd.resumen,kpis:st.mkd.kpis,hallazgos:(st.mkd.hallazgos||[]).map(h=>h.titulo+": "+h.detalle),recomendaciones:(st.mkd.recomendaciones||[]).map(h=>h.titulo+": "+h.detalle),plantillas:(st.mkd.plantillas||[]).map(t=>({nombre:t.nombre,cuando:t.cuando,problemas:t.problemas,asuntoPropuesto:t.propuesta?.asunto})),firma:st.mkd.firma};
@@ -2538,6 +2563,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("paid_contexto/briefing").onSnapshot(s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
   for(const S of SALAS_N)db.doc("estado/"+S.id).onSnapshot(s=>{st.salasN=st.salasN||{};st.salasN[S.id]={estado:s.exists?s.data():null};pintarSalasN()});
   db.doc("youtube_analisis/actual").onSnapshot(s=>{st.yt=s.exists?s.data():null;pintarYouTube()});
+  ["instagram","youtube","seo"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});

@@ -1,8 +1,15 @@
 # Cómo añadir un módulo
 
 Un módulo es la receta para convertir contenido en bruto en un bloque de
-`design-system/bloques.css`. Todo vive en [`modulos.js`](modulos.js): no hay que tocar
-el HTML ni el CSS de la herramienta.
+`design-system/bloques.css`. Cada uno vive en su propio archivo dentro de
+[`modulos/`](modulos/). No hay que tocar el HTML ni el CSS de la herramienta.
+
+## Los tres pasos
+
+1. Guarda el HTML original del cliente en `bloques/<id>.html`, literal.
+2. Crea `app/modulos/<id>.js` con la ficha y el `render()`.
+3. Impórtalo en [`modulos/index.js`](modulos/index.js), mételo en `MODULOS` y quítalo
+   de `PENDIENTES`.
 
 ## Los campos
 
@@ -25,8 +32,13 @@ el HTML ni el CSS de la herramienta.
 }
 ```
 
-Al añadirlo al array `MODULOS`, quítalo de `PENDIENTES` (ahí están los bloques que
-tienen CSS pero todavía no tienen módulo; salen en gris en el selector).
+El archivo exporta la ficha por defecto:
+
+```js
+import { esc, linea, leerFichas, campo } from './_comun.js';
+
+export default { /* la ficha de arriba */ };
+```
 
 ## Lo que tiene que cumplir `render`
 
@@ -42,12 +54,40 @@ tienen CSS pero todavía no tienen módulo; salen en gris en el selector).
 
 ## Utilidades disponibles
 
+Todas salen de [`modulos/_comun.js`](modulos/_comun.js).
+
 | Función | Para qué |
 |---|---|
 | `esc(texto)` | Escapa `& < > "` |
 | `linea(texto)` | Escapa y convierte `**negrita**` y `[texto](url)` |
 | `sinNegrita(texto)` | Quita los `**` de campos que ya van siempre en negrita |
-| `leerTabla(bruto)` | Lee una tabla de Excel, Word, Markdown o CSV. Devuelve `{ cabeceras, filas, avisos }` |
+| `normalizar(clave)` | Minúsculas y sin tildes |
+| `dosDigitos(n)` | `1` → `01`, para los numeradores |
+| `leerTabla(bruto)` | Lee una tabla de Excel, Word, Markdown o CSV |
+| `leerCampos(bruto, permitidas, multilinea)` | Campos sueltos «clave: valor» |
+| `leerFichas(bruto, opciones)` | Lo mismo pero con dos niveles: grupos y fichas |
+| `campo(mapa, clave)` / `lista(mapa, clave)` | Primer valor / todos los valores |
+| `enlace(bruto)` | Parte «Texto -> url» en `{ texto, url }` |
+| `tamano(bruto)` | `800x560` → ` width="800" height="560"` |
+| `avisarAlt(avisos, alt, donde)` | Aviso estándar de falta de texto alternativo |
+
+### `leerFichas`, el caso general
+
+```js
+const { cabecera, grupos, avisos } = leerFichas(bruto, {
+  cabecera: ['titulo', 'subtitulo'],   // campos sueltos del bloque entero
+  claveGrupo: 'bloque',                // abre grupo (opcional)
+  grupo: ['tono', 'ancho'],
+  claveFicha: 'aviso',                 // abre ficha dentro del grupo
+  ficha: ['texto'],
+  multilinea: ['texto'],               // campos que admiten varias líneas
+});
+```
+
+Sin `claveGrupo` todo cae en un grupo implícito: `grupos[0].fichas`.
+
+Una línea que no abre campo solo se pega a la anterior si ese campo está en `multilinea`.
+En el resto avisa, porque pegarla a una URL rompería el dato en silencio.
 
 ## Comprobar que el render es fiel
 

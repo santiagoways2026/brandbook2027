@@ -18,27 +18,27 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 
 | # | Bloque | Para qué | Estado |
 |---|---|---|---|
-| 1 | `cta-box` | Caja comercial: titular, texto y un botón | CSS ✓ HTML ✗ |
-| 2 | `steps` | Pasos numerados en vertical, unidos por una línea verde | CSS ✓ HTML ✗ |
+| 1 | `cta-box` | Caja comercial: titular, texto y un botón | CSS ✓ HTML ⚠ |
+| 2 | `steps` | Pasos numerados en vertical, unidos por una línea verde | CSS ✓ HTML ⚠ |
 | 3 | `stats` | Cifras en fila: km, etapas, días, desnivel | CSS ✓ HTML ✗ |
 | 4 | `roadmap` | Recorrido de etapas en línea. En móvil pasa a vertical | CSS ✓ HTML ✗ |
 | 5 | `cards` | Rejilla de tarjetas con icono dentro de una caja verde claro | CSS ✓ HTML ✗ |
 | 6 | `timeline` | Línea de tiempo (años Xacobeo). **Doble marcado** | CSS ✓ HTML ✗ |
-| 7a | `note` | Aviso lateral discreto. Contenido libre dentro | CSS ✓ HTML ✗ |
-| 7b | `quote` | Cita destacada, centrada, con autor | CSS ✓ HTML ✗ |
+| 7a | `note` | Aviso lateral discreto. Contenido libre dentro | CSS ✓ HTML ✓ |
+| 7b | `quote` | Cita destacada, centrada, con autor | CSS ✓ HTML ✓ |
 | 8 | `guides` | Guías descargables: tarjetas con botón | CSS ✓ HTML ✗ |
 | 9 | `features` | Características con icono en `<img>` | CSS ✓ HTML ✗ |
 | 10 | `checklist` | Listas de comprobación en tarjetas | CSS ✓ HTML ✗ |
 | 11 | `heroblogsw` | Cabecera de artículo con foto de fondo y overlay | CSS ✓ HTML ✓ |
-| 12 | `roads` | Tarjetas de rutas con foto, banderola lima y etiquetas | CSS ✓ HTML ✗ |
-| 13 | `finder` | Selector de preguntas con enlaces de respuesta | CSS ✓ HTML ✗ |
-| 14 | `durations` | Comparativa de rutas con **barras de progreso** | CSS ✓ HTML ✗ |
-| 15a | `prep` | Preparación física: foto a un lado, lista numerada al otro | CSS ✓ HTML ✗ |
-| 15b | `gear` | Equipamiento: rejilla de fichas con foto y enlaces | CSS ✓ HTML ✗ |
-| 16 | `tips` | Consejos numerados a tres columnas | CSS ✓ HTML ✗ |
-| 17 | `safety` | Seguridad: bloques con etiqueta y teléfono de emergencia | CSS ✓ HTML ✗ |
-| 18 | `mistakes` | Errores frecuentes: el error y, al lado, la alternativa | CSS ✓ HTML ✗ |
-| 19 | `arrival` | Dos fichas con foto a media anchura | CSS ✓ HTML ✗ |
+| 12 | `roads` | Tarjetas de rutas con foto, banderola lima y etiquetas | CSS ⚠ HTML ✓ |
+| 13 | `finder` | Selector de preguntas con enlaces de respuesta | CSS ✓ HTML ✓ |
+| 14 | `durations` | Comparativa de rutas con **barras de progreso** | CSS ✓ HTML ✓ |
+| 15a | `prep` | Preparación física: foto a un lado, lista numerada al otro | CSS ✓ HTML ✓ |
+| 15b | `gear` | Equipamiento: rejilla de fichas con foto y enlaces | CSS ✓ HTML ✓ |
+| 16 | `tips` | Consejos numerados a tres columnas | CSS ✓ HTML ✓ |
+| 17 | `safety` | Seguridad: bloques con etiqueta y teléfono de emergencia | CSS ✓ HTML ✓ |
+| 18 | `mistakes` | Errores frecuentes: el error y, al lado, la alternativa | CSS ✓ HTML ✓ |
+| 19 | `arrival` | Dos fichas con foto a media anchura | CSS ✓ HTML ✓ |
 | 20 | `gr-ficha` | Ficha de datos: foto + pares etiqueta/valor | CSS ✓ HTML ✗ |
 | 21 | `gr-planner` | Promo del planificador, con columna oscura y checklist | CSS ✓ HTML ✗ |
 | 22 | `tabla-responsive` | Tabla de datos. En móvil cada fila es una tarjeta | CSS ✓ HTML ✓ |
@@ -98,6 +98,75 @@ lo contrario de lo que pasa en `finder`, `durations` y `gear`, donde los pone el
 
 `__actions` es flex con `gap` y `flex-wrap`, así que admite más de un botón.
 
+### Dos bloques llegaron con problemas en el HTML publicado
+
+**`cta-box`** circula por la web con **estilos inline en lugar de las clases**. Los valores
+coinciden uno a uno con `.cta-box`, así que se ve igual, pero la versión inline pierde:
+
+- el `:hover` del botón (`#6a9205`)
+- el `@media (max-width: 480px)`, que baja el padding a 20 px y pone el botón a ancho
+  completo y centrado en móvil
+
+La versión buena está en [`../bloques/cta-box.html`](../bloques/cta-box.html). El original
+inline se conserva en `cta-box.original.html` solo como constancia.
+
+**`steps`** venía envuelto en un `<div style="position: relative; margin: 32px 0;">` que
+duplica lo que `.steps` ya hace en el CSS y que, además, **nunca se cierra**: falta su
+`</div>`. En la referencia va sin ese envoltorio.
+
+### `roads` · dos clases sin CSS
+`.roads__subtitle` y `.roads__desc` se usan en el HTML publicado pero **no existen en
+`bloques.css`**. Salen con los estilos por defecto del navegador. `.roads__body` es flex en
+columna con `gap: 9px`, así que se apilan bien, pero no hay control de tamaño ni de color.
+Habría que añadirlas al CSS o quitarlas del HTML.
+
+### `durations` · el porcentaje de la barra es calculable
+En la web, el `--pct` de cada barra es la proporción de sus kilómetros respecto a la ruta
+más larga **de su propia fila**: 115/160 = 72 %, 119/160 = 74 %, 260/315 = 83 %. Coincide en
+las ocho barras publicadas, así que el módulo lo calcula solo y solo hay que escribirlo para
+forzar un valor distinto.
+
+Las proporciones son **por fila, no globales**: comparar una barra de la primera fila con
+una de la tercera no significa nada.
+
+### El `<span>` de la barra lleva un comentario vacío dentro
+`<span class="durations__bar" style="--pct: 72%;"><!-- --></span>`. El comentario está para
+que el editor no colapse el span, que no tiene contenido. Si se quita, en algunos editores
+la barra desaparece.
+
+### Un `<div>` sin clase que sí hace falta
+En `.prep__item` y en `.tips__item`, el segundo hijo es un `<div>` **sin clase** que envuelve
+el título y el texto. No es un descuido: el contenedor es flex, y sin ese div el número, el
+título y el texto se colocarían como tres columnas en vez de dos.
+
+Lo mismo en `.gear`: cada ficha es un `<div>` sin clase que envuelve `__media` y `__body`,
+y es ese div el que ocupa la celda de la rejilla.
+
+### Qué bloques NO usan encabezados
+`finder__question`, `prep__title`, `gear__title` y `durations__headline` son `<div>`.
+`mistakes__title` es un `<p>`. `arrival__title`, `tips__item-title`, `prep__item-title` y
+`safety__item-title` son `<strong>`. Solo `roads__title` (`<h3>`), `steps__title` (`<h3>`),
+`cta-box__title` (`<h3>`) y `heroblogsw__title` (`<h2>`) son encabezados reales.
+
+Importa para el índice de la página y para los lectores de pantalla: cambiar un `<div>` por
+un `<h3>` altera la estructura del documento, así que se respeta lo que hay.
+
+### Símbolos: unos se escriben y otros los pone el CSS
+
+| Bloque | Símbolo | Quién lo pone |
+|---|---|---|
+| `finder__link` | `›` | **CSS** (`::after`) |
+| `durations__link` | `›` | **CSS** (`::after`) |
+| `gear__link` | `→` | **CSS** (`::after`) |
+| `gr-planner__list li` | marca de verificación | **CSS** (`::before`) |
+| `heroblogsw__button` | `→` | HTML |
+| `heroblogsw__badge` | `✔` | HTML |
+| `roads__link` | `→` | HTML |
+| `quote__text` | `«»` | HTML |
+
+Escribir un símbolo donde lo pone el CSS lo duplica; no escribirlo donde va en el HTML lo
+pierde. Es el error más fácil de cometer en este sistema.
+
 ### `tabla-responsive` · el tema se cambia desde el HTML
 La tabla declara sus colores como variables en `.tabla-responsive`. Para cambiar el color
 de **una** tabla concreta se redefinen en el propio elemento:
@@ -126,7 +195,10 @@ móvil no se vean.
 
 ## Lo que falta
 
-**Los 21 HTML de referencia que faltan.** Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
+**Los 9 HTML de referencia que faltan:** `guides`, `gr-planner`, `checklist`,
+`cards`, `features`, `roadmap`, `gr-ficha`, `stats` y `timeline`.
+
+Antes decía 21. Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
    Con ellos se confirma la estructura exacta de cada bloque y se cierra el catálogo.
 `tabla-responsive` ya está completo: [`tabla-responsive.css`](tabla-responsive.css) es el
 original y [`../bloques/tabla-responsive.html`](../bloques/tabla-responsive.html) el markup.

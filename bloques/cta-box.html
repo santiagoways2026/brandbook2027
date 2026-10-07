@@ -1,0 +1,17 @@
+<!-- BLOQUE · cta-box
+     ATENCIÓN: el HTML que nos llegó venía con estilos inline en vez de clases.
+     Los valores inline coinciden uno a uno con .cta-box, .cta-box__title,
+     .cta-box__text y .cta-box__button de bloques.css, así que se ve igual,
+     pero la versión inline se pierde dos cosas:
+       · el :hover del botón (#6a9205)
+       · el @media (max-width: 480px), que baja el padding a 20px y pone el
+         botón a ancho completo y centrado
+     Esta es la versión con clases, que es la que hay que usar.
+     El original inline queda en bloques/cta-box.original.html.
+     Ver reglas en design-system/catalogo.md -->
+
+<div class="cta-box">
+<h3 class="cta-box__title">¿Prefieres llegar al Camino con la logística ya organizada?</h3>
+<p class="cta-box__text">En Santiago Ways organizamos <strong>Viajes Organizados autoguiados</strong> con Hoteles seleccionados, Traslado de Equipaje, Asistencia 24h y App de navegación, para que puedas caminar a tu ritmo con una parte importante del viaje preparada de antemano.</p>
+<a class="cta-box__button" href="/?page_id=67170">Solicitar presupuesto</a>
+</div>

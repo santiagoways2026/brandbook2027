@@ -75,11 +75,18 @@ A partir de ese momento el transformador ya sabe usarlo.
 
 | | CSS | HTML de referencia | Módulo |
 |---|---|---|---|
-| `tabla-responsive` | ✓ original | ✓ original | ✓ listo |
-| `heroblogsw` | ✓ original | ✓ original | ✓ listo |
-| Los otros 22 bloques | ✓ original | ✗ pendiente | ✗ pendiente |
+| 15 bloques | ✓ original | ✓ original | ✓ listo |
+| 9 bloques | ✓ original | ✗ pendiente | ✗ pendiente |
 
-Faltan 22 HTML de referencia.
+Listos: `tabla-responsive`, `heroblogsw`, `roads`, `finder`, `durations`, `prep`, `gear`,
+`cta-box`, `steps`, `note`, `quote`, `tips`, `safety`, `mistakes` y `arrival`.
+
+Faltan: `guides`, `gr-planner`, `checklist`, `cards`, `features`, `roadmap`, `gr-ficha`,
+`stats` y `timeline`.
+
+Dos avisos sobre el HTML publicado, detallados en
+[`design-system/catalogo.md`](design-system/catalogo.md): `cta-box` circula con estilos
+inline en vez de clases, y el `steps` publicado va dentro de un `<div>` que nunca se cierra.
 
 Hay además **un aviso de contraste**: `#668814`, el color de texto más usado del sistema
 (33 veces, casi siempre en tamaños de 11-13 px), da 4,12:1 sobre blanco y no llega al

@@ -451,14 +451,38 @@ function duracion(seg){
   const m=Math.floor(seg/60), s=seg%60;
   return m?`${m} min ${String(s).padStart(2,"0")} s`:`${s} s`;
 }
+/* Segunda fuente, independiente del agente: si la coleccion de publicaciones
+   crece, es que hay una barrida escribiendo, informe o no. */
+function latido(){
+  const n=st.pubs.length, t=Date.now();
+  if(st.pubUlt===undefined){st.pubUlt=n;st.pubCambio=0;st.pubBase=n;return}
+  if(n>st.pubUlt){if(!st.pubCambio)st.pubBase=st.pubUlt;st.pubCambio=t}
+  st.pubUlt=n;
+}
 function pintarProgreso(){
   const b=st.estado?.barrida;
   const ini=Date.parse(b?.inicio||"");
   const transcurrido=isFinite(ini)?(Date.now()-ini)/1000:0;
-  const vivo=!!b?.activa&&isFinite(ini)&&transcurrido<CADUCA_MIN*60;
+  const parte=!!b?.activa&&isFinite(ini)&&transcurrido<CADUCA_MIN*60;
+  /* Escrituras recientes: vale como senal de vida durante 4 minutos */
+  const escribiendo=st.pubCambio&&(Date.now()-st.pubCambio)/1000<240;
   const caja=$("#progreso");
-  if(!vivo){caja.hidden=true;return}
+  if(!parte&&!escribiendo){caja.hidden=true;return}
   caja.hidden=false;
+
+  if(!parte&&escribiendo){
+    /* El agente no informa, pero la coleccion crece: cuenta lo observable */
+    const puestas=st.pubs.length-(st.pubBase||0);
+    $("#pg-rel").classList.add("indet");
+    $("#pg-rel").style.width="";
+    $("#pg-via").setAttribute("aria-valuenow","0");
+    $("#pg-etapa").textContent="Barrida escribiendo";
+    $("#pg-reloj").textContent=`${st.pubs.length} publicaciones en la sala`;
+    $("#pg-pie").textContent=puestas>0
+      ? `${puestas} registradas en esta tanda  ·  sin parte del equipo, contado por la sala`
+      : "sin parte del equipo, contado por la sala";
+    return;
+  }
 
   /* El agente no siempre reporta cada paso: trabaja en tandas largas y a veces
      deja el parte sin tocar. Si no llega nada nuevo en 3 minutos, la barra deja
@@ -525,7 +549,7 @@ function pintarCifras(){
     if(el)el.textContent=d?`${d.hallazgos??0} hallazgos · ${d.ultima?fecha(d.ultima):"sin fecha"}`:"A la espera";
   });
 }
-function pintar(){pintarProgreso();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarBitacora()}
+function pintar(){latido();pintarProgreso();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarBitacora()}
 pintar();
 
 (async()=>{

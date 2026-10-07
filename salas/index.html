@@ -601,6 +601,16 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
   #insp{left:12px;right:12px;width:auto;top:auto;bottom:calc(64px + env(safe-area-inset-bottom,0px));max-height:55%}
 }
 @media (prefers-reduced-motion: reduce){.vivo::before,.glow,.barrido,.cursor-b{animation:none}}
+
+/* Piezas propuestas: fila horizontal de tarjetas pequeñas (zoom para ver en grande) */
+#panel .piezas,#panel.full .piezas{display:flex!important;flex-wrap:nowrap;overflow-x:auto;gap:12px;padding:12px 4px 16px;scroll-snap-type:x proximity}
+#panel .piezas .pieza{flex:0 0 165px;scroll-snap-align:start}
+#panel.full .piezas .pieza{flex-basis:175px}
+.pz-modf[hidden]{display:none!important}
+#panel .piezas .pz-info{padding:9px 10px 11px;gap:6px;font-size:11.5px}
+#panel .piezas .pz-info h4{font-size:13px}
+#panel .piezas .pz-por{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+#panel .piezas .btn{padding:5px 8px;font-size:11.5px}
 </style>
 
 <div id="vista" aria-label="Lienzo de salas. Arrastra para moverte y usa la rueda o pellizca para hacer zoom.">

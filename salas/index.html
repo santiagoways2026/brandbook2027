@@ -82,6 +82,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .pn-chat{flex:none;border-top:1px solid var(--borde-2);display:flex;flex-direction:column;height:min(36vh,340px);background:#0a0c10}
 .pn-chat .chat-cab{padding:10px 16px}
 .pn-chat .chat-msgs{flex:1;min-height:0}
+#pnChat #cerrarChat{display:none}#pnMin{display:none}#pnChat #pnMin{display:inline-flex;align-items:center;gap:6px;background:#11151c;border:1px solid var(--borde-2);border-radius:6px;padding:5px 10px;cursor:pointer;color:#c9d0da;font:500 12px/1 var(--f-ui)}#pnChat #pnMin:hover{background:#18202b}#pnMin svg{width:14px;height:14px;transition:transform .15s}.pn-chat.min #pnMin svg{transform:rotate(180deg)}
 .pn-chat.min{height:auto}.pn-chat.min .chat-msgs,.pn-chat.min .chat-sug,.pn-chat.min .chat-nota,.pn-chat.min .chat-form{display:none}
 #panel .k-grid,#panel .cb-grid,#panel .tend{grid-template-columns:minmax(0,1fr)!important}
 #panel .tabla{font-size:12.5px}#panel .tabla td:not(:first-child),#panel .tabla th{white-space:nowrap}
@@ -720,6 +721,9 @@ function abrirPanel(sala,foco){
   const ch=$("#pnChat"),src=$("#chat");
   ["chatMsgs","chatSug","chatNota","chatForm"].forEach(k=>{const n=document.getElementById(k);if(n)ch.appendChild(n)});
   const cab=src.querySelector(".chat-cab");if(cab)ch.prepend(cab);
+  if(cab&&!cab.querySelector("#pnMin")){const b=document.createElement("button");b.id="pnMin";b.type="button";b.innerHTML='<span>Minimizar</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"/></svg>';cab.appendChild(b)}
+  let pmin=false;try{pmin=localStorage.getItem("pnChatMin")==="1"}catch(e){}
+  ch.classList.toggle("min",pmin);const pb=ch.querySelector("#pnMin span");if(pb)pb.textContent=pmin?"Abrir chat":"Minimizar";
   src.hidden=true;st.chatSala=CHAT_SALAS[sala]?sala:"control";pn.hidden=false;pintarChat();
   if(foco&&foco!==sala)setTimeout(()=>mods.querySelector(`[data-mod="${foco}"]`)?.scrollIntoView({block:"start",behavior:"smooth"}),60);
 }
@@ -1321,8 +1325,8 @@ function mockPieza(x){
   const dur=x.tipo==="yt"?`<span class="yt-dur">${esc((x.formato||"").match(/\d+/)?.[0]||"10")}:00</span>`:"";
   const just=x.tipo==="yt"?"justify-content:flex-end;":x.tipo==="ig"&&fondo!=="blanco"?"justify-content:center;":"";
   if(x.tipo==="yt"&&(x.ab||[]).length)return`<div class="mock r169 vid-mock"><img src="${esc(x.ab[0].img)}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></div>`;
-  if((x.tipo==="reel"||x.tipo==="tiktok")&&x.video)return`<div class="mock r916 vid-mock"><video controls playsinline preload="none" poster="${esc(x.poster||"")}" src="${esc(x.video)}"></video></div>`;
-  const ov=x.tipo==="ig"&&fondo!=="blanco"?"linear-gradient(180deg,rgba(10,14,8,.50) 0%,rgba(10,14,8,.58) 45%,rgba(10,14,8,.80) 100%)":"linear-gradient(180deg,rgba(10,14,8,.22) 0%,rgba(10,14,8,.45) 40%,rgba(10,14,8,.85) 100%)";
+  if((x.tipo==="reel"||x.tipo==="tiktok")&&x.video)return`<div class="mock r916 vid-mock"><video controls playsinline preload="none" poster="${esc(x.poster?x.poster+"?v=3":"")}" src="${esc(x.video+"?v=3")}"></video></div>`;
+  const ov=x.id==="ig-2-xacobeo-claves"?"linear-gradient(180deg,rgba(0,0,0,.05) 35%,rgba(0,0,0,.62))":x.tipo==="ig"&&fondo!=="blanco"?"linear-gradient(180deg,rgba(10,14,8,.50) 0%,rgba(10,14,8,.58) 45%,rgba(10,14,8,.80) 100%)":"linear-gradient(180deg,rgba(10,14,8,.22) 0%,rgba(10,14,8,.45) 40%,rgba(10,14,8,.85) 100%)";
   const bg=x.imagen?` style="background-image:${ov},url('${esc(x.imagen)}')"`:"";
   return`<div class="mock ${r} ${fondo}${x.imagen?" conimg":""}"${bg}>${isoMock(fondo==="blanco"?"verde":"blanco")}
     <div class="in" style="${just}">${x.tipo==="yt"?"":ante}<h5>${sw}</h5>${sub}${lista}${etq}</div>${vert}${dur}
@@ -1889,7 +1893,7 @@ const CHAT_SALAS={
 SALAS_N.forEach(S=>{CHAT_SALAS[S.id]={lider:S.lider,nombre:S.nombre,equipo:()=>S.equipo,saludo:`Hola, Álvaro. Soy ${S.lider}, responsable de ${S.nombre}. La sala acaba de abrir y ya tenemos los datos de Paid Media y SEO para empezar. ¿Por dónde quieres que empecemos?`,
   persona:`Eres el equipo de la sala ${S.nombre} de Santiago Ways: ${S.equipo.map(a=>a.n+" ("+a.rol+")").join(", ")}. Misión: ${S.mision} Lo que ya sabéis de otras salas: ${S.saber.join(" ")} Fuentes pendientes: ${S.fuentes.filter(f=>!f[2]).map(f=>f[0]).join(", ")}; si un dato depende de ellas, decid que falta la conexión. No inventes cifras.`,sug:S.sug}});
 const salaDe=m=>m.sala||"control";
-function abrirChat(sala){if(!$("#panel").hidden&&(!sala||sala===st.dentro)){$("#pnChat").classList.remove("min");$("#pnChat").scrollIntoView({block:"end",behavior:"smooth"});setTimeout(()=>$("#chatTxt")?.focus(),50);return}if(!$("#panel").hidden)salir(false);st.chatSala=CHAT_SALAS[sala]?sala:(CHAT_SALAS[st.dentro]?st.dentro:"control");$("#chat").hidden=false;pintarChat();setTimeout(()=>$("#chatTxt")?.focus(),50)}
+function abrirChat(sala){if(!$("#panel").hidden&&(!sala||sala===st.dentro)){$("#pnChat").classList.remove("min");{const sp=$("#pnMin span");if(sp)sp.textContent="Minimizar";try{localStorage.setItem("pnChatMin","0")}catch(_){}}$("#pnChat").scrollIntoView({block:"end",behavior:"smooth"});setTimeout(()=>$("#chatTxt")?.focus(),50);return}if(!$("#panel").hidden)salir(false);st.chatSala=CHAT_SALAS[sala]?sala:(CHAT_SALAS[st.dentro]?st.dentro:"control");$("#chat").hidden=false;pintarChat();setTimeout(()=>$("#chatTxt")?.focus(),50)}
 function pintarChat(){
   const el=$("#chatMsgs");if(!el||!chatVisible())return;
   const S=CHAT_SALAS[st.chatSala]||CHAT_SALAS.control,ctrl=st.chatSala==="control";
@@ -1977,7 +1981,7 @@ document.addEventListener("click",e=>{
   const fl=e.target.closest("[data-capafl]");if(fl){e.stopPropagation();const k=fl.dataset.capafl;st.capasAb=st.capasAb||{};st.capasAb[k]=!(st.capasAb[k]??(st.dentro===k));pintarCapas();return}
   if(e.target.closest("#pnAbrir")){document.querySelectorAll("#pnMods details").forEach(d=>d.open=true);return}
   if(e.target.closest("#pnPlegar")){document.querySelectorAll("#pnMods details").forEach(d=>d.open=false);return}
-  if(e.target.closest("#pnChat .chat-cab")&&!e.target.closest("button")){$("#pnChat").classList.toggle("min");return}
+  if(e.target.closest("#pnMin")||(e.target.closest("#pnChat .chat-cab")&&!e.target.closest("button"))){const ch=$("#pnChat"),m=ch.classList.toggle("min");const sp=ch.querySelector("#pnMin span");if(sp)sp.textContent=m?"Abrir chat":"Minimizar";try{localStorage.setItem("pnChatMin",m?"1":"0")}catch(_){}return}
 });
 document.addEventListener("submit",e=>{if(e.target.id!=="chatForm")return;e.preventDefault();if(st.chatOcupado){chatCtl?.abort();return}enviarChat($("#chatTxt").value)});
 document.addEventListener("keydown",e=>{if(e.target.id==="chatTxt"&&e.key==="Enter"&&!e.shiftKey){e.preventDefault();$("#chatForm").requestSubmit()}});

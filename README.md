@@ -62,6 +62,7 @@ A partir de ese momento el transformador ya sabe usarlo.
 | `design-system/inventario.md` | Lista cerrada de clases, generada desde el CSS |
 | `design-system/catalogo.md` | Qué es cada bloque, cuándo se usa y sus reglas de marcado |
 | `design-system/paleta.md` | Paleta real vs. Brandbook 2027, con los avisos de contraste |
+| `design-system/tabla-responsive.css` | Hoja de la tabla. Se tematiza con variables CSS |
 | `design-system/tokens.css` | Tokens del brandbook como referencia |
 | `bloques/` | Un `.html` por componente con su markup de referencia |
 | `tools/inventario.py` | Regenera el inventario cuando cambia `bloques.css` |
@@ -71,14 +72,13 @@ A partir de ese momento el transformador ya sabe usarlo.
 
 ## Estado
 
-| | CSS | HTML de referencia |
-|---|---|---|
-| Los 23 bloques de `bloques.css` | ✓ original | ✗ pendiente |
-| `tabla-responsive` | ✗ reconstruido | ✓ original |
+| | CSS | HTML de referencia | Módulo |
+|---|---|---|---|
+| `tabla-responsive` | ✓ original | ✓ original | ✓ listo |
+| Los 23 bloques de `bloques.css` | ✓ original | ✗ pendiente | ✗ pendiente |
 
-Falta el markup de referencia de los 23 bloques y el CSS de `tabla-responsive`, que no
-está en `bloques.css`.
+Falta el markup de referencia de los 23 bloques de `bloques.css`.
 
-Hay además **un aviso de contraste**: `#668814`, el color de texto más usado de la hoja
-(32 veces, casi siempre en tamaños de 11-13 px), da 4,12:1 sobre blanco y no llega al
+Hay además **un aviso de contraste**: `#668814`, el color de texto más usado del sistema
+(33 veces, casi siempre en tamaños de 11-13 px), da 4,12:1 sobre blanco y no llega al
 mínimo AA de 4,5:1. Está detallado en [`design-system/paleta.md`](design-system/paleta.md).

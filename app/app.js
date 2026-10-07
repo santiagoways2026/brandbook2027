@@ -13,7 +13,7 @@
     'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap',
     '/design-system/tokens.css',
     '/design-system/bloques.css',
-    '/bloques/tabla-responsive.css',
+    '/design-system/tabla-responsive.css',
   ];
 
   const $ = (sel) => document.querySelector(sel);

@@ -41,7 +41,7 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 | 19 | `arrival` | Dos fichas con foto a media anchura | CSS ✓ HTML ✗ |
 | 20 | `gr-ficha` | Ficha de datos: foto + pares etiqueta/valor | CSS ✓ HTML ✗ |
 | 21 | `gr-planner` | Promo del planificador, con columna oscura y checklist | CSS ✓ HTML ✗ |
-| 22 | `tabla-responsive` | Tabla de datos. En móvil cada fila es una tarjeta | **CSS ✗** HTML ✓ |
+| 22 | `tabla-responsive` | Tabla de datos. En móvil cada fila es una tarjeta | CSS ✓ HTML ✓ |
 
 ---
 
@@ -82,12 +82,35 @@ márgenes). `quote` espera exactamente `.quote__text` y `.quote__author`.
 `.finder__link::after` pone `›`, `.durations__link::after` pone `›` y `.gear__link::after`
 pone `→`. **No se escriben en el HTML**: saldrían duplicados.
 
+### `tabla-responsive` · el tema se cambia desde el HTML
+La tabla declara sus colores como variables en `.tabla-responsive`. Para cambiar el color
+de **una** tabla concreta se redefinen en el propio elemento:
+
+```html
+<table class="tabla-responsive" style="--tabla-acento-1:#1d4ed8; --tabla-acento-2:#1e3a8a;">
+```
+
+Es la **segunda excepción** a la regla de no usar `style` inline, y está prevista por el
+propio CSS. Para cambiarlo en toda la web se editan los valores de
+[`tabla-responsive.css`](tabla-responsive.css), no el HTML.
+
+Las variables: `--tabla-acento-1`, `--tabla-acento-2`, `--tabla-texto`, `--tabla-borde`,
+`--tabla-cebra` y `--tabla-radio`. Están documentadas en [`inventario.md`](inventario.md).
+
+### `tabla-responsive` · el punto de ruptura es 680 px
+No 720. Y no puede ser una variable CSS: las media queries no las leen. Está escrito a
+mano en `tabla-responsive.css` y hay que cambiarlo ahí si hace falta otro valor.
+
+### `tabla-responsive` · la cabecera se oculta, no se borra
+En móvil `thead` se esconde con `clip: rect(0 0 0 0)`, no con `display:none`: los lectores
+de pantalla siguen leyéndola. Por eso los `<th>` tienen que llevar texto real aunque en
+móvil no se vean.
+
 ---
 
 ## Lo que falta
 
-1. **Los 21 HTML de referencia.** Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
+**Los 21 HTML de referencia.** Déjalos en [`inbox/`](../inbox/) y pide «cataloga el inbox».
    Con ellos se confirma la estructura exacta de cada bloque y se cierra el catálogo.
-2. **El CSS de `tabla-responsive`.** No está en `bloques.css`. Mientras tanto se usa la
-   reconstrucción de [`../bloques/tabla-responsive.css`](../bloques/tabla-responsive.css),
-   que **no es la tuya**.
+`tabla-responsive` ya está completo: [`tabla-responsive.css`](tabla-responsive.css) es el
+original y [`../bloques/tabla-responsive.html`](../bloques/tabla-responsive.html) el markup.

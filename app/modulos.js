@@ -115,11 +115,13 @@ const MODULOS = [
     grupo: 'Datos',
     descripcion:
       'Tabla de datos dentro de un artículo. En móvil cada fila se convierte en una tarjeta, con la primera columna como título.',
-    estado: { texto: 'HTML original · CSS reconstruido', tono: 'aviso' },
+    estado: { texto: 'HTML y CSS originales', tono: 'ok' },
     reglas: [
       'El primer <td> no lleva data-label: hace de título de la tarjeta en móvil.',
       'El resto de <td> llevan data-label con el texto exacto de su <th>.',
       'La primera columna va siempre en <strong>.',
+      'El salto a tarjetas ocurre a 680 px. Entre 680 px y el ancho natural de la tabla hay scroll horizontal.',
+      'Los <th> necesitan texto real: en móvil se ocultan a la vista pero los lectores de pantalla los leen.',
       'Más de 4 columnas hace la tarjeta móvil muy larga.',
     ],
     entrada: {

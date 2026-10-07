@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Genera design-system/inventario.md leyendo design-system/bloques.css.
+"""Genera design-system/inventario.md leyendo las hojas de design-system/.
 
 El inventario es la lista cerrada de clases disponibles. Se regenera con:
     python tools/inventario.py
@@ -10,7 +10,10 @@ import pathlib
 import collections
 
 RAIZ = pathlib.Path(__file__).resolve().parent.parent
-CSS = RAIZ / "design-system" / "bloques.css"
+HOJAS = [
+    RAIZ / "design-system" / "bloques.css",
+    RAIZ / "design-system" / "tabla-responsive.css",
+]
 SALIDA = RAIZ / "design-system" / "inventario.md"
 
 # Nombre humano de cada raíz, tomado de los comentarios numerados del CSS.
@@ -38,18 +41,35 @@ NOMBRES = {
     "arrival":      "Llegada · dos fichas con imagen a media anchura",
     "gr-ficha":     "Ficha de datos · imagen + pares etiqueta/valor",
     "gr-planner":   "Promo del planificador · columna oscura con checklist",
+    "tabla-responsive": "Tabla de datos · en móvil cada fila es una tarjeta",
 }
 
 # Raíces que conviven en el mismo apartado del CSS.
 PAREJAS = {"note": "quote", "prep": "gear"}
 
+# Variables CSS que un bloque expone para que se le cambie el tema.
+VARIABLES = {
+    "tabla-responsive": [
+        ("--tabla-acento-1", "verde claro, inicio del degradado · #7AA606"),
+        ("--tabla-acento-2", "verde oscuro, fin del degradado y color de las etiquetas · #668814"),
+        ("--tabla-texto", "color del texto de las celdas · #111111"),
+        ("--tabla-borde", "líneas y bordes · #e5e7eb"),
+        ("--tabla-cebra", "fondo de las filas pares · #fafaf9"),
+        ("--tabla-radio", "radio de las esquinas · 16px"),
+    ],
+}
+
+# Clases cuyo nombre no empieza por su raíz y hay que reagrupar a mano.
+ALIAS = {"tabla-responsive-wrap": "tabla-responsive"}
+
 
 def raiz_de(clase):
-    return re.split(r"__|--", clase, maxsplit=1)[0]
+    base = re.split(r"__|--", clase, maxsplit=1)[0]
+    return ALIAS.get(base, base)
 
 
 def main():
-    css = CSS.read_text(encoding="utf-8")
+    css = chr(10).join(h.read_text(encoding="utf-8") for h in HOJAS)
     # Solo selectores de clase, ignorando el interior de los valores.
     css_sin_valores = re.sub(r":[^;{}]*;", ";", css)
     clases = sorted(set(re.findall(r"\.([A-Za-z][A-Za-z0-9_-]*)", css_sin_valores)))
@@ -62,7 +82,7 @@ def main():
         "# Inventario de clases",
         "",
         "**Generado automáticamente.** No editar a mano: se regenera con `python tools/inventario.py`",
-        "a partir de [`bloques.css`](bloques.css).",
+        "a partir de " + " y ".join(f"[`{h.name}`]({h.name})" for h in HOJAS) + ".",
         "",
         "Esta es la **lista cerrada**: cualquier clase que no aparezca aquí no existe y no se puede usar.",
         "",
@@ -90,6 +110,11 @@ def main():
         for clase in por_raiz[raiz]:
             marca = " · **modificador**" if "--" in clase else ""
             lineas.append(f"- `.{clase}`{marca}")
+        if raiz in VARIABLES:
+            lineas.append("")
+            lineas.append("Variables de tema, redefinibles en el propio elemento:")
+            for var, nota in VARIABLES[raiz]:
+                lineas.append(f"- `{var}` · {nota}")
         lineas.append("")
 
     SALIDA.write_text("\n".join(lineas) + "\n", encoding="utf-8")

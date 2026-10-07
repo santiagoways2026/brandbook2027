@@ -1,11 +1,11 @@
 # Inventario de clases
 
 **Generado automáticamente.** No editar a mano: se regenera con `python tools/inventario.py`
-a partir de [`bloques.css`](bloques.css).
+a partir de [`bloques.css`](bloques.css) y [`tabla-responsive.css`](tabla-responsive.css).
 
 Esta es la **lista cerrada**: cualquier clase que no aparezca aquí no existe y no se puede usar.
 
-23 bloques · 208 clases.
+24 bloques · 210 clases.
 
 | Bloque | Clases | Modificadores |
 |---|---:|---|
@@ -30,6 +30,7 @@ Esta es la **lista cerrada**: cualquier clase que no aparezca aquí no existe y 
 | `safety` | 14 | `safety__item--wide`, `safety__tag--dark`, `safety__tag--soft` |
 | `stats` | 6 | — |
 | `steps` | 6 | `steps__number--final` |
+| `tabla-responsive` | 2 | — |
 | `timeline` | 20 | `timeline__dot--current`, `timeline__row--current`, `timeline__row-year--current`, `timeline__year--current` |
 | `tips` | 5 | — |
 
@@ -326,6 +327,21 @@ Pasos verticales numerados con línea de unión
 - `.steps__number--final` · **modificador**
 - `.steps__text`
 - `.steps__title`
+
+## `.tabla-responsive`
+
+Tabla de datos · en móvil cada fila es una tarjeta
+
+- `.tabla-responsive`
+- `.tabla-responsive-wrap`
+
+Variables de tema, redefinibles en el propio elemento:
+- `--tabla-acento-1` · verde claro, inicio del degradado · #7AA606
+- `--tabla-acento-2` · verde oscuro, fin del degradado y color de las etiquetas · #668814
+- `--tabla-texto` · color del texto de las celdas · #111111
+- `--tabla-borde` · líneas y bordes · #e5e7eb
+- `--tabla-cebra` · fondo de las filas pares · #fafaf9
+- `--tabla-radio` · radio de las esquinas · 16px
 
 ## `.timeline`
 

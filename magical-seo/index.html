@@ -56,11 +56,6 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .pulso{display:inline-flex;align-items:center;gap:7px;color:var(--tenue);text-transform:uppercase;letter-spacing:.08em}
 .pulso::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--tenue);flex:none}
 .pulso.vivo{color:var(--ways)}
-#lanzar{margin-top:3px;align-self:stretch;text-align:left;padding:6px 11px;border:1px solid var(--borde2);
-  border-radius:6px;background:var(--sup);color:var(--texto);font:600 11px/1.3 var(--f-mono);
-  letter-spacing:.04em;cursor:pointer;transition:border-color .15s,color .15s}
-#lanzar:hover{border-color:var(--ways);color:var(--ways)}
-#lanzar.ok{border-color:var(--ways);color:var(--ways)}
 .pulso.vivo::before{background:var(--ways);box-shadow:0 0 0 0 color-mix(in srgb,var(--ways) 70%,transparent);animation:late 2.4s ease-out infinite}
 @keyframes late{70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
 @media (prefers-reduced-motion:reduce){.pulso.vivo::before{animation:none}}
@@ -167,7 +162,6 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
       <span class="pulso" id="pulso">Sin conexión</span>
       <span id="ultima">Barrida: nunca</span>
       <span id="proxima"></span>
-      <button id="lanzar" type="button">Copiar orden de barrida</button>
     </div>
   </div>
   <p>Vigilancia del contenido que publican los operadores rivales del Camino de Santiago: artículos de blog, páginas de ruta, señales de posicionamiento y los huecos que dejan abiertos.</p>
@@ -246,27 +240,6 @@ function reloj(iso){const t=Date.parse(iso);return isFinite(t)
 /* Equipo */
 $("#fichas").innerHTML=EQUIPO.map(a=>`<article class="ficha" style="--c:${a.c}" id="f-${a.id}">
   <b>${esc(a.n)}</b><span>${esc(a.rol)}</span><em data-est="${a.id}">A la espera</em></article>`).join("");
-
-/* Orden de barrida: la pagina no puede ejecutar agentes, asi que copia la
-   instruccion exacta para pegarla en Claude. El disparo de verdad esta en
-   "Ejecutar ahora" de la tarea programada. */
-const ORDEN="Sigue magical-seo/agentes/barrida-rivales/AGENTE.md y haz una barrida completa de los rivales vigilados.";
-$("#lanzar").addEventListener("click",async e=>{
-  const b=e.currentTarget;
-  const fin=t=>{b.textContent=t;b.classList.add("ok");
-    setTimeout(()=>{b.textContent="Copiar orden de barrida";b.classList.remove("ok")},2600)};
-  try{
-    await navigator.clipboard.writeText(ORDEN);
-    fin("Copiado · pégalo en Claude");
-  }catch(err){
-    const ta=document.createElement("textarea");
-    ta.value=ORDEN;ta.style.position="fixed";ta.style.opacity="0";
-    document.body.appendChild(ta);ta.select();
-    try{document.execCommand("copy");fin("Copiado · pégalo en Claude")}
-    catch(e2){fin("No se pudo copiar")}
-    finally{ta.remove()}
-  }
-});
 
 /* Pestañas */
 document.querySelectorAll('[role="tab"]').forEach(b=>b.addEventListener("click",()=>{

@@ -204,9 +204,9 @@ Tres formas, de más directa a menos:
 Sigue magical-seo/agentes/barrida-rivales/AGENTE.md y haz una barrida completa
 ```
 
-**3. El botón de la sala.** En la cabecera hay un botón que copia esa orden al portapapeles para pegarla en Claude.
+La sala no tiene botón de lanzar barrida, y no es un olvido: **una página publicada no puede ejecutar agentes ni tareas programadas**. Solo puede leer y escribir en su base de datos. Un botón que lo prometiera estaría mintiendo.
 
-Importante, para que no haya malentendidos: **ese botón no ejecuta la barrida**. Una página publicada no puede lanzar agentes ni tareas programadas, así que lo único honesto que puede hacer es dejarte la orden lista en el portapapeles. Por eso se llama "copiar orden" y no "lanzar barrida".
+La primera vez conviene usar la ejecución inmediata: **los permisos de herramientas que concedas durante una ejecución quedan guardados en la tarea** y se aplican a las siguientes. Sin eso, una barrida de madrugada puede quedarse esperando un permiso que nadie va a conceder.
 
 ### Validar un rival propuesto
 

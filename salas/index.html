@@ -961,6 +961,9 @@ const MARCOS=[
   {id:"lifecycle",grupo:"lifecycle",nombre:"Lifecycle / Sala",x:0,y:0,w:1200},
   {id:"lifecycle_insights",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Insights",x:0,y:-9000,w:1300},
   {id:"lifecycle_roadmap",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Roadmap",x:0,y:-9000,w:1300},
+  {id:"tiktok",grupo:"tiktok",nombre:"TikTok / Sala",x:0,y:0,w:1200},
+  {id:"tiktok_mision",grupo:"tiktok",dato:true,nombre:"TikTok / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
+  {id:"tiktok_datos",grupo:"tiktok",dato:true,nombre:"TikTok / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"captacion",grupo:"captacion",nombre:"Captación / Sala",x:0,y:0,w:1200},
   {id:"captacion_mision",grupo:"captacion",dato:true,nombre:"Captación / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"captacion_datos",grupo:"captacion",dato:true,nombre:"Captación / Lo que ya sabemos",x:0,y:-9000,w:1300},
@@ -986,11 +989,11 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[2900,1500],instagram:[-1500,-2600],youtube:[300,-2600],radar:[2100,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],mdirecto:[5600,4700],producto:[5000,7800]};
+const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],mdirecto:[5600,4700],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap","lifecycle_mision","lifecycle_datos"],captacion:["captacion","captacion_mision","captacion_datos"],community:["community","community_insights","community_roadmap","community_mision","community_datos"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap","lifecycle_mision","lifecycle_datos"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_mision","captacion_datos"],community:["community","community_insights","community_roadmap","community_mision","community_datos"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -998,12 +1001,14 @@ function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i
 const PASILLOS_DEF=[
   {id:"pa5",d:"M950 -167 V1300",c:"#e879f9",txt:"Insights de redes → Control",sub:"community.insights · roadmap",lx:1010,ly:300},
   {id:"pa6",d:"M250 1300 V-167",c:"#f5d76e",txt:"Directrices → Community y redes",sub:"control.directrices · instagram · youtube · radar",lx:190,ly:300,fin:true},
-  {id:"pa11",d:ruta([[-900,-1934],[-900,-800],[-150,-800]],140),c:"#e1306c",txt:"Instagram ↔ Community",sub:"rendimiento de las cuentas ES, EN y DE",lx:-1640,ly:-1450,fin:true},
-  {id:"pa22",d:"M900 -1934 V-1000",c:"#ff4d4d",txt:"YouTube ↔ Community",sub:"canales · benchmark · roadmap",lx:950,ly:-1450},
-  {id:"pa28",d:ruta([[2700,-1934],[2700,-800],[1350,-800]],140),c:"#3d7bff",txt:"Radar Viral ↔ Community",sub:"tendencias virales · cada 2 h",lx:2760,ly:-1450},
-  {id:"pa29",d:"M1500 -2267 H2100",c:"#3d7bff",txt:"",sub:"",lx:0,ly:0},
-  {id:"pa20",d:"M-300 -2267 H300",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:-270,ly:-2330},
-  {id:"pa21",d:ruta([[900,-2600],[900,-2950],[5800,-2950],[5800,400]],320),c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:3700,ly:-3020},
+  {id:"pa11",d:ruta([[-2100,-1934],[-2100,-600],[-150,-600]],160),c:"#e1306c",txt:"Instagram ↔ Community",sub:"rendimiento de las cuentas ES, EN y DE",lx:-2840,ly:-1450,fin:true},
+  {id:"pa22",d:ruta([[-300,-1934],[-300,-850],[-150,-850]],140),c:"#ff4d4d",txt:"YouTube ↔ Community",sub:"canales · benchmark · roadmap",lx:-260,ly:-1450},
+  {id:"pa28",d:ruta([[3300,-1934],[3300,-600],[1350,-600]],160),c:"#3d7bff",txt:"Radar Viral ↔ Community",sub:"tendencias virales · cada 2 h",lx:3360,ly:-1450},
+  {id:"pa29",d:"M2100 -2267 H2700",c:"#3d7bff",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa32",d:ruta([[1500,-1934],[1500,-850],[1350,-850]],140),c:"#25f4ee",txt:"TikTok ↔ Community",sub:"vídeos · tendencias · sonidos",lx:1560,ly:-1450},
+  {id:"pa33",d:"M300 -2267 H900",c:"#25f4ee",txt:"Shorts ↔ TikTok",sub:"",lx:330,ly:-2330},
+  {id:"pa20",d:"M-1500 -2267 H-900",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:-1470,ly:-2330},
+  {id:"pa21",d:ruta([[-300,-2600],[-300,-2950],[5800,-2950],[5800,400]],320),c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:3700,ly:-3020},
   {id:"pa4",d:"M750 4300 V2632",c:"#22d3ee",txt:"Lifecycle → Control",sub:"embudo · repetición · valor del cliente",lx:800,ly:3450},
   {id:"pa7",d:"M450 2632 V4300",c:"#f5d76e",txt:"Directrices → Lifecycle",sub:"control.directrices.lifecycle",lx:-330,ly:3450,fin:true},
   {id:"pa23",d:ruta([[-4600,-1934],[-4600,-400],[-1500,-400],[-1500,1400],[-600,1400]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4100,ly:-470},
@@ -1029,6 +1034,7 @@ const PERSONALIDAD={
   paid:{c:"#f472b6",caracter:"El parqué",lema:"Cada euro tiene que volver con amigos",ambiente:"Teletipos, pujas en directo y gráficos en verde",tono:"Eres directo y numérico, como un trader: CPA, ROAS, presupuesto y qué mover hoy.",suelo:"velas",obj:"grafico"},
   mdirecto:{c:"#38bdf8",caracter:"La oficina de correos",lema:"El mensaje justo, en el momento justo",ambiente:"Buzones, sellos y los flujos del CRM dibujados en la pared",tono:"Eres ordenado y orientado a conversión: asunto, momento de envío, segmento y siguiente paso.",suelo:"sobres",obj:"sobre"},
   producto:{c:"#fdba74",caracter:"El taller",lema:"Cada etapa, probada a mano",ambiente:"Banco de trabajo, mapas de etapas y prototipos de rutas",tono:"Eres práctico y detallista, como un artesano del producto: etapas, alojamientos, márgenes y qué mejorar.",suelo:"plano",obj:"concha"},
+  tiktok:{c:"#25f4ee",caracter:"El escenario",lema:"Tres segundos para ganarte el scroll",ambiente:"Luces de neón cian y rosa, un aro de luz y el sonido de moda sonando en bucle",tono:"Hablas como un equipo de TikTok: gancho, sonido, tendencia y retención, con las cifras de las cuentas ES y EN.",suelo:"claqueta",obj:"camara"},
   captacion:{c:"#f97316",caracter:"La puerta",lema:"Cada lead cuenta, cada euro también",ambiente:"Un gran embudo luminoso, contadores de leads en directo y mapas de búsquedas",tono:"Hablas como un director de captación: leads, coste por lead, calidad del lead y qué canal (SEO o Paid) trae ventas, siempre con cifras.",suelo:"embudo",obj:"grafico"},
   community:{c:"#e879f9",caracter:"La plaza",lema:"Todas las redes, una sola conversación",ambiente:"Una plaza con bancos, pantallas con los comentarios en directo y un tablón de ideas",tono:"Hablas como una directora de comunidad y redes: sintetizas Instagram, YouTube y el Radar Viral en insights claros con su dato y una acción concreta.",suelo:"sobres",obj:"bocadillos"},
   lifecycle:{c:"#22d3ee",caracter:"El ciclo",lema:"Del primer clic a la siguiente ruta",ambiente:"Una espiral luminosa con cada etapa del cliente y pantallas con el embudo en directo",tono:"Hablas como una directora de lifecycle: adquisición, conversión, repetición y recomendación por mercado, resumiendo lo que dicen Journey y Comercial y siempre con cifras.",suelo:"hex",obj:"antena"},
@@ -1097,7 +1103,7 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   if(!m.dato&&st.dentro&&!SALAS_ACT[st.dentro].includes(id))salir(false);
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
-const SALA_TIT={captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+const SALA_TIT={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
 /* Resumen: deja lo esencial (3 puntos por lista, 6 filas por tabla, 3 líneas por párrafo) */
 const RES_LISTA=3,RES_TABLA=6,RES_TARJ=4;
 function resumir(raiz){if(!raiz)return;
@@ -1332,7 +1338,7 @@ function svgPasillos(){
       <path d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".08" stroke-width="40" stroke-linejoin="round"/>
       <path class="flujo" d="${p.d}" fill="none" stroke="${p.c}" stroke-opacity=".45" stroke-width="2" stroke-dasharray="8 32"/>
       ${p.txt?`<text x="${p.lx}" y="${p.ly}" class="p-txt"${p.fin?' text-anchor="end"':""}><tspan fill="${p.c}">■ </tspan>${esc(p.txt)}</text><text x="${p.fin?p.lx:p.lx+30}" y="${p.ly+28}" class="p-sub"${p.fin?' text-anchor="end"':""}>${esc(p.sub)}</text>`:""}`;
-    if(!quieto){const N=["pa17","pa18","pa19","pa26","pa29"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12","pa23","pa24","pa25","pa28","pa30","pa31"].includes(p.id)?4:7,dur={pa3:16,pa4:9,pa5:9,pa6:9,pa7:9,pa8:9,pa9:9,pa10:9,pa11:5,pa12:5,pa2:10,pa13:11,pa16:14,pa17:3,pa18:3,pa19:3,pa23:5,pa24:4,pa25:5,pa26:3,pa27:3,pa20:6,pa21:8}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
+    if(!quieto){const N=["pa17","pa18","pa19","pa26","pa29","pa33"].includes(p.id)?1:["pa4","pa5","pa6","pa7","pa8","pa9","pa11","pa12","pa23","pa24","pa25","pa28","pa30","pa31","pa32"].includes(p.id)?4:7,dur={pa3:16,pa4:9,pa5:9,pa6:9,pa7:9,pa8:9,pa9:9,pa10:9,pa11:5,pa12:5,pa2:10,pa13:11,pa16:14,pa17:3,pa18:3,pa19:3,pa23:5,pa24:4,pa25:5,pa26:3,pa27:3,pa20:6,pa21:8}[p.id]||14;for(let k=0;k<N;k++){const col=p.id==="pa5"?Object.values(PLAT)[k%Object.values(PLAT).length].c:p.c;
       d+=`<g><rect x="-11" y="-4" width="22" height="8" rx="2" fill="${col}" filter="url(#brilloP)"/><animateMotion dur="${dur}s" begin="-${(k*dur/N).toFixed(2)}s" repeatCount="indefinite" rotate="auto"${p.inv?' keyPoints="1;0" keyTimes="0;1" calcMode="linear"':""}><mpath href="#${p.id}"/></animateMotion></g>`}}
   }
   // Placa con el carácter y el lema de cada sala, por encima de los pasillos
@@ -1707,7 +1713,7 @@ function svgControl(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-const SALA_N={captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
+const SALA_N={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
 const SEM={bien:["#3ddc97","Bien"],vigilar:["#f5c518","Vigilar"],mal:["#ff5d5d","Actuar"]};
 function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
   if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
@@ -2345,6 +2351,21 @@ const SALAS_N=[
   saber:["Búsquedas pagadas: «camino de santiago» (152.117 € en el término) y «camino de santiago desde sarria» (27.038 € a 23,34 € por lead) concentran la demanda.","Rutas con coste por lead más del doble de la media en Google Ads: Camino Primitivo (68,66 €), «portugal coastal camino» (50,97 €) y «the portuguese way» (61,71 €).","Ticket medio por campaña: EN_SEARCH 3.341 €, ES_TOP_SEARCH 2.293 € e IT_SEARCH 2.143 €.","SEO: hay rutas sin página comercial en algún idioma (auditoría de la Sala SEO).","Comunidad: el post del mito de los albergues suma 730 comentarios; la gente pregunta por alojamiento, etapas y precio."],
   tareas:["Conectar Zoho para cruzar ventas y margen por ruta","Ficha por ruta: búsquedas, leads, ventas y ticket","Revisar el producto Portugués: mucha búsqueda y lead caro","Propuesta de producto para el Año Santo 2027"],
   sug:["¿Qué ruta deberíamos empujar en 2027?","¿Dónde perdemos más ventas por producto?","¿Qué precio proponéis para el Año Santo?"]},
+ {id:"tiktok",nombre:"TikTok",tit:"TikTok · cuentas ES y EN",color:"#25f4ee",fondo:"#040b0c",borde:"#134a4a",lider:"Nora",pant:"@santiagoways · @santiagoways_en",
+  sub:"cuentas ES y EN, tendencias, sonidos y ganchos",
+  equipo:[{id:"jefa",n:"Nora",rol:"Jefa de TikTok: estrategia de las cuentas ES y EN; reporta a Community y a la Sala de Control",c:"#25f4ee"},
+   {id:"es",n:"Dani",rol:"Cuenta ES (@santiagoways): contenido y calendario",c:"#fe2c55"},
+   {id:"en",n:"Grace",rol:"Cuenta EN (@santiagoways_en): arranque y crecimiento en inglés",c:"#3d7bff"},
+   {id:"trend",n:"Sam",rol:"Tendencias y sonidos: qué se mueve hoy en TikTok",c:"#f5d76e"},
+   {id:"edit",n:"Lía",rol:"Edición y ganchos: los 3 primeros segundos y la retención",c:"#c084fc"},
+   {id:"com",n:"Joel",rol:"Comentarios y respuestas en vídeo",c:"#3ddc97"}],
+  frases:{jefa:["Gancho, sonido y pregunta","Esto va a Community","La cuenta EN tiene que arrancar"],es:["«Esta es tu señal» hizo 76.234 vistas","Las preguntas funcionan","Publicar a las 19:00"],en:["La cuenta EN tiene 48 seguidores","Empezar con dudas reales en inglés","What is the Camino?"],trend:["Vídeo en primera persona","Humor que desmitifica","El sonido de la semana"],edit:["Texto en pantalla desde el segundo 1","Corte cada 2 segundos","Cierre con pregunta"],com:["Responder con vídeo","¿Qué preguntan hoy?","Fijar el mejor comentario"]},
+  mision:"Hacer crecer las cuentas de TikTok de Santiago Ways (ES y EN) con vídeos que respondan dudas reales y aprovechen las tendencias del Radar Viral, y llevar ese alcance a solicitudes de presupuesto.",
+  objetivos:["Más visualizaciones por vídeo que la mediana actual (1.461)","Arrancar la cuenta EN con un calendario propio","Responder en vídeo a las preguntas más repetidas","Llevar tráfico a presupuesto con enlace en bio y UTM"],
+  fuentes:[["Metricool · @santiagoways (ES)","Conectado: seguidores, vídeos y visualizaciones",true],["Metricool · @santiagoways_en (EN)","Conectado: seguidores y vídeos",true],["Radar Viral","Tendencias y vídeos virales del Camino",true],["Sala de Diseño","Vídeos montados con el brandbook",true]],
+  saber:["Cuenta ES: de 2.952 a 4.691 seguidores entre el 9 de julio y el 6 de octubre de 2026 (+1.739 en 90 días).","Vídeo más visto de los últimos 90 días: «¿Buscando señales para empezar el Camino?» con 76.234 visualizaciones, 1.848 me gusta y 1.009 compartidos.","Siguen «Top 4 curiosidades del Camino» (46.280 visualizaciones, 1.089 compartidos) y «¿Cuál es la mejor época?» (25.761). La mediana de los 55 vídeos es de 1.461 visualizaciones.","Cuenta EN: 48 seguidores y entre 80 y 500 visualizaciones por vídeo: está por arrancar."],
+  tareas:["Serie de señales y curiosidades, el formato que más vistas trae","Vídeos de dudas reales en inglés para la cuenta EN","Responder en vídeo a los comentarios con preguntas","Enlace con UTM a presupuesto en la bio"],
+  sug:["¿Qué vídeo hacemos esta semana?","¿Qué tendencia de TikTok aprovechamos?","¿Cómo arrancamos la cuenta EN?"]},
  {id:"captacion",nombre:"Captación",tit:"Captación · SEO y Paid Media en un solo embudo",color:"#f97316",fondo:"#0c0704",borde:"#4a2a12",lider:"Álex",pant:"78.093 leads · 24,47 € por lead",
   sub:"leads, coste y calidad por canal (SEO y Paid Media)",
   equipo:[{id:"jefe",n:"Álex",rol:"Director de captación: une SEO y Paid Media y reporta a la Sala de Control",c:"#f97316"},
@@ -2360,8 +2381,8 @@ const SALAS_N=[
   saber:["Google Ads: 1,91 M€ de inversión en 12 meses, 78.093 leads a 24,47 € por lead, 3.846 ventas y ROAS 5,6 sobre ventas.","Meta Ads: 276.071 € al año sin ninguna venta atribuida en la plataforma.","Leads orgánicos: 7.802, un 52 % menos con un 19 % más de visitas; 106.560 sesiones sin landing.","Los asistentes de IA convierten al 10,5 % con contenido citable."],
   tareas:["Embudo único de captación por canal y mercado","Puja de Google Ads por valor real de la venta","Medición de leads orgánicos","Decidir Meta: conectar ventas del CRM o recortar inversión"],
   sug:["¿Qué canal trae las ventas más baratas?","¿Cómo repartimos el presupuesto de 2027?","¿Por qué caen los leads orgánicos?"]},
- {id:"community",nombre:"Community",tit:"Community · todas las redes y el Radar en una sola foto",color:"#e879f9",fondo:"#0b050c",borde:"#4a1d52",lider:"Inés",pant:"Instagram · YouTube · Radar Viral",
-  sub:"síntesis de redes y Radar, insights y roadmap",
+ {id:"community",nombre:"Community",tit:"Community · todas las redes y el Radar en una sola foto",color:"#e879f9",fondo:"#0b050c",borde:"#4a1d52",lider:"Inés",pant:"Instagram · YouTube · TikTok · Radar Viral",
+  sub:"síntesis de redes (Instagram, YouTube y TikTok) y Radar, insights y roadmap",
   equipo:[{id:"jefa",n:"Inés",rol:"Directora de Community: sintetiza Instagram, YouTube y el Radar Viral y reporta a la Sala de Control",c:"#e879f9"},
    {id:"ig",n:"Mateo",rol:"Síntesis de Instagram: cuentas ES, EN y DE",c:"#e1306c"},
    {id:"yt",n:"Olivia",rol:"Síntesis de YouTube: canales, Shorts y benchmark",c:"#ff4d4d"},

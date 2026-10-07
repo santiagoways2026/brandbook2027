@@ -690,28 +690,30 @@ const MARCOS=[
 ];
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
-const POS={instagram:[3700,-3600],radar:[-2000,-1700],comunidad:[800,-1900],youtube:[3700,-1600],diseno:[-5200,1300],control:[0,1300],seo:[5400,400],paid:[5600,2600],competencia:[-400,4500],mdirecto:[2400,5400],producto:[5000,5800],comercial:[7700,5400]};
-MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id]});
+const TAM={control:1800,radar:1500};
+const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-300,1300],seo:[5400,400],paid:[5600,2600],competencia:[-400,4500],mdirecto:[2400,5400],producto:[5000,5800],comercial:[7700,5400]};
+MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
+const altoSala=m=>Math.round(m.w/1200*666);
+{const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
 const SALAS_ACT={instagram:["instagram","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_pet","d_ig","d_reel","d_yt","d_li","d_tk","d_tend","g_diseno"],control:["control","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricool","metricas","listado","bitacora","g_radar"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
   d+=` L${b[0]-(b[0]-a[0])/l1*k} ${b[1]-(b[1]-a[1])/l1*k} Q${b[0]} ${b[1]} ${b[0]+(c[0]-b[0])/l2*k} ${b[1]+(c[1]-b[1])/l2*k}`}const z=p[p.length-1];return d+` L${z[0]} ${z[1]}`}
 const PASILLOS_DEF=[
-  {id:"pa5",d:ruta([[-1200,-1034],[-1200,250],[350,250],[350,1300]],260),c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:-1110,ly:160},
-  {id:"pa6",d:ruta([[150,1300],[150,450],[-1500,450],[-1500,-1034]],260),c:"#f5d76e",txt:"Directrices → Radar",sub:"control.directrices.radar",lx:-1400,ly:540},
-  {id:"pa4",d:"M400 4500 C400 3000 800 3400 800 1966",c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:860,ly:3250},
-  {id:"pa7",d:"M400 1966 C400 3400 0 3000 0 4500",c:"#f5d76e",txt:"Directrices → Competencia",sub:"control.directrices.competencia",lx:90,ly:3250,fin:true},
-  {id:"pa14",d:ruta([[1200,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1340,ly:1300},
-  {id:"pa15",d:ruta([[1200,1700],[3600,1700],[3600,2900],[5600,2900]],260),c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:1340,ly:1590},
-  {id:"pa8",d:"M0 1500 C-1400 1200 -2600 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2700,ly:1170},
-  {id:"pa9",d:"M-4000 1760 C-2600 2060 -1400 2060 0 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2700,ly:2090},
-  {id:"pa11",d:"M-800 -1500 C-200 -1500 -200 -3400 600 -3400 H3700",c:"#3d7bff",txt:"Lo viral → Instagram",sub:"radar.hallazgos · formatos y audios que funcionan",lx:700,ly:-3460},
-  {id:"pa2",d:"M3700 -3150 H1700 C1100 -3150 1000 -2000 1000 1300",c:"#e1306c",txt:"Rendimiento de Instagram → Control",sub:"instagram.cuentas · ES, EN y DE",lx:1060,ly:-600},
-  {id:"pa13",d:"M1150 1300 C1150 -1800 1300 -2950 2300 -2950 H3700",c:"#f5d76e",txt:"Directrices → Instagram",sub:"control.directrices.instagram",lx:1500,ly:-1250},
-  {id:"pa20",d:"M4300 -2934 V-1600",c:"#e1306c",txt:"Reels ↔ Shorts",sub:"instagram.reels · youtube.shorts",lx:4390,ly:-2300},
-  {id:"pa21",d:"M4300 -934 C4300 -150 5800 -350 5800 400",c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"youtube.analisis · búsquedas · hub & spoke",lx:5000,ly:-420},
-  {id:"pa16",d:ruta([[1200,1880],[2200,1880],[2200,4900]],260)+" C3600 4900 4200 5200 5600 5200 S7600 4900 8300 4900",c:"#818cf8",txt:"Brazo comercial ↔ Control",sub:"marketing directo · producto · comercial",lx:2290,ly:3300},
+  {id:"pa5",d:"M950 -167 V1300",c:"#3d7bff",txt:"Tendencias virales y métricas → Control",sub:"radar.hallazgos · cada 2 h",lx:1010,ly:300},
+  {id:"pa6",d:"M250 1300 V-167",c:"#f5d76e",txt:"Directrices → Radar y redes",sub:"control.directrices.radar · instagram · youtube",lx:190,ly:300,fin:true},
+  {id:"pa11",d:ruta([[-300,-1934],[-300,-800],[-150,-800]],140),c:"#e1306c",txt:"Instagram ↔ Radar",sub:"rendimiento de las cuentas · tendencias",lx:-360,ly:-1450,fin:true},
+  {id:"pa22",d:ruta([[1500,-1934],[1500,-800],[1350,-800]],140),c:"#ff4d4d",txt:"YouTube ↔ Radar",sub:"canales · benchmark · tendencias",lx:1560,ly:-1450},
+  {id:"pa20",d:"M300 -2267 H900",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:330,ly:-2330},
+  {id:"pa21",d:"M2100 -2300 C4600 -2300 5800 -1300 5800 400",c:"#ff4d4d",txt:"YouTube ↔ SEO",sub:"búsquedas · hub & spoke",lx:2400,ly:-2370},
+  {id:"pa4",d:"M400 4500 C400 3200 800 3500 800 2299",c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:860,ly:3350},
+  {id:"pa7",d:"M400 2299 C400 3500 0 3200 0 4500",c:"#f5d76e",txt:"Directrices → Competencia",sub:"control.directrices.competencia",lx:90,ly:3350,fin:true},
+  {id:"pa8",d:"M-300 1500 C-1500 1200 -2700 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
+  {id:"pa9",d:"M-4000 1760 C-2700 2060 -1500 2060 -300 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
+  {id:"pa14",d:ruta([[1500,1400],[3200,1400],[3200,800],[5400,800]],260),c:"#2dd4bf",txt:"Directrices y SEO ↔ Control",sub:"seo.auditoria · control.directrices.seo",lx:1640,ly:1300},
+  {id:"pa15",d:ruta([[1500,1700],[3600,1700],[3600,2900],[5600,2900]],260),c:"#f472b6",txt:"Paid Media ↔ Control",sub:"paid.analisis · control.directrices.paid",lx:1640,ly:1590},
+  {id:"pa16",d:ruta([[1500,1880],[2200,1880],[2200,4900]],260)+" C3600 4900 4200 5200 5600 5200 S7600 4900 8300 4900",c:"#818cf8",txt:"Brazo comercial ↔ Control",sub:"marketing directo · producto · comercial",lx:2290,ly:3300},
   {id:"pa17",d:"M2200 4900 C2200 5250 3000 5050 3000 5400",c:"#38bdf8",txt:"",sub:"",lx:0,ly:0},
   {id:"pa18",d:"M5600 5200 V5800",c:"#fdba74",txt:"",sub:"",lx:0,ly:0},
   {id:"pa19",d:"M8300 4900 V5400",c:"#818cf8",txt:"",sub:"",lx:0,ly:0},
@@ -934,7 +936,7 @@ function pintarMapa(){
 const ICO_MARCO=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 0v12M9 0v12M0 3h12M0 9h12"/></svg>`;
 function construir(){
   const TIT=[["radar","Radar Viral","#e8eaed","● Sala activa"," · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT"],["diseno","Diseño","#a3cf2e","● Activa"," · 6 creativos · piezas con el brandbook 2027"],["control","Sala de Control","#f5d76e","● Activa"," · 6 directores, 5 especialistas y Cerebro · revisa y reorienta todo el flujo"],["competencia","Competencia","#e8eaed","● Sala activa"," · 6 investigadores · webs, precios, noticias, redes y alianzas"],["seo","SEO","#5eead4","● Activa"," · 6 especialistas · auditoría, palabras clave y analítica"],["paid","Paid Media","#f9a8d4","● Activa"," · 7 especialistas · Meta Ads y Google Ads"],...SALAS_N.map(S=>[S.id,S.nombre,S.color,"● Nueva",` · ${S.equipo.length} especialistas · `+S.sub])];
-  let h=svgPasillos()+TIT.map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);return`<div class="grupo-titulo" style="left:${m.x}px;top:${m.y-230}px;font-size:${id==="radar"?72:56}px;color:${c}">${esc(n)}<small><span class="ok">${ok}</span>${esc(sub)}</small></div>`}).join("");
+  let h=svgPasillos()+TIT.map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);return`<div class="grupo-titulo" style="left:${m.x}px;top:${m.y-230}px;font-size:${id==="control"?96:id==="radar"?72:56}px;color:${c}">${esc(n)}<small><span class="ok">${ok}</span>${esc(sub)}</small></div>`}).join("");
   for(const m of MARCOS){
     h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}${!m.dato&&PERSONALIDAD[m.id]?`;border-color:${PERSONALIDAD[m.id].c}66;box-shadow:0 0 0 1px ${PERSONALIDAD[m.id].c}22,0 30px 80px rgba(0,0,0,.6),0 0 160px ${PERSONALIDAD[m.id].c}1f`:""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
   }
@@ -994,22 +996,22 @@ function objetoSala(o,c){const an=(x)=>quieto?"":x;switch(o){
   case"campana":return`<g>${an(`<animateTransform attributeName="transform" type="rotate" values="0 0 -60;14 0 -60;-14 0 -60;0 0 -60" dur="2s" repeatCount="indefinite"/>`)}<path d="M-56 40C-56 -10 -46 -50 0 -54C46 -50 56 -10 56 40Z" fill="${c}" fill-opacity=".25" stroke="${c}" stroke-width="4"/><path d="M-70 40H70" stroke="${c}" stroke-width="6" stroke-linecap="round"/><circle cy="54" r="10" fill="${c}"/><path d="M0 -54V-70" stroke="${c}" stroke-width="4"/></g><text x="0" y="96" text-anchor="middle" font-family="Geist Mono" font-size="18" fill="${c}">¡RESERVA!</text>`;
   }return""}
 function svgPasillos(){
-  const X=-6000,Y=-4400,W=15800,H=11700;
+  const X=-6000,Y=-3600,W=15800,H=10900;
   let d=`<svg class="pasillos" style="left:${X}px;top:${Y}px" width="${W}" height="${H}" viewBox="${X} ${Y} ${W} ${H}" aria-hidden="true"><defs>
     <filter id="brilloP" x="-100%" y="-300%" width="300%" height="700%"><feGaussianBlur stdDeviation="4" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
     ${Object.entries(PERSONALIDAD).map(([k,P])=>SUELOS[P.suelo](P.c)).join("")}
     <radialGradient id="patioG"><stop offset="0" stop-color="#3ddc97" stop-opacity=".16"/><stop offset="1" stop-color="#3ddc97" stop-opacity="0"/></radialGradient></defs>`;
   // Fachada del edificio
-  d+=`<rect x="-5750" y="-4200" width="15100" height="11150" rx="260" fill="#06080b" stroke="#1b222c" stroke-width="16"/>
-    <rect x="-5718" y="-4168" width="15036" height="11086" rx="236" fill="none" stroke="#24405f" stroke-opacity=".45" stroke-width="8" stroke-dasharray="160 70"/>
+  d+=`<rect x="-5750" y="-3350" width="15100" height="10300" rx="260" fill="#06080b" stroke="#1b222c" stroke-width="16"/>
+    <rect x="-5718" y="-3318" width="15036" height="10236" rx="236" fill="none" stroke="#24405f" stroke-opacity=".45" stroke-width="8" stroke-dasharray="160 70"/>
     <rect x="700" y="6900" width="600" height="90" rx="10" fill="#05070a" stroke="#3d7bff" stroke-opacity=".6" stroke-width="3"/><text x="1000" y="6958" text-anchor="middle" class="p-txt">ENTRADA PRINCIPAL</text>`;
   // Plantas de cada sala con su suelo propio
-  for(const[k,P]of Object.entries(PERSONALIDAD)){const m=MARCOS.find(x=>x.id===k);if(!m)continue;const x=m.x,y=m.y;
-    d+=`<g class="planta"><rect x="${x-140}" y="${y-310}" width="1480" height="1120" rx="70" fill="#090c11" stroke="${P.c}" stroke-opacity=".35" stroke-width="6"/>
-      <rect x="${x-140}" y="${y-310}" width="1480" height="1120" rx="70" fill="url(#sl-${P.suelo})" opacity=".13"/>
-      <rect x="${x-118}" y="${y-288}" width="1436" height="1076" rx="54" fill="none" stroke="${P.c}" stroke-opacity=".18" stroke-width="2" stroke-dasharray="14 10"/>
+  for(const[k,P]of Object.entries(PERSONALIDAD)){const m=MARCOS.find(x=>x.id===k);if(!m||OCULTAS.includes(k))continue;const x=m.x,y=m.y,w=m.w,h=altoSala(m);
+    d+=`<g class="planta"><rect x="${x-140}" y="${y-310}" width="${w+280}" height="${h+460}" rx="70" fill="#090c11" stroke="${P.c}" stroke-opacity=".35" stroke-width="6"/>
+      <rect x="${x-140}" y="${y-310}" width="${w+280}" height="${h+460}" rx="70" fill="url(#sl-${P.suelo})" opacity=".13"/>
+      <rect x="${x-118}" y="${y-288}" width="${w+236}" height="${h+416}" rx="54" fill="none" stroke="${P.c}" stroke-opacity=".18" stroke-width="2" stroke-dasharray="14 10"/>
 
-      <g transform="translate(${x+1235} ${y-170})">${objetoSala(P.obj,P.c)}</g></g>`}
+      <g transform="translate(${x+w+35} ${y-170})">${objetoSala(P.obj,P.c)}</g></g>`}
   // Patio central
   d+=`<g transform="translate(700 600)"><circle r="240" fill="#081009" stroke="#1f5c36" stroke-width="6"/><circle r="240" fill="url(#patioG)"/><circle r="170" fill="none" stroke="#1f5c36" stroke-opacity=".6" stroke-dasharray="10 12" stroke-width="3"/>
     ${[0,60,120,180,240,300].map(g=>{const r=g*Math.PI/180;return`<circle cx="${(Math.cos(r)*175).toFixed(0)}" cy="${(Math.sin(r)*175).toFixed(0)}" r="34" fill="#12301e" stroke="#2f8f52" stroke-width="3"/><circle cx="${(Math.cos(r)*175).toFixed(0)}" cy="${(Math.sin(r)*175).toFixed(0)}" r="12" fill="#2f8f52"/>`}).join("")}
@@ -1031,15 +1033,15 @@ function svgPasillos(){
       d+=`<g><rect x="-11" y="-4" width="22" height="8" rx="2" fill="${col}" filter="url(#brilloP)"/><animateMotion dur="${dur}s" begin="-${(k*dur/N).toFixed(2)}s" repeatCount="indefinite" rotate="auto"${p.inv?' keyPoints="1;0" keyTimes="0;1" calcMode="linear"':""}><mpath href="#${p.id}"/></animateMotion></g>`}}
   }
   // Placa con el carácter y el lema de cada sala, por encima de los pasillos
-  for(const[k,P]of Object.entries(PERSONALIDAD)){const m=MARCOS.find(x=>x.id===k);if(!m)continue;const x=m.x,y=m.y,w=Math.max(P.caracter.length*24,(P.lema.length+2)*11.5)+48;
+  for(const[k,P]of Object.entries(PERSONALIDAD)){const m=MARCOS.find(x=>x.id===k);if(!m||OCULTAS.includes(k))continue;const x=m.x,y=m.y+altoSala(m)-666,w=Math.max(P.caracter.length*24,(P.lema.length+2)*11.5)+48;
     d+=`<rect x="${x-24}" y="${y+706}" width="${w}" height="94" rx="12" fill="#090c11" fill-opacity=".92" stroke="${P.c}" stroke-opacity=".3" stroke-width="2"/>
       <text x="${x}" y="${y+748}" font-family="Geist" font-weight="800" font-size="34" fill="${P.c}">${esc(P.caracter.toUpperCase())}</text>
       <text x="${x}" y="${y+782}" class="p-sub" style="fill:#8792a2">«${esc(P.lema)}»</text>`}
   // Puertas: donde cada pasillo toca la pared de una sala
   const salas=MARCOS.filter(m=>!m.dato);
   for(const p of PASILLOS_DEF){const n=p.d.match(/-?\d+(\.\d+)?/g).map(Number);for(const[x,y]of[[n[0],n[1]],[n[n.length-2],n[n.length-1]]]){
-    const m=salas.find(r=>x>=r.x&&x<=r.x+1200&&y>=r.y-2&&y<=r.y+668);if(!m)continue;const P=PERSONALIDAD[m.id]||{c:"#3d7bff"};
-    const hz=Math.abs(y-m.y)<3||Math.abs(y-(m.y+666))<3;
+    const m=salas.find(r=>!OCULTAS.includes(r.id)&&x>=r.x&&x<=r.x+r.w&&y>=r.y-2&&y<=r.y+altoSala(r)+2);if(!m)continue;const P=PERSONALIDAD[m.id]||{c:"#3d7bff"};
+    const hz=Math.abs(y-m.y)<3||Math.abs(y-(m.y+altoSala(m)))<3;
     d+=hz?`<rect x="${x-66}" y="${y-12}" width="132" height="24" rx="4" fill="#05070a" stroke="${P.c}" stroke-width="4"/>`:`<rect x="${x-12}" y="${y-66}" width="24" height="132" rx="4" fill="#05070a" stroke="${P.c}" stroke-width="4"/>`}}
   return d+`</svg>`;
 }

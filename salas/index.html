@@ -741,6 +741,48 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .cal-ciclo em{font:600 11px/1 var(--f-mono);font-style:normal;color:var(--tenue);text-transform:uppercase;letter-spacing:.08em}.cal-ciclo b{font-size:15px;color:#fff}.cal-ciclo span{font-size:12.5px;color:#c3cad4;line-height:1.4}
 .cal-reglas{margin:10px 20px 6px;padding-left:20px;display:grid;gap:7px;font-size:14.5px;line-height:1.45;color:#e6eaee}
 @media (max-width:900px){.cal-sem{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* Mapa del journey de cliente */
+.jm-kpi{display:flex;flex-wrap:wrap;gap:10px;padding:12px 20px 0}.jm-kpi>div{flex:1;min-width:110px;background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:10px 12px;display:grid;gap:2px}
+.jm-kpi b{font:700 22px/1 var(--f-ui);color:#a78bfa}.jm-kpi span{font-size:12.5px;color:var(--tenue)}
+.jm-fil{display:flex;flex-wrap:wrap;gap:8px;align-items:center;padding:12px 20px 0}.jm-ayuda{font-size:12.5px;color:var(--tenue);margin-left:auto}
+.jm{padding:14px 20px 24px;display:grid;gap:0}
+.jm-et{background:var(--marco-2);border:1px solid var(--borde);border-radius:10px;padding:14px;display:grid;gap:10px}
+.jm-cab{display:flex;gap:10px;align-items:center}.jm-n{width:28px;height:28px;border-radius:50%;background:#a78bfa;color:#120c1f;font:700 14px/28px var(--f-ui);text-align:center;flex:none}
+.jm-cab h3{margin:0;font:700 16px/1.2 var(--f-ui);color:#fff}.jm-cab small{font:500 11.5px/1 var(--f-mono);color:var(--tenue)}
+.jm-dec{align-self:start;justify-self:start;display:flex;gap:8px;align-items:center;background:#1c1530;border:1px solid #4a3a7a;color:#e0d4ff;border-radius:6px;padding:6px 10px;font:600 13px/1.2 var(--f-ui)}.jm-dec span{color:#a78bfa}
+.jm-ramas{display:grid;gap:10px}.jm-ramas.multi{grid-template-columns:repeat(auto-fit,minmax(210px,1fr));align-items:start}
+.jm-rama{display:grid;gap:4px;align-content:start;border-left:2px dashed #3a3150;padding-left:10px}
+.jm-ramas:not(.multi) .jm-rama{border-left:0;padding-left:0;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}.jm-ramas:not(.multi) .jm-fl{display:none}
+.jm-si{font:600 12px/1.3 var(--f-mono);color:#c4b5fd;padding:2px 0 4px}.jm-si::before{content:"Si: "}
+.jm-fl{color:#5b5470;font-size:12px;line-height:1;padding-left:14px}
+.jm-nodo{all:unset;cursor:pointer;display:flex;gap:9px;align-items:center;background:#0e0c14;border:1px solid #2a2438;border-left:4px solid var(--c);border-radius:7px;padding:8px 10px;transition:transform .12s,border-color .12s}
+.jm-nodo:hover,.jm-nodo:focus-visible{transform:translateX(2px);border-color:var(--c)}
+.jm-nodo.inactivo{opacity:.5;border-style:dashed}.jm-nodo.falta{background:#1a0e09;border-style:dashed}
+.jm-ic{width:24px;height:24px;border-radius:50%;background:var(--c);color:#0b0b0b;display:grid;place-items:center;font:700 12px/1 var(--f-ui);flex:none}
+.jm-tx{display:grid;gap:2px;min-width:0}.jm-tx b{font:600 13.5px/1.25 var(--f-ui);color:#f1f3f5}.jm-tx small{font-size:11.5px;color:var(--tenue)}
+.jm-dto{margin-left:auto;font:700 11px/1 var(--f-mono);background:#f5c51822;color:#f5d76e;padding:4px 6px;border-radius:4px;white-space:nowrap}
+.jm-ina{font:600 10.5px/1 var(--f-mono);color:#9aa3ad;margin-left:auto}
+.jm-sig{text-align:center;color:#a78bfa;font-size:14px;padding:4px 0}
+.jm-modal{background:#0f1116;border:1px solid #2a2f3a;width:min(560px,94vw)!important;padding:0}
+.jm-mcab{display:flex;gap:12px;align-items:center;padding:18px 20px;border-bottom:1px solid #222733}.jm-mcab h3{margin:0;font:700 18px/1.25 var(--f-ui);color:#fff}.jm-mcab small{font-size:12.5px;color:var(--tenue)}
+.jm-mail{margin:16px 20px;background:#fff;color:#2E2E2D;border-radius:8px;overflow:hidden}
+.jm-mh{background:#f3f4f2;padding:10px 14px;font:13px/1.6 var(--f-ui);color:#555}.jm-mh span{display:inline-block;width:52px;color:#999}
+.jm-mb{padding:16px 16px 20px;font:15px/1.6 "Montserrat",var(--f-ui);white-space:pre-line}.jm-mb mark{background:#e9f3d2;color:#506718;border-radius:3px;padding:0 3px;font-size:13px}
+.jm-meta{display:grid;gap:8px;padding:0 20px 20px;font-size:13.5px;color:#d6dbe1}.jm-meta span{display:block;font:600 11px/1.4 var(--f-mono);color:var(--tenue);text-transform:uppercase;letter-spacing:.06em}
+
+.jm-objs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:12px 20px 0}
+.jm-obj{all:unset;cursor:pointer;background:var(--marco-2);border:1px solid var(--borde);border-top:4px solid var(--o);border-radius:8px;padding:12px 14px;display:grid;gap:5px;align-content:start}
+.jm-obj.on{background:color-mix(in srgb,var(--o) 12%,var(--marco-2));border-color:var(--o)}
+.jm-obj b{font:700 17px/1.1 var(--f-ui);color:var(--o)}.jm-obj p{margin:0;font-size:13px;line-height:1.45;color:#d6dbe1}.jm-obj em{font:600 11.5px/1.3 var(--f-mono);font-style:normal;color:var(--tenue)}
+.jm-oi{width:26px;height:26px;border-radius:6px;background:var(--o);color:#0b0b0b;display:inline-grid;place-items:center;font:700 14px/1 var(--f-ui)}
+.jm-carril{border:2px solid color-mix(in srgb,var(--o) 55%,transparent);border-radius:12px;background:color-mix(in srgb,var(--o) 5%,transparent);overflow:hidden}
+.jm-ccab{display:flex;gap:10px;align-items:center;padding:10px 14px;background:color-mix(in srgb,var(--o) 18%,#0b0d10);flex-wrap:wrap}
+.jm-ccab b{font:800 18px/1 var(--f-ui);color:var(--o);text-transform:uppercase;letter-spacing:.06em}.jm-ccab>span:last-child{font-size:13px;color:#e6eaee;flex:1;min-width:240px}
+.jm-cet{padding:12px;display:grid}
+.jm-carril .jm-n{background:var(--o)}
+.jm-paso{text-align:center;padding:10px 0;font:700 13px/1.3 var(--f-ui);color:var(--o)}
+@media (max-width:900px){.jm-objs{grid-template-columns:1fr}}
 </style>
 
 <div id="vista" aria-label="Lienzo de salas. Arrastra para moverte y usa la rueda o pellizca para hacer zoom.">
@@ -894,6 +936,7 @@ const MARCOS=[
   {id:"lifecycle_mision",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"lifecycle_datos",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"journey",grupo:"journey",nombre:"Journey de cliente / Sala",x:0,y:0,w:1200},
+  {id:"journey_mapa",grupo:"journey",dato:true,nombre:"Journey de cliente / Mapa de workflows e impactos",x:0,y:-9000,w:1300},
   {id:"journey_mision",grupo:"journey",dato:true,nombre:"Journey de cliente / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"journey_datos",grupo:"journey",dato:true,nombre:"Journey de cliente / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"comercial",grupo:"comercial",nombre:"Análisis comercial / Sala",x:6000,y:4000,w:1200},
@@ -910,7 +953,7 @@ const POS={instagram:[-900,-2600],youtube:[900,-2600],radar:[-150,-1000],comunid
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_mision","lifecycle_datos"],journey:["journey","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_mision","lifecycle_datos"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -2479,6 +2522,35 @@ function calendarioRM(C){if(!C)return"";
    <div class="cal-ley">${[...new Set((C.semana||[]).flatMap(d=>(d.items||[]).map(i=>i.f)))].map(f=>`<span style="--c:${col(f)}">${esc(f)}</span>`).join("")}</div>
    ${(C.ciclo||[]).length?`<div class="seccion-t">${esc(C.ciclo_titulo||"Ciclo mensual")}</div><div class="cal-ciclo">${C.ciclo.map(c=>`<div><em>${esc(c.s)}</em><b>${esc(c.hub)}</b>${c.ej?`<span>${esc(c.ej)}</span>`:""}</div>`).join("")}</div>`:""}
    ${(C.reglas||[]).length?`<div class="seccion-t">Cómo combinarlos</div><ol class="cal-reglas">${C.reglas.map(r=>`<li>${esc(r)}</li>`).join("")}</ol>`:""}`}
+
+/* ===== Journey de cliente: mapa de workflows e impactos (Zoho) ===== */
+const JM_CANAL={email:{n:"Email",i:"✉",c:"#a78bfa"},sms:{n:"SMS",i:"▤",c:"#38bdf8"},whatsapp:{n:"WhatsApp",i:"◉",c:"#3ddc97"},hueco:{n:"Hueco",i:"!",c:"#ff6b3d"}};
+const JM_OBJ={deal:{c:"#f5c518",i:"€"},viaje:{c:"#3ddc97",i:"✈"},contacto:{c:"#38bdf8",i:"☺"}};
+function pintarJourneyMapa(){const el=document.getElementById("c-journey_mapa");if(!el||st.dentro!=="journey")return;const M=st.jmapa;
+  if(!M){el.innerHTML=`<div class="mcab"><div><h2>Mapa de workflows e impactos</h2></div></div><div class="vacio">Nerea está dibujando el mapa con los workflows de Zoho.</div>`;return}
+  const OB=M.objetos||{};const todos=M.etapas.flatMap(e=>e.ramas.flatMap(r=>r.nodos.map(n=>({...n,obj:e.objeto}))));
+  const solo=st.jmFiltro||"todos",obj=st.jmObj||"todos";const ver=n=>solo==="todos"||n.canal===solo||(solo==="email"&&n.canal==="hueco");
+  const cnt=(o,c)=>todos.filter(n=>n.obj===o&&n.estado!=="inactivo"&&(!c||n.canal===c)&&n.canal!=="hueco").length;
+  const grupos=[];M.etapas.forEach((e,i)=>{e._i=i;const g=grupos[grupos.length-1];if(g&&g.o===e.objeto)g.et.push(e);else grupos.push({o:e.objeto,et:[e]})});
+  const etapa=e=>{const ramas=e.ramas.map(r=>({...r,nodos:r.nodos.filter(ver)})).filter(r=>r.nodos.length);if(!ramas.length)return"";
+    return`<section class="jm-et"><div class="jm-cab"><span class="jm-n">${e._i+1}</span><div><h3>${esc(e.nombre)}</h3><small>${esc(e.cuando||"")}</small></div></div>
+     ${e.pregunta?`<div class="jm-dec"><span>◆</span>${esc(e.pregunta)}</div>`:""}
+     <div class="jm-ramas${ramas.length>1?" multi":""}">${ramas.map(r=>`<div class="jm-rama">${ramas.length>1||e.pregunta?`<div class="jm-si">${esc(r.si)}</div>`:""}${r.nodos.map((n,k)=>{const C=JM_CANAL[n.canal]||JM_CANAL.email;return`${k?`<div class="jm-fl">↓</div>`:""}<button type="button" class="jm-nodo ${esc(n.estado)}" style="--c:${C.c}" data-jmnodo="${esc(n.id)}"><span class="jm-ic">${C.i}</span><span class="jm-tx"><b>${esc(n.titulo)}</b><small>${esc(C.n)} · ${esc(n.cuando||"")}</small></span>${n.dto?`<span class="jm-dto">${esc(n.dto)}</span>`:""}${n.estado==="inactivo"?`<span class="jm-ina">inactivo</span>`:""}</button>`}).join("")}</div>`).join("")}</div></section>`};
+  el.innerHTML=`<div class="mcab"><div><h2>Mapa de workflows e impactos</h2><div class="fuente-mc" style="margin-top:6px">${esc(M.fuente||"")}</div></div><div class="meta">${M.fecha?`actualizado ${esc(hace(M.fecha))}`:""}</div></div>
+   <div class="jm-objs">${Object.entries(JM_OBJ).map(([k,O])=>`<button type="button" class="jm-obj${obj===k?" on":""}" style="--o:${O.c}" data-jmobj="${obj===k?"todos":k}"><span class="jm-oi">${O.i}</span><b>${esc(OB[k]?.n||k)}</b><p>${esc(OB[k]?.def||"")}</p><em>${cnt(k,"email")} emails · ${cnt(k,"sms")} SMS · ${cnt(k,"whatsapp")} WhatsApp</em></button>`).join("")}</div>
+   <div class="jm-fil">${[["todos","Todos los canales"],["email","Solo email"],["sms","SMS"],["whatsapp","WhatsApp"]].map(([k,n])=>`<button class="btn${solo===k?" prim":""}" data-jmfil="${k}">${n}</button>`).join("")}<span class="jm-ayuda">Pulsa un objeto para verlo solo · pulsa un impacto para ver su plantilla</span></div>
+   <div class="jm">${grupos.filter(g=>obj==="todos"||g.o===obj).map((g,gi,arr)=>{const O=JM_OBJ[g.o]||JM_OBJ.deal;return`<div class="jm-carril" style="--o:${O.c}"><div class="jm-ccab"><span class="jm-oi">${O.i}</span><b>${esc(OB[g.o]?.n||g.o)}</b><span>${esc(OB[g.o]?.def||"")}</span></div><div class="jm-cet">${g.et.map(etapa).filter(Boolean).join(`<div class="jm-sig">▼</div>`)}</div></div>${gi<arr.length-1&&OB[g.o]?.paso?`<div class="jm-paso" style="--o:${(JM_OBJ[arr[gi+1].o]||O).c}">▼ ${esc(OB[g.o].paso)}</div>`:""}`}).join("")}</div>`}
+function abrirPlantilla(id){const n=(st.jmapa?.etapas||[]).flatMap(e=>e.ramas.flatMap(r=>r.nodos)).find(x=>x.id===id);if(!n)return;const C=JM_CANAL[n.canal]||JM_CANAL.email;
+  cerrarPieza();const o=document.createElement("div");o.id="pzModal";
+  const cuerpo=n.texto?esc(n.texto).replace(/\$\{([^}]+)\}/g,'<mark>{$1}</mark>'):`<em style="color:#6b7280">${n.canal==="hueco"?"No existe ningún impacto en este punto.":"El archivo de workflows no recoge el texto de esta plantilla."}</em>`;
+  o.innerHTML=`<div class="pzm-fondo" data-pzcerrar></div><div class="pzm-caja jm-modal"><button type="button" class="pzm-x" data-pzcerrar aria-label="Cerrar">✕</button>
+   <div class="jm-mcab" style="--c:${C.c}"><span class="jm-ic">${C.i}</span><div><h3>${esc(n.titulo)}</h3><small>${esc(C.n)} · ${esc(n.cuando||"")}${n.estado==="inactivo"?" · inactivo":""}${n.estado==="falta"?" · hueco":""}</small></div></div>
+   <div class="jm-mail"><div class="jm-mh">${n.canal==="email"?`<div><span>De</span> Santiago Ways · ${esc(n.wf==="Saludos del gerente"?"Joseba (gerente)":"tu asesor")}</div><div><span>Para</span> {Nombre del cliente}</div>`:`<div><span>Canal</span> ${esc(C.n)}</div>`}</div><div class="jm-mb">${cuerpo}</div></div>
+   <div class="jm-meta">${n.wf?`<div><span>Workflow en Zoho</span>${esc(n.wf)}</div>`:""}${n.dto?`<div><span>Descuento</span>${esc(n.dto)}</div>`:""}${n.idiomas?`<div><span>Idiomas</span>${esc(n.idiomas)}</div>`:""}${n.nota?`<div><span>Nota</span>${esc(n.nota)}</div>`:""}</div></div>`;
+  document.body.appendChild(o)}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-jmnodo]");if(b){abrirPlantilla(b.dataset.jmnodo);return}
+  const f=e.target.closest("[data-jmfil]");if(f){st.jmFiltro=f.dataset.jmfil;pintarJourneyMapa();return}
+  const ob=e.target.closest("[data-jmobj]");if(ob){st.jmObj=ob.dataset.jmobj;pintarJourneyMapa()}});
 function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadmap");if(!el||st.dentro!==sala)return;const R=st.roadmap?.[sala],c={instagram:"#e1306c",youtube:"#ff4d4d",seo:"#2dd4bf"}[sala]||"#3d7bff";
   el.style.setProperty("--rm-c",c);
   if(!R){el.innerHTML=`<div class="mcab"><div><h2>Roadmap</h2></div></div><div class="vacio">El equipo está preparando el roadmap.</div>`;return}
@@ -2487,7 +2559,7 @@ function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadma
    ${(R.objetivos||[]).length?`<div class="rm-obj">${R.objetivos.map(o=>`<div><b>${esc(o.hoy)} → <i>${esc(o.meta)}</i></b><span>${esc(o.nombre)}</span></div>`).join("")}</div>`:""}
    ${calendarioRM(R.calendario)}
    <div class="rm-fases">${(R.fases||[]).map(f=>`<div class="rm-fase"><h3>${esc(f.nombre)}</h3>${(f.items||[]).map((x,i)=>`<div class="rm-it${x.estado==="hecho"?" hecho":""}"><span class="num">${i+1}</span><div><h4>${esc(x.titulo)}</h4>${x.dato?`<p>${esc(x.dato)}</p>`:""}<div class="pie">${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.quien?`<span>${esc(x.quien)}</span>`:""}<span>${esc(EST[x.estado]||x.estado||"pendiente")}</span></div></div></div>`).join("")}</div>`).join("")}</div>`}
-function pintarSalasN(){if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarJourneyMapa();if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -2989,6 +3061,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   ["instagram","youtube","seo"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
   db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
+  db.doc("journey_mapa/actual").onSnapshot(s=>{st.jmapa=s.exists?s.data():null;pintarJourneyMapa()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});
   db.doc("ig_en/actual").onSnapshot(s=>{st.igen=s.exists?s.data():null;pintarGA4()});

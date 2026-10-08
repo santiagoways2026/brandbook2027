@@ -31,7 +31,7 @@
   ],
   "notas": [
     "url_tags se obtuvo del campo Windsor url_tags (Ad Creative URL Tags).",
-    "link y link_url llegan vacíos en Windsor para esta cuenta; la URL de destino está en website_destination_url.",
+    "link y link_url solo vienen informados en 50 de los 95 anuncios; website_destination_url está presente en los 95 y es la URL de destino de referencia.",
     "spend en la moneda de la cuenta publicitaria."
   ],
   "resumen": {

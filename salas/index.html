@@ -866,11 +866,19 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .mr-camp td{background:#141a22;text-align:left}.mr-pz td:not(:first-child){text-align:right}.mr-camp small{color:var(--tenue);margin-left:6px;font-size:11.5px}.mr-pz{cursor:pointer}
 .mr-f td:first-child{padding-left:22px}.mr-pf td:first-child{color:#c3cad3}.mr-sin td{color:#c3cad3;font-style:italic}
 .mr-al td{background:#221d0b;color:#f3e7b3;border-left:3px solid #f5d76e;text-align:left;white-space:normal;font-size:12.5px;line-height:1.5;padding-left:22px}
-.mr-alx{position:sticky;left:22px;max-width:min(1000px,64vw)}.mr-tot td{background:#1a1f27;font-weight:700}.mr-gen td{background:#1d2a44;color:#e6eefc}
+.mr-alx{max-width:min(1000px,64vw)}.mr-tot td{background:#1a1f27;font-weight:700}.mr-gen td{background:#1d2a44;color:#e6eefc}
 .mr-est{font:600 11px var(--f-mono);color:#b5dd4a}.mr-est.off{color:#ffb38a}
 .mr-ckb{background:none;border:0;cursor:pointer;padding:0}.mr-ck{display:inline-block;width:20px;height:20px;border-radius:5px;font:700 12px/20px var(--f-ui);text-align:center}.mr-ck.si{background:#1e3a12;color:#b5dd4a}.mr-ck.no{background:#3a1616;color:#ff8a8a}
 .tz-bar{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:10px 20px 0;font-size:12.5px;color:var(--tenue)}.tz-bar .btn{font-size:12px;padding:3px 9px}.tz-bar b{min-width:44px;text-align:center;color:#d6dbe1;font:600 12px var(--f-mono)}
-#panel.full.sin-nav{grid-template-columns:0 minmax(0,1fr) auto}#panel.full.sin-nav .pn-nav{display:none}#panel.full.sin-nav .pn-mods{padding:14px 16px 30px}
+html #panel.full{grid-template-columns:minmax(0,1fr) auto;grid-template-rows:auto auto minmax(0,1fr)}
+html #panel.full .pn-cab{grid-column:1/-1}
+html #panel.full .pn-nav{grid-column:1;grid-row:2;flex-direction:row;overflow-x:auto;overflow-y:hidden;border-right:0;border-bottom:1px solid var(--borde);padding:10px 26px}
+html #panel.full .pn-nav button{border-radius:999px;padding:8px 14px;white-space:nowrap;font-size:13.5px}
+html #panel.full .pn-mods{grid-column:1;grid-row:3}
+html #panel.full .pn-chat{grid-column:2;grid-row:2/4}
+.tz-fix .tz-c{position:sticky;left:0;z-index:3;box-shadow:6px 0 8px -6px rgba(0,0,0,.7)}
+.tz-fix thead .tz-c{z-index:4}
+.tz-stk{position:sticky;left:10px;display:inline-block;max-width:min(1000px,70vw)}
 .cn-revw{margin:12px 20px 0;padding:10px 14px;border:1px solid #6b5a12;border-radius:8px;background:#221d0b;color:#f3e7b3;font-size:13px;line-height:1.55}.cn-revw b{color:#f5d76e}.cn-revw code{font-size:12px;color:#fde68a}
 .cn-utmtg{padding:10px 20px 0;font-size:13px;color:#d6dbe1}.cn-utmtg input{vertical-align:-2px;margin-right:6px}
 a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.5px;padding:4px 10px}
@@ -3181,23 +3189,23 @@ function pintarMetaRep(){const el=document.getElementById("c-meta_rep");if(!el||
   const de=V.desde,ha=V.hasta,ok=v=>`<span class="mr-ck ${v?"si":"no"}">${v?"✓":"✕"}</span>`;
   const chk=(c,a,i)=>{const v=CH[c]?.[a]?.[i];return`<td class="mr-c"><button class="mr-ckb" data-mrck="${c}|${a}|${i}" title="Pulsa para cambiar">${ok(v!==false)}</button></td>`};
   let filas="",tg={i:0,c:0,s:0,l:0,d:0,w:0};const sumT=(a,b)=>{for(const k in a)a[k]+=b[k]};
-  for(const G of MR_EST){const tm={i:0,c:0,s:0,l:0,d:0,w:0};filas+=`<tr class="mr-g"><td colspan="16">${G.g}</td></tr>`;
-    for(const[c,n]of G.c){filas+=`<tr class="mr-camp"><td colspan="16"><b>${esc(n)}</b> <small>${esc(MR_META[c])}</small></td></tr>`;
+  for(const G of MR_EST){const tm={i:0,c:0,s:0,l:0,d:0,w:0};filas+=`<tr class="mr-g"><td colspan="16"><span class="tz-stk">${G.g}</span></td></tr>`;
+    for(const[c,n]of G.c){filas+=`<tr class="mr-camp"><td colspan="16"><span class="tz-stk"><b>${esc(n)}</b> <small>${esc(MR_META[c])}</small></span></td></tr>`;
       for(const[a,lab]of MR_AUD){const t=mrSuma(D,[c+"|"+a],de,ha);if(a==="sin"&&!t.d)continue;
         if(a!=="sin"&&!t.i&&!t.d&&!(c==="mex"&&a==="pixel")&&!(D[c+"|"+a]))continue;
         const est=a==="sin"?"":c==="mex"&&a==="pixel"?`<span class="mr-est off">NO EXISTE</span>`:`<span class="mr-est">ACTIVA</span>`;
         filas+=`<tr class="mr-f${a==="sin"?" mr-sin":""}"><td>${esc(lab)}</td><td>${est}</td>${a==="sin"||(c==="mex"&&a==="pixel")?"<td></td><td></td><td></td>":chk(c,a,0)+chk(c,a,1)+chk(c,a,2)}${celdas(t)}</tr>`;sumT(tm,t)}
-      if((AL[c]||[]).length)filas+=`<tr class="mr-al"><td colspan="16"><div class="mr-alx">⚠ ${AL[c].map(esc).join(" · ")}</div></td></tr>`}
+      if((AL[c]||[]).length)filas+=`<tr class="mr-al"><td colspan="16"><div class="mr-alx tz-stk">⚠ ${AL[c].map(esc).join(" · ")}</div></td></tr>`}
     const ps=Object.entries(R.pausadas||{}).filter(([,m])=>m===G.g).map(([n])=>[n,mrSuma(D,["p:"+n],de,ha)]).filter(([,t])=>t.i||t.d||t.s);
     if(ps.length){const tp={i:0,c:0,s:0,l:0,d:0,w:0};ps.forEach(([,t])=>sumT(tp,t));sumT(tm,tp);
-      filas+=`<tr class="mr-camp mr-pz" data-mrpausa><td colspan="5"><b>${V.pausa?"▾":"▸"} Campañas en pausa (${ps.length})</b> <small>con gasto o deals en el periodo</small></td>${celdas(tp)}</tr>`;
-      if(V.pausa)ps.sort((a,b)=>b[1].s-a[1].s).forEach(([n,t])=>filas+=`<tr class="mr-f mr-pf"><td colspan="2">${esc(n)}</td><td colspan="3"><span class="mr-est off">EN PAUSA</span></td>${celdas(t)}</tr>`)}
-    filas+=`<tr class="mr-tot"><td colspan="5">TOTAL ${G.g}</td>${celdas(tm)}</tr>`;sumT(tg,tm)}
+      filas+=`<tr class="mr-camp mr-pz" data-mrpausa><td><b>${V.pausa?"▾":"▸"} Campañas en pausa (${ps.length})</b> <small>con gasto o deals en el periodo</small></td><td></td><td></td><td></td><td></td>${celdas(tp)}</tr>`;
+      if(V.pausa)ps.sort((a,b)=>b[1].s-a[1].s).forEach(([n,t])=>filas+=`<tr class="mr-f mr-pf"><td>${esc(n)}</td><td><span class="mr-est off">EN PAUSA</span></td><td></td><td></td><td></td>${celdas(t)}</tr>`)}
+    filas+=`<tr class="mr-tot"><td>TOTAL ${G.g}</td><td></td><td></td><td></td><td></td>${celdas(tm)}</tr>`;sumT(tg,tm)}
   const ts=mrSuma(D,["sin"],de,ha);sumT(tg,ts);
-  filas+=`<tr class="mr-f mr-sin"><td colspan="5">Deals de Meta sin campaña identificable</td>${celdas(ts)}</tr>`;
+  filas+=`<tr class="mr-f mr-sin"><td>Deals de Meta sin campaña identificable</td><td></td><td></td><td></td><td></td>${celdas(ts)}</tr>`;
   const desg=Object.entries(R.sin_desglose||{}).slice(0,4).map(([k,n])=>`${k} (${num(n)})`).join(", ");
-  filas+=`<tr class="mr-al"><td colspan="16"><div class="mr-alx">⚠ utm_campaign sin campaña en 2026: ${esc(desg)}…</div></td></tr>`;
-  filas+=`<tr class="mr-tot mr-gen"><td colspan="5">TOTAL GENERAL</td>${celdas(tg)}</tr>`;
+  filas+=`<tr class="mr-al"><td colspan="16"><div class="mr-alx tz-stk">⚠ utm_campaign sin campaña en 2026: ${esc(desg)}…</div></td></tr>`;
+  filas+=`<tr class="mr-tot mr-gen"><td>TOTAL GENERAL</td><td></td><td></td><td></td><td></td>${celdas(tg)}</tr>`;
   const M=R.meses,optM=s=>M.map(m=>`<option value="${m}"${m===s?" selected":""}>${ymTxt(m)}</option>`).join(""),ult=M[M.length-1];
   const pres=[["Este mes",ult,ult],["Desde septiembre",202609,ult],["Últimos 3 meses",M[Math.max(0,M.length-3)],ult],["Este año",M[0],ult]];
   el.innerHTML=`<div class="mcab"><div><h2>Campañas activas</h2><div class="fuente-mc" style="margin-top:6px">${esc(R.autor||"")}</div></div><div class="meta">${R.fecha?esc(hace(R.fecha)):""}</div></div>
@@ -3217,11 +3225,15 @@ const TZ_MODS=["c-meta_rep","c-comercial_asesores","c-captacion_canales","c-capt
 const tzLee=id=>{try{return localStorage.getItem("tz_"+id)||"fit"}catch(e){return"fit"}},tzGuarda=(id,v)=>{try{localStorage.setItem("tz_"+id,v)}catch(e){}};
 function tzAplica(el){const modo=tzLee(el.id);let zs=[];
   el.querySelectorAll("table.tabla,table.as-t").forEach(t=>{const w=t.parentElement;if(!w||!t.offsetParent)return;t.style.zoom=1;const pw=t.style.width;t.style.width="max-content";const cs=getComputedStyle(w),real=t.getBoundingClientRect().width;t.style.width=pw;const disp=(w.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight))*.98;
-    const z=modo==="fit"?Math.max(.45,Math.min(1,disp/real)):Number(modo)||1;t.style.zoom=z;zs.push(z)});
+    const z=modo==="fit"?Math.max(.82,Math.min(1,disp/real)):Number(modo)||1;t.style.zoom=z;zs.push(z);
+    if(getComputedStyle(w).overflowX==="visible")w.style.overflowX="auto";t.classList.add("tz-fix");
+    t.querySelectorAll("tr").forEach(r=>{const c=r.firstElementChild;if(!c||c.classList.contains("tz-c"))return;if((c.colSpan||1)>3)return;c.classList.add("tz-c");
+      let col="",e=c;while(e&&e!==w){const b=getComputedStyle(e).backgroundColor;if(b&&b!=="transparent"&&b!=="rgba(0, 0, 0, 0)"){col=b;break}e=e.parentElement}
+      c.style.background=col?`linear-gradient(${col},${col}),#0f1318`:"#0f1318"})});
   const lab=el.querySelector(".tz-pct");if(lab)lab.textContent=zs.length?Math.round(Math.min(...zs)*100)+" %":"";
   el.querySelectorAll("[data-tz]").forEach(b=>b.classList.toggle("prim",b.dataset.tz==="fit"&&modo==="fit"))}
 function tzBarra(el){if(!el.querySelector("table.tabla,table.as-t"))return;if(!el.querySelector(".tz-bar")){const d=document.createElement("div");d.className="tz-bar";
-  d.innerHTML=`<span>Tabla</span><button class="btn" data-tz="fit" title="Que la tabla entera quepa en la pantalla">Ajustar a pantalla</button><button class="btn" data-tz="-" title="Más pequeña">−</button><b class="tz-pct"></b><button class="btn" data-tz="+" title="Más grande">+</button><button class="btn" data-tznav title="Ganar ancho ocultando el menú de la izquierda">${$("#panel")?.classList.contains("sin-nav")?"Mostrar menú":"Ocultar menú"}</button>`;
+  d.innerHTML=`<span>Tabla</span><button class="btn" data-tz="fit" title="Que la tabla entera quepa en la pantalla">Ajustar a pantalla</button><button class="btn" data-tz="-" title="Más pequeña">−</button><b class="tz-pct"></b><button class="btn" data-tz="+" title="Más grande">+</button>`;
   el.prepend(d)}tzAplica(el)}
 let tzT=0;const tzTodo=()=>{clearTimeout(tzT);tzT=setTimeout(()=>TZ_MODS.forEach(id=>{const el=document.getElementById(id);if(el)tzBarra(el)}),60)};
 new MutationObserver(m=>{if(m.some(r=>[...r.addedNodes].some(n=>n.nodeType===1&&!n.classList?.contains("tz-bar"))))tzTodo()}).observe(document.body,{childList:true,subtree:true});
@@ -3230,7 +3242,6 @@ document.addEventListener("click",e=>{if(e.target.closest("[data-pnir],#pnFull,#
     document.querySelectorAll("[data-tznav]").forEach(b=>b.textContent=p.classList.contains("sin-nav")?"Mostrar menú":"Ocultar menú");tzTodo();return}
   const b=e.target.closest("[data-tz]");if(!b)return;const el=b.closest("[id^='c-']");if(!el)return;const t=el.querySelector("table.tabla,table.as-t");
   const act=t?Number(t.style.zoom)||1:1,v=b.dataset.tz==="fit"?"fit":String(Math.max(.4,Math.min(1.3,Math.round((act+(b.dataset.tz==="+"?.1:-.1))*10)/10)));tzGuarda(el.id,v);tzAplica(el)});
-try{if(localStorage.getItem("tzNav")==="1")document.getElementById("panel")?.classList.add("sin-nav")}catch(_){}
 function pintarSalasN(){pintarCR();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}

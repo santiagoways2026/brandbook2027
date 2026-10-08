@@ -38,7 +38,7 @@ a{color:inherit}
 .marco{position:absolute;background:var(--marco);border:1px solid var(--borde);border-radius:4px;box-shadow:0 30px 80px rgba(0,0,0,.6)}
 .marco:hover{border-color:var(--borde-2)}
 .marco.sel{outline:calc(2px * var(--iz,1)) solid var(--sel);outline-offset:0}
-.etiqueta{position:absolute;left:0;bottom:100%;transform-origin:0 100%;transform:scale(var(--iz,1));padding-bottom:6px;white-space:nowrap;
+.etiqueta{position:absolute;left:0;bottom:100%;transform-origin:0 100%;transform:scale(var(--iz,1));padding-bottom:18px;white-space:nowrap;
   font:500 12px/1 var(--f-ui);color:var(--tenue);cursor:pointer;display:flex;gap:6px;align-items:center}
 .marco.sel .etiqueta,.etiqueta:hover{color:var(--sel)}
 .etiqueta svg{width:11px;height:11px}
@@ -1088,7 +1088,7 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],cr:[2700,6000],metaads:[5600,3720],mdirecto:[5600,4700],producto:[5000,7800]};
+const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-1500,6000],comercial:[900,6000],cr:[3300,6000],metaads:[5600,4000],mdirecto:[5600,5100],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}

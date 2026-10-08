@@ -1046,6 +1046,7 @@ const MARCOS=[
   {id:"comercial_datos",grupo:"comercial",dato:true,nombre:"Análisis comercial / Lo que ya sabemos",x:6000,y:5600,w:1300},
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
   {id:"cr",grupo:"cr",nombre:"Conversión (CR) / Sala",x:0,y:0,w:1200},
+  {id:"metaads",grupo:"metaads",nombre:"Meta Ads / Sala",x:0,y:0,w:1200},
   {id:"cr_evolucion",grupo:"cr",dato:true,nombre:"Conversión (CR) / Evolución del CR",x:0,y:-9000,w:1300},
   {id:"cr_impacto",grupo:"cr",dato:true,nombre:"Conversión (CR) / Dónde está el impacto",x:0,y:-9000,w:1300},
   {id:"cr_plan",grupo:"cr",dato:true,nombre:"Conversión (CR) / Plan de mejora",x:0,y:-9000,w:1300},
@@ -1055,11 +1056,11 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],cr:[2700,6000],mdirecto:[5600,4700],producto:[5000,7800]};
+const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],cr:[2700,6000],metaads:[4500,6000],mdirecto:[5600,4700],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
 const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",community:"Community",diseno:"Diseño",captacion:"Captación",paid:"Paid Media",lifecycle:"Lifecycle",cr:"Conversión (CR)",control:"Sala de Control"};
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
@@ -1084,6 +1085,7 @@ const PASILLOS_DEF=[
   {id:"pa23",d:ruta([[-4600,-1934],[-4600,-400],[-1500,-400],[-1500,1400],[-600,1400]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4100,ly:-470},
   {id:"pa24",d:ruta([[-300,6000],[-300,4800],[-150,4800]],140),c:"#a78bfa",txt:"Journey ↔ Lifecycle",sub:"etapas del cliente · fricciones",lx:-1040,ly:5400},
   {id:"pa25",d:ruta([[1500,6000],[1500,4800],[1350,4800]],140),c:"#818cf8",txt:"Comercial ↔ Lifecycle",sub:"ventas por idioma · embudo (Zoho)",lx:1560,ly:5400},
+  {id:"pa41",d:"M3900 6333 H4500",c:"#3b82f6",txt:"Conversión ↔ Meta Ads",sub:"CR a venta de los leads de Meta",lx:3930,ly:6270},
   {id:"pa31",d:"M2100 6333 H2700",c:"#a3e635",txt:"Comercial ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:2130,ly:6270},
   {id:"pa26",d:"M300 6333 H900",c:"#c084fc",txt:"Journey ↔ Comercial",sub:"",lx:330,ly:6270},
   {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
@@ -1111,6 +1113,7 @@ const PERSONALIDAD={
   community:{c:"#e879f9",caracter:"La plaza",lema:"Todas las redes, una sola conversación",ambiente:"Una plaza con bancos, pantallas con los comentarios en directo y un tablón de ideas",tono:"Hablas como una directora de comunidad y redes: sintetizas Instagram, YouTube y el Radar Viral en insights claros con su dato y una acción concreta.",suelo:"sobres",obj:"bocadillos"},
   lifecycle:{c:"#22d3ee",caracter:"El ciclo",lema:"Del primer clic a la siguiente ruta",ambiente:"Una espiral luminosa con cada etapa del cliente y pantallas con el embudo en directo",tono:"Hablas como una directora de lifecycle: adquisición, conversión, repetición y recomendación por mercado, resumiendo lo que dicen Journey y Comercial y siempre con cifras.",suelo:"hex",obj:"antena"},
   journey:{c:"#a78bfa",caracter:"El recorrido",lema:"Cada paso del cliente, sin piedras en el zapato",ambiente:"Un mapa del viaje del cliente en la pared, con post-its en cada fricción",tono:"Hablas desde el cliente: en qué paso duda, qué le frena y qué le haría reservar y repetir; con datos del CRM y de la web.",suelo:"plano",obj:"concha"},
+  metaads:{c:"#3b82f6",caracter:"La sala de pujas",lema:"Cada euro de Meta, medido hasta la venta",ambiente:"Pantallas con el Business Manager, campañas por mercado y un tablero de creatividades en test",tono:"Eres analítico y directo: hablas de campañas, conjuntos, creatividades, CPL, CR a venta en el CRM y frecuencia, siempre con el dato delante.",suelo:"sonar",obj:"antena"},
   cr:{c:"#a3e635",caracter:"El laboratorio",lema:"Cada punto de CR son cientos de ventas",ambiente:"Pizarras con curvas mes a mes, un tablero de experimentos y una lista de palancas ordenada por impacto",tono:"Eres analítico y concreto: hablas de CR del mes, won en juego, palancas y experimentos, siempre con el dato de Zoho delante.",suelo:"velas",obj:"grafico"},
   comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
 };
@@ -1176,7 +1179,7 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   if(!m.dato&&st.dentro&&!SALAS_ACT[st.dentro].includes(id))salir(false);
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
-const SALA_TIT={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",cr:"Conversión (CR)",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+const SALA_TIT={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",cr:"Conversión (CR)",metaads:"Meta Ads",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
 /* Resumen: deja lo esencial (3 puntos por lista, 6 filas por tabla, 3 líneas por párrafo) */
 const RES_LISTA=3,RES_TABLA=6,RES_TARJ=4;
 function resumir(raiz){if(!raiz)return;
@@ -1786,7 +1789,7 @@ function svgControl(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-const SALA_N={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",cr:"Conversión (CR)",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
+const SALA_N={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",cr:"Conversión (CR)",metaads:"Meta Ads",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
 const SEM={bien:["#3ddc97","Bien"],vigilar:["#f5c518","Vigilar"],mal:["#ff5d5d","Actuar"]};
 function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
   if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
@@ -2556,6 +2559,20 @@ const SALAS_N=[
   tareas:["Conectar Zoho CRM: ventas por canal, mercado, ruta y agente","Embudo semanal por mercado con objetivos","Previsión de ventas 2027 por mes y mercado","Atribución de ventas cruzando Google, Meta, GA4 y CRM"],
   sug:["¿Qué mercado nos deja más margen por venta?","¿Dónde se cae el embudo?","¿Cuánto venderemos en 2027?"]}
 ];
+SALAS_N.push({id:"metaads",nombre:"Meta Ads",tit:"Meta Ads · Análisis de campañas del Business Manager",color:"#3b82f6",fondo:"#04070d",borde:"#1d3a6b",lider:"Martina",pant:"Business Manager · campañas · creatividades",
+  sub:"análisis de las campañas del Business Manager",
+  equipo:[{id:"jefa",n:"Martina",rol:"Directora de Meta Ads: prioriza y reporta a la Sala de Control y a Paid Media",c:"#3b82f6"},
+   {id:"camp",n:"Gael",rol:"Campañas y estructura: objetivos, presupuestos y conjuntos por mercado",c:"#f5d76e"},
+   {id:"creat",n:"Alma",rol:"Creatividades: qué anuncio funciona, fatiga y tests A/B",c:"#e1306c"},
+   {id:"aud",n:"Unai",rol:"Audiencias: públicos, remarketing, similares y exclusiones",c:"#3ddc97"},
+   {id:"med",n:"Iria",rol:"Medición: píxel, API de conversiones y ventas de Zoho enviadas a Meta",c:"#fb923c"},
+   {id:"neg",n:"Telmo",rol:"Negocio: CPL, CR a venta en el CRM y retorno por campaña",c:"#a78bfa"}],
+  frases:{jefa:["Leads baratos no es vender","Esto va a la Sala de Control","¿Qué campaña trae ventas?"],camp:["Estructura por mercado","Presupuesto por objetivo","¿Cuántos conjuntos activos?"],creat:["Esta creatividad está fatigada","Test A/B de la semana","El vídeo en primera persona gana"],aud:["Excluir clientes","Remarketing de presupuestos","Similares de compradores"],med:["Enviar los won de Zoho","API de conversiones","Deduplicar eventos"],neg:["CR a venta de Meta","CPL frente a CPA","Retorno por campaña"]},
+  mision:"Analizar a fondo las campañas del Business Manager de Meta: estructura, creatividades, audiencias y medición, y llevarlas de generar leads baratos a generar ventas medidas en el CRM.",
+  objetivos:["Inventario de campañas, conjuntos y anuncios por mercado","Creatividades que venden y las que hay que pausar","Audiencias y exclusiones revisadas","Ventas de Zoho enviadas a Meta y CR a venta por campaña"],
+  fuentes:[["Meta Business Manager","Pendiente de configurar el acceso",false],["Zoho CRM","Conectado en lectura: deals con utm_source meta",true],["Sala de Paid Media","Análisis previo de Meta Ads",true]],
+  saber:[],tareas:[],
+  sug:["¿Qué campañas de Meta traen ventas?","¿Qué creatividad está fatigada?","¿Cómo enviamos las ventas de Zoho a Meta?"]});
 SALAS_N.push({id:"cr",nombre:"Conversión (CR)",tit:"Conversión (CR) · Evolución, impacto y mejora",color:"#a3e635",fondo:"#070a04",borde:"#2f4a12",lider:"Beatriz",pant:"CR del mes · won en juego",
   sub:"solo CR: evolución, impacto y cómo mejorarlo",
   equipo:[{id:"jefa",n:"Beatriz",rol:"Directora de conversión: prioriza las palancas y reporta a la Sala de Control",c:"#a3e635"},
@@ -2605,6 +2622,7 @@ SALAS_N.unshift({id:"youtube",nombre:"YouTube",tit:"YouTube · SEO, Hub & Spoke 
   sug:["¿Qué hub grabaríais primero?","¿Qué errores tienen nuestros vídeos?","¿Cómo conseguimos más presupuestos desde YouTube?"]});
 const PUESTOS_8=[[460,200],[85,95],[210,95],[335,95],[85,200],[210,200],[460,95],[335,200]];
 for(let i=SALAS_N.length-1;i>=0;i--)if(["producto","mdirecto"].includes(SALAS_N[i].id))SALAS_N.splice(i,1);
+{const i=SALAS_N.findIndex(x=>x.id==="metaads");if(i>=0)SALAS_N.push(SALAS_N.splice(i,1)[0])}
 {const css=document.createElement("style");css.textContent=SALAS_N.map(S=>`#m-${S.id}{cursor:pointer}body[data-dentro="${S.id}"] #m-${S.id}{cursor:inherit}body[data-dentro="${S.id}"] #m-${S.id} .entrar-pista{display:none}body[data-dentro="${S.id}"] #m-${S.id} .salir{display:inline-flex}`).join("");document.head.appendChild(css)}
 SALAS_N.forEach(S=>S.puestos=Object.fromEntries(S.equipo.map((a,i)=>[a.id,(S.equipo.length>6?PUESTOS_8:PUESTOS_N)[i]])));
 const salaN=id=>SALAS_N.find(s=>s.id===id);

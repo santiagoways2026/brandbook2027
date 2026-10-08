@@ -1090,7 +1090,7 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],fidelizacion:[-3300,4300],brand:[2900,-200],journey:[-3300,6000],comercial:[-1000,6000],cr:[800,6000],metaads:[5600,4000],mdirecto:[5600,5100],producto:[5000,7800]};
+const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-2600,6000],comercial:[700,6000],cr:[2500,6000],metaads:[5600,4000],mdirecto:[5600,5100],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
@@ -1109,33 +1109,33 @@ Object.entries(SEO_DEST).forEach(([k,n])=>{if(!SALAS_ACT[k]||k==="diseno")return
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
   d+=` L${b[0]-(b[0]-a[0])/l1*k} ${b[1]-(b[1]-a[1])/l1*k} Q${b[0]} ${b[1]} ${b[0]+(c[0]-b[0])/l2*k} ${b[1]+(c[1]-b[1])/l2*k}`}const z=p[p.length-1];return d+` L${z[0]} ${z[1]}`}
 const PASILLOS_DEF=[
-  {id:"pa5",d:"M950 -167 V1300",c:"#e879f9",txt:"Insights de redes → Control",sub:"community.insights · roadmap",lx:1010,ly:300},
-  {id:"pa6",d:"M250 1300 V-167",c:"#f5d76e",txt:"Directrices → Community y redes",sub:"control.directrices · instagram · youtube · radar",lx:190,ly:300,fin:true},
-  {id:"pa11",d:ruta([[-2100,-1934],[-2100,-600],[-150,-600]],160),c:"#e1306c",txt:"Instagram ↔ Community",sub:"rendimiento de las cuentas ES, EN y DE",lx:-2840,ly:-1450,fin:true},
-  {id:"pa22",d:ruta([[-300,-1934],[-300,-850],[-150,-850]],140),c:"#ff4d4d",txt:"YouTube ↔ Community",sub:"canales · benchmark · roadmap",lx:-260,ly:-1450},
-  {id:"pa28",d:ruta([[3300,-1934],[3300,-600],[1350,-600]],160),c:"#3d7bff",txt:"Radar Viral ↔ Community",sub:"tendencias virales · cada 2 h",lx:3360,ly:-1450},
-  {id:"pa29",d:"M2100 -2267 H2700",c:"#3d7bff",txt:"",sub:"",lx:0,ly:0},
-  {id:"pa32",d:ruta([[1500,-1934],[1500,-850],[1350,-850]],140),c:"#25f4ee",txt:"TikTok ↔ Community",sub:"vídeos · tendencias · sonidos",lx:1560,ly:-1450},
-  {id:"pa33",d:"M300 -2267 H900",c:"#25f4ee",txt:"Shorts ↔ TikTok",sub:"",lx:330,ly:-2330},
-  {id:"pa20",d:"M-1500 -2267 H-900",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:-1470,ly:-2330},
-  {id:"pa21",d:ruta([[-300,-2600],[-300,-2950],[5800,-2950],[5800,400]],320),c:"#ff4d4d",txt:"SEO ↔ RRSS",sub:"búsquedas por idioma → YouTube, Instagram, TikTok y Community",lx:3700,ly:-3020},
-  {id:"pa4",d:"M750 4300 V2632",c:"#22d3ee",txt:"Conversión → Control",sub:"embudo · de lead a venta · valor del cliente",lx:800,ly:3450},
-  {id:"pa7",d:"M450 2632 V4300",c:"#f5d76e",txt:"Directrices → Conversión",sub:"control.directrices.lifecycle",lx:-330,ly:3450,fin:true},
-  {id:"pa23",d:ruta([[-4600,-1934],[-4600,-400],[-1500,-400],[-1500,1400],[-600,1400]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4100,ly:-470},
-  {id:"pa50",d:ruta([[-2700,4300],[-2700,3700],[-300,3700],[-300,2632]],220),c:"#a78bfa",txt:"Fidelización & Journey ↔ Control",sub:"en construcción",lx:-2500,ly:3640},
-  {id:"pa51",d:"M-2700 6000 V4966",c:"#a78bfa",txt:"Journey ↔ Fidelización",sub:"etapas del cliente · fricciones",lx:-2640,ly:5500},
-  {id:"pa52",d:ruta([[3500,466],[3500,800],[1650,800],[1650,1300]],220),c:"#fbbf24",txt:"Brand / Awareness ↔ Control",sub:"en construcción",lx:2000,ly:740},
-  {id:"pa53",d:ruta([[-400,6000],[-400,5560],[100,5560],[100,5132]],160),c:"#818cf8",txt:"Comercial ↔ Conversión",sub:"ventas por idioma · embudo (Zoho)",lx:-960,ly:5500},
-  {id:"pa54",d:ruta([[1400,6000],[1400,5560],[1100,5560],[1100,5132]],160),c:"#a3e635",txt:"CR ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:1460,ly:5500},
-  {id:"pa55",d:"M200 6333 H800",c:"#a3e635",txt:"",sub:"",lx:0,ly:0},
-  {id:"pa41",d:"M6700 3266 V4000",c:"#3b82f6",txt:"Paid Media ↔ Meta Ads",sub:"campañas del Business Manager",lx:6730,ly:3470},
+  {id:"pa5",d:ruta([[-700,-68],[-700,600],[100,600],[100,1300]],160),c:"#e879f9",txt:"Insights de redes → Control",sub:"community.insights · roadmap",lx:-640,ly:540},
+  {id:"pa6",d:ruta([[-300,1300],[-300,1000],[-1100,1000],[-1100,-68]],160),c:"#f5d76e",txt:"Directrices → Community y redes",sub:"control.directrices · instagram · youtube · radar",lx:-1780,ly:940,fin:true},
+  {id:"pa11",d:ruta([[-3000,-1934],[-3000,-600],[-1900,-600]],160),c:"#e1306c",txt:"Instagram ↔ Community",sub:"rendimiento de las cuentas ES, EN y DE",lx:-3740,ly:-1450,fin:true},
+  {id:"pa22",d:"M-1400 -1934 V-900",c:"#ff4d4d",txt:"YouTube ↔ Community",sub:"canales · benchmark · roadmap",lx:-1340,ly:-1450},
+  {id:"pa32",d:ruta([[200,-1934],[200,-1300],[-700,-1300],[-700,-900]],140),c:"#25f4ee",txt:"TikTok ↔ Community",sub:"vídeos · tendencias · sonidos",lx:260,ly:-1650},
+  {id:"pa28",d:ruta([[1800,-1934],[1800,-500],[-400,-500]],160),c:"#3d7bff",txt:"Radar Viral ↔ Community",sub:"tendencias virales · cada 2 h",lx:1860,ly:-1450},
+  {id:"pa20",d:"M-2400 -2267 H-2000",c:"#c084fc",txt:"Reels ↔ Shorts",sub:"formatos que se reutilizan",lx:-2370,ly:-2330},
+  {id:"pa33",d:"M-800 -2267 H-400",c:"#25f4ee",txt:"Shorts ↔ TikTok",sub:"",lx:-770,ly:-2330},
+  {id:"pa29",d:"M800 -2267 H1200",c:"#3d7bff",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa21",d:ruta([[-1400,-2600],[-1400,-2950],[6000,-2950],[6000,400]],320),c:"#ff4d4d",txt:"SEO ↔ RRSS",sub:"búsquedas por idioma → YouTube, Instagram, TikTok y Community",lx:3700,ly:-3020},
+  {id:"pa23",d:ruta([[-4600,-1934],[-4600,1100],[-450,1100],[-450,1300]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4540,ly:-470},
+  {id:"pa52",d:ruta([[3000,-34],[3000,800],[1650,800],[1650,1300]],220),c:"#fbbf24",txt:"Brand / Awareness ↔ Control",sub:"en construcción",lx:3060,ly:400},
+  {id:"pa30",d:"M1800 1750 H3400",c:"#f5d76e",txt:"Directrices → Captación",sub:"control.directrices.captacion",lx:1950,ly:1690,fin:true},
+  {id:"pa31",d:"M3400 2100 H1800",c:"#f97316",txt:"Leads y coste → Control",sub:"captación de demanda",lx:1950,ly:2170},
+  {id:"pa40",d:ruta([[5400,900],[2200,900],[2200,1450],[1800,1450]],200),c:"#2dd4bf",txt:"SEO → Control y todas las salas",sub:"lo que se busca · fichas de destino · palabras clave",lx:3600,ly:860},
+  {id:"pa14",d:ruta([[4300,1600],[4300,1250],[5800,1250],[5800,1066]],200),c:"#2dd4bf",txt:"Captación ↔ SEO",sub:"búsquedas · tráfico orgánico · leads",lx:4400,ly:1210},
+  {id:"pa15",d:ruta([[4600,2100],[5000,2100],[5000,2900],[5600,2900]],260),c:"#f472b6",txt:"Captación ↔ Paid Media",sub:"Google Ads · Meta Ads · coste por lead",lx:5060,ly:2450},
+  {id:"pa41",d:"M6200 3266 V4000",c:"#3b82f6",txt:"Paid Media ↔ Meta Ads",sub:"campañas del Business Manager",lx:6230,ly:3600},
+  {id:"pa4",d:"M1700 4300 V2632",c:"#22d3ee",txt:"Conversión → Control",sub:"embudo · de lead a venta · valor del cliente",lx:1760,ly:3450},
+  {id:"pa7",d:"M1400 2632 V4300",c:"#f5d76e",txt:"Directrices → Conversión",sub:"control.directrices.lifecycle",lx:620,ly:3450,fin:true},
+  {id:"pa50",d:ruta([[-2000,4300],[-2000,3300],[-300,3300],[-300,2632]],220),c:"#a78bfa",txt:"Fidelización & Journey ↔ Control",sub:"en construcción",lx:-1900,ly:3240},
+  {id:"pa51",d:"M-2000 6000 V4966",c:"#a78bfa",txt:"Journey ↔ Fidelización",sub:"etapas del cliente · fricciones",lx:-1940,ly:5500},
+  {id:"pa53",d:ruta([[1300,6000],[1300,5600],[1700,5600],[1700,5132]],160),c:"#818cf8",txt:"Comercial ↔ Conversión",sub:"ventas por idioma · embudo (Zoho)",lx:560,ly:5540},
+  {id:"pa54",d:ruta([[3100,6000],[3100,5600],[2400,5600],[2400,5132]],160),c:"#a3e635",txt:"CR ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:3160,ly:5540},
+  {id:"pa55",d:"M1900 6333 H2500",c:"#a3e635",txt:"",sub:"",lx:0,ly:0},
   {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
   {id:"pa9",d:"M-4000 1760 C-2800 2060 -1700 2060 -600 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
-  {id:"pa40",d:ruta([[5400,1100],[2500,1100],[2500,1500],[1800,1500]],200),c:"#2dd4bf",txt:"SEO → Control y todas las salas",sub:"lo que se busca · fichas de destino · palabras clave",lx:2600,ly:1060},
-  {id:"pa14",d:ruta([[4100,1650],[4700,1650],[4700,800],[5400,800]],260),c:"#2dd4bf",txt:"Captación ↔ SEO",sub:"búsquedas · tráfico orgánico · leads",lx:4760,ly:1250},
-  {id:"pa15",d:ruta([[4100,1980],[4700,1980],[4700,2900],[5600,2900]],260),c:"#f472b6",txt:"Captación ↔ Paid Media",sub:"Google Ads · Meta Ads · coste por lead",lx:4760,ly:2450},
-  {id:"pa30",d:"M1800 1700 H2900",c:"#f5d76e",txt:"Directrices → Captación",sub:"control.directrices.captacion",lx:1950,ly:1640,fin:true},
-  {id:"pa31",d:"M2900 1980 H1800",c:"#f97316",txt:"Leads y coste → Control",sub:"captación de demanda",lx:1950,ly:2050},
 ];
 /* Personalidad de cada sala: carácter, lema, ambiente, suelo y objeto propio */
 const PERSONALIDAD={

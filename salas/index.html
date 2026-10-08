@@ -1090,7 +1090,7 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-2600,6000],comercial:[700,6000],cr:[2500,6000],metaads:[5600,4000],mdirecto:[5600,5100],producto:[5000,7800]};
+const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-200,6000],comercial:[1450,6000],cr:[3100,6000],metaads:[5600,4000],mdirecto:[5600,5100],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
@@ -1130,10 +1130,11 @@ const PASILLOS_DEF=[
   {id:"pa4",d:"M1700 4300 V2632",c:"#22d3ee",txt:"Conversión → Control",sub:"embudo · de lead a venta · valor del cliente",lx:1760,ly:3450},
   {id:"pa7",d:"M1400 2632 V4300",c:"#f5d76e",txt:"Directrices → Conversión",sub:"control.directrices.lifecycle",lx:620,ly:3450,fin:true},
   {id:"pa50",d:ruta([[-2000,4300],[-2000,3300],[-300,3300],[-300,2632]],220),c:"#a78bfa",txt:"Fidelización & Journey ↔ Control",sub:"en construcción",lx:-1900,ly:3240},
-  {id:"pa51",d:"M-2000 6000 V4966",c:"#a78bfa",txt:"Journey ↔ Fidelización",sub:"etapas del cliente · fricciones",lx:-1940,ly:5500},
-  {id:"pa53",d:ruta([[1300,6000],[1300,5600],[1700,5600],[1700,5132]],160),c:"#818cf8",txt:"Comercial ↔ Conversión",sub:"ventas por idioma · embudo (Zoho)",lx:560,ly:5540},
-  {id:"pa54",d:ruta([[3100,6000],[3100,5600],[2400,5600],[2400,5132]],160),c:"#a3e635",txt:"CR ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:3160,ly:5540},
-  {id:"pa55",d:"M1900 6333 H2500",c:"#a3e635",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa51",d:ruta([[400,6000],[400,5600],[1500,5600],[1500,5132]],160),c:"#a78bfa",txt:"Journey ↔ Conversión",sub:"etapas del cliente · fricciones",lx:-140,ly:5540},
+  {id:"pa53",d:"M2050 6000 V5132",c:"#818cf8",txt:"Comercial ↔ Conversión",sub:"ventas por idioma · embudo (Zoho)",lx:2110,ly:5700},
+  {id:"pa54",d:ruta([[3700,6000],[3700,5600],[2600,5600],[2600,5132]],160),c:"#a3e635",txt:"CR ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:3760,ly:5540},
+  {id:"pa55",d:"M1000 6333 H1450",c:"#c084fc",txt:"",sub:"",lx:0,ly:0},
+  {id:"pa56",d:"M2650 6333 H3100",c:"#a3e635",txt:"",sub:"",lx:0,ly:0},
   {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
   {id:"pa9",d:"M-4000 1760 C-2800 2060 -1700 2060 -600 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
 ];
@@ -2608,7 +2609,7 @@ const SALAS_N=[
   sug:["¿Qué tres cosas harías esta semana en redes?","¿Qué tendencia del Radar replicamos?","¿Qué red trae más presupuestos?"]},
  {id:"lifecycle",nombre:"Conversión",tit:"Conversión · del primer clic a la venta y la siguiente ruta",color:"#22d3ee",fondo:"#04090b",borde:"#164a55",lider:"Lucía",pant:"Adquirir · Convertir · Viajar · Repetir · Recomendar",
   sub:"ciclo de vida del cliente, conversión y repetición",
-  equipo:[{id:"jefa",n:"Lucía",rol:"Directora de lifecycle: une Journey de cliente y Comercial y reporta a la Sala de Control",c:"#22d3ee"},
+  equipo:[{id:"jefa",n:"Lucía",rol:"Directora de conversión: une Journey de cliente, Comercial y Tasa de conversión y reporta a la Sala de Control",c:"#22d3ee"},
    {id:"adq",n:"Íñigo",rol:"Adquisición: de dónde llega cada cliente y cuánto cuesta",c:"#f5d76e"},
    {id:"conv",n:"Emma",rol:"Conversión: de lead a presupuesto y de presupuesto a venta",c:"#3d7bff"},
    {id:"ret",n:"Paul",rol:"Retención y repetición: otra ruta, otro año",c:"#3ddc97"},

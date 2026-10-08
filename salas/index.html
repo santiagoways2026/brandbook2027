@@ -421,6 +421,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .cr-imp{background:#1f2a12;color:#d9f99d;padding:2px 8px;border-radius:4px;font-weight:700}
 @media(max-width:700px){.cr-bar{grid-template-columns:1fr}.cr-bv{text-align:left}}
 .seo-res{padding:14px 20px 0;margin:0;font-size:15px;line-height:1.55;color:#e6eaee}.seo-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:10px;padding:14px 20px}.seo-card .seo-t{color:#e7f5c8;margin:6px 0}.seo-card ul{margin:0;padding-left:18px;color:#c3cad4;font-size:13px;display:grid;gap:3px}
+.mu-g{display:inline-block;font:700 11px var(--f-mono);text-transform:uppercase;padding:2px 7px;border-radius:4px;margin-right:6px;vertical-align:2px}.mu-c{background:#5a1d22;color:#ffb4b4}.mu-a{background:#4a2a0c;color:#fdba74}.mu-m{background:#3a3410;color:#fde68a}.mu-b{background:#1f2a35;color:#bfdbfe}.mu-pre{margin:6px 20px 14px;padding:14px;background:#0b0e13;border:1px solid var(--borde);border-radius:6px;color:#e6eaee;font:13px/1.55 var(--f-mono);white-space:pre-wrap;word-break:break-word}
 .titular{padding:20px;border-bottom:1px solid var(--borde)}
 .titular .eye{font:600 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#f5d76e}
 .titular h3{margin:10px 0 8px;font:700 26px/1.2 var(--f-ui);letter-spacing:-.01em;text-wrap:balance}
@@ -1047,6 +1048,7 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
   {id:"cr",grupo:"cr",nombre:"Conversión (CR) / Sala",x:0,y:0,w:1200},
   {id:"metaads",grupo:"metaads",nombre:"Meta Ads / Sala",x:0,y:0,w:1200},
+  {id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
   {id:"cr_evolucion",grupo:"cr",dato:true,nombre:"Conversión (CR) / Evolución del CR",x:0,y:-9000,w:1300},
   {id:"cr_impacto",grupo:"cr",dato:true,nombre:"Conversión (CR) / Dónde está el impacto",x:0,y:-9000,w:1300},
   {id:"cr_plan",grupo:"cr",dato:true,nombre:"Conversión (CR) / Plan de mejora",x:0,y:-9000,w:1300},
@@ -1060,7 +1062,7 @@ const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],ti
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
 const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",community:"Community",diseno:"Diseño",captacion:"Captación",paid:"Paid Media",lifecycle:"Lifecycle",cr:"Conversión (CR)",control:"Sala de Control"};
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
@@ -2570,7 +2572,7 @@ SALAS_N.push({id:"metaads",nombre:"Meta Ads",tit:"Meta Ads · Análisis de campa
   frases:{jefa:["Leads baratos no es vender","Esto va a la Sala de Control","¿Qué campaña trae ventas?"],camp:["Estructura por mercado","Presupuesto por objetivo","¿Cuántos conjuntos activos?"],creat:["Esta creatividad está fatigada","Test A/B de la semana","El vídeo en primera persona gana"],aud:["Excluir clientes","Remarketing de presupuestos","Similares de compradores"],med:["Enviar los won de Zoho","API de conversiones","Deduplicar eventos"],neg:["CR a venta de Meta","CPL frente a CPA","Retorno por campaña"]},
   mision:"Analizar a fondo las campañas del Business Manager de Meta: estructura, creatividades, audiencias y medición, y llevarlas de generar leads baratos a generar ventas medidas en el CRM.",
   objetivos:["Inventario de campañas, conjuntos y anuncios por mercado","Creatividades que venden y las que hay que pausar","Audiencias y exclusiones revisadas","Ventas de Zoho enviadas a Meta y CR a venta por campaña"],
-  fuentes:[["Meta Business Manager","Pendiente de configurar el acceso",false],["Zoho CRM","Conectado en lectura: deals con utm_source meta",true],["Sala de Paid Media","Análisis previo de Meta Ads",true]],
+  fuentes:[["Meta Business Manager (vía Windsor.ai)","Pendiente: Windsor.ai necesita volver a autorizarse",false],["GA4","Conectado: fuente y medio de las sesiones de Meta",true],["Zoho CRM","Conectado en lectura: deals con utm_source meta",true],["Sala de Paid Media","Análisis previo de Meta Ads",true]],
   saber:[],tareas:[],
   sug:["¿Qué campañas de Meta traen ventas?","¿Qué creatividad está fatigada?","¿Cómo enviamos las ventas de Zoho a Meta?"]});
 SALAS_N.push({id:"cr",nombre:"Conversión (CR)",tit:"Conversión (CR) · Evolución, impacto y mejora",color:"#a3e635",fondo:"#070a04",borde:"#2f4a12",lider:"Beatriz",pant:"CR del mes · won en juego",
@@ -3141,7 +3143,18 @@ function pintarSeoRed(){const S=st.seoRed,k=st.dentro;if(!k)return;
      <div class="seccion-t">Lo que SEO recibe de cada sala</div><div class="mc-sec"><table class="tabla bf-t"><thead><tr><th>Sala</th><th style="text-align:left">Qué manda a SEO</th></tr></thead><tbody>${(S.recibe||[]).map(r=>`<tr><td>${esc(r.sala)}</td><td style="text-align:left">${esc(r.que)}</td></tr>`).join("")}</tbody></table></div>`:vacio}`;return}
   const el=document.getElementById("c-seo_"+k);if(!el)return;const x=S?.salas?.[k];
   el.innerHTML=`<div class="mcab"><div><h2>Desde SEO</h2><div class="fuente-mc" style="margin-top:6px">${S?esc(S.fuente):""}</div></div><div class="meta">${S?.fecha?esc(hace(S.fecha)):""}</div></div>${x?seoBloque(x):vacio}`}
-function pintarSalasN(){pintarCR();pintarSeoRed();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+
+/* ===== Meta Ads: auditoría de UTMs ===== */
+function pintarMetaUtm(){const el=document.getElementById("c-meta_utm");if(!el||st.dentro!=="metaads")return;const A=st.metaUtm;
+  if(!A){el.innerHTML=`<div class="mcab"><div><h2>Auditoría de UTMs</h2></div></div><div class="vacio">Iria está revisando las UTMs de Meta.</div>`;return}
+  const G={"crítico":"mu-c","alto":"mu-a","medio":"mu-m","bajo":"mu-b"};
+  el.innerHTML=`<div class="mcab"><div><h2>Auditoría de UTMs</h2><div class="fuente-mc" style="margin-top:6px">${esc(A.autor||"")}</div></div><div class="meta">${A.fecha?esc(hace(A.fecha)):""}</div></div>
+   <div class="titular bf-titular"><div class="eye">Veredicto</div><h3>${esc(A.veredicto||"")}</h3><p>${esc(A.alcance||"")}</p></div>
+   <div class="bf-kpis">${(A.kpis||[]).map(k=>`<div><b>${esc(k.valor)}</b><span>${esc(k.nombre)}</span><small>${esc(k.fuente||"")}</small></div>`).join("")}</div>
+   <div class="seccion-t">Hallazgos</div><ol class="prios">${(A.hallazgos||[]).map(h=>`<li class="prio"><div><h4><span class="mu-g ${G[h.gravedad]||""}">${esc(h.gravedad)}</span> ${esc(h.problema)}</h4><p>${esc(h.dato)}</p><p><b>Impacto:</b> ${esc(h.impacto)}</p><p class="bf-imp">→ ${esc(h.solucion)}</p></div></li>`).join("")}</ol>
+   <div class="seccion-t">Plantilla de parámetros</div><pre class="mu-pre">${esc(A.plantilla||"")}</pre>
+   ${(A.pendiente||[]).length?`<div class="seccion-t">Pendiente</div><ol class="bf-list">${A.pendiente.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}`}
+function pintarSalasN(){pintarCR();pintarSeoRed();pintarMetaUtm();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -3645,6 +3658,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
+  db.doc("meta_ads/utm").onSnapshot(s=>{st.metaUtm=s.exists?s.data():null;pintarMetaUtm()});
   db.doc("seo_red/actual").onSnapshot(s=>{st.seoRed=s.exists?s.data():null;pintarSeoRed()});
   db.doc("cr_plan/actual").onSnapshot(s=>{st.crPlan=s.exists?s.data():null;pintarCR()});
   db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA();pintarCR()});

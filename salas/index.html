@@ -879,6 +879,16 @@ html #panel.full .pn-chat{grid-column:2;grid-row:2/4}
 .tz-fix .tz-c{position:sticky;left:0;z-index:3;box-shadow:6px 0 8px -6px rgba(0,0,0,.7)}
 .tz-fix thead .tz-c{z-index:4}
 .tz-stk{position:sticky;left:10px;display:inline-block;max-width:min(1000px,70vw)}
+.ma-alc{padding:12px 20px 0;margin:0;color:#d6dbe1;font-size:14px;line-height:1.55}
+.ma-hall{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px;padding:10px 20px 0}.ma-h{background:var(--marco-2);border:1px solid var(--borde);border-radius:10px;padding:12px 14px}.ma-h h4{margin:0 0 6px;font-size:15px;color:#f1f3f5}.ma-h p{margin:0 0 8px;font-size:13.5px;line-height:1.5;color:#c9d0da}
+.ma-ej{display:flex;gap:6px;flex-wrap:wrap}.ma-mini{position:relative;display:block;width:64px;height:80px;border-radius:6px;overflow:hidden;border:1px solid var(--borde-2)}.ma-mini img{width:100%;height:100%;object-fit:cover}.ma-mini span{position:absolute;left:3px;bottom:3px;background:rgba(0,0,0,.7);color:#fff;font:600 10px var(--f-mono);padding:1px 4px;border-radius:3px}
+.ma-sug{margin:8px 20px 0;padding-left:20px;color:#e6eaee;font-size:14px;line-height:1.6}
+.ma-fb{margin:14px 20px 0;padding:12px 14px;border:1px solid #2f5a12;border-radius:10px;background:#122010;color:#dfe9d2;font-size:13.5px;line-height:1.5}.ma-fb p{margin:6px 0}.ma-fbc{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}.ma-fbc b{color:#b5dd4a}.ma-fbc span{color:var(--tenue);font-size:12px}
+.ma-bien{color:#b5dd4a!important}.ma-mal{color:#ff8a8a!important}
+.ma-ctl{display:flex;gap:14px;flex-wrap:wrap;padding:10px 20px 0;font-size:13.5px;color:#d6dbe1}.ma-ctl select{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:5px 8px;margin-left:4px}
+.ma-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(210px,1fr));gap:12px;padding:12px 20px 0}.ma-c{background:var(--marco-2);border:1px solid var(--borde);border-radius:10px;overflow:hidden}
+.ma-img{position:relative;display:block;aspect-ratio:4/5;background:#05070a}.ma-img img{width:100%;height:100%;object-fit:contain}.ma-id{position:absolute;left:6px;top:6px;background:rgba(0,0,0,.72);color:#fff;font:600 11px var(--f-mono);padding:2px 6px;border-radius:4px}.ma-act{position:absolute;right:6px;top:6px;background:#1e3a12;color:#b5dd4a;font:600 10.5px var(--f-mono);padding:2px 6px;border-radius:4px}.ma-act.off{background:#3a2716;color:#ffb38a}
+.ma-inf{padding:9px 10px 11px;display:grid;gap:4px}.ma-inf b{font-size:13.5px;color:#f1f3f5}.ma-inf small{color:var(--tenue);font-size:11.5px}.ma-k{display:grid;grid-template-columns:1fr 1fr;gap:3px 8px;font-size:12px;color:#c9d0da}.ma-k b{font-size:12.5px;white-space:nowrap}.ma-poco{color:#f5d76e!important}
 .cn-revw{margin:12px 20px 0;padding:10px 14px;border:1px solid #6b5a12;border-radius:8px;background:#221d0b;color:#f3e7b3;font-size:13px;line-height:1.55}.cn-revw b{color:#f5d76e}.cn-revw code{font-size:12px;color:#fde68a}
 .cn-utmtg{padding:10px 20px 0;font-size:13px;color:#d6dbe1}.cn-utmtg input{vertical-align:-2px;margin-right:6px}
 a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.5px;padding:4px 10px}
@@ -982,7 +992,7 @@ const MARCOS=[
   {id:"cerebro",grupo:"control",dato:true,nombre:"Sala de Control / Cerebro",x:-260,y:2260,w:1720},
   {id:"diseno",grupo:"diseno",nombre:"Diseño / Sala",x:-3800,y:1500,w:1200},
   {id:"d_brief",grupo:"diseno",dato:true,nombre:"Diseño / Brief de la Sala de Control",x:0,y:-9000,w:1500},
-  {id:"d_ig",grupo:"diseno",dato:true,nombre:"Diseño / Instagram · estáticos",x:-5400,y:0,w:1950},
+  {id:"d_ig",grupo:"diseno",dato:true,nombre:"Diseño / Instagram · estáticos",x:-5400,y:0,w:1950},{id:"d_meta",grupo:"diseno",dato:true,nombre:"Diseño / Meta Ads",x:0,y:-9000,w:1950},
   {id:"d_reel",grupo:"diseno",dato:true,nombre:"Diseño / Reels",x:-5400,y:1500,w:1950},
   {id:"d_yt",grupo:"diseno",dato:true,nombre:"Diseño / YouTube · miniaturas, guion y SEO",x:-5400,y:3000,w:1950},
   {id:"d_li",grupo:"diseno",dato:true,nombre:"Diseño / LinkedIn",x:-5400,y:4500,w:1950},
@@ -1066,7 +1076,7 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
   {id:"cr",grupo:"cr",nombre:"Conversión (CR) / Sala",x:0,y:0,w:1200},
   {id:"metaads",grupo:"metaads",nombre:"Meta Ads / Sala",x:0,y:0,w:1200},
-  {id:"meta_rep",grupo:"metaads",dato:true,nombre:"Meta Ads / Campañas activas",x:0,y:-9000,w:1500},{id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
+  {id:"meta_rep",grupo:"metaads",dato:true,nombre:"Meta Ads / Campañas activas",x:0,y:-9000,w:1500},{id:"meta_anu",grupo:"metaads",dato:true,nombre:"Meta Ads / Anuncios",x:0,y:-9000,w:1500},{id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
   {id:"cr_evolucion",grupo:"cr",dato:true,nombre:"Conversión (CR) / Evolución del CR",x:0,y:-9000,w:1300},
   {id:"cr_impacto",grupo:"cr",dato:true,nombre:"Conversión (CR) / Dónde está el impacto",x:0,y:-9000,w:1300},
   {id:"cr_plan",grupo:"cr",dato:true,nombre:"Conversión (CR) / Plan de mejora",x:0,y:-9000,w:1300},
@@ -1080,7 +1090,7 @@ const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],ti
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
 const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",community:"Community",diseno:"Diseño",captacion:"Captación",paid:"Paid Media",lifecycle:"Lifecycle",cr:"Conversión (CR)",control:"Sala de Control"};
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
@@ -1885,7 +1895,7 @@ const FRASES_S={arte:["Un solo subrayado por pieza","Titulares en minúscula de 
   yt:["Una miniatura, una idea","Capítulos y palabras clave listos","Título para la búsqueda de USA"],
   copy:["Cada post, un valor del brandbook","Dato fresco y pregunta final","Personas antes que opinión"],
   tk:["TikTok EN necesita voz nativa","Vídeo buscador de 3 minutos","Revisando sonidos en tendencia"]};
-const DIS_TIPOS=[["ig","d_ig","Instagram · estáticos"],["reel","d_reel","Reels"],["yt","d_yt","YouTube · miniaturas, guion y SEO"],["linkedin","d_li","LinkedIn"],["tiktok","d_tk","TikTok"]];
+const DIS_TIPOS=[["meta","d_meta","Meta Ads · piezas para campañas"],["ig","d_ig","Instagram · estáticos"],["reel","d_reel","Reels"],["yt","d_yt","YouTube · miniaturas, guion y SEO"],["linkedin","d_li","LinkedIn"],["tiktok","d_tk","TikTok"]];
 function fraseRealS(p){
   const mapa={ig:"ig",video:"reel",yt:"yt",copy:"linkedin",tk:"tiktok"};const t=mapa[p.a.id];
   const ps=st.dis.piezas.filter(x=>t?x.tipo===t:true);
@@ -1981,14 +1991,14 @@ function mockIG(x){
   const sl=igSlides(x),n=sl.length;
   const dots=n>1?`<div class="g-dots">${sl.map((_,i)=>`<i${i?"":' class="on"'}></i>`).join("")}</div>`:"";
   const cap=x.caption?`<div class="g-cap"><b>santiagoways</b> ${esc(String(x.caption).split("\n")[0])}</div>`:"";
-  return`<div class="igf"><div class="g-head"><span class="g-av"><img src="img/isotipo_blanco.png" alt=""></span><div><b>${x.mercado==="en"?"santiagoways_en":x.mercado==="de"?"santiagoways_de":"santiagoways"}</b>${x.ubicacion?`<small>${esc(x.ubicacion)}</small>`:""}</div><span class="g-mas">···</span></div>
+  return`<div class="igf"><div class="g-head"><span class="g-av"><img src="img/isotipo_blanco.png" alt=""></span><div><b>${x.mercado==="en"?"santiagoways_en":x.mercado==="de"?"santiagoways_de":"santiagoways"}</b>${x.tipo==="meta"?"<small>Publicidad</small>":x.ubicacion?`<small>${esc(x.ubicacion)}</small>`:""}</div><span class="g-mas">···</span></div>
     <div class="g-wrap"><div class="igs">${sl.map((s,i)=>igSlide(s,i,n)).join("")}</div>${n>1?`<button type="button" class="g-nav g-prev" data-ignav="-1" aria-label="Anterior">‹</button><button type="button" class="g-nav g-next" data-ignav="1" aria-label="Siguiente">›</button>`:""}</div>
     <div class="g-acc"><span>${IG_SVG.heart}${IG_SVG.com}${IG_SVG.send}</span>${dots}<span>${IG_SVG.save}</span></div>${cap}</div>`;
 }
 document.addEventListener("click",e=>{const b=e.target.closest("[data-ignav]");if(!b)return;const s=b.closest(".g-wrap").querySelector(".igs");s.scrollBy({left:s.clientWidth*Number(b.dataset.ignav),behavior:"smooth"})});
 document.addEventListener("scroll",e=>{const s=e.target;if(!s.classList||!s.classList.contains("igs"))return;const i=Math.round(s.scrollLeft/Math.max(1,s.clientWidth));s.closest(".igf").querySelectorAll(".g-dots i").forEach((d,k)=>d.classList.toggle("on",k===i))},true);
 function mockPieza(x){
-  if(x.tipo==="ig")return mockIG(x);
+  if(x.tipo==="ig"||x.tipo==="meta")return mockIG(x);
   if(x.tipo==="linkedin")return mockLI(x);
   const fondo=x.fondo||"blanco",sw=conTitular(x.titular,x.subrayado);
   const conchaCol=fondo==="blanco"?"#7AA606":"#fff";
@@ -2051,7 +2061,7 @@ function tarjetaPieza(x){
   const cap=x.caption?`<details><summary>Copy para publicar</summary><p>${esc(x.caption)}${(x.hashtags||[]).length&&!/#/.test(x.caption)?"\n\n"+x.hashtags.map(h=>"#"+h).join(" "):""}</p></details>`:"";
   const acc=accionesPieza(x,"pacc");
   return`<div class="pieza ${esc(x.estado)}" data-pieza="${esc(x.id)}">${mockPieza(x)}
-    <div class="pz-info"><div class="pz-meta">${chipEstado(x)}<span class="mk">${esc((x.mercado||"").toUpperCase())}</span>${x.valor?`<span class="sala-tag">${esc(x.valor)}</span>`:""}<span>${esc(x.disenador||"")}</span></div>${x.brief?`<div class="porque pz-brief"><b>Brief de Control:</b> ${esc(x.brief)}</div>`:""}
+    <div class="pz-info"><div class="pz-meta">${chipEstado(x)}<span class="mk">${esc((x.mercado||"").toUpperCase())}</span>${x.valor?`<span class="sala-tag">${esc(x.valor)}</span>`:""}<span>${esc(x.disenador||"")}</span></div>${x.brief?`<div class="porque pz-brief"><b>${x.tipo==="meta"?"Brief de Meta Ads":"Brief de Control"}:</b> ${esc(x.brief)}</div>`:""}
       <h4>${esc(x.tema)}</h4><div class="pz-meta pz-formato">${esc(x.formato||"")}</div>
       ${(x.ab||[]).length?`<div class="ab"><div class="ab-t">Test A/B de miniatura</div><div class="ab-g">${x.ab.map(v=>`<a href="${esc(v.img)}" download title="Descargar variante ${esc(v.v)}"><img src="${esc(v.img)}" alt=""><span>${esc(v.v)}</span></a>`).join("")}</div></div>`:""}${x.material?`<div class="pz-falta">${esc(x.material)}</div>`:""}${x.video?`<a class="btn" href="${esc(x.video)}" download style="justify-self:start">Descargar vídeo</a>`:""}
       ${refMin(x)}
@@ -2142,8 +2152,10 @@ function pintarDiseno(){
   if(st.dentro!=="diseno")return;
   for(const[t,id,nom]of DIS_TIPOS){
     const ps=D.piezas.filter(x=>x.tipo===t&&VIVA(x)).sort((a,b)=>(a.orden||0)-(b.orden||0));
-    $("#c-"+id).innerHTML=`<div class="mcab"><div><h2>${esc(nom)}</h2><div class="fuente-mc" style="margin-top:6px">${t==="linkedin"?"Basados en los valores del brandbook y la actualidad del sector":"Basadas en lo que funciona en tu cuenta, la competencia y el mercado"} · cada pieza cita sus referencias con métricas</div></div><div class="meta">${ps.length} versiones vivas</div></div>
-      <div class="piezas">${ps.length?ps.map(tarjetaPieza).join(""):`<div class="vacio">El equipo está preparando nuevas versiones.</div>`}</div>`;
+    const el0=$("#c-"+id);if(!el0)continue;const FB=t==="meta"?st.metaAnu?.feedback_diseno:null;
+    const fbH=FB?`<div class="ma-fb" style="margin-top:12px"><div class="ma-fbc"><b>Lo que pide el equipo de Meta Ads</b><span>${esc(FB.de||"")} · ${FB.fecha?esc(hace(FB.fecha)):""}</span></div>${(FB.prioridades||[]).map(p=>`<p><b>${esc(p.p)}. ${esc(p.t)}.</b> ${esc(p.d)}</p>`).join("")}<p><b>Evitar:</b> ${esc((FB.evitar||[]).join(" · "))}</p></div>`:"";
+    el0.innerHTML=`<div class="mcab"><div><h2>${esc(nom)}</h2><div class="fuente-mc" style="margin-top:6px">${t==="meta"?"Piezas para las campañas de Meta Ads, hechas a partir de su análisis de anuncios":t==="linkedin"?"Basados en los valores del brandbook y la actualidad del sector":"Basadas en lo que funciona en tu cuenta, la competencia y el mercado"} · cada pieza cita sus referencias con métricas</div></div><div class="meta">${ps.length} versiones vivas</div></div>
+      ${fbH}<div class="piezas">${ps.length?ps.map(tarjetaPieza).join(""):`<div class="vacio">El equipo está preparando nuevas versiones.</div>`}</div>`;
   }
   pintarVideos();pintarBiblio();pintarBrief();
   {const el=document.getElementById("c-d_insp");if(el){const ap=D.piezas.filter(x=>x.estado==="aprobada").sort((a,b)=>String(b.revisado||"").localeCompare(String(a.revisado||""))),av=(D.videos||[]).filter(v=>v.estado==="aprobada");
@@ -3242,7 +3254,38 @@ document.addEventListener("click",e=>{if(e.target.closest("[data-pnir],#pnFull,#
     document.querySelectorAll("[data-tznav]").forEach(b=>b.textContent=p.classList.contains("sin-nav")?"Mostrar menú":"Ocultar menú");tzTodo();return}
   const b=e.target.closest("[data-tz]");if(!b)return;const el=b.closest("[id^='c-']");if(!el)return;const t=el.querySelector("table.tabla,table.as-t");
   const act=t?Number(t.style.zoom)||1:1,v=b.dataset.tz==="fit"?"fit":String(Math.max(.4,Math.min(1.3,Math.round((act+(b.dataset.tz==="+"?.1:-.1))*10)/10)));tzGuarda(el.id,v);tzAplica(el)});
-function pintarSalasN(){pintarCR();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+/* ---------- Meta Ads: qué anuncios funcionan ---------- */
+function pintarMetaAnu(){const el=document.getElementById("c-meta_anu");if(!el||st.dentro!=="metaads")return;const A=st.metaAnu;
+  if(!A){el.innerHTML=`<div class="mcab"><div><h2>Anuncios</h2></div></div><div class="vacio">Alma está revisando las creatividades.</div>`;return}
+  const V=st.maV||(st.maV={orden:"cpl",tipo:"todos"});
+  const gr=x=>x.replace(/\B(?=(\d{3})+(?!\d))/g,"."),num=n=>gr(String(Math.round(n))),dec=n=>{const[e,d]=n.toFixed(2).split(".");return gr(e)+","+d},eur=n=>dec(n)+" €",pc=x=>dec(x*100)+" %";
+  const cpl=x=>x.l?x.s/x.l:Infinity,ctr=x=>x.i?x.c/x.i:0;
+  const all=A.creas||[],ref=all.reduce((t,x)=>(t.s+=x.s,t.l+=x.l,t.c+=x.c,t.i+=x.i,t),{s:0,l:0,c:0,i:0}),cplRef=ref.s/ref.l,ctrRef=ref.c/ref.i;
+  const col=(v,r,bajo)=>v===Infinity?"":(bajo?v<r*.85:v>r*1.15)?"ma-bien":(bajo?v>r*1.15:v<r*.85)?"ma-mal":"";
+  const tabla=(L,tit)=>`<div class="seccion-t">${tit}</div><div class="mc-sec"><table class="tabla ma-t"><thead><tr><th style="text-align:left">${tit.includes("foto")?"Qué sale en la foto":"Tipo de anuncio"}</th><th>Creatividades</th><th>Gasto</th><th>CTR</th><th>Conversiones</th><th>Coste por conversión</th><th>Clics que convierten</th></tr></thead><tbody>${L.map(x=>`<tr><td style="text-align:left">${esc(x.k)}</td><td>${x.n}</td><td>${eur(x.s)}</td><td class="${col(ctr(x),ctrRef)}">${pc(ctr(x))}</td><td>${num(x.l)}</td><td class="${col(cpl(x),cplRef,1)}">${x.l?eur(cpl(x)):"—"}</td><td>${x.c?pc(x.l/x.c):"—"}</td></tr>`).join("")}</tbody></table></div>`;
+  const byId=Object.fromEntries(all.map(x=>[x.id,x]));
+  const mini=id=>{const x=byId[id];return x?`<a class="ma-mini" href="${esc(x.img)}" target="_blank" rel="noopener"><img src="${esc(x.img)}" alt="" loading="lazy"><span>${esc(id)}</span></a>`:""};
+  const tipos=[...new Set(all.map(x=>x.tipo))];
+  let L=all.filter(x=>V.tipo==="todos"||x.tipo===V.tipo);
+  L=[...L].sort((a,b)=>V.orden==="gasto"?b.s-a.s:V.orden==="ctr"?ctr(b)-ctr(a):(a.s<50)-(b.s<50)||cpl(a)-cpl(b));
+  const tarj=x=>`<div class="ma-c"><a href="${esc(x.img)}" target="_blank" rel="noopener" class="ma-img"><img src="${esc(x.img)}" alt="" loading="lazy"><span class="ma-id">${esc(x.id)}</span>${x.activos?`<span class="ma-act">${x.activos} activo${x.activos>1?"s":""}</span>`:`<span class="ma-act off">en pausa</span>`}</a>
+    <div class="ma-inf"><b>${esc(x.tipo)}</b><small>${esc(x.motivo)} · ${esc((x.mercados||[]).join(", "))} · ${x.n} anuncio${x.n>1?"s":""}</small>
+    <div class="ma-k"><span>Gasto <b>${eur(x.s)}</b></span><span>CTR <b class="${col(ctr(x),ctrRef)}">${pc(ctr(x))}</b></span><span>Conv. <b>${num(x.l)}</b></span><span>€/conv. <b class="${col(cpl(x),cplRef,1)}">${x.l?eur(cpl(x)):"—"}</b></span></div>
+    ${x.s<50?`<small class="ma-poco">Menos de 50 € de gasto: dato orientativo</small>`:""}</div></div>`;
+  const D=A.feedback_diseno||{};
+  el.innerHTML=`<div class="mcab"><div><h2>Anuncios: qué funciona</h2><div class="fuente-mc" style="margin-top:6px">${esc(A.autor||"")} · ${esc(A.periodo||"")}</div></div><div class="meta">${A.fecha?esc(hace(A.fecha)):""}</div></div>
+   <p class="ma-alc">${esc(A.alcance||"")}</p>
+   <div class="seccion-t">Lo que hemos visto</div><div class="ma-hall">${(A.hallazgos||[]).map((h,i)=>`<div class="ma-h"><h4>${i+1}. ${esc(h.t)}</h4><p>${esc(h.d)}</p><div class="ma-ej">${(h.ej||[]).map(mini).join("")}</div></div>`).join("")}</div>
+   <div class="seccion-t">Sugerencias del equipo</div><ol class="ma-sug">${(A.sugerencias||[]).map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
+   ${D.prioridades?`<div class="ma-fb"><div class="ma-fbc"><b>Feedback enviado a Diseño</b><span>${esc(D.de||"")} · ${D.fecha?esc(hace(D.fecha)):""}</span></div>${D.prioridades.map(p=>`<p><b>${esc(p.p)}. ${esc(p.t)}.</b> ${esc(p.d)}</p>`).join("")}<p><b>Evitar:</b> ${esc((D.evitar||[]).join(" · "))}</p><button class="btn" data-ir-sala="diseno">Ver las piezas en Diseño ›</button></div>`:""}
+   ${tabla(A.tipos||[],"Por tipo de anuncio")}${tabla(A.motivos||[],"Por lo que sale en la foto")}
+   <div class="seccion-t">Todas las creatividades (${all.length})</div>
+   <div class="ma-ctl"><label>Tipo <select data-maf="tipo"><option value="todos">Todos</option>${tipos.map(t=>`<option${V.tipo===t?" selected":""}>${esc(t)}</option>`).join("")}</select></label><label>Ordenar <select data-maf="orden"><option value="cpl"${V.orden==="cpl"?" selected":""}>Menor coste por conversión</option><option value="ctr"${V.orden==="ctr"?" selected":""}>Mayor CTR</option><option value="gasto"${V.orden==="gasto"?" selected":""}>Más gasto</option></select></label></div>
+   <div class="ma-grid">${L.map(tarj).join("")}</div>
+   <p class="as-nota">${esc(A.aviso||"")} Verde: un 15 % o más mejor que la media de la cuenta (CTR ${pc(ctrRef)}, ${eur(cplRef)} por conversión); rojo: un 15 % o más peor. Pulsa una imagen para verla en grande.</p>`}
+document.addEventListener("change",e=>{const s=e.target.closest("[data-maf]");if(!s||!st.maV)return;st.maV[s.dataset.maf]=s.value;pintarMetaAnu()});
+document.addEventListener("click",e=>{const b=e.target.closest("[data-ir-sala]");if(!b)return;const s=b.dataset.irSala;try{entrar(s);setTimeout(()=>{const t=document.querySelector('#pnNav [data-pnir="d_meta"]');if(t)t.click()},500)}catch(_){}});
+function pintarSalasN(){pintarCR();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -3747,7 +3790,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
   db.doc("meta_ads/utm").onSnapshot(s=>{st.metaUtm=s.exists?s.data():null;pintarMetaUtm()});
-  db.doc("meta_report/actual").onSnapshot(s=>{st.metaRep=s.exists?s.data():null;pintarMetaRep()});db.doc("meta_report/checks").onSnapshot(s=>{st.metaChk=s.exists?s.data():null;pintarMetaRep()});
+  db.doc("meta_ads/anuncios").onSnapshot(s=>{st.metaAnu=s.exists?s.data():null;pintarMetaAnu();if(st.dentro==="diseno"&&st.dis)try{pintarDiseno()}catch(_){}});db.doc("meta_report/actual").onSnapshot(s=>{st.metaRep=s.exists?s.data():null;pintarMetaRep()});db.doc("meta_report/checks").onSnapshot(s=>{st.metaChk=s.exists?s.data():null;pintarMetaRep()});
   db.doc("seo_red/actual").onSnapshot(s=>{st.seoRed=s.exists?s.data():null;pintarSeoRed()});
   db.doc("cr_plan/actual").onSnapshot(s=>{st.crPlan=s.exists?s.data():null;pintarCR()});
   db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA();pintarCR()});

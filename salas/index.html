@@ -979,18 +979,18 @@ const SUGERIDOS={es:["pilgrim.es","Tu Buen Camino","Efrén (vlogs y drones, 28,5
 const mercadoDe=i=>i.mercado||{es:"es",en:"en",de:"de",it:"it",pt:"pt"}[i.idioma]||"otros";
 const esVideo=i=>["video","short","reel"].includes(i.formato)||["youtube","tiktok"].includes(i.plataforma);
 const MARCOS=[
-  {id:"radar",grupo:"radar",nombre:"Radar Viral / Sala",x:-950,y:-500,w:1200},
+  {id:"radar",grupo:"radar",nombre:"Radar Viral",x:-950,y:-500,w:1200},
   {id:"metricas",grupo:"radar",dato:true,nombre:"Radar Viral / Lo más viral ahora",x:-320,y:-340,w:1520,arriba:true},
   {id:"listado",grupo:"radar",dato:true,nombre:"Radar Viral / Buscador",x:1300,y:-340,w:900,arriba:true},
   {id:"radar_sintesis",grupo:"radar",dato:true,nombre:"Radar Viral / Qué está funcionando",x:0,y:-9000,w:1300},
   {id:"radar_actualidad",grupo:"radar",dato:true,nombre:"Radar Viral / Actualidad",x:0,y:-9000,w:1300},
   {id:"bitacora",grupo:"radar",dato:true,nombre:"Radar Viral / Equipo y bitácora",x:2300,y:-340,w:560,arriba:true},
-  {id:"control",grupo:"control",nombre:"Sala de Control / Sala",x:0,y:1500,w:1200},
+  {id:"control",grupo:"control",nombre:"Sala de Control",x:0,y:1500,w:1200},
   {id:"briefing",grupo:"control",dato:true,nombre:"Sala de Control / Briefing estratégico",x:-1700,y:1300,w:1580},
   {id:"decisiones",grupo:"control",dato:true,nombre:"Sala de Control / Decisiones y directrices",x:1320,y:1300,w:1400},
   {id:"brujula",grupo:"control",dato:true,nombre:"Sala de Control / Brújula 2026",x:2820,y:1300,w:900},
   {id:"cerebro",grupo:"control",dato:true,nombre:"Sala de Control / Cerebro",x:-260,y:2260,w:1720},
-  {id:"diseno",grupo:"diseno",nombre:"Diseño / Sala",x:-3800,y:1500,w:1200},
+  {id:"diseno",grupo:"diseno",nombre:"Diseño",x:-3800,y:1500,w:1200},
   {id:"d_brief",grupo:"diseno",dato:true,nombre:"Diseño / Brief de la Sala de Control",x:0,y:-9000,w:1500},
   {id:"d_ig",grupo:"diseno",dato:true,nombre:"Diseño / Instagram · estáticos",x:-5400,y:0,w:1950},{id:"d_meta",grupo:"diseno",dato:true,nombre:"Diseño / Meta Ads",x:0,y:-9000,w:1950},
   {id:"d_reel",grupo:"diseno",dato:true,nombre:"Diseño / Reels",x:-5400,y:1500,w:1950},
@@ -999,22 +999,22 @@ const MARCOS=[
   {id:"d_tk",grupo:"diseno",dato:true,nombre:"Diseño / TikTok",x:-5400,y:6000,w:1950},
   {id:"d_pet",grupo:"diseno",dato:true,nombre:"Diseño / Peticiones de otras salas",x:-11800,y:0,w:1300},
   {id:"d_tend",grupo:"diseno",dato:true,nombre:"Diseño / Tendencias y pautas para RRSS",x:-7500,y:0,w:1950},
-  {id:"competencia",grupo:"competencia",nombre:"Competencia / Sala",x:0,y:3900,w:1200},
+  {id:"competencia",grupo:"competencia",nombre:"Competencia",x:0,y:3900,w:1200},
   {id:"cambios",grupo:"competencia",dato:true,nombre:"Competencia / Alertas y cambios",x:0,y:4560,w:1240},
   {id:"players",grupo:"competencia",dato:true,nombre:"Competencia / Players vigilados",x:-1560,y:4560,w:1460},
   {id:"comprrss",grupo:"competencia",dato:true,nombre:"Competencia / Sus redes en Metricool",x:1340,y:4560,w:1100},
   {id:"comp_nuevos",grupo:"competencia",dato:true,nombre:"Competencia / Nuevos players en el radar",x:-1560,y:6200,w:1460},
   {id:"comp_bp",grupo:"competencia",dato:true,nombre:"Competencia / Best practices del travel de nicho",x:0,y:6200,w:1460},
   {id:"compbit",grupo:"competencia",dato:true,nombre:"Competencia / Equipo y bitácora",x:2540,y:4560,w:560},
-  {id:"comunidad",grupo:"comunidad",nombre:"Comunidad / Sala",x:950,y:-500,w:1200},
+  {id:"comunidad",grupo:"comunidad",nombre:"Comunidad",x:950,y:-500,w:1200},
   {id:"k_formatos",grupo:"comunidad",dato:true,nombre:"Comunidad / Qué genera comentarios",x:3260,y:-340,w:1400,arriba:true},
   {id:"k_preguntas",grupo:"comunidad",dato:true,nombre:"Comunidad / Qué pregunta y comenta la gente",x:4900,y:-340,w:1250,arriba:true},
   {id:"k_ideas",grupo:"comunidad",dato:true,nombre:"Comunidad / Ideas para más interacción",x:6400,y:-340,w:1250,arriba:true},
   {id:"k_vivo",grupo:"comunidad",dato:true,nombre:"Comunidad / Tus comentarios en vivo y bitácora",x:7900,y:-340,w:1100,arriba:true},
-  {id:"seo",grupo:"seo",nombre:"SEO / Sala",x:4300,y:900,w:1200},
+  {id:"seo",grupo:"seo",nombre:"SEO",x:4300,y:900,w:1200},
   {id:"o_audit",grupo:"seo",dato:true,nombre:"SEO / Auditoría técnica",x:5260,y:1300,w:1500},
   {id:"o_plan",grupo:"seo",dato:true,nombre:"SEO / Conexiones, rutas y plan",x:6860,y:1300,w:1200},
-  {id:"paid",grupo:"paid",nombre:"Paid Media / Sala",x:4300,y:2300,w:1200},
+  {id:"paid",grupo:"paid",nombre:"Paid Media",x:4300,y:2300,w:1200},
   {id:"p_rend",grupo:"paid",dato:true,nombre:"Paid Media / Meta Ads: rendimiento",x:5260,y:2250,w:1500},
   {id:"p_google",grupo:"paid",dato:true,nombre:"Paid Media / Google Ads: rendimiento",x:9560,y:2250,w:1400},
   {id:"p_utm",grupo:"paid",dato:true,nombre:"Paid Media / Auditoría de UTMs",x:12500,y:2250,w:1400},
@@ -1025,9 +1025,9 @@ const MARCOS=[
   {id:"g_comunidad",grupo:"comunidad",dato:true,nombre:"Comunidad / Google Analytics 4",x:9100,y:-340,w:1300,arriba:true},
   {id:"g_diseno",grupo:"diseno",dato:true,nombre:"Diseño / Google Analytics 4",x:-9600,y:0,w:1300},
   {id:"g_control",grupo:"control",dato:true,nombre:"Sala de Control / Google Analytics 4",x:1600,y:2260,w:1300},
-  {id:"mdirecto",grupo:"mdirecto",nombre:"Marketing directo / Sala",x:2600,y:4000,w:1200},
+  {id:"mdirecto",grupo:"mdirecto",nombre:"Marketing directo",x:2600,y:4000,w:1200},
   {id:"mdirecto_mision",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Misión, equipo y fuentes",x:2600,y:4800,w:1300},
-  {id:"instagram",grupo:"instagram",nombre:"Instagram / Sala",x:3700,y:-3600,w:1200},
+  {id:"instagram",grupo:"instagram",nombre:"Instagram",x:3700,y:-3600,w:1200},
   {id:"instagram_roadmap",grupo:"instagram",dato:true,nombre:"Instagram / Roadmap",x:0,y:-9000,w:1300},
   {id:"control_negocio",grupo:"control",dato:true,nombre:"Sala de Control / Cuadro de mando de negocio",x:0,y:-9000,w:1300},
   {id:"d_insp",grupo:"diseno",dato:true,nombre:"Diseño / Inspiración: piezas aprobadas",x:0,y:-9000,w:1300},
@@ -1039,7 +1039,7 @@ const MARCOS=[
   {id:"instagram_mision",grupo:"instagram",dato:true,nombre:"Instagram / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"instagram_datos",grupo:"instagram",dato:true,nombre:"Instagram / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"i_comunidad",grupo:"comunidad",dato:true,nombre:"Comunidad / Instagram EN",x:-3500,y:-3000,w:1300},
-  {id:"youtube",grupo:"youtube",nombre:"YouTube / Sala",x:2950,y:-500,w:1200},
+  {id:"youtube",grupo:"youtube",nombre:"YouTube",x:2950,y:-500,w:1200},
   {id:"youtube_audit",grupo:"youtube",dato:true,nombre:"YouTube / Auditoría de canales y errores",x:2950,y:-9000,w:1300},
   {id:"youtube_hub",grupo:"youtube",dato:true,nombre:"YouTube / Estrategia Hub & Spoke",x:4400,y:-9000,w:1300},
   {id:"youtube_mision",grupo:"youtube",dato:true,nombre:"YouTube / Misión, equipo y fuentes",x:5800,y:-9000,w:1300},
@@ -1048,35 +1048,35 @@ const MARCOS=[
   {id:"mdirecto_wf",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Workflows del CRM y plantillas",x:2600,y:7200,w:1300},
   {id:"mdirecto_datos",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Lo que ya sabemos",x:2600,y:5600,w:1300},
   {id:"g_mdirecto",grupo:"mdirecto",dato:true,nombre:"Marketing directo / Google Analytics 4",x:2600,y:6400,w:1300},
-  {id:"producto",grupo:"producto",nombre:"Análisis de producto / Sala",x:4300,y:4000,w:1200},
+  {id:"producto",grupo:"producto",nombre:"Análisis de producto",x:4300,y:4000,w:1200},
   {id:"producto_mision",grupo:"producto",dato:true,nombre:"Análisis de producto / Misión, equipo y fuentes",x:4300,y:4800,w:1300},
   {id:"producto_datos",grupo:"producto",dato:true,nombre:"Análisis de producto / Lo que ya sabemos",x:4300,y:5600,w:1300},
   {id:"g_producto",grupo:"producto",dato:true,nombre:"Análisis de producto / Google Analytics 4",x:4300,y:6400,w:1300},
-  {id:"lifecycle",grupo:"lifecycle",nombre:"Lifecycle / Sala",x:0,y:0,w:1200},
+  {id:"lifecycle",grupo:"lifecycle",nombre:"Lifecycle",x:0,y:0,w:1200},
   {id:"lifecycle_insights",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Insights",x:0,y:-9000,w:1300},
   {id:"lifecycle_roadmap",grupo:"lifecycle",dato:true,nombre:"Lifecycle / Roadmap",x:0,y:-9000,w:1300},
-  {id:"tiktok",grupo:"tiktok",nombre:"TikTok / Sala",x:0,y:0,w:1200},
+  {id:"tiktok",grupo:"tiktok",nombre:"TikTok",x:0,y:0,w:1200},
   {id:"tiktok_mision",grupo:"tiktok",dato:true,nombre:"TikTok / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"tiktok_datos",grupo:"tiktok",dato:true,nombre:"TikTok / Lo que ya sabemos",x:0,y:-9000,w:1300},
-  {id:"captacion",grupo:"captacion",nombre:"Captación / Sala",x:0,y:0,w:1200},
+  {id:"captacion",grupo:"captacion",nombre:"Captación",x:0,y:0,w:1200},
   {id:"captacion_canales",grupo:"captacion",dato:true,nombre:"Captación / Deals y CR por canal (UTM)",x:0,y:-9000,w:1300},
   {id:"captacion_evolucion",grupo:"captacion",dato:true,nombre:"Captación / Evolución del CR por canal",x:0,y:-9000,w:1300},
   {id:"captacion_cpa",grupo:"captacion",dato:true,nombre:"Captación / CPA y retorno por canal",x:0,y:-9000,w:1300},
   {id:"captacion_mix",grupo:"captacion",dato:true,nombre:"Captación / Mix Paid / Organic",x:0,y:-9000,w:1300},
-  {id:"community",grupo:"community",nombre:"Community / Sala",x:0,y:0,w:1200},
+  {id:"community",grupo:"community",nombre:"Community",x:0,y:0,w:1200},
   {id:"community_insights",grupo:"community",dato:true,nombre:"Community / Insights",x:0,y:-9000,w:1300},
   {id:"community_roadmap",grupo:"community",dato:true,nombre:"Community / Roadmap",x:0,y:-9000,w:1300},
-  {id:"journey",grupo:"journey",nombre:"Journey de cliente / Sala",x:0,y:0,w:1200},
+  {id:"journey",grupo:"journey",nombre:"Journey de cliente",x:0,y:0,w:1200},
   {id:"journey_mapa",grupo:"journey",dato:true,nombre:"Journey de cliente / Mapa de workflows e impactos",x:0,y:-9000,w:1300},
   {id:"journey_mision",grupo:"journey",dato:true,nombre:"Journey de cliente / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"journey_datos",grupo:"journey",dato:true,nombre:"Journey de cliente / Lo que ya sabemos",x:0,y:-9000,w:1300},
-  {id:"comercial",grupo:"comercial",nombre:"Análisis comercial / Sala",x:6000,y:4000,w:1200},
+  {id:"comercial",grupo:"comercial",nombre:"Análisis comercial",x:6000,y:4000,w:1200},
   {id:"comercial_asesores",grupo:"comercial",dato:true,nombre:"Análisis comercial / Análisis por asesor",x:0,y:-9000,w:1300},
   {id:"comercial_mision",grupo:"comercial",dato:true,nombre:"Análisis comercial / Misión, equipo y fuentes",x:6000,y:4800,w:1300},
   {id:"comercial_datos",grupo:"comercial",dato:true,nombre:"Análisis comercial / Lo que ya sabemos",x:6000,y:5600,w:1300},
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
-  {id:"cr",grupo:"cr",nombre:"Conversión (CR) / Sala",x:0,y:0,w:1200},
-  {id:"metaads",grupo:"metaads",nombre:"Meta Ads / Sala",x:0,y:0,w:1200},
+  {id:"cr",grupo:"cr",nombre:"Conversión (CR)",x:0,y:0,w:1200},
+  {id:"metaads",grupo:"metaads",nombre:"Meta Ads",x:0,y:0,w:1200},
   {id:"meta_rep",grupo:"metaads",dato:true,nombre:"Meta Ads / Campañas activas",x:0,y:-9000,w:1500},{id:"meta_anu",grupo:"metaads",dato:true,nombre:"Meta Ads / Anuncios",x:0,y:-9000,w:1500},{id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
   {id:"cr_evolucion",grupo:"cr",dato:true,nombre:"Conversión (CR) / Evolución del CR",x:0,y:-9000,w:1300},
   {id:"cr_impacto",grupo:"cr",dato:true,nombre:"Conversión (CR) / Dónde está el impacto",x:0,y:-9000,w:1300},
@@ -1935,7 +1935,7 @@ function fraseRealS(p){
 function fraseMesaS(p){const b=(st.dis.estado?.bitacora||[]).filter(x=>x.quien===p.a.n);return b.length&&Math.random()<.5?corta(b[0].texto,120):azar(FRASES_S[p.a.id])}
 function conchaSVG(color){return`<svg class="concha" viewBox="0 0 40 40" aria-hidden="true"><g fill="none" stroke="${color}" stroke-width="3" stroke-linecap="round"><path d="M20 33 L6 16"/><path d="M20 33 L11 11"/><path d="M20 33 L20 8"/><path d="M20 33 L29 11"/><path d="M20 33 L34 16"/><path d="M5 17 Q20 0 35 17" stroke-width="2.2"/></g></svg>`}
 function fraseMay(t){t=String(t||"");const m=t.match(/\p{L}/u);return m?t.slice(0,m.index)+m[0].toUpperCase()+t.slice(m.index+1):t}
-function conTitular(t,sub){t=esc(fraseMay(t));if(!sub)return t;const s=esc(sub);const i=t.toLowerCase().indexOf(s.toLowerCase());if(i<0)return t;let j=i+s.length;while(j<t.length&&/[,.:;!?»)]/.test(t[j]))j++;return t.slice(0,i)+`<span style="white-space:nowrap"><span class="sw">${t.slice(i,i+s.length)}</span>${t.slice(i+s.length,j)}</span>`+t.slice(j)}
+function conTitular(t,sub){t=esc(fraseMay(t));if(!sub)return t;const s=esc(sub);const i=t.toLowerCase().indexOf(s.toLowerCase());if(i<0)return t;let j=i+s.length;while(j<t.length&&/[,.:;!?»)]/.test(t[j]))j++;const ns=/\s/.test(s)?"":` style="white-space:nowrap"`;return t.slice(0,i)+`<span${ns}><span class="sw">${t.slice(i,i+s.length)}</span>${t.slice(i+s.length,j)}</span>`+t.slice(j)}
 function svgDiseno(){
   let d=`<svg viewBox="0 0 600 300" aria-hidden="true"><defs>
     <pattern id="rejS" width="20" height="20" patternUnits="userSpaceOnUse"><path d="M20 0H0V20" fill="none" stroke="#121710" stroke-width=".6"/></pattern>
@@ -2063,15 +2063,23 @@ function rectsCaras(el,c,bp){const r=el.getBoundingClientRect();if(r.width<20||r
   return fs.map(([x,y,w,h])=>{const L=ox+x*dw,T=oy+y*dh,W=w*dw,H=h*dh,p=.18;return{l:Math.max(r.left,L-W*p),t:Math.max(r.top,T-H*p),r:Math.min(r.right,L+W*(1+p)),b:Math.min(r.bottom,T+H*(1+p))}}).filter(q=>q.r>q.l&&q.b>q.t)}
 function rectTexto(box){if(!box.matches(".in,.g-txt"))return box.getBoundingClientRect();let u=null;
   [...box.children].forEach(k=>{const q=k.getBoundingClientRect();if(!q.width)return;u=u?{left:Math.min(u.left,q.left),top:Math.min(u.top,q.top),right:Math.max(u.right,q.right),bottom:Math.max(u.bottom,q.bottom)}:{left:q.left,top:q.top,right:q.right,bottom:q.bottom}});return u}
+/* Sujeto centrado: el encuadre pone el centro de las caras en el centro horizontal y a la altura ty; ninguna cara puede quedar cortada por el borde */
+function encaje(el,c){const r=el.getBoundingClientRect(),[iw,ih,fs]=c,sc=Math.max(r.width/iw,r.height/ih),dw=iw*sc,dh=ih*sc;let x0=1,x1=0,y0=1,y1=0;
+  fs.forEach(([x,y,w,h])=>{x0=Math.min(x0,x);x1=Math.max(x1,x+w);y0=Math.min(y0,y);y1=Math.max(y1,y+h)});
+  const P=(cc,d,R,t)=>d-R<1?.5:Math.min(1,Math.max(0,(cc*d-t*R)/(d-R)));return ty=>[P((x0+x1)/2,dw,r.width,.5),P((y0+y1)/2,dh,r.height,ty)]}
+function cortadas(el,c,bp){const r=el.getBoundingClientRect(),[iw,ih,fs]=c,sc=Math.max(r.width/iw,r.height/ih),dw=iw*sc,dh=ih*sc,ox=r.left+(r.width-dw)*bp[0],oy=r.top+(r.height-dh)*bp[1];
+  return fs.filter(([x,y,w,h])=>{const L=ox+x*dw,T=oy+y*dh,R=L+w*dw,B=T+h*dh;return L<r.left-1||T<r.top-1||R>r.right+1||B>r.bottom+1}).length}
 function solape(a,fs){if(!a)return 0;return fs.reduce((t,f)=>t+Math.max(0,Math.min(a.right,f.r)-Math.max(a.left,f.l))*Math.max(0,Math.min(a.bottom,f.b)-Math.max(a.top,f.t)),0)}
 function evitarCaras(raiz){(raiz||document).querySelectorAll('[style*="url("]').forEach(el=>{const c=carasDe(el);if(!c)return;
   const box=el.querySelector(":scope>.g-caja,:scope>.lk-caja,:scope>.caja,:scope>.g-txt.g-abajo,:scope>.in")||(el.classList.contains("g-foto")?el.parentElement.querySelector(":scope>.g-caja,:scope>.g-txt.g-abajo"):null);
-  const r=el.getBoundingClientRect(),clave=Math.round(r.width)+"x"+Math.round(r.height);if(!box||r.width<20||el.dataset.cz===clave)return;el.dataset.cz=clave;
+  const r=el.getBoundingClientRect(),clave=Math.round(r.width)+"x"+Math.round(r.height);if(r.width<20||el.dataset.cz===clave)return;el.dataset.cz=clave;
+  if(!box){const[px,py]=encaje(el,c)(.45);el.style.setProperty("background-position",`${px*100}% ${py*100}%`,"important");el.dataset.czOk=cortadas(el,c,[px,py])?"no":"si";return}
   const flex=box.matches(".in,.g-txt"),arr=v=>{if(flex){box.style.setProperty("justify-content",v?"flex-start":"flex-end","important");(box.parentElement||box).classList.toggle("cara-top",v)}else box.classList.toggle("cara-top",v)};
-  const ys=[.5,0,1,.25,.75],xs=[.5,0,1];let mejor=null;
-  for(const top of [false,true])for(const y of ys)for(const x of xs){arr(top);el.style.setProperty("background-position",`${x*100}% ${y*100}%`,"important");
-    const s=solape(rectTexto(box),rectsCaras(el,c,[x,y]))+(top?1:0)+(y!==.5?2:0)+(x!==.5?2:0);if(!mejor||s<mejor.s)mejor={s,top,x,y};if(s<1)break}
-  arr(mejor.top);el.style.setProperty("background-position",`${mejor.x*100}% ${mejor.y*100}%`,"important")})}
+  const pos=encaje(el,c);let mejor=null;
+  for(const top of [false,true])for(const ty of [.42,.5,.35,.58,.28,.66]){const[px,py]=pos(ty);arr(top);el.style.setProperty("background-position",`${px*100}% ${py*100}%`,"important");
+    const cor=cortadas(el,c,[px,py]),sol=solape(rectTexto(box),rectsCaras(el,c,[px,py]));const s=cor*1e7+sol*10+(top?1:0)+Math.abs(ty-.42)*40;
+    if(!mejor||s<mejor.s)mejor={s,top,px,py,cor,sol};if(s<1)break}
+  arr(mejor.top);el.style.setProperty("background-position",`${mejor.px*100}% ${mejor.py*100}%`,"important");el.dataset.czOk=mejor.cor||mejor.sol>4?"no":"si"})}
 {let t=0;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(()=>evitarCaras(),120)}).observe(document.body,{childList:true,subtree:true});addEventListener("resize",()=>{clearTimeout(t);t=setTimeout(()=>evitarCaras(),200)});document.addEventListener("click",()=>{clearTimeout(t);t=setTimeout(()=>evitarCaras(),300)})}
 function selloControl(c){
   if(!c||!c.estado)return`<div><span class="ctrl-sello">◷ Pendiente de revisión de la Sala de Control</span></div>`;

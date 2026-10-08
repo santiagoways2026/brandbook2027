@@ -415,7 +415,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .cr-chart{position:relative;padding:8px 20px 0}.cr-svg{width:100%;height:auto;display:block}.cr-grid{stroke:#232a33;stroke-width:1}.cr-ax{fill:#8a94a1;font:12px var(--f-ui)}.cr-lbl{fill:#e6eaee;font:600 13px var(--f-ui)}.cr-cross{stroke:#6b7280;stroke-width:1;stroke-dasharray:3 3}
 .cr-leg{display:flex;gap:16px;font-size:13px;color:#d6dbe1;padding:0 0 6px}.cr-leg i,.cr-tip i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
 .cr-tip{position:absolute;pointer-events:none;background:#0b0e13;border:1px solid var(--borde-2);border-radius:6px;padding:8px 10px;font-size:13px;color:#e6eaee;display:grid;gap:4px;min-width:170px;box-shadow:0 8px 24px rgba(0,0,0,.5)}.cr-tip small{color:#8a94a1}.cr-tip[hidden]{display:none}
-.cr-det{padding:10px 20px}.cr-det summary{cursor:pointer;color:#c3cad4;font-size:13.5px}.cr-up{color:#a3e635}.cr-dn{color:#ff8a8a}
+.cr-mlbl{align-self:center;font-size:13px;color:#9aa4b1;margin-right:4px}.cr-det{padding:10px 20px}.cr-det summary{cursor:pointer;color:#c3cad4;font-size:13.5px}.cr-up{color:#a3e635}.cr-dn{color:#ff8a8a}
 .cr-sub{padding:0 20px;margin:0 0 6px;color:#9aa4b1;font-size:13px}.cr-bars{display:grid;gap:6px;padding:4px 20px 8px}.cr-bar{display:grid;grid-template-columns:minmax(220px,1.2fr) 2fr 150px;gap:12px;align-items:center;background:var(--marco-2);border:1px solid var(--borde);border-radius:6px;padding:8px 12px}
 .cr-bn b{display:block;color:#f1f3f5;font-size:14px}.cr-bn small{color:#9aa4b1;font-size:12px}.cr-bt{height:10px;background:#1a1f27;border-radius:5px;overflow:hidden}.cr-bt i{display:block;height:100%;background:#f97316;border-radius:0 4px 4px 0}.cr-bar.ok .cr-bt i{background:#6f9a14}.cr-bv{text-align:right;font:700 13.5px var(--f-ui);color:#e6eaee}
 .cr-imp{background:#1f2a12;color:#d9f99d;padding:2px 8px;border-radius:4px;font-weight:700}
@@ -2829,7 +2829,7 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."),pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %";
   const mens=(C.filas||[]).length>0&&C.filas[0].length>=5,meses=mens?[...new Set(C.filas.map(f=>f[2]))].sort((a,b)=>a-b):[];
   if(mens){if(V.desde==null){V.desde=C.desde_defecto||meses[0];V.hasta=meses[meses.length-1]}
-    const ag={};C.filas.forEach(([s,m,ym,d,w])=>{if(ym<V.desde||ym>V.hasta)return;const k=s+"\u0001"+m,x=ag[k]||(ag[k]=[s,m,0,0]);x[2]+=d;x[3]+=w});
+    const ag={};C.filas.forEach(f=>{const[s,m,ym,d]=f;if(ym<V.desde||ym>V.hasta)return;const k=s+"\u0001"+m,x=ag[k]||(ag[k]=[s,m,0,0]);x[2]+=d;x[3]+=cnWonHasta(f,V.hasta)});
     const fl=Object.values(ag);C={...C,filas:fl,total:[fl.reduce((t,f)=>t+f[2],0),fl.reduce((t,f)=>t+f[3],0)],periodo:V.desde===V.hasta?ymTxt(V.desde):`${ymTxt(V.desde)} a ${ymTxt(V.hasta)}`}}
   const [TD,TW]=C.total,ref=TD?TW/TD:0;
   const ult=meses[meses.length-1],y0=Math.floor(ult/100),optM=sel=>meses.map(m=>`<option value="${m}"${m===sel?" selected":""}>${ymTxt(m)}</option>`).join("");
@@ -2843,7 +2843,7 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
      <div class="as-ctl">${vistas}${zBtn("canales")}</div>${fechas}
      <div class="as-res"><div><b>${num(TD)}</b><span>deals · ${esc(C.periodo||"")}</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div></div>
      ${E.split}${E.rank}${E.revisar}<div class="cn-utmtg"><label><input type="checkbox" data-cnutm${V.utm===true?" checked":""}> Ver también los utm_source conocidos dentro de cada canal</label></div>${E.tabla}
-     <p class="as-nota">CR = deals won / deals creados en el periodo (por mes de creación del deal). Mejores y peores: solo medios con al menos ${MIN} deals en el periodo y sin contar SIN DATA. Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pulsa RRSS o Google para plegar o desplegar; las filas son las del cuadro de dirección; solo aparecen debajo, en amarillo, los utm_source del CRM que no encajan en él, para revisarlos y limpiarlos. SIN DATA en Organic son deals sin utm_source y los utm_source que no tienen fila en el cuadro (salen en amarillo); en Google, deals con source google sin medium (más display). Las fuentes antiguas fb, fb-SiteLink, ig y Facebook cuentan como Meta. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`;return}
+     <p class="as-nota">CR = deals creados en el periodo que están won con Closing Date hasta el último mes del filtro (incluido) / deals creados en el periodo. Si filtras de marzo a junio, cuentan los won cerrados hasta el 30 de junio, así el CR no cambia aunque luego se cierren más ventas de esos deals. Mejores y peores: solo medios con al menos ${MIN} deals en el periodo y sin contar SIN DATA. Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pulsa RRSS o Google para plegar o desplegar; las filas son las del cuadro de dirección; solo aparecen debajo, en amarillo, los utm_source del CRM que no encajan en él, para revisarlos y limpiarlos. SIN DATA en Organic son deals sin utm_source y los utm_source que no tienen fila en el cuadro (salen en amarillo); en Google, deals con source google sin medium (más display). Las fuentes antiguas fb, fb-SiteLink, ig y Facebook cuentan como Meta. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`;return}
   const src={};(C.filas||[]).forEach(([s,m,d,w])=>{const x=src[s]||(src[s]={d:0,w:0,m:[]});x.d+=d;x.w+=w;x.m.push([m,d,w])});
   const grupos=V.vista==="source"?Object.entries(src).map(([s,x])=>({k:s,n:s,d:x.d,w:x.w,m:x.m})):(C.filas||[]).map(([s,m,d,w])=>({k:s+"|"+m,n:s+" / "+m,d,w}));
   const fiables=grupos.filter(g=>g.d>=MIN&&!g.k.startsWith("(sin utm)")).sort((a,b)=>b.w/b.d-a.w/a.d);
@@ -2871,6 +2871,8 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-cnpre]");i
   const r=e.target.closest("[data-cnpar]");if(r&&st.cnV){const k=r.dataset.cnpar,c=st.cnV.cerrados||(st.cnV.cerrados=new Set());c.has(k)?c.delete(k):c.add(k);pintarCanales()}});
 
 /* ===== Captación: evolución mensual del CR por canal y mix Paid / Organic (mes de creación del deal) ===== */
+/* Won de una fila con Closing Date hasta el último mes del periodo (incluido). Sin reparto por cierre, el won total */
+const cnWonCierre=(f,i,h)=>f[i]?Object.entries(f[i]).reduce((t,[cy,n])=>+cy<=h?t+n:t,0):(f[4]||0),cnWonHasta=(f,h)=>cnWonCierre(f,6,h);
 function cnMensual(C){const por={},tot={},meses=new Set();
   (C.filas||[]).forEach(f=>{if(f.length<5)return;const[s,m,ym,d,w]=f,wm=f[5]||0,k=cnClasif(s,m).join("|");meses.add(ym);
     const x=por[k]||(por[k]={}),y=x[ym]||(x[ym]=[0,0,0]);y[0]+=d;y[1]+=w;y[2]+=wm;const t=tot[ym]||(tot[ym]=[0,0,0]);t[0]+=d;t[1]+=w;t[2]+=wm});
@@ -2890,16 +2892,17 @@ function pintarEvolucion(){const el=document.getElementById("c-captacion_evoluci
   const conCierre=C.filas[0].length>=6,iw=conCierre?2:1;
   const ms=cnRango(V,M.meses,ult),anios=[...new Set(M.meses.map(m=>Math.floor(m/100)))];
   const hoy=new Date(),mesAct=hoy.getFullYear()*100+hoy.getMonth()+1,enCurso=new Set([mesAct]);
-  const cr=x=>x&&x[0]?x[iw]/x[0]:null;
+  const cr=x=>x&&x[0]?x[iw]/x[0]:null,finR=ms[ms.length-1],PS={},PG={};
+  (C.filas||[]).forEach(f=>{const ym=f[2];if(ym<ms[0]||ym>finR)return;const k=cnClasif(f[0],f[1]).join("|"),w=conCierre?cnWonHasta(f,finR):f[4],x=PS[k]||(PS[k]=[0,0]),g=PG[k.split("|")[0]]||(PG[k.split("|")[0]]=[0,0]);x[0]+=f[3];x[1]+=w;g[0]+=f[3];g[1]+=w});
   const filas=M.orden.filter(k=>ms.some(m=>M.por[k]?.[m]?.[0])).map(k=>{const vals=ms.map(m=>{const x=M.por[k]?.[m];return x&&x[0]>=V.min?x[iw]/x[0]:null});
-    const sum=ms.reduce((t,m)=>{const x=M.por[k]?.[m];return x?[t[0]+x[0],t[1]+x[iw]]:t},[0,0]);return{k,vals,sum}});
+    const mm=ms.reduce((t,m)=>{const x=M.por[k]?.[m];return x?[t[0]+x[0],t[1]+x[iw]]:t},[0,0]);return{k,vals,sum:PS[k]||[0,0],base:mm[0]?mm[1]/mm[0]:0}});
   const heat=(x,base)=>{if(x==null)return"";const r=base?x/base:1,a=Math.min(.55,Math.abs(r-1)*.9);return r>=1?`background:rgba(61,220,151,${a})`:`background:rgba(255,107,107,${a})`};
   const grpMes=(G,m)=>Object.entries(M.por).reduce((t,[k,x])=>k.startsWith(G+"|")&&x[m]?[t[0]+x[m][0],t[1]+x[m][iw]]:t,[0,0]);
   const celdaG=(x)=>V.ver==="cr"?cnPct(x[0]?x[1]/x[0]:null,2):cnNum(x[0]);
-  let h="",grp="";filas.forEach(f=>{const g=f.k.split("|")[0];if(g!==grp){grp=g;const gm=ms.map(m=>grpMes(g,m)),gt=gm.reduce((t,x)=>[t[0]+x[0],t[1]+x[1]],[0,0]);
+  let h="",grp="";filas.forEach(f=>{const g=f.k.split("|")[0];if(g!==grp){grp=g;const gm=ms.map(m=>grpMes(g,m)),gt=PG[g]||[0,0];
       h+=`<tr class="cn-gh ${g==="PAID"?"cn-paid":"cn-org"}"><td><span class="cn-dot"></span>${g}<small class="cn-tot">${cnNum(gt[0])} deals · CR ${cnPct(gt[0]?gt[1]/gt[0]:null,2)}</small></td>${gm.map((x,i)=>`<td class="${enCurso.has(ms[i])?"cn-inm":""}">${celdaG(x)}</td>`).join("")}<td>${cnSpark(gm.map(x=>x[0]?x[1]/x[0]:null),g==="PAID"?"#f97316":"#3ddc97")}</td></tr>`}
-    const base=f.sum[0]?f.sum[1]/f.sum[0]:0,cls=g==="PAID"?"cn-paid":"cn-org";
-    h+=`<tr class="cn-lf ${cls}"><td class="cn-l1${f.k.endsWith("SIN DATA")?" cn-sd":""}">${esc(cnNom(f.k))}<small class="cn-tot">${cnNum(f.sum[0])} deals · CR ${cnPct(base,2)}</small></td>
+    const base=f.base,crP=f.sum[0]?f.sum[1]/f.sum[0]:0,cls=g==="PAID"?"cn-paid":"cn-org";
+    h+=`<tr class="cn-lf ${cls}"><td class="cn-l1${f.k.endsWith("SIN DATA")?" cn-sd":""}">${esc(cnNom(f.k))}<small class="cn-tot">${cnNum(f.sum[0])} deals · CR ${cnPct(crP,2)}</small></td>
      ${ms.map((m,i)=>{const x=M.por[f.k]?.[m];const v=f.vals[i];return`<td class="cn-hm${enCurso.has(m)?" cn-inm":""}" style="${V.ver==="cr"?heat(v,base):""}" title="${ymTxt(m)}: ${x?cnNum(x[0])+" deals creados, "+cnNum(x[iw])+(conCierre?" won cerrados ese mes":" won"):"sin deals"}">${V.ver==="cr"?(v==null?(x&&x[0]?`<span class="cn-poco">${cnNum(x[0])}</span>`:""):cnPct(v,2)):(x?cnNum(x[0]):"")}</td>`}).join("")}
      <td>${cnSpark(f.vals,g==="PAID"?"#f97316":"#3ddc97")}</td></tr>`});
   const tm=ms.map(m=>{const x=M.tot[m]||[0,0,0];return[x[0],x[iw]]});
@@ -2909,7 +2912,7 @@ function pintarEvolucion(){const el=document.getElementById("c-captacion_evoluci
     <div class="as-modo"><button class="btn${V.ver==="cr"?" prim":""}" data-evv="cr">CR del mes</button><button class="btn${V.ver==="vol"?" prim":""}" data-evv="vol">Deals</button></div>
     <label>Mínimo por mes <select data-evmin>${[10,30,50,100].map(n=>`<option${n===V.min?" selected":""}>${n}</option>`).join("")}</select> deals</label>${zBtn("canales")}</div>
    <div class="as-tw"><table class="as-t cn-e cn-ev"><thead><tr><th class="as-n">Canal</th>${ms.map(m=>`<th class="${enCurso.has(m)?"cn-inm":""}">${ymTxt(m)}</th>`).join("")}<th>Tendencia</th></tr></thead><tbody>${h}</tbody></table></div>
-   <p class="as-nota">${conCierre?`CR del mes = deals won de los creados ese mes con Closing Date anterior al día 1 del mes siguiente / deals creados ese mes (Created Time). Por ejemplo, el CR de enero son los won de los deals de enero cerrados antes del 1 de febrero. Así cada mes se mide con la misma ventana y los meses son comparables entre sí, sin esperar a que maduren.`:`CR = deals won / deals creados ese mes. Pendiente de cargar el Closing Date.`} El color compara el CR del mes con la media del propio canal en el periodo: verde por encima, rojo por debajo. Si un mes tiene menos deals que el mínimo, se muestra en gris solo el volumen. El mes en curso va en cursiva porque aún no ha terminado. Las filas ORGANIC y PAID y el TOTAL GENERAL muestran el CR de todo el grupo cada mes.</p>`}
+   <p class="as-nota">${conCierre?`CR del mes = deals won de los creados ese mes con Closing Date anterior al día 1 del mes siguiente / deals creados ese mes (Created Time). Por ejemplo, el CR de enero son los won de los deals de enero cerrados antes del 1 de febrero. Así cada mes se mide con la misma ventana y los meses son comparables entre sí, sin esperar a que maduren.`:`CR = deals won / deals creados ese mes. Pendiente de cargar el Closing Date.`} El total junto a cada canal cuenta los deals del periodo y los won con Closing Date hasta el último mes mostrado. El color compara el CR de cada mes con la media mensual del propio canal: verde por encima, rojo por debajo. Si un mes tiene menos deals que el mínimo, se muestra en gris solo el volumen. El mes en curso va en cursiva porque aún no ha terminado. Las filas ORGANIC y PAID y el TOTAL GENERAL muestran el CR de todo el grupo cada mes.</p>`}
 document.addEventListener("click",e=>{const r=e.target.closest("[data-evr]");if(r&&st.cnEv){st.cnEv.rango=r.dataset.evr;pintarEvolucion();return}
   const v=e.target.closest("[data-evv]");if(v&&st.cnEv){st.cnEv.ver=v.dataset.evv;pintarEvolucion()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-evmin]");if(s&&st.cnEv){st.cnEv.min=Number(s.value);pintarEvolucion()}});
@@ -2918,7 +2921,7 @@ function pintarMix(){const el=document.getElementById("c-captacion_mix");if(!el|
   if(!C||!(C.filas||[]).length||C.filas[0].length<5){el.innerHTML=`<div class="vacio">Álex está preparando los datos mensuales.</div>`;return}
   const M=cnMensual(C),ult=M.meses[M.meses.length-1],V=st.cnMx||(st.cnMx={rango:"12m",nivel:"grupo"});
   const ms=cnRango(V,M.meses,ult),anios=[...new Set(M.meses.map(m=>Math.floor(m/100)))];
-  const g=(m,f)=>Object.entries(M.por).reduce((t,[k,x])=>f(k)&&x[m]?[t[0]+x[m][0],t[1]+x[m][1]]:t,[0,0]);
+  const iwM=C.filas[0].length>=6?2:1,g=(m,f)=>Object.entries(M.por).reduce((t,[k,x])=>f(k)&&x[m]?[t[0]+x[m][0],t[1]+x[m][iwM]]:t,[0,0]);
   const org=ms.map(m=>g(m,k=>k.startsWith("ORGANIC|"))),pai=ms.map(m=>g(m,k=>k.startsWith("PAID|")));
   const medios=[...new Set(M.orden.map(k=>k.split("|").slice(0,2).join("|")))].filter(mk=>ms.some(m=>g(m,k=>k.startsWith(mk+"|")||k===mk)[0]));
   const COL={"ORGANIC":["#3ddc97","#2fb57c","#7ee8b9","#1f8a5c","#a8f0cf","#5fd1a1","#147049","#c9f5df","#43c48d","#0e5a3a","#86dbb4","#2a9e6b","#b5ecd2","#1b7a52","#6fd6a6"],"PAID":["#f97316","#fb923c","#c2410c","#fdba74","#ea580c","#fed7aa"]};
@@ -2953,7 +2956,8 @@ function pintarCPA(){const el=document.getElementById("c-captacion_cpa");if(!el|
   const V=st.cpV||(st.cpV={desde:y0*100+1,hasta:ult});const I=st.inversion||null;
   const inv={};(I?.filas||[]).forEach(([k,ym,g,ing])=>{if(ym<V.desde||ym>V.hasta)return;const x=inv[k]||(inv[k]=[0,0]);x[0]+=g||0;x[1]+=ing||0});
   const hayInv=Object.values(inv).some(x=>x[0]),hayIng=Object.values(inv).some(x=>x[1]);
-  const dw=k=>{let d=0,w=0;Object.entries(M.por[k]||{}).forEach(([ym,x])=>{ym=+ym;if(ym>=V.desde&&ym<=V.hasta){d+=x[0];w+=x[1]}});return[d,w]};
+  const acw={};C.filas.forEach(f=>{const ym=f[2];if(ym<V.desde||ym>V.hasta)return;const k=cnClasif(f[0],f[1]).join("|"),x=acw[k]||(acw[k]=[0,0]);x[0]+=f[3];x[1]+=cnWonHasta(f,V.hasta)});
+  const dw=k=>acw[k]||[0,0];
   const eur=n=>n==null?"":n<100&&n>0?n.toFixed(2).replace(".",",")+" €":Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g,".")+" €";
   const ph=`<span class="cp-ph">pendiente</span>`;
   const fila=(nom,keys,cls,lvl,sd)=>{const r=keys.reduce((t,k)=>{const a=dw(k),b=inv[k]||[0,0];return[t[0]+a[0],t[1]+a[1],t[2]+b[0],t[3]+b[1]]},[0,0,0,0]);const[d,w,g,ing]=r;
@@ -2975,7 +2979,7 @@ function pintarCPA(){const el=document.getElementById("c-captacion_cpa");if(!el|
    <div class="cn-fechas"><label>Desde <select data-cpf="desde">${opt(V.desde)}</select></label><label>Hasta <select data-cpf="hasta">${opt(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cppre="${a}-${b}">${n}</button>`).join("")}</div>${zBtn("canales")}</div>
    <div class="as-res"><div><b>${hayInv?eur(TG):"–"}</b><span>invertido</span></div><div><b>${cnNum(TD)}</b><span>deals (leads)</span></div><div><b>${cnNum(TW)}</b><span>deals won</span></div><div><b>${hayInv&&PD?eur(TG/PD):"–"}</b><span>CPL medio (canales con inversión)</span></div><div><b>${hayInv&&PW?eur(TG/PW):"–"}</b><span>CPA medio (canales con inversión)</span></div><div><b>${hayInv&&hayIng&&TG?(TI/TG).toFixed(2).replace(".",",")+"×":"–"}</b><span>retorno (ROAS)</span></div></div>
    <div class="as-tw"><table class="as-t cn-e cp-t"><thead><tr><th class="as-n">Canal</th><th>Invertido</th><th>Deals</th><th>Won</th><th>CR</th><th>CPL</th><th>CPA</th><th>Ingresos won</th><th>Retorno</th></tr></thead><tbody>${h}</tbody></table></div>
-   <p class="as-nota">CPL = invertido / deals creados en el periodo. CPA = invertido / deals won. Retorno (ROAS) = ingresos de los deals won / invertido; por encima de 1× el canal devuelve más de lo que cuesta. Paid va primero porque es donde hay inversión; en Organic solo se rellenará si se le asigna coste (por ejemplo medios patrocinados o blog). Deals y won se cuentan por mes de creación del deal, igual que en las otras pestañas, así que el CPA de los meses recientes bajará a medida que se cierren ventas.</p>`}
+   <p class="as-nota">CPL = invertido / deals creados en el periodo. CPA = invertido / deals won (creados en el periodo y con Closing Date hasta el último mes del filtro). Retorno (ROAS) = ingresos de los deals won / invertido; por encima de 1× el canal devuelve más de lo que cuesta. Paid va primero porque es donde hay inversión; en Organic solo se rellenará si se le asigna coste (por ejemplo medios patrocinados o blog). Deals y won se cuentan por mes de creación del deal, igual que en las otras pestañas, así que el CPA de los meses recientes bajará a medida que se cierren ventas.</p>`}
 document.addEventListener("change",e=>{const s=e.target.closest("[data-cpf]");if(!s||!st.cpV)return;st.cpV[s.dataset.cpf]=Number(s.value);if(st.cpV.desde>st.cpV.hasta)[st.cpV.desde,st.cpV.hasta]=[st.cpV.hasta,st.cpV.desde];pintarCPA()});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-cppre]");if(b&&st.cpV){const[a,c]=b.dataset.cppre.split("-").map(Number);st.cpV.desde=a;st.cpV.hasta=c;pintarCPA()}});
 
@@ -2986,11 +2990,11 @@ function pintarAsesores(){const el=document.getElementById("c-comercial_asesores
   if(!A){el.innerHTML=`<div class="mcab"><div><h2>Análisis por asesor</h2></div></div><div class="vacio">Rocío está leyendo los deals de Zoho.</div>`;return}
   const F=A.filas||[],meses=[...new Set(F.map(f=>f[2]))].sort((a,b)=>a-b),ult=meses[meses.length-1];
   const V=st.asV||(st.asV={modo:"acum",desde:A.desde_defecto||meses[0],hasta:ult,mes:meses[meses.length-2]||ult,orden:"vol"});
-  const enRango=ym=>V.modo==="mes"?ym===V.mes:ym>=V.desde&&ym<=V.hasta;
+  const enRango=ym=>V.modo==="mes"?ym===V.mes:ym>=V.desde&&ym<=V.hasta,fin=V.modo==="mes"?V.mes:V.hasta,wf=f=>cnWonCierre(f,5,fin);
   const recientes=new Set(F.filter(f=>f[2]>=meses[Math.max(0,meses.length-3)]).map(f=>f[0]));
   const primero={};F.forEach(f=>{primero[f[0]]=Math.min(primero[f[0]]||9e9,f[2])});
-  const ag={};F.forEach(([a,m,ym,v,w])=>{if(!enRango(ym)||!recientes.has(a))return;const x=ag[a]||(ag[a]={T:[0,0]});x.T[0]+=v;x.T[1]+=w;const k=MERC.includes(m)?m:null;if(k){x[k]=x[k]||[0,0];x[k][0]+=v;x[k][1]+=w}});
-  const totAll={T:[0,0]},antiguos=new Set();F.forEach(([a,m,ym,v,w])=>{if(!enRango(ym))return;if(!recientes.has(a)&&v)antiguos.add(a);totAll.T[0]+=v;totAll.T[1]+=w;if(MERC.includes(m)){totAll[m]=totAll[m]||[0,0];totAll[m][0]+=v;totAll[m][1]+=w}});
+  const ag={};F.forEach(f=>{const[a,m,ym,v]=f,w=wf(f);if(!enRango(ym)||!recientes.has(a))return;const x=ag[a]||(ag[a]={T:[0,0]});x.T[0]+=v;x.T[1]+=w;const k=MERC.includes(m)?m:null;if(k){x[k]=x[k]||[0,0];x[k][0]+=v;x[k][1]+=w}});
+  const totAll={T:[0,0]},antiguos=new Set();F.forEach(f=>{const[a,m,ym,v]=f,w=wf(f);if(!enRango(ym))return;if(!recientes.has(a)&&v)antiguos.add(a);totAll.T[0]+=v;totAll.T[1]+=w;if(MERC.includes(m)){totAll[m]=totAll[m]||[0,0];totAll[m][0]+=v;totAll[m][1]+=w}});
   const tot={T:[0,0]};Object.values(ag).forEach(x=>{tot.T[0]+=x.T[0];tot.T[1]+=x.T[1];MERC.forEach(k=>{if(x[k]){tot[k]=tot[k]||[0,0];tot[k][0]+=x[k][0];tot[k][1]+=x[k][1]}})});
   const cr=p=>p&&p[0]?p[1]/p[0]:null,pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %",num=n=>n==null?"":n.toLocaleString("es-ES");
   const col=(x,ref)=>x==null||!ref?"":x>=ref*1.15?"bueno":x<=ref*.85?"malo":"";
@@ -3007,7 +3011,7 @@ function pintarAsesores(){const el=document.getElementById("c-comercial_asesores
     <tr>${["T",...MERC].map(()=>`<th>Volumen</th><th>DW</th><th>CR</th>`).join("")}</tr></thead>
     <tbody>${lista.map(([a,x])=>`<tr><td class="as-n${primero[a]>=meses[Math.max(0,meses.length-8)]?" as-nuevo":""}">${esc(a)}</td>${celdas(x.T,cr(tot.T))}${MERC.map(k=>celdas(x[k],cr(tot[k]))).join("")}</tr>`).join("")}</tbody>
     <tfoot><tr><td class="as-n">Total del equipo actual</td>${celdas(tot.T)}${MERC.map(k=>celdas(tot[k])).join("")}</tr><tr class="as-all"><td class="as-n" title="Incluye ${antiguos.size} asesores que ya no están en el equipo">Total con antiguos asesores (${antiguos.size})</td>${celdas(totAll.T)}${MERC.map(k=>celdas(totAll[k])).join("")}</tr></tfoot></table></div>
-   <p class="as-nota">Verde: CR al menos un 15 % por encima de la media del mercado; rojo: un 15 % o más por debajo. En naranja, asesores con menos de 8 meses de datos. Solo aparecen asesores con deals en los últimos 3 meses y al menos 50 en el periodo; los mercados con menos de 20 deals se dejan en gris. La última fila suma también a los asesores que ya no están en el equipo pero tienen deals y ventas en el periodo. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`}
+   <p class="as-nota">CR = deals creados en el periodo que están won con Closing Date hasta el último mes del filtro (incluido) / deals creados en el periodo. Con «un mes», cuentan los won cerrados dentro de ese mes. Verde: CR al menos un 15 % por encima de la media del mercado; rojo: un 15 % o más por debajo. En naranja, asesores con menos de 8 meses de datos. Solo aparecen asesores con deals en los últimos 3 meses y al menos 50 en el periodo; los mercados con menos de 20 deals se dejan en gris. La última fila suma también a los asesores que ya no están en el equipo pero tienen deals y ventas en el periodo. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-asmodo]");if(b&&st.asV){st.asV.modo=b.dataset.asmodo;pintarAsesores()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-asv]");if(!s||!st.asV)return;const k=s.dataset.asv;st.asV[k]=k==="orden"?s.value:Number(s.value);if(st.asV.desde>st.asV.hasta)[st.asV.desde,st.asV.hasta]=[st.asV.hasta,st.asV.desde];pintarAsesores()});
 
@@ -3033,14 +3037,15 @@ const CR_COL={a:"#7c86e8",b:"#6f9a14"};
 const crMesAct=()=>{const h=new Date();return h.getFullYear()*100+h.getMonth()+1};
 const crPct=(x,d=2)=>x==null||isNaN(x)?"–":(x*100).toFixed(d).replace(".",",")+" %";
 const crPp=x=>x==null?"–":(x>0?"+":"")+(x*100).toFixed(2).replace(".",",")+" pp";
-function crSerie(C,seg){const t={};(C.filas||[]).forEach(f=>{const[s,m,ym,d]=f,wm=f[5]||0;if(seg!=="todos"&&cnClasif(s,m)[0]!==seg)return;const x=t[ym]||(t[ym]=[0,0]);x[0]+=d;x[1]+=wm});return t}
+const CR_MERC=["ES","EN","DE","IT","PT"];
+function crSerie(C,seg){const t={};if(CR_MERC.includes(seg)){(st.ases?.filas||[]).forEach(f=>{const[n,lg,ym,d]=f;if(lg!==seg)return;const x=t[ym]||(t[ym]=[0,0]);x[0]+=d;x[1]+=cnWonCierre(f,5,ym)});return t}(C.filas||[]).forEach(f=>{const[s,m,ym,d]=f,wm=f[5]||0;if(seg!=="todos"&&cnClasif(s,m)[0]!==seg)return;const x=t[ym]||(t[ym]=[0,0]);x[0]+=d;x[1]+=wm});return t}
 function pintarCREvol(){const el=document.getElementById("c-cr_evolucion");if(!el||st.dentro!=="cr")return;const C=st.canales;
   if(!C||!(C.filas||[]).length||C.filas[0].length<6){el.innerHTML=`<div class="vacio">Ramón está cargando los deals con su Closing Date.</div>`;return}
   const V=st.crEv||(st.crEv={seg:"todos"}),T=crSerie(C,V.seg),act=crMesAct();
   const anios=[...new Set(Object.keys(T).map(k=>Math.floor(k/100)))].sort().slice(-2),[y0,y1]=anios.length===2?anios:[anios[0]-1,anios[0]];
   const val=(y,m)=>{const k=y*100+m,x=T[k];return x&&x[0]&&k<act?x[1]/x[0]:null};
   const ultM=Math.max(...Object.keys(T).map(Number).filter(k=>Math.floor(k/100)===y1&&k<act))%100;
-  const acum=(y,hasta)=>{let d=0,w=0;for(let m=1;m<=hasta;m++){const x=T[y*100+m];if(x){d+=x[0];w+=x[1]}}return[d,w]};
+  const acum=(y,hasta)=>{let d=0,w=0;const fin=y*100+hasta;if(CR_MERC.includes(V.seg)){(st.ases?.filas||[]).forEach(f=>{const ym=f[2];if(f[1]!==V.seg||ym<y*100+1||ym>fin)return;d+=f[3];w+=cnWonCierre(f,5,fin)});return[d,w]}(C.filas||[]).forEach(f=>{const ym=f[2];if(ym<y*100+1||ym>fin)return;if(V.seg!=="todos"&&cnClasif(f[0],f[1])[0]!==V.seg)return;d+=f[3];w+=cnWonHasta(f,fin)});return[d,w]};
   const A0=acum(y0,ultM),A1=acum(y1,ultM),c0=A0[0]?A0[1]/A0[0]:null,c1=A1[0]?A1[1]/A1[0]:null;
   const meses=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
   const W=1100,H=300,L=56,R=120,Tp=24,B=34,vs=[];for(const y of[y0,y1])for(let m=1;m<=12;m++){const v=val(y,m);if(v!=null)vs.push(v)}
@@ -3051,12 +3056,12 @@ function pintarCREvol(){const el=document.getElementById("c-cr_evolucion");if(!e
   const hits=meses.map((n,i)=>`<rect x="${X(i+1)-(W-L-R)/22}" y="${Tp}" width="${(W-L-R)/11}" height="${H-Tp-B}" fill="transparent" data-crm="${i+1}"/><text x="${X(i+1)}" y="${H-12}" class="cr-ax" text-anchor="middle">${n}</text>`).join("");
   const tabla=meses.map((n,i)=>{const m=i+1,a=T[y0*100+m],b=T[y1*100+m],va=val(y0,m),vb=val(y1,m);return`<tr><td class="as-n">${n}</td><td>${a?cnNum(a[0]):"–"}</td><td>${a?cnNum(a[1]):"–"}</td><td>${crPct(va)}</td><td>${b?cnNum(b[0]):"–"}</td><td>${b?cnNum(b[1]):"–"}</td><td>${y1*100+m>=act?"en curso":crPct(vb)}</td><td>${va!=null&&vb!=null?crPp(vb-va):"–"}</td></tr>`}).join("");
   el.innerHTML=`<div class="mcab"><div><h2>Evolución del CR</h2></div></div>
-   <div class="as-ctl"><div class="as-modo">${[["todos","Todos los deals"],["PAID","Paid"],["ORGANIC","Organic"]].map(([k,n])=>`<button class="btn${V.seg===k?" prim":""}" data-crseg="${k}">${n}</button>`).join("")}</div>${zBtn("canales")}</div>
-   <div class="as-res"><div><b>${crPct(c1)}</b><span>CR del mes · ene a ${meses[ultM-1]} ${y1}</span></div><div><b>${crPct(c0)}</b><span>mismo periodo ${y0}</span></div><div><b class="${c1>c0?"cr-up":"cr-dn"}">${crPp(c1!=null&&c0!=null?c1-c0:null)}</b><span>diferencia</span></div><div><b>${cnNum(A1[0])}</b><span>deals ${y1}</span></div><div><b>${cnNum(A1[1])}</b><span>won en su mes ${y1}</span></div></div>
+   <div class="as-ctl"><div class="as-modo">${[["todos","Todos los deals"],["PAID","Paid"],["ORGANIC","Organic"]].map(([k,n])=>`<button class="btn${V.seg===k?" prim":""}" data-crseg="${k}">${n}</button>`).join("")}</div><div class="as-modo"><span class="cr-mlbl">Mercado</span>${CR_MERC.map(k=>`<button class="btn${V.seg===k?" prim":""}" data-crseg="${k}">${k}</button>`).join("")}</div>${CR_MERC.includes(V.seg)?zBtn("asesores","Informe de asesores en Zoho"):zBtn("canales")}</div>
+   <div class="as-res"><div><b>${crPct(c1)}</b><span>CR ene a ${meses[ultM-1]} ${y1}</span></div><div><b>${crPct(c0)}</b><span>mismo periodo ${y0}</span></div><div><b class="${c1>c0?"cr-up":"cr-dn"}">${crPp(c1!=null&&c0!=null?c1-c0:null)}</b><span>diferencia</span></div><div><b>${cnNum(A1[0])}</b><span>deals ${y1}</span></div><div><b>${cnNum(A1[1])}</b><span>won cerrados hasta ${meses[ultM-1]} ${y1}</span></div></div>
    <div class="cr-chart"><div class="cr-leg"><span><i style="background:${CR_COL.a}"></i>${y0}</span><span><i style="background:${CR_COL.b}"></i>${y1}</span></div>
     <svg viewBox="0 0 ${W} ${H}" class="cr-svg" role="img" aria-label="CR del mes por mes, ${y0} frente a ${y1}">${grid}${linea(y0,CR_COL.a)}${linea(y1,CR_COL.b)}<line class="cr-cross" x1="0" x2="0" y1="${Tp}" y2="${H-B}" style="display:none"/>${hits}</svg><div class="cr-tip" hidden></div></div>
    <details class="cr-det"><summary>Ver la tabla</summary><div class="as-tw"><table class="as-t"><thead><tr><th class="as-n">Mes</th><th>Deals ${y0}</th><th>Won en el mes</th><th>CR ${y0}</th><th>Deals ${y1}</th><th>Won en el mes</th><th>CR ${y1}</th><th>Diferencia</th></tr></thead><tbody>${tabla}</tbody></table></div></details>
-   <p class="as-nota">CR del mes = deals won creados ese mes con Closing Date anterior al día 1 del mes siguiente / deals creados ese mes. Mide cuánto se cierra dentro del propio mes, así todos los meses son comparables. El mes en curso no se dibuja hasta que termine. Fuente: Zoho CRM, informe «Claude · Deals por UTM y mes».</p>`;
+   <p class="as-nota">Gráfico y tabla: CR del mes = deals won creados ese mes con Closing Date anterior al día 1 del mes siguiente / deals creados ese mes. Arriba, el periodo acumulado de cada año cuenta los deals creados de enero al último mes cerrado y los won con Closing Date hasta ese mes del mismo año (por ejemplo, de enero a septiembre de 2025, los cerrados hasta el 30 de septiembre de 2025), así 2025 se compara en igualdad con 2026. El mes en curso no se dibuja hasta que termine. ${CR_MERC.includes(V.seg)?"Por mercado: idioma del deal en Zoho Analytics (tabla Deals), con la misma regla de Closing Date.":"Fuente: Zoho CRM, informe «Claude · Deals por UTM y mes»."}</p>`;
   el._cr={T,y0,y1,val,meses}}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-crseg]");if(b&&st.crEv){st.crEv.seg=b.dataset.crseg;pintarCREvol()}});
 document.addEventListener("mousemove",e=>{const r=e.target.closest&&e.target.closest("[data-crm]");const box=e.target.closest&&e.target.closest(".cr-chart");if(!box)return;const tip=box.querySelector(".cr-tip"),cr=box.querySelector(".cr-cross"),el=box.closest(".cont");
@@ -3068,25 +3073,25 @@ function pintarCRImpacto(){const el=document.getElementById("c-cr_impacto");if(!
   if(!C||!(C.filas||[]).length||C.filas[0].length<6){el.innerHTML=`<div class="vacio">Pilar está cargando los datos.</div>`;return}
   const act=crMesAct(),ms=[...new Set(C.filas.map(f=>f[2]))].filter(m=>m<act).sort((a,b)=>a-b),ult=ms[ms.length-1];
   const V=st.crIm||(st.crIm={desde:Math.floor(ult/100)*100+1,hasta:ult});
-  const g={},T=[0,0];C.filas.forEach(f=>{const[s,m,ym,d]=f,wm=f[5]||0;if(ym<V.desde||ym>V.hasta)return;const k=cnClasif(s,m).join("|"),x=g[k]||(g[k]=[0,0]);x[0]+=d;x[1]+=wm;T[0]+=d;T[1]+=wm});
+  const g={},T=[0,0];C.filas.forEach(f=>{const[s,m,ym,d]=f;if(ym<V.desde||ym>V.hasta)return;const wm=cnWonHasta(f,V.hasta);const k=cnClasif(s,m).join("|"),x=g[k]||(g[k]=[0,0]);x[0]+=d;x[1]+=wm;T[0]+=d;T[1]+=wm});
   const ref=T[0]?T[1]/T[0]:0,MIN=300;
   const can=Object.entries(g).filter(([,x])=>x[0]>=MIN).map(([k,[d,w]])=>({n:cnNom(k),g:k.split("|")[0],d,cr:w/d,ref,jg:d*(ref-w/d)}));
   const peor=can.filter(x=>x.jg>0).sort((a,b)=>b.jg-a.jg).slice(0,8),mejor=can.filter(x=>x.jg<0).sort((a,b)=>a.jg-b.jg).slice(0,5);
-  let ases="",idi="";if(A&&(A.filas||[]).length){const a={},l={};A.filas.forEach(([n,lg,ym,d,w])=>{if(ym<V.desde||ym>V.hasta)return;const k=lg+"|"+n,x=a[k]||(a[k]=[0,0]);x[0]+=d;x[1]+=w;const y=l[lg]||(l[lg]=[0,0]);y[0]+=d;y[1]+=w});
+  let ases="",idi="";if(A&&(A.filas||[]).length){const a={},l={};A.filas.forEach(f=>{const[n,lg,ym,d]=f,w=cnWonCierre(f,5,V.hasta);if(ym<V.desde||ym>V.hasta)return;const k=lg+"|"+n,x=a[k]||(a[k]=[0,0]);x[0]+=d;x[1]+=w;const y=l[lg]||(l[lg]=[0,0]);y[0]+=d;y[1]+=w});
     const tl=Object.values(l).reduce((t,x)=>[t[0]+x[0],t[1]+x[1]],[0,0]),rl=tl[0]?tl[1]/tl[0]:0;
     const il=Object.entries(l).filter(([,x])=>x[0]>=MIN).map(([k,[d,w]])=>({n:k,d,cr:w/d,ref:rl,jg:d*(rl-w/d)})).sort((a,b)=>b.jg-a.jg);
     const med={};Object.keys(l).forEach(lg=>{const v=Object.entries(a).filter(([k,x])=>k.startsWith(lg+"|")&&x[0]>=MIN).map(([,x])=>x[1]/x[0]).sort((p,q)=>p-q);if(v.length>=3)med[lg]=v.length%2?v[(v.length-1)/2]:(v[v.length/2-1]+v[v.length/2])/2});
     const al=Object.entries(a).filter(([k,x])=>x[0]>=MIN&&med[k.split("|")[0]]!=null).map(([k,[d,w]])=>{const[lg,n]=k.split("|");return{n:`${n} · ${lg}`,d,cr:w/d,ref:med[lg],jg:d*(med[lg]-w/d)}}).filter(x=>x.jg>0).sort((a,b)=>b.jg-a.jg).slice(0,10);
-    idi=crLista("Mercados (idioma del deal)",`CR acumulado de cada idioma frente a la media (${crPct(rl)}).`,il.filter(x=>x.jg>0));
-    ases=crLista("Asesores por debajo de la mediana de su idioma","CR acumulado frente a la mediana de los asesores de ese idioma con al menos 300 deals.",al)}
+    idi=crLista("Mercados (idioma del deal)",`CR de cada idioma en el periodo frente a la media (${crPct(rl)}).`,il.filter(x=>x.jg>0));
+    ases=crLista("Asesores por debajo de la mediana de su idioma","CR del asesor en el periodo frente a la mediana de los asesores de ese idioma con al menos 300 deals.",al)}
   const opt=sel=>ms.map(m=>`<option value="${m}"${m===sel?" selected":""}>${ymTxt(m)}</option>`).join("");
   el.innerHTML=`<div class="mcab"><div><h2>Dónde está el impacto</h2></div></div>
    <div class="cn-fechas"><label>Desde <select data-crf="desde">${opt(V.desde)}</select></label><label>Hasta <select data-crf="hasta">${opt(V.hasta)}</select></label>${zBtn("canales","Informe de canales en Zoho")}${zBtn("asesores","Informe de asesores en Zoho")}</div>
-   <div class="as-res"><div><b>${crPct(ref)}</b><span>CR del mes medio del periodo</span></div><div><b>${cnNum(T[0])}</b><span>deals</span></div><div><b>${cnNum(Math.round(peor.reduce((t,x)=>t+x.jg,0)))}</b><span>won en juego en canales</span></div></div>
-   ${crLista("Canales que convierten por debajo de la media","CR del mes de cada canal frente a la media del periodo; solo canales con al menos 300 deals.",peor)}
+   <div class="as-res"><div><b>${crPct(ref)}</b><span>CR del periodo</span></div><div><b>${cnNum(T[0])}</b><span>deals</span></div><div><b>${cnNum(Math.round(peor.reduce((t,x)=>t+x.jg,0)))}</b><span>won en juego en canales</span></div></div>
+   ${crLista("Canales que convierten por debajo de la media","CR de cada canal en el periodo frente a la media; solo canales con al menos 300 deals.",peor)}
    ${crLista("Lo que ya funciona (para copiar)","Canales por encima de la media: lo que hacen ahí es lo que hay que llevar al resto.",mejor.map(x=>({...x,jg:-x.jg,mejor:true})))}
    ${idi}${ases}
-   <p class="as-nota">Won en juego = deals × (CR de referencia − CR propio): las ventas que habría si ese segmento convirtiera como su referencia. No es una previsión; sirve para ordenar dónde mirar primero. Canales: CR del mes (Closing Date antes del día 1 del mes siguiente). Mercados y asesores: Zoho Analytics, que aún no trae el Closing Date, así que usan el CR acumulado (won a día de hoy). Los asesores con muy pocos deals y CR muy alto pueden estar recibiendo leads ya cualificados; se comparan con la mediana para que no distorsionen.</p>`}
+   <p class="as-nota">Won en juego = deals × (CR de referencia − CR propio): las ventas que habría si ese segmento convirtiera como su referencia. No es una previsión; sirve para ordenar dónde mirar primero. Canales: won de los deals creados en el periodo con Closing Date hasta el último mes elegido. Mercados y asesores: Zoho Analytics, con la misma regla de Closing Date. Los asesores con muy pocos deals y CR muy alto pueden estar recibiendo leads ya cualificados; se comparan con la mediana para que no distorsionen.</p>`}
 function crLista(t,sub,L){if(!L.length)return"";const mx=Math.max(...L.map(x=>x.jg));
   return`<div class="seccion-t">${esc(t)}</div><p class="cr-sub">${esc(sub)}</p><div class="cr-bars">${L.map(x=>`<div class="cr-bar${x.mejor?" ok":""}"><div class="cr-bn"><b>${esc(x.n)}</b><small>${cnNum(x.d)} deals · CR ${crPct(x.cr)} · ref. ${crPct(x.ref)}</small></div><div class="cr-bt"><i style="width:${Math.max(2,x.jg/mx*100)}%"></i></div><div class="cr-bv">${x.mejor?"+":""}${cnNum(Math.round(x.jg))} ${x.mejor?"won por encima":"won en juego"}</div></div>`).join("")}</div>`}
 document.addEventListener("change",e=>{const s=e.target.closest("[data-crf]");if(!s||!st.crIm)return;st.crIm[s.dataset.crf]=Number(s.value);if(st.crIm.desde>st.crIm.hasta)[st.crIm.desde,st.crIm.hasta]=[st.crIm.hasta,st.crIm.desde];pintarCRImpacto()});

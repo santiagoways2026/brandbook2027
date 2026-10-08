@@ -410,7 +410,7 @@ body[data-dentro] .marco.dato{display:none!important}
 
 /* Sala de Control */
 .bf-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;padding:14px 20px}.bf-kpis>div{background:var(--marco-2);border:1px solid var(--borde);border-radius:6px;padding:12px;display:grid;gap:3px}.bf-kpis b{font:800 22px var(--f-ui);color:#fff}.bf-kpis span{font-size:13px;color:#d6dbe1}.bf-kpis em{font-style:normal;font-size:12.5px;color:#a3e635}.bf-kpis small{font-size:11.5px;color:var(--tenue)}
-.bf-titular p{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important;max-height:none!important}.bf-salas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;padding:0 20px}.bf-salas p{margin:6px 0 0}.bf-imp{color:#e7f5c8}.logo-p{display:inline-block;width:auto;vertical-align:middle;opacity:.95}.logos-p{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.pl-logo{display:inline-flex;align-items:center;margin-right:6px}.cuando .pl-logo{display:flex;margin:0 0 6px}.sub .logo-p,td a .logo-p{margin-right:6px}.bf-circ{margin:14px 20px 4px;padding:12px 16px;border-left:3px solid #f5d76e;background:rgba(245,215,110,.07);font-size:13.5px;line-height:1.5}.bf-sub{padding:0 20px;margin:0 0 6px;font-size:13px;color:var(--tenue)}
+.bf-titular p{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important;max-height:none!important}.bf-salas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;padding:0 20px}.bf-salas p{margin:6px 0 0}.bf-imp{color:#e7f5c8}.cx-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:12px;padding:0 20px 20px}.cx-card{background:var(--marco-2);border:1px solid var(--borde);border-radius:6px;padding:14px;display:grid;gap:8px;align-content:start}.cx-card p{margin:0;font-size:13.5px;line-height:1.45}.cx-top{display:flex;justify-content:space-between;gap:8px;align-items:center}.cx-top h4{margin:0;font:700 16px/1.2 var(--f-ui)}.cx-am{font:600 10.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.06em;color:var(--c);border:1px solid var(--c);padding:3px 6px;border-radius:3px;white-space:nowrap}.cx-meta{font:12px/1.3 var(--f-mono);color:var(--tenue)}.cx-meta a,.cx-pie a,.imeta a{color:#9ec5ff}.cx-pie{display:flex;justify-content:space-between;align-items:center;gap:8px;flex-wrap:wrap;font-size:12px}.cx-ok{font:600 11px var(--f-mono);color:#3ddc97}.cx-sala{background:#1f2a3a;color:#cfe1ff;padding:2px 6px;border-radius:3px}.logo-p{display:inline-block;width:auto;vertical-align:middle;opacity:.95}.logos-p{display:flex;gap:16px;align-items:center;flex-wrap:wrap;margin:0 0 8px}.pl-logo{display:inline-flex;align-items:center;margin-right:6px}.cuando .pl-logo{display:flex;margin:0 0 6px}.sub .logo-p,td a .logo-p{margin-right:6px}.bf-circ{margin:14px 20px 4px;padding:12px 16px;border-left:3px solid #f5d76e;background:rgba(245,215,110,.07);font-size:13.5px;line-height:1.5}.bf-sub{padding:0 20px;margin:0 0 6px;font-size:13px;color:var(--tenue)}
 .bf-list{margin:0;padding:6px 20px 6px 42px;display:grid;gap:8px;color:#dfe4ea;font-size:14px;line-height:1.5}.bf-t td,.bf-t th{white-space:normal!important}.bf-t td{vertical-align:top;font-size:13.5px;line-height:1.45}.bf-dec{display:inline-block;padding:2px 8px;border-radius:4px;background:#1f2a12;color:#d9f99d;font-weight:700;white-space:nowrap}.bf-dec.nueva{background:#12322a;color:#6ee7b7}.bf-dec.pausa{background:#3a2a0c;color:#fcd34d}.bf-dec.rehecha{background:#1e2a4a;color:#bfdbfe}
 .cr-chart{position:relative;padding:8px 20px 0}.cr-svg{width:100%;height:auto;display:block}.cr-grid{stroke:#232a33;stroke-width:1}.cr-ax{fill:#8a94a1;font:12px var(--f-ui)}.cr-lbl{fill:#e6eaee;font:600 13px var(--f-ui)}.cr-cross{stroke:#6b7280;stroke-width:1;stroke-dasharray:3 3}
 .cr-leg{display:flex;gap:16px;font-size:13px;color:#d6dbe1;padding:0 0 6px}.cr-leg i,.cr-tip i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
@@ -1003,6 +1003,8 @@ const MARCOS=[
   {id:"cambios",grupo:"competencia",dato:true,nombre:"Competencia / Alertas y cambios",x:0,y:4560,w:1240},
   {id:"players",grupo:"competencia",dato:true,nombre:"Competencia / Players vigilados",x:-1560,y:4560,w:1460},
   {id:"comprrss",grupo:"competencia",dato:true,nombre:"Competencia / Sus redes en Metricool",x:1340,y:4560,w:1100},
+  {id:"comp_nuevos",grupo:"competencia",dato:true,nombre:"Competencia / Nuevos players en el radar",x:-1560,y:6200,w:1460},
+  {id:"comp_bp",grupo:"competencia",dato:true,nombre:"Competencia / Best practices del travel de nicho",x:0,y:6200,w:1460},
   {id:"compbit",grupo:"competencia",dato:true,nombre:"Competencia / Equipo y bitácora",x:2540,y:4560,w:560},
   {id:"comunidad",grupo:"comunidad",nombre:"Comunidad / Sala",x:950,y:-500,w:1200},
   {id:"k_formatos",grupo:"comunidad",dato:true,nombre:"Comunidad / Qué genera comentarios",x:3260,y:-340,w:1400,arriba:true},
@@ -1089,7 +1091,7 @@ const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],ti
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
 const LOGOS={caminoways:{a:["caminoways","camino ways"],ig:["caminoways"]},followthecamino:{a:["follow the camino","followthecamino"],ig:["followthecamino"]},pilgrim:{a:["pilgrim.es","pilgrim"],ig:["pilgrim.es"]},tubuencamino:{a:["tu buen camino","tubuencamino"],ig:["tubuencaminoviajes","tubuencamino"]},viajecamino:{a:["viaje camino","viajecaminodesantiago","viajes camino de santiago"],ig:[]},macsadventure:{a:["macs adventure","macsadventure","macs"],ig:["macsadventure"]},galiwonders:{a:["galiwonders","gali wonders"],ig:["galiwonders"]},mundiplus:{a:["mundiplus"],ig:["mundiplus"]}};
 function logoP(id,h=20){return LOGOS[id]?`<img class="logo-p" src="img/logos/${id}.png?v=1" alt="${esc(id)}" style="height:${h}px">`:""}
@@ -1617,14 +1619,18 @@ const EQUIPO_C=[
   {id:"noticias",n:"Nuria",rol:"Comunicación: noticias, blog, newsletters y prensa",c:"#a78bfa"},
   {id:"crrss",n:"Álex",rol:"Sus redes: publicaciones y rendimiento (Metricool)",c:"#e1306c"},
   {id:"alianzas",n:"Jorge",rol:"Partnerships, ferias, B2B y nuevos mercados",c:"#3ddc97"},
+  {id:"explora",n:"Inés",rol:"Exploradora: competidores con presencia digital en el Camino que aún no vigilamos",c:"#f472b6"},
+  {id:"buenas",n:"Marcos",rol:"Best practices del travel de nicho, con fuentes y ejemplos",c:"#60a5fa"},
   {id:"directora",n:"Elena",rol:"Directora de investigación: prioriza y alerta",c:"#22d3ee"},
 ];
-const PUESTOS_C={web:[120,95],precios:[300,95],noticias:[480,95],crrss:[120,200],alianzas:[300,200],directora:[480,200]};
+const PUESTOS_C={web:[100,95],precios:[233,95],noticias:[366,95],explora:[500,95],crrss:[100,200],alianzas:[233,200],buenas:[366,200],directora:[500,200]};
 const FRASES_C={web:["Comparando la home de hoy con la de ayer","Han cambiado un bloque de su portada","Revisando sus páginas de rutas"],
   precios:["Revisando tarifas del Francés desde Sarria","¿Han subido el precio para 2027?","Mirando suplementos de habitación individual"],
   noticias:["Leyendo su sección de noticias","Nueva nota de prensa en el sector","Revisando sus newsletters"],
   crrss:["Comparando sus posts con los nuestros","Ese reel suyo está funcionando","Revisando su YouTube"],
   alianzas:["Buscando acuerdos con hoteles y aerolíneas","Están en una feria de turismo","Nuevo partner en Estados Unidos"],
+  explora:["Buscando operadores del Camino que no tenemos","Mirando reseñas y redes de un player nuevo","¿Vende ya en nuestros mercados?"],
+  buenas:["Leyendo cómo lo hace Much Better Adventures","Apuntando la fuente de esta práctica","¿Qué sala podría aplicarlo?"],
   directora:["Priorizando alertas de hoy","¿Qué cambio importa más esta semana?","Preparando el resumen para Álvaro"]};
 const TIPOS_C={web:{n:"Web",c:"#ff6b3d"},precio:{n:"Precio",c:"#f5c518"},producto:{n:"Producto",c:"#fb923c"},noticia:{n:"Noticia",c:"#a78bfa"},comunicacion:{n:"Comunicación",c:"#c4b5fd"},rrss:{n:"RRSS",c:"#e1306c"},partnership:{n:"Partnership",c:"#3ddc97"},seo:{n:"SEO",c:"#22d3ee"}};
 function svgCompetencia(){
@@ -1646,12 +1652,32 @@ function svgCompetencia(){
     <rect x="${x-14}" y="${y+1}" width="28" height="7" rx="1" fill="none" stroke="#3d2a26"/>
     <circle cx="${x}" cy="${y+34}" r="11" fill="none" stroke="#2a1d1b" stroke-dasharray="2 2"/>
     <text x="${x+46}" y="${y-21}" text-anchor="end" font-family="Geist Mono" font-size="7" fill="#6b5a55">${a.id.toUpperCase()}</text>`});
-  EQUIPO_C.forEach(a=>{const ancho=a.n.length*6.4+12;const oscuro=["precios","alianzas","directora"].includes(a.id);d+=`<g id="c-${a.id}"><g class="cuerpo"><circle r="13" fill="${a.c}" opacity=".12"/><circle r="7" fill="${a.c}" filter="url(#brilloC)"/><circle r="2.6" fill="#fff"/></g>
+  EQUIPO_C.forEach(a=>{const ancho=a.n.length*6.4+12;const oscuro=["precios","alianzas","directora","explora","buenas"].includes(a.id);d+=`<g id="c-${a.id}"><g class="cuerpo"><circle r="13" fill="${a.c}" opacity=".12"/><circle r="7" fill="${a.c}" filter="url(#brilloC)"/><circle r="2.6" fill="#fff"/></g>
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
 function cambiosFiltrados(){return st.cambios.filter(c=>(st.cTipo==="todos"||c.tipo===st.cTipo)&&(st.cPlayer==="todos"||c.player===st.cPlayer)&&(st.cImpacto==="todos"||c.impacto===st.cImpacto))}
-function pintarCompetencia(){
+const AMEN={alto:"#ff6b3d",medio:"#f5c518",bajo:"#7f8a99"};
+function pintarCompExp(){const X=st.compExp,ya=new Set((st.players||[]).map(p=>p.id));
+  const fu=f=>(f||[]).map((u,i)=>`<a href="${esc(safeUrl(u))}" target="_blank" rel="noopener">fuente ${i+1} ↗</a>`).join(" · ");
+  const cab=(t,sub)=>`<div class="mcab"><div><h2>${t}</h2><div class="fuente-mc" style="margin-top:6px">${sub}</div></div><div class="meta">${X?.fecha?esc(hace(X.fecha)):""}</div></div>`;
+  const vacio=q=>`<div class="vacio">${q} está en su primera ronda de investigación.</div>`;
+  const a=$("#c-comp_nuevos");
+  if(a){const C=X?.candidatos||[];a.innerHTML=cab("Nuevos players en el radar","Inés busca operadores y marcas del Camino con presencia digital que aún no vigilamos")+
+    (X?.resumen?`<p class="seo-res">${esc(X.resumen)}</p>`:"")+(C.length?`<div class="cx-grid">${C.map(c=>`<div class="cx-card"><div class="cx-top"><h4>${esc(c.nombre)}</h4><span class="cx-am" style="--c:${AMEN[c.amenaza]||"#7f8a99"}">amenaza ${esc(c.amenaza||"")}</span></div>
+      <div class="cx-meta">${c.web?`<a href="${esc(safeUrl(/^https?:/.test(c.web)?c.web:"https://"+c.web))}" target="_blank" rel="noopener">${esc(c.web.replace(/^https?:\/\//,""))}</a> · `:""}${esc((c.mercados||[]).join(" "))}${c.tipo?` · ${esc(c.tipo)}`:""}</div>
+      <p><b>Qué hacen bien:</b> ${esc(c.bien||"")}</p><p class="bf-imp">→ ${esc(c.porque||"")}</p>
+      <div class="cx-pie"><span>${fu(c.fuentes)}</span>${ya.has(c.id)?`<span class="cx-ok">Ya vigilado</span>`:`<button class="btn" data-vigilar="${esc(c.id)}">Pasar a vigilados</button>`}</div></div>`).join("")}</div>`:vacio("Inés"));}
+  const b=$("#c-comp_bp");
+  if(b){const P=X?.practicas||[],salas=[...new Set(P.map(x=>x.sala).filter(Boolean))],f=st.bpSala||"todas",L=P.filter(x=>f==="todas"||x.sala===f);
+    b.innerHTML=cab("Best practices del travel de nicho","Marcos estudia a quien lo está haciendo bien en viajes de nicho y propone cómo aplicarlo, siempre con fuente")+
+    (P.length?`<div class="tabs" style="padding:0 20px 10px">${["todas",...salas].map(x=>`<button class="tab" data-bpsala="${esc(x)}" aria-pressed="${f===x}">${x==="todas"?"Todas las salas":esc(x)}</button>`).join("")}</div>
+    <ol class="prios">${L.map(x=>`<li class="prio"><div><h4>${esc(x.empresa)}: ${esc(x.practica)}</h4><p>${esc(x.ejemplo||"")}</p>${x.dato?`<p><b>Dato:</b> ${esc(x.dato)}</p>`:""}<p class="bf-imp">→ ${esc(x.aplicar||"")}</p><div class="imeta"><span class="cx-sala">${esc(x.sala||"")}</span><span>${fu(x.fuentes)}</span></div></div></li>`).join("")}</ol>`:vacio("Marcos"));}
+}
+document.addEventListener("click",async e=>{const t=e.target.closest("[data-bpsala]");if(t){st.bpSala=t.dataset.bpsala;pintarCompExp();return}
+  const v=e.target.closest("[data-vigilar]");if(!v)return;const c=(st.compExp?.candidatos||[]).find(x=>x.id===v.dataset.vigilar);if(!c||!st.db)return;
+  try{await st.db.doc("players/"+c.id).set({nombre:c.nombre,web:String(c.web||"").replace(/^https?:\/\//,"").replace(/\/$/,""),mercados:c.mercados||[],vigilanciaWeb:false,orden:50,notas:"Propuesto por Inés (exploración): "+(c.porque||""),alta:new Date().toISOString()});toast(c.nombre+" pasa a players vigilados")}catch(_){toast("No se ha podido añadir")}});
+function pintarCompetencia(){pintarCompExp();
   const e=st.estadoC||{},set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
   const sem=st.cambios.filter(c=>Date.now()-Date.parse(c.detectado)<7*864e5).length;
   set("compN",`${st.cambios.length} cambios registrados`);set("pantC",`${sem} cambios esta semana`);set("compUlt",e.ultimaBarrida?`Última investigación ${hace(e.ultimaBarrida)}`:"");
@@ -3831,6 +3857,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("estado/control").onSnapshot(s=>{st.ctrl.estado=s.exists?s.data():null;pintarControl()});
   db.collection("players").limit(100).onSnapshot(s=>{st.players=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99));pintarCompetencia()});
   db.collection("comp_cambios").orderBy("detectado","desc").limit(400).onSnapshot(s=>{st.cambios=s.docs.map(d=>({id:d.id,...d.data()}));pintarCompetencia()});
+  db.doc("comp_exploracion/actual").onSnapshot(s=>{st.compExp=s.exists?s.data():null;pintarCompExp()});
   db.doc("estado/competencia").onSnapshot(s=>{st.estadoC=s.exists?s.data():null;pintarCompetencia()});
   db.doc("estado/radar").onSnapshot(s=>{st.estado=s.exists?s.data():null;if(document.activeElement?.id!=="q")pintarDatos()});
 })();

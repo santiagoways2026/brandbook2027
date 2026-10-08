@@ -861,6 +861,14 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .cn-e td.cn-l3{padding-left:66px}.cn-e td.cn-l2r{padding-left:44px}
 .cn-e tr.cn-raw.cn-rara td{background:#2a2508;color:#f5e6a3}.cn-e tr.cn-raw.cn-rara code{color:#fde68a}
 .cn-tag.rev{background:#3d3410;color:#f5d76e}
+.mr-wrap{overflow-x:auto}.mr-t{min-width:1400px}.mr-t td,.mr-t th{white-space:nowrap}.mr-t td:first-child{text-align:left}
+.mr-g td{background:#0f1a2c;color:#93c5fd;font:700 13px var(--f-ui);letter-spacing:.06em;text-align:left}
+.mr-camp td{background:#141a22;text-align:left}.mr-camp small{color:var(--tenue);margin-left:6px;font-size:11.5px}.mr-pz{cursor:pointer}
+.mr-f td:first-child{padding-left:22px}.mr-pf td:first-child{color:#c3cad3}.mr-sin td{color:#c3cad3;font-style:italic}
+.mr-al td{background:#221d0b;color:#f3e7b3;border-left:3px solid #f5d76e;text-align:left;white-space:normal;font-size:12.5px;line-height:1.5;padding-left:22px}
+.mr-alx{position:sticky;left:22px;max-width:min(1000px,64vw)}.mr-tot td{background:#1a1f27;font-weight:700}.mr-gen td{background:#1d2a44;color:#e6eefc}
+.mr-est{font:600 11px var(--f-mono);color:#b5dd4a}.mr-est.off{color:#ffb38a}
+.mr-ckb{background:none;border:0;cursor:pointer;padding:0}.mr-ck{display:inline-block;width:20px;height:20px;border-radius:5px;font:700 12px/20px var(--f-ui);text-align:center}.mr-ck.si{background:#1e3a12;color:#b5dd4a}.mr-ck.no{background:#3a1616;color:#ff8a8a}
 .cn-revw{margin:12px 20px 0;padding:10px 14px;border:1px solid #6b5a12;border-radius:8px;background:#221d0b;color:#f3e7b3;font-size:13px;line-height:1.55}.cn-revw b{color:#f5d76e}.cn-revw code{font-size:12px;color:#fde68a}
 .cn-utmtg{padding:10px 20px 0;font-size:13px;color:#d6dbe1}.cn-utmtg input{vertical-align:-2px;margin-right:6px}
 a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.5px;padding:4px 10px}
@@ -1048,7 +1056,7 @@ const MARCOS=[
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
   {id:"cr",grupo:"cr",nombre:"Conversión (CR) / Sala",x:0,y:0,w:1200},
   {id:"metaads",grupo:"metaads",nombre:"Meta Ads / Sala",x:0,y:0,w:1200},
-  {id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
+  {id:"meta_rep",grupo:"metaads",dato:true,nombre:"Meta Ads / Campañas activas",x:0,y:-9000,w:1500},{id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
   {id:"cr_evolucion",grupo:"cr",dato:true,nombre:"Conversión (CR) / Evolución del CR",x:0,y:-9000,w:1300},
   {id:"cr_impacto",grupo:"cr",dato:true,nombre:"Conversión (CR) / Dónde está el impacto",x:0,y:-9000,w:1300},
   {id:"cr_plan",grupo:"cr",dato:true,nombre:"Conversión (CR) / Plan de mejora",x:0,y:-9000,w:1300},
@@ -1062,7 +1070,7 @@ const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],ti
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
 const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",community:"Community",diseno:"Diseño",captacion:"Captación",paid:"Paid Media",lifecycle:"Lifecycle",cr:"Conversión (CR)",control:"Sala de Control"};
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
@@ -1187,7 +1195,7 @@ const RES_LISTA=3,RES_TABLA=6,RES_TARJ=4;
 function resumir(raiz){if(!raiz)return;
   const mas=(el,n,txt)=>{if(el.nextElementSibling?.classList?.contains("res-mas"))return;const b=document.createElement("button");b.type="button";b.className="res-mas";b.textContent=`+ ${n} ${txt}`;b.dataset.resmas="1";el.after(b)};
   raiz.querySelectorAll("ol.prios,ol.bit,.cola").forEach(l=>{if(l.dataset.res)return;l.dataset.res="1";const h=[...l.children];if(h.length>RES_LISTA+1){h.slice(RES_LISTA).forEach(x=>x.classList.add("res-oculto"));mas(l,h.length-RES_LISTA,"más")}});
-  raiz.querySelectorAll("table.tabla:not(.bf-t) tbody").forEach(t=>{if(t.dataset.res)return;t.dataset.res="1";const h=[...t.children];if(h.length>RES_TABLA+1){h.slice(RES_TABLA).forEach(x=>x.classList.add("res-oculto"));mas(t.closest("div[style*=overflow],.mc-sec,table")||t.closest("table"),h.length-RES_TABLA,"filas más")}});
+  raiz.querySelectorAll("table.tabla:not(.bf-t):not(.mr-t) tbody").forEach(t=>{if(t.dataset.res)return;t.dataset.res="1";const h=[...t.children];if(h.length>RES_TABLA+1){h.slice(RES_TABLA).forEach(x=>x.classList.add("res-oculto"));mas(t.closest("div[style*=overflow],.mc-sec,table")||t.closest("table"),h.length-RES_TABLA,"filas más")}});
   raiz.querySelectorAll(".k-grid").forEach(g=>{if(g.dataset.res)return;g.dataset.res="1";const h=[...g.children];if(h.length>RES_TARJ+1){h.slice(RES_TARJ).forEach(x=>x.classList.add("res-oculto"));mas(g,h.length-RES_TARJ,"más")}});
   raiz.querySelectorAll(".cont p, .k-c p, .prio p").forEach(p=>{if(p.dataset.res)return;p.dataset.res="1";if((p.textContent||"").length>240)p.classList.add("res-clamp")});
 }
@@ -3155,7 +3163,53 @@ function pintarMetaUtm(){const el=document.getElementById("c-meta_utm");if(!el||
    ${[A.campanas,A.conflictos].filter(Boolean).map(t=>`<div class="seccion-t">${esc(t.titulo)}</div>${t.nota?`<p style="padding:0 20px;margin:0 0 6px;font-size:12.5px;color:var(--tenue)">${esc(t.nota)}</p>`:""}<div class="mc-sec" style="overflow-x:auto"><table class="tabla"><thead><tr>${t.cols.map((c,i)=>`<th${i<3?` style="text-align:left"`:""}>${esc(c)}</th>`).join("")}</tr></thead><tbody>${t.filas.map(f=>`<tr>${f.map((c,i)=>`<td${i<3||i>3?` style="text-align:left"`:""}>${esc(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`).join("")}
    <div class="seccion-t">Plantilla de parámetros</div><pre class="mu-pre">${esc(A.plantilla||"")}</pre>
    ${(A.pendiente||[]).length?`<div class="seccion-t">Pendiente</div><ol class="bf-list">${A.pendiente.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}`}
-function pintarSalasN(){pintarCR();pintarSeoRed();pintarMetaUtm();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+/* ---------- Meta Ads: informe de campañas activas ---------- */
+const MR_EST=[{g:"ES",c:[["latam","LATAM"],["arg","Argentina"],["mex","México"],["esp","España"]]},{g:"EN",c:[["uk","UK, IR, AUS, NZ"],["usa","EEUU + Canadá"]]},{g:"DE",c:[["de","Alemania y Austria"]]},{g:"IT",c:[["it","Italia"]]},{g:"PT",c:[["br","PT · Brasil"]]}];
+const MR_META={latam:"LATAM Remarketing CRM y Pixel Web (ES)",arg:"Argentina y Uruguay Remarketing CRM y Pixel Web (ES)",mex:"Mexico - Zoho CRM (ES)",esp:"España Remarketing CRM y Pixel Web (ES)",uk:"UK, Irlanda, Nueva Zelanda y Australia Remarketing CRM y Pixel Web (EN)",usa:"EEUU y Canadá Remarketing CRM y Pixel Web (EN)",de:"Alemania y Austria Remarketing CRM y Pixel Web (DE)",it:"Italia Remarketing CRM y Pixel Web (IT)",br:"Brasil Remarketing CRM y Pixel Web (PT)"};
+const MR_AUD=[["crm","Remarketing clientes"],["pixel","Remarketing contactos con interés"],["sin","Deals con UTM antigua (sin audiencia)"]];
+function mrSuma(D,keys,de,ha){const t={i:0,c:0,s:0,l:0,d:0,w:0};for(const k of keys){const x=D[k];if(!x)continue;
+  for(const[ym,v]of Object.entries(x.m||{})){const n=+ym;if(n<de||n>ha)continue;t.i+=v[0];t.c+=v[1];t.s+=v[2];t.l+=v[3]}
+  for(const[ym,v]of Object.entries(x.d||{})){const n=+ym;if(n>=de&&n<=ha)t.d+=v}
+  for(const[ym,cs]of Object.entries(x.w||{})){const n=+ym;if(n<de||n>ha)continue;for(const[cy,v]of Object.entries(cs))if(+cy<=ha)t.w+=v}}return t}
+function pintarMetaRep(){const el=document.getElementById("c-meta_rep");if(!el||st.dentro!=="metaads")return;const R=st.metaRep;
+  if(!R){el.innerHTML=`<div class="mcab"><div><h2>Campañas activas</h2></div></div><div class="vacio">Martina está cruzando Meta Ads con el CRM.</div>`;return}
+  const V=st.mrV||(st.mrV={desde:R.desde_defecto||R.meses[0],hasta:R.meses[R.meses.length-1],pausa:false}),D=R.datos||{},CH=(st.metaChk&&st.metaChk.filas)||{},AL=R.alertas||{};
+  const gr=x=>x.replace(/\B(?=(\d{3})+(?!\d))/g,"."),num=n=>gr(String(Math.round(n))),dec=n=>{const[e,d]=n.toFixed(2).split(".");return gr(e)+","+d},eur=n=>dec(n)+" €",pc=x=>dec(x*100)+" %",dv=(a,b,f)=>b?f(a/b):"—";
+  const celdas=t=>`<td>${num(t.i)}</td><td>${num(t.c)}</td><td>${dv(t.c,t.i,pc)}</td><td>${num(t.l)}</td><td>${dv(t.d,t.l,pc)}</td><td>${num(t.d)}</td><td>${eur(t.s)}</td><td>${dv(t.s,t.l,eur)}</td><td>${dv(t.s,t.d,eur)}</td><td>${num(t.w)}</td><td>${dv(t.s,t.w,eur)}</td>`;
+  const de=V.desde,ha=V.hasta,ok=v=>`<span class="mr-ck ${v?"si":"no"}">${v?"✓":"✕"}</span>`;
+  const chk=(c,a,i)=>{const v=CH[c]?.[a]?.[i];return`<td class="mr-c"><button class="mr-ckb" data-mrck="${c}|${a}|${i}" title="Pulsa para cambiar">${ok(v!==false)}</button></td>`};
+  let filas="",tg={i:0,c:0,s:0,l:0,d:0,w:0};const sumT=(a,b)=>{for(const k in a)a[k]+=b[k]};
+  for(const G of MR_EST){const tm={i:0,c:0,s:0,l:0,d:0,w:0};filas+=`<tr class="mr-g"><td colspan="16">${G.g}</td></tr>`;
+    for(const[c,n]of G.c){filas+=`<tr class="mr-camp"><td colspan="16"><b>${esc(n)}</b> <small>${esc(MR_META[c])}</small></td></tr>`;
+      for(const[a,lab]of MR_AUD){const t=mrSuma(D,[c+"|"+a],de,ha);if(a==="sin"&&!t.d)continue;
+        if(a!=="sin"&&!t.i&&!t.d&&!(c==="mex"&&a==="pixel")&&!(D[c+"|"+a]))continue;
+        const est=a==="sin"?"":c==="mex"&&a==="pixel"?`<span class="mr-est off">NO EXISTE</span>`:`<span class="mr-est">ACTIVA</span>`;
+        filas+=`<tr class="mr-f${a==="sin"?" mr-sin":""}"><td>${esc(lab)}</td><td>${est}</td>${a==="sin"||(c==="mex"&&a==="pixel")?"<td></td><td></td><td></td>":chk(c,a,0)+chk(c,a,1)+chk(c,a,2)}${celdas(t)}</tr>`;sumT(tm,t)}
+      for(const x of(AL[c]||[]))filas+=`<tr class="mr-al"><td colspan="16"><div class="mr-alx">⚠ ${esc(x)}</div></td></tr>`}
+    const ps=Object.entries(R.pausadas||{}).filter(([,m])=>m===G.g).map(([n])=>[n,mrSuma(D,["p:"+n],de,ha)]).filter(([,t])=>t.i||t.d||t.s);
+    if(ps.length){const tp={i:0,c:0,s:0,l:0,d:0,w:0};ps.forEach(([,t])=>sumT(tp,t));sumT(tm,tp);
+      filas+=`<tr class="mr-camp mr-pz" data-mrpausa><td colspan="5"><b>${V.pausa?"▾":"▸"} Campañas en pausa (${ps.length})</b> <small>con gasto o deals en el periodo</small></td>${celdas(tp)}</tr>`;
+      if(V.pausa)ps.sort((a,b)=>b[1].s-a[1].s).forEach(([n,t])=>filas+=`<tr class="mr-f mr-pf"><td colspan="2">${esc(n)}</td><td colspan="3"><span class="mr-est off">EN PAUSA</span></td>${celdas(t)}</tr>`)}
+    filas+=`<tr class="mr-tot"><td colspan="5">TOTAL ${G.g}</td>${celdas(tm)}</tr>`;sumT(tg,tm)}
+  const ts=mrSuma(D,["sin"],de,ha);sumT(tg,ts);
+  filas+=`<tr class="mr-f mr-sin"><td colspan="5">Deals de Meta sin campaña identificable</td>${celdas(ts)}</tr>`;
+  const desg=Object.entries(R.sin_desglose||{}).slice(0,8).map(([k,n])=>`${k} (${num(n)})`).join(", ");
+  filas+=`<tr class="mr-al"><td colspan="16"><div class="mr-alx">⚠ utm_campaign que no se pueden atribuir a ninguna campaña (en todo 2026): ${esc(desg)}.</div></td></tr>`;
+  filas+=`<tr class="mr-tot mr-gen"><td colspan="5">TOTAL GENERAL</td>${celdas(tg)}</tr>`;
+  const M=R.meses,optM=s=>M.map(m=>`<option value="${m}"${m===s?" selected":""}>${ymTxt(m)}</option>`).join(""),ult=M[M.length-1];
+  const pres=[["Este mes",ult,ult],["Desde septiembre",202609,ult],["Últimos 3 meses",M[Math.max(0,M.length-3)],ult],["Este año",M[0],ult]];
+  el.innerHTML=`<div class="mcab"><div><h2>Campañas activas</h2><div class="fuente-mc" style="margin-top:6px">${esc(R.autor||"")}</div></div><div class="meta">${R.fecha?esc(hace(R.fecha)):""}</div></div>
+   <div class="cn-fechas"><label>Desde <select data-mrf="desde">${optM(de)}</select></label><label>Hasta <select data-mrf="hasta">${optM(ha)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${de===a&&ha===b?" prim":""}" data-mrpre="${a}-${b}">${n}</button>`).join("")}</div></div>
+   <div class="as-res"><div><b>${eur(tg.s)}</b><span>coste · ${esc(de===ha?ymTxt(de):ymTxt(de)+" a "+ymTxt(ha))}</span></div><div><b>${num(tg.l)}</b><span>conversiones Meta</span></div><div><b>${num(tg.d)}</b><span>deals CRM</span></div><div><b>${num(tg.w)}</b><span>deals won</span></div><div><b>${dv(tg.s,tg.w,eur)}</b><span>CPA</span></div></div>
+   ${R.general?`<div class="cn-revw"><b>⚠ Antes de leer</b> · ${esc(R.general)}</div>`:""}
+   <div class="mc-sec mr-wrap"><table class="tabla mr-t"><thead><tr><th style="text-align:left">Campaña / audiencia</th><th>Estado</th><th>UTM conv.</th><th>Creas</th><th>Audiencias</th><th>Impresiones</th><th>Clics</th><th>CTR</th><th>Conversiones</th><th>CR a deal</th><th>Deals CRM</th><th>Coste</th><th>CPL</th><th>CPL CRM</th><th>Deals won</th><th>CPA</th></tr></thead><tbody>${filas}</tbody></table></div>
+   <p class="as-nota">Meta Ads (Windsor.ai): impresiones, clics, conversiones (leads que atribuye Meta) y coste. Zoho CRM: deals con utm_source meta, asignados a cada campaña por utm_campaign (con los nombres antiguos y los ID ya unidos) y a cada audiencia por el utm_medium (_crm_remarketing = clientes; _pixel_remarketing = contactos con interés). CTR = clics / impresiones. CR a deal = deals CRM / conversiones de Meta. CPL = coste / conversiones; CPL CRM = coste / deals CRM; CPA = coste / deals won. Deals won = deals creados en el periodo que están won con Closing Date hasta el último mes del filtro (incluido), igual que en el resto de informes. UTM conv., Creas y Audiencias son tu revisión: pulsa ✓ / ✕ para cambiarlos. Las filas amarillas son avisos del equipo.</p>`}
+document.addEventListener("change",e=>{const s=e.target.closest("[data-mrf]");if(!s||!st.mrV)return;st.mrV[s.dataset.mrf]=Number(s.value);if(st.mrV.desde>st.mrV.hasta)[st.mrV.desde,st.mrV.hasta]=[st.mrV.hasta,st.mrV.desde];pintarMetaRep()});
+document.addEventListener("click",async e=>{const b=e.target.closest("[data-mrpre]");if(b&&st.mrV){const[a,c]=b.dataset.mrpre.split("-").map(Number);st.mrV.desde=a;st.mrV.hasta=c;pintarMetaRep();return}
+  if(e.target.closest("[data-mrpausa]")&&st.mrV){st.mrV.pausa=!st.mrV.pausa;pintarMetaRep();return}
+  const k=e.target.closest("[data-mrck]");if(!k||!st.db)return;const[c,a,i]=k.dataset.mrck.split("|");const F=JSON.parse(JSON.stringify((st.metaChk&&st.metaChk.filas)||{}));F[c]=F[c]||{};F[c][a]=F[c][a]||[true,true,true];F[c][a][+i]=F[c][a][+i]===false;
+  st.metaChk={...(st.metaChk||{}),filas:F};pintarMetaRep();try{await st.db.doc("meta_report/checks").set({filas:F,t:new Date().toISOString()})}catch(_){toast("No se ha podido guardar el cambio")}});
+function pintarSalasN(){pintarCR();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -3660,6 +3714,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
   db.doc("meta_ads/utm").onSnapshot(s=>{st.metaUtm=s.exists?s.data():null;pintarMetaUtm()});
+  db.doc("meta_report/actual").onSnapshot(s=>{st.metaRep=s.exists?s.data():null;pintarMetaRep()});db.doc("meta_report/checks").onSnapshot(s=>{st.metaChk=s.exists?s.data():null;pintarMetaRep()});
   db.doc("seo_red/actual").onSnapshot(s=>{st.seoRed=s.exists?s.data():null;pintarSeoRed()});
   db.doc("cr_plan/actual").onSnapshot(s=>{st.crPlan=s.exists?s.data():null;pintarCR()});
   db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA();pintarCR()});

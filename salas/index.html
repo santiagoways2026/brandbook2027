@@ -412,6 +412,14 @@ body[data-dentro] .marco.dato{display:none!important}
 .bf-kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:10px;padding:14px 20px}.bf-kpis>div{background:var(--marco-2);border:1px solid var(--borde);border-radius:6px;padding:12px;display:grid;gap:3px}.bf-kpis b{font:800 22px var(--f-ui);color:#fff}.bf-kpis span{font-size:13px;color:#d6dbe1}.bf-kpis em{font-style:normal;font-size:12.5px;color:#a3e635}.bf-kpis small{font-size:11.5px;color:var(--tenue)}
 .bf-titular p{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important;max-height:none!important}.bf-salas{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:10px;padding:0 20px}.bf-salas p{margin:6px 0 0}.bf-imp{color:#e7f5c8}
 .bf-list{margin:0;padding:6px 20px 6px 42px;display:grid;gap:8px;color:#dfe4ea;font-size:14px;line-height:1.5}.bf-t td,.bf-t th{white-space:normal!important}.bf-t td{vertical-align:top;font-size:13.5px;line-height:1.45}.bf-dec{display:inline-block;padding:2px 8px;border-radius:4px;background:#1f2a12;color:#d9f99d;font-weight:700;white-space:nowrap}.bf-dec.nueva{background:#12322a;color:#6ee7b7}.bf-dec.pausa{background:#3a2a0c;color:#fcd34d}.bf-dec.rehecha{background:#1e2a4a;color:#bfdbfe}
+.cr-chart{position:relative;padding:8px 20px 0}.cr-svg{width:100%;height:auto;display:block}.cr-grid{stroke:#232a33;stroke-width:1}.cr-ax{fill:#8a94a1;font:12px var(--f-ui)}.cr-lbl{fill:#e6eaee;font:600 13px var(--f-ui)}.cr-cross{stroke:#6b7280;stroke-width:1;stroke-dasharray:3 3}
+.cr-leg{display:flex;gap:16px;font-size:13px;color:#d6dbe1;padding:0 0 6px}.cr-leg i,.cr-tip i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+.cr-tip{position:absolute;pointer-events:none;background:#0b0e13;border:1px solid var(--borde-2);border-radius:6px;padding:8px 10px;font-size:13px;color:#e6eaee;display:grid;gap:4px;min-width:170px;box-shadow:0 8px 24px rgba(0,0,0,.5)}.cr-tip small{color:#8a94a1}.cr-tip[hidden]{display:none}
+.cr-det{padding:10px 20px}.cr-det summary{cursor:pointer;color:#c3cad4;font-size:13.5px}.cr-up{color:#a3e635}.cr-dn{color:#ff8a8a}
+.cr-sub{padding:0 20px;margin:0 0 6px;color:#9aa4b1;font-size:13px}.cr-bars{display:grid;gap:6px;padding:4px 20px 8px}.cr-bar{display:grid;grid-template-columns:minmax(220px,1.2fr) 2fr 150px;gap:12px;align-items:center;background:var(--marco-2);border:1px solid var(--borde);border-radius:6px;padding:8px 12px}
+.cr-bn b{display:block;color:#f1f3f5;font-size:14px}.cr-bn small{color:#9aa4b1;font-size:12px}.cr-bt{height:10px;background:#1a1f27;border-radius:5px;overflow:hidden}.cr-bt i{display:block;height:100%;background:#f97316;border-radius:0 4px 4px 0}.cr-bar.ok .cr-bt i{background:#6f9a14}.cr-bv{text-align:right;font:700 13.5px var(--f-ui);color:#e6eaee}
+.cr-imp{background:#1f2a12;color:#d9f99d;padding:2px 8px;border-radius:4px;font-weight:700}
+@media(max-width:700px){.cr-bar{grid-template-columns:1fr}.cr-bv{text-align:left}}
 .titular{padding:20px;border-bottom:1px solid var(--borde)}
 .titular .eye{font:600 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:#f5d76e}
 .titular h3{margin:10px 0 8px;font:700 26px/1.2 var(--f-ui);letter-spacing:-.01em;text-wrap:balance}
@@ -816,6 +824,7 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .cn-e td.cn-med{text-align:left;vertical-align:middle;background:#0f1318}.cn-e td.cn-sub2{text-align:left;background:#0d1015;color:#cfd5dc}
 .cn-e td.cn-sd{color:#ff6b6b}.cn-e td.cn-tg{background:#1a1f27;font-weight:700}
 .cn-e tr.cn-tot td{background:#3a3415;color:#fff3c4;font-weight:800}.cn-e tr.cn-tot td:first-child{text-align:left}
+.cn-e tr.cn-gh .cn-tot{margin-left:12px;font:600 12px var(--f-ui);letter-spacing:0;opacity:.75}
 .cn-e tr.cn-gen td{background:#40291a;color:#ffe2cc;font-weight:800}.cn-e tr.cn-gen td:first-child{text-align:left}
 .cn-e th.cn-ac{background:#c9b400;color:#111;text-align:left}
 .cn-fechas{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 20px 0;font-size:13.5px;color:#d6dbe1}
@@ -1035,17 +1044,21 @@ const MARCOS=[
   {id:"comercial_mision",grupo:"comercial",dato:true,nombre:"Análisis comercial / Misión, equipo y fuentes",x:6000,y:4800,w:1300},
   {id:"comercial_datos",grupo:"comercial",dato:true,nombre:"Análisis comercial / Lo que ya sabemos",x:6000,y:5600,w:1300},
   {id:"g_comercial",grupo:"comercial",dato:true,nombre:"Análisis comercial / Google Analytics 4",x:6000,y:6400,w:1300},
+  {id:"cr",grupo:"cr",nombre:"Conversión (CR) / Sala",x:0,y:0,w:1200},
+  {id:"cr_evolucion",grupo:"cr",dato:true,nombre:"Conversión (CR) / Evolución del CR",x:0,y:-9000,w:1300},
+  {id:"cr_impacto",grupo:"cr",dato:true,nombre:"Conversión (CR) / Dónde está el impacto",x:0,y:-9000,w:1300},
+  {id:"cr_plan",grupo:"cr",dato:true,nombre:"Conversión (CR) / Plan de mejora",x:0,y:-9000,w:1300},
 ];
 /* Análisis de producto: eliminada de momento (petición de Álvaro) */
 for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i].grupo))MARCOS.splice(i,1);
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],mdirecto:[5600,4700],producto:[5000,7800]};
+const POS={captacion:[2900,1500],instagram:[-2700,-2600],youtube:[-900,-2600],tiktok:[900,-2600],radar:[2700,-2600],community:[-150,-1000],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[-150,4300],competencia:[-5200,-2600],journey:[-900,6000],comercial:[900,6000],cr:[2700,6000],mdirecto:[5600,4700],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_brief","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","players","cambios","comprrss","compbit","i_competencia"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_mision","comercial_datos","g_comercial"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -1066,6 +1079,7 @@ const PASILLOS_DEF=[
   {id:"pa23",d:ruta([[-4600,-1934],[-4600,-400],[-1500,-400],[-1500,1400],[-600,1400]],260),c:"#ff6b3d",txt:"Alertas de competencia → Control",sub:"competencia.cambios · cada 4 h",lx:-4100,ly:-470},
   {id:"pa24",d:ruta([[-300,6000],[-300,4800],[-150,4800]],140),c:"#a78bfa",txt:"Journey ↔ Lifecycle",sub:"etapas del cliente · fricciones",lx:-1040,ly:5400},
   {id:"pa25",d:ruta([[1500,6000],[1500,4800],[1350,4800]],140),c:"#818cf8",txt:"Comercial ↔ Lifecycle",sub:"ventas por idioma · embudo (Zoho)",lx:1560,ly:5400},
+  {id:"pa31",d:"M2100 6333 H2700",c:"#a3e635",txt:"Comercial ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:2130,ly:6270},
   {id:"pa26",d:"M300 6333 H900",c:"#c084fc",txt:"Journey ↔ Comercial",sub:"",lx:330,ly:6270},
   {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
   {id:"pa9",d:"M-4000 1760 C-2800 2060 -1700 2060 -600 1760",c:"#7AA606",txt:"Piezas propuestas → Control",sub:"diseno.piezas",lx:-2900,ly:2090},
@@ -1091,6 +1105,7 @@ const PERSONALIDAD={
   community:{c:"#e879f9",caracter:"La plaza",lema:"Todas las redes, una sola conversación",ambiente:"Una plaza con bancos, pantallas con los comentarios en directo y un tablón de ideas",tono:"Hablas como una directora de comunidad y redes: sintetizas Instagram, YouTube y el Radar Viral en insights claros con su dato y una acción concreta.",suelo:"sobres",obj:"bocadillos"},
   lifecycle:{c:"#22d3ee",caracter:"El ciclo",lema:"Del primer clic a la siguiente ruta",ambiente:"Una espiral luminosa con cada etapa del cliente y pantallas con el embudo en directo",tono:"Hablas como una directora de lifecycle: adquisición, conversión, repetición y recomendación por mercado, resumiendo lo que dicen Journey y Comercial y siempre con cifras.",suelo:"hex",obj:"antena"},
   journey:{c:"#a78bfa",caracter:"El recorrido",lema:"Cada paso del cliente, sin piedras en el zapato",ambiente:"Un mapa del viaje del cliente en la pared, con post-its en cada fricción",tono:"Hablas desde el cliente: en qué paso duda, qué le frena y qué le haría reservar y repetir; con datos del CRM y de la web.",suelo:"plano",obj:"concha"},
+  cr:{c:"#a3e635",caracter:"El laboratorio",lema:"Cada punto de CR son cientos de ventas",ambiente:"Pizarras con curvas mes a mes, un tablero de experimentos y una lista de palancas ordenada por impacto",tono:"Eres analítico y concreto: hablas de CR del mes, won en juego, palancas y experimentos, siempre con el dato de Zoho delante.",suelo:"velas",obj:"grafico"},
   comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
 };
 const OCULTAS=["comunidad","producto","mdirecto"];
@@ -1155,7 +1170,7 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   if(!m.dato&&st.dentro&&!SALAS_ACT[st.dentro].includes(id))salir(false);
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
-const SALA_TIT={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+const SALA_TIT={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",cr:"Conversión (CR)",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
 /* Resumen: deja lo esencial (3 puntos por lista, 6 filas por tabla, 3 líneas por párrafo) */
 const RES_LISTA=3,RES_TABLA=6,RES_TARJ=4;
 function resumir(raiz){if(!raiz)return;
@@ -1765,7 +1780,7 @@ function svgControl(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-const SALA_N={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
+const SALA_N={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Lifecycle",journey:"Journey de cliente",cr:"Conversión (CR)",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
 const SEM={bien:["#3ddc97","Bien"],vigilar:["#f5c518","Vigilar"],mal:["#ff5d5d","Actuar"]};
 function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
   if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
@@ -2535,6 +2550,20 @@ const SALAS_N=[
   tareas:["Conectar Zoho CRM: ventas por canal, mercado, ruta y agente","Embudo semanal por mercado con objetivos","Previsión de ventas 2027 por mes y mercado","Atribución de ventas cruzando Google, Meta, GA4 y CRM"],
   sug:["¿Qué mercado nos deja más margen por venta?","¿Dónde se cae el embudo?","¿Cuánto venderemos en 2027?"]}
 ];
+SALAS_N.push({id:"cr",nombre:"Conversión (CR)",tit:"Conversión (CR) · Evolución, impacto y mejora",color:"#a3e635",fondo:"#070a04",borde:"#2f4a12",lider:"Beatriz",pant:"CR del mes · won en juego",
+  sub:"solo CR: evolución, impacto y cómo mejorarlo",
+  equipo:[{id:"jefa",n:"Beatriz",rol:"Directora de conversión: prioriza las palancas y reporta a la Sala de Control",c:"#a3e635"},
+   {id:"evo",n:"Ramón",rol:"Evolución del CR: CR del mes por canal, mercado y año",c:"#7c86e8"},
+   {id:"imp",n:"Pilar",rol:"Impacto: qué segmentos tienen más won en juego",c:"#f97316"},
+   {id:"ases",n:"Lorenzo",rol:"Equipo comercial: CR por asesor e idioma, prácticas que funcionan",c:"#38bdf8"},
+   {id:"exp",n:"Inma",rol:"Experimentos: tiempos de respuesta, secuencias y formularios",c:"#e1306c"},
+   {id:"datos",n:"Nicolás",rol:"Datos y medición: Zoho, Closing Date, UTM y motivos de pérdida",c:"#f5d76e"}],
+  frases:{jefa:["Un punto de CR vale más que mil leads","Esto va a la Sala de Control","Primero lo que más won tiene en juego"],evo:["CR del mes, no acumulado","¿Mejoramos frente a 2025?","El mes en curso no cuenta"],imp:["Meta convierte por debajo","Search tiene el mayor volumen","¿Dónde está el hueco?"],ases:["Comparar con la mediana","Mismo idioma, mismo listón","¿Qué hace distinto quien más cierra?"],exp:["¿Cuánto tardamos en responder?","Test de secuencia en EN","Llamada en la primera hora"],datos:["Closing Date ya cargado","Falta el motivo de pérdida","UTM limpias, CR fiable"]},
+  mision:"Medir solo una cosa y mejorarla: la tasa de conversión de deal a venta. Seguir el CR del mes por canal, mercado y asesor, encontrar dónde hay más ventas en juego y proponer y medir las palancas que lo suben.",
+  objetivos:["CR del mes por canal, mercado y asesor, comparable mes a mes","Lista de palancas ordenada por won en juego","Experimentos con resultado medido en el CRM","Datos que faltan: tiempo de respuesta y motivo de pérdida"],
+  fuentes:[["Zoho CRM","Conectado en lectura: deals, Stage, Created Time, Closing Date y UTM",true],["Zoho Analytics","Conectado: deals por asesor e idioma",true],["Tiempo de primera respuesta","Pendiente: no está en el CRM",false],["Motivo de pérdida","Pendiente de revisar en Zoho",false]],
+  saber:[],tareas:[],
+  sug:["¿Dónde está la mayor mejora de CR?","¿Mejora el CR frente a 2025?","¿Qué asesores convierten mejor en EN?"]});
 SALAS_N.unshift({id:"instagram",nombre:"Instagram",tit:"Instagram · cuentas ES, EN y DE",color:"#e1306c",fondo:"#0c0508",borde:"#4a1a30",lider:"Valeria",pant:"@santiago_ways · @santiagoways_en · @santiago_ways_de",
   sub:"cuentas ES, EN y DE, reels y competencia",
   equipo:[{id:"jefa",n:"Valeria",rol:"Jefa de Instagram: estrategia de las tres cuentas; reporta a la Sala de Control",c:"#e1306c"},
@@ -2740,7 +2769,7 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-jmnodo]");
   const ob=e.target.closest("[data-jmobj]");if(ob){st.jmObj=ob.dataset.jmobj;pintarJourneyMapa()}});
 
 const ZLINK={canales:"https://crm.zoho.com/crm/tab/Reports/2161768000878444244",asesores:"https://analytics.zoho.com/workspace/1421271000007002001/view/1421271000007786063"};
-const zBtn=k=>`<a class="btn zlink" href="${ZLINK[k]}" target="_blank" rel="noopener">Abrir informe en Zoho ↗</a>`;
+const zBtn=(k,t)=>`<a class="btn zlink" href="${ZLINK[k]}" target="_blank" rel="noopener">${t||"Abrir informe en Zoho"} ↗</a>`;
 /* ===== Captación: deals, won y CR por canal (Utm_Source / Utm_Medium del módulo Deals de Zoho CRM) ===== */
 
 /* Estructura Organic / Paid acordada con dirección: cada utm_source/utm_medium cae en un medio */
@@ -2798,7 +2827,7 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   if(!C){el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div><div class="vacio">Álex está leyendo los deals de Zoho.</div>`;return}
   const V=st.cnV||(st.cnV={vista:"grupo",abiertos:new Set(),orden:"vol"}),MIN=C.min_deals||100;if(V.vista==="medium")V.vista="grupo";
   const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."),pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %";
-  const mens=(C.filas||[]).length>0&&C.filas[0].length===5,meses=mens?[...new Set(C.filas.map(f=>f[2]))].sort((a,b)=>a-b):[];
+  const mens=(C.filas||[]).length>0&&C.filas[0].length>=5,meses=mens?[...new Set(C.filas.map(f=>f[2]))].sort((a,b)=>a-b):[];
   if(mens){if(V.desde==null){V.desde=C.desde_defecto||meses[0];V.hasta=meses[meses.length-1]}
     const ag={};C.filas.forEach(([s,m,ym,d,w])=>{if(ym<V.desde||ym>V.hasta)return;const k=s+"\u0001"+m,x=ag[k]||(ag[k]=[s,m,0,0]);x[2]+=d;x[3]+=w});
     const fl=Object.values(ag);C={...C,filas:fl,total:[fl.reduce((t,f)=>t+f[2],0),fl.reduce((t,f)=>t+f[3],0)],periodo:V.desde===V.hasta?ymTxt(V.desde):`${ymTxt(V.desde)} a ${ymTxt(V.hasta)}`}}
@@ -2843,8 +2872,8 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-cnpre]");i
 
 /* ===== Captación: evolución mensual del CR por canal y mix Paid / Organic (mes de creación del deal) ===== */
 function cnMensual(C){const por={},tot={},meses=new Set();
-  (C.filas||[]).forEach(f=>{if(f.length<5)return;const[s,m,ym,d,w]=f,k=cnClasif(s,m).join("|");meses.add(ym);
-    const x=por[k]||(por[k]={}),y=x[ym]||(x[ym]=[0,0]);y[0]+=d;y[1]+=w;const t=tot[ym]||(tot[ym]=[0,0]);t[0]+=d;t[1]+=w});
+  (C.filas||[]).forEach(f=>{if(f.length<5)return;const[s,m,ym,d,w]=f,wm=f[5]||0,k=cnClasif(s,m).join("|");meses.add(ym);
+    const x=por[k]||(por[k]={}),y=x[ym]||(x[ym]=[0,0,0]);y[0]+=d;y[1]+=w;y[2]+=wm;const t=tot[ym]||(tot[ym]=[0,0,0]);t[0]+=d;t[1]+=w;t[2]+=wm});
   const orden=[];[["ORGANIC",CN_ORG],["PAID",CN_PAID]].forEach(([g,L])=>L.forEach(it=>Array.isArray(it)?it[1].forEach(sb=>orden.push([g,it[0],sb].join("|"))):orden.push(g+"|"+it)));
   return{meses:[...meses].sort((a,b)=>a-b),por,tot,orden}}
 const cnNom=k=>{const p=k.split("|");return p.length===3?(p[1]===p[2]?p[1]:`${p[1]} · ${p[2]}`):p[1]};
@@ -2858,31 +2887,29 @@ function cnRango(V,meses,ult){const y=Math.floor(ult/100),r=(V.rango||"12m");
 function pintarEvolucion(){const el=document.getElementById("c-captacion_evolucion");if(!el||st.dentro!=="captacion")return;const C=st.canales;
   if(!C||!(C.filas||[]).length||C.filas[0].length<5){el.innerHTML=`<div class="vacio">Álex está preparando los datos mensuales.</div>`;return}
   const M=cnMensual(C),ult=M.meses[M.meses.length-1],V=st.cnEv||(st.cnEv={rango:"12m",min:30,ver:"cr"});
+  const conCierre=C.filas[0].length>=6,iw=conCierre?2:1;
   const ms=cnRango(V,M.meses,ult),anios=[...new Set(M.meses.map(m=>Math.floor(m/100)))];
-  const inmad=new Set([ult,M.meses[M.meses.length-2]]);
-  const prevY=m=>m-100,celda=(x,m)=>x&&x[0]?x:null;
-  const filas=M.orden.filter(k=>ms.some(m=>M.por[k]?.[m]?.[0])).map(k=>{const vals=ms.map(m=>{const x=M.por[k]?.[m];return x&&x[0]>=V.min?x[1]/x[0]:null});
-    const sum=ms.reduce((t,m)=>{const x=M.por[k]?.[m];return x?[t[0]+x[0],t[1]+x[1]]:t},[0,0]);
-    const mad=ms.filter(m=>!inmad.has(m)),ahora=mad.reduce((t,m)=>{const x=M.por[k]?.[m];return x?[t[0]+x[0],t[1]+x[1]]:t},[0,0]),antes=mad.reduce((t,m)=>{const x=M.por[k]?.[prevY(m)];return x?[t[0]+x[0],t[1]+x[1]]:t},[0,0]);
-    const dl=ahora[0]>=V.min&&antes[0]>=V.min?(ahora[1]/ahora[0]-antes[1]/antes[0]):null;
-    const v3=mad.slice(-3),p3=mad.slice(-6,-3),r3=v3.reduce((t,m)=>{const x=M.por[k]?.[m];return x?[t[0]+x[0],t[1]+x[1]]:t},[0,0]),q3=p3.reduce((t,m)=>{const x=M.por[k]?.[m];return x?[t[0]+x[0],t[1]+x[1]]:t},[0,0]);
-    const tr=r3[0]>=V.min&&q3[0]>=V.min?(r3[1]/r3[0]-q3[1]/q3[0]):null;
-    return{k,vals,sum,dl,tr}});
-  const flecha=x=>x==null?`<span class="cn-tr">–</span>`:`<span class="cn-tr ${x>0.002?"sube":x<-0.002?"baja":""}">${x>0.002?"▲":x<-0.002?"▼":"="} ${(x*100).toFixed(1).replace(".",",")} pp</span>`;
+  const hoy=new Date(),mesAct=hoy.getFullYear()*100+hoy.getMonth()+1,enCurso=new Set([mesAct]);
+  const cr=x=>x&&x[0]?x[iw]/x[0]:null;
+  const filas=M.orden.filter(k=>ms.some(m=>M.por[k]?.[m]?.[0])).map(k=>{const vals=ms.map(m=>{const x=M.por[k]?.[m];return x&&x[0]>=V.min?x[iw]/x[0]:null});
+    const sum=ms.reduce((t,m)=>{const x=M.por[k]?.[m];return x?[t[0]+x[0],t[1]+x[iw]]:t},[0,0]);return{k,vals,sum}});
   const heat=(x,base)=>{if(x==null)return"";const r=base?x/base:1,a=Math.min(.55,Math.abs(r-1)*.9);return r>=1?`background:rgba(61,220,151,${a})`:`background:rgba(255,107,107,${a})`};
-  let h="",grp="";filas.forEach(f=>{const g=f.k.split("|")[0];if(g!==grp){grp=g;h+=`<tr class="cn-gh ${g==="PAID"?"cn-paid":"cn-org"}"><td colspan="${ms.length+4}"><span class="cn-dot"></span>${g}</td></tr>`}
+  const grpMes=(G,m)=>Object.entries(M.por).reduce((t,[k,x])=>k.startsWith(G+"|")&&x[m]?[t[0]+x[m][0],t[1]+x[m][iw]]:t,[0,0]);
+  const celdaG=(x)=>V.ver==="cr"?cnPct(x[0]?x[1]/x[0]:null,2):cnNum(x[0]);
+  let h="",grp="";filas.forEach(f=>{const g=f.k.split("|")[0];if(g!==grp){grp=g;const gm=ms.map(m=>grpMes(g,m)),gt=gm.reduce((t,x)=>[t[0]+x[0],t[1]+x[1]],[0,0]);
+      h+=`<tr class="cn-gh ${g==="PAID"?"cn-paid":"cn-org"}"><td><span class="cn-dot"></span>${g}<small class="cn-tot">${cnNum(gt[0])} deals · CR ${cnPct(gt[0]?gt[1]/gt[0]:null,2)}</small></td>${gm.map((x,i)=>`<td class="${enCurso.has(ms[i])?"cn-inm":""}">${celdaG(x)}</td>`).join("")}<td>${cnSpark(gm.map(x=>x[0]?x[1]/x[0]:null),g==="PAID"?"#f97316":"#3ddc97")}</td></tr>`}
     const base=f.sum[0]?f.sum[1]/f.sum[0]:0,cls=g==="PAID"?"cn-paid":"cn-org";
     h+=`<tr class="cn-lf ${cls}"><td class="cn-l1${f.k.endsWith("SIN DATA")?" cn-sd":""}">${esc(cnNom(f.k))}<small class="cn-tot">${cnNum(f.sum[0])} deals · CR ${cnPct(base,2)}</small></td>
-     ${ms.map((m,i)=>{const x=M.por[f.k]?.[m];const v=f.vals[i];return`<td class="cn-hm${inmad.has(m)?" cn-inm":""}" style="${V.ver==="cr"?heat(v,base):""}" title="${ymTxt(m)}: ${x?cnNum(x[0])+" deals, "+cnNum(x[1])+" won":"sin deals"}">${V.ver==="cr"?(v==null?(x&&x[0]?`<span class="cn-poco">${cnNum(x[0])}</span>`:""):cnPct(v)):(x?cnNum(x[0]):"")}</td>`}).join("")}
-     <td>${cnSpark(f.vals,g==="PAID"?"#f97316":"#3ddc97")}</td><td>${flecha(f.tr)}</td><td>${flecha(f.dl)}</td></tr>`});
-  const tm=ms.map(m=>M.tot[m]||[0,0]);
-  h+=`<tr class="cn-gen"><td>TOTAL</td>${tm.map(x=>`<td>${V.ver==="cr"?cnPct(x[0]?x[1]/x[0]:null):cnNum(x[0])}</td>`).join("")}<td>${cnSpark(tm.map(x=>x[0]?x[1]/x[0]:null),"#e6eaee")}</td><td></td><td></td></tr>`;
+     ${ms.map((m,i)=>{const x=M.por[f.k]?.[m];const v=f.vals[i];return`<td class="cn-hm${enCurso.has(m)?" cn-inm":""}" style="${V.ver==="cr"?heat(v,base):""}" title="${ymTxt(m)}: ${x?cnNum(x[0])+" deals creados, "+cnNum(x[iw])+(conCierre?" won cerrados ese mes":" won"):"sin deals"}">${V.ver==="cr"?(v==null?(x&&x[0]?`<span class="cn-poco">${cnNum(x[0])}</span>`:""):cnPct(v,2)):(x?cnNum(x[0]):"")}</td>`}).join("")}
+     <td>${cnSpark(f.vals,g==="PAID"?"#f97316":"#3ddc97")}</td></tr>`});
+  const tm=ms.map(m=>{const x=M.tot[m]||[0,0,0];return[x[0],x[iw]]});
+  h+=`<tr class="cn-gen"><td>TOTAL GENERAL</td>${tm.map((x,i)=>`<td class="${enCurso.has(ms[i])?"cn-inm":""}">${celdaG(x)}</td>`).join("")}<td>${cnSpark(tm.map(x=>x[0]?x[1]/x[0]:null),"#e6eaee")}</td></tr>`;
   el.innerHTML=`<div class="mcab"><div><h2>Evolución del CR por canal</h2></div></div>
    <div class="as-ctl"><div class="as-modo">${["12m",...anios.map(String)].map(r=>`<button class="btn${V.rango===r?" prim":""}" data-evr="${r}">${r==="12m"?"Últimos 12 meses":r}</button>`).join("")}</div>
-    <div class="as-modo"><button class="btn${V.ver==="cr"?" prim":""}" data-evv="cr">CR</button><button class="btn${V.ver==="vol"?" prim":""}" data-evv="vol">Deals</button></div>
+    <div class="as-modo"><button class="btn${V.ver==="cr"?" prim":""}" data-evv="cr">CR del mes</button><button class="btn${V.ver==="vol"?" prim":""}" data-evv="vol">Deals</button></div>
     <label>Mínimo por mes <select data-evmin>${[10,30,50,100].map(n=>`<option${n===V.min?" selected":""}>${n}</option>`).join("")}</select> deals</label>${zBtn("canales")}</div>
-   <div class="as-tw"><table class="as-t cn-e cn-ev"><thead><tr><th class="as-n">Canal</th>${ms.map(m=>`<th class="${inmad.has(m)?"cn-inm":""}">${ymTxt(m)}</th>`).join("")}<th>Tendencia</th><th>Últ. 3 meses vs 3 anteriores</th><th>vs mismo periodo año anterior</th></tr></thead><tbody>${h}</tbody></table></div>
-   <p class="as-nota">Cada fila es un canal y cada columna el mes en que se creó el deal (Created Time). El color compara el CR del mes con la media del propio canal en el periodo: verde por encima, rojo por debajo, así se ve si un canal mejora o empeora sin mezclarlo con los demás. Si un mes tiene menos deals que el mínimo, se muestra en gris solo el volumen. Los dos últimos meses van en cursiva porque muchos de sus deals siguen abiertos y su CR todavía subirá; por eso las dos columnas de comparación los excluyen. "pp" son puntos porcentuales de CR.</p>`}
+   <div class="as-tw"><table class="as-t cn-e cn-ev"><thead><tr><th class="as-n">Canal</th>${ms.map(m=>`<th class="${enCurso.has(m)?"cn-inm":""}">${ymTxt(m)}</th>`).join("")}<th>Tendencia</th></tr></thead><tbody>${h}</tbody></table></div>
+   <p class="as-nota">${conCierre?`CR del mes = deals won de los creados ese mes con Closing Date anterior al día 1 del mes siguiente / deals creados ese mes (Created Time). Por ejemplo, el CR de enero son los won de los deals de enero cerrados antes del 1 de febrero. Así cada mes se mide con la misma ventana y los meses son comparables entre sí, sin esperar a que maduren.`:`CR = deals won / deals creados ese mes. Pendiente de cargar el Closing Date.`} El color compara el CR del mes con la media del propio canal en el periodo: verde por encima, rojo por debajo. Si un mes tiene menos deals que el mínimo, se muestra en gris solo el volumen. El mes en curso va en cursiva porque aún no ha terminado. Las filas ORGANIC y PAID y el TOTAL GENERAL muestran el CR de todo el grupo cada mes.</p>`}
 document.addEventListener("click",e=>{const r=e.target.closest("[data-evr]");if(r&&st.cnEv){st.cnEv.rango=r.dataset.evr;pintarEvolucion();return}
   const v=e.target.closest("[data-evv]");if(v&&st.cnEv){st.cnEv.ver=v.dataset.evv;pintarEvolucion()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-evmin]");if(s&&st.cnEv){st.cnEv.min=Number(s.value);pintarEvolucion()}});
@@ -3000,7 +3027,81 @@ function pintarRoadmap(sala){const el=document.getElementById("c-"+sala+"_roadma
    ${(R.objetivos||[]).length?`<div class="rm-obj">${R.objetivos.map(o=>`<div><b>${esc(o.hoy)} → <i>${esc(o.meta)}</i></b><span>${esc(o.nombre)}</span></div>`).join("")}</div>`:""}
    ${calendarioRM(R.calendario)}
    <div class="rm-fases">${(R.fases||[]).map(f=>`<div class="rm-fase"><h3>${esc(f.nombre)}</h3>${(f.items||[]).map((x,i)=>`<div class="rm-it${x.estado==="hecho"?" hecho":""}"><span class="num">${i+1}</span><div><h4>${esc(x.titulo)}</h4>${x.dato?`<p>${esc(x.dato)}</p>`:""}<div class="pie">${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.quien?`<span>${esc(x.quien)}</span>`:""}<span>${esc(EST[x.estado]||x.estado||"pendiente")}</span></div></div></div>`).join("")}</div>`).join("")}</div>`}
-function pintarSalasN(){pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+
+/* ===== Sala de Conversión (CR): evolución, impacto y plan. CR del mes = won de los deals creados ese mes cerrados antes del día 1 del mes siguiente / deals creados ese mes ===== */
+const CR_COL={a:"#7c86e8",b:"#6f9a14"};
+const crMesAct=()=>{const h=new Date();return h.getFullYear()*100+h.getMonth()+1};
+const crPct=(x,d=2)=>x==null||isNaN(x)?"–":(x*100).toFixed(d).replace(".",",")+" %";
+const crPp=x=>x==null?"–":(x>0?"+":"")+(x*100).toFixed(2).replace(".",",")+" pp";
+function crSerie(C,seg){const t={};(C.filas||[]).forEach(f=>{const[s,m,ym,d]=f,wm=f[5]||0;if(seg!=="todos"&&cnClasif(s,m)[0]!==seg)return;const x=t[ym]||(t[ym]=[0,0]);x[0]+=d;x[1]+=wm});return t}
+function pintarCREvol(){const el=document.getElementById("c-cr_evolucion");if(!el||st.dentro!=="cr")return;const C=st.canales;
+  if(!C||!(C.filas||[]).length||C.filas[0].length<6){el.innerHTML=`<div class="vacio">Ramón está cargando los deals con su Closing Date.</div>`;return}
+  const V=st.crEv||(st.crEv={seg:"todos"}),T=crSerie(C,V.seg),act=crMesAct();
+  const anios=[...new Set(Object.keys(T).map(k=>Math.floor(k/100)))].sort().slice(-2),[y0,y1]=anios.length===2?anios:[anios[0]-1,anios[0]];
+  const val=(y,m)=>{const k=y*100+m,x=T[k];return x&&x[0]&&k<act?x[1]/x[0]:null};
+  const ultM=Math.max(...Object.keys(T).map(Number).filter(k=>Math.floor(k/100)===y1&&k<act))%100;
+  const acum=(y,hasta)=>{let d=0,w=0;for(let m=1;m<=hasta;m++){const x=T[y*100+m];if(x){d+=x[0];w+=x[1]}}return[d,w]};
+  const A0=acum(y0,ultM),A1=acum(y1,ultM),c0=A0[0]?A0[1]/A0[0]:null,c1=A1[0]?A1[1]/A1[0]:null;
+  const meses=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  const W=1100,H=300,L=56,R=120,Tp=24,B=34,vs=[];for(const y of[y0,y1])for(let m=1;m<=12;m++){const v=val(y,m);if(v!=null)vs.push(v)}
+  const mx=Math.max(.01,...vs)*1.15,X=m=>L+(m-1)*(W-L-R)/11,Y=v=>Tp+(1-v/mx)*(H-Tp-B);
+  const grid=[0,.25,.5,.75,1].map(f=>{const v=mx*f;return`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" class="cr-grid"/><text x="${L-8}" y="${Y(v)+4}" class="cr-ax" text-anchor="end">${crPct(v,1)}</text>`}).join("");
+  const linea=(y,c)=>{const p=[];for(let m=1;m<=12;m++){const v=val(y,m);if(v!=null)p.push([m,v])}if(!p.length)return"";const u=p[p.length-1];
+    return`<polyline points="${p.map(([m,v])=>X(m)+","+Y(v)).join(" ")}" fill="none" stroke="${c}" stroke-width="2" stroke-linejoin="round"/>${p.map(([m,v])=>`<circle cx="${X(m)}" cy="${Y(v)}" r="4" fill="${c}" stroke="var(--marco,#0f1318)" stroke-width="2"/>`).join("")}<text x="${X(u[0])+10}" y="${Y(u[1])+(c===CR_COL.b?-10:16)}" class="cr-lbl">${y} · ${crPct(u[1])}</text>`};
+  const hits=meses.map((n,i)=>`<rect x="${X(i+1)-(W-L-R)/22}" y="${Tp}" width="${(W-L-R)/11}" height="${H-Tp-B}" fill="transparent" data-crm="${i+1}"/><text x="${X(i+1)}" y="${H-12}" class="cr-ax" text-anchor="middle">${n}</text>`).join("");
+  const tabla=meses.map((n,i)=>{const m=i+1,a=T[y0*100+m],b=T[y1*100+m],va=val(y0,m),vb=val(y1,m);return`<tr><td class="as-n">${n}</td><td>${a?cnNum(a[0]):"–"}</td><td>${a?cnNum(a[1]):"–"}</td><td>${crPct(va)}</td><td>${b?cnNum(b[0]):"–"}</td><td>${b?cnNum(b[1]):"–"}</td><td>${y1*100+m>=act?"en curso":crPct(vb)}</td><td>${va!=null&&vb!=null?crPp(vb-va):"–"}</td></tr>`}).join("");
+  el.innerHTML=`<div class="mcab"><div><h2>Evolución del CR</h2></div></div>
+   <div class="as-ctl"><div class="as-modo">${[["todos","Todos los deals"],["PAID","Paid"],["ORGANIC","Organic"]].map(([k,n])=>`<button class="btn${V.seg===k?" prim":""}" data-crseg="${k}">${n}</button>`).join("")}</div>${zBtn("canales")}</div>
+   <div class="as-res"><div><b>${crPct(c1)}</b><span>CR del mes · ene a ${meses[ultM-1]} ${y1}</span></div><div><b>${crPct(c0)}</b><span>mismo periodo ${y0}</span></div><div><b class="${c1>c0?"cr-up":"cr-dn"}">${crPp(c1!=null&&c0!=null?c1-c0:null)}</b><span>diferencia</span></div><div><b>${cnNum(A1[0])}</b><span>deals ${y1}</span></div><div><b>${cnNum(A1[1])}</b><span>won en su mes ${y1}</span></div></div>
+   <div class="cr-chart"><div class="cr-leg"><span><i style="background:${CR_COL.a}"></i>${y0}</span><span><i style="background:${CR_COL.b}"></i>${y1}</span></div>
+    <svg viewBox="0 0 ${W} ${H}" class="cr-svg" role="img" aria-label="CR del mes por mes, ${y0} frente a ${y1}">${grid}${linea(y0,CR_COL.a)}${linea(y1,CR_COL.b)}<line class="cr-cross" x1="0" x2="0" y1="${Tp}" y2="${H-B}" style="display:none"/>${hits}</svg><div class="cr-tip" hidden></div></div>
+   <details class="cr-det"><summary>Ver la tabla</summary><div class="as-tw"><table class="as-t"><thead><tr><th class="as-n">Mes</th><th>Deals ${y0}</th><th>Won en el mes</th><th>CR ${y0}</th><th>Deals ${y1}</th><th>Won en el mes</th><th>CR ${y1}</th><th>Diferencia</th></tr></thead><tbody>${tabla}</tbody></table></div></details>
+   <p class="as-nota">CR del mes = deals won creados ese mes con Closing Date anterior al día 1 del mes siguiente / deals creados ese mes. Mide cuánto se cierra dentro del propio mes, así todos los meses son comparables. El mes en curso no se dibuja hasta que termine. Fuente: Zoho CRM, informe «Claude · Deals por UTM y mes».</p>`;
+  el._cr={T,y0,y1,val,meses}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-crseg]");if(b&&st.crEv){st.crEv.seg=b.dataset.crseg;pintarCREvol()}});
+document.addEventListener("mousemove",e=>{const r=e.target.closest&&e.target.closest("[data-crm]");const box=e.target.closest&&e.target.closest(".cr-chart");if(!box)return;const tip=box.querySelector(".cr-tip"),cr=box.querySelector(".cr-cross"),el=box.closest(".cont");
+  if(!r||!el||!el._cr){tip.hidden=true;cr.style.display="none";return}const m=+r.dataset.crm,{T,y0,y1,val,meses}=el._cr,x=+r.getAttribute("x")+ +r.getAttribute("width")/2;
+  cr.setAttribute("x1",x);cr.setAttribute("x2",x);cr.style.display="";const f=(y,c)=>{const t=T[y*100+m];return`<div><i style="background:${c}"></i>${y}: <b>${crPct(val(y,m))}</b> <small>${t?cnNum(t[1])+" de "+cnNum(t[0]):""}</small></div>`};
+  tip.innerHTML=`<b>${meses[m-1]}</b>${f(y0,CR_COL.a)}${f(y1,CR_COL.b)}`;tip.hidden=false;const bb=box.getBoundingClientRect();tip.style.left=Math.min(bb.width-190,e.clientX-bb.left+14)+"px";tip.style.top=(e.clientY-bb.top+10)+"px"});
+
+function pintarCRImpacto(){const el=document.getElementById("c-cr_impacto");if(!el||st.dentro!=="cr")return;const C=st.canales,A=st.ases;
+  if(!C||!(C.filas||[]).length||C.filas[0].length<6){el.innerHTML=`<div class="vacio">Pilar está cargando los datos.</div>`;return}
+  const act=crMesAct(),ms=[...new Set(C.filas.map(f=>f[2]))].filter(m=>m<act).sort((a,b)=>a-b),ult=ms[ms.length-1];
+  const V=st.crIm||(st.crIm={desde:Math.floor(ult/100)*100+1,hasta:ult});
+  const g={},T=[0,0];C.filas.forEach(f=>{const[s,m,ym,d]=f,wm=f[5]||0;if(ym<V.desde||ym>V.hasta)return;const k=cnClasif(s,m).join("|"),x=g[k]||(g[k]=[0,0]);x[0]+=d;x[1]+=wm;T[0]+=d;T[1]+=wm});
+  const ref=T[0]?T[1]/T[0]:0,MIN=300;
+  const can=Object.entries(g).filter(([,x])=>x[0]>=MIN).map(([k,[d,w]])=>({n:cnNom(k),g:k.split("|")[0],d,cr:w/d,ref,jg:d*(ref-w/d)}));
+  const peor=can.filter(x=>x.jg>0).sort((a,b)=>b.jg-a.jg).slice(0,8),mejor=can.filter(x=>x.jg<0).sort((a,b)=>a.jg-b.jg).slice(0,5);
+  let ases="",idi="";if(A&&(A.filas||[]).length){const a={},l={};A.filas.forEach(([n,lg,ym,d,w])=>{if(ym<V.desde||ym>V.hasta)return;const k=lg+"|"+n,x=a[k]||(a[k]=[0,0]);x[0]+=d;x[1]+=w;const y=l[lg]||(l[lg]=[0,0]);y[0]+=d;y[1]+=w});
+    const tl=Object.values(l).reduce((t,x)=>[t[0]+x[0],t[1]+x[1]],[0,0]),rl=tl[0]?tl[1]/tl[0]:0;
+    const il=Object.entries(l).filter(([,x])=>x[0]>=MIN).map(([k,[d,w]])=>({n:k,d,cr:w/d,ref:rl,jg:d*(rl-w/d)})).sort((a,b)=>b.jg-a.jg);
+    const med={};Object.keys(l).forEach(lg=>{const v=Object.entries(a).filter(([k,x])=>k.startsWith(lg+"|")&&x[0]>=MIN).map(([,x])=>x[1]/x[0]).sort((p,q)=>p-q);if(v.length>=3)med[lg]=v.length%2?v[(v.length-1)/2]:(v[v.length/2-1]+v[v.length/2])/2});
+    const al=Object.entries(a).filter(([k,x])=>x[0]>=MIN&&med[k.split("|")[0]]!=null).map(([k,[d,w]])=>{const[lg,n]=k.split("|");return{n:`${n} · ${lg}`,d,cr:w/d,ref:med[lg],jg:d*(med[lg]-w/d)}}).filter(x=>x.jg>0).sort((a,b)=>b.jg-a.jg).slice(0,10);
+    idi=crLista("Mercados (idioma del deal)",`CR acumulado de cada idioma frente a la media (${crPct(rl)}).`,il.filter(x=>x.jg>0));
+    ases=crLista("Asesores por debajo de la mediana de su idioma","CR acumulado frente a la mediana de los asesores de ese idioma con al menos 300 deals.",al)}
+  const opt=sel=>ms.map(m=>`<option value="${m}"${m===sel?" selected":""}>${ymTxt(m)}</option>`).join("");
+  el.innerHTML=`<div class="mcab"><div><h2>Dónde está el impacto</h2></div></div>
+   <div class="cn-fechas"><label>Desde <select data-crf="desde">${opt(V.desde)}</select></label><label>Hasta <select data-crf="hasta">${opt(V.hasta)}</select></label>${zBtn("canales","Informe de canales en Zoho")}${zBtn("asesores","Informe de asesores en Zoho")}</div>
+   <div class="as-res"><div><b>${crPct(ref)}</b><span>CR del mes medio del periodo</span></div><div><b>${cnNum(T[0])}</b><span>deals</span></div><div><b>${cnNum(Math.round(peor.reduce((t,x)=>t+x.jg,0)))}</b><span>won en juego en canales</span></div></div>
+   ${crLista("Canales que convierten por debajo de la media","CR del mes de cada canal frente a la media del periodo; solo canales con al menos 300 deals.",peor)}
+   ${crLista("Lo que ya funciona (para copiar)","Canales por encima de la media: lo que hacen ahí es lo que hay que llevar al resto.",mejor.map(x=>({...x,jg:-x.jg,mejor:true})))}
+   ${idi}${ases}
+   <p class="as-nota">Won en juego = deals × (CR de referencia − CR propio): las ventas que habría si ese segmento convirtiera como su referencia. No es una previsión; sirve para ordenar dónde mirar primero. Canales: CR del mes (Closing Date antes del día 1 del mes siguiente). Mercados y asesores: Zoho Analytics, que aún no trae el Closing Date, así que usan el CR acumulado (won a día de hoy). Los asesores con muy pocos deals y CR muy alto pueden estar recibiendo leads ya cualificados; se comparan con la mediana para que no distorsionen.</p>`}
+function crLista(t,sub,L){if(!L.length)return"";const mx=Math.max(...L.map(x=>x.jg));
+  return`<div class="seccion-t">${esc(t)}</div><p class="cr-sub">${esc(sub)}</p><div class="cr-bars">${L.map(x=>`<div class="cr-bar${x.mejor?" ok":""}"><div class="cr-bn"><b>${esc(x.n)}</b><small>${cnNum(x.d)} deals · CR ${crPct(x.cr)} · ref. ${crPct(x.ref)}</small></div><div class="cr-bt"><i style="width:${Math.max(2,x.jg/mx*100)}%"></i></div><div class="cr-bv">${x.mejor?"+":""}${cnNum(Math.round(x.jg))} ${x.mejor?"won por encima":"won en juego"}</div></div>`).join("")}</div>`}
+document.addEventListener("change",e=>{const s=e.target.closest("[data-crf]");if(!s||!st.crIm)return;st.crIm[s.dataset.crf]=Number(s.value);if(st.crIm.desde>st.crIm.hasta)[st.crIm.desde,st.crIm.hasta]=[st.crIm.hasta,st.crIm.desde];pintarCRImpacto()});
+
+function pintarCRPlan(){const el=document.getElementById("c-cr_plan");if(!el||st.dentro!=="cr")return;const P=st.crPlan;
+  if(!P){el.innerHTML=`<div class="mcab"><div><h2>Plan de mejora del CR</h2></div></div><div class="vacio">Beatriz está preparando el plan.</div>`;return}
+  const L=(a,f)=>(a||[]).map(f).join("");
+  el.innerHTML=`<div class="mcab"><div><h2>Plan de mejora del CR</h2><div class="fuente-mc" style="margin-top:6px">${esc(P.autor||"")} · ${esc(P.fuente||"")}</div></div><div class="meta">${P.fecha?esc(hace(P.fecha)):""}</div></div>
+   <div class="titular bf-titular"><div class="eye">Diagnóstico</div><h3>${esc(P.titular||"")}</h3><p>${esc(P.resumen||"")}</p></div>
+   <div class="bf-kpis">${L(P.kpis,k=>`<div><b>${esc(k.hoy)}</b><span>${esc(k.nombre)}</span>${k.meta?`<em>meta ${esc(k.meta)}</em>`:""}<small>${esc(k.fuente||"")}</small></div>`)}</div>
+   <div class="seccion-t">Acciones por impacto</div><ol class="prios">${L(P.acciones,x=>`<li class="prio"><div><h4>${esc(x.titulo)}</h4><p>${esc(x.dato)}</p><p class="bf-imp">→ ${esc(x.palanca)}</p><div class="imeta">${x.impacto?`<span class="cr-imp">${esc(x.impacto)}</span>`:""}<span>${esc(x.quien||"")}</span>${x.kpi?`<span>KPI: ${esc(x.kpi)}</span>`:""}${x.plazo?`<span>${esc(x.plazo)}</span>`:""}</div></div></li>`)}</ol>
+   ${(P.hipotesis||[]).length?`<div class="seccion-t">Hipótesis que hay que validar</div><ol class="bf-list">${L(P.hipotesis,h=>`<li>${esc(h)}</li>`)}</ol>`:""}
+   ${(P.pendiente||[]).length?`<div class="seccion-t">Datos que faltan</div><ol class="bf-list">${L(P.pendiente,h=>`<li>${esc(h)}</li>`)}</ol>`:""}`}
+function pintarCR(){pintarCREvol();pintarCRImpacto();pintarCRPlan()}
+function pintarSalasN(){pintarCR();pintarJourneyMapa();pintarAsesores();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -3503,8 +3604,9 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   ["instagram","youtube","seo","community","lifecycle"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
   db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
-  db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores()});
-  db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA()});
+  db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
+  db.doc("cr_plan/actual").onSnapshot(s=>{st.crPlan=s.exists?s.data():null;pintarCR()});
+  db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA();pintarCR()});
   db.doc("captacion_inversion/actual").onSnapshot(s=>{st.inversion=s.exists?s.data():null;pintarCPA()});
   db.doc("journey_mapa/actual").onSnapshot(s=>{st.jmapa=s.exists?s.data():null;pintarJourneyMapa()});
   db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});

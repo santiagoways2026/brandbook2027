@@ -690,7 +690,12 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .g-lista span::before{content:"✓";flex:none;width:4.6cqw;height:4.6cqw;border-radius:50%;background:#7AA606;color:#fff;font-size:3cqw;display:grid;place-items:center}
 .g-pie{margin-top:auto;font:400 3.1cqw/1.5 "Montserrat",sans-serif;color:#6F6F6E}
 /* verdes */
-.gp-verde,.g-cal{display:grid;grid-template-columns:repeat(4,1fr);gap:1.8cqw;margin-top:1cqw}.g-cal span{position:relative;border:.4cqw solid #E8E8E6;border-radius:1.4cqw;padding:3.2cqw 0;text-align:center;font:700 3.9cqw/1 "Montserrat",sans-serif;color:#9A9A98;background:#fff}.g-cal i{position:absolute;top:.6cqw;right:1.2cqw;font:700 2.6cqw/1 sans-serif;color:#fff}.g-cal .gc-mejor{background:#7AA606;border-color:#7AA606;color:#fff}.g-cal .gc-bueno{background:#E7F1CF;border-color:#C9DE95;color:#506718}.g-cal .gc-tranquilo{background:#fff;border-color:#7AA606;color:#506718}.g-cal .gc-lleno{background:#E8E8E6;border-color:#E8E8E6;color:#6F6F6E}.g-cal-ley{display:flex;flex-wrap:wrap;gap:1.6cqw 3.4cqw;font:600 2.8cqw/1.2 "Montserrat",sans-serif;color:#2E2E2D}.g-cal-ley span{display:flex;align-items:center;gap:1.2cqw}.g-cal-ley i{width:3cqw;height:3cqw;border-radius:.7cqw;border:.4cqw solid #E8E8E6}.g-cal-ley .gc-mejor i{background:#7AA606;border-color:#7AA606}.g-cal-ley .gc-bueno i{background:#E7F1CF;border-color:#C9DE95}.g-cal-ley .gc-tranquilo i{border-color:#7AA606}.g-cal-ley .gc-lleno i{background:#E8E8E6}
+.g-cal{display:grid;grid-template-columns:repeat(4,1fr);gap:1.8cqw;margin-top:1cqw}
+.gp-verde,.gp-lista-verde{background:linear-gradient(135deg,#7AA606,#628A04);color:#fff}
+.gp-lista-verde .g-ante,.gp-lista-verde .g-pie{color:#fff}
+.gp-lista-verde .sw{background:#506718}
+.gp-lista-verde .g-lista span{background:rgba(255,255,255,.16);color:#fff}
+.gp-lista-verde .g-lista span::before{background:#fff;color:#628A04}.g-cal span{position:relative;border:.4cqw solid #E8E8E6;border-radius:1.4cqw;padding:3.2cqw 0;text-align:center;font:700 3.9cqw/1 "Montserrat",sans-serif;color:#9A9A98;background:#fff}.g-cal i{position:absolute;top:.6cqw;right:1.2cqw;font:700 2.6cqw/1 sans-serif;color:#fff}.g-cal .gc-mejor{background:#7AA606;border-color:#7AA606;color:#fff}.g-cal .gc-bueno{background:#E7F1CF;border-color:#C9DE95;color:#506718}.g-cal .gc-tranquilo{background:#fff;border-color:#7AA606;color:#506718}.g-cal .gc-lleno{background:#E8E8E6;border-color:#E8E8E6;color:#6F6F6E}.g-cal-ley{display:flex;flex-wrap:wrap;gap:1.6cqw 3.4cqw;font:600 2.8cqw/1.2 "Montserrat",sans-serif;color:#2E2E2D}.g-cal-ley span{display:flex;align-items:center;gap:1.2cqw}.g-cal-ley i{width:3cqw;height:3cqw;border-radius:.7cqw;border:.4cqw solid #E8E8E6}.g-cal-ley .gc-mejor i{background:#7AA606;border-color:#7AA606}.g-cal-ley .gc-bueno i{background:#E7F1CF;border-color:#C9DE95}.g-cal-ley .gc-tranquilo i{border-color:#7AA606}.g-cal-ley .gc-lleno i{background:#E8E8E6}
 .gp-numero,.gp-cierre{background:linear-gradient(135deg,#7AA606,#628A04);color:#fff}
 .gp-verde .g-ante,.gp-numero .g-ante,.gp-sendero .g-ante{color:#fff}.gp-verde .g-baj{color:#fff;font-weight:700}
 .gp-verde .sw,.gp-numero .sw{background:#506718}
@@ -1994,7 +1999,7 @@ function igSlide(s,i,n){
     case"foto-blanco":h=`${foto}<div class="g-bajo">${ante}${tit}${baj}${desl}</div>`;break;
     case"foto-verde":h=`${foto}<div class="g-bajo">${tag}${ante}${tit}${baj}</div>`;break;
     case"testimonio":h=`${foto}<div class="g-caja">${ante}<div class="g-tit g-cita">“${esc(s.cita||s.tit||"")}”</div>${s.autor?`<div class="g-autor">${esc(s.autor)}</div>`:""}</div>`;break;
-    case"lista":h=`<div class="g-txt">${ante}${tit}<div class="g-lista">${(s.items||[]).slice(0,6).map(t=>`<span>${esc(t)}</span>`).join("")}</div>${baj?`<div class="g-pie">${esc(s.baj)}</div>`:""}</div>`;break;
+    case"lista":case"lista-verde":h=`<div class="g-txt">${ante}${tit}<div class="g-lista">${(s.items||[]).slice(0,6).map(t=>`<span>${esc(t)}</span>`).join("")}</div>${baj?`<div class="g-pie">${esc(s.baj)}</div>`:""}</div>`;break;
     case"numero":h=`<div class="g-txt g-centro">${ante}<div class="g-num">${esc(s.num||"")}</div>${tit}${chips}</div>`;break;
     case"sendero":h=`<div class="g-txt">${ante}<div class="g-medio">${tit}${baj}</div>${chips}</div>`;break;
     case"franja":h=`<div class="g-txt">${ante}${tit}${baj}</div><div class="g-franja">${esc(s.franja||"")}</div>`;break;

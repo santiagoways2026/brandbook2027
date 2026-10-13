@@ -1,0 +1,142 @@
+/* ============================================================
+   REUSABLE RESPONSIVE TABLES
+   ------------------------------------------------------------
+   Applies to any table with the class .tabla-responsive
+   wrapped in a .tabla-responsive-wrap container.
+
+   - Desktop: classic table with green header.
+   - Intermediate widths: smooth horizontal scroll.
+   - Mobile (<= 680px): each row turns into a card.
+
+   Works with 2, 3, 4 or more columns WITHOUT changes.
+   Colors are controlled with CSS variables (see below).
+   ============================================================ */
+
+/* Wrapper. Required for horizontal scroll at intermediate widths. */
+.tabla-responsive-wrap {
+    margin: 32px 0;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
+
+/* Table. Theme variables live here.
+   To change the color across the WHOLE site, edit only these values.
+   To change the color of a SINGLE table, set them inline in the HTML:
+   <table class="tabla-responsive" style="--tabla-acento-1:#1d4ed8; --tabla-acento-2:#1e3a8a;"> */
+.tabla-responsive {
+    --tabla-acento-1: #7AA606;   /* light green (gradient start) */
+    --tabla-acento-2: #668814;   /* dark green (gradient end and labels) */
+    --tabla-texto:    #111111;   /* cell text color */
+    --tabla-borde:    #e5e7eb;   /* lines and borders */
+    --tabla-cebra:    #fafaf9;   /* even-row background */
+    --tabla-radio:    16px;      /* corner radius */
+
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 15px;
+    line-height: 1.5;
+    background: #ffffff;
+    border: 1px solid var(--tabla-borde);
+    border-radius: var(--tabla-radio);
+    overflow: hidden;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
+}
+
+.tabla-responsive th {
+    background: linear-gradient(135deg, var(--tabla-acento-1), var(--tabla-acento-2));
+    color: #ffffff;
+    text-align: left;
+    padding: 16px 18px;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+.tabla-responsive td {
+    padding: 16px 18px;
+    border-top: 1px solid var(--tabla-borde);
+    color: var(--tabla-texto);
+    vertical-align: top;
+}
+
+.tabla-responsive tbody tr:nth-child(even) {
+    background: var(--tabla-cebra);
+}
+
+/* ---------- MOBILE: each row becomes a card ----------
+   The breakpoint (680px) cannot be a CSS variable because media
+   queries can't read variables. Change it here if you need another value. */
+@media (max-width: 680px) {
+
+    .tabla-responsive-wrap {
+        overflow-x: visible;
+    }
+
+    .tabla-responsive {
+        border: 0;
+        box-shadow: none;
+        background: transparent;
+    }
+
+    /* Hide the header accessibly (screen readers still read it) */
+    .tabla-responsive thead {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0 0 0 0);
+        white-space: nowrap;
+    }
+
+    .tabla-responsive tbody,
+    .tabla-responsive tr,
+    .tabla-responsive td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabla-responsive tr {
+        background: #ffffff;
+        border: 1px solid var(--tabla-borde);
+        border-radius: var(--tabla-radio);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.08);
+        margin-bottom: 18px;
+        overflow: hidden;
+    }
+
+    /* Disable zebra striping in card mode so all cards look identical */
+    .tabla-responsive tbody tr:nth-child(even) {
+        background: #ffffff;
+    }
+
+    .tabla-responsive td {
+        border-top: 1px solid #f0f0ef;
+        padding: 12px 16px;
+    }
+
+    /* The first cell acts as the card title */
+    .tabla-responsive td:first-child {
+        background: linear-gradient(135deg, var(--tabla-acento-1), var(--tabla-acento-2));
+        color: #ffffff;
+        font-size: 16px;
+        padding: 14px 16px;
+    }
+
+    /* Column label shown before each value.
+       Only appears if the cell has a data-label attribute,
+       so cells without a label don't render an empty gap. */
+    .tabla-responsive td[data-label]::before {
+        content: attr(data-label);
+        display: block;
+        font-size: 12px;
+        font-weight: bold;
+        text-transform: uppercase;
+        letter-spacing: 0.03em;
+        color: var(--tabla-acento-2);
+        margin-bottom: 4px;
+    }
+
+    /* The title cell never shows a label */
+    .tabla-responsive td:first-child::before {
+        display: none;
+    }
+}

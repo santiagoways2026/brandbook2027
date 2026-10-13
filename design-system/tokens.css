@@ -1,0 +1,53 @@
+/* ============================================================
+   Santiago Ways · Brandbook 2027
+   Tokens de marca. Fuente: Santiago_Ways_Brandbook_2027.pdf
+   NO inventar valores nuevos: si falta un token, se añade aquí.
+   ============================================================ */
+
+:root {
+  /* --- Color · ratio orientativo por pieza 50/30/10/7/3 --- */
+  --sw-blanco:          #FFFFFF;  /* 50% · el principal, siempre */
+  --sw-verde-ways:      #7AA606;  /* 30% · principal secundario. Cajas, líneas, concha. NUNCA texto sobre blanco */
+  --sw-verde-sendero:   #506718;  /* 10% · resalte: cajas oscuras y palabras clave */
+  --sw-grafito:         #2E2E2D;  /*  7% · texto principal */
+  --sw-gris:            #6F6F6E;  /*  3% · texto secundario */
+  --sw-niebla:          #E8E8E6;  /*  3% · superficies y bordes */
+  --sw-brote:           #FAFFEE;  /*  3% · superficies muy claras */
+
+  /* Degradado · SOLO en cajas de fondo verde Ways, a 135°, muy sutil */
+  --sw-degradado-caja:  linear-gradient(135deg, #7AA606 0%, #628A04 100%);
+
+  /* Sombra · todas las cajas. Botones, etiquetas y subrayados NO llevan sombra */
+  --sw-sombra-caja:     0 8px 32px rgba(46, 46, 45, 0.12);
+
+  /* --- Tipografía · Montserrat, una sola familia --- */
+  --sw-fuente: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+
+  --sw-peso-regular:    400;
+  --sw-peso-medium:     500;
+  --sw-peso-semibold:   600;
+  --sw-peso-bold:       700;
+  --sw-peso-extrabold:  800;
+
+  /* Escala web (px / interlineado) según la jerarquía del brandbook */
+  --sw-display:         64px;  --sw-display-lh:  1.05;  /* peso 800 */
+  --sw-h1:              48px;  --sw-h1-lh:       1.1;   /* peso 800 */
+  --sw-h2:              36px;  --sw-h2-lh:       1.15;  /* peso 700 */
+  --sw-h3:              28px;  --sw-h3-lh:       1.2;   /* peso 700 */
+  --sw-h4:              22px;  --sw-h4-lh:       1.2;   /* peso 700 */
+  --sw-texto:           16px;  --sw-texto-lh:    1.5;   /* peso 400 */
+  --sw-pie:             13px;  --sw-pie-lh:      1.4;   /* peso 400 */
+  --sw-antetitulo:      12px;  --sw-antetitulo-ls: 0.15em; /* MAYÚSCULAS · peso 700 */
+
+  /* --- Geometría --- */
+  --sw-radio:           12px;
+  --sw-radio-pill:      999px;
+  --sw-borde:           1px solid var(--sw-niebla);
+
+  /* --- Ritmo vertical --- */
+  --sw-esp-xs:  8px;
+  --sw-esp-sm:  16px;
+  --sw-esp-md:  24px;
+  --sw-esp-lg:  40px;
+  --sw-esp-xl:  64px;
+}

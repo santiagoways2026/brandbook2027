@@ -1,0 +1,27 @@
+<!-- ============================================================
+     BLOQUE · heroblogsw
+     Estado: CONFIRMADO (markup aportado por el cliente)
+     Uso: cabecera de artículo con foto a sangre y texto encima.
+     ============================================================
+     REGLAS DE MARCADO (respetar al pie de la letra)
+     1. La raíz es <section class="heroblogsw">, no un <div>.
+     2. El <img> va pegado a la etiqueta de apertura de la section,
+        en la misma línea, y se cierra con " />".
+     3. El overlay es un <div> vacío: lo pinta el CSS. Va siempre,
+        porque sin él el texto blanco pierde contraste sobre la foto.
+     4. El orden dentro de __content es fijo: badge, título, actions.
+     5. El título es <h2>. Si el bloque abre la página y no hay otro
+        encabezado por encima, valorar <h1>.
+     6. El badge y el botón llevan sus símbolos escritos en el HTML
+        (✔ y →). Aquí el CSS no los añade.
+     7. __actions admite más de un botón: el CSS es flex con gap.
+     ============================================================ -->
+
+<section class="heroblogsw"><img class="heroblogsw__img" src="https://santiagoways.com/wp-content/uploads/2019/10/feature-singles.webp" alt="Peregrinos caminando por una etapa del Camino de Santiago" />
+<div class="heroblogsw__overlay"></div>
+<div class="heroblogsw__content">
+<div class="heroblogsw__badge">✔ Actualizado 2026</div>
+<h2 class="heroblogsw__title">Todo lo que necesitas saber para organizar tu Camino paso a paso</h2>
+<div class="heroblogsw__actions"><a class="heroblogsw__button" href="/?page_id=11888">Ver rutas principales →</a></div>
+</div>
+</section>

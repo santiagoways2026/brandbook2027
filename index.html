@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Code · Santiago Ways</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;800&display=swap" rel="stylesheet">
+<style>
+  :root { --verde: #7AA606; --sendero: #506718; --tinta: #2E2E2D; --gris: #6F6F6E; --linea: #E2E4DE; }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0; min-height: 100vh; display: flex; align-items: center; justify-content: center;
+    padding: 40px 24px; background: #F6F7F3; color: var(--tinta);
+    font-family: Montserrat, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    font-size: 16px; line-height: 1.5;
+  }
+  .caja { max-width: 560px; width: 100%; background: #fff; border: 1px solid var(--linea); border-radius: 14px; padding: 40px; }
+  .antetitulo { margin: 0 0 6px; font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--gris); }
+  h1 { margin: 0 0 10px; font-size: 32px; line-height: 1.1; font-weight: 800; letter-spacing: -0.02em; }
+  p { margin: 0 0 24px; color: var(--gris); }
+  .enlaces { display: flex; flex-wrap: wrap; gap: 10px; }
+  a.boton { display: inline-block; padding: 13px 22px; border-radius: 8px; background: var(--verde); color: #fff; font-weight: 700; text-decoration: none; }
+  a.boton:hover { background: #6a9205; }
+  a.boton--suave { background: #EEF4DE; color: var(--sendero); }
+  a.boton--suave:hover { background: #E3EDCB; }
+</style>
+</head>
+<body>
+<div class="caja">
+  <p class="antetitulo">Design Code</p>
+  <h1>Santiago Ways</h1>
+  <p>Los 24 bloques de la web, con su HTML de referencia y un generador que convierte contenido en bruto en el marcado correcto.</p>
+  <div class="enlaces">
+    <a class="boton" href="app/">Abrir la herramienta</a>
+    <a class="boton boton--suave" href="design-system/preview.html">Ver los bloques</a>
+  </div>
+</div>
+</body>
+</html>

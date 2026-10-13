@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bloques · Santiago Ways</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="tokens.css">
+<link rel="stylesheet" href="bloques.css">
+<link rel="stylesheet" href="tabla-responsive.css">
+<style>
+  body { margin: 0; padding: 40px 24px 80px; background: var(--sw-blanco); font-family: var(--sw-fuente); color: var(--sw-grafito); }
+  .sw-preview { max-width: 980px; margin: 0 auto; }
+  .sw-preview h1 { font-size: var(--sw-h1); line-height: var(--sw-h1-lh); font-weight: var(--sw-peso-extrabold); margin: 0 0 8px; }
+  .sw-preview .antetitulo { font-size: var(--sw-antetitulo); font-weight: var(--sw-peso-bold); letter-spacing: var(--sw-antetitulo-ls); text-transform: uppercase; color: var(--sw-gris); margin: 0 0 12px; }
+  .sw-preview h2 { font-size: var(--sw-h2); line-height: var(--sw-h2-lh); font-weight: var(--sw-peso-bold); margin: 64px 0 4px; }
+  .sw-preview p { font-size: var(--sw-texto); line-height: var(--sw-texto-lh); color: var(--sw-gris); margin: 0; }
+  .sw-preview code { font-size: 14px; background: var(--sw-niebla); padding: 2px 6px; border-radius: 4px; color: var(--sw-verde-sendero); }
+</style>
+</head>
+<body>
+<div class="sw-preview">
+
+  <p class="antetitulo">Design Code HTML</p>
+  <h1>Bloques de Santiago Ways</h1>
+  <p>Vista previa de los componentes catalogados. Reduce la ventana por debajo de 680 px para ver el comportamiento en móvil.</p>
+  <p>Cargadas <code>tokens.css</code> y <code>bloques.css</code>. Las demos de los 21 bloques de <code>bloques.css</code> se añaden aquí cuando lleguen sus HTML de referencia.</p>
+
+  <h2>tabla-responsive</h2>
+  <p><code>.tabla-responsive-wrap</code> + <code>.tabla-responsive</code> · cada <code>td</code> salvo el primero lleva <code>data-label</code>.</p>
+
+<div class="tabla-responsive-wrap">
+<table class="tabla-responsive">
+<thead>
+<tr>
+<th>Fecha</th>
+<th>Hito</th>
+<th>Estado</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>31 dic 2026, 17:00</strong></td>
+<td data-label="Hito">Apertura solemne de la Puerta Santa</td>
+<td data-label="Estado"><strong>Confirmado</strong></td>
+</tr>
+<tr>
+<td><strong>Todo 2027</strong></td>
+<td data-label="Hito">Año Santo Jacobeo en vigor</td>
+<td data-label="Estado"><strong>Confirmado</strong></td>
+</tr>
+<tr>
+<td><strong>21–28 mar 2027 (aprox.)</strong></td>
+<td data-label="Hito">Semana Santa</td>
+<td data-label="Estado">Fechas confirmadas; programa pendiente</td>
+</tr>
+<tr>
+<td><strong>15–25 jul 2027</strong></td>
+<td data-label="Hito">Ventana religiosa crítica: novena, vísperas y solemnidad</td>
+<td data-label="Estado">Pendiente de programa detallado</td>
+</tr>
+<tr>
+<td><strong>25 jul 2027</strong></td>
+<td data-label="Hito">Día del Apóstol Santiago, en domingo</td>
+<td data-label="Estado"><strong>Confirmado</strong></td>
+</tr>
+<tr>
+<td><strong>31 dic 2027</strong></td>
+<td data-label="Hito">Posible clausura del Año Santo</td>
+<td data-label="Estado">Pendiente de confirmación</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+</div>
+</body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Design Code · Santiago Ways</title>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="app.css">
+</head>
+<body>
+
+<div class="ui">
+
+  <aside class="ui__lateral">
+    <div class="marca">
+      <p class="marca__sub">Design Code</p>
+      <h1 class="marca__nombre">Santiago Ways</h1>
+    </div>
+
+    <div class="buscador">
+      <input id="busqueda" type="search" placeholder="Buscar módulo" autocomplete="off" aria-label="Buscar módulo">
+    </div>
+
+    <nav class="lista" id="lista" aria-label="Módulos"></nav>
+  </aside>
+
+  <main class="ui__principal">
+
+    <header class="cabecera">
+      <h2 class="cabecera__titulo" id="titulo"></h2>
+      <code class="cabecera__clase" id="clase"></code>
+      <span class="insignia" id="insignia"></span>
+    </header>
+    <p class="cabecera__texto" id="descripcion"></p>
+    <ul class="reglas" id="reglas"></ul>
+
+    <div class="paneles">
+
+      <section class="panel">
+        <div class="panel__barra">
+          <h3 class="panel__titulo">El módulo</h3>
+          <div class="conmutador" role="group" aria-label="Anchura de las vistas">
+            <button type="button" data-anchura="escritorio" aria-pressed="true">Escritorio</button>
+            <button type="button" data-anchura="movil" aria-pressed="false">Móvil</button>
+          </div>
+          <span class="panel__ancho" id="ancho-simulado"></span>
+        </div>
+        <div class="panel__cuerpo panel__cuerpo--pegado">
+          <div class="vista" id="vista-referencia">
+            <div class="vista__lienzo">
+              <iframe class="vista__marco" id="marco-referencia" title="Vista previa del módulo de referencia" scrolling="no"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel__barra">
+          <h3 class="panel__titulo">Con tus datos</h3>
+        </div>
+        <div class="panel__cuerpo panel__cuerpo--pegado">
+          <div class="vista" id="vista-nuevo">
+            <div class="vista__lienzo">
+              <iframe class="vista__marco" id="marco-nuevo" title="Vista previa con tus datos" scrolling="no"></iframe>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel__barra">
+          <h3 class="panel__titulo">Tus datos</h3>
+        </div>
+        <div class="panel__cuerpo">
+          <div class="campo">
+            <label class="campo__etiqueta" for="datos" id="etiqueta-datos"></label>
+            <textarea id="datos" rows="10" spellcheck="false"></textarea>
+            <p class="campo__ayuda" id="ayuda"></p>
+            <div class="campo__acciones">
+              <button type="button" class="boton boton--suave" id="restaurar">Volver al ejemplo</button>
+              <button type="button" class="boton boton--suave" id="vaciar">Vaciar</button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="panel">
+        <div class="panel__barra">
+          <h3 class="panel__titulo">HTML generado</h3>
+          <button type="button" class="boton" id="copiar">Copiar</button>
+        </div>
+        <div class="panel__cuerpo panel__cuerpo--pegado">
+          <div id="avisos"></div>
+          <pre class="codigo" id="codigo"></pre>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>

@@ -2916,7 +2916,7 @@ function cnClasif(s,m){const a=(s||"").toLowerCase(),b=(m||"").toLowerCase();
   const o={llamada:"LLAMADA",email:"EMAIL",b2b:"B2B",trustpilot:"TRUSTPILOT",tripadvisor:"TRIPADVISOR",blog_org:"BLOG",medios_patrocinados:"MEDIOS PATROCINADOS",googlemybusiness:"GOOGLE MY BUSINESS",zoho_campaigns:"CAMPAIGNS",newsletter:"CAMPAIGNS",comunidad:"COMUNIDAD"}[a];if(o)return["ORGANIC",o];
   const r={instagram_org:"INSTAGRAM ORG",facebook_org:"FACEBOOK ORG",youtube_org:"YOUTUBE ORG",tiktok_org:"TIK TOK ORG"}[a];if(r)return["ORGANIC","RRSS",r];
   if(["chatgpt.com","perplexity","gemini","copilot.com","claude.ai"].includes(a))return["ORGANIC","GENERATIVA"];
-  if(a==="bing")return["PAID","BING"];if(a==="caminofy")return["PAID","CAMINOFY"];if(a==="chatgpt_ads")return["PAID","CHATGPT ADS"];
+  if(a==="bing")return["PAID","BING"];if(a==="caminofy")return["PAID","CAMINOFY"];if(a==="chatgpt_ads"||((a==="gpt"||a==="chatgpt")&&b==="cpc"))return["PAID","CHATGPT ADS"];
   if(a==="meta"||["facebook","fb","fb-sitelink","ig"].includes(a))return["PAID","META","META"];
   if(a.startsWith("google&"))return["PAID","GOOGLE","PMAX"];
   if(a==="google")return["PAID","GOOGLE",{dgen:"DGEN",pmax:"PMAX",cpc:"CPC",remarketing:"RMKTN",search:"SEARCH"}[b]||"SIN DATA"];
@@ -2924,6 +2924,7 @@ function cnClasif(s,m){const a=(s||"").toLowerCase(),b=(m||"").toLowerCase();
 /* utm_source conocidos (con sus medium habituales). Un source que no esté aquí se marca en amarillo para revisar */
 const CN_OK={"(sin utm)":["(sin medium)"],llamada:["inbound"],email:["inbound"],trustpilot:["company_profile"],tripadvisor:["referral"],blog_org:["(sin medium)","organic"],medios_patrocinados:["referral"],googlemybusiness:["organic"],zoho_campaigns:["email","webinar"],instagram_org:["social","bio","mensajes"],facebook_org:["social"],tiktok_org:["social","bio","mensajes"],youtube_org:["social"],"chatgpt.com":["(sin medium)"],perplexity:["(sin medium)"],gemini:["(sin medium)"],"copilot.com":["(sin medium)"],bing:["cpc"],google:["search","pmax","dgen","cpc","remarketing"],meta:["social_paid","paid","fb_crm_remarketing","fb_pixel_remarketing","ig_crm_remarketing","ig_pixel_remarketing","an_crm_remarketing","an_pixel_remarketing","th_pixel_remarketing"],caminofy:["(sin medium)"],chatgpt_ads:["cpc"]};
 const cnRara=s=>!CN_OK[(s||"").toLowerCase()];
+const CN_PISTA={gpt:"parece ChatGPT Ads con el utm_source mal escrito (el bueno es chatgpt_ads); lo cuento en CHATGPT ADS",chatgpt:"parece ChatGPT Ads con el utm_source mal escrito (el bueno es chatgpt_ads)"};
 function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={},V=st.cnV;
   const raw={};(C.filas||[]).forEach(([s,m,d,w])=>{const k=cnClasif(s,m).join("|"),x=ag[k]||(ag[k]=[0,0]);x[0]+=d;x[1]+=w;(det[k]=det[k]||[]).push(s);const rr=raw[k]||(raw[k]={}),y=rr[s]||(rr[s]=[s,0,0]);y[1]+=d;y[2]+=w});
   const g=k=>ag[k]||[0,0],suma=ks=>ks.reduce((t,k)=>{const x=g(k);return[t[0]+x[0],t[1]+x[1]]},[0,0]);
@@ -2952,7 +2953,7 @@ function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={
   const li=a=>a.map(x=>`<li>${esc(x.n)} · <b>${pct(x.w/x.d)}</b> <small>(${num(x.w)} de ${num(x.d)})</small></li>`).join("")||"<li><small>No hay medios con datos suficientes en este periodo.</small></li>";
   const [O,P]=[grT.ORGANIC,grT.PAID],po=O[0]+P[0]?O[0]/(O[0]+P[0])*100:0;
   const rS={};(C.filas||[]).forEach(([s,m,d])=>{if(cnRara(s))rS[s]=(rS[s]||0)+d});const rar=Object.entries(rS).sort((a,b)=>b[1]-a[1]),rD=rar.reduce((t,f)=>t+f[1],0);
-  const revisar=rar.length?`<div class="cn-revw"><b>⚠ ${rar.length} utm_source a revisar</b> · ${num(rD)} deals (${(rD/TD*100).toFixed(2).replace(".",",")} % del periodo). Salen en amarillo dentro del canal donde los he colocado: ${rar.map(([s,d])=>`<code>${esc(s.length>30?s.slice(0,30)+"…":s)}</code> (${num(d)})`).join(", ")}.</div>`:"";
+  const revisar=rar.length?`<div class="cn-revw"><b>⚠ ${rar.length} utm_source a revisar</b> · ${num(rD)} deals (${(rD/TD*100).toFixed(2).replace(".",",")} % del periodo). Salen en amarillo dentro del canal donde los he colocado: ${rar.map(([s,d])=>`<code>${esc(s.length>30?s.slice(0,30)+"…":s)}</code> (${num(d)})${CN_PISTA[s.toLowerCase()]?` <small>${CN_PISTA[s.toLowerCase()]}</small>`:""}`).join(", ")}.</div>`:"";
   return{po:[O,P],revisar,
    split:`<div class="cn-split"><div class="cn-sbar"><span class="cn-org" style="width:${po}%"></span><span class="cn-paid" style="width:${100-po}%"></span></div>
     <div class="cn-sleg"><div class="cn-org"><b>Organic</b> ${num(O[0])} deals · ${po.toFixed(1).replace(".",",")} % · CR <b>${pct(O[0]?O[1]/O[0]:null)}</b></div><div class="cn-paid"><b>Paid</b> ${num(P[0])} deals · ${(100-po).toFixed(1).replace(".",",")} % · CR <b>${pct(P[0]?P[1]/P[0]:null)}</b></div></div></div>`,
@@ -3047,7 +3048,8 @@ async function actualizarCanales(){
       c==="server_unavailable"||c==="upstream_error"?"Zoho no responde ahora mismo. Prueba de nuevo en un minuto.":
       "No se pudo actualizar: "+(e?.message||"error desconocido"),"err")}}
 const cnActBtn=()=>mc.disponible===false?"":`<button class="btn prim" data-cnact${st.cnAct?.tipo==="vivo"?" disabled":""}>↻ Actualizar a día de hoy</button>`;
-const cnActMsg=()=>st.cnAct?.msg?`<div id="cnActMsg" class="cn-actmsg ${st.cnAct.tipo}">${esc(st.cnAct.msg)}</div>`:`<div id="cnActMsg" class="cn-actmsg"></div>`;
+const cnViejo=()=>{const a=st.canales?.actualizado;if(!a)return"";const d=Math.floor((Date.now()-new Date(a+"T23:59:59"))/864e5);return d>=1?`Datos de Zoho del ${a.split("-").reverse().join("/")} (hace ${d} día${d>1?"s":""}): lo que haya entrado después, como un utm_source nuevo, no sale hasta que pulses «Actualizar a día de hoy».`:""};
+const cnActMsg=()=>st.cnAct?.msg?`<div id="cnActMsg" class="cn-actmsg ${st.cnAct.tipo}">${esc(st.cnAct.msg)}</div>`:`<div id="cnActMsg" class="cn-actmsg${cnViejo()?" err":""}">${esc(cnViejo())}</div>`;
 document.addEventListener("click",e=>{if(e.target.closest("[data-cnact]"))actualizarCanales()});
 document.addEventListener("change",e=>{const u=e.target.closest("[data-cnutm]");if(u&&st.cnV){st.cnV.utm=u.checked;pintarCanales()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-cnf]");if(!s||!st.cnV)return;st.cnV[s.dataset.cnf]=Number(s.value);if(st.cnV.desde>st.cnV.hasta)[st.cnV.desde,st.cnV.hasta]=[st.cnV.hasta,st.cnV.desde];pintarCanales()});

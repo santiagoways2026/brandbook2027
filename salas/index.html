@@ -3168,10 +3168,71 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-cpf]");if
 document.addEventListener("click",e=>{const b=e.target.closest("[data-cppre]");if(b&&st.cpV){const[a,c]=b.dataset.cppre.split("-").map(Number);st.cpV.desde=a;st.cpV.hasta=c;pintarCPA()}});
 
 /* ===== Análisis comercial: deals y CR por asesor y mercado (Zoho Analytics) ===== */
+/* Actualizar Análisis por asesor desde Zoho Analytics y descargarlo en Excel */
+const AS_ORG="647097120",AS_WS="1421271000007002001",AS_LANG={Spanish:"ES",English:"EN",German:"DE",Italian:"IT",Portuguese:"PT"};
+const AS_SQL=["select \"Deal Owner Name\" as asesor, \"Language\" as idioma, year(\"Created Time\") as anio, month(\"Created Time\") as mes, count(*) as volumen, sum(case when \"Stage\"='Won' then 1 else 0 end) as won from \"Deals\" where \"Created Time\" >= '2024-01-01' group by 1,2,3,4",
+  "select \"Deal Owner Name\" as asesor, \"Language\" as idioma, year(\"Created Time\") as anio, month(\"Created Time\") as mes, year(\"Closing Date\") as canio, month(\"Closing Date\") as cmes, count(*) as won from \"Deals\" where \"Created Time\" >= '2024-01-01' and \"Stage\"='Won' group by 1,2,3,4,5,6"];
+function asCsv(t){const filas=[];let f=[],c="",q=false;t=String(t||"").replace(/^﻿/,"");
+  for(let i=0;i<t.length;i++){const ch=t[i];if(q){if(ch==='"'){if(t[i+1]==='"'){c+='"';i++}else q=false}else c+=ch}
+    else if(ch==='"')q=true;else if(ch===","){f.push(c);c=""}else if(ch==="\n"||ch==="\r"){if(ch==="\r"&&t[i+1]==="\n")i++;f.push(c);c="";if(f.some(x=>x!==""))filas.push(f);f=[]}else c+=ch}
+  f.push(c);if(f.some(x=>x!==""))filas.push(f);const cab=filas.shift()||[];return filas.map(r=>Object.fromEntries(cab.map((k,i)=>[k.trim(),r[i]])))}
+/* Une nombres que llegan con la tilde rota (Alba Martínez con caracteres raros) con su versión buena */
+function asNombres(lista){const ok=[...new Set(lista.filter(n=>n&&!n.includes("\ufffd")))],m={};
+  lista.forEach(n=>{if(!n||!n.includes("\ufffd")){m[n]=n;return}const re=new RegExp("^"+n.split(/\ufffd+/).map(s=>s.replace(/[.*+?^${}()|[\]\\]/g,"\\$&")).join(".{1,2}")+"$","u");m[n]=ok.find(o=>re.test(o))||n.replace(/\ufffd+/g,"?")});return m}
+function asFilas(vol,won){const nom=asNombres([...vol,...won].map(r=>(r.asesor||"").trim())),F={};
+  const fila=(r)=>{const a=nom[(r.asesor||"").trim()]||"(sin asesor)",mk=AS_LANG[r.idioma];if(!mk)return null;const ym=+r.anio*100+ +r.mes;if(!ym)return null;const k=a+"\u0001"+mk+"\u0001"+ym;return F[k]||(F[k]=[a,mk,ym,0,0,{}])};
+  vol.forEach(r=>{const f=fila(r);if(f){f[3]+=+r.volumen||0;f[4]+=+r.won||0}});
+  won.forEach(r=>{const f=fila(r);const cy=+r.canio*100+ +r.cmes;if(f&&cy)f[5][cy]=(f[5][cy]||0)+(+r.won||0)});
+  return Object.values(F).filter(f=>f[3]||f[4])}
+async function asConsulta(sql,paso){const H={"ZANALYTICS-ORGID":AS_ORG},cfg={cache:false},txt=r=>{let p=r.payload;if(typeof p==="string"){try{p=JSON.parse(p)}catch{return p}}return p};
+  const j=txt(await mc.mcp.callTool("Zoho","ZohoAnalytics_createExportJobSQLQuery",{headers:H,path_variables:{"workspace-id":AS_WS},query_params:{CONFIG:JSON.stringify({sqlQuery:sql,responseFormat:"csv"})}},cfg));
+  const id=j?.data?.data?.jobId||j?.data?.jobId;if(!id)throw{code:"formato",message:"Zoho Analytics no creó la consulta."};
+  for(let i=0;i<40;i++){await new Promise(r=>setTimeout(r,i?2500:1200));asAct(`${paso} (esperando a Zoho Analytics)…`);
+    const d=txt(await mc.mcp.callTool("Zoho","ZohoAnalytics_getExportJobDetails",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg));const code=String(d?.data?.data?.jobCode||d?.data?.jobCode||"");
+    if(code==="1004")break;if(code==="1003"||code==="1005")throw{code:"formato",message:"La consulta falló en Zoho Analytics."};if(i===39)throw{code:"formato",message:"Zoho Analytics tarda demasiado. Prueba de nuevo en unos minutos."}}
+  const r=await mc.mcp.callTool("Zoho","ZohoAnalytics_downloadExportedData",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg);
+  const p=txt(r),csv=typeof p==="string"?p:(p?.data?.result??p?.result??r.content?.find(b=>b.type==="text")?.text);
+  if(typeof csv!=="string"||!csv.includes("asesor"))throw{code:"formato",message:"Zoho Analytics devolvió un archivo que no se puede leer."};return asCsv(csv)}
+function asAct(msg,tipo){st.asAct={msg,tipo:tipo||"vivo"};const b=document.getElementById("asActMsg");if(b){b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")}}
+async function actualizarAsesores(){if(st.asAct?.tipo==="vivo")return;
+  if(!mc.mcp||!st.db){asAct("Abre la página desde claude.ai para actualizar los datos.","err");return}
+  try{asAct("Pidiendo los deals por asesor a Zoho Analytics…");const vol=await asConsulta(AS_SQL[0],"Leyendo los deals por asesor");
+    asAct("Pidiendo las ventas won por mes de cierre…");const won=await asConsulta(AS_SQL[1],"Leyendo las ventas won");
+    const filas=asFilas(vol,won);if(!filas.length)throw{code:"formato",message:"Zoho Analytics no devolvió ningún deal."};
+    const A=st.ases||{};asAct("Guardando los datos nuevos…");
+    await st.db.doc("comercial_asesores/actual").set({fuente:A.fuente||"Zoho Analytics · tabla Deals (la misma que usa el informe «Sales Persons Deals»): deals creados por asesor, idioma y mes; Won = deals en etapa Won. CR = Won / deals creados.",desde_defecto:A.desde_defecto||202602,fecha:new Date().toISOString(),filas});
+    if(st.asV)st.asV.hasta=Math.max(...filas.map(f=>f[2]));
+    asAct(`Datos actualizados a ${new Date().toLocaleDateString("es-ES")}: ${filas.reduce((t,f)=>t+f[3],0).toLocaleString("es-ES")} deals desde enero de 2024.`,"ok");pintarAsesores()
+  }catch(e){const c=e?.code;
+    asAct(c==="server_not_connected"||c==="needs_reauth"||c==="selection_required"?"Conecta Zoho en claude.ai, Ajustes → Conectores, y vuelve a pulsar.":
+      c==="not_in_manifest"||c==="not_granted"?"Esta página no tiene permiso para usar Zoho. Actívalo en el menú Permisos del artifact.":
+      c==="blocked_by_policy"||c==="approval_required"?"La política de tu organización no deja usar Zoho desde aquí.":
+      c==="permission-denied"||c==="not_writer"?"Solo quien puede editar la página puede guardar datos nuevos.":
+      c==="server_unavailable"||c==="upstream_error"?"Zoho no responde ahora mismo. Prueba de nuevo en un minuto.":
+      "No se pudo actualizar: "+(e?.message||"error desconocido"),"err")}}
+function asXlsxLib(){return window.XLSX?Promise.resolve(window.XLSX):new Promise((ok,ko)=>{const s=document.createElement("script");s.src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js";s.onload=()=>ok(window.XLSX);s.onerror=()=>ko({message:"No se pudo cargar el generador de Excel."});document.head.appendChild(s)})}
+async function descargarAsesores(){const X=st.asExport;if(!X)return;
+  if(!st.dl){asAct("La descarga no está disponible en este visor. Abre la página desde claude.ai.","err");return}
+  try{const XLSX=await asXlsxLib(),cr=p=>p&&p[0]?p[1]/p[0]:null,cel=p=>p&&p[0]?[p[0],p[1],cr(p)]:[null,null,null];
+    const cab1=["Asesor","Acumulado total","","",...MERC.flatMap(k=>[k,"",""])],cab2=["",...["T",...MERC].flatMap(()=>["Volumen","DW","CR"])];
+    const filas=X.lista.map(([a,x])=>[a,...cel(x.T),...MERC.flatMap(k=>cel(x[k]))]);
+    const aoa=[["Análisis por asesor · "+X.periodo],[X.fuente],["Datos de Zoho actualizados "+X.fecha],[],cab1,cab2,...filas,["Total del equipo actual",...cel(X.tot.T),...MERC.flatMap(k=>cel(X.tot[k]))],[`Total con antiguos asesores (${X.antiguos})`,...cel(X.totAll.T),...MERC.flatMap(k=>cel(X.totAll[k]))]];
+    const ws=XLSX.utils.aoa_to_sheet(aoa),r0=4;ws["!merges"]=[{s:{r:r0,c:0},e:{r:r0+1,c:0}},...[0,...MERC.map((_,i)=>i+1)].map(i=>({s:{r:r0,c:1+i*3},e:{r:r0,c:3+i*3}}))];
+    ws["!cols"]=[{wch:30},...Array(18).fill({wch:10})];
+    for(let r=r0+2;r<aoa.length;r++)for(let i=0;i<6;i++){const a=XLSX.utils.encode_cell({r,c:3+i*3});if(ws[a]&&typeof ws[a].v==="number")ws[a].z="0.00%"}
+    const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Por asesor");
+    const raw=[["Asesor","Mercado","Mes de creación","Deals","Won","Won cerrados hasta fin del periodo"],...X.filas.map(f=>[f[0],f[1],`${Math.floor(f[2]/100)}-${String(f[2]%100).padStart(2,"0")}`,f[3],f[4],X.wf(f)])];
+    const ws2=XLSX.utils.aoa_to_sheet(raw);ws2["!cols"]=[{wch:30},{wch:9},{wch:15},{wch:9},{wch:9},{wch:30}];XLSX.utils.book_append_sheet(wb,ws2,"Datos del periodo");
+    const buf=XLSX.write(wb,{type:"array",bookType:"xlsx"});
+    await st.dl.save({filename:`analisis-por-asesor-${X.periodo.replace(/\s+/g,"-")}.xlsx`,data:new Blob([buf])})
+  }catch(e){if(e?.code==="declined")return;asAct(e?.code==="rate_limited"?"Ya hay una descarga abierta. Espera un momento y vuelve a pulsar.":"No se pudo descargar el Excel: "+(e?.message||"error desconocido"),"err")}}
+const asBtns=()=>`${mc.disponible===false?"":`<button class="btn prim" data-asact${st.asAct?.tipo==="vivo"?" disabled":""}>↻ Actualizar a día de hoy</button>`}${st.asExport?`<button class="btn" data-asxls>⤓ Descargar en Excel</button>`:""}`;
+const asMsg=()=>`<div id="asActMsg" class="cn-actmsg ${st.asAct?.tipo||""}">${esc(st.asAct?.msg||"")}</div>`;
+document.addEventListener("click",e=>{if(e.target.closest("[data-asact]"))actualizarAsesores();else if(e.target.closest("[data-asxls]"))descargarAsesores()});
 const MERC=["ES","EN","DE","IT","PT"],MESN=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
 const ymTxt=ym=>`${MESN[ym%100-1]} ${String(Math.floor(ym/100)).slice(2)}`;
 function pintarAsesores(){const el=document.getElementById("c-comercial_asesores");if(!el||st.dentro!=="comercial")return;const A=st.ases;
-  if(!A){el.innerHTML=`<div class="mcab"><div><h2>Análisis por asesor</h2></div></div><div class="vacio">Rocío está leyendo los deals de Zoho.</div>`;return}
+  if(!A){el.innerHTML=`<div class="mcab"><div><h2>Análisis por asesor</h2></div></div><div class="as-ctl">${asBtns()}</div>${asMsg()}<div class="vacio">Rocío está leyendo los deals de Zoho.</div>`;return}
   const F=A.filas||[],meses=[...new Set(F.map(f=>f[2]))].sort((a,b)=>a-b),ult=meses[meses.length-1];
   const V=st.asV||(st.asV={modo:"acum",desde:A.desde_defecto||meses[0],hasta:ult,mes:meses[meses.length-2]||ult,orden:"vol"});
   const enRango=ym=>V.modo==="mes"?ym===V.mes:ym>=V.desde&&ym<=V.hasta,fin=V.modo==="mes"?V.mes:V.hasta,wf=f=>cnWonCierre(f,5,fin);
@@ -3186,10 +3247,11 @@ function pintarAsesores(){const el=document.getElementById("c-comercial_asesores
   const celdas=(p,ref)=>p&&p[0]>=20?`<td>${num(p[0])}</td><td>${num(p[1])}</td><td class="cr ${col(cr(p),ref)}">${pct(cr(p))}</td>`:`<td class="vac"></td><td class="vac"></td><td class="vac"></td>`;
   const periodo=V.modo==="mes"?ymTxt(V.mes):`${ymTxt(V.desde)} a ${ymTxt(V.hasta)}`;
   const opt=(sel)=>meses.map(m=>`<option value="${m}"${m===sel?" selected":""}>${ymTxt(m)}</option>`).join("");
+  st.asExport={periodo,lista,tot,totAll,antiguos:antiguos.size,fuente:A.fuente||"",fecha:A.fecha?new Date(A.fecha).toLocaleDateString("es-ES"):"",filas:F.filter(f=>enRango(f[2])),wf};
   el.innerHTML=`<div class="mcab"><div><h2>Análisis por asesor</h2><div class="fuente-mc" style="margin-top:6px">${esc(A.fuente||"")}</div></div><div class="meta">${A.fecha?`actualizado ${esc(hace(A.fecha))}`:""}</div></div>
    <div class="as-ctl"><div class="as-modo"><button class="btn${V.modo==="acum"?" prim":""}" data-asmodo="acum">Acumulado</button><button class="btn${V.modo==="mes"?" prim":""}" data-asmodo="mes">Mensual</button></div>
     ${V.modo==="acum"?`<label>Desde <select data-asv="desde">${opt(V.desde)}</select></label><label>Hasta <select data-asv="hasta">${opt(V.hasta)}</select></label>`:`<label>Mes <select data-asv="mes">${opt(V.mes)}</select></label>`}
-    <label>Ordenar <select data-asv="orden"><option value="vol"${V.orden==="vol"?" selected":""}>por volumen</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label>${zBtn("asesores")}</div>
+    <label>Ordenar <select data-asv="orden"><option value="vol"${V.orden==="vol"?" selected":""}>por volumen</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label>${asBtns()}${zBtn("asesores")}</div>${asMsg()}
    <div class="as-res"><div><b>${num(tot.T[0])}</b><span>deals · ${esc(periodo)}</span></div><div><b>${num(tot.T[1])}</b><span>ganados (DW)</span></div><div><b>${pct(cr(tot.T))}</b><span>CR del equipo</span></div>${MERC.map(k=>`<div><b>${pct(cr(tot[k]))}</b><span>CR ${k}</span></div>`).join("")}</div>
    <div class="as-tw"><table class="as-t"><thead><tr><th rowspan="2" class="as-n">Asesor</th><th colspan="3">Acumulado total</th>${MERC.map(k=>`<th colspan="3">${k}</th>`).join("")}</tr>
     <tr>${["T",...MERC].map(()=>`<th>Volumen</th><th>DW</th><th>CR</th>`).join("")}</tr></thead>

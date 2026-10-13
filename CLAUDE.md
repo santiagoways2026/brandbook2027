@@ -66,6 +66,9 @@ emails/            pieza heredada de email. Fuera del alcance de este proyecto.
 ```
 
 Si cambia `bloques.css`, hay que lanzar `python tools/inventario.py`.
+Si cambia un bloque o un módulo, hay que lanzar `node tools/contexto.mjs`, que regenera
+`design-system/contexto-ia.md`: el documento que se pega en otras IAs para que puedan
+producir estos bloques. Ese archivo **no se edita a mano**.
 
 ## La herramienta
 

@@ -62,10 +62,12 @@ A partir de ese momento el transformador ya sabe usarlo.
 | `design-system/inventario.md` | Lista cerrada de clases, generada desde el CSS |
 | `design-system/catalogo.md` | Qué es cada bloque, cuándo se usa y sus reglas de marcado |
 | `design-system/paleta.md` | Paleta real vs. Brandbook 2027, con los avisos de contraste |
+| `design-system/contexto-ia.md` | **Los 24 bloques explicados para pegar en otra IA.** Se regenera con `node tools/contexto.mjs` |
 | `design-system/tabla-responsive.css` | Hoja de la tabla. Se tematiza con variables CSS |
 | `design-system/tokens.css` | Tokens del brandbook como referencia |
 | `bloques/` | Un `.html` por componente con su markup de referencia |
 | `tools/servidor.py` | Servidor de desarrollo sin caché |
+| `tools/contexto.mjs` | Regenera `contexto-ia.md` desde los módulos y los bloques |
 | `tools/inventario.py` | Regenera el inventario cuando cambia el CSS |
 | `inbox/` | Buzón de entrada: HTML sin catalogar |
 | `salidas/` | HTML generado |

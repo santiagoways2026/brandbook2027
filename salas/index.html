@@ -3681,11 +3681,25 @@ function pintarSintesis(){const el=document.getElementById("c-radar_sintesis");i
    <div class="sint-grid">${(S.tematicas||[]).map((t,k)=>`<div class="sint-c"><span class="sint-n">${k+1}</span><h4>${esc(t.tema)}</h4><p>${esc(t.dato||"")}</p>${t.replicar?`<p class="sint-rep">→ ${esc(t.replicar)}</p>`:""}</div>`).join("")}</div>
    ${(S.formatos||[]).length?`<div class="seccion-t">Formatos que funcionan</div><div class="sint-chips">${S.formatos.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}
    ${(S.plataformas||[]).length?`<div class="seccion-t">Por plataforma</div><div class="sint-chips">${S.plataformas.map(x=>`<span>${esc(x)}</span>`).join("")}</div>`:""}`:`<div class="vacio">Marta está preparando la síntesis.</div>`}`}
+const REG_ACT=[["todos","Todos"],["us","US + Canadá"],["latam","LATAM"],["es","ES"],["it","IT"],["pt","PT"],["de","DE"],["uk","UK + IE + AUS"],["otros","Otros"]];
+const REG_HOST={"catholicreview.org":"us","catholicstarherald.org":"us","detroitcatholic.com":"us","ncregister.com":"us","forbes.com":"us","thecatholicherald.com":"uk","noticel.com":"latam","elnuevodia.com":"latam","infobae.com":"latam","aciprensa.com":"latam","cordobainteriorinforma.com":"latam","idealista.com":"es","santiago.es":"es","xataka.com":"es","vaticannews.va":"otros","starnewskorea.com":"otros","tribune.net.ph":"otros","iol.co.za":"otros"};
+function regionMedio(i){if(i.region&&REG_ACT.some(r=>r[0]===i.region))return i.region;
+  let h="";try{h=new URL(i.url).hostname.replace(/^www\./,"")}catch(e){}
+  for(const k in REG_HOST)if(h===k||h.endsWith("."+k))return REG_HOST[k];
+  if(/\.(co\.uk|uk|ie|com\.au|au|co\.nz|nz)$/.test(h))return"uk";
+  if(/\.(ca|us)$/.test(h))return"us";
+  if(/\.(br|ar|mx|cl|co|pe|uy|py|bo|ve|ec|cr|gt|hn|sv|ni|pa|do|cu|pr)$/.test(h))return"latam";
+  if(/\.(de|at|ch)$/.test(h))return"de";
+  if(/\.it$/.test(h))return"it";if(/\.pt$/.test(h))return"pt";if(/\.(es|gal|cat|eus)$/.test(h))return"es";
+  const l=String(i.idioma||i.mercado||"").toLowerCase();return{es:"es",pt:"pt",it:"it",de:"de"}[l]||"otros"}
 function pintarActualidad(){const el=document.getElementById("c-radar_actualidad");if(!el)return;
-  const N=activos().filter(i=>i.plataforma==="prensa").sort((a,b)=>Date.parse(b.publicado||b.detectado||0)-Date.parse(a.publicado||a.detectado||0)).slice(0,st.actLim||15);
-  el.innerHTML=`<div class="mcab"><div><h2>Actualidad del Camino</h2><div class="fuente-mc" style="margin-top:6px">Noticias recientes que importan para Santiago Ways</div></div></div>
-   ${N.length?`<div class="act-l">${N.map(i=>`<a class="act-it" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener"><div class="act-meta">${esc(i.fuente||"")}${i.publicado||i.detectado?` · ${esc(hace(i.publicado||i.detectado))}`:""}${i.mercado?` · ${esc(String(i.mercado).toUpperCase())}`:""}</div><h4>${esc(i.titulo)}</h4>${i.resumen?`<p>${esc(corta(i.resumen,200))}</p>`:""}</a>`).join("")}</div>
-   ${activos().filter(i=>i.plataforma==="prensa").length>N.length?`<button class="btn" type="button" id="actMas" style="margin:10px 20px 0">Ver más noticias</button>`:""}`:`<div class="vacio">Andrés está leyendo la prensa.</div>`}`}
+  const T=activos().filter(i=>i.plataforma==="prensa"),reg=st.actReg||"todos",cnt={};T.forEach(i=>{const r=regionMedio(i);cnt[r]=(cnt[r]||0)+1});
+  const F=reg==="todos"?T:T.filter(i=>regionMedio(i)===reg),RN=Object.fromEntries(REG_ACT);
+  const N=F.slice().sort((a,b)=>Date.parse(b.publicado||b.detectado||0)-Date.parse(a.publicado||a.detectado||0)).slice(0,st.actLim||15);
+  el.innerHTML=`<div class="mcab"><div><h2>Actualidad del Camino</h2><div class="fuente-mc" style="margin-top:6px">Noticias recientes que importan para Santiago Ways, por mercado del medio</div></div></div>
+   <div class="filtros">${REG_ACT.filter(([k])=>k==="todos"||cnt[k]||k!=="otros").map(([k,n])=>`<button class="chip" type="button" data-actreg="${k}" aria-pressed="${reg===k}">${esc(n)} <small>${k==="todos"?T.length:(cnt[k]||0)}</small></button>`).join("")}</div>
+   ${N.length?`<div class="act-l">${N.map(i=>`<a class="act-it" href="${esc(safeUrl(i.url))}" target="_blank" rel="noopener"><div class="act-meta">${esc(i.fuente||"")}${i.publicado||i.detectado?` · ${esc(hace(i.publicado||i.detectado))}`:""}${` · ${esc(RN[regionMedio(i)]||"")}`}</div><h4>${esc(i.titulo)}</h4>${i.resumen?`<p>${esc(corta(i.resumen,200))}</p>`:""}</a>`).join("")}</div>
+   ${F.length>N.length?`<button class="btn" type="button" id="actMas" style="margin:10px 20px 0">Ver más noticias</button>`:""}`:`<div class="vacio">${T.length?"No hay noticias de medios de este mercado todavía. Andrés lo tiene en su lista.":"Andrés está leyendo la prensa."}</div>`}`}
 function pintarDatos(){
   const items=activos(),e=st.estado||{};
   const dia=items.filter(i=>Date.now()-Date.parse(i.detectado)<864e5).length;
@@ -3796,6 +3810,7 @@ document.addEventListener("click",async e=>{
   if(e.target.id==="exportar"){exportar();return}
   {const b=e.target.closest("[data-igc]");if(b){ig.cuenta=b.dataset.igc;ig.lim=10;pintarIG();return}}
   if(e.target.id==="igMas"){ig.lim+=15;pintarIG();return}
+  {const b=e.target.closest("[data-actreg]");if(b){st.actReg=b.dataset.actreg;st.actLim=15;pintarActualidad();return}}
   if(e.target.id==="actMas"){st.actLim=(st.actLim||15)+15;pintarActualidad();return}
   if(e.target.id==="colaMas"){st.colaLim=(st.colaLim||12)+15;pintarDatos();return}
   {const cd=e.target.closest("[data-coladet]");if(cd){st.sel=cd.dataset.coladet;pintarInsp();return}}

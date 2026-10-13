@@ -40,6 +40,7 @@ export default {
     'texto: En Año Santo los hoteles del Camino se llenan antes de lo habitual.',
     'titulo: Recibe tu documentación',
     'texto: Itinerario, credencial y acceso a la app con navegación sin cobertura.',
+    'final: si',
   ].join('\n'),
 
   render(bruto) {

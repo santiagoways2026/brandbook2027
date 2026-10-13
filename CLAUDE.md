@@ -45,8 +45,10 @@ Reglas que afectan al HTML:
 ## Estructura
 
 ```
+index.html         portada, solo visible en el sitio publicado
+.nojekyll          impide que GitHub Pages ignore app/modulos/_comun.js
 app/               la herramienta: selector de módulos y generador en el navegador
-  modulos.js       el registro de módulos: ahí se añaden los bloques nuevos
+  modulos/         un archivo por módulo, más _comun.js e index.js (el registro)
 design-system/
   bloques.css      hoja de estilos ORIGINAL del cliente ← la fuente de verdad
   inventario.md    lista cerrada de clases, generada desde bloques.css
@@ -70,6 +72,24 @@ Si cambia `bloques.css`, hay que lanzar `python tools/inventario.py`.
 `app/` es la versión navegable de esto mismo: `python tools/servidor.py` y
 http://localhost:8899/app/ . Ese servidor manda `Cache-Control: no-store`; con
 `python -m http.server` el navegador sirve el `modulos.js` antiguo y parece que los
-cambios no entran. Un módulo nuevo se añade en `app/modulos.js`, y su `render()`
-tiene que devolver exactamente el markup del `bloques/<id>.html` de referencia. El panel
+cambios no entran. Un módulo nuevo se añade creando `app/modulos/<id>.js` y
+registrándolo en `app/modulos/index.js`. Su `render()` tiene que devolver exactamente el
+markup del `bloques/<id>.html` de referencia. El panel
 «El módulo» se pinta con esa misma función, así que una desviación se ve al momento.
+
+## En la nube
+
+El proyecto es un sitio estático: no hay servidor ni base de datos, así que se publica tal
+cual desde el repositorio.
+
+**Rutas.** Nada de rutas absolutas desde el dominio (`/design-system/…`). En GitHub Pages
+el sitio cuelga de `/<repositorio>/`, no de la raíz, y esas rutas darían 404. `app/app.js`
+calcula la raíz con `new URL('../', document.baseURI)` y construye el resto a partir de
+ahí. Si añades una ruta nueva, hazlo igual.
+
+**`.nojekyll`.** GitHub Pages pasa el sitio por Jekyll, que ignora todo lo que empieza por
+guion bajo. Sin ese archivo, `app/modulos/_comun.js` no se publicaría y la herramienta no
+arrancaría. No lo borres.
+
+**Mayúsculas.** Pages distingue mayúsculas de minúsculas y Windows no. Un
+`bloques/Steps.html` referenciado como `steps.html` funciona en local y falla publicado.

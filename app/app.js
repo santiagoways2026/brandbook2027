@@ -5,14 +5,20 @@
 
 import { MODULOS, PENDIENTES } from './modulos/index.js';
 
+/* La raíz del proyecto, calculada desde la propia página: app/ cuelga un nivel
+   por debajo. Con rutas absolutas desde el dominio («/design-system/…») esto
+   solo funcionaría en local: en GitHub Pages el sitio no está en la raíz del
+   dominio sino en /<repositorio>/, y todo daría 404. */
+const RAIZ = new URL('../', document.baseURI).href;
+
 /* Hojas que se cargan DENTRO de cada iframe de vista previa.
-   Rutas desde la raíz del servidor: la herramienta necesita servirse
-   por HTTP (python tools/servidor.py), no abrirse con doble clic. */
+   La herramienta necesita servirse por HTTP (python tools/servidor.py),
+   no abrirse con doble clic. */
 const HOJAS = [
   'https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap',
-  '/design-system/tokens.css',
-  '/design-system/bloques.css',
-  '/design-system/tabla-responsive.css',
+  RAIZ + 'design-system/tokens.css',
+  RAIZ + 'design-system/bloques.css',
+  RAIZ + 'design-system/tabla-responsive.css',
 ];
 
 /* Anchura de pantalla que simula cada vista. 1120 cae por encima de todos
@@ -215,7 +221,7 @@ function pintarLista() {
  * los dos paneles basta para ver si el render se ha desviado.
  */
 async function referencia(id) {
-  const r = await fetch('/bloques/' + id + '.html');
+  const r = await fetch(RAIZ + 'bloques/' + id + '.html');
   if (!r.ok) throw new Error('No encuentro bloques/' + id + '.html');
   return (await r.text()).replace(/<!--[\s\S]*?-->/g, '').trim();
 }

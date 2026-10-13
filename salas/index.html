@@ -4316,7 +4316,13 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("paid_analisis/utm").onSnapshot(s=>{st.paid.utm=s.exists?s.data():null;pintarPaid()});
   db.doc("paid_analisis/google").onSnapshot(s=>{st.paid.google=s.exists?s.data():null;pintarPaid()});
   db.doc("paid_contexto/briefing").onSnapshot(s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
-  for(const S of SALAS_N)db.doc("estado/"+S.id).onSnapshot(s=>{st.salasN=st.salasN||{};st.salasN[S.id]={estado:s.exists?s.data():null};pintarSalasN()});
+  /* Todos los documentos de estado en UNA suscripción: la plataforma admite como máximo 64 por página y las que pasan de ahí se rechazan */
+  const ESTADO_PINTA={paid:d=>{st.paid.estado=d;pintarPaid()},seo:d=>{st.seo.estado=d;pintarSeo()},comunidad:d=>{st.com.estado=d;pintarComunidad()},diseno:d=>{st.dis.estado=d;pintarDiseno()},control:d=>{st.ctrl.estado=d;pintarControl()},competencia:d=>{st.estadoC=d;pintarCompetencia()},radar:d=>{st.estado=d;if(document.activeElement?.id!=="q")pintarDatos()}},estadoVisto={};
+  db.collection("estado").limit(200).onSnapshot(s=>{const docs=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));let salas=false;
+    for(const id of new Set([...Object.keys(docs),...Object.keys(estadoVisto)])){const d=docs[id]||null,j=JSON.stringify(d);if(estadoVisto[id]===j)continue;estadoVisto[id]=j;
+      if(SALAS_N.some(S=>S.id===id)){st.salasN=st.salasN||{};st.salasN[id]={estado:d};salas=true}
+      try{ESTADO_PINTA[id]?.(d)}catch(e){console.error("estado/"+id,e)}}
+    if(salas)pintarSalasN()},e=>console.error("estado",e));
   db.doc("youtube_analisis/actual").onSnapshot(s=>{st.yt=s.exists?s.data():null;pintarYouTube()});
   ["community","lifecycle"].forEach(k=>db.doc("insights/"+k).onSnapshot(s=>{st.insights=st.insights||{};st.insights[k]=s.exists?s.data():null;pintarInsights(k)}));
   ["instagram","youtube","seo","community","lifecycle"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
@@ -4338,16 +4344,12 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});
   db.doc("ig_en/actual").onSnapshot(s=>{st.igen=s.exists?s.data():null;pintarGA4()});
   db.doc("ga4/actual").onSnapshot(s=>{st.ga4=s.exists?s.data():null;pintarGA4()});
-  db.doc("estado/paid").onSnapshot(s=>{st.paid.estado=s.exists?s.data():null;pintarPaid()});
   db.doc("seo_auditoria/actual").onSnapshot(s=>{st.seo.audit=s.exists?s.data():null;pintarSeo()});
-  db.doc("estado/seo").onSnapshot(s=>{st.seo.estado=s.exists?s.data():null;pintarSeo()});
   db.doc("comunidad_analisis/actual").onSnapshot(s=>{st.com.analisis=s.exists?s.data():null;pintarComunidad()});
-  db.doc("estado/comunidad").onSnapshot(s=>{st.com.estado=s.exists?s.data():null;pintarComunidad()});
   db.collection("comunidad_lotes").orderBy("t","desc").limit(30).onSnapshot(s=>{st.com.lotes=s.docs.map(d=>({id:d.id,...d.data()}));pintarComunidad()});
   db.collection("comunidad_snap").limit(10).onSnapshot(s=>{s.docs.forEach(d=>st.com.snapT[d.id]=d.data().t||"");});
   db.collection("diseno_videos").limit(100).onSnapshot(s=>{st.dis.videos=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden||0)-(b.orden||0));pintarDiseno()});
   db.collection("diseno_biblio").limit(500).onSnapshot(s=>{st.dis.biblio=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden||0)-(b.orden||0));pintarDiseno()});
-  db.doc("estado/diseno").onSnapshot(s=>{st.dis.estado=s.exists?s.data():null;pintarDiseno()});
   db.doc("control_brief/diseno").onSnapshot(s=>{st.brief=s.exists?s.data():null;pintarBrief();pintarControl()});
   db.doc("control_briefing/actual").onSnapshot(s=>{st.ctrl.briefing=s.exists?s.data():null;pintarControl()});
   db.collection("control_decisiones").orderBy("creado","desc").limit(200).onSnapshot(s=>{st.ctrl.decisiones=s.docs.map(d=>({id:d.id,...d.data()}));pintarControl()});
@@ -4355,11 +4357,8 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("control_contexto/research").onSnapshot(s=>{st.ctrl.research=s.exists?s.data():null;pintarControl()});
   db.doc("control_negocio/actual").onSnapshot(s=>{st.neg=s.exists?s.data():null;pintarNegocio()});
   db.doc("control_cerebro/actual").onSnapshot(s=>{st.ctrl.cerebro=s.exists?s.data():null;pintarControl()});
-  db.doc("estado/control").onSnapshot(s=>{st.ctrl.estado=s.exists?s.data():null;pintarControl()});
   db.collection("players").limit(100).onSnapshot(s=>{st.players=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99));pintarCompetencia()});
   db.collection("comp_cambios").orderBy("detectado","desc").limit(400).onSnapshot(s=>{st.cambios=s.docs.map(d=>({id:d.id,...d.data()}));pintarCompetencia()});
   db.doc("comp_exploracion/actual").onSnapshot(s=>{st.compExp=s.exists?s.data():null;pintarCompExp()});
-  db.doc("estado/competencia").onSnapshot(s=>{st.estadoC=s.exists?s.data():null;pintarCompetencia()});
-  db.doc("estado/radar").onSnapshot(s=>{st.estado=s.exists?s.data():null;if(document.activeElement?.id!=="q")pintarDatos()});
 })();
 </script>

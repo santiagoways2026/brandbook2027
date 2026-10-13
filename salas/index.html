@@ -377,6 +377,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .tabla tr.top td{background:#0f1726}
 .aviso{border:1px dashed var(--borde-2);border-radius:6px;padding:14px 16px;color:#c3cad4;font-size:13.5px;line-height:1.5}
 .aviso b{color:var(--texto)}
+.as-ctl .cn-actmsg,.cn-fechas .cn-actmsg{flex-basis:100%;margin:2px 0 0}.as-ctl .cn-actmsg:empty,.cn-fechas .cn-actmsg:empty{display:none}
 .z-edit{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-top:12px}.jm-modal .z-edit{padding:0 20px 20px;margin-top:0}.z-edit a.zlink{margin-left:0}.z-edit small{flex-basis:100%;font:500 11.5px/1.4 var(--f-mono);color:var(--tenue)}
 .cn-actmsg{font:500 12.5px/1.4 var(--f-mono);color:var(--tenue);margin:-4px 0 10px}.cn-actmsg:empty{display:none}.cn-actmsg.ok{color:#7AA606}.cn-actmsg.err{color:var(--caliente)}
 .aviso.err{border-color:color-mix(in srgb,var(--caliente) 50%,var(--borde));border-style:solid}
@@ -2973,10 +2974,10 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   const pres=mens?[["Este año",y0*100+1,ult],["Últimos 3 meses",resta(ult,2),ult],["Mes pasado",resta(ult,1),resta(ult,1)],["Año pasado",(y0-1)*100+1,(y0-1)*100+12],["Todo",meses[0],ult]].filter(p=>meses.includes(p[2])).map(([n,a,b])=>[n,Math.max(a,meses[0]),b]):[];
   const fechas=mens?`<div class="cn-fechas"><label>Desde <select data-cnf="desde">${optM(V.desde)}</select></label><label>Hasta <select data-cnf="hasta">${optM(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cnpre="${a}-${b}">${n}</button>`).join("")}</div></div>`:"";
   const vistas=`<div class="as-modo"><button class="btn${V.vista==="grupo"?" prim":""}" data-cnvista="grupo">Organic / Paid</button><button class="btn${V.vista==="source"?" prim":""}" data-cnvista="source">Por utm_source</button></div>`;
-  if(!TD){el.innerHTML=`<div class="as-ctl">${vistas}${cnActBtn()}${zBtn("canales")}</div>${cnActMsg()}${fechas}<div class="vacio">No hay deals en ese periodo.</div>`;return}
+  if(!TD){el.innerHTML=`<div class="as-ctl">${vistas}${cnActBtn()}${cnXls("c-captacion_canales")}${zBtn("canales")}</div>${cnActMsg()}${fechas}<div class="vacio">No hay deals en ese periodo.</div>`;return}
   if(V.vista==="grupo"){const E=cnEstructura(C,num,pct,MIN);
     el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div>
-     <div class="as-ctl">${vistas}${cnActBtn()}${zBtn("canales")}</div>${cnActMsg()}${fechas}
+     <div class="as-ctl">${vistas}${cnActBtn()}${cnXls("c-captacion_canales")}${zBtn("canales")}</div>${cnActMsg()}${fechas}
      <div class="as-res"><div><b>${num(TD)}</b><span>deals · ${esc(C.periodo||"")}</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div></div>
      ${E.split}${E.rank}${E.revisar}<div class="cn-utmtg"><label><input type="checkbox" data-cnutm${V.utm===true?" checked":""}> Ver también los utm_source conocidos dentro de cada canal</label></div>${E.tabla}
      <p class="as-nota">CR = deals creados en el periodo que están won con Closing Date hasta el último mes del filtro (incluido) / deals creados en el periodo. Si filtras de marzo a junio, cuentan los won cerrados hasta el 30 de junio, así el CR no cambia aunque luego se cierren más ventas de esos deals. Mejores y peores: solo medios con al menos ${MIN} deals en el periodo y sin contar SIN DATA. Verde: CR un 15 % o más por encima de la media; rojo: un 15 % o más por debajo. Pulsa RRSS o Google para plegar o desplegar; las filas son las del cuadro de dirección; solo aparecen debajo, en amarillo, los utm_source del CRM que no encajan en él, para revisarlos y limpiarlos. SIN DATA en Organic son deals sin utm_source y los utm_source que no tienen fila en el cuadro (salen en amarillo); en Google, deals con source google sin medium (más display). Las fuentes antiguas fb, fb-SiteLink, ig y Facebook cuentan como Meta. Los meses recientes tienen el CR más bajo porque muchos deals siguen abiertos.</p>`;return}
@@ -2992,7 +2993,7 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   const li=a=>a.map(g=>`<li>${esc(g.n)} · <b>${pct(g.w/g.d)}</b> <small>(${num(g.w)} de ${num(g.d)})</small></li>`).join("");
   el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2><div class="fuente-mc" style="margin-top:6px">${esc(C.fuente||"")} · ${esc(C.periodo||"")}</div></div><div class="meta">${C.actualizado?`datos del ${esc(C.actualizado)}`:""}</div></div>
    <div class="as-ctl">${vistas}
-    <label>Ordenar <select data-cnorden><option value="vol"${V.orden==="vol"?" selected":""}>por deals</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label>${cnActBtn()}${zBtn("canales")}</div>${cnActMsg()}${fechas}
+    <label>Ordenar <select data-cnorden><option value="vol"${V.orden==="vol"?" selected":""}>por deals</option><option value="cr"${V.orden==="cr"?" selected":""}>por CR</option></select></label>${cnActBtn()}${cnXls("c-captacion_canales")}${zBtn("canales")}</div>${cnActMsg()}${fechas}
    <div class="as-res"><div><b>${num(TD)}</b><span>deals entrados</span></div><div><b>${num(TW)}</b><span>deals won</span></div><div><b>${pct(ref)}</b><span>CR medio</span></div><div><b>${num(Object.keys(src).length)}</b><span>valores de utm_source</span></div></div>
    <div class="cn-rank"><div class="top"><h4>Mejor convierten</h4><ol>${li(top)}</ol></div><div class="bot"><h4>Peor convierten</h4><ol>${li(bot)}</ol></div></div>
    <div class="as-tw"><table class="as-t cn-t"><thead><tr><th class="as-n">utm_source</th><th>Deals</th><th>% del total</th><th>Won</th><th>CR</th></tr></thead>
@@ -3019,7 +3020,31 @@ async function cnPaginas(nombre,per,alPagina){
     alPagina(d.data_map);cnAct(`Leyendo ${nombre} de Zoho (página ${set})…`);
     if(!d.info?.more_data)return}
   throw{code:"formato",message:"El informe tiene demasiadas páginas."}}
-function cnAct(msg,tipo){st.cnAct={msg,tipo:tipo||"vivo"};const b=document.getElementById("cnActMsg");if(b){b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")}}
+function cnAct(msg,tipo){st.cnAct={msg,tipo:tipo||"vivo"};document.querySelectorAll("[data-cnmsg]").forEach(b=>{b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")})}
+/* Excel de la tabla que se está viendo en cada pestaña de Captación */
+const cnXls=id=>`<button class="btn" data-cnxls="${id}">⤓ Descargar en Excel</button>`;
+const cnBtns=id=>`${cnActBtn()}${cnXls(id)}<span data-cnmsg class="cn-actmsg ${st.cnAct?.tipo||""}">${esc(st.cnAct?.msg||"")}</span>`;
+function xlsCelda(t){t=String(t||"").replace(/\s+/g," ").trim();if(t===""||t==="–")return null;
+  const m=t.match(/^(-?[\d.]+(?:,\d+)?)\s*(%|€|×)?$/);if(!m)return t;const n=+m[1].replace(/\./g,"").replace(",",".");if(isNaN(n))return t;
+  return m[2]==="%"?{v:n/100,z:"0.00%"}:m[2]==="€"?{v:n,z:'#,##0.00 "€"'}:m[2]==="×"?{v:n,z:'0.00"×"'}:n}
+async function descargarTablas(id){const el=document.getElementById(id);if(!el)return;
+  if(!st.dl){cnAct("La descarga no está disponible en este visor. Abre la página desde claude.ai.","err");return}
+  const tablas=[...el.querySelectorAll("table")];if(!tablas.length){cnAct("No hay ninguna tabla que descargar en esta vista.","err");return}
+  try{const XLSX=await asXlsxLib(),wb=XLSX.utils.book_new(),tit=el.querySelector("h2")?.textContent||"Captación",per=st.canales?.actualizado?`Datos de Zoho del ${st.canales.actualizado.split("-").reverse().join("/")}`:"";
+    const filtros=[...el.querySelectorAll(".as-ctl .btn.prim:not([data-cnact]),.cn-fechas .btn.prim:not([data-cnact])")].map(b=>b.textContent.trim()).concat([...el.querySelectorAll("select")].map(x=>(x.closest("label")?.firstChild?.textContent||"").trim()+" "+(x.selectedOptions[0]?.textContent||""))).filter(Boolean).join(" · ");
+    tablas.forEach((tb,ti)=>{const aoa=[[tit],[filtros],[per],[]],merges=[],ocup={};
+      [...tb.rows].forEach(tr=>{const r=aoa.length,fila=[];let c=0;
+        [...tr.cells].forEach(td=>{while(ocup[r+"_"+c]){fila[c]=null;c++}const cs=td.colSpan||1,rs=td.rowSpan||1;const cl=td.cloneNode(true);cl.querySelectorAll(".cn-tag,.cn-car,small,svg").forEach(x=>x.remove());fila[c]=xlsCelda(cl.textContent);
+          if(cs>1||rs>1){merges.push({s:{r,c},e:{r:r+rs-1,c:c+cs-1}});for(let i=0;i<rs;i++)for(let j=0;j<cs;j++)if(i||j)ocup[(r+i)+"_"+(c+j)]=1}c+=cs});
+        aoa.push(fila)});
+      const ws=XLSX.utils.aoa_to_sheet(aoa.map(f=>f.map(x=>x&&typeof x==="object"?x.v:x)));
+      aoa.forEach((f,r)=>f.forEach((x,c)=>{if(x&&typeof x==="object"){const a=XLSX.utils.encode_cell({r,c});if(ws[a])ws[a].z=x.z}}));
+      ws["!merges"]=merges;ws["!cols"]=[{wch:34},...Array(30).fill({wch:12})];
+      XLSX.utils.book_append_sheet(wb,ws,(ti?`Tabla ${ti+1}`:tit).replace(/[\\/?*[\]:]/g,"").slice(0,31))});
+    const buf=XLSX.write(wb,{type:"array",bookType:"xlsx"});
+    await st.dl.save({filename:`${tit.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]+/g,"-")}-${new Date().toISOString().slice(0,10)}.xlsx`,data:new Blob([buf])})
+  }catch(e){if(e?.code==="declined")return;cnAct(e?.code==="rate_limited"?"Ya hay una descarga abierta. Espera un momento y vuelve a pulsar.":"No se pudo descargar el Excel: "+(e?.message||"error desconocido"),"err")}}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-cnxls]");if(b)descargarTablas(b.dataset.cnxls)});
 async function actualizarCanales(){
   if(st.cnAct?.tipo==="vivo")return;
   if(!mc.mcp||!st.db){cnAct("Abre la página desde claude.ai para actualizar los datos.","err");return}
@@ -3049,7 +3074,7 @@ async function actualizarCanales(){
       "No se pudo actualizar: "+(e?.message||"error desconocido"),"err")}}
 const cnActBtn=()=>mc.disponible===false?"":`<button class="btn prim" data-cnact${st.cnAct?.tipo==="vivo"?" disabled":""}>↻ Actualizar a día de hoy</button>`;
 const cnViejo=()=>{const a=st.canales?.actualizado;if(!a)return"";const d=Math.floor((Date.now()-new Date(a+"T23:59:59"))/864e5);return d>=1?`Datos de Zoho del ${a.split("-").reverse().join("/")} (hace ${d} día${d>1?"s":""}): lo que haya entrado después, como un utm_source nuevo, no sale hasta que pulses «Actualizar a día de hoy».`:""};
-const cnActMsg=()=>st.cnAct?.msg?`<div id="cnActMsg" class="cn-actmsg ${st.cnAct.tipo}">${esc(st.cnAct.msg)}</div>`:`<div id="cnActMsg" class="cn-actmsg${cnViejo()?" err":""}">${esc(cnViejo())}</div>`;
+const cnActMsg=()=>st.cnAct?.msg?`<div id="cnActMsg" data-cnmsg class="cn-actmsg ${st.cnAct.tipo}">${esc(st.cnAct.msg)}</div>`:`<div id="cnActMsg" data-cnmsg class="cn-actmsg${cnViejo()?" err":""}">${esc(cnViejo())}</div>`;
 document.addEventListener("click",e=>{if(e.target.closest("[data-cnact]"))actualizarCanales()});
 document.addEventListener("change",e=>{const u=e.target.closest("[data-cnutm]");if(u&&st.cnV){st.cnV.utm=u.checked;pintarCanales()}});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-cnf]");if(!s||!st.cnV)return;st.cnV[s.dataset.cnf]=Number(s.value);if(st.cnV.desde>st.cnV.hasta)[st.cnV.desde,st.cnV.hasta]=[st.cnV.hasta,st.cnV.desde];pintarCanales()});
@@ -3096,7 +3121,7 @@ function pintarEvolucion(){const el=document.getElementById("c-captacion_evoluci
   el.innerHTML=`<div class="mcab"><div><h2>Evolución del CR por canal</h2></div></div>
    <div class="as-ctl"><div class="as-modo">${["12m",...anios.map(String)].map(r=>`<button class="btn${V.rango===r?" prim":""}" data-evr="${r}">${r==="12m"?"Últimos 12 meses":r}</button>`).join("")}</div>
     <div class="as-modo"><button class="btn${V.ver==="cr"?" prim":""}" data-evv="cr">CR del mes</button><button class="btn${V.ver==="vol"?" prim":""}" data-evv="vol">Deals</button></div>
-    <label>Mínimo por mes <select data-evmin>${[10,30,50,100].map(n=>`<option${n===V.min?" selected":""}>${n}</option>`).join("")}</select> deals</label>${zBtn("canales")}</div>
+    <label>Mínimo por mes <select data-evmin>${[10,30,50,100].map(n=>`<option${n===V.min?" selected":""}>${n}</option>`).join("")}</select> deals</label>${cnBtns("c-captacion_evolucion")}${zBtn("canales")}</div>
    <div class="as-tw"><table class="as-t cn-e cn-ev"><thead><tr><th class="as-n">Canal</th>${ms.map(m=>`<th class="${enCurso.has(m)?"cn-inm":""}">${ymTxt(m)}</th>`).join("")}<th>Tendencia</th></tr></thead><tbody>${h}</tbody></table></div>
    <p class="as-nota">${conCierre?`CR del mes = deals won de los creados ese mes con Closing Date anterior al día 1 del mes siguiente / deals creados ese mes (Created Time). Por ejemplo, el CR de enero son los won de los deals de enero cerrados antes del 1 de febrero. Así cada mes se mide con la misma ventana y los meses son comparables entre sí, sin esperar a que maduren.`:`CR = deals won / deals creados ese mes. Pendiente de cargar el Closing Date.`} El total junto a cada canal cuenta los deals del periodo y los won con Closing Date hasta el último mes mostrado. El color compara el CR de cada mes con la media mensual del propio canal: verde por encima, rojo por debajo. Si un mes tiene menos deals que el mínimo, se muestra en gris solo el volumen. El mes en curso va en cursiva porque aún no ha terminado. Las filas ORGANIC y PAID y el TOTAL GENERAL muestran el CR de todo el grupo cada mes.</p>`}
 document.addEventListener("click",e=>{const r=e.target.closest("[data-evr]");if(r&&st.cnEv){st.cnEv.rango=r.dataset.evr;pintarEvolucion();return}
@@ -3126,7 +3151,7 @@ function pintarMix(){const el=document.getElementById("c-captacion_mix");if(!el|
   const tbl2=V.nivel==="medio"?`<div class="as-tw"><table class="as-t cn-e"><thead><tr><th class="as-n">% de deals por medio</th>${ms.map(m=>`<th>${ymTxt(m)}</th>`).join("")}</tr></thead><tbody>${medios.map(mk=>`<tr class="cn-lf ${mk.startsWith("PAID")?"cn-paid":"cn-org"}"><td class="cn-l1"><i class="cn-sw" style="background:${colM[mk]}"></i>${esc(mk.split("|")[1])}</td>${ms.map((m,i)=>{const t=org[i][0]+pai[i][0],v=g(m,k=>k.startsWith(mk+"|")||k===mk)[0];return`<td>${t&&v?cnPct(v/t):""}</td>`}).join("")}</tr>`).join("")}</tbody></table></div>`:"";
   el.innerHTML=`<div class="mcab"><div><h2>Mix Paid / Organic</h2></div></div>
    <div class="as-ctl"><div class="as-modo">${["12m",...anios.map(String)].map(r=>`<button class="btn${V.rango===r?" prim":""}" data-mxr="${r}">${r==="12m"?"Últimos 12 meses":r}</button>`).join("")}</div>
-    <div class="as-modo"><button class="btn${V.nivel==="grupo"?" prim":""}" data-mxn="grupo">Organic vs Paid</button><button class="btn${V.nivel==="medio"?" prim":""}" data-mxn="medio">Por medio</button></div>${zBtn("canales")}</div>
+    <div class="as-modo"><button class="btn${V.nivel==="grupo"?" prim":""}" data-mxn="grupo">Organic vs Paid</button><button class="btn${V.nivel==="medio"?" prim":""}" data-mxn="medio">Por medio</button></div>${cnBtns("c-captacion_mix")}${zBtn("canales")}</div>
    <div class="as-res"><div><b>${cnPct(tP[0]/((tP[0]+tO[0])||1))}</b><span>de los deals llegan por paid</span></div><div><b>${cnPct(tP[1]/((tP[1]+tO[1])||1))}</b><span>de las ventas (won) vienen de paid</span></div><div><b>${cnPct(tO[0]?tO[1]/tO[0]:null,2)}</b><span>CR organic</span></div><div><b>${cnPct(tP[0]?tP[1]/tP[0]:null,2)}</b><span>CR paid</span></div></div>
    <div class="cn-mixw">${svg}<div class="cn-ley">${leyenda}</div></div>
    <div class="as-tw"><table class="as-t cn-e"><thead><tr><th class="as-n">Mes de creación</th>${ms.map(m=>`<th>${ymTxt(m)}</th>`).join("")}<th>Total</th></tr></thead><tbody>
@@ -3162,7 +3187,7 @@ function pintarCPA(){const el=document.getElementById("c-captacion_cpa");if(!el|
   const pres=[["Este año",y0*100+1,ult],["Últimos 3 meses",res(ult,2),ult],["Mes pasado",res(ult,1),res(ult,1)],["Año pasado",(y0-1)*100+1,(y0-1)*100+12]].filter(p=>ms.includes(p[2])).map(([n,a,b])=>[n,Math.max(a,ms[0]),b]);
   el.innerHTML=`<div class="mcab"><div><h2>CPA y retorno por canal</h2></div></div>
    ${hayInv?"":`<div class="cp-aviso"><b>Inversión e ingresos pendientes de conectar.</b> Deals, won y CR ya son reales (Zoho, por mes de creación). La inversión llegará de Windsor.ai (Google Ads, Meta Ads, Bing, ChatGPT Ads y el coste de Caminofy) y los ingresos del importe de los deals won. En cuanto estén, las columnas marcadas como pendiente se rellenan solas.</div>`}
-   <div class="cn-fechas"><label>Desde <select data-cpf="desde">${opt(V.desde)}</select></label><label>Hasta <select data-cpf="hasta">${opt(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cppre="${a}-${b}">${n}</button>`).join("")}</div>${zBtn("canales")}</div>
+   <div class="cn-fechas"><label>Desde <select data-cpf="desde">${opt(V.desde)}</select></label><label>Hasta <select data-cpf="hasta">${opt(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cppre="${a}-${b}">${n}</button>`).join("")}</div>${cnBtns("c-captacion_cpa")}${zBtn("canales")}</div>
    <div class="as-res"><div><b>${hayInv?eur(TG):"–"}</b><span>invertido</span></div><div><b>${cnNum(TD)}</b><span>deals (leads)</span></div><div><b>${cnNum(TW)}</b><span>deals won</span></div><div><b>${hayInv&&PD?eur(TG/PD):"–"}</b><span>CPL medio (canales con inversión)</span></div><div><b>${hayInv&&PW?eur(TG/PW):"–"}</b><span>CPA medio (canales con inversión)</span></div><div><b>${hayInv&&hayIng&&TG?(TI/TG).toFixed(2).replace(".",",")+"×":"–"}</b><span>retorno (ROAS)</span></div></div>
    <div class="as-tw"><table class="as-t cn-e cp-t"><thead><tr><th class="as-n">Canal</th><th>Invertido</th><th>Deals</th><th>Won</th><th>CR</th><th>CPL</th><th>CPA</th><th>Ingresos won</th><th>Retorno</th></tr></thead><tbody>${h}</tbody></table></div>
    <p class="as-nota">CPL = invertido / deals creados en el periodo. CPA = invertido / deals won (creados en el periodo y con Closing Date hasta el último mes del filtro). Retorno (ROAS) = ingresos de los deals won / invertido; por encima de 1× el canal devuelve más de lo que cuesta. Paid va primero porque es donde hay inversión; en Organic solo se rellenará si se le asigna coste (por ejemplo medios patrocinados o blog). Deals y won se cuentan por mes de creación del deal, igual que en las otras pestañas, así que el CPA de los meses recientes bajará a medida que se cierren ventas.</p>`}

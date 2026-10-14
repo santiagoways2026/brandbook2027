@@ -46,25 +46,17 @@ Para analizar un idioma concreto, filtra por ruta dentro de la propiedad raíz e
 
 Eso da el mismo corte por idioma, con una sola propiedad y sin depender de cómo se configuraron las demás.
 
-Ejecuta desde `C:\Users\swcan\.claude\skills\seo\scripts`:
+**Usa `magical-seo/scripts/gsc.py` y nada más.** No escribas Python suelto ni otra orden de shell: solo ese script y `clarity.py` tienen permiso concedido, y cualquier otra cosa deja este análisis esperando una autorización que nadie va a dar un lunes a las ocho de la mañana. Es exactamente lo que impidió que este protocolo llegara a ejecutarse nunca hasta el 14 de octubre de 2026.
 
-```python
-import sys; sys.path.insert(0,'.')
-from google_auth import get_oauth_credentials, SCOPES
-from googleapiclient.discovery import build
-from datetime import date, timedelta
-c = get_oauth_credentials([SCOPES['gsc_readonly']])
-s = build('searchconsole','v1',credentials=c)
-fin = date.today()-timedelta(days=3); ini = fin-timedelta(days=28)
-r = s.searchanalytics().query(siteUrl='https://santiagoways.com/', body={
-    'startDate': ini.isoformat(), 'endDate': fin.isoformat(),
-    'dimensions': ['query'],
-    'dimensionFilterGroups': [{'filters': [
-        {'dimension':'query','operator':'contains','expression':'<el término>'}]}],
-    'rowLimit': 25}).execute()
-for row in r.get('rows', []):
-    print(row['keys'][0], row['clicks'], row['impressions'], round(row['position'],1))
+Desde la raíz del repositorio:
+
+```bash
+python magical-seo/scripts/gsc.py posiciones --limite 1000 --json
+python magical-seo/scripts/gsc.py posiciones --contiene "<el término>" --limite 25
+python magical-seo/scripts/gsc.py paginas --contiene "/en/" --limite 25
 ```
+
+La primera trae nuestras mil consultas de una vez: con eso en memoria se contrasta todo sin más llamadas. Las otras dos afinan sobre un término o un idioma.
 
 Deja siempre tres días de margen con la fecha de hoy: Search Console no tiene los datos más recientes.
 
@@ -81,27 +73,13 @@ Cita siempre en `evidencia` las cifras concretas y el periodo consultado. Sin es
 
 Search Console dice en qué posición estamos. Analytics dice **cuánto hay en juego**. Un hueco en una página que trae 1.800 sesiones al mes no es el mismo hueco que en una que trae 12.
 
-La propiedad es `properties/309135189`, configurada en el mismo archivo. Mismo directorio de scripts:
+La propiedad ya está configurada dentro del script:
 
-```python
-import sys; sys.path.insert(0,'.')
-from google_auth import get_oauth_credentials, SCOPES
-from googleapiclient.discovery import build
-from datetime import date, timedelta
-c = get_oauth_credentials([SCOPES['ga4']])
-d = build('analyticsdata','v1beta',credentials=c)
-fin = date.today()-timedelta(days=1); ini = fin-timedelta(days=28)
-r = d.properties().runReport(property='properties/309135189', body={
-    'dateRanges': [{'startDate': ini.isoformat(), 'endDate': fin.isoformat()}],
-    'dimensions': [{'name':'landingPage'}],
-    'metrics': [{'name':'sessions'}],
-    'dimensionFilter': {'filter': {'fieldName':'sessionDefaultChannelGroup',
-                                   'stringFilter': {'value':'Organic Search'}}},
-    'orderBys': [{'metric': {'metricName':'sessions'}, 'desc': True}],
-    'limit': 25}).execute()
+```bash
+python magical-seo/scripts/gsc.py trafico --limite 25
 ```
 
-Cuidado con un error fácil: Analytics usa `dimensionFilter`, en singular. `dimensionFilterGroups` es de Search Console y aquí devuelve un 400.
+Devuelve las páginas de entrada orgánicas con sus sesiones, que es lo que mide cuánto hay en juego.
 
 Contexto fijo que conviene tener presente al priorizar:
 
@@ -130,12 +108,8 @@ Es la lista de lo que existe, posicione o no. Para saber si tenemos algo sobre u
 
 **La indexación, página a página.** Desde el directorio de scripts de Google:
 
-```python
-r = s.urlInspection().index().inspect(body={
-    'inspectionUrl': '<la URL>',
-    'siteUrl': 'https://santiagoways.com/'}).execute()
-i = r['inspectionResult']['indexStatusResult']
-print(i.get('verdict'), i.get('coverageState'), i.get('googleCanonical'))
+```bash
+python magical-seo/scripts/gsc.py inspecciona <la URL>
 ```
 
 Tres resultados y tres diagnósticos distintos:

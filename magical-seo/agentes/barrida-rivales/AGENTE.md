@@ -107,6 +107,22 @@ Dos cosas que importan:
 - **Cierra siempre `activa: false`**, aunque la barrida acabe mal o incompleta. Si no, la sala muestra una barrida en curso que no existe. Como red de seguridad, la sala da por caducada cualquier barrida de más de 45 minutos, pero no te apoyes en eso.
 - **No abuses de las escrituras.** Una por paso y una por rival recorrido es suficiente. No escribas en bucle.
 
+## Si corres en la nube
+
+Esta barrida se ejecuta en dos sitios y no puede hacer lo mismo en los dos. Comprueba dónde estás antes de prometer cobertura.
+
+| | Nube, dos veces al día | Local, cuando Samuel abre la aplicación |
+|---|---|---|
+| Buscador | Sí | Sí |
+| Leer blogs rivales con WebFetch | **No**, el entorno no resuelve dominios externos | Sí |
+| Triangular con Search Console | **No**, las credenciales son locales | Sí |
+
+**En la nube:** prueba `WebFetch` una sola vez con el blog del primer rival. Si falla, no lo intentes con los once: haz la barrida con buscador, deja `rivalesHechos` en 0 y dilo en la bitácora con el error exacto. Marca `verificar: true` en todo lo de amenaza alta o media y deja vacíos `nuestraPosicion`, `nuestraConsulta` y `nuestraUrl`.
+
+**En local:** el protocolo completo, los ocho pasos.
+
+Lo que no cambia en ningún sitio: no afirmes nada sobre nuestra web que no hayas comprobado, y di siempre con qué cobertura has trabajado. Una barrida que avisa de lo que no ha podido mirar vale mucho más que una que lo calla.
+
 ## Horas
 
 Todas las marcas de tiempo se guardan **en UTC**, con la `Z` al final. La sala las convierte a **hora de Canarias** al mostrarlas.

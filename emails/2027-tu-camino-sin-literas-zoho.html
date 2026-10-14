@@ -14,10 +14,10 @@
 
   Reglas del brandbook aplicadas (pág. 29, Campañas de email):
     Cabecera blanca: logo a la izquierda, teléfono a la derecha.
-    Titular Montserrat ExtraBold con UN solo subrayado SW verde Ways.
+    Titular Montserrat ExtraBold con UN solo subrayado SW verde Ways (sobre foto: letra blanca).
     CTA principal cerca del primer scroll: verde Ways, texto blanco.
     Fondo blanco; caja verde (degradado 135°) solo para el cierre.
-    Pie gris y común: logo, redes y contacto.
+    Pie gris y común: logo, redes y datos de contacto.
 
   Paleta (design-system/tokens.css):
     Blanco ........ #FFFFFF   Verde Ways ..... #7AA606 (nunca texto sobre blanco)
@@ -25,14 +25,17 @@
     Gris .......... #6F6F6E   Niebla ......... #E8E8E6   Brote ... #FAFFEE
 
   Campos que hay que sustituir antes de enviar:
-    [URL_LOGO]            logo horizontal color, PNG 2x (340 × 72 px)
-    [URL_ISOTIPO]         concha verde Ways, PNG 2x (64 × 64 px)
-    [URL_IMAGEN_PRINCIPAL] foto del hórreo, 1200 × 680 px
-    [URL_IMAGEN_SARRIA] [URL_IMAGEN_PORTUGUES]  fotos de las rutas, 500 × 360 px
-    [URL_ICONO_TIKTOK] [URL_ICONO_FACEBOOK] [URL_ICONO_YOUTUBE] [URL_ICONO_INSTAGRAM]  PNG 56 × 56 px
-    [URL_TIKTOK] [URL_FACEBOOK] [URL_YOUTUBE] [URL_INSTAGRAM] [URL_CTA] [URL_PREFERENCIAS] [Firma]
+    [URL_IMAGEN_PRINCIPAL]  foto del hórreo, 1200 × 760 px (aparece 3 veces: td, CSS y VML de Outlook)
+    [URL_ISOTIPO]           concha verde Ways, PNG 64 × 64 px (emails/img/isotipo.png)
+    [URL_CTA]               enlace de "Quiero que me llaméis" (aparece 4 veces)
+    [URL_PREFERENCIAS]      insértalo desde el editor de Zoho
+    [Firma]
 
-  Etiquetas de Zoho Campaigns ya puestas:
+  Ya enlazados: logo, fotos de las rutas y fichas de santiagoways.com, redes sociales.
+  Los iconos de redes salen del CDN de Mailchimp; si prefieres no depender de él,
+  súbelos a la galería de Zoho y cambia las cuatro URL.
+
+  Etiquetas de Zoho Campaigns:
     $[FNAME|peregrino]$   nombre del contacto, con "peregrino" si falta
     $[LI:UNSUBSCRIBE]$    enlace de baja (obligatorio con el tema "None")
 -->
@@ -44,17 +47,20 @@
   a { color: #506718; }
   @media screen and (max-width: 620px) {
     .sw-container { width: 100% !important; }
-    .sw-pad { padding-left: 24px !important; padding-right: 24px !important; }
-    .sw-col { display: block !important; width: 100% !important; box-sizing: border-box !important; }
-    .sw-col-gap { display: block !important; width: 100% !important; height: 16px !important; }
-    .sw-h1 { font-size: 28px !important; line-height: 34px !important; }
-    .sw-tel { font-size: 13px !important; }
+    .sw-pad { padding-left: 20px !important; padding-right: 20px !important; }
+    .sw-hero { height: 320px !important; }
+    .sw-h1 { font-size: 28px !important; line-height: 35px !important; }
+    .sw-tel-top { font-size: 12px !important; }
+    .sw-card { width: 50% !important; }
+    .sw-card-gap { width: 10px !important; }
+    .sw-card-txt { font-size: 13px !important; line-height: 19px !important; }
+    .sw-card-pad { padding: 14px 12px 16px !important; }
+    .sw-half { display: inline-block !important; width: 50% !important; box-sizing: border-box !important; border-left: 0 !important; padding: 10px 4px !important; }
     .sw-btn { display: block !important; }
-    .sw-img { max-width: 100% !important; }
   }
 </style>
 <!--[if mso]>
-<style> body, table, td, p, a, span { font-family: Arial, sans-serif !important; } </style>
+<style> body, table, td, p, a, span, h1, h2 { font-family: Arial, sans-serif !important; } </style>
 <![endif]-->
 </head>
 <body style="margin:0; padding:0; background:#FFFFFF;">
@@ -73,13 +79,13 @@
 
     <!-- Cabecera blanca: logo a la izquierda, teléfono a la derecha -->
     <tr>
-      <td class="sw-pad" style="padding:24px 40px 20px;">
+      <td class="sw-pad" style="padding:20px 40px 18px;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td align="left" valign="middle">
-              <img src="[URL_LOGO]" width="170" height="36" alt="Santiago Ways" style="display:block; width:170px; height:36px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:16px; font-weight:700; color:#506718;">
+              <a href="https://santiagoways.com/es/" style="text-decoration:none;"><img src="https://santiagoways.com/wp-content/themes/santiago-ways/image/logo-new.png" width="160" height="38" alt="Santiago Ways" style="display:block; width:160px; height:38px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:16px; font-weight:700; color:#506718;"></a>
             </td>
-            <td align="right" valign="middle" class="sw-tel" style="font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:14px; line-height:20px; font-weight:600; color:#2E2E2D;">
+            <td align="right" valign="middle" class="sw-tel-top" style="font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:14px; line-height:20px; font-weight:700; color:#2E2E2D;">
               <a href="tel:+34928970605" style="color:#2E2E2D; text-decoration:none;">+34 928 970 605</a>
             </td>
           </tr>
@@ -87,34 +93,41 @@
       </td>
     </tr>
 
-    <!-- Imagen principal: foto propia de peregrino real -->
+    <!-- Hero: foto de fondo con el titular encima -->
     <tr>
-      <td bgcolor="#E8E8E6" style="background:#E8E8E6; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:13px; color:#2E2E2D; text-align:center;">
-        <img src="[URL_IMAGEN_PRINCIPAL]" width="600" height="340" alt="Peregrino pasando junto a un hórreo en un pueblo gallego a primera hora de la mañana" style="display:block; width:100%; max-width:600px; height:auto;">
-      </td>
-    </tr>
-
-    <!-- Antetítulo + titular con el único subrayado SW de la pieza -->
-    <tr>
-      <td class="sw-pad" style="padding:36px 40px 0; font-family:Montserrat, Helvetica, Arial, sans-serif;">
-        <p style="margin:0 0 12px; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:#506718;">Xacobeo 2027</p>
-        <h1 class="sw-h1" style="margin:0; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:34px; line-height:42px; font-weight:800; color:#2E2E2D;">Tu Camino, <span style="display:inline-block; background:#7AA606; color:#FFFFFF; padding:0 8px; transform:rotate(-1.5deg); -webkit-transform:rotate(-1.5deg);">sin literas</span> ni sorpresas</h1>
+      <td class="sw-hero" background="[URL_IMAGEN_PRINCIPAL]" bgcolor="#2E2E2D" valign="bottom" height="380" style="height:380px; background-color:#2E2E2D; background-image:linear-gradient(180deg, rgba(46,46,45,0) 35%, rgba(46,46,45,0.78) 100%), url('[URL_IMAGEN_PRINCIPAL]'); background-size:cover; background-position:center; background-repeat:no-repeat;">
+        <!--[if gte mso 9]>
+        <v:rect xmlns:v="urn:schemas-microsoft-com:vml" fill="true" stroke="false" style="width:600px; height:380px;">
+          <v:fill type="frame" src="[URL_IMAGEN_PRINCIPAL]" color="#2E2E2D" />
+          <v:textbox inset="0,0,0,0">
+        <![endif]-->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+          <tr>
+            <td class="sw-pad" valign="bottom" style="padding:0 40px 32px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+              <p style="margin:0 0 10px; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:#FFFFFF; text-shadow:0 1px 8px rgba(0,0,0,0.45);">Xacobeo 2027</p>
+              <h1 class="sw-h1" style="margin:0; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:38px; line-height:46px; font-weight:800; color:#FFFFFF; text-shadow:0 1px 10px rgba(0,0,0,0.45);">Tu Camino, <span style="display:inline-block; background:#7AA606; color:#FFFFFF; padding:0 8px; text-shadow:none; transform:rotate(-1.5deg); -webkit-transform:rotate(-1.5deg);">sin literas</span><br>ni sorpresas</h1>
+            </td>
+          </tr>
+        </table>
+        <!--[if gte mso 9]>
+          </v:textbox>
+        </v:rect>
+        <![endif]-->
       </td>
     </tr>
 
     <!-- Apertura -->
     <tr>
-      <td class="sw-pad" style="padding:24px 40px 0; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:16px; line-height:24px; color:#2E2E2D;">
-        <p style="margin:0 0 16px;">Hola, $[FNAME|peregrino]$:</p>
-        <p style="margin:0 0 16px;">Son las ocho de la mañana en un pueblo gallego. Sales del hotel con el aire aún fresco y pasas junto a un hórreo, esos graneros de piedra sobre pilares que protegían el grano de la humedad y llevan siglos viendo pasar peregrinos.</p>
-        <p style="margin:0 0 16px;">Este podría ser el principio de un día cualquiera en el Camino.</p>
-        <p style="margin:0;">Con Santiago Ways disfrutas de cada detalle sintiéndote con fuerzas tras haber descansado bien, porque no duermes en albergues compartidos. Cada noche te espera un hotel con habitación privada, tu maleta ya está allí cuando llegas y tienes un teléfono de asistencia 24 horas por si surge cualquier cosa. <strong style="font-weight:700; color:#506718;">Tú solo caminas.</strong></p>
+      <td class="sw-pad" style="padding:30px 40px 0; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:16px; line-height:24px; color:#2E2E2D;">
+        <p style="margin:0 0 14px;">Hola, $[FNAME|peregrino]$:</p>
+        <p style="margin:0 0 14px;">Son las ocho de la mañana en un pueblo gallego. Sales del hotel con el aire aún fresco y pasas junto a un hórreo, esos graneros de piedra sobre pilares que llevan siglos viendo pasar peregrinos. Este podría ser el principio de un día cualquiera en el Camino.</p>
+        <p style="margin:0;">Con Santiago Ways descansas bien cada noche, porque no duermes en albergues compartidos: te espera un hotel con habitación privada, tu maleta ya está allí cuando llegas y tienes asistencia 24 horas por si surge cualquier cosa. <strong style="font-weight:700; color:#506718;">Tú solo caminas.</strong></p>
       </td>
     </tr>
 
     <!-- CTA principal, cerca del primer scroll -->
     <tr>
-      <td class="sw-pad" align="left" style="padding:28px 40px 0;">
+      <td class="sw-pad" align="left" style="padding:24px 40px 0;">
         <table role="presentation" class="sw-btn" cellpadding="0" cellspacing="0" border="0">
           <tr>
             <td align="center" bgcolor="#7AA606" style="background:#7AA606; border-radius:12px;">
@@ -133,56 +146,61 @@
       </td>
     </tr>
 
-    <!-- Rutas: línea verde Ways + titular de sección -->
+    <!-- Rutas: titular de sección -->
     <tr>
-      <td class="sw-pad" style="padding:44px 40px 0; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+      <td class="sw-pad" style="padding:40px 40px 0; font-family:Montserrat, Helvetica, Arial, sans-serif;">
         <table role="presentation" cellpadding="0" cellspacing="0" border="0">
           <tr><td width="40" height="4" bgcolor="#7AA606" style="width:40px; height:4px; line-height:4px; font-size:0; background:#7AA606;">&nbsp;</td></tr>
         </table>
-        <h2 style="margin:16px 0 8px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:22px; line-height:27px; font-weight:700; color:#2E2E2D;">Lo único que te queda es elegir por dónde empezar</h2>
-        <p style="margin:0; font-size:16px; line-height:24px; color:#2E2E2D;">Para 2027, estas son dos de nuestras rutas favoritas:</p>
+        <h2 style="margin:14px 0 6px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:22px; line-height:27px; font-weight:700; color:#2E2E2D;">Lo único que te queda es elegir por dónde empezar</h2>
+        <p style="margin:0; font-size:15px; line-height:22px; color:#2E2E2D;">Para 2027, estas son dos de nuestras rutas favoritas:</p>
       </td>
     </tr>
 
-    <!-- Rutas: foto a la izquierda, texto a la derecha (se apilan en móvil) -->
+    <!-- Rutas: dos tarjetas en paralelo, también en móvil -->
     <tr>
-      <td class="sw-pad" style="padding:24px 40px 0;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 20px;">
+      <td class="sw-pad" style="padding:18px 40px 0;">
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td class="sw-col" width="250" valign="top" style="width:250px;">
-              <img src="[URL_IMAGEN_SARRIA]" width="250" height="180" alt="Mojón del Camino con la concha y la flecha amarilla y peregrinos caminando por un sendero arbolado" class="sw-img" style="display:block; width:100%; max-width:250px; height:auto; border-radius:12px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:13px; color:#2E2E2D;">
+            <td class="sw-card" width="252" valign="top" bgcolor="#FFFFFF" style="width:252px; background:#FFFFFF; border:1px solid #E8E8E6; border-radius:12px; box-shadow:0 8px 32px rgba(46,46,45,0.12); overflow:hidden;">
+              <a href="https://santiagoways.com/es/camino-de-santiago/camino-frances/de-sarria-a-santiago/" style="text-decoration:none;"><img src="https://santiagoways.com/wp-content/uploads/2019/09/camino-de-santiago-desde-sarria.jpg" width="252" height="140" alt="Peregrinos caminando por un sendero arbolado desde Sarria" style="display:block; width:100%; height:140px; object-fit:cover; border-radius:12px 12px 0 0; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:13px; color:#2E2E2D;"></a>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td class="sw-card-pad" style="padding:16px 18px 18px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+                    <p style="margin:0 0 6px; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:#506718;">Últimos 100 km</p>
+                    <p style="margin:0 0 6px; font-size:17px; line-height:21px; font-weight:700; color:#2E2E2D;">Desde Sarria</p>
+                    <p class="sw-card-txt" style="margin:0 0 10px; font-size:14px; line-height:20px; color:#2E2E2D;">Los que dan derecho a la Compostela y donde más se vive el Año Santo.</p>
+                    <a href="https://santiagoways.com/es/camino-de-santiago/camino-frances/de-sarria-a-santiago/" style="font-size:13px; line-height:18px; font-weight:700; color:#506718; text-decoration:none;">Ver ruta →</a>
+                  </td>
+                </tr>
+              </table>
             </td>
-            <td class="sw-col-gap" width="20" style="width:20px; font-size:0; line-height:0;">&nbsp;</td>
-            <td class="sw-col" valign="middle" style="font-family:Montserrat, Helvetica, Arial, sans-serif;">
-              <p style="margin:0 0 8px; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:#506718;">Últimos 100 km</p>
-              <p style="margin:0 0 10px; font-size:18px; line-height:22px; font-weight:700; color:#2E2E2D;">Desde Sarria</p>
-              <p style="margin:0; font-size:15px; line-height:23px; color:#2E2E2D;">Los últimos 100 km, los que dan derecho a la Compostela. En Año Santo es donde más se siente el ambiente peregrino.</p>
-            </td>
-          </tr>
-        </table>
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" style="margin:0 0 0px;">
-          <tr>
-            <td class="sw-col" width="250" valign="top" style="width:250px;">
-              <img src="[URL_IMAGEN_PORTUGUES]" width="250" height="180" alt="Puente de piedra sobre el río y pueblo al atardecer en el Camino Portugués" class="sw-img" style="display:block; width:100%; max-width:250px; height:auto; border-radius:12px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:13px; color:#2E2E2D;">
-            </td>
-            <td class="sw-col-gap" width="20" style="width:20px; font-size:0; line-height:0;">&nbsp;</td>
-            <td class="sw-col" valign="middle" style="font-family:Montserrat, Helvetica, Arial, sans-serif;">
-              <p style="margin:0 0 8px; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:#506718;">Costa y pueblos</p>
-              <p style="margin:0 0 10px; font-size:18px; line-height:22px; font-weight:700; color:#2E2E2D;">Camino Portugués</p>
-              <p style="margin:0; font-size:15px; line-height:23px; color:#2E2E2D;">El preferido de los peregrinos alemanes que viajan con nosotros. Más tranquilo, con tramos de costa y pueblos pequeños.</p>
+            <td class="sw-card-gap" width="16" style="width:16px; font-size:0; line-height:0;">&nbsp;</td>
+            <td class="sw-card" width="252" valign="top" bgcolor="#FFFFFF" style="width:252px; background:#FFFFFF; border:1px solid #E8E8E6; border-radius:12px; box-shadow:0 8px 32px rgba(46,46,45,0.12); overflow:hidden;">
+              <a href="https://santiagoways.com/es/camino-de-santiago/camino-portugues/" style="text-decoration:none;"><img src="https://santiagoways.com/wp-content/uploads/2019/09/camino-portugues2.jpg" width="252" height="140" alt="Puente de piedra y pueblo en el Camino Portugués" style="display:block; width:100%; height:140px; object-fit:cover; border-radius:12px 12px 0 0; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:13px; color:#2E2E2D;"></a>
+              <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
+                <tr>
+                  <td class="sw-card-pad" style="padding:16px 18px 18px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+                    <p style="margin:0 0 6px; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.6px; text-transform:uppercase; color:#506718;">Costa y pueblos</p>
+                    <p style="margin:0 0 6px; font-size:17px; line-height:21px; font-weight:700; color:#2E2E2D;">Camino Portugués</p>
+                    <p class="sw-card-txt" style="margin:0 0 10px; font-size:14px; line-height:20px; color:#2E2E2D;">Más tranquilo, con tramos de costa. El favorito de nuestros viajeros alemanes.</p>
+                    <a href="https://santiagoways.com/es/camino-de-santiago/camino-portugues/" style="font-size:13px; line-height:18px; font-weight:700; color:#506718; text-decoration:none;">Ver ruta →</a>
+                  </td>
+                </tr>
+              </table>
             </td>
           </tr>
         </table>
       </td>
     </tr>
 
-    <!-- Precio garantizado: superficie brote -->
+    <!-- CTA secundario: todas las rutas (contorno, para no competir con el principal) -->
     <tr>
-      <td class="sw-pad" style="padding:24px 40px 0;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FAFFEE" style="background:#FAFFEE; border-radius:12px; box-shadow:0 8px 32px rgba(46,46,45,0.12);">
+      <td class="sw-pad" align="center" style="padding:22px 40px 0;">
+        <table role="presentation" class="sw-btn" cellpadding="0" cellspacing="0" border="0" align="center">
           <tr>
-            <td style="padding:20px 24px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:15px; line-height:23px; color:#2E2E2D;">
-              <strong style="font-weight:700; color:#2E2E2D;">Si reservas ahora, te garantizamos el precio actual para 2027, Año Santo.</strong> Merece la pena: la demanda crece mucho y los hoteles del Camino se llenan antes de lo habitual.
+            <td align="center" bgcolor="#FFFFFF" style="background:#FFFFFF; border:2px solid #7AA606; border-radius:12px;">
+              <a href="https://santiagoways.com/es/camino-de-santiago/" style="display:block; padding:12px 30px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:15px; line-height:20px; font-weight:700; color:#506718; text-decoration:none; border-radius:12px;">Descubre todas las rutas</a>
             </td>
           </tr>
         </table>
@@ -191,12 +209,12 @@
 
     <!-- Cierre: la única caja verde del email (degradado 135°, todo en blanco) -->
     <tr>
-      <td class="sw-pad" style="padding:40px 40px 0;">
+      <td class="sw-pad" style="padding:36px 40px 0;">
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#7AA606" style="background:#7AA606; background-image:linear-gradient(135deg, #7AA606 0%, #628A04 100%); border-radius:12px; box-shadow:0 8px 32px rgba(46,46,45,0.12);">
           <tr>
-            <td style="padding:32px 28px; font-family:Montserrat, Helvetica, Arial, sans-serif; color:#FFFFFF;">
+            <td style="padding:28px 28px 30px; font-family:Montserrat, Helvetica, Arial, sans-serif; color:#FFFFFF;">
               <p style="margin:0 0 8px; font-size:22px; line-height:27px; font-weight:700; color:#FFFFFF;">¿Te llamamos 10 minutos y lo vemos juntos?</p>
-              <p style="margin:0 0 22px; font-size:15px; line-height:23px; font-weight:600; color:#FFFFFF;">Te ayudamos a elegir ruta, fechas y etapas según tu ritmo.</p>
+              <p style="margin:0 0 20px; font-size:15px; line-height:22px; font-weight:600; color:#FFFFFF;">Si reservas ahora, te garantizamos el precio actual para 2027, Año Santo. Merece la pena: la demanda crece mucho y los hoteles del Camino se llenan antes de lo habitual.</p>
               <table role="presentation" class="sw-btn" cellpadding="0" cellspacing="0" border="0">
                 <tr>
                   <td align="center" bgcolor="#FFFFFF" style="background:#FFFFFF; border-radius:12px;">
@@ -220,64 +238,59 @@
 
     <!-- Firma -->
     <tr>
-      <td class="sw-pad" style="padding:36px 40px 40px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:16px; line-height:24px; color:#2E2E2D;">
+      <td class="sw-pad" style="padding:30px 40px 36px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:16px; line-height:24px; color:#2E2E2D;">
         <p style="margin:0;">Un saludo,</p>
         <p style="margin:0; font-weight:700; color:#2E2E2D;">[Firma]</p>
       </td>
     </tr>
 
-    <!-- Pie gris y común: teléfonos, isotipo, redes y legal -->
+    <!-- Pie gris y común: teléfonos, redes y legal -->
     <tr>
-      <td class="sw-pad" bgcolor="#E8E8E6" style="background:#E8E8E6; padding:32px 40px 32px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:12px; line-height:18px; color:#2E2E2D;">
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
-            <tr>
-              <td class="sw-col" width="250" align="center" bgcolor="#FFFFFF" style="width:250px; background:#FFFFFF; border:1px solid #7AA606; border-radius:12px; padding:14px 12px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
-                <p style="margin:0 0 4px; font-size:14px; line-height:18px; font-weight:700; color:#2E2E2D;">Deutschland</p>
-                <a href="tel:+493052015190" style="font-size:14px; line-height:18px; color:#2E2E2D; text-decoration:none;">+49 30 52015190</a>
-              </td>
-              <td class="sw-col-gap" width="20" style="width:20px; font-size:0; line-height:0;">&nbsp;</td>
-              <td class="sw-col" width="250" align="center" bgcolor="#FFFFFF" style="width:250px; background:#FFFFFF; border:1px solid #7AA606; border-radius:12px; padding:14px 12px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
-                <p style="margin:0 0 4px; font-size:14px; line-height:18px; font-weight:700; color:#2E2E2D;">Schweiz</p>
-                <a href="tel:+41445514031" style="font-size:14px; line-height:18px; color:#2E2E2D; text-decoration:none;">+41 44 551 40 31</a>
-              </td>
-            </tr>
-            <tr><td colspan="3" class="sw-col-gap" height="14" style="height:14px; font-size:0; line-height:0;">&nbsp;</td></tr>
-            <tr>
-              <td class="sw-col" width="250" align="center" bgcolor="#FFFFFF" style="width:250px; background:#FFFFFF; border:1px solid #7AA606; border-radius:12px; padding:14px 12px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
-                <p style="margin:0 0 4px; font-size:14px; line-height:18px; font-weight:700; color:#2E2E2D;">Österreich</p>
-                <a href="tel:+43720145689" style="font-size:14px; line-height:18px; color:#2E2E2D; text-decoration:none;">+43 720 145689</a>
-              </td>
-              <td class="sw-col-gap" width="20" style="width:20px; font-size:0; line-height:0;">&nbsp;</td>
-              <td class="sw-col" width="250" align="center" bgcolor="#FFFFFF" style="width:250px; background:#FFFFFF; border:1px solid #7AA606; border-radius:12px; padding:14px 12px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
-                <p style="margin:0 0 4px; font-size:14px; line-height:18px; font-weight:700; color:#2E2E2D;">Spanien</p>
-                <a href="tel:+34928970605" style="font-size:14px; line-height:18px; color:#2E2E2D; text-decoration:none;">+34 928 970 605</a>
-              </td>
-            </tr>
-            <tr><td colspan="3" class="sw-col-gap" height="0" style="height:0px; font-size:0; line-height:0;">&nbsp;</td></tr>
+      <td class="sw-pad" bgcolor="#E8E8E6" style="background:#E8E8E6; padding:28px 40px 30px; font-family:Montserrat, Helvetica, Arial, sans-serif; color:#2E2E2D;">
+
+        <!-- Teléfonos: una franja blanca con cuatro columnas (2 × 2 en móvil) -->
+        <p style="margin:0 0 12px; font-size:12px; line-height:16px; font-weight:700; letter-spacing:1.8px; text-transform:uppercase; color:#2E2E2D; text-align:center;">Call us</p>
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0" bgcolor="#FFFFFF" style="background:#FFFFFF; border-radius:12px;">
+          <tr>
+            <td class="sw-half" width="25%" align="center" valign="top" style="width:25%; padding:14px 6px; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+              <p style="margin:0 0 3px; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:#506718;">Deutschland</p>
+              <a href="tel:+493052015190" style="font-size:13px; line-height:18px; font-weight:700; color:#2E2E2D; text-decoration:none; white-space:nowrap;">+49 30 52015190</a>
+            </td>
+            <td class="sw-half" width="25%" align="center" valign="top" style="width:25%; padding:14px 6px; border-left:1px solid #E8E8E6; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+              <p style="margin:0 0 3px; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:#506718;">Schweiz</p>
+              <a href="tel:+41445514031" style="font-size:13px; line-height:18px; font-weight:700; color:#2E2E2D; text-decoration:none; white-space:nowrap;">+41 44 551 40 31</a>
+            </td>
+            <td class="sw-half" width="25%" align="center" valign="top" style="width:25%; padding:14px 6px; border-left:1px solid #E8E8E6; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+              <p style="margin:0 0 3px; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:#506718;">Österreich</p>
+              <a href="tel:+43720145689" style="font-size:13px; line-height:18px; font-weight:700; color:#2E2E2D; text-decoration:none; white-space:nowrap;">+43 720 145689</a>
+            </td>
+            <td class="sw-half" width="25%" align="center" valign="top" style="width:25%; padding:14px 6px; border-left:1px solid #E8E8E6; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+              <p style="margin:0 0 3px; font-size:11px; line-height:14px; font-weight:700; letter-spacing:1.4px; text-transform:uppercase; color:#506718;">Spanien</p>
+              <a href="tel:+34928970605" style="font-size:13px; line-height:18px; font-weight:700; color:#2E2E2D; text-decoration:none; white-space:nowrap;">+34 928 970 605</a>
+            </td>
+          </tr>
         </table>
 
+        <!-- Isotipo + redes -->
         <table role="presentation" width="100%" cellpadding="0" cellspacing="0" border="0">
           <tr>
-            <td align="center" style="padding:28px 0 0; font-family:Montserrat, Helvetica, Arial, sans-serif;">
-              <img src="[URL_ISOTIPO]" width="32" height="32" alt="Santiago Ways" style="display:block; width:32px; height:32px; margin:0 auto 14px; font-size:12px; font-weight:700; color:#2E2E2D;">
-              <p style="margin:0 0 14px; font-size:14px; line-height:20px; font-weight:700; color:#2E2E2D;">Follow the Camino. Follow us too!</p>
+            <td align="center" style="padding:26px 0 0; font-family:Montserrat, Helvetica, Arial, sans-serif;">
+              <img src="[URL_ISOTIPO]" width="32" height="32" alt="Santiago Ways" style="display:block; width:32px; height:32px; margin:0 auto 12px; font-size:12px; font-weight:700; color:#2E2E2D;">
+              <p style="margin:0 0 12px; font-size:14px; line-height:20px; font-weight:700; color:#2E2E2D;">Follow the Camino. Follow us too!</p>
               <table role="presentation" cellpadding="0" cellspacing="0" border="0" align="center">
                 <tr>
-              <td align="center" valign="top" style="padding:0 10px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:11px; line-height:14px;">
-                <a href="[URL_TIKTOK]" style="color:#2E2E2D; text-decoration:none;"><img src="[URL_ICONO_TIKTOK]" width="28" height="28" alt="TikTok" style="display:block; width:28px; height:28px; margin:0 auto 6px; font-size:11px; color:#2E2E2D;">TikTok</a>
-              </td>
-              <td align="center" valign="top" style="padding:0 10px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:11px; line-height:14px;">
-                <a href="[URL_FACEBOOK]" style="color:#2E2E2D; text-decoration:none;"><img src="[URL_ICONO_FACEBOOK]" width="28" height="28" alt="Facebook" style="display:block; width:28px; height:28px; margin:0 auto 6px; font-size:11px; color:#2E2E2D;">Facebook</a>
-              </td>
-              <td align="center" valign="top" style="padding:0 10px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:11px; line-height:14px;">
-                <a href="[URL_YOUTUBE]" style="color:#2E2E2D; text-decoration:none;"><img src="[URL_ICONO_YOUTUBE]" width="28" height="28" alt="YouTube" style="display:block; width:28px; height:28px; margin:0 auto 6px; font-size:11px; color:#2E2E2D;">YouTube</a>
-              </td>
-              <td align="center" valign="top" style="padding:0 10px; font-family:Montserrat, Helvetica, Arial, sans-serif; font-size:11px; line-height:14px;">
-                <a href="[URL_INSTAGRAM]" style="color:#2E2E2D; text-decoration:none;"><img src="[URL_ICONO_INSTAGRAM]" width="28" height="28" alt="Instagram" style="display:block; width:28px; height:28px; margin:0 auto 6px; font-size:11px; color:#2E2E2D;">Instagram</a>
-              </td>
+                  <td align="center" style="padding:0 8px;"><a href="https://www.instagram.com/santiago_ways/" style="text-decoration:none;"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/dark-instagram-48.png" width="28" height="28" alt="Instagram" style="display:block; width:28px; height:28px; font-size:11px; color:#2E2E2D;"></a></td>
+                  <td align="center" style="padding:0 8px;"><a href="https://www.facebook.com/SantiagoWays" style="text-decoration:none;"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/dark-facebook-48.png" width="28" height="28" alt="Facebook" style="display:block; width:28px; height:28px; font-size:11px; color:#2E2E2D;"></a></td>
+                  <td align="center" style="padding:0 8px;"><a href="https://www.youtube.com/@santiago_ways" style="text-decoration:none;"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/dark-youtube-48.png" width="28" height="28" alt="YouTube" style="display:block; width:28px; height:28px; font-size:11px; color:#2E2E2D;"></a></td>
+                  <td align="center" style="padding:0 8px;"><a href="https://www.tiktok.com/@santiagoways" style="text-decoration:none;"><img src="https://cdn-images.mailchimp.com/icons/social-block-v2/dark-tiktok-48.png" width="28" height="28" alt="TikTok" style="display:block; width:28px; height:28px; font-size:11px; color:#2E2E2D;"></a></td>
                 </tr>
               </table>
-              <p style="margin:20px 0 4px; font-size:12px; line-height:18px; color:#2E2E2D;">Santiago Ways · <a href="https://santiagoways.com" style="color:#2E2E2D; text-decoration:none;">santiagoways.com</a></p>
+              <p style="margin:12px 0 0; font-size:12px; line-height:18px; font-weight:600; color:#2E2E2D;">
+                <a href="https://www.instagram.com/santiago_ways/" style="color:#2E2E2D; text-decoration:none;">@santiago_ways</a> ·
+                <a href="https://www.facebook.com/SantiagoWays" style="color:#2E2E2D; text-decoration:none;">/SantiagoWays</a> ·
+                <a href="https://www.tiktok.com/@santiagoways" style="color:#2E2E2D; text-decoration:none;">@santiagoways</a>
+              </p>
+              <p style="margin:18px 0 4px; font-size:12px; line-height:18px; color:#2E2E2D;">Santiago Ways · <a href="https://santiagoways.com/es/" style="color:#2E2E2D; text-decoration:none;">santiagoways.com</a></p>
               <p style="margin:0 0 4px; font-size:12px; line-height:18px; color:#2E2E2D;">You're receiving this email because you agreed to receive communications from us.</p>
               <p style="margin:0; font-size:12px; line-height:18px; color:#2E2E2D;">You can <a href="$[LI:UNSUBSCRIBE]$" style="color:#2E2E2D; text-decoration:underline;">unsubscribe</a> or <a href="[URL_PREFERENCIAS]" style="color:#2E2E2D; text-decoration:underline;">update your preferences</a></p>
             </td>

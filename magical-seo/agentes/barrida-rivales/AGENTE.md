@@ -74,7 +74,7 @@ Los datos se escriben con `ArtifactData`. Carga lo que necesitas con ToolSearch:
 
 7. **Poda.** Si `publicaciones` pasa de 600 documentos, borra las de menor `relevancia` con más de 120 días, salvo las que tengan `guardado: true`. Nunca toques los campos `guardado` ni `descartado`.
 
-8. **Cierra la barrida.** `update` de `estado/magicalseo` con su `if_version`: `ultimaBarrida` (la hora real de ahora), `proximaBarrida` (la siguiente ejecución programada: mañana a las 6:06 hora de Canarias), `agentes.<id>.ultima` y `agentes.<id>.hallazgos` con lo encontrado por cada uno, y añade al principio de `bitacora` entre 3 y 6 entradas nuevas `{t, quien, texto}` (máximo 40 en total) contando qué ha visto cada miembro y hacia dónde se mueve la competencia.
+8. **Cierra la barrida.** `update` de `estado/magicalseo` con su `if_version`: `ultimaBarrida` (la hora real de ahora), `agentes.<id>.ultima` y `agentes.<id>.hallazgos` con lo encontrado por cada uno, y añade al principio de `bitacora` entre 3 y 6 entradas nuevas `{t, quien, texto}` (máximo 40 en total) contando qué ha visto cada miembro y hacia dónde se mueve la competencia.
 
 ## Ir diciendo por dónde vas
 
@@ -122,6 +122,9 @@ Esta barrida se ejecuta en dos sitios y no puede hacer lo mismo en los dos. Comp
 **En local:** el protocolo completo, los ocho pasos.
 
 Lo que no cambia en ningún sitio: no afirmes nada sobre nuestra web que no hayas comprobado, y di siempre con qué cobertura has trabajado. Una barrida que avisa de lo que no ha podido mirar vale mucho más que una que lo calla.
+
+
+**No escribas `proximaBarrida`.** La sala la calcula sola a partir del horario de la rutina, porque tú no tienes forma de saber a qué hora está programada. Cuando lo escribías, salía el horario viejo y la cabecera mostraba una hora con diez horas de error.
 
 ## Horas
 

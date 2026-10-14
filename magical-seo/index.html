@@ -267,6 +267,27 @@ function fecha(iso){
   const d=dias(iso);
   if(d<30)return Math.floor(d)+" días";
   return new Date(t).toLocaleDateString("es-ES",{timeZone:TZ,day:"numeric",month:"short",year:"numeric"});}
+/* La siguiente barrida la calcula la sala, no se lee de la base de datos.
+   El agente no sabe a que hora esta programada la rutina de la nube, asi que
+   lo que escribia era el horario local viejo y salia con diez horas de error.
+   Horario real de la rutina: 07:00 y 19:00 UTC, todos los dias. */
+const HORAS_UTC=[7,19];
+function proximaEjecucion(){
+  const n=new Date();
+  for(let d=0;d<2;d++)for(const h of HORAS_UTC){
+    const c=new Date(Date.UTC(n.getUTCFullYear(),n.getUTCMonth(),n.getUTCDate()+d,h,0,0));
+    if(c>n)return c.toISOString();
+  }
+  return "";
+}
+function hace(iso){
+  const t=Date.parse(iso); if(!isFinite(t))return "";
+  const m=(Date.now()-t)/60000;
+  if(m<1)return "un momento";
+  if(m<60)return `${Math.floor(m)} min`;
+  if(m<48*60)return `${Math.floor(m/60)} h`;
+  return `${Math.floor(m/1440)} días`;
+}
 function reloj(iso){const t=Date.parse(iso);return isFinite(t)
   ?new Date(t).toLocaleString("es-ES",{timeZone:TZ,day:"numeric",month:"short",hour:"2-digit",minute:"2-digit"})
   :"·"}
@@ -539,8 +560,9 @@ function pintarCifras(){
   $("#c-ame-sub").textContent="últimos 30 días";
 
   const e=st.estado;
-  $("#ultima").textContent="Barrida: "+(e?.ultimaBarrida?reloj(e.ultimaBarrida):"nunca");
-  $("#proxima").textContent=e?.proximaBarrida?"Siguiente: "+reloj(e.proximaBarrida):"";
+  const ult=e?.ultimaBarrida;
+  $("#ultima").textContent="Barrida: "+(ult?`${reloj(ult)} · hace ${hace(ult)}`:"nunca");
+  $("#proxima").textContent="Siguiente: "+reloj(proximaEjecucion());
   const pul=$("#pulso");
   pul.textContent=st.conectado?(e?.ultimaBarrida?"En vigilancia":"Conectado, sin barridas"):"Sin conexión";
   pul.classList.toggle("vivo",st.conectado&&!!e?.ultimaBarrida);

@@ -1240,6 +1240,90 @@ section.sec{padding-block:56px 24px;border-top:1px solid var(--line);margin-top:
 .tm .km span{background:#fff;color:var(--sw-k);font-weight:800;font-size:2.8cqw;padding:1cqw 1.8cqw;border-radius:99cqw}
 .tm .badge{position:absolute;right:4.5cqw;top:4.5cqw;background:var(--sw-g);color:#fff;font-weight:800;font-size:2.4cqw;padding:1cqw 1.8cqw;border-radius:1cqw;letter-spacing:.06em;text-transform:uppercase}
 
+/* ---------- Meta Ads ---------- */
+.fun{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px;margin-bottom:34px}
+@media (max-width:900px){.fun{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.fun{grid-template-columns:1fr}}
+.fun>div{border-radius:14px;padding:18px;display:grid;gap:8px;align-content:start;min-width:0;border:1px solid var(--line);background:var(--panel)}
+.fun>div:nth-child(1){border-top:6px solid #B9D46A}.fun>div:nth-child(2){border-top:6px solid #7AA606}.fun>div:nth-child(3){border-top:6px solid #506718}.fun>div:nth-child(4){border-top:6px solid #2E2E2D}
+.fun small{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--accent)}
+.fun h3{margin:0;font-size:17px;font-weight:800}
+.fun dl{margin:4px 0 0;display:grid;gap:6px;font-size:13px}
+.fun dt{font-weight:700;color:var(--fg)}
+.fun dd{margin:0;color:var(--muted)}
+.fun .pct{font-size:26px;font-weight:800;color:var(--accent);font-variant-numeric:tabular-nums}
+.cal{display:grid;grid-template-columns:repeat(9,minmax(0,1fr));border:1px solid var(--line);border-radius:12px;overflow:hidden;font-size:12px;margin-bottom:34px;background:var(--panel)}
+.cal-wrap{overflow-x:auto}
+.cal .m{padding:8px 6px;font-weight:700;text-align:center;border-bottom:1px solid var(--line);color:var(--muted);min-width:70px}
+.cal .ph{padding:10px 10px;font-weight:700;color:#fff;border-right:2px solid var(--panel);display:grid;gap:2px}
+.cal .ph span{font-weight:500;opacity:.92;font-size:11.5px}
+.ads{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:34px 24px}
+.ad{display:grid;gap:10px;align-content:start;min-width:0}
+.ad .tagline{display:flex;gap:6px;flex-wrap:wrap}
+.ad .tagline span{font-size:11px;font-weight:700;padding:4px 9px;border-radius:99px;background:var(--chip);color:var(--fg)}
+.fb{background:#fff;color:#1c1e21;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;font-size:13.5px}
+.fb-h{display:flex;gap:9px;align-items:center;padding:10px 12px}
+.fb-h .av{width:36px;height:36px;box-shadow:none}
+.fb-h b{font-weight:600;display:block}
+.fb-h small{color:#65676b;font-size:12px}
+.fb-t{padding:0 12px 10px;line-height:1.4}
+.fb-t .more{color:#65676b}
+.fb-cta{display:flex;align-items:center;gap:10px;padding:10px 12px;background:#f0f2f5}
+.fb-cta div{flex:1;min-width:0}
+.fb-cta small{display:block;color:#65676b;font-size:11.5px;text-transform:uppercase}
+.fb-cta b{display:block;font-weight:600;font-size:14.5px;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.fb-cta span{background:#e4e6eb;border-radius:6px;padding:8px 12px;font-weight:600;font-size:14px;white-space:nowrap}
+.fb-car{display:flex;gap:8px;overflow-x:auto;padding:0 12px 12px;scroll-snap-type:x mandatory}
+.fb-car>div{flex:0 0 74%;border:1px solid #dddfe2;border-radius:8px;overflow:hidden;scroll-snap-align:start}
+.fb-car .pz{border-radius:0}
+.fb-car .cc{padding:8px 10px;display:flex;justify-content:space-between;align-items:center;gap:8px;background:#fff}
+.fb-car .cc b{font-size:13.5px;font-weight:600;display:block}
+.fb-car .cc small{font-size:12px;color:#65676b}
+.fb-car .cc span{background:#e4e6eb;border-radius:6px;padding:6px 10px;font-weight:600;font-size:12.5px;white-space:nowrap}
+.sp{font-size:12px;color:#65676b}
+/* creatividades */
+.mx .bg{background-size:cover}
+.mx .fill{background:linear-gradient(to top,rgba(20,22,16,.82) 0%,rgba(20,22,16,.3) 45%,rgba(20,22,16,0) 65%)}
+.mx .body{position:absolute;left:6.7cqw;right:6.7cqw;bottom:7cqw;display:grid;gap:2.6cqw;justify-items:start;color:#fff}
+.mx .eb{font-size:2.6cqw}
+.mx .h{font-size:9cqw;line-height:1.05}
+.mx p{margin:0;font-size:3.6cqw;font-weight:600;line-height:1.4}
+.mx .chip{background:#fff;color:var(--sw-k);font-weight:800;font-size:3.2cqw;padding:1.4cqw 2.6cqw;border-radius:99cqw}
+.mx .chip.k{background:var(--sw-k);color:#fff}
+.mx .big{font-size:24cqw;font-weight:800;line-height:.85;letter-spacing:-.03em}
+.mxg{background:var(--sw-grad);color:#fff}
+.mxg .body{top:12cqw;bottom:auto}
+.mxs{background:var(--sw-s);color:#fff}
+.mxs .body{top:12cqw;bottom:auto}
+.mx .cal7{position:absolute;right:6.7cqw;top:9cqw;width:34cqw;background:#fff;color:var(--sw-k);border-radius:2cqw;padding:2.4cqw;box-shadow:var(--sw-sh);display:grid;gap:1cqw;font-size:2.2cqw;font-weight:700}
+.mx .cal7 b{font-size:2.4cqw;letter-spacing:.12em;text-transform:uppercase;color:var(--sw-s)}
+.mx .cal7 .g{display:grid;grid-template-columns:repeat(7,1fr);gap:.6cqw;text-align:center;font-size:2.1cqw}
+.mx .cal7 .g i{font-style:normal;padding:.6cqw 0;color:var(--sw-m)}
+.mx .cal7 .g i.on{background:var(--sw-g);color:#fff;border-radius:50%;font-weight:800}
+.mx .q{font-size:6cqw;font-weight:700;line-height:1.3;quotes:"“" "”"}
+.mx .stars{font-size:4cqw;letter-spacing:.2em;color:#fff}
+.mx .card{position:absolute;left:6.7cqw;right:6.7cqw;bottom:7cqw;border-radius:2cqw;padding:5.6cqw;display:grid;gap:2.4cqw}
+.ad .reel-mini{max-width:280px}
+.leadf{background:#fff;color:#1c1e21;border:1px solid var(--line);border-radius:12px;overflow:hidden;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif}
+.leadf .lh{height:120px;background-size:cover;background-position:50% 40%;position:relative}
+.leadf .lh::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.45),rgba(0,0,0,0))}
+.leadf .lfb{padding:16px;display:grid;gap:10px}
+.leadf .lfb b{font-family:var(--font);font-size:18px;font-weight:800;line-height:1.2}
+.leadf .lfb p{margin:0;font-size:13px;color:#65676b;line-height:1.45}
+.leadf .fld2{border:1px solid #ccd0d5;border-radius:8px;padding:9px 11px;font-size:13px;color:#65676b;display:grid;gap:2px}
+.leadf .fld2 small{font-size:11px;color:#8a8d91}
+.leadf .fld2 span{color:#1c1e21}
+.leadf .send{background:#1877f2;color:#fff;border-radius:8px;text-align:center;padding:10px;font-weight:600;font-size:14px}
+.copyt{overflow-x:auto;border:1px solid var(--line);border-radius:12px;background:var(--panel);margin-top:34px}
+.copyt table{width:100%;border-collapse:collapse;font-size:13px;min-width:820px}
+.copyt th,.copyt td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+.copyt th{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.copyt td b{color:var(--fg)}
+.copyt td{color:var(--muted)}
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin-top:24px}
+.kpis div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--panel);font-size:13px;color:var(--muted)}
+.kpis b{display:block;color:var(--fg);margin-bottom:4px}
+
 /* Pendientes */
 .todo{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px}
 .todo div{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;min-width:0}
@@ -1285,7 +1369,7 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px}
   <h1>Así se vería la marca en cada canal</h1>
   <p>Propuestas para Instagram, reels, email y YouTube construidas solo con lo que ya define el brandbook: Montserrat, el ratio 50 / 30 / 10, el subrayado Ways, la concha como sello y el logo en blanco sobre foto. Son pruebas para evaluar antes de aprobar: los textos y las fotos son provisionales.</p>
   <nav class="nav" aria-label="Secciones">
-    <a href="#instagram">Posts de Instagram</a><a href="#reels">Reels</a><a href="#tiktok">TikTok</a><a href="#email">Campaña de email</a><a href="#youtube">Miniaturas de YouTube</a><a href="#motion">Motion graphics</a><a href="#web">Web</a><a href="#dossier">Dossier</a><a href="#pendiente">Pendiente de decidir</a>
+    <a href="#instagram">Posts de Instagram</a><a href="#reels">Reels</a><a href="#tiktok">TikTok</a><a href="#email">Campaña de email</a><a href="#youtube">Miniaturas de YouTube</a><a href="#motion">Motion graphics</a><a href="#meta-ads">Meta Ads</a><a href="#web">Web</a><a href="#dossier">Dossier</a><a href="#pendiente">Pendiente de decidir</a>
   </nav>
   <div class="rules" aria-label="Reglas del brandbook aplicadas">
     <div><b>Montserrat en todo</b><span>800 titulares, 700 antetítulos, 400 texto</span></div>
@@ -2773,6 +2857,39 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px}
     <li data-n="4"><span><b>Menos verde de relleno</b>Blanco dominante; el verde va en cajas, subrayados y la contraportada.</span></li>
   </ul>
   <p class="note">Las fotos, el mapa y el perfil son los del dossier actual. El ascenso y descenso de la etapa 1 (240 m / 48 m) están tomados del perfil original; los kilómetros de cada etapa salen de la ruta del dossier.</p>
+</section>
+
+<!-- ================= META ADS ================= -->
+<section class="sec" id="meta-ads">
+  <div class="sec-h">
+    <div class="eyebrow">Meta Ads · Facebook e Instagram</div>
+    <h2>Campaña Xacobeo 2027</h2>
+    <p>Una campaña en cuatro fases que lleva de «2027 es Año Santo» a la reserva. El mensaje central es el mismo en todas: 2027 es especial (el 25 de julio cae en domingo y el siguiente Año Santo es en 2032) y reservar pronto garantiza precio y plaza. Las creatividades siguen las reglas de los posts: sin logo ni botones dentro de la imagen; la llamada a la acción la pone el botón de Meta.</p>
+  </div>
+  <div class="fun">
+ <div><small>Fase 1 · Descubrimiento</small><h3>Por qué 2027</h3><span class="pct">30 %</span><dl><dt>Objetivo</dt><dd>Reconocimiento y reproducciones de vídeo (ThruPlay)</dd><dt>Público</dt><dd>España, 40-70 años, intereses: Camino de Santiago, senderismo, turismo cultural y religioso, viajes por Galicia</dd><dt>Anuncios</dt><dd>A1 calendario · A2 UGC Hilary</dd></dl></div>
+ <div><small>Fase 2 · Consideración</small><h3>Elige tu ruta</h3><span class="pct">25 %</span><dl><dt>Objetivo</dt><dd>Clientes potenciales (formulario) y tráfico a rutas</dd><dt>Público</dt><dd>Quien vio el 25 % de los vídeos, interactuó con la cuenta y públicos similares de clientes</dd><dt>Anuncios</dt><dd>B1 carrusel de rutas · B2 guía Xacobeo</dd></dl></div>
+ <div><small>Fase 3 · Conversión</small><h3>Reserva ahora</h3><span class="pct">35 %</span><dl><dt>Objetivo</dt><dd>Ventas o clientes potenciales cualificados (solicitud de presupuesto)</dd><dt>Público</dt><dd>Visitas a la web en 30 días, vistas del 50 % del vídeo, contactos del formulario sin reserva</dd><dt>Anuncios</dt><dd>C1 precio garantizado · C2 opinión de cliente</dd></dl></div>
+ <div><small>Fase 4 · Fidelización</small><h3>Vuelve en Año Santo</h3><span class="pct">10 %</span><dl><dt>Objetivo</dt><dd>Ventas</dd><dt>Público</dt><dd>Lista de clientes anteriores (CRM); excluida del resto de fases</dd><dt>Anuncios</dt><dd>D1 viajero frecuente</dd></dl></div>
+</div>
+  <h3 style="margin:0 0 12px;font-size:18px;font-weight:800">Calendario</h3>
+  <div class="cal-wrap"><div class="cal"><div class="m">Nov 26</div><div class="m">Dic 26</div><div class="m">Ene 27</div><div class="m">Feb 27</div><div class="m">Mar 27</div><div class="m">Abr 27</div><div class="m">May 27</div><div class="m">Jun 27</div><div class="m">Jul 27</div><div class="ph" style="grid-column:1/3;background:#9CBF3A">Lanzamiento<span>«2027 es Año Santo»: A1, A2</span></div><div class="ph" style="grid-column:3/6;background:#7AA606">Reserva anticipada<span>Precio garantizado, rutas y guía: B1, B2, C1</span></div><div class="ph" style="grid-column:6/9;background:#506718">Últimas plazas<span>Mayo y junio vuelan: C1, C2</span></div><div class="ph" style="grid-column:9/10;background:#2E2E2D">25 jul<span>Día de Santiago</span></div><div class="ph" style="grid-column:1/10;background:#E8E8E6;color:var(--sw-k);border-top:2px solid var(--panel)">Siempre activo<span style="color:var(--sw-m)">Fidelización D1 a clientes anteriores y retargeting C2</span></div></div></div>
+  <h3 style="margin:0 0 16px;font-size:18px;font-weight:800">Anuncios</h3>
+  <div class="ads"><div class="ad"><div class="lbl"><b>A1 · El año que cae en domingo</b><span></span></div><div class="tagline"><span>Descubrimiento</span><span>Feed 4:5</span><span>Imagen</span></div><div class="fb"><div class="fb-h"><span class="av"><i class="mk iso"></i></span><div><b>Santiago Ways</b><small>Publicidad · 🌐</small></div></div><div class="fb-t">2027 es Año Santo Xacobeo: el 25 de julio cae en domingo. El siguiente no llega hasta 2032. Si llevas tiempo pensando en el Camino, este es el año. <span class="more">… Ver más</span></div><div class="pz r45 mx"><div class="bg" style="background-image:url(assets/fuegos.jpg);background-position:55% 40%"></div><div class="fill"></div><div class="cal7"><b>Julio 2027</b><div class="g"><i>L</i><i>M</i><i>X</i><i>J</i><i>V</i><i>S</i><i>D</i><i></i><i></i><i></i><i class="">1</i><i class="">2</i><i class="">3</i><i class="">4</i><i class="">5</i><i class="">6</i><i class="">7</i><i class="">8</i><i class="">9</i><i class="">10</i><i class="">11</i><i class="">12</i><i class="">13</i><i class="">14</i><i class="">15</i><i class="">16</i><i class="">17</i><i class="">18</i><i class="">19</i><i class="">20</i><i class="">21</i><i class="">22</i><i class="">23</i><i class="">24</i><i class="on">25</i><i class="">26</i><i class="">27</i><i class="">28</i><i class="">29</i><i class="">30</i><i class="">31</i></div></div><div class="body"><span class="eb">Xacobeo 2027</span><h3 class="h">El Camino, <span class="u">en Año Santo</span></h3><span class="chip">El próximo, en 2032</span></div></div><div class="fb-cta"><div><small>SANTIAGOWAYS.COM</small><b>Rutas 2027 con todo organizado</b></div><span>Más información</span></div></div><p class="note" style="margin:0">Gancho de fecha: el calendario explica por qué 2027 es especial sin texto largo.</p></div><div class="ad"><div class="lbl"><b>A2 · UGC «¿Por qué 2027?»</b><span></span></div><div class="tagline"><span>Descubrimiento</span><span>Reels/Stories 9:16</span><span>Vídeo</span></div><div class="phone reel-mini" style="margin:0 auto"><div class="screen"><div class="pz r916 reel"><div class="reel-canvas"><video class="fill" src="video/ugc-por-que-2027.mp4" poster="assets/ugc-2027-poster.jpg" autoplay muted loop playsinline></video></div>
+ <div class="rui" aria-hidden="true"><div class="rui-top"><span>Reels</span><svg><use href="#i-cam"/></svg></div>
+ <div class="rui-side"><div><svg><use href="#i-heart"/></svg>3.214</div><div><svg><use href="#i-com"/></svg>188</div><div><svg><use href="#i-send"/></svg>402</div></div>
+ <div class="rui-bot"><div class="rui-user"><span class="av"><i class="mk iso"></i></span>santiagoways<em>Seguir</em></div><div class="rui-cap">Patrocinado · 2027 no es un año más en el Camino…</div><div style="background:rgba(255,255,255,.92);color:#111;border-radius:2cqw;padding:2.2cqw 3cqw;font-weight:600;font-size:3.4cqw;display:flex;justify-content:space-between;text-shadow:none">Más información <span>›</span></div></div></div></div></div></div><p class="note" style="margin:0">Vuestro reel con Hilary como anuncio. Optimizar a ThruPlay; con él se crea el público de retargeting de «vio el 50 %».</p></div><div class="ad"><div class="lbl"><b>B1 · Carrusel de rutas</b><span></span></div><div class="tagline"><span>Consideración</span><span>Feed 1:1</span><span>Carrusel</span></div><div class="fb"><div class="fb-h"><span class="av"><i class="mk iso"></i></span><div><b>Santiago Ways</b><small>Publicidad · 🌐</small></div></div><div class="fb-t">¿Por dónde empiezas tu Camino en Año Santo? Cuatro rutas de unos 100 km, con alojamientos con encanto y tu maleta de hotel a hotel.</div><div class="fb-car"><div><div class="pz r11 mx" style="aspect-ratio:1"><div class="bg" style="background-image:url(assets/mojon.jpg);background-position:20% 55%"></div><div class="fill"></div><div class="body"><span class="eb">Año Santo 2027</span><h3 class="h" style="font-size:10cqw">Camino Francés</h3></div></div><div class="cc"><div><b>Camino Francés</b><small>Desde Sarria · 5 etapas</small></div><span>Ver ruta</span></div></div><div><div class="pz r11 mx" style="aspect-ratio:1"><div class="bg" style="background-image:url(assets/chica.jpg);background-position:62% 35%"></div><div class="fill"></div><div class="body"><span class="eb">Año Santo 2027</span><h3 class="h" style="font-size:10cqw">Portugués por la Costa</h3></div></div><div class="cc"><div><b>Portugués por la Costa</b><small>Desde Vigo o Baiona</small></div><span>Ver ruta</span></div></div><div><div class="pz r11 mx" style="aspect-ratio:1"><div class="bg" style="background-image:url(assets/pareja.jpg);background-position:60% 35%"></div><div class="fill"></div><div class="body"><span class="eb">Año Santo 2027</span><h3 class="h" style="font-size:10cqw">Portugués Central</h3></div></div><div class="cc"><div><b>Portugués Central</b><small>Desde Tui · 5 etapas</small></div><span>Ver ruta</span></div></div><div><div class="pz r11 mx" style="aspect-ratio:1"><div class="bg" style="background-image:url(assets/puente.jpg);background-position:45% 55%"></div><div class="fill"></div><div class="body"><span class="eb">Año Santo 2027</span><h3 class="h" style="font-size:10cqw">Camino Inglés</h3></div></div><div class="cc"><div><b>Camino Inglés</b><small>Desde Ferrol · 5 etapas</small></div><span>Ver ruta</span></div></div></div></div><p class="note" style="margin:0">Una tarjeta por ruta, cada una con su enlace. Meta reordena las tarjetas según rendimiento.</p></div><div class="ad"><div class="lbl"><b>B2 · Formulario: guía Xacobeo 2027</b><span></span></div><div class="tagline"><span>Consideración</span><span>Lead Ads</span><span>Formulario</span></div><div class="fb"><div class="fb-h"><span class="av"><i class="mk iso"></i></span><div><b>Santiago Ways</b><small>Publicidad · 🌐</small></div></div><div class="fb-t">Te enviamos gratis la guía del Año Santo 2027: qué cambia en el Camino, cuándo reservar y las 4 rutas más elegidas.</div><div class="pz r45 mx mxg"><div class="body"><span class="eb">Guía gratuita</span><h3 class="h">Todo sobre el Camino en <span class="u neg">Año Santo</span></h3><p>Fechas clave, rutas y cuándo reservar.</p></div><div style="position:absolute;right:-4cqw;bottom:-14cqw;width:48cqw;transform:rotate(-6deg)"><img src="assets/dossier/orig-01.jpg" alt="" style="width:100%;display:block;border-radius:1.4cqw;box-shadow:0 2cqw 6cqw rgba(0,0,0,.35)"></div></div><div class="fb-cta"><div><small>FORMULARIO INSTANTÁNEO</small><b>Descarga la guía Xacobeo 2027</b></div><span>Descargar</span></div></div><div class="leadf"><div class="lh" style="background-image:url(assets/puente.jpg)"></div><div class="lfb"><b>Recibe la guía Xacobeo 2027</b><p>Te la enviamos por email. Un asesor puede llamarte si lo pides.</p>
+ <div class="fld2"><small>Nombre</small><span>Marta García</span></div><div class="fld2"><small>Email</small><span>marta@ejemplo.com</span></div><div class="fld2"><small>¿Qué ruta te interesa?</small><span>Camino Francés ▾</span></div><div class="fld2"><small>¿Cuándo quieres viajar?</small><span>Mayo-junio 2027 ▾</span></div><div class="send">Enviar</div></div></div><p class="note" style="margin:0">Las preguntas de ruta y fecha cualifican el contacto para el equipo comercial. Datos del formulario de ejemplo.</p></div><div class="ad"><div class="lbl"><b>C1 · Precio garantizado</b><span></span></div><div class="tagline"><span>Conversión</span><span>Retargeting</span><span>Feed 4:5</span></div><div class="fb"><div class="fb-h"><span class="av"><i class="mk iso"></i></span><div><b>Santiago Ways</b><small>Publicidad · 🌐</small></div></div><div class="fb-t">Ya has mirado tu Camino para 2027. Si reservas ahora, te garantizamos el precio actual: en Año Santo los hoteles del Camino se llenan antes de lo habitual.</div><div class="pz r45 mx mxs"><div class="body"><span class="eb">Reserva anticipada</span><h3 class="h" style="font-size:10cqw">Precio de 2026 para tu <span class="u">Camino 2027</span></h3><p>Mayo, junio y septiembre son los primeros en llenarse.</p><span class="chip k" style="background:#fff;color:var(--sw-s)">Plazas limitadas por fecha</span></div><div style="position:absolute;left:0;right:0;bottom:0;height:42%;background:url(assets/llegada.jpg) 35% 35%/cover"></div></div><div class="fb-cta"><div><small>SANTIAGOWAYS.COM</small><b>Reserva con el precio actual</b></div><span>Reservar</span></div></div><p class="note" style="margin:0">Solo para quien ya visitó la web o vio el 50 % del vídeo. Mensaje concreto de urgencia, sin descuentos inventados.</p></div><div class="ad"><div class="lbl"><b>C2 · Opinión de cliente</b><span></span></div><div class="tagline"><span>Conversión</span><span>Retargeting</span><span>Feed 4:5</span></div><div class="fb"><div class="fb-h"><span class="av"><i class="mk iso"></i></span><div><b>Santiago Ways</b><small>Publicidad · 🌐</small></div></div><div class="fb-t">4,9/5 en Google y 5/5 en Tripadvisor. Esto es lo que nos dicen quienes ya hicieron el Camino con nosotros.</div><div class="pz r45 mx"><div class="bg" style="background-image:url(assets/pareja.jpg);background-position:60% 30%"></div><div class="fill"></div><div class="card box"><span class="stars">★★★★★</span><q class="q">Todo lo prometido se cumplió hasta el último detalle. El transporte de maletas, perfecto.</q><span style="font-size:3cqw;font-weight:700">Thamir S. · Camino Francés</span></div></div><div class="fb-cta"><div><small>SANTIAGOWAYS.COM</small><b>4,9/5 en Google Reviews</b></div><span>Más información</span></div></div><p class="note" style="margin:0">La opinión es real (está en el dossier). Con fotos reales de clientes funcionaría mejor, siempre con su permiso para publicidad.</p></div><div class="ad"><div class="lbl"><b>D1 · Vuelve en Año Santo</b><span></span></div><div class="tagline"><span>Fidelización</span><span>Clientes anteriores</span><span>Feed 4:5</span></div><div class="fb"><div class="fb-h"><span class="av"><i class="mk iso"></i></span><div><b>Santiago Ways</b><small>Publicidad · 🌐</small></div></div><div class="fb-t">Tú ya conoces el Camino. En 2027 tendrá algo más: es Año Santo, y el siguiente no llega hasta 2032. Con tu descuento de viajero frecuente.</div><div class="pz r45 mx"><div class="bg" style="background-image:url(assets/conchas.jpg);background-position:60% 50%"></div><div class="fill"></div><div class="body"><span class="eb">Para nuestros viajeros</span><h3 class="h">Vuelve al Camino <span class="u">en Año Santo</span></h3><span class="chip k">Descuento viajero frecuente</span></div></div><div class="fb-cta"><div><small>SANTIAGOWAYS.COM</small><b>Tu descuento para el Camino 2027</b></div><span>Más información</span></div></div><p class="note" style="margin:0">Público: lista de clientes (CRM) subida a Meta. Mismo mensaje que el email de viajeros frecuentes.</p></div></div>
+  <h3 style="margin:34px 0 0;font-size:18px;font-weight:800">Textos y variantes para test A/B</h3>
+  <div class="copyt"><table><tr><th>Anuncio</th><th>Texto principal</th><th>Titular</th><th>Descripción</th><th>Botón</th></tr><tr><td><b>A1</b></td><td>2027 es Año Santo Xacobeo: el 25 de julio cae en domingo. El siguiente no llega hasta 2032.</td><td><b>El Camino, en Año Santo</b></td><td>Rutas 2027 con todo organizado</td><td>Más información</td></tr><tr><td><b>A1 · B</b></td><td>El próximo Año Santo es en 2032. ¿Vas a esperar cinco años más para hacer el Camino?</td><td><b>Tu Camino, en el año que toca</b></td><td>Alojamientos y equipaje resueltos</td><td>Más información</td></tr><tr><td><b>B1</b></td><td>¿Por dónde empiezas tu Camino en Año Santo? Cuatro rutas de unos 100 km, con tu maleta de hotel a hotel.</td><td><b>Elige tu ruta 2027</b></td><td>Francés, Portugués, Costa e Inglés</td><td>Ver ruta</td></tr><tr><td><b>B2</b></td><td>Te enviamos gratis la guía del Año Santo 2027: qué cambia, cuándo reservar y las rutas más elegidas.</td><td><b>Descarga la guía Xacobeo 2027</b></td><td>Gratis, en tu email</td><td>Descargar</td></tr><tr><td><b>C1</b></td><td>Si reservas ahora, te garantizamos el precio actual. En Año Santo los hoteles del Camino se llenan antes.</td><td><b>Reserva con el precio actual</b></td><td>Mayo y junio, los primeros en llenarse</td><td>Reservar</td></tr><tr><td><b>C1 · B</b></td><td>¿Ya tienes fecha? Cuéntanosla y te preparamos el presupuesto en 24 horas, sin compromiso.</td><td><b>Pide tu presupuesto 2027</b></td><td>Te respondemos en 24 h</td><td>Solicitar presupuesto</td></tr><tr><td><b>C2</b></td><td>4,9/5 en Google y 5/5 en Tripadvisor. Esto nos dicen quienes ya hicieron el Camino con nosotros.</td><td><b>4,9/5 en Google Reviews</b></td><td>Viajes organizados por el Camino</td><td>Más información</td></tr><tr><td><b>D1</b></td><td>Tú ya conoces el Camino. En 2027 tendrá algo más: es Año Santo. Con tu descuento de viajero frecuente.</td><td><b>Vuelve al Camino en Año Santo</b></td><td>Tu descuento de viajero frecuente</td><td>Más información</td></tr></table></div>
+  <div class="kpis">
+    <div><b>Formatos por anuncio</b>Cada creatividad en 4:5 para feed y 9:16 para Stories y Reels, con el texto fuera de los 250 px de arriba y abajo en 9:16.</div>
+    <div><b>Qué medir</b>Fase 1: coste por ThruPlay y alcance. Fase 2: coste por contacto y % de contactos cualificados. Fase 3: coste por solicitud de presupuesto y por reserva. Fase 4: reservas de clientes que repiten.</div>
+    <div><b>Test A/B</b>Primero el gancho (A1 frente a A1 · B), después el anuncio de conversión (C1 frente a C1 · B). Una variable cada vez y al menos 7 días por test.</div>
+    <div><b>Medición</b>Píxel y API de conversiones con los eventos «Lead» y «Purchase». Parámetros UTM: utm_campaign=xacobeo27 y utm_content con el código del anuncio (A1, B2…).</div>
+    <div><b>Idiomas</b>La campaña está en español. Para inglés y alemán, adaptar los textos y mantener las creatividades.</div>
+  </div>
+  <p class="note">El reparto de presupuesto es una propuesta en porcentajes, sin importes. Las cifras de interacción de los mockups y los datos del formulario son de ejemplo. La opinión de C2 es real (está en el dossier).</p>
 </section>
 
 <!-- ================= PENDIENTE ================= -->

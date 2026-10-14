@@ -165,6 +165,18 @@ Cinco páginas tipo con las que se maqueta todo el dossier **(feedback: menos p�
 
 ---
 
+## 10. Meta Ads (Facebook e Instagram)
+
+Campaña de referencia: Xacobeo 2027 (en el catálogo, sección «Meta Ads»).
+
+- **Mismas reglas que los posts:** sin logo ni botones dentro de la imagen; la llamada a la acción la pone el botón de Meta.
+- **Embudo en cuatro fases:** descubrimiento (vídeo UGC y gancho de fecha), consideración (carrusel de rutas y formulario con guía), conversión (retargeting con precio garantizado y opiniones) y fidelización (clientes anteriores).
+- **Cada anuncio en 4:5 y 9:16.** En 9:16, nada de texto en los 250 px de arriba y abajo.
+- **Fotos de clientes:** solo con su permiso para publicidad.
+- **Medición:** píxel y API de conversiones; UTM `utm_campaign=xacobeo27` y `utm_content` con el código del anuncio.
+
+---
+
 ## 9. Descartado o en pausa
 
 - **Propuestas de slogan** («Live it!», «Live the Camino», «Your Camino awaits»): se probaron y se retiraron. Se mantiene «Tu Camino, sin prisas.» como provisional **(feedback)**.

@@ -48,7 +48,7 @@ Eso da el mismo corte por idioma, con una sola propiedad y sin depender de cómo
 
 **Usa `magical-seo/scripts/gsc.py` y nada más.** No escribas Python suelto ni otra orden de shell: solo ese script y `clarity.py` tienen permiso concedido, y cualquier otra cosa deja este análisis esperando una autorización que nadie va a dar un lunes a las ocho de la mañana. Es exactamente lo que impidió que este protocolo llegara a ejecutarse nunca hasta el 14 de octubre de 2026.
 
-Desde la raíz del repositorio:
+**Ejecuta el comando tal cual, sin `cd` delante.** La sesión ya arranca en la raíz del repositorio, así que la ruta relativa funciona directamente. Esto importa: el permiso concedido casa con comandos que empiezan por `python`, y un `cd ... && python ...` empieza por `cd` y no casa, así que la ejecución se queda esperando una autorización que nadie va a dar. Es lo que colgó este protocolo cinco veces.
 
 ```bash
 python magical-seo/scripts/gsc.py posiciones --limite 1000 --json

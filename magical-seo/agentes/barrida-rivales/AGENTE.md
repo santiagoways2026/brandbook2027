@@ -37,7 +37,9 @@ Los datos se escriben con `ArtifactData`. Carga lo que necesitas con ToolSearch:
 
    Hazlo con **dos llamadas para toda la barrida**, no una por publicación:
 
-   Usa el script del repositorio, **no escribas Python suelto**: solo ese script tiene permiso concedido, y cualquier otra orden de shell dejará la barrida esperando una autorización que nadie va a dar. Ejecuta desde la raíz del repositorio:
+   Usa el script del repositorio, **no escribas Python suelto**: solo ese script tiene permiso concedido.
+
+   **Ejecuta el comando tal cual, sin `cd` delante.** La sesión ya arranca en la raíz del repositorio, así que la ruta relativa funciona directamente. Esto importa: el permiso concedido casa con comandos que empiezan por `python`, y un `cd ... && python ...` empieza por `cd` y no casa, así que la ejecución se queda esperando una autorización que nadie va a dar. Es lo que colgó este protocolo cinco veces.
 
    ```bash
    python magical-seo/scripts/gsc.py posiciones --limite 1000 --json

@@ -1,0 +1,22 @@
+Santiago Ways · Email "Tu Camino, sin literas ni sorpresas" · Zoho Campaigns
+
+CONTENIDO
+  index.html   el email
+  images/      todas las imágenes que usa (rutas relativas)
+
+CÓMO IMPORTARLO EN ZOHO CAMPAIGNS
+  1. Crea la campaña de email y, en Contenido, elige importar HTML desde un archivo ZIP.
+  2. Sube este ZIP tal cual (sin descomprimir). Zoho sube las imágenes a su galería
+     y ajusta las rutas solo.
+  3. Elige el tema "None": el pie ya incluye el enlace de baja $[LI:UNSUBSCRIBE]$.
+  4. Asunto propuesto: Tu Camino, sin literas ni sorpresas
+     Preheader (ya incluido en el HTML): Hotel, equipaje y alguien pendiente de ti todo el camino.
+  5. Haz un envío a una lista de prueba. En el email de prueba normal Zoho no sustituye
+     $[FNAME|peregrino]$; en el envío real sale el nombre, o "peregrino" si falta.
+
+ENLACES QUE LLEVA
+  Quiero que me llaméis ...... https://santiagoways.com/es/contacto/
+  Descubre todas las rutas ... https://santiagoways.com/es/camino-de-santiago/
+  Desde Sarria ............... https://santiagoways.com/es/camino-de-santiago/camino-frances/de-sarria-a-santiago/
+  Camino Portugués ........... https://santiagoways.com/es/camino-de-santiago/camino-portugues/
+  Instagram, Facebook, YouTube y TikTok: perfiles oficiales de Santiago Ways.

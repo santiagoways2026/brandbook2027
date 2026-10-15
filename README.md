@@ -10,7 +10,7 @@ Repositorio de trabajo del Brandbook 2027: el documento de marca, las aplicacion
 | `aplicaciones/` | Catálogo navegable con todas las piezas de prueba (Instagram, reels, TikTok, email, YouTube, motion graphics, web y dossier). Abrir `aplicaciones/index.html`. |
 | `aplicaciones/video/` | Todas las piezas animadas en MP4 (reels, TikToks y cartelas de YouTube), listas para descargar. |
 | `entregables/email-xacobeo-2027/` | HTML listo para enviar de la campaña Xacobeo 2027 (nuevos clientes y viajeros frecuentes) con sus imágenes. |
-| `entregables/email-reserva-xacobeo-2027/` | Campaña de reserva Xacobeo 2027: 3 emails en HTML listo para enviar con sus imágenes. |
+| `entregables/email-reserva-xacobeo-2027/` | Campaña de reserva Xacobeo 2027: 2 emails en HTML listo para enviar con sus imágenes. |
 | `entregables/carrusel-100k/` | Carrusel de celebración de los 100K en Instagram: 6 PNG a 1080 × 1350 y PDF para importar en Canva. |
 | `emails/` | Email «Tu Camino sin literas ni sorpresas» (subido antes; ver nota en `guias/pendientes.md`). |
 | `guias/reglas-aplicaciones.md` | **Lo más importante**: cómo aplicar la marca en cada canal, con todas las decisiones tomadas a partir del feedback. |

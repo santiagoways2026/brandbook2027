@@ -4560,6 +4560,37 @@ html[data-tema=sw] .av{border-color:#fff}
 html[data-tema=sw] #pnRes[aria-pressed="true"]{background:#FAFFEE;border-color:#7AA606;color:#506718}
 html[data-tema=sw] .tema-sw{background:#7AA606;border-color:#7AA606;color:#fff}
 html[data-tema=sw] .tema-sw i{background:#fff}
+/* Versión amable: verdes suaves de fondo para que el blanco no deslumbre */
+html[data-tema=sw]{--vacio:#E7EFD6;--punto:#C6D7A2;--marco:#FBFDF6;--marco-2:#F2F7E6;--borde:#DCE6C6;--borde-2:#CBDAAE}
+html[data-tema=sw] body{background:#E7EFD6}
+html[data-tema=sw] #vista{background-color:#E7EFD6;background-image:radial-gradient(rgba(80,103,24,.16) 1.1px,transparent 1.2px),radial-gradient(1200px 800px at 15% 10%,rgba(250,255,238,.9),transparent 60%),radial-gradient(1000px 700px at 85% 90%,rgba(122,166,6,.14),transparent 65%),linear-gradient(160deg,#EEF4DF 0%,#E4EDCF 100%)}
+html[data-tema=sw] .capa{background:rgba(251,253,246,.92);border-color:#DCE6C6;box-shadow:0 8px 32px rgba(80,103,24,.12);backdrop-filter:blur(8px)}
+html[data-tema=sw] #barra{background:linear-gradient(90deg,#F7FBEE,#EEF5DD);box-shadow:0 1px 0 #DCE6C6,0 6px 20px rgba(80,103,24,.08)}
+html[data-tema=sw] #panel{background:linear-gradient(180deg,#F7FBEE 0%,#EFF5E0 100%);border-left-color:#DCE6C6;box-shadow:-20px 0 60px rgba(80,103,24,.16)}
+html[data-tema=sw] .pn-cab{background:linear-gradient(135deg,#7AA606,#628A04);border-bottom:0}
+html[data-tema=sw] .pn-cab h2,html[data-tema=sw] .pn-cab h3,html[data-tema=sw] .pn-cab b{color:#fff}
+html[data-tema=sw] .pn-cab,html[data-tema=sw] .pn-cab p,html[data-tema=sw] .pn-cab span,html[data-tema=sw] .pn-cab div{color:rgba(255,255,255,.92)}
+html[data-tema=sw] .pn-cab .btn{background:rgba(255,255,255,.18);border-color:rgba(255,255,255,.45);color:#fff}
+html[data-tema=sw] .pn-cab .btn:hover,html[data-tema=sw] .pn-cab #pnRes[aria-pressed="true"]{background:#fff;border-color:#fff;color:#506718}
+html[data-tema=sw] .pn-cab button:not(.btn){color:#fff}
+html[data-tema=sw] .pn-cab small,html[data-tema=sw] .pn-cab .sub,html[data-tema=sw] .pn-cab p{color:rgba(255,255,255,.9)!important}
+html[data-tema=sw] svg.pasillos>rect:first-of-type{fill:url(#swSuelo);stroke:#CBDAAE}
+html[data-tema=sw] svg.pasillos{overflow:visible}
+html[data-tema=sw] .pn-chat{background:linear-gradient(180deg,#F2F7E6,#E9F2D4);border-top:1px solid #DCE6C6}
+html[data-tema=sw] .pn-chat .msg{background:#fff;border-color:#E3EBD0;border-radius:14px;box-shadow:0 4px 16px rgba(80,103,24,.08)}
+html[data-tema=sw] .pn-nav{background:#F2F7E6;border-color:#DCE6C6}
+html[data-tema=sw] .pn-mod{background:#fff;border-color:#E3EBD0;border-radius:14px;box-shadow:0 8px 28px rgba(80,103,24,.10)}
+html[data-tema=sw] .pn-mod[open]>summary{background:linear-gradient(90deg,#FAFFEE,#fff);border-radius:14px 14px 0 0}
+html[data-tema=sw] .as-res>div{background:linear-gradient(160deg,#fff 0%,#FAFFEE 100%);border-color:#E3EBD0;border-radius:12px;box-shadow:0 6px 22px rgba(80,103,24,.10)}
+html[data-tema=sw] .as-tw{border-color:#E3EBD0;border-radius:12px;box-shadow:0 6px 22px rgba(80,103,24,.08)}
+html[data-tema=sw] .as-t tbody tr:nth-child(even) td{background:#FBFDF6}
+html[data-tema=sw] .btn{border-color:#D3DFB9;border-radius:10px}
+html[data-tema=sw] .btn:hover{background:#FAFFEE}
+html[data-tema=sw] .neg-v{background:linear-gradient(135deg,#FAFFEE 0%,#EEF6DA 100%);border-color:#DCE6C6;border-left-color:#7AA606;box-shadow:0 8px 28px rgba(80,103,24,.12)}
+html[data-tema=sw] .neg-k{background:#fff;box-shadow:0 6px 22px rgba(80,103,24,.08)}
+html[data-tema=sw] .capa-it.sel{background:#E9F3CF}
+html[data-tema=sw] select,html[data-tema=sw] input,html[data-tema=sw] textarea{border-color:#D3DFB9}
+html[data-tema=sw] ::-webkit-scrollbar-thumb{background:#C6D7A2;border-radius:8px}
 `;
 function swEl(el){if(el.nodeType!==1)return;const o=SW.orig.get(el)||{};let toc=false;
   for(const at of ["fill","stroke","stop-color"]){const v=el.getAttribute(at);if(!v||v===o["@"+at+"m"])continue;if(!SW_RE.test(v)){SW_RE.lastIndex=0;continue}SW_RE.lastIndex=0;
@@ -4575,6 +4606,7 @@ function swDeshacer(root){root.querySelectorAll("[style],[fill],[stroke],[stop-c
 function temaSW(on,guardar=true){on=!!on;if(on===SW.on&&SW.css)return;SW.on=on;
   if(on){if(!SW.css){SW.css=document.createElement("style");SW.css.id="swCss";SW.css.textContent=swCss();document.head.appendChild(SW.css)}
     document.documentElement.dataset.tema="sw";swArbol(document.body);
+    const pas=document.querySelector("svg.pasillos defs");if(pas&&!document.getElementById("swSuelo"))pas.insertAdjacentHTML("beforeend",'<linearGradient id="swSuelo" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#FBFDF6"/><stop offset=".55" stop-color="#F3F8E6"/><stop offset="1" stop-color="#E9F2D4"/></linearGradient>');
     SW.obs=new MutationObserver(ms=>{for(const m of ms){if(m.type==="childList")m.addedNodes.forEach(swArbol);else swEl(m.target)}});
     SW.obs.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:["style","fill","stroke","stop-color"]})}
   else{SW.obs?.disconnect();SW.obs=null;delete document.documentElement.dataset.tema;swDeshacer(document.body)}

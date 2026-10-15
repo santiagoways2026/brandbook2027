@@ -1121,7 +1121,7 @@ function logoIds(txt){const t=String(txt||"").toLowerCase();return Object.keys(L
 function logosEn(txt,h=18){const ids=logoIds(txt);return ids.length?`<div class="logos-p">${ids.map(i=>logoP(i,h)).join("")}</div>`:""}
 const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",community:"Community",diseno:"Diseño",captacion:"Captación",paid:"Paid Media",lifecycle:"Conversión",cr:"Tasa de conversión (CR)",control:"Sala de Control"};
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
-Object.entries(SEO_DEST).forEach(([k,n])=>{if(!SALAS_ACT[k]||k==="diseno")return;MARCOS.push({id:"seo_"+k,grupo:k,dato:true,nombre:n+" / Desde SEO",x:0,y:-9000,w:1300});k==="control"?SALAS_ACT[k].push("seo_"+k):SALAS_ACT[k].splice(1,0,"seo_"+k)});
+Object.entries(SEO_DEST).forEach(([k,n])=>{if(!SALAS_ACT[k]||k==="diseno"||k==="captacion")return;MARCOS.push({id:"seo_"+k,grupo:k,dato:true,nombre:n+" / Desde SEO",x:0,y:-9000,w:1300});k==="control"?SALAS_ACT[k].push("seo_"+k):SALAS_ACT[k].splice(1,0,"seo_"+k)});
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);

@@ -418,7 +418,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .cr-chart{position:relative;padding:8px 20px 0}.cr-svg{width:100%;height:auto;display:block}.cr-grid{stroke:#232a33;stroke-width:1}.cr-ax{fill:#8a94a1;font:12px var(--f-ui)}.cr-lbl{fill:#e6eaee;font:600 13px var(--f-ui)}.cr-cross{stroke:#6b7280;stroke-width:1;stroke-dasharray:3 3}
 .cr-leg{display:flex;gap:16px;font-size:13px;color:#d6dbe1;padding:0 0 6px}.cr-leg i,.cr-tip i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
 .cr-tip{position:absolute;pointer-events:none;background:#0b0e13;border:1px solid var(--borde-2);border-radius:6px;padding:8px 10px;font-size:13px;color:#e6eaee;display:grid;gap:4px;min-width:170px;box-shadow:0 8px 24px rgba(0,0,0,.5)}.cr-tip small{color:#8a94a1}.cr-tip[hidden]{display:none}
-.cr-mlbl{align-self:center;font-size:13px;color:#9aa4b1;margin-right:4px}.cr-det{padding:10px 20px}.cr-det summary{cursor:pointer;color:#c3cad4;font-size:13.5px}.cr-up{color:#a3e635}.cr-dn{color:#ff8a8a}
+.cr-mlbl{align-self:center;font-size:13px;color:#9aa4b1;margin-right:4px}.cr-det{padding:10px 20px}.cr-det summary{cursor:pointer;color:#c3cad4;font-size:13.5px}.cr-up{color:#a3e635}.ve-sub{display:block;font-size:11.5px;color:#9aa4b1;font-weight:400;margin-top:2px}.ve-cur td{background:rgba(251,113,133,.06)}.ve-tot td{border-top:1px solid #3a434e;font-weight:600}.ve-tot2 td{color:#9aa4b1}.ve-t td:not(.as-n),.ve-t th:not(.as-n){text-align:right}.ve-var{font:600 11.5px var(--f-ui);fill:#c3cad4}.ve-var.cr-up{fill:#a3e635}.ve-var.cr-dn{fill:#ff8a8a}.cr-svg .cr-up{fill:#a3e635}.cr-svg .cr-dn{fill:#ff8a8a}.ve-sel{display:flex;align-items:center;gap:6px;font-size:13px;color:#9aa4b1}.cr-dn{color:#ff8a8a}
 .cr-sub{padding:0 20px;margin:0 0 6px;color:#9aa4b1;font-size:13px}.cr-bars{display:grid;gap:6px;padding:4px 20px 8px}.cr-bar{display:grid;grid-template-columns:minmax(220px,1.2fr) 2fr 150px;gap:12px;align-items:center;background:var(--marco-2);border:1px solid var(--borde);border-radius:6px;padding:8px 12px}
 .cr-bn b{display:block;color:#f1f3f5;font-size:14px}.cr-bn small{color:#9aa4b1;font-size:12px}.cr-bt{height:10px;background:#1a1f27;border-radius:5px;overflow:hidden}.cr-bt i{display:block;height:100%;background:#f97316;border-radius:0 4px 4px 0}.cr-bar.ok .cr-bt i{background:#6f9a14}.cr-bv{text-align:right;font:700 13.5px var(--f-ui);color:#e6eaee}
 .cr-imp{background:#1f2a12;color:#d9f99d;padding:2px 8px;border-radius:4px;font-weight:700}
@@ -1085,6 +1085,9 @@ const MARCOS=[
   {id:"comercial_embudo",grupo:"comercial",dato:true,nombre:"Análisis comercial / Embudo y proceso",x:0,y:-9000,w:1300},
   {id:"comercial_valor",grupo:"comercial",dato:true,nombre:"Análisis comercial / Valor por asesor",x:0,y:-9000,w:1300},
   {id:"comercial_alertas",grupo:"comercial",dato:true,nombre:"Análisis comercial / Alertas automáticas",x:0,y:-9000,w:1300},
+  {id:"ventas",grupo:"ventas",nombre:"Viajes y facturación",x:0,y:0,w:1200},
+  {id:"ventas_fact",grupo:"ventas",dato:true,nombre:"Viajes y facturación / Mes a mes: 2025 frente a 2026",x:0,y:-9000,w:1300},
+  {id:"ventas_idioma",grupo:"ventas",dato:true,nombre:"Viajes y facturación / Por idioma",x:0,y:-9000,w:1300},
   {id:"fidelizacion",grupo:"fidelizacion",nombre:"Fidelización & Journey",obra:"Fidelización, repetición, reseñas y journey del cliente",x:0,y:0,w:1200},
   {id:"brand",grupo:"brand",nombre:"Brand / Awareness",obra:"Marca, notoriedad y awareness en todos los mercados",x:0,y:0,w:1200},
   {id:"cr",grupo:"cr",nombre:"Tasa de conversión (CR)",x:0,y:0,w:1200},
@@ -1099,11 +1102,11 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-200,6000],comercial:[1450,6000],cr:[3100,6000],metaads:[5600,4000],mdirecto:[5600,5100],producto:[5000,7800]};
+const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-200,6000],comercial:[1450,6000],ventas:[-1950,6000],cr:[3100,6000],metaads:[5600,4000],mdirecto:[5600,5100],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_producto","comercial_embudo","comercial_valor","comercial_alertas"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_roadmap","instagram_cuentas","instagram_comp","i_instagram","instagram_mision","instagram_datos"],youtube:["youtube","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_producto","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
 const LOGOS={caminoways:{a:["caminoways","camino ways"],ig:["caminoways"]},followthecamino:{a:["follow the camino","followthecamino"],ig:["followthecamino"]},pilgrim:{a:["pilgrim.es","pilgrim"],ig:["pilgrim.es"]},tubuencamino:{a:["tu buen camino","tubuencamino"],ig:["tubuencaminoviajes","tubuencamino"]},viajecamino:{a:["viaje camino","viajecaminodesantiago","viajes camino de santiago"],ig:[]},macsadventure:{a:["macs adventure","macsadventure","macs"],ig:["macsadventure"]},galiwonders:{a:["galiwonders","gali wonders"],ig:["galiwonders"]},mundiplus:{a:["mundiplus"],ig:["mundiplus"]}};
 function logoP(id,h=20){return LOGOS[id]?`<img class="logo-p" src="img/logos/${id}.png?v=1" alt="${esc(id)}" style="height:${h}px">`:""}
@@ -1166,6 +1169,7 @@ const PERSONALIDAD={
   journey:{c:"#a78bfa",caracter:"El recorrido",lema:"Cada paso del cliente, sin piedras en el zapato",ambiente:"Un mapa del viaje del cliente en la pared, con post-its en cada fricción",tono:"Hablas desde el cliente: en qué paso duda, qué le frena y qué le haría reservar y repetir; con datos del CRM y de la web.",suelo:"plano",obj:"concha"},
   metaads:{c:"#3b82f6",caracter:"La sala de pujas",lema:"Cada euro de Meta, medido hasta la venta",ambiente:"Pantallas con el Business Manager, campañas por mercado y un tablero de creatividades en test",tono:"Eres analítico y directo: hablas de campañas, conjuntos, creatividades, CPL, CR a venta en el CRM y frecuencia, siempre con el dato delante.",suelo:"sonar",obj:"antena"},
   cr:{c:"#a3e635",caracter:"El laboratorio",lema:"Cada punto de CR son cientos de ventas",ambiente:"Pizarras con curvas mes a mes, un tablero de experimentos y una lista de palancas ordenada por impacto",tono:"Eres analítico y concreto: hablas de CR del mes, won en juego, palancas y experimentos, siempre con el dato de Zoho delante.",suelo:"velas",obj:"grafico"},
+  ventas:{c:"#fb7185",caracter:"La caja",lema:"Cada viaje vendido, cada euro facturado",ambiente:"Una caja registradora antigua, un calendario de pared con los doce meses y dos columnas de barras: 2025 y 2026",tono:"Eres claro y numérico: hablas de viajes vendidos, facturación, ticket medio y variación frente al año pasado, siempre con el dato de Zoho Analytics delante.",suelo:"velas",obj:"grafico"},
   comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
 };
 const OCULTAS=["comunidad","producto","mdirecto"];
@@ -1230,7 +1234,7 @@ function irAMarco(id){const m=MARCOS.find(x=>x.id===id);if(!m)return;
   if(!m.dato&&st.dentro&&!SALAS_ACT[st.dentro].includes(id))salir(false);
   st.marcoSel=id;marcarSel();volarA(caja(m))}
 function verTodo(){if(st.dentro)salir(false);st.marcoSel=null;marcarSel();volarA(cajaTotal())}
-const SALA_TIT={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Conversión",journey:"Journey de cliente",cr:"Tasa de conversión (CR)",metaads:"Meta Ads",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial"};
+const SALA_TIT={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Conversión",journey:"Journey de cliente",cr:"Tasa de conversión (CR)",metaads:"Meta Ads",instagram:"Instagram",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",control:"Sala de Control",diseno:"Diseño",comunidad:"Comunidad",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",ventas:"Viajes y facturación"};
 /* Resumen: deja lo esencial (3 puntos por lista, 6 filas por tabla, 3 líneas por párrafo) */
 const RES_LISTA=3,RES_TABLA=6,RES_TARJ=4;
 function resumir(raiz){if(!raiz)return;
@@ -1864,7 +1868,7 @@ function svgControl(){
     <g transform="translate(9 9)"><rect width="${ancho}" height="16" rx="3" fill="${a.c}"/><text x="6" y="11.5" class="nombre" ${oscuro?'style="fill:#000"':""}>${esc(a.n)}</text></g></g>`});
   return d+`</svg>`;
 }
-const SALA_N={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Conversión",journey:"Journey de cliente",cr:"Tasa de conversión (CR)",metaads:"Meta Ads",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",global:"Toda la empresa",control:"Control"};
+const SALA_N={tiktok:"TikTok",captacion:"Captación",community:"Community",lifecycle:"Conversión",journey:"Journey de cliente",cr:"Tasa de conversión (CR)",metaads:"Meta Ads",youtube:"YouTube",radar:"Radar Viral",competencia:"Competencia",redaccion:"Redacción",comunidad:"Comunidad",diseno:"Diseño",seo:"SEO",paid:"Paid Media",mdirecto:"Marketing directo",producto:"Análisis de producto",comercial:"Análisis comercial",ventas:"Viajes y facturación",global:"Toda la empresa",control:"Control"};
 const SEM={bien:["#3ddc97","Bien"],vigilar:["#f5c518","Vigilar"],mal:["#ff5d5d","Actuar"]};
 function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
   if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
@@ -2690,6 +2694,20 @@ SALAS_N.push({id:"cr",nombre:"Tasa de conversión (CR)",tit:"Tasa de conversión
   fuentes:[["Zoho CRM","Conectado en lectura: deals, Stage, Created Time, Closing Date y UTM",true],["Zoho Analytics","Conectado: deals por asesor e idioma",true],["Tiempo de primera respuesta","Pendiente: no está en el CRM",false],["Motivo de pérdida","Pendiente de revisar en Zoho",false]],
   saber:[],tareas:[],
   sug:["¿Dónde está la mayor mejora de CR?","¿Mejora el CR frente a 2025?","¿Qué asesores convierten mejor en EN?"]});
+SALAS_N.push({id:"ventas",nombre:"Viajes y facturación",tit:"Viajes y facturación · 2025 frente a 2026, mes a mes",color:"#fb7185",fondo:"#0c0507",borde:"#4a1d27",lider:"Carmen",pant:"Viajes vendidos · facturación · variación",
+  sub:"viajes vendidos y facturación mes a mes, 2025 frente a 2026",
+  equipo:[{id:"jefa",n:"Carmen",rol:"Directora de ventas y facturación: sigue cada mes y reporta a la Sala de Control",c:"#fb7185"},
+   {id:"mes",n:"Héctor",rol:"Cierre mensual: viajes vendidos y facturación frente al mismo mes de 2025",c:"#7c86e8"},
+   {id:"idi",n:"Sofía",rol:"Mercados: viajes y facturación por idioma",c:"#38bdf8"},
+   {id:"tk",n:"Marcos",rol:"Ticket medio y personas por viaje",c:"#f5d76e"},
+   {id:"datos",n:"Irene",rol:"Datos: Zoho Analytics, tabla Viajes, y cuadre con el informe Trips Overview",c:"#3ddc97"}],
+  frases:{jefa:["¿Vamos por encima de 2025?","Mismo periodo, comparación justa","Esto va a la Sala de Control"],mes:["Febrero fue el mejor mes","El mes en curso se compara con los mismos días","Mes a mes, sin trampas"],idi:["EN factura más que ES","Italiano y portugués arrancan en 2026","¿Qué mercado crece más?"],tk:["Ticket medio al alza","¿Cuántas personas por viaje?","Más valor por viaje"],datos:["Fecha de creación del viaje","Todos los estados, como el informe","Cuadra con Trips Overview"]},
+  mision:"Seguir cada mes cuántos viajes vendemos y cuánto facturamos, compararlo con el mismo periodo de 2025 y avisar a tiempo cuando un mes o un mercado se queda atrás.",
+  objetivos:["Facturación y viajes vendidos de cada mes frente al mismo mes de 2025","Comparación justa del mes en curso: los mismos días del año anterior","Desglose por idioma: qué mercado tira y cuál frena","Ticket medio y personas por viaje"],
+  fuentes:[["Zoho Analytics · tabla Viajes","Conectado: fecha de creación, Trip Amount, idioma, personas y estado",true],["Informe Trips Overview","El mismo criterio: año de creación del viaje y todos los estados",true]],
+  saber:["Del 1 de enero al 15 de octubre de 2026: 6.612 viajes vendidos y 19.305.789 € facturados (Trip Amount).","Mismo periodo de 2025: 5.527 viajes y 15.180.435 €. 2026 va un 27,2 % por encima en facturación y un 19,6 % en viajes.","El informe Trips Overview de Zoho marca −1,5 % porque compara 2026 en curso con 2025 completo (19.600.487 €).","Ticket medio: 2.920 € en 2026 frente a 2.747 € en el mismo periodo de 2025."],
+  tareas:["Revisar el cierre de cada mes frente a 2025","Vigilar los mercados que crecen menos que el total","Seguir el ticket medio por idioma"],
+  sug:["¿Vamos por encima de 2025?","¿Qué mes ha crecido más?","¿Qué idioma tira de la facturación?"]});
 SALAS_N.unshift({id:"instagram",nombre:"Instagram",tit:"Instagram · cuentas ES, EN y DE",color:"#e1306c",fondo:"#0c0508",borde:"#4a1a30",lider:"Valeria",pant:"@santiago_ways · @santiagoways_en · @santiago_ways_de",
   sub:"cuentas ES, EN y DE, reels y competencia",
   equipo:[{id:"jefa",n:"Valeria",rol:"Jefa de Instagram: estrategia de las tres cuentas; reporta a la Sala de Control",c:"#e1306c"},
@@ -3513,7 +3531,7 @@ function asFilas(vol,won){const nom=asNombres([...vol,...won].map(r=>(r.asesor||
   vol.forEach(r=>{const f=fila(r);if(f){f[3]+=+r.volumen||0;f[4]+=+r.won||0}});
   won.forEach(r=>{const f=fila(r);const cy=+r.canio*100+ +r.cmes;if(f&&cy)f[5][cy]=(f[5][cy]||0)+(+r.won||0)});
   return Object.values(F).filter(f=>f[3]||f[4])}
-async function asConsulta(sql,paso,msg){msg=msg||asAct;const H={"ZANALYTICS-ORGID":AS_ORG},cfg={cache:false},txt=r=>{let p=r.payload;if(typeof p==="string"){try{p=JSON.parse(p)}catch{return p}}return p};
+async function asConsulta(sql,paso,msg,clave){msg=msg||asAct;const H={"ZANALYTICS-ORGID":AS_ORG},cfg={cache:false},txt=r=>{let p=r.payload;if(typeof p==="string"){try{p=JSON.parse(p)}catch{return p}}return p};
   const j=txt(await mc.mcp.callTool("Zoho","ZohoAnalytics_createExportJobSQLQuery",{headers:H,path_variables:{"workspace-id":AS_WS},query_params:{CONFIG:JSON.stringify({sqlQuery:sql,responseFormat:"csv"})}},cfg));
   const id=j?.data?.data?.jobId||j?.data?.jobId;if(!id)throw{code:"formato",message:"Zoho Analytics no creó la consulta."};
   for(let i=0;i<40;i++){await new Promise(r=>setTimeout(r,i?2500:1200));msg(`${paso} (esperando a Zoho Analytics)…`);
@@ -3521,7 +3539,7 @@ async function asConsulta(sql,paso,msg){msg=msg||asAct;const H={"ZANALYTICS-ORGI
     if(code==="1004")break;if(code==="1003"||code==="1005")throw{code:"formato",message:"La consulta falló en Zoho Analytics."};if(i===39)throw{code:"formato",message:"Zoho Analytics tarda demasiado. Prueba de nuevo en unos minutos."}}
   const r=await mc.mcp.callTool("Zoho","ZohoAnalytics_downloadExportedData",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg);
   const p=txt(r),csv=typeof p==="string"?p:(p?.data?.result??p?.result??r.content?.find(b=>b.type==="text")?.text);
-  if(typeof csv!=="string"||!csv.includes("asesor"))throw{code:"formato",message:"Zoho Analytics devolvió un archivo que no se puede leer."};return asCsv(csv)}
+  if(typeof csv!=="string"||!csv.includes(clave||"asesor"))throw{code:"formato",message:"Zoho Analytics devolvió un archivo que no se puede leer."};return asCsv(csv)}
 function asAct(msg,tipo){st.asAct={msg,tipo:tipo||"vivo"};const b=document.getElementById("asActMsg");if(b){b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")}}
 async function actualizarAsesores(){if(st.asAct?.tipo==="vivo")return;
   if(!mc.mcp||!st.db){asAct("Abre la página desde claude.ai para actualizar los datos.","err");return}
@@ -3804,7 +3822,86 @@ function pintarMetaAnu(){const el=document.getElementById("c-meta_anu");if(!el||
    <p class="as-nota">${esc(A.aviso||"")} Verde: un 15 % o más mejor que la media de la cuenta (CTR ${pc(ctrRef)}, ${eur(cplRef)} por conversión); rojo: un 15 % o más peor. Pulsa una imagen para verla en grande.</p>`}
 document.addEventListener("change",e=>{const s=e.target.closest("[data-maf]");if(!s||!st.maV)return;st.maV[s.dataset.maf]=s.value;pintarMetaAnu()});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-ir-sala]");if(!b)return;const s=b.dataset.irSala;try{entrar(s);setTimeout(()=>{const t=document.querySelector('#pnNav [data-pnir="d_meta"]');if(t)t.click()},500)}catch(_){}});
-function pintarSalasN(){pintarCR();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+/* ===== Viajes y facturación: viajes vendidos y facturación, 2025 frente a 2026 ===== */
+const VE_IDI={English:"Inglés (EN)",Spanish:"Español (ES)",German:"Alemán (DE)",Italian:"Italiano (IT)",Portuguese:"Portugués (PT)"},VE_COL={a:"#7c86e8",b:"#fb7185"};
+const veSQL=dia=>[`select year("Created Time")*100+month("Created Time") as ym, "Language" as idioma, count(*) as viajes, sum("Trip Amount") as importe, sum(case when dayofmonth("Created Time")<=${dia} then 1 else 0 end) as viajes_corte, sum(case when dayofmonth("Created Time")<=${dia} then "Trip Amount" else 0 end) as importe_corte, sum("People") as personas from "Viajes" where "Created Time" >= '2025-01-01' group by 1,2`];
+function veAct(msg,tipo){st.veAct={msg,tipo:tipo||"vivo"};document.querySelectorAll("[data-vemsg]").forEach(b=>{b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")})}
+async function actualizarVentas(){if(st.veAct?.tipo==="vivo")return;
+  if(!mc.mcp||!st.db){veAct("Abre la página desde claude.ai para actualizar los datos.","err");return}
+  try{const hoy=new Date(),dia=hoy.getDate();veAct("Leyendo los viajes vendidos en Zoho Analytics…");
+    const r=await asConsulta(veSQL(dia)[0],"Leyendo los viajes vendidos",veAct,"idioma");if(!r.length)throw{code:"formato",message:"Zoho Analytics no devolvió ningún viaje."};
+    const v=(x,k)=>caNum(caCol(x,k)),filas=r.map(x=>[Math.round(v(x,"ym")),(caCol(x,"idioma")||"(sin idioma)").trim()||"(sin idioma)",Math.round(v(x,"viajes")),Math.round(v(x,"importe")*100)/100,Math.round(v(x,"viajes_corte")),Math.round(v(x,"importe_corte")*100)/100,Math.round(v(x,"personas"))]).filter(f=>f[0]>=202501);
+    veAct("Guardando los datos nuevos…");
+    await st.db.doc("ventas_viajes/actual").set({fecha:hoy.toISOString(),hoy:hoy.getFullYear()*10000+(hoy.getMonth()+1)*100+dia,corte:dia,fuente:st.ven?.fuente||"Zoho Analytics, tabla Viajes: viajes por año y mes de creación (Created Time), suma de Trip Amount, todos los estados. Mismo criterio que el informe Trips Overview.",filas});
+    veAct(`Datos actualizados a ${hoy.toLocaleDateString("es-ES")}.`,"ok")
+  }catch(e){caError(e,veAct)}}
+function veBase(){const D=st.ven;if(!D||!(D.filas||[]).length)return null;
+  const hoy=D.hoy,act=Math.floor(hoy/100),y1=Math.floor(act/100),y0=y1-1,mAct=act%100,dia=D.corte;
+  const num=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,"."),eur=x=>x==null||!isFinite(x)?"–":num(x)+" €",meur=x=>x==null||!isFinite(x)?"–":(x/1e6).toFixed(2).replace(".",",")+" M€",
+    pct=x=>x==null||!isFinite(x)?"–":(x>0?"+":"")+(x*100).toFixed(1).replace(".",",")+" %",cls=x=>x==null||!isFinite(x)?"":x>=0?"cr-up":"cr-dn";
+  return{D,hoy,act,y0,y1,mAct,dia,num,eur,meur,pct,cls,fin:`${dia} de ${["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"][mAct-1]}`}}
+function veAgg(D,filtro){const T={};(D.filas||[]).forEach(([ym,l,n,a,nc,ac,p])=>{if(filtro&&!filtro(l))return;const x=T[ym]||(T[ym]={n:0,a:0,nc:0,ac:0,p:0});x.n+=n;x.a+=a;x.nc+=nc;x.ac+=ac;x.p+=p});return T}
+const veVacio=(el,t,btns)=>{el.innerHTML=`<div class="mcab"><div><h2>${t}</h2></div></div><div class="as-ctl">${btns}</div><div class="vacio">Irene está cargando los viajes desde Zoho Analytics.</div>`};
+const veBtns=id=>`${mc.disponible===false?"":`<button class="btn prim" data-veact${st.veAct?.tipo==="vivo"?" disabled":""}>↻ Actualizar a día de hoy</button>`}${st.ven?cnXls(id):""}<a class="btn zlink" href="https://analytics.zoho.com/workspace/1421271000007002001/view/1421271000007683853" target="_blank" rel="noopener">Abrir Trips Overview en Zoho ↗</a><span data-vemsg class="cn-actmsg ${st.veAct?.tipo||""}">${esc(st.veAct?.msg||"")}</span>`;
+function pintarVentasFact(){const el=document.getElementById("c-ventas_fact");if(!el||st.dentro!=="ventas")return;const B=veBase();
+  if(!B){veVacio(el,"Mes a mes: 2025 frente a 2026",veBtns("c-ventas_fact"));return}
+  const{D,act,y0,y1,mAct,dia,num,eur,meur,pct,cls,fin}=B,V=st.veV||(st.veV={met:"fact",idi:"todos"});
+  const idis=[...new Set(D.filas.map(f=>f[1]))].sort((a,b)=>D.filas.filter(f=>f[1]===b).reduce((s,f)=>s+f[3],0)-D.filas.filter(f=>f[1]===a).reduce((s,f)=>s+f[3],0));
+  const T=veAgg(D,V.idi==="todos"?null:l=>l===V.idi),meses=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+  const met={fact:{n:"Facturación",v:x=>x.a,vc:x=>x.ac,f:eur},viajes:{n:"Viajes vendidos",v:x=>x.n,vc:x=>x.nc,f:num},ticket:{n:"Ticket medio",v:x=>x.n?x.a/x.n:null,vc:x=>x.nc?x.ac/x.nc:null,f:eur}}[V.met];
+  const z={n:0,a:0,nc:0,ac:0,p:0},get=(y,m)=>T[y*100+m]||z;
+  const filas=meses.map((nm,i)=>{const m=i+1,k=y1*100+m,a=get(y0,m),b=get(y1,m),fut=k>act,cur=k===act;
+    const va=met.v(a),vb=fut?null:met.v(b),ref=cur?met.vc(a):va,vr=fut||ref==null||!ref||vb==null?null:vb/ref-1;
+    return{m,nm,va,vb,ref,vr,cur,fut,dif:fut||vb==null||ref==null?null:vb-ref}});
+  const acum=(y,x)=>{let s={n:0,a:0,nc:0,ac:0};for(let m=1;m<=mAct;m++){const t=get(y,m);s.n+=m<mAct?t.n:t.nc;s.a+=m<mAct?t.a:t.ac}return s};
+  const A0=acum(y0),A1=acum(y1),totA0=(()=>{let s={n:0,a:0};for(let m=1;m<=12;m++){const t=get(y0,m);s.n+=t.n;s.a+=t.a}return s})();
+  const vA=x=>V.met==="fact"?x.a:V.met==="viajes"?x.n:x.n?x.a/x.n:null,ac0=vA(A0),ac1=vA(A1),acv=ac0?ac1/ac0-1:null;
+  const tabla=filas.map(r=>`<tr${r.cur?' class="ve-cur"':""}><td class="as-n">${r.nm}${r.cur?` <small>(1 al ${dia})</small>`:""}</td><td>${met.f(r.va)}${r.cur?`<small class="ve-sub">1 al ${dia}: ${met.f(r.ref)}</small>`:""}</td><td>${r.fut?"–":met.f(r.vb)}</td><td class="${cls(r.vr)}"><b>${pct(r.vr)}</b>${r.dif!=null&&V.met!=="ticket"?`<small class="ve-sub">${r.dif>=0?"+":"−"}${met.f(Math.abs(r.dif))}</small>`:""}</td></tr>`).join("")
+    +`<tr class="ve-tot"><td class="as-n">Acumulado 1 ene a ${fin}</td><td>${met.f(ac0)}</td><td>${met.f(ac1)}</td><td class="${cls(acv)}"><b>${pct(acv)}</b></td></tr>`
+    +`<tr class="ve-tot2"><td class="as-n">Año ${y0} completo</td><td>${met.f(vA(totA0))}</td><td>–</td><td>–</td></tr>`;
+  /* Gráfico de barras: 2025 frente a 2026 por mes */
+  const W=1100,H=330,L=74,R=16,Tp=34,Bt=34,vals=filas.flatMap(r=>[r.va,r.vb]).filter(v=>v!=null),raw=Math.max(1,...vals),pw=Math.pow(10,Math.floor(Math.log10(raw/4))),paso=[1,2,2.5,5,10].map(k=>k*pw).find(k=>raw/k<=5),top=Math.ceil(raw/paso)*paso,mx=top*1.08,cw=(W-L-R)/12,bw=cw*.32,Y=v=>Tp+(1-v/mx)*(H-Tp-Bt);
+  const eje=v=>V.met==="viajes"?num(v):v>=1e6?String(+(v/1e6).toFixed(2)).replace(".",",")+" M€":v>=1e3?Math.round(v/1e3)+" k€":num(v)+" €";
+  const grid=Array.from({length:Math.round(top/paso)+1},(_,i)=>i*paso).map(v=>{return`<line x1="${L}" x2="${W-R}" y1="${Y(v)}" y2="${Y(v)}" class="cr-grid"/><text x="${L-8}" y="${Y(v)+4}" class="cr-ax" text-anchor="end">${eje(v)}</text>`}).join("");
+  const barras=filas.map((r,i)=>{const cx=L+cw*i+cw/2,x0=cx-bw-2,x1=cx+2,b0=r.va!=null?`<rect x="${x0}" y="${Y(r.va)}" width="${bw}" height="${Y(0)-Y(r.va)}" rx="2" fill="${VE_COL.a}"><title>${meses[i]} ${y0}: ${met.f(r.va)}</title></rect>`:"",
+    marca=r.cur&&r.ref!=null?`<line x1="${x0-3}" x2="${x0+bw+3}" y1="${Y(r.ref)}" y2="${Y(r.ref)}" stroke="#fff" stroke-width="2" stroke-dasharray="3 2"><title>${meses[i]} ${y0}, del 1 al ${dia}: ${met.f(r.ref)}</title></line>`:"",
+    b1=r.vb!=null?`<rect x="${x1}" y="${Y(r.vb)}" width="${bw}" height="${Y(0)-Y(r.vb)}" rx="2" fill="${VE_COL.b}"${r.cur?' fill-opacity=".6"':""}><title>${meses[i]} ${y1}${r.cur?` (1 al ${dia})`:""}: ${met.f(r.vb)}</title></rect>`:"",
+    top=Math.min(r.va!=null?Y(r.va):H,r.vb!=null?Y(r.vb):H),lbl=r.vr!=null?`<text x="${cx}" y="${top-8}" text-anchor="middle" class="ve-var ${cls(r.vr)}">${pct(r.vr).replace(" %","%")}</text>`:"";
+    return b0+marca+b1+lbl+`<text x="${cx}" y="${H-12}" class="cr-ax" text-anchor="middle">${meses[i]}</text>`}).join("");
+  el.innerHTML=`<div class="mcab"><div><h2>Mes a mes: ${y0} frente a ${y1}</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.fuente||"")}</div></div><div class="meta">${D.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>
+   <div class="as-ctl"><div class="as-modo">${[["fact","Facturación"],["viajes","Viajes vendidos"],["ticket","Ticket medio"]].map(([k,n])=>`<button class="btn${V.met===k?" prim":""}" data-vemet="${k}">${n}</button>`).join("")}</div><label class="ve-sel">Idioma <select data-veidi><option value="todos">Todos</option>${idis.map(l=>`<option value="${esc(l)}"${V.idi===l?" selected":""}>${esc(VE_IDI[l]||l)}</option>`).join("")}</select></label>${veBtns("c-ventas_fact")}</div>
+   <div class="as-res"><div><b>${V.met==="viajes"?num(A1.n):V.met==="fact"?meur(A1.a):eur(ac1)}</b><span>${met.n.toLowerCase()} ${y1}, 1 ene a ${fin}</span></div><div><b>${V.met==="viajes"?num(A0.n):V.met==="fact"?meur(A0.a):eur(ac0)}</b><span>mismo periodo ${y0}</span></div><div><b class="${cls(acv)}">${pct(acv)}</b><span>variación</span></div><div><b>${num(A1.n)}</b><span>viajes vendidos ${y1}</span></div><div><b>${eur(A1.n?A1.a/A1.n:null)}</b><span>ticket medio ${y1}</span></div></div>
+   <div class="as-tw ve-tw"><table class="as-t ve-t"><thead><tr><th class="as-n">Mes</th><th>${met.n} ${y0}</th><th>${met.n} ${y1}</th><th>Variación</th></tr></thead><tbody>${tabla}</tbody></table></div>
+   <div class="cr-chart"><div class="cr-leg"><span><i style="background:${VE_COL.a}"></i>${y0}</span><span><i style="background:${VE_COL.b}"></i>${y1}</span><span><i style="background:transparent;border-top:2px dashed #fff;height:0;border-radius:0"></i>${y0} del 1 al ${dia} (mes en curso)</span></div>
+    <svg viewBox="0 0 ${W} ${H}" class="cr-svg" role="img" aria-label="${met.n} por mes, ${y0} frente a ${y1}">${grid}${barras}</svg></div>
+   <p class="as-nota">Fuente: Zoho Analytics, tabla Viajes, con el mismo criterio que el informe Trips Overview: el viaje cuenta en el mes en que se creó (Created Time), con su Trip Amount y en cualquier estado, también los anulados. Variación de cada mes: ${y1} frente al mismo mes de ${y0}; el mes en curso se compara con los mismos días de ${y0} (del 1 al ${dia}), por eso en la tabla aparece debajo y en el gráfico como línea discontinua. El acumulado compara del 1 de enero al ${fin} de cada año. El informe Trips Overview da −1,5 % porque enfrenta ${y1}, todavía en curso, con ${y0} completo.</p>`}
+function pintarVentasIdioma(){const el=document.getElementById("c-ventas_idioma");if(!el||st.dentro!=="ventas")return;const B=veBase();
+  if(!B){veVacio(el,"Por idioma",veBtns("c-ventas_idioma"));return}
+  const{D,act,y0,y1,mAct,dia,num,eur,meur,pct,cls,fin}=B,meses=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+  const V=st.veI||(st.veI={per:"acum"});const P={};
+  D.filas.forEach(([ym,l,n,a,nc,ac])=>{const y=Math.floor(ym/100),m=ym%100;let ok,cur=false;
+    if(V.per==="acum")ok=m<=mAct,cur=m===mAct;else ok=m===+V.per,cur=y1*100+m===act;if(!ok||(y!==y0&&y!==y1))return;
+    const x=P[l]||(P[l]={[y0]:{n:0,a:0},[y1]:{n:0,a:0}}),u=cur?[nc,ac]:[n,a];x[y].n+=u[0];x[y].a+=u[1]});
+  const T={[y0]:{n:0,a:0},[y1]:{n:0,a:0}};Object.values(P).forEach(x=>[y0,y1].forEach(y=>{T[y].n+=x[y].n;T[y].a+=x[y].a}));
+  const v=(b,a)=>a?b/a-1:null,tk=x=>x.n?x.a/x.n:null;
+  const lista=Object.entries(P).sort((a,b)=>b[1][y1].a-a[1][y1].a);
+  const fila=(n,x,tot)=>`<tr${tot?' class="ve-tot"':""}><td class="as-n">${esc(n)}</td><td>${num(x[y0].n)}</td><td>${num(x[y1].n)}</td><td class="${cls(v(x[y1].n,x[y0].n))}">${x[y0].n?pct(v(x[y1].n,x[y0].n)):x[y1].n?"nuevo":"–"}</td><td>${eur(x[y0].a)}</td><td>${eur(x[y1].a)}</td><td class="${cls(v(x[y1].a,x[y0].a))}"><b>${x[y0].a?pct(v(x[y1].a,x[y0].a)):x[y1].a?"nuevo":"–"}</b></td><td>${eur(tk(x[y0]))}</td><td>${eur(tk(x[y1]))}</td><td>${T[y1].a?(x[y1].a/T[y1].a*100).toFixed(1).replace(".",",")+" %":"–"}</td></tr>`;
+  const mesesOk=[];for(let m=1;m<=mAct;m++)mesesOk.push(m);
+  const per=V.per==="acum"?`1 de enero al ${fin}`:+V.per===mAct?`${meses[mAct-1]}, del 1 al ${dia}`:meses[V.per-1];
+  const cmp=x=>x>=1e6?meur(x):x>=1e3?Math.round(x/1e3)+" k€":eur(x),W=1100,bh=26,gap=14,L=150,R=110,H=lista.length*(bh*2+gap)+20,mx=Math.max(1,...lista.flatMap(([,x])=>[x[y0].a,x[y1].a])),X=a=>a/mx*(W-L-R);
+  const barras=lista.map(([l,x],i)=>{const y=10+i*(bh*2+gap);return`<text x="${L-10}" y="${y+bh+4}" text-anchor="end" class="cr-lbl">${esc(VE_IDI[l]||l)}</text>
+    <rect x="${L}" y="${y}" width="${X(x[y0].a)}" height="${bh-3}" rx="2" fill="${VE_COL.a}"><title>${y0}: ${eur(x[y0].a)}</title></rect><text x="${L+X(x[y0].a)+6}" y="${y+bh/2+3}" class="cr-ax">${cmp(x[y0].a)}</text>
+    <rect x="${L}" y="${y+bh}" width="${X(x[y1].a)}" height="${bh-3}" rx="2" fill="${VE_COL.b}"><title>${y1}: ${eur(x[y1].a)}</title></rect><text x="${L+X(x[y1].a)+6}" y="${y+bh*1.5+3}" class="cr-ax">${cmp(x[y1].a)} · <tspan class="${cls(v(x[y1].a,x[y0].a))}">${x[y0].a?pct(v(x[y1].a,x[y0].a)):"nuevo"}</tspan></text>`}).join("");
+  el.innerHTML=`<div class="mcab"><div><h2>Por idioma</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.fuente||"")}</div></div><div class="meta">${D.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>
+   <div class="as-ctl"><label class="ve-sel">Periodo <select data-veper><option value="acum"${V.per==="acum"?" selected":""}>Acumulado del año</option>${mesesOk.map(m=>`<option value="${m}"${String(V.per)===String(m)?" selected":""}>${meses[m-1]}</option>`).join("")}</select></label>${veBtns("c-ventas_idioma")}</div>
+   <div class="as-res"><div><b>${meur(T[y1].a)}</b><span>facturación ${y1}, ${per}</span></div><div><b>${meur(T[y0].a)}</b><span>mismo periodo ${y0}</span></div><div><b class="${cls(v(T[y1].a,T[y0].a))}">${pct(v(T[y1].a,T[y0].a))}</b><span>variación</span></div><div><b>${num(T[y1].n)}</b><span>viajes ${y1}</span></div></div>
+   <div class="as-tw"><table class="as-t"><thead><tr><th class="as-n">Idioma</th><th>Viajes ${y0}</th><th>Viajes ${y1}</th><th>Variación</th><th>Facturación ${y0}</th><th>Facturación ${y1}</th><th>Variación</th><th>Ticket ${y0}</th><th>Ticket ${y1}</th><th>Peso ${y1}</th></tr></thead><tbody>${lista.map(([l,x])=>fila(VE_IDI[l]||l,x)).join("")}${fila("Total",T,true)}</tbody></table></div>
+   <div class="cr-chart"><div class="cr-leg"><span><i style="background:${VE_COL.a}"></i>Facturación ${y0}</span><span><i style="background:${VE_COL.b}"></i>Facturación ${y1}</span></div><svg viewBox="0 0 ${W} ${H}" class="cr-svg" role="img" aria-label="Facturación por idioma, ${y0} frente a ${y1}">${barras}</svg></div>
+   <p class="as-nota">Periodo: ${per} de cada año. Idioma del viaje en Zoho (campo Language). Mismo criterio que el informe Trips Overview: mes de creación del viaje, Trip Amount y todos los estados.</p>`}
+function pintarVentas(){pintarVentasFact();pintarVentasIdioma()}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-vemet]");if(b&&st.veV){st.veV.met=b.dataset.vemet;pintarVentasFact();return}if(e.target.closest("[data-veact]"))actualizarVentas()});
+document.addEventListener("change",e=>{const s=e.target.closest("[data-veidi]");if(s&&st.veV){st.veV.idi=s.value;pintarVentasFact();return}const p=e.target.closest("[data-veper]");if(p&&st.veI){st.veI.per=p.value;pintarVentasIdioma()}});
+function pintarSalasN(){pintarCR();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -4331,6 +4428,7 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
   db.doc("comercial_producto/actual").onSnapshot(s=>{st.prod=s.exists?s.data():null;pintarProducto()});
   db.doc("comercial_embudo/actual").onSnapshot(s=>{st.emb=s.exists?emDec(s.data()):null;pintarEmbudo()});
+  db.doc("ventas_viajes/actual").onSnapshot(s=>{st.ven=s.exists?s.data():null;pintarVentas()});
   db.doc("comercial_valor/actual").onSnapshot(s=>{st.val=s.exists?s.data():null;pintarValor()});
   db.doc("comercial_alertas/actual").onSnapshot(s=>{st.ale=s.exists?alDec(s.data()):null;pintarAlertas()});
   db.doc("meta_ads/utm").onSnapshot(s=>{st.metaUtm=s.exists?s.data():null;pintarMetaUtm()});

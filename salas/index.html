@@ -555,6 +555,7 @@ body[data-dentro] .marco.dato{display:none!important}
 
 /* Capas fijas */
 .capa{position:fixed;z-index:10;background:rgba(10,12,16,.92);border:1px solid var(--borde);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
+.avatares{min-width:0;overflow:hidden}.tema-sw{flex:none;display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--borde-2);background:var(--marco-2);color:var(--texto);font:600 12.5px var(--f-ui);cursor:pointer;white-space:nowrap}.tema-sw:hover{border-color:#7AA606}.tema-sw i{width:10px;height:10px;border-radius:50%;background:#7AA606;flex:none}
 #barra{top:0;left:0;right:0;height:calc(48px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 12px 0;border-width:0 0 1px;display:flex;align-items:center;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;white-space:nowrap}
 .logo svg{flex:none}.logo-c{flex:none;width:34px;height:34px;border-radius:50%;background:#000;border:1px solid #2a3240;display:grid;place-items:center;box-shadow:0 0 0 2px rgba(255,255,255,.08)}.logo-c img{width:22px;height:auto;display:block;margin-top:2px}
@@ -923,6 +924,7 @@ a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.
   </div>
   <div class="ruta" id="ruta">/ <b>Edificio</b></div>
   <div class="centro"><span class="vivo off" id="vivo">Conectando</span><span class="txt" id="barrida"></span></div>
+  <button id="temaSW" class="tema-sw" aria-pressed="false" title="Ver todas las salas con el brandbook de Santiago Ways"><i></i><span>Diseño SW</span></button>
   <div class="avatares" id="avatares" title="Especialistas conectados"></div>
   <span id="zoomtxt">100%</span>
 </header>
@@ -1169,7 +1171,7 @@ const PERSONALIDAD={
   journey:{c:"#a78bfa",caracter:"El recorrido",lema:"Cada paso del cliente, sin piedras en el zapato",ambiente:"Un mapa del viaje del cliente en la pared, con post-its en cada fricción",tono:"Hablas desde el cliente: en qué paso duda, qué le frena y qué le haría reservar y repetir; con datos del CRM y de la web.",suelo:"plano",obj:"concha"},
   metaads:{c:"#3b82f6",caracter:"La sala de pujas",lema:"Cada euro de Meta, medido hasta la venta",ambiente:"Pantallas con el Business Manager, campañas por mercado y un tablero de creatividades en test",tono:"Eres analítico y directo: hablas de campañas, conjuntos, creatividades, CPL, CR a venta en el CRM y frecuencia, siempre con el dato delante.",suelo:"sonar",obj:"antena"},
   cr:{c:"#a3e635",caracter:"El laboratorio",lema:"Cada punto de CR son cientos de ventas",ambiente:"Pizarras con curvas mes a mes, un tablero de experimentos y una lista de palancas ordenada por impacto",tono:"Eres analítico y concreto: hablas de CR del mes, won en juego, palancas y experimentos, siempre con el dato de Zoho delante.",suelo:"velas",obj:"grafico"},
-  ventas:{c:"#fb7185",caracter:"La caja",lema:"Cada viaje vendido, cada euro facturado",ambiente:"Una caja registradora antigua, un calendario de pared con los doce meses y dos columnas de barras: 2025 y 2026",tono:"Eres claro y numérico: hablas de viajes vendidos, facturación, ticket medio y variación frente al año pasado, siempre con el dato de Zoho Analytics delante.",suelo:"velas",obj:"grafico"},
+  ventas:{c:"#fb7185",caracter:"La caja",lema:"Cada viaje vendido, cada euro facturado",ambiente:"Una caja registradora antigua, un calendario de pared con los doce meses y dos líneas que suben mes a mes: 2025 y 2026",tono:"Eres claro y numérico: hablas de viajes vendidos, facturación, ticket medio y variación frente al año pasado, siempre con el dato de Zoho Analytics delante.",suelo:"velas",obj:"grafico"},
   comercial:{c:"#818cf8",caracter:"La lonja",lema:"Del presupuesto a la reserva",ambiente:"Campana de ventas, embudo en la pared y un teléfono que no para",tono:"Eres comercial y orientado al cierre: embudo, tiempos de respuesta, objeciones y reservas.",suelo:"embudo",obj:"campana"},
 };
 const OCULTAS=["comunidad","producto","mdirecto"];
@@ -4466,4 +4468,108 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   db.collection("comp_cambios").orderBy("detectado","desc").limit(400).onSnapshot(s=>{st.cambios=s.docs.map(d=>({id:d.id,...d.data()}));pintarCompetencia()});
   db.doc("comp_exploracion/actual").onSnapshot(s=>{st.compExp=s.exists?s.data():null;pintarCompExp()});
 })();
+/* ===== Diseño SW: toda la página con el brandbook 2027 de Santiago Ways =====
+   Blanco de base, verde Ways #7AA606 en botones y líneas, verde sendero #506718 en datos destacados,
+   grafito #2E2E2D en el texto y Montserrat como única familia. Traduce los colores de las hojas de estilo,
+   de los estilos en línea y de los SVG, también de lo que se pinta después. */
+const SW={on:false,orig:new WeakMap(),obs:null,css:null,cache:new Map()};
+function swParse(c){c=c.trim().toLowerCase();let m;
+  if(m=c.match(/^#([0-9a-f]{3,8})$/)){let h=m[1];if(h.length<6)h=h.split("").map(x=>x+x).join("");return[parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16),h.length>6?parseInt(h.slice(6,8),16)/255:1]}
+  if(m=c.match(/^rgba?\(([^)]+)\)$/)){const p=m[1].split(/[\s,\/]+/).filter(Boolean).map(parseFloat);return[p[0],p[1],p[2],p[3]??1]}
+  if(c==="white")return[255,255,255,1];if(c==="black")return[0,0,0,1];return null}
+function swHsl([r,g,b]){r/=255;g/=255;b/=255;const mx=Math.max(r,g,b),mn=Math.min(r,g,b),l=(mx+mn)/2;let h=0,s=0;
+  if(mx!==mn){const d=mx-mn;s=l>.5?d/(2-mx-mn):d/(mx+mn);h=mx===r?(g-b)/d+(g<b?6:0):mx===g?(b-r)/d+2:(r-g)/d+4;h/=6}return[h,s,l]}
+function swRgbStr(h,s,l,a){const f=n=>{const k=(n+h*12)%12,x=s*Math.min(l,1-l);return Math.round(255*(l-x*Math.max(-1,Math.min(k-3,9-k,1))))};
+  const r=f(0),g=f(8),b=f(4);return a<1?`rgba(${r},${g},${b},${+a.toFixed(3)})`:"#"+[r,g,b].map(v=>v.toString(16).padStart(2,"0")).join("")}
+/* rol: txt (letra), fondo, forma (relleno de SVG), linea (bordes y trazos), sombra */
+function swColor(c,rol){const k=rol+"|"+c;if(SW.cache.has(k))return SW.cache.get(k);const p=swParse(c);let out=c;
+  if(p){const[h,s,l]=swHsl(p),a=p[3],cr=(Math.max(p[0],p[1],p[2])-Math.min(p[0],p[1],p[2]))/255,gris=cr<.17||s<.16||l<.06||l>.96;let L=l,S=s,H=h;
+    if(rol==="sombra"){out=gris||l<.3?`rgba(46,46,45,${+(Math.min(a,1)*.22).toFixed(3)})`:swRgbStr(h,s,l,a*.5)}
+    else if(gris&&l>.85&&a<.5){out=`rgba(46,46,45,${+(a*.9).toFixed(3)})`}
+    else{if(gris){S=Math.min(s,.04);H=.12;
+        if(rol==="txt")L=l<.3?l:l<.5?.55-(l-.3)*.25:.5-(l-.5)*.64;
+        else if(rol==="linea")L=l<.5?Math.min(.93,.94-l*.45):l<.85?.5-(l-.5)*.6:.29;
+        else L=l<=.03?.958:l<=.085?1:l<=.25?1-(l-.085)/.165*.1:l<=.5?.9-(l-.25)*1.3:l}
+      else if(rol==="txt"||(rol==="linea"&&l>.55)){if(l>.42)L=Math.min(.4,.3+(l-.42)*.25)}
+      else if((rol==="fondo"||rol==="forma")&&l<.2){L=.965-l*.2;S=Math.min(s,.5)}
+      else if(rol==="linea"&&l<.25){L=.86;S=Math.min(s,.4)}
+      out=swRgbStr(H,S,L,a)}}
+  SW.cache.set(k,out);return out}
+const SW_RE=/#[0-9a-fA-F]{3,8}\b|rgba?\([^)]*\)|\bwhite\b|\bblack\b/g;
+const swVal=(v,rol)=>v.replace(SW_RE,m=>swColor(m,rol));
+function swRol(prop,decl,el){if(/shadow/.test(prop))return"sombra";if(/^(border|outline|column-rule)|stroke|stop-color/.test(prop)&&!/radius|width|style/.test(prop))return/stop/.test(prop)?"fondo":"linea";
+  if(/^background|^--/.test(prop))return"fondo";if(prop==="fill")return el&&/^(text|tspan|textPath)$/i.test(el.tagName)?"txt":"forma";
+  if(prop==="color"){const bg=decl&&(decl.getPropertyValue("background-color")||decl.getPropertyValue("background"));const p=bg&&swParse((bg.match(SW_RE)||[])[0]||"");if(p&&p[3]>.5){const[,s,l]=swHsl(p);if(s>.3&&l>.25&&l<.75)return"keep"}return"txt"}
+  return"txt"}
+const SW_VARS={"--vivo":"txt","--caliente":"txt","--tibio":"txt","--vacio":"fondo","--punto":"linea","--marco":"fondo","--marco-2":"fondo","--borde":"linea","--borde-2":"linea","--texto":"txt","--tenue":"txt"};
+function swCss(){const out=[];const pre=sel=>sel.split(",").map(x=>{x=x.trim();return x.startsWith(":root")||x==="html"?"html[data-tema=sw]"+x.replace(/^:root|^html/,""):"html[data-tema=sw] "+x}).join(",");
+  const walk=(rules,acc)=>{for(const r of rules){if(r.cssRules&&!r.selectorText){const sub=[];walk(r.cssRules,sub);if(sub.length&&r.conditionText!=null)acc.push(`@media ${r.conditionText}{${sub.join("")}}`);continue}
+    if(!r.style||!r.selectorText||r.selectorText.includes("data-tema"))continue;const d=[];
+    for(let i=0;i<r.style.length;i++){const p=r.style[i],v=r.style.getPropertyValue(p);if(!SW_RE.test(v)){SW_RE.lastIndex=0;continue}SW_RE.lastIndex=0;
+      if(p==="--sel"){d.push("--sel:#7AA606");continue}if(p==="--flecha"){d.push("--flecha:#7AA606");continue}
+      const rol=SW_VARS[p]||swRol(p,r.style);if(rol==="keep")continue;const nv=swVal(v,rol);if(nv!==v)d.push(`${p}:${nv}${r.style.getPropertyPriority(p)?" !important":""}`)}
+    if(d.length)acc.push(`${pre(r.selectorText)}{${d.join(";")}}`)}};
+  for(const sh of document.styleSheets){if(sh.ownerNode?.id==="swCss")continue;try{walk(sh.cssRules,out)}catch(e){}}
+  return out.join("\n")+SW_MARCA}
+const SW_MARCA=`
+html[data-tema=sw]{--f-ui:"Montserrat",system-ui,-apple-system,"Segoe UI",sans-serif;--f-mono:"Montserrat",system-ui,sans-serif;--sel:#7AA606;color-scheme:light}
+html[data-tema=sw] body{background:#F4F5F0;color:#2E2E2D;font-family:var(--f-ui)}
+html[data-tema=sw] h1,html[data-tema=sw] h2,html[data-tema=sw] h3{color:#2E2E2D;font-weight:800;letter-spacing:-.01em}
+html[data-tema=sw] .capa{background:#fff;border-color:#E8E8E6;box-shadow:0 8px 32px rgba(46,46,45,.12)}
+html[data-tema=sw] #barra{box-shadow:0 1px 0 #E8E8E6}
+html[data-tema=sw] .btn{background:#fff;border:1px solid #DCDCD9;color:#2E2E2D;box-shadow:none;font-weight:600}
+html[data-tema=sw] .btn:hover{border-color:#7AA606;color:#506718}
+html[data-tema=sw] .btn.prim,html[data-tema=sw] .btn.prim:hover{background:#7AA606;border-color:#7AA606;color:#fff;font-weight:700}
+html[data-tema=sw] .btn.prim[disabled]{background:#A9C46A;border-color:#A9C46A}
+html[data-tema=sw] .as-res>div{background:#fff;border-color:#E8E8E6;box-shadow:0 8px 32px rgba(46,46,45,.12)}
+html[data-tema=sw] .as-res b{color:#506718;font-weight:800}
+html[data-tema=sw] .as-res span{color:#6F6F6E}
+html[data-tema=sw] .as-t{color:#2E2E2D}
+html[data-tema=sw] .as-t th{background:#506718;color:#fff;font-weight:700;border-color:#506718}
+html[data-tema=sw] .as-t td{border-color:#E8E8E6}
+html[data-tema=sw] .as-t tbody tr:hover td{background:#FAFFEE}
+html[data-tema=sw] .as-tw{border-color:#E8E8E6;box-shadow:0 8px 32px rgba(46,46,45,.08);background:#fff}
+html[data-tema=sw] .cr-up,html[data-tema=sw] .cr-svg .cr-up,html[data-tema=sw] .ve-var.cr-up{color:#506718;fill:#506718}
+html[data-tema=sw] .cr-dn,html[data-tema=sw] .cr-svg .cr-dn,html[data-tema=sw] .ve-var.cr-dn{color:#B42318;fill:#B42318}
+html[data-tema=sw] .cr-grid{stroke:#E8E8E6}html[data-tema=sw] .cr-ax{fill:#6F6F6E}html[data-tema=sw] .cr-lbl{fill:#2E2E2D}
+html[data-tema=sw] .ve-cur td{background:#FAFFEE}html[data-tema=sw] .ve-tot td{border-top-color:#2E2E2D}
+html[data-tema=sw] .as-nota,html[data-tema=sw] .fuente-mc{color:#6F6F6E}
+html[data-tema=sw] select,html[data-tema=sw] input,html[data-tema=sw] textarea{background:#fff;color:#2E2E2D;border-color:#DCDCD9}
+html[data-tema=sw] a{color:#506718}
+html[data-tema=sw] .pn-mod{background:#fff;border-color:#E8E8E6;box-shadow:0 8px 32px rgba(46,46,45,.08)}
+html[data-tema=sw] .pn-mod>summary{color:#2E2E2D;font-weight:700}
+html[data-tema=sw] .pn-nav button{background:#fff;border-color:#DCDCD9;color:#2E2E2D}
+html[data-tema=sw] .pn-nav button i{background:#E8E8E6;color:#2E2E2D}
+html[data-tema=sw] .pn-nav button:hover{border-color:#7AA606}
+html[data-tema=sw] .pn-nav button[aria-current="true"]{background:#7AA606;border-color:#7AA606;color:#fff;font-weight:700}
+html[data-tema=sw] .pn-nav button[aria-current="true"] i{background:rgba(255,255,255,.25);color:#fff}
+html[data-tema=sw] .capa-it.hijo{color:#6F6F6E}
+html[data-tema=sw] .capa-it:hover{background:#FAFFEE}
+html[data-tema=sw] .capa-it.sel{background:#FAFFEE;color:#506718;font-weight:600}
+html[data-tema=sw] .av{border-color:#fff}
+html[data-tema=sw] #pnRes[aria-pressed="true"]{background:#FAFFEE;border-color:#7AA606;color:#506718}
+html[data-tema=sw] .tema-sw{background:#7AA606;border-color:#7AA606;color:#fff}
+html[data-tema=sw] .tema-sw i{background:#fff}
+`;
+function swEl(el){if(el.nodeType!==1)return;const o=SW.orig.get(el)||{};let toc=false;
+  for(const at of ["fill","stroke","stop-color"]){const v=el.getAttribute(at);if(!v||v===o["@"+at+"m"])continue;if(!SW_RE.test(v)){SW_RE.lastIndex=0;continue}SW_RE.lastIndex=0;
+    const nv=swVal(v,at==="fill"?(/^(text|tspan|textPath)$/i.test(el.tagName)?"txt":"forma"):at==="stroke"?"linea":"fondo");o["@"+at]=v;o["@"+at+"m"]=nv;toc=true;if(nv!==v)el.setAttribute(at,nv)}
+  const sv=el.getAttribute("style");if(sv&&sv!==o.sm&&/#|rgb|white|black/.test(sv)){const s=el.style;o.s=sv;
+    for(let i=0;i<s.length;i++){const p=s[i],v=s.getPropertyValue(p);if(!SW_RE.test(v)){SW_RE.lastIndex=0;continue}SW_RE.lastIndex=0;const rol=swRol(p,s,el);if(rol==="keep")continue;const nv=swVal(v,rol);if(nv!==v)s.setProperty(p,nv,s.getPropertyPriority(p))}
+    o.sm=el.getAttribute("style");toc=true}
+  if(toc)SW.orig.set(el,o)}
+function swArbol(root){if(root.nodeType!==1)return;swEl(root);root.querySelectorAll("[style],[fill],[stroke],[stop-color]").forEach(swEl)}
+function swDeshacer(root){root.querySelectorAll("[style],[fill],[stroke],[stop-color]").forEach(el=>{const o=SW.orig.get(el);if(!o)return;
+  for(const at of ["fill","stroke","stop-color"])if(o["@"+at]!=null&&el.getAttribute(at)===o["@"+at+"m"])el.setAttribute(at,o["@"+at]);
+  if(o.s!=null&&el.getAttribute("style")===o.sm)el.setAttribute("style",o.s);SW.orig.delete(el)})}
+function temaSW(on,guardar=true){on=!!on;if(on===SW.on&&SW.css)return;SW.on=on;
+  if(on){if(!SW.css){SW.css=document.createElement("style");SW.css.id="swCss";SW.css.textContent=swCss();document.head.appendChild(SW.css)}
+    document.documentElement.dataset.tema="sw";swArbol(document.body);
+    SW.obs=new MutationObserver(ms=>{for(const m of ms){if(m.type==="childList")m.addedNodes.forEach(swArbol);else swEl(m.target)}});
+    SW.obs.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:["style","fill","stroke","stop-color"]})}
+  else{SW.obs?.disconnect();SW.obs=null;delete document.documentElement.dataset.tema;swDeshacer(document.body)}
+  const b=document.getElementById("temaSW");if(b){b.setAttribute("aria-pressed",on);b.querySelector("span").textContent=on?"Diseño original":"Diseño SW";b.title=on?"Volver al diseño oscuro original":"Ver todas las salas con el brandbook de Santiago Ways"}
+  if(guardar)try{localStorage.setItem("salas_tema",on?"sw":"original")}catch(e){}}
+document.getElementById("temaSW")?.addEventListener("click",()=>temaSW(!SW.on));
+try{if(localStorage.getItem("salas_tema")==="sw")temaSW(true,false)}catch(e){}
 </script>

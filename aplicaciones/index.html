@@ -943,6 +943,24 @@ section.sec{padding-block:56px 24px;border-top:1px solid var(--line);margin-top:
 .shc .safe-y{position:absolute;left:0;right:0;bottom:0;height:18%;background:repeating-linear-gradient(45deg,rgba(230,40,60,.35) 0 2cqw,rgba(230,40,60,.18) 2cqw 4cqw);display:none;place-items:center;font:700 3.6cqw var(--font);color:#fff}
 .show-shsafe .shc .safe-y{display:grid}
 
+/* Serie Año Santo */
+.as-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(360px,1fr));gap:30px 20px}
+@media (max-width:420px){.as-grid{grid-template-columns:1fr}}
+.ga .bg{background-size:cover}
+.ga1 .bg{background-position:60% 40%}
+.ga1 .fill{background:linear-gradient(to right,rgba(15,18,12,.92) 0%,rgba(15,18,12,.7) 38%,rgba(15,18,12,0) 68%)}
+.ga .body{position:absolute;left:5.5cqw;top:50%;transform:translateY(-50%);display:grid;gap:1.8cqw;justify-items:start;color:#fff}
+.ga .tagg{background:#fff;color:var(--sw-s);font-weight:800;font-size:2.4cqw;padding:1cqw 2cqw;border-radius:99cqw;letter-spacing:.04em}
+.ga .h{font-size:8.6cqw;line-height:1}
+.ga .yr{font-size:15cqw;font-weight:800;line-height:.82;letter-spacing:-.04em}
+.ga2{background:#fff}
+.ga2 .pan{position:absolute;left:0;top:0;bottom:0;width:52%;background:var(--sw-grad)}
+.ga2 .ph{position:absolute;right:0;top:0;bottom:0;width:48%;background-size:cover;background-position:52% 22%}
+.ga2 .body{max-width:44cqw}
+.ga2 .h{font-size:6.8cqw;line-height:1.05}
+.ga2 .chk{display:grid;gap:.8cqw;font-size:2.4cqw;font-weight:700}
+.ga2 .chk span::before{content:"✓ ";color:#fff}
+
 /* Canal de YouTube */
 .ytc{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:#fff;color:#0f0f0f;font-family:Roboto,Arial,sans-serif;margin-top:40px}
 .ytc-top{display:flex;align-items:center;gap:14px;padding:10px 18px;border-bottom:1px solid #eee}
@@ -2523,6 +2541,17 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px}
   </div>
   <div class="toolbar" style="margin-bottom:0"><button class="btn" id="shSafeBtn" aria-pressed="false">Mostrar zona del título</button></div>
   <div class="sh-grid" id="shGrid"><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/mojon.jpg);background-position:22% 30%"></div><div class="vig"></div><span class="tag">Camino Francés</span><div class="card"><span class="bdg">5</span><h3>etapas de Sarria a <span class="u">Santiago</span></h3></div><span class="safe-y">Título y vistas</span></div><b>De Sarria a Santiago en 5 etapas</b><small>210 mil visualizaciones</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/puente.jpg);background-position:45% 50%"></div><div class="vig"></div><span class="tag">Antes de salir</span><div class="card"><span class="bdg">3</span><h3>cosas que nadie te cuenta <span class="u">del Camino</span></h3></div><span class="safe-y">Título y vistas</span></div><b>3 cosas que nadie te cuenta del Camino</b><small>402 mil visualizaciones</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/llegada.jpg);background-position:35% 35%"></div><div class="vig"></div><span class="tag">Obradoiro</span><div class="card"><span class="bdg sm">Km 0</span><h3>Lo que se siente al <span class="u">llegar</span></h3></div><span class="safe-y">Título y vistas</span></div><b>Lo que se siente al llegar</b><small>318 mil visualizaciones</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/hilary.jpg);background-position:55% 10%"></div><div class="vig"></div><span class="tag">Respondemos</span><div class="card"><span class="bdg">?</span><h3>¿Hace falta estar <span class="u">en forma</span>?</h3></div><span class="safe-y">Título y vistas</span></div><b>¿Hace falta estar en forma para el Camino?</b><small>96 mil visualizaciones</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/chica.jpg);background-position:62% 30%"></div><div class="vig"></div><span class="tag">Equipaje</span><div class="card"><span class="bdg sm">POV</span><h3>Tu maleta llega <span class="u">antes que tú</span></h3></div><span class="safe-y">Título y vistas</span></div><b>POV: tu maleta llega antes que tú</b><small>151 mil visualizaciones</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/fuegos.jpg);background-position:55% 40%"></div><div class="vig"></div><span class="tag">Año Santo</span><div class="card"><span class="bdg sm">2027</span><h3>El año para hacer <span class="u">el Camino</span></h3></div><span class="safe-y">Título y vistas</span></div><b>¿Por qué 2027 es un año especial?</b><small>64 mil visualizaciones</small></div></div>
+  <div class="sec-h" style="margin-top:56px" id="serie-ano-santo">
+    <h2 style="font-size:24px">Serie Año Santo 2027</h2>
+    <p>Miniatura para el vídeo largo «Guía del Año Santo 2027», en dos variantes, y cuatro Shorts que lo acompañan con la plantilla de serie de los Shorts. Todos llevan «Año Santo» o «Xacobeo 2027» arriba para que se lean como una serie en el canal.</p>
+  </div>
+  <div class="as-grid">
+ <div class="yt"><div class="pz r169 yt-thumb ga ga1" id="ga1"><div class="bg" style="background-image:url(assets/fuegos.jpg)"></div><div class="fill"></div><div class="body"><span class="tagg">Guía completa</span><span class="yr">2027</span><h3 class="h">Año <span class="u">Santo</span></h3></div><span class="dur">16:24</span></div>
+  <div class="yt-meta"><span class="av"><i class="mk iso"></i></span><div><b>Guía del Año Santo 2027: todo lo que necesitas saber para hacer el Camino</b><small>Variante A · foto a sangre y año grande</small></div></div></div>
+ <div class="yt"><div class="pz r169 yt-thumb ga ga2" id="ga2"><div class="pan"></div><div class="ph" style="background-image:url(assets/hilary.jpg)"></div><div class="body"><span class="tagg">Xacobeo 2027</span><h3 class="h">Guía del <span class="u neg">Año Santo</span></h3><div class="chk"><span>Fechas clave</span><span>Rutas</span><span>Cuándo reservar</span></div></div><span class="dur">16:24</span></div>
+  <div class="yt-meta"><span class="av"><i class="mk iso"></i></span><div><b>Guía del Año Santo 2027: todo lo que necesitas saber para hacer el Camino</b><small>Variante B · Hilary como presentadora</small></div></div></div>
+</div>
+  <div class="sh-grid" style="margin-top:26px"><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/fuegos.jpg);background-position:55% 40%"></div><div class="vig"></div><span class="tag">Año Santo</span><div class="card"><span class="bdg sm">2032</span><h3>¿Por qué 2027 es <span class="u">Año Santo</span>?</h3></div><span class="safe-y">Título y vistas</span></div><b>¿Por qué 2027 es Año Santo?</b><small>Short · 0:45</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/catedral.jpg);background-position:50% 30%"></div><div class="vig"></div><span class="tag">Xacobeo 2027</span><div class="card"><span class="bdg">25</span><h3>El gran día: <span class="u">25 de julio</span></h3></div><span class="safe-y">Título y vistas</span></div><b>El 25 de julio cae en domingo</b><small>Short · 0:38</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/hilary.jpg);background-position:55% 10%"></div><div class="vig"></div><span class="tag">Año Santo</span><div class="card"><span class="bdg">?</span><h3>¿Cuándo <span class="u">reservar</span> para 2027?</h3></div><span class="safe-y">Título y vistas</span></div><b>¿Cuándo reservar para el Año Santo?</b><small>Short · 0:52</small></div><div class="sh"><div class="pz r916 shc"><div class="bg" style="background-image:url(assets/mojon.jpg);background-position:22% 30%"></div><div class="vig"></div><span class="tag">Año Santo</span><div class="card"><span class="bdg sm">100</span><h3>km para tu <span class="u">Compostela</span></h3></div><span class="safe-y">Título y vistas</span></div><b>La Compostela en Año Santo</b><small>Short · 0:41</small></div></div>
   <div class="ytc" id="ytChannel">
     <div class="ytc-top"><span class="yl"><i></i>YouTube</span><span class="ytc-search">Buscar</span></div>
     <div class="ytc-in">

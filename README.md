@@ -11,6 +11,7 @@ Repositorio de trabajo del Brandbook 2027: el documento de marca, las aplicacion
 | `aplicaciones/video/` | Todas las piezas animadas en MP4 (reels, TikToks y cartelas de YouTube), listas para descargar. |
 | `entregables/email-xacobeo-2027/` | HTML listo para enviar de la campaña Xacobeo 2027 (nuevos clientes y viajeros frecuentes) con sus imágenes. |
 | `entregables/email-reserva-xacobeo-2027/` | Campaña de reserva Xacobeo 2027: 2 emails en HTML listo para enviar con sus imágenes. |
+| `entregables/youtube-ano-santo-2027/` | Miniaturas (1280 × 720) del vídeo «Guía del Año Santo 2027» y portadas de 4 Shorts (1080 × 1920). |
 | `entregables/carrusel-100k/` | Carrusel de celebración de los 100K en Instagram: 6 PNG a 1080 × 1350 y PDF para importar en Canva. |
 | `emails/` | Email «Tu Camino sin literas ni sorpresas» (subido antes; ver nota en `guias/pendientes.md`). |
 | `guias/reglas-aplicaciones.md` | **Lo más importante**: cómo aplicar la marca en cada canal, con todas las decisiones tomadas a partir del feedback. |

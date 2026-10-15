@@ -609,6 +609,15 @@ section.sec{padding-block:56px 24px;border-top:1px solid var(--line);margin-top:
 @media (max-width:860px){.xa{grid-template-columns:1fr}.xa-orig{border-right:0;border-bottom:1px solid var(--line)}}
 @media (max-width:560px){.x-pair,.x-routes{grid-template-columns:1fr}.x-pair,.x-hero div,.x-call,.x-sign{padding-inline:20px}.x-price{margin-inline:20px}}
 
+/* Email · invitación Xacobeo */
+.inv-frame{display:block;width:100%;border:0;background:#EEEFEA;min-height:600px}
+.inv-plan{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-bottom:22px}
+@media (max-width:800px){.inv-plan{grid-template-columns:1fr}}
+.inv-plan div{border:1px solid var(--line);border-radius:12px;padding:14px 16px;background:var(--panel);display:grid;grid-template-columns:56px 1fr;gap:12px;align-items:start;font-size:13px;color:var(--muted)}
+.inv-plan img{width:56px;height:56px}
+.inv-plan b{display:block;color:var(--fg);font-size:14px}
+.inv-plan em{font-style:normal;font-weight:700;color:var(--accent);font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+
 /* ---------- YouTube ---------- */
 .yt-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:30px 18px}
 .yt{display:grid;gap:10px;align-content:start;min-width:0}
@@ -2380,6 +2389,24 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px}
     </div>
   </div>
 
+  <div class="sec-h" style="margin-top:64px" id="invitacion-xacobeo">
+    <div class="eyebrow">Email · campaña de invitación</div>
+    <h2>«Estás invitado al Año Santo 2027»</h2>
+    <p>Tres envíos que funcionan como una credencial del peregrino: cada email añade un sello (invitación y ruta) y el tercero, el de la reserva, se consigue al reservar. El hilo visual da continuidad a la serie y un motivo para abrir el siguiente. Los emails de abajo son el HTML real, listo para enviar.</p>
+  </div>
+  <div class="inv-plan">
+<div><img src="email-invitacion/img/sello-invitacion.png" alt=""><span><em>Noviembre 2026</em><b>1 · La invitación</b>Una tarjeta de invitación formal al Año Santo: cuándo, dónde y «etiqueta: calzado cómodo». Primer sello.</span></div>
+<div><img src="email-invitacion/img/sello-ruta.png" alt=""><span><em>Enero 2027</em><b>2 · Elige tu ruta</b>Las cuatro rutas de unos 100 km y la opción de hablar con un asesor. Segundo sello.</span></div>
+<div><img src="email-invitacion/img/sello-reserva.png" alt=""><span><em>16 de abril de 2027</em><b>3 · Faltan 100 días</b>Cuenta atrás al 25 de julio, ventajas de reservar ya y la firma de Hilary. El tercer sello llega con la reserva.</span></div>
+</div>
+  <div class="mail">
+    <div class="inbox" role="tablist" aria-label="Emails de la campaña de invitación">
+      <div class="inbox-h">Recibidos <span>Xacobeo 2027</span></div><button class="msg" role="tab" id="tab-i1" aria-controls="i1" aria-selected="true"><span class="tag">Envío 1 · Invitación</span><span class="row"><b>Santiago Ways</b><span class="d">12 nov</span></span><span class="s">Estás invitado al Año Santo 2027</span><span class="p">Una invitación que solo llega cada varios años.</span></button><button class="msg" role="tab" id="tab-i2" aria-controls="i2" aria-selected="false"><span class="tag">Envío 2 · Tu ruta</span><span class="row"><b>Santiago Ways</b><span class="d">14 ene</span></span><span class="s">Elige tu entrada al Camino 2027</span><span class="p">Cuatro rutas de unos 100 km para llegar a Santiago.</span></button><button class="msg" role="tab" id="tab-i3" aria-controls="i3" aria-selected="false"><span class="tag">Envío 3 · Reserva</span><span class="row"><b>Santiago Ways</b><span class="d">16 abr</span></span><span class="s">Faltan 100 días para el 25 de julio</span><span class="p">Mayo y junio son los primeros en llenarse.</span></button>
+    </div>
+    <div class="reader"><div id="i1" role="tabpanel" aria-labelledby="tab-i1"><div class="reader-h"><span class="subj">Estás invitado al Año Santo 2027</span><span class="from">Santiago Ways &lt;hola@santiagoways.com&gt;</span><span class="alt">Alternativa B: <b>[Nombre], tienes una invitación para 2027</b></span></div><iframe class="inv-frame" src="email-invitacion/01-invitacion.html" title="Estás invitado al Año Santo 2027" loading="lazy"></iframe></div><div id="i2" role="tabpanel" aria-labelledby="tab-i2" hidden><div class="reader-h"><span class="subj">Elige tu entrada al Camino 2027</span><span class="from">Santiago Ways &lt;hola@santiagoways.com&gt;</span><span class="alt">Alternativa B: <b>¿Francés, Portugués o Inglés?</b></span></div><iframe class="inv-frame" src="email-invitacion/02-elige-tu-ruta.html" title="Elige tu entrada al Camino 2027" loading="lazy"></iframe></div><div id="i3" role="tabpanel" aria-labelledby="tab-i3" hidden><div class="reader-h"><span class="subj">Faltan 100 días para el 25 de julio</span><span class="from">Santiago Ways &lt;hola@santiagoways.com&gt;</span><span class="alt">Alternativa B: <b>Tu credencial está a un sello de completarse</b></span></div><iframe class="inv-frame" src="email-invitacion/03-faltan-100-dias.html" title="Faltan 100 días para el 25 de julio" loading="lazy"></iframe></div></div>
+  </div>
+  <p class="note">Segmentación: toda la base de suscriptores, excluyendo clientes con reserva 2027. Si alguien reserva tras el envío 1 o 2, sale de la secuencia y recibe la confirmación. Fechas de envío propuestas; el envío 3 sale el 16 de abril para que sean exactamente 100 días hasta el 25 de julio.</p>
+
   <div class="sec-h" id="xacobeo" style="margin-top:64px">
     <div class="eyebrow">Email · rediseño</div>
     <h2>Campaña Xacobeo 2027: antes y después</h2>
@@ -3033,6 +3060,10 @@ footer{padding-block:40px 60px;color:var(--muted);font-size:12.5px}
     var G=[['Before','you','choose'],['your','Camino','year'],['2027','is','not'],['just','another','year'],['it','will','be'],['a','Holy','Year']],g=0,w=0;
     function draw(){el.innerHTML=G[g].map(function(t,k){return '<span'+(k===w?' class="on"':'')+'>'+t+'</span>'}).join('');}
     draw();setInterval(function(){w++;if(w>=G[g].length){w=0;g=(g+1)%G.length}draw()},420);})();
+
+  // Iframes de email: altura automática
+  document.querySelectorAll('.inv-frame').forEach(function(f){function fit(){try{f.style.height=f.contentDocument.documentElement.scrollHeight+'px'}catch(e){}}f.addEventListener('load',fit);setTimeout(fit,1500)});
+  document.querySelectorAll('[aria-controls^="i"]').forEach(function(t){t.addEventListener('click',function(){setTimeout(function(){document.querySelectorAll('.inv-frame').forEach(function(f){try{f.style.height=f.contentDocument.documentElement.scrollHeight+'px'}catch(e){}})},50)})});
 
   // Email: pestañas
   document.querySelectorAll('.mail').forEach(function(m){

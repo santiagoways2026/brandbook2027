@@ -3551,7 +3551,7 @@ async function asConsulta(sql,paso,msg,clave){msg=msg||asAct;const H={"ZANALYTIC
     if(code==="1004")break;if(code==="1003"||code==="1005")throw{code:"formato",message:"La consulta falló en Zoho Analytics."};if(i===39)throw{code:"formato",message:"Zoho Analytics tarda demasiado. Prueba de nuevo en unos minutos."}}
   const r=await mc.mcp.callTool("Zoho","ZohoAnalytics_downloadExportedData",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg);
   const p=txt(r),csv=typeof p==="string"?p:(p?.data?.result??p?.result??r.content?.find(b=>b.type==="text")?.text);
-  if(typeof csv!=="string"||!csv.includes(clave||"asesor"))throw{code:"formato",message:"Zoho Analytics devolvió un archivo que no se puede leer."};return asCsv(csv)}
+  if(typeof csv!=="string"||!csv.includes(clave||"asesor")&&!(!clave&&csv.includes(",")&&/\r?\n/.test(csv)))throw{code:"formato",message:"Zoho Analytics devolvió un archivo que no se puede leer."};return asCsv(csv)}
 function asAct(msg,tipo){st.asAct={msg,tipo:tipo||"vivo"};const b=document.getElementById("asActMsg");if(b){b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")}}
 async function actualizarAsesores(){if(st.asAct?.tipo==="vivo")return;
   if(!mc.mcp||!st.db){asAct("Abre la página desde claude.ai para actualizar los datos.","err");return}

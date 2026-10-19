@@ -842,6 +842,54 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .cn-tag{display:inline-block;margin-left:8px;padding:1px 7px;border-radius:10px;font:700 11px/1.5 var(--f-ui)}.cn-tag.top{background:#123d2a;color:#3ddc97}.cn-tag.bot{background:#3d1515;color:#ff8a8a}
 .cn-rank{display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:12px 20px 0}.cn-rank>div{background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:10px 12px}
 .cn-rank h4{margin:0 0 6px;font:700 13px var(--f-ui)}.cn-rank .top h4{color:#3ddc97}.cn-rank .bot h4{color:#ff8a8a}.cn-rank ol{margin:0;padding-left:18px;font-size:13px;line-height:1.6;color:#e6eaee}
+#c-captacion_inv{--ia25:#d95926;--ia26:#3987e5}
+.ia-per{padding:8px 20px 0;font-size:12.5px;color:var(--tenue)}
+.ia-res .ia-k2{font-size:12px;color:#c9d0da}
+#c-captacion_inv .as-res>div{min-width:150px}#c-captacion_inv .as-res b{font-size:24px}
+.ia-graf{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:14px;padding:12px 20px 0}
+.ia-g{position:relative;background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:10px 12px 6px;color:#c9d0da}
+.ia-g h4{margin:0;font:700 14px var(--f-ui);color:#e6eaee}
+.ia-sub{font-size:11.5px;color:var(--tenue);margin-top:2px}
+.ia-g svg{width:100%;height:auto;display:block;overflow:visible}
+.ia-ley{display:flex;gap:14px;font-size:12px;color:#c9d0da;margin:6px 0 2px}
+.ia-ley span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--c);margin-right:6px;vertical-align:-1px}
+.ia-ley.lin span::before{width:14px;height:3px;vertical-align:middle}
+.ia-grid{stroke:currentColor;stroke-opacity:.12}
+.ia-ax{font-size:13px;fill:currentColor;fill-opacity:.7}
+.ia-axs{fill-opacity:1;font-weight:700}
+.ia-band{fill:currentColor;fill-opacity:.05}
+.ia-bar.ia-b25{fill:var(--ia25)}.ia-bar.ia-b26{fill:var(--ia26)}
+.ia-bar.ia-parc{fill-opacity:.45}
+.ia-lin{fill:none;stroke-width:2;stroke-linejoin:round}.ia-lin.ia-l25{stroke:var(--ia25)}.ia-lin.ia-l26{stroke:var(--ia26)}
+.ia-pt{stroke:var(--marco-2);stroke-width:2}.ia-pt.ia-p25{fill:var(--ia25)}.ia-pt.ia-p26{fill:var(--ia26)}.ia-pt.ia-parc{fill-opacity:.45}
+.ia-x{stroke:currentColor;stroke-opacity:.45;stroke-width:1}
+.ia-hit{fill:transparent;cursor:crosshair}
+.ia-m{outline:none}.ia-m:hover .ia-bar,.ia-m:focus .ia-bar{filter:brightness(1.18)}.ia-m:focus .ia-hit{stroke:currentColor;stroke-opacity:.3}
+.ia-tip{position:absolute;z-index:3;pointer-events:none;min-width:180px;background:#0b0e13;border:1px solid var(--borde-2);border-radius:8px;padding:8px 10px;font-size:12px;line-height:1.55;color:#c9d0da;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.ia-tip b{font-size:13.5px;color:#f1f3f5;margin-right:4px}
+.ia-tip i{display:inline-block;width:12px;height:2px;margin-right:7px;vertical-align:middle;background:var(--c)}
+.ia-tt{font-weight:700;color:#e6eaee;margin-bottom:2px}.ia-tv{margin-top:2px;font-weight:700;color:#e6eaee}.ia-tn{color:var(--tenue);font-size:11.5px}
+.ia-t td.ia-dv{font-weight:700}
+.ia-t tbody tr.ia-sel td{background:rgba(61,123,255,.08)}.ia-t tbody tr.ia-sel td.as-n{background:#16202e}
+.ia-t tbody tr.ia-fut td{opacity:.5}
+.ia-t tfoot td{font-weight:800;background:#11151b}
+.ia-t small{font-weight:400;color:var(--tenue)}
+.ia-an{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 20px 0}
+.ia-an>div{background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:10px 14px}
+.ia-an h4{margin:0 0 6px;font:700 14px var(--f-ui);color:#e6eaee}
+.ia-an ul{margin:0;padding-left:18px;font-size:13.5px;line-height:1.55;color:#d6dbe1}
+.ia-an li+li{margin-top:5px}
+@media (max-width:760px){.ia-an{grid-template-columns:1fr}.ia-graf{grid-template-columns:1fr}}
+html[data-tema=sw] #c-captacion_inv{--ia25:#eb6834;--ia26:#2a78d6}
+html[data-tema=sw] .ia-g,html[data-tema=sw] .ia-an>div{background:#fff;border-color:#E3EBD0;color:#6F6F6E}
+html[data-tema=sw] .ia-g h4,html[data-tema=sw] .ia-an h4,html[data-tema=sw] .ia-tt,html[data-tema=sw] .ia-tv{color:#2E2E2D}
+html[data-tema=sw] .ia-ley,html[data-tema=sw] .ia-res .ia-k2{color:#6F6F6E}
+html[data-tema=sw] .ia-an ul{color:#2E2E2D}
+html[data-tema=sw] .ia-pt{stroke:#fff}
+html[data-tema=sw] .ia-tip{background:#fff;border-color:#DCE6C6;color:#6F6F6E;box-shadow:0 8px 24px rgba(46,46,45,.16)}
+html[data-tema=sw] .ia-tip b{color:#2E2E2D}
+html[data-tema=sw] .ia-t tbody tr.ia-sel td{background:#F4F8EA}html[data-tema=sw] .ia-t tbody tr.ia-sel td.as-n{background:#EEF4DE}
+html[data-tema=sw] .ia-t tfoot td{background:#F2F7E6;color:#2E2E2D}
 .cn-t td.cr-bar{position:relative}.cn-t td.cr-bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(129,140,248,.18)}
 @media (max-width:700px){.cn-rank{grid-template-columns:1fr}}
 .cn-e td.cn-grp{font-weight:800;text-align:left;vertical-align:middle;background:#11151b;font-size:14px}
@@ -1086,6 +1134,7 @@ const MARCOS=[
   {id:"tiktok_mision",grupo:"tiktok",dato:true,nombre:"TikTok / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"tiktok_datos",grupo:"tiktok",dato:true,nombre:"TikTok / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"captacion",grupo:"captacion",nombre:"Captación",x:0,y:0,w:1200},
+  {id:"captacion_inv",grupo:"captacion",dato:true,nombre:"Captación / Inversión 2025 frente a 2026",x:0,y:-9000,w:1300},
   {id:"captacion_canales",grupo:"captacion",dato:true,nombre:"Captación / Deals y CR por canal (UTM)",x:0,y:-9000,w:1300},
   {id:"captacion_evolucion",grupo:"captacion",dato:true,nombre:"Captación / Evolución del CR por canal",x:0,y:-9000,w:1300},
   {id:"captacion_cpa",grupo:"captacion",dato:true,nombre:"Captación / CPA y retorno por canal",x:0,y:-9000,w:1300},
@@ -1127,7 +1176,7 @@ const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],t
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_producto","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_producto","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
 const LOGOS={caminoways:{a:["caminoways","camino ways"],ig:["caminoways"]},followthecamino:{a:["follow the camino","followthecamino"],ig:["followthecamino"]},pilgrim:{a:["pilgrim.es","pilgrim"],ig:["pilgrim.es"]},tubuencamino:{a:["tu buen camino","tubuencamino"],ig:["tubuencaminoviajes","tubuencamino"]},viajecamino:{a:["viaje camino","viajecaminodesantiago","viajes camino de santiago"],ig:[]},macsadventure:{a:["macs adventure","macsadventure","macs"],ig:["macsadventure"]},galiwonders:{a:["galiwonders","gali wonders"],ig:["galiwonders"]},mundiplus:{a:["mundiplus"],ig:["mundiplus"]}};
 function logoP(id,h=20){return LOGOS[id]?`<img class="logo-p" src="img/logos/${id}.png?v=1" alt="${esc(id)}" style="height:${h}px">`:""}
@@ -3259,6 +3308,88 @@ function pintarCPA(){const el=document.getElementById("c-captacion_cpa");if(!el|
 document.addEventListener("change",e=>{const s=e.target.closest("[data-cpf]");if(!s||!st.cpV)return;st.cpV[s.dataset.cpf]=Number(s.value);if(st.cpV.desde>st.cpV.hasta)[st.cpV.desde,st.cpV.hasta]=[st.cpV.hasta,st.cpV.desde];pintarCPA()});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-cppre]");if(b&&st.cpV){const[a,c]=b.dataset.cppre.split("-").map(Number);st.cpV.desde=a;st.cpV.hasta=c;pintarCPA()}});
 
+/* ===== Captación: inversión en Ads 2025 frente a 2026, con deals y facturación (Windsor.ai + Zoho Analytics) ===== */
+const IA_CAN={total:"Google Ads y Meta",google:"Google Ads",meta:"Meta"},IA_PER={anio:"En lo que va de año","3m":"Últimos 3 meses","2m":"Últimos 2 meses",mes:"Mes en curso"};
+const iaCorto=n=>n==null?"–":n>=1e6?(n/1e6).toFixed(n>=1e7?0:1).replace(".",",")+" M":n>=1e4?Math.round(n/1e3)+" k":igGr(n);
+const iaVar=(b,a)=>a&&b!=null?b/a-1:null,iaVarTxt=x=>x==null||!isFinite(x)?"–":(x>=0?"▲ +":"▼ −")+Math.abs(x*100).toFixed(0)+" %";
+const iaPc=x=>x==null||!isFinite(x)?"–":(x*100).toFixed(1).replace(".",",")+" %";
+function iaDatos(){const I=st.invAnual;if(!I||!(I.filas||[]).length)return null;const C=st.cap,Vn=st.ven;
+  const V=st.iaV||(st.iaV={canal:"total",per:"anio"});
+  const act=I.corte?.ym||I.filas[I.filas.length-1][0],y1=Math.floor(act/100),y0=y1-1,mAct=act%100;
+  const sel=(g,m)=>V.canal==="google"?g:V.canal==="meta"?m:(g||0)+(m||0);
+  const inv={};I.filas.forEach(([ym,g,m])=>{inv[ym]=sel(g,m)});const pv=I.corte?.prev||{},invCorte=sel(pv.g,pv.m);
+  const de={},dc={},fa={},fc={};(C?.idi||[]).forEach(r=>{de[r[0]]=(de[r[0]]||0)+r[3];dc[r[0]]=(dc[r[0]]||0)+r[5]});
+  (Vn?.filas||[]).forEach(r=>{fa[r[0]]=(fa[r[0]]||0)+r[3];fc[r[0]]=(fc[r[0]]||0)+r[5]});
+  const ini={anio:1,"3m":mAct-2,"2m":mAct-1,mes:mAct}[V.per]||1;
+  const M=MESN.map((n,i)=>{const m=i+1,a=y0*100+m,b=y1*100+m,cur=m===mAct,fut=m>mAct;
+    return{m,n,cur,fut,sel:m>=Math.max(1,ini)&&m<=mAct,i0:cur?invCorte:inv[a],i1:fut?null:inv[b],i0m:inv[a],d0:C?(cur?dc[a]:de[a]):null,d1:C&&!fut?de[b]:null,d0m:de[a],f0:Vn?(cur?fc[a]:fa[a]):null,f1:Vn&&!fut?fa[b]:null,f0m:fa[a]}});
+  const S={i0:0,i1:0,d0:0,d1:0,f0:0,f1:0};M.filter(x=>x.sel).forEach(x=>{for(const k in S)S[k]+=x[k]||0});
+  return st.iaD={I,V,y0,y1,mAct,M,S,hayD:!!C,hayF:!!Vn,diaInv:I.corte?.dia,diaZ:C?.corte||Vn?.corte}}
+/* Barras agrupadas por mes (2025 y 2026) o líneas; un solo eje; la banda marca el periodo elegido */
+const iaPaso=v=>{const e=Math.pow(10,Math.floor(Math.log10(v))),f=v/e;return(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*e};
+function iaGraf(D,id,tit,sub,k,fmt,tipo){const W=560,H=240,pl=62,pr=8,pt=12,pb=28,gw=(W-pl-pr)/12;
+  const v0=D.M.map(x=>x[k+"0"]),v1=D.M.map(x=>x[k+"1"]),vals=[...v0,...v1].filter(v=>v!=null&&isFinite(v));
+  if(!vals.length)return`<div class="ia-g"><h4>${tit}</h4><div class="vacio">Sin datos.</div></div>`;
+  const paso=iaPaso(Math.max(...vals)/4||1),mx=paso*Math.ceil(Math.max(...vals)/paso||1),y=v=>pt+(H-pt-pb)*(1-v/mx),cx=i=>pl+gw*i+gw/2;
+  const ticks=Array.from({length:Math.round(mx/paso)+1},(_,i)=>i*paso);
+  const selI=D.M.map((x,i)=>x.sel?i:-1).filter(i=>i>=0),band=selI.length?`<rect class="ia-band" x="${pl+gw*selI[0]}" y="${pt}" width="${gw*selI.length}" height="${H-pt-pb}"/>`:"";
+  const barra=(x0,w,v,cls)=>{if(v==null||!isFinite(v)||v<=0)return"";const yy=y(v),h=H-pb-yy,r=Math.min(3,h,w/2);return`<path class="ia-bar ${cls}" d="M${x0.toFixed(1)} ${H-pb}V${(yy+r).toFixed(1)}Q${x0.toFixed(1)} ${yy.toFixed(1)} ${(x0+r).toFixed(1)} ${yy.toFixed(1)}H${(x0+w-r).toFixed(1)}Q${(x0+w).toFixed(1)} ${yy.toFixed(1)} ${(x0+w).toFixed(1)} ${(yy+r).toFixed(1)}V${H-pb}Z"/>`};
+  let marcas="";
+  if(tipo==="barras"){const bw=Math.min(16,gw*.34);marcas=D.M.map((x,i)=>{const c=cx(i),p=x.cur?" ia-parc":"";return`<g class="ia-m" data-iam="${id}|${i}" tabindex="0">${barra(c-bw-1,bw,v0[i],"ia-b25"+p)}${barra(c+1,bw,v1[i],"ia-b26"+p)}<rect class="ia-hit" x="${pl+gw*i}" y="${pt}" width="${gw}" height="${H-pt-pb}"/></g>`}).join("")}
+  else{const linea=(v,cls)=>{let d="",on=false;v.forEach((t,i)=>{if(t==null||!isFinite(t)){on=false;return}d+=(on?"L":"M")+cx(i).toFixed(1)+" "+y(t).toFixed(1);on=true});return`<path class="ia-lin ${cls}" d="${d}"/>`};
+    const pts=(v,cls)=>v.map((t,i)=>t==null||!isFinite(t)?"":`<circle class="ia-pt ${cls}${D.M[i].cur?" ia-parc":""}" cx="${cx(i).toFixed(1)}" cy="${y(t).toFixed(1)}" r="4"/>`).join("");
+    marcas=`<line class="ia-x" y1="${pt}" y2="${H-pb}" x1="0" x2="0" visibility="hidden"/>${linea(v0,"ia-l25")}${linea(v1,"ia-l26")}${pts(v0,"ia-p25")}${pts(v1,"ia-p26")}`+D.M.map((x,i)=>`<g class="ia-m" data-iam="${id}|${i}" tabindex="0"><rect class="ia-hit" x="${pl+gw*i}" y="${pt}" width="${gw}" height="${H-pt-pb}"/></g>`).join("")}
+  return`<div class="ia-g" data-iag="${id}"><h4>${tit}</h4><div class="ia-sub">${sub}</div>
+   <div class="ia-ley${tipo==="barras"?"":" lin"}"><span style="--c:var(--ia25)">${D.y0}</span><span style="--c:var(--ia26)">${D.y1}</span></div>
+   <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tit}: ${D.y0} frente a ${D.y1} por mes">${band}${ticks.map(t=>`<line class="ia-grid" x1="${pl}" x2="${W-pr}" y1="${y(t).toFixed(1)}" y2="${y(t).toFixed(1)}"/><text class="ia-ax" x="${pl-6}" y="${(y(t)+4).toFixed(1)}" text-anchor="end">${fmt(t)}</text>`).join("")}
+    ${D.M.map((x,i)=>`<text class="ia-ax${x.sel?" ia-axs":""}" x="${cx(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${x.n}${x.cur?"*":""}</text>`).join("")}${marcas}</svg><div class="ia-tip" hidden></div></div>`}
+const IA_G={inv:["i","Inversión en Ads",x=>igEur(x)],fact:["f","Facturación",x=>igEur(x)],deals:["d","Deals",x=>igGr(x)],ratio:["r","Inversión sobre facturación",x=>iaPc(x)]};
+function iaTip(g,h,ev){const D=st.iaD;if(!D)return;const[id,i]=h.dataset.iam.split("|"),x=D.M[+i],[k,tit,f]=IA_G[id]||[];if(!x||!k)return;
+  const val=(x,yy)=>k==="r"?(x["f"+yy]?x["i"+yy]/x["f"+yy]:null):x[k+yy];
+  const a=val(x,0),b=x.fut?null:val(x,1),t=g.querySelector(".ia-tip");if(!t)return;
+  const dia=k==="i"?D.diaInv:D.diaZ,nom=MESN[x.m-1];
+  t.innerHTML=`<div class="ia-tt">${tit} · ${nom}${x.cur?(k==="r"?" (parcial)":` (del 1 al ${dia})`):""}</div>
+   <div><i style="--c:var(--ia26)"></i><b>${b==null?"–":f(b)}</b> ${D.y1}</div><div><i style="--c:var(--ia25)"></i><b>${a==null?"–":f(a)}</b> ${D.y0}${x.cur?" mismos días":""}</div>
+   ${k!=="r"&&a&&b!=null?`<div class="ia-tv">${iaVarTxt(iaVar(b,a))}</div>`:k==="r"&&a!=null&&b!=null?`<div class="ia-tv">${((b-a)*100>=0?"+":"−")+Math.abs((b-a)*100).toFixed(1).replace(".",",")} puntos</div>`:""}
+   ${x.cur&&k!=="r"&&x[k+"0m"]!=null?`<div class="ia-tn">${D.y0} mes completo: ${f(x[k+"0m"])}</div>`:""}`;
+  t.hidden=false;const r=g.getBoundingClientRect(),s=r.width/g.offsetWidth||1,hr=h.getBoundingClientRect();
+  const px=ev&&ev.clientX!=null?ev.clientX:hr.left+hr.width/2,py=ev&&ev.clientY!=null?ev.clientY:hr.top+hr.height/2;
+  let lx=(px-r.left)/s+14,ly=(py-r.top)/s-10;if(lx+t.offsetWidth>g.offsetWidth-4)lx=(px-r.left)/s-t.offsetWidth-14;t.style.left=Math.max(4,lx)+"px";t.style.top=Math.max(4,Math.min(ly,g.offsetHeight-t.offsetHeight-4))+"px";
+  const xl=g.querySelector(".ia-x");if(xl){const hit=h.querySelector(".ia-hit"),cxv=+hit.getAttribute("x")+ +hit.getAttribute("width")/2;xl.setAttribute("x1",cxv);xl.setAttribute("x2",cxv);xl.setAttribute("visibility","visible")}}
+function iaTipOff(g){if(!g)return;const t=g.querySelector(".ia-tip");if(t)t.hidden=true;const xl=g.querySelector(".ia-x");if(xl)xl.setAttribute("visibility","hidden")}
+{let gAct=null;document.addEventListener("pointermove",e=>{const g=e.target.closest?.(".ia-g"),h=e.target.closest?.("[data-iam]");if(gAct&&gAct!==g)iaTipOff(gAct);gAct=g;if(g&&h)iaTip(g,h,e);else if(g)iaTipOff(g)});
+ document.addEventListener("focusin",e=>{const h=e.target.closest?.("[data-iam]");if(h){const g=h.closest(".ia-g");if(gAct&&gAct!==g)iaTipOff(gAct);gAct=g;iaTip(g,h)}});
+ document.addEventListener("focusout",e=>{const h=e.target.closest?.("[data-iam]");if(h)iaTipOff(h.closest(".ia-g"))})}
+function pintarInvAnual(){const el=document.getElementById("c-captacion_inv");if(!el||st.dentro!=="captacion")return;
+  const D=iaDatos();if(!D){el.innerHTML=`<div class="mcab"><div><h2>Inversión ${new Date().getFullYear()-1} frente a ${new Date().getFullYear()}</h2></div></div><div class="vacio">Álex está cargando la inversión de Google Ads y Meta.</div>`;return}
+  const{V,S,M,y0,y1,mAct}=D,can=IA_CAN[V.canal],dz=D.diaZ,di=D.diaInv,mesAct=MESN[mAct-1];
+  M.forEach(x=>{x.r0=x.f0?x.i0/x.f0:null;x.r1=x.f1?x.i1/x.f1:null});
+  const kpi=(v,lab,a,txt)=>`<div><b>${v}</b><span>${lab}</span><span class="ia-k2">${[txt,a!=null?`${y0}: ${a}`:""].filter(Boolean).join(" · ")}</span></div>`;
+  const r0=S.f0?S.i0/S.f0:null,r1=S.f1?S.i1/S.f1:null;
+  const kpis=`<div class="as-res ia-res">${kpi(igEur(S.i1),`inversión en ${can}`,igEur(S.i0),iaVarTxt(iaVar(S.i1,S.i0)))}
+   ${kpi(D.hayF?igEur(S.f1):"–","facturación (viajes vendidos)",D.hayF?igEur(S.f0):null,D.hayF?iaVarTxt(iaVar(S.f1,S.f0)):"")}
+   ${kpi(D.hayD?igGr(S.d1):"–","deals",D.hayD?igGr(S.d0):null,D.hayD?iaVarTxt(iaVar(S.d1,S.d0)):"")}
+   ${kpi(iaPc(r1),"inversión sobre facturación",iaPc(r0),r0!=null&&r1!=null?`${(r1-r0)*100>=0?"+":"−"}${Math.abs((r1-r0)*100).toFixed(1).replace(".",",")} puntos`:"")}
+   ${kpi(S.i1?(S.f1/S.i1).toFixed(1).replace(".",",")+" €":"–","facturados por cada € invertido",S.i0?(S.f0/S.i0).toFixed(1).replace(".",",")+" €":null,"")}
+   ${kpi(S.d1?igEur(S.i1/S.d1):"–","inversión por deal",S.d0?igEur(S.i0/S.d0):null,"")}</div>`;
+  const per=`${IA_PER[V.per]}: ${V.per==="mes"?mesAct:MESN[(M.find(x=>x.sel)?.m||1)-1]+" a "+mesAct}. ${mesAct} se compara con los mismos días de ${y0}: inversión del 1 al ${di} y deals y facturación del 1 al ${dz}.`;
+  const ctl=`<div class="as-ctl"><div class="as-modo">${Object.entries(IA_CAN).map(([k,n])=>`<button class="btn${V.canal===k?" prim":""}" data-iacanal="${k}">${n}</button>`).join("")}</div>
+   <div class="as-modo">${Object.entries(IA_PER).map(([k,n])=>`<button class="btn${V.per===k?" prim":""}" data-iaper="${k}">${n}</button>`).join("")}</div></div>`;
+  const graf=`<div class="ia-graf">${iaGraf(D,"inv","Inversión en Ads",`${can} · coste por mes`,"i",iaCorto,"barras")}${iaGraf(D,"fact","Facturación","Importe de viajes vendidos por mes","f",iaCorto,"barras")}
+   ${iaGraf(D,"deals","Deals","Deals creados por mes","d",iaCorto,"barras")}${iaGraf(D,"ratio","Inversión sobre facturación",`${can} / facturación del mes`,"r",x=>(x*100).toFixed(0)+" %","lineas")}</div>`;
+  const dif=(b,a)=>{const x=iaVar(b,a);return`<td class="ia-dv">${x==null?"–":(x>=0?"+":"−")+Math.abs(x*100).toFixed(0)+" %"}</td>`},e=n=>n==null?"–":igEur(n),g=n=>n==null?"–":igGr(n);
+  const fila=x=>`<tr class="${x.sel?"ia-sel":""}${x.fut?" ia-fut":""}"><td class="as-n">${x.n}${x.cur?` <small>(1 al ${di}/${dz})</small>`:""}</td><td>${e(x.i0)}</td><td>${e(x.i1)}</td>${dif(x.i1,x.i0)}<td>${g(x.d0)}</td><td>${g(x.d1)}</td>${dif(x.d1,x.d0)}<td>${e(x.f0)}</td><td>${e(x.f1)}</td>${dif(x.f1,x.f0)}<td>${iaPc(x.r0)}</td><td>${iaPc(x.r1)}</td></tr>`;
+  const tabla=`<div class="as-tw"><table class="as-t ia-t"><thead><tr><th rowspan="2" class="as-n">Mes</th><th colspan="3">Inversión (${can})</th><th colspan="3">Deals</th><th colspan="3">Facturación</th><th colspan="2">Inversión / facturación</th></tr>
+   <tr>${["i","d","f"].map(()=>`<th>${y0}</th><th>${y1}</th><th>Var.</th>`).join("")}<th>${y0}</th><th>${y1}</th></tr></thead>
+   <tbody>${M.map(fila).join("")}</tbody><tfoot><tr><td class="as-n">${IA_PER[V.per]}</td><td>${e(S.i0)}</td><td>${e(S.i1)}</td>${dif(S.i1,S.i0)}<td>${g(S.d0)}</td><td>${g(S.d1)}</td>${dif(S.d1,S.d0)}<td>${e(S.f0)}</td><td>${e(S.f1)}</td>${dif(S.f1,S.f0)}<td>${iaPc(r0)}</td><td>${iaPc(r1)}</td></tr></tfoot></table></div>`;
+  const A=D.I.analisis,an=A?`<div class="seccion-t">Por qué crece la facturación · análisis del ${esc(A.fecha||"")}</div><div class="ia-an"><div><h4>Qué lo explica</h4><ul>${(A.por_que||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div><div><h4>¿Se mantendrá?</h4><ul>${(A.futuro||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></div>`:"";
+  el.innerHTML=`<div class="mcab"><div><h2>Inversión ${y0} frente a ${y1}</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.I.fuente||"")} Deals y facturación: Zoho Analytics.</div></div><div class="meta">inversión hasta el ${esc(D.I.corte?.fecha||"")}</div></div>
+   ${ctl}<div class="ia-per">${esc(per)} Inversión hasta el ${esc(D.I.corte?.fecha||"")} (Windsor.ai); deals y facturación de Zoho Analytics.</div>${kpis}${graf}
+   <div class="seccion-t">Mes a mes</div>${tabla}${an}
+   <p class="as-nota">Inversión: coste de Google Ads y Meta Ads por mes (Windsor.ai); Bing no está conectado y no entra. Deals: deals de Zoho por mes de creación, todos los canales. Facturación: importe de los viajes vendidos por mes de creación (informe Trips Overview, todos los estados). Inversión sobre facturación y facturación por euro relacionan la inversión en Ads con toda la facturación, también la que llega por canales orgánicos, así que miden la eficiencia del conjunto, no el retorno de un canal. El mes en curso (*) se compara con los mismos días de ${y0}: la inversión hasta el día ${di} (último día completo en Windsor) y deals y facturación hasta el día ${dz}. En las gráficas, las barras claras del mes en curso son parciales y la banda marca el periodo elegido.</p>`}
+document.addEventListener("click",e=>{const c=e.target.closest("[data-iacanal]");if(c&&st.iaV){st.iaV.canal=c.dataset.iacanal;pintarInvAnual();return}
+  const p=e.target.closest("[data-iaper]");if(p&&st.iaV){st.iaV.per=p.dataset.iaper;pintarInvAnual()}});
+
 /* ===== Análisis comercial: rutas y esfuerzo, país, temporada y tamaño de grupo ===== */
 const PR_RN={"Saint Jean Pied de Port":"St Jean Pied de Port","Arzua":"Arzúa","Fromista":"Frómista","Oia":"Oya","Eposende":"Esposende","Aviles":"Avilés","La Guardia":"A Guarda"};
 const PR_CN={"":"(sin dato)","ES":"Spain","MX":"Mexico","US":"United States","USA":"United States","GB":"United Kingdom","DE":"Germany","Deutschland":"Germany","BR":"Brazil","AR":"Argentina","AU":"Australia","FR":"France","Italia":"Italy","Irland":"Ireland","mexico":"Mexico","UAE":"United Arab Emirates","Hong Kong":"Hong Kong SAR China","PR":"Puerto Rico","HR":"Croatia","GR":"Greece","DO":"Dominican Republic","EC":"Ecuador","UY":"Uruguay"};
@@ -3880,7 +4011,7 @@ function pintarGadsGen(id){const el=document.getElementById("c-"+id);if(!el||st.
 document.addEventListener("click",e=>{const b=e.target.closest("[data-gamas]");if(!b)return;const[id,i]=b.dataset.gamas.split("|"),VK="gaT_"+id;st[VK]=st[VK]||{};st[VK][i]=!st[VK][i];pintarGadsGen(id)});
 function pintarGads(){pintarGadsUtm();pintarGadsGen("gads_pmax");pintarGadsCamp();pintarGadsGen("gads_kw");pintarGadsGen("gads_anu");pintarGadsGen("gads_med")}
 /* ---------- Tablas de informes: ajustar a pantalla, zoom y ocultar menú ---------- */
-const TZ_MODS=["c-meta_rep","c-gads_camp","c-comercial_asesores","c-captacion_canales","c-captacion_evolucion","c-captacion_cpa"];
+const TZ_MODS=["c-captacion_inv","c-meta_rep","c-gads_camp","c-comercial_asesores","c-captacion_canales","c-captacion_evolucion","c-captacion_cpa"];
 const tzLee=id=>{try{return localStorage.getItem("tz_"+id)||"fit"}catch(e){return"fit"}},tzGuarda=(id,v)=>{try{localStorage.setItem("tz_"+id,v)}catch(e){}};
 function tzAplica(el){const modo=tzLee(el.id);let zs=[];
   el.querySelectorAll("table.tabla,table.as-t").forEach(t=>{const w=t.parentElement;if(!w||!t.offsetParent)return;t.style.zoom=1;const pw=t.style.width;t.style.width="max-content";const cs=getComputedStyle(w),real=t.getBoundingClientRect().width;t.style.width=pw;const disp=(w.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight))*.98;
@@ -4253,7 +4384,7 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-cpv]");if
 function pintarVentas(){pintarVentasFact();pintarVentasIdioma();pintarCaptacionVentas()}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-vemet]");if(b&&st.veV){st.veV.met=b.dataset.vemet;pintarVentasFact();return}if(e.target.closest("[data-veact]"))actualizarVentas()});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-veidi]");if(s&&st.veV){st.veV.idi=s.value;pintarVentasFact();return}const p=e.target.closest("[data-veper]");if(p&&st.veI){st.veI.per=p.value;pintarVentasIdioma()}});
-function pintarSalasN(){pintarCR();pintarYtRanking();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarCR();pintarYtRanking();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -4756,6 +4887,7 @@ const SUBS_SALA={
   googleads:[["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].map(([c,k])=>[c+"/actual",k,()=>pintarGads()]),
   instagram:[["ig_ranking/actual","igRank",()=>pintarRsRanking("instagram")],["ig_dash/actual","igDash",()=>pintarIgDash()],["ig_capt/actual","igCapt",()=>pintarIgCapt()],["ig_err/actual","igErr",()=>pintarIgErr()]],
   tiktok:[["tk_ranking/actual","tkRank",()=>pintarRsRanking("tiktok")]],
+  captacion:[["inversion_anual/actual","invAnual",()=>pintarInvAnual()]],
   metaads:[["meta_ads/utm","metaUtm",()=>pintarMetaUtm()],["meta_report/actual","metaRep",()=>pintarMetaRep()],["meta_report/checks","metaChk",()=>pintarMetaRep()]]};
 let subsSala={id:null,u:[]};
 function suscribirSala(sala){if(!st.db||!SUBS_SALA[sala]||subsSala.id===sala)return;
@@ -4765,7 +4897,7 @@ function guardaScroll(fn){return function(){const pm=document.getElementById("pn
   const r=fn.apply(this,arguments);
   if(pm){if(Math.abs(pm.scrollTop-y)>1)pm.scrollTop=y;const t2=[...pm.querySelectorAll(".pn-mod[open] .as-tw")];if(t2.length===tw.length)t2.forEach((t,i)=>{if(tw[i])t.scrollLeft=tw[i]})}return r}}
 pintarCanales=guardaScroll(pintarCanales);pintarEvolucion=guardaScroll(pintarEvolucion);pintarMix=guardaScroll(pintarMix);pintarCPA=guardaScroll(pintarCPA);
-pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
+pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaScroll(pintarInvAnual);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
 (async()=>{
   const db=await window.claude?.use?.("db");
   st.dl=await window.claude?.use?.("downloads");
@@ -4798,9 +4930,9 @@ pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarVentasFact=guard
   vigilarDoc("comercial_asesores/actual",s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
   vigilarDoc("comercial_producto/actual",s=>{st.prod=s.exists?s.data():null;pintarProducto()});
   vigilarDoc("comercial_embudo/actual",s=>{st.emb=s.exists?emDec(s.data()):null;pintarEmbudo()});
-  vigilarDoc("captacion_deals/actual",s=>{st.cap=s.exists?s.data():null;pintarCaptacionVentas()});
+  vigilarDoc("captacion_deals/actual",s=>{st.cap=s.exists?s.data():null;pintarCaptacionVentas();pintarInvAnual()});
   vigilarDoc("youtube_ranking/actual",s=>{st.ytRank=s.exists?s.data():null;pintarYtRanking()});
-  vigilarDoc("ventas_viajes/actual",s=>{st.ven=s.exists?s.data():null;pintarVentas();pintarNegocio()});
+  vigilarDoc("ventas_viajes/actual",s=>{st.ven=s.exists?s.data():null;pintarVentas();pintarNegocio();pintarInvAnual()});
   vigilarDoc("comercial_valor/actual",s=>{st.val=s.exists?s.data():null;pintarValor()});
   vigilarDoc("comercial_alertas/actual",s=>{st.ale=s.exists?alDec(s.data()):null;pintarAlertas()});
   vigilarDoc("meta_ads/anuncios",s=>{st.metaAnu=s.exists?s.data():null;pintarMetaAnu();if(st.dentro==="diseno"&&st.dis)try{pintarDiseno()}catch(_){}});

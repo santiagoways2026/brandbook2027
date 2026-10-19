@@ -814,7 +814,7 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 /* Análisis por asesor */
 .as-ctl{display:flex;flex-wrap:wrap;gap:12px;align-items:center;padding:12px 20px 0;font-size:13.5px;color:#d6dbe1}.as-modo{display:flex;gap:6px}
 .as-ctl select{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:5px 8px;font:13.5px var(--f-ui);margin-left:4px}
-.ig-cuentas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;padding:14px 20px 0}.ig-cta{background:var(--marco-2);border:1px solid var(--borde);border-top:3px solid var(--c);border-radius:10px;padding:12px 14px;display:grid;gap:8px}.ig-ch{display:flex;justify-content:space-between;align-items:baseline}.ig-ch b{font-size:18px;color:var(--c)}.ig-ch span{font-size:12px;color:var(--tenue)}.ig-big{font-size:30px;font-weight:700;color:#f1f3f5;line-height:1}.ig-big small{font-size:12px;font-weight:400;color:var(--tenue);margin-left:6px}.ig-kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:12px;color:#c9d0da}.ig-kv span{display:flex;flex-direction:column}.ig-kv b{font-size:14px;color:#f1f3f5}
+.ig-idi{display:flex;flex-wrap:wrap;gap:6px;padding:12px 20px 0}.ig-cuentas{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;padding:14px 20px 0}.ig-cta{background:var(--marco-2);border:1px solid var(--borde);border-top:3px solid var(--c);border-radius:10px;padding:12px 14px;display:grid;gap:8px}.ig-ch{display:flex;justify-content:space-between;align-items:baseline}.ig-ch b{font-size:18px;color:var(--c)}.ig-ch span{font-size:12px;color:var(--tenue)}.ig-big{font-size:30px;font-weight:700;color:#f1f3f5;line-height:1}.ig-big small{font-size:12px;font-weight:400;color:var(--tenue);margin-left:6px}.ig-kv{display:grid;grid-template-columns:1fr 1fr;gap:4px 10px;font-size:12px;color:#c9d0da}.ig-kv span{display:flex;flex-direction:column}.ig-kv b{font-size:14px;color:#f1f3f5}
 .ig-graf{padding:8px 20px 0;color:#c9d0da}.ig-lin{width:100%;height:auto;display:block}.ig-ley{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;padding:4px 0}.ig-ley span::before{content:"";display:inline-block;width:12px;height:3px;background:var(--c);margin-right:6px;vertical-align:middle;border-radius:2px}
 .ig-bars{display:grid;gap:5px}.ig-bar{display:grid;grid-template-columns:110px 1fr 70px;align-items:center;gap:8px;font-size:12.5px}.ig-bar small{grid-column:2/4;color:var(--tenue);font-size:11px;margin-top:-4px}.ig-bt{height:10px;background:rgba(127,127,127,.15);border-radius:5px;overflow:hidden}.ig-bt i{display:block;height:100%;border-radius:5px}.ig-bar b{text-align:right;color:#f1f3f5}
 .ig-dos{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:14px;padding:6px 20px 0}.ig-dos>div{min-width:0}.ig-dos .mc-sec{padding:0}.ig-dos h4{margin:4px 0 8px;font-size:13px;color:#e6eaee}.ig-aud{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;padding:6px 20px 0}.ig-aud h4{margin:4px 0 8px}.ig-edad{font-size:12px;color:var(--tenue);margin:6px 0 0}
@@ -3918,6 +3918,10 @@ function pintarMetaAnu(){const el=document.getElementById("c-meta_anu");if(!el||
 document.addEventListener("change",e=>{const s=e.target.closest("[data-maf]");if(!s||!st.maV)return;st.maV[s.dataset.maf]=s.value;pintarMetaAnu()});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-ir-sala]");if(!b)return;const s=b.dataset.irSala;try{entrar(s);setTimeout(()=>{const t=document.querySelector('#pnNav [data-pnir="d_meta"]');if(t)t.click()},500)}catch(_){}});
 /* ===== Instagram: dash general, capitalización (CRM) y errores (Windsor.ai + Zoho CRM) ===== */
+document.addEventListener("click",e=>{const b=e.target.closest("[data-rsc]");if(!b)return;const[sala,c]=b.dataset.rsc.split("|"),VK="rsV_"+sala;if(st[VK]){st[VK].cuenta=c;pintarRsRanking(sala)}});
+const igIdi=(V,cs,k="idi")=>`<div class="ig-idi">${["todos",...cs].map(c=>`<button class="btn${(V[k]||"todos")===c?" prim":""}" data-igidi="${k}|${c}">${c==="todos"?"Todos los idiomas":c}</button>`).join("")}</div>`;
+document.addEventListener("click",e=>{const b=e.target.closest("[data-igidi]");if(!b)return;const c=b.dataset.igidi.split("|")[1],el=b.closest("[id^='c-instagram_']");if(!el)return;const id=el.id;
+  if(id==="c-instagram_dash"&&st.igDV){st.igDV.idi=c;pintarIgDash()}else if(id==="c-instagram_capt"&&st.igCV){st.igCV.idi=c;pintarIgCapt()}else if(id==="c-instagram_errores"&&st.igEV){st.igEV.cuenta=c==="todos"?"todas":"Instagram "+c;pintarIgErr()}});
 const IG_COL={ES:"#e1306c",EN:"#3d7bff",DE:"#7AA606"};
 const igGr=n=>String(Math.round(n||0)).replace(/\B(?=(\d{3})+(?!\d))/g,"."),igPc=(x,d=1)=>x==null||!isFinite(x)?"–":(x*100).toFixed(d).replace(".",",")+" %",igEur=n=>igGr(n)+" €";
 const igYm=ym=>`${MESN[ym%100-1]} ${String(Math.floor(ym/100)).slice(2)}`;
@@ -3926,7 +3930,7 @@ function igLinea(meses,series,fmt){if(!meses.length)return"";const W=900,H=230,p
   const x=i=>pl+i*(W-pl-pr)/Math.max(1,meses.length-1),y=v=>pt+(H-pt-pb)*(1-v/mx);
   const ticks=[0,.25,.5,.75,1].map(t=>mx*t);
   return`<svg class="ig-lin" viewBox="0 0 ${W} ${H}" role="img">${ticks.map(t=>`<line x1="${pl}" x2="${W-pr}" y1="${y(t)}" y2="${y(t)}" stroke="currentColor" stroke-opacity=".12"/><text x="${pl-6}" y="${y(t)+4}" text-anchor="end" font-size="11" fill="currentColor" fill-opacity=".6">${(fmt||igGr)(t)}</text>`).join("")}
-   ${meses.map((m,i)=>i%Math.ceil(meses.length/12)===0?`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">${igYm(m)}</text>`:"").join("")}
+   ${meses.map((m,i)=>(i%Math.ceil(meses.length/12)===0&&meses.length-1-i>=Math.ceil(meses.length/12)/2)||i===meses.length-1?`<text x="${x(i)}" y="${H-8}" text-anchor="middle" font-size="11" fill="currentColor" fill-opacity=".6">${igYm(m)}</text>`:"").join("")}
    ${series.map(s=>{let d="",on=false;s.v.forEach((v,i)=>{if(v==null){on=false;return}d+=(on?"L":"M")+x(i).toFixed(1)+" "+y(v).toFixed(1);on=true});return`<path d="${d}" fill="none" stroke="${s.c}" stroke-width="2.4" stroke-linejoin="round"/>${s.v.map((v,i)=>v==null?"":`<circle cx="${x(i)}" cy="${y(v)}" r="3" fill="${s.c}"><title>${esc(s.n)} · ${igYm(meses[i])}: ${(fmt||igGr)(v)}</title></circle>`).join("")}`}).join("")}</svg>
    <div class="ig-ley">${series.map(s=>`<span style="--c:${s.c}">${esc(s.n)}</span>`).join("")}</div>`}
 function igBarras(L,fmt){const mx=Math.max(1,...L.map(x=>x[1]));return`<div class="ig-bars">${L.map(([n,v,sub,c])=>`<div class="ig-bar"><span class="ig-bn">${esc(n)}</span><span class="ig-bt"><i style="width:${v/mx*100}%;background:${c||"#e1306c"}"></i></span><b>${(fmt||igGr)(v)}</b>${sub?`<small>${esc(sub)}</small>`:""}</div>`).join("")}</div>`}
@@ -3935,31 +3939,35 @@ function igPost(D,x,extra){return`<div class="yr-c"><a class="yr-img rs-q3 rs-in
 
 function pintarIgDash(){const el=document.getElementById("c-instagram_dash");if(!el||st.dentro!=="instagram")return;const D=st.igDash;
   if(!D){el.innerHTML=`<div class="mcab"><div><h2>Dash general</h2></div></div><div class="vacio">Valeria está preparando el resumen de las tres cuentas.</div>`;return}
-  const V=st.igDV||(st.igDV={met:"alcance"}),M=D.mensual||{meses:[],cuentas:{}};
+  const V=st.igDV||(st.igDV={met:"alcance",idi:"todos"}),M=D.mensual||{meses:[],cuentas:{}},ok=n=>V.idi==="todos"||n===V.idi,MC=D.cuenta_mes;
   const mets=[["alcance","Alcance"],["vistas","Visualizaciones"],["inter","Interacciones"],["guard","Guardados"],["seg","Seguidores nuevos"]];
-  const ser=Object.entries(M.cuentas||{}).map(([c,o])=>({n:c,c:IG_COL[c]||"#999",v:o[V.met]||[]}));
+  const ser=Object.entries(M.cuentas||{}).filter(([c])=>ok(c)).map(([c,o])=>({n:c,c:IG_COL[c]||"#999",v:o[V.met]||[]}));
+  const metC=V.met==="inter"||V.met==="guard"?"inter":"vistas",serC=MC?Object.entries(MC.cuentas||{}).filter(([c])=>ok(c)).map(([c,o])=>({n:c,c:IG_COL[c]||"#999",v:o[metC]||[]})):[];
   el.innerHTML=`<div class="mcab"><div><h2>Dash general de Instagram</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.fuente||"")}</div></div><div class="meta">${D.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>
-   <div class="ig-cuentas">${(D.cuentas||[]).map(c=>`<div class="ig-cta" style="--c:${IG_COL[c.n]||"#e1306c"}"><div class="ig-ch"><b>${esc(c.n)}</b><span>${esc(c.cuenta)}</span></div>
+   ${igIdi(V,(D.cuentas||[]).map(c=>c.n))}
+   <div class="ig-cuentas">${(D.cuentas||[]).filter(c=>ok(c.n)).map(c=>`<div class="ig-cta" style="--c:${IG_COL[c.n]||"#e1306c"}"><div class="ig-ch"><b>${esc(c.n)}</b><span>${esc(c.cuenta)}</span></div>
      <div class="ig-big">${igGr(c.seg)}<small>seguidores</small></div>
      <div class="ig-kv">${(c.kpis||[]).map(k=>`<span>${esc(k[0])}<b>${esc(k[1])}</b></span>`).join("")}</div></div>`).join("")}</div>
    <div class="seccion-t">Evolución mensual por cuenta</div>
    <div class="as-modo" style="padding:0 20px">${mets.map(([k,n])=>`<button class="btn${V.met===k?" prim":""}" data-igdm="${k}">${n}</button>`).join("")}</div>
    <div class="ig-graf">${igLinea(M.meses||[],ser)}</div>
    ${M.nota?`<p class="as-nota">${esc(M.nota)}</p>`:""}
+   ${MC?`<div class="seccion-t">Actividad real de la cuenta cada mes (${metC==="inter"?"interacciones":"visualizaciones"})</div><div class="ig-graf">${igLinea(MC.meses,serC)}</div><p class="as-nota">${esc(MC.nota||"")}</p>`:""}
    <div class="seccion-t">Lo más importante</div><ol class="ma-sug">${(D.claves||[]).map(s=>`<li>${esc(s)}</li>`).join("")}</ol>
    <div class="seccion-t">Formato por cuenta (publicaciones de los últimos 12 meses)</div>
-   ${igTabla(["Cuenta y formato","Publicaciones","Mediana de visualizaciones","Alcance medio","Guardados medios","Compartidos medios","Seguidores ganados","Interacción sobre alcance"],(D.formatos||[]).map(f=>[esc(f[0]),igGr(f[1]),igGr(f[2]),igGr(f[3]),igGr(f[4]),igGr(f[5]),igGr(f[6]),igPc(f[7])]))}
-   <div class="seccion-t">Las mejores de los últimos 90 días</div><div class="yr-grid">${(D.top||[]).map(x=>igPost(D,x,`<div class="ma-k"><span>Visualizaciones <b>${igGr(x.vistas)}</b></span><span>Alcance <b>${igGr(x.alcance)}</b></span><span>Guardados <b>${igGr(x.guard)}</b></span><span>Compartidos <b>${igGr(x.comp)}</b></span><span>Seguidores <b>${igGr(x.seg)}</b></span><span>Visitas al perfil <b>${igGr(x.visitas)}</b></span></div>`)).join("")}</div>
-   ${(D.audiencia||[]).length?`<div class="seccion-t">Audiencia: países y edades</div><div class="ig-aud">${D.audiencia.map(a=>`<div><h4 style="color:${IG_COL[a.n]}">${esc(a.n)}</h4>${igBarras(a.paises.map(p=>[p[0],p[1],"",IG_COL[a.n]]))}${a.edad?`<p class="ig-edad">${esc(a.edad)}</p>`:""}</div>`).join("")}</div>`:""}
+   ${igTabla(["Cuenta y formato","Publicaciones","Mediana de visualizaciones","Alcance medio","Guardados medios","Compartidos medios","Seguidores ganados","Interacción sobre alcance"],(D.formatos||[]).filter(f=>ok(f[0].split(" ")[0])).map(f=>[esc(f[0]),igGr(f[1]),igGr(f[2]),igGr(f[3]),igGr(f[4]),igGr(f[5]),igGr(f[6]),igPc(f[7])]))}
+   <div class="seccion-t">Las mejores de los últimos 90 días</div><div class="yr-grid">${(D.top||[]).filter(x=>ok(x.cuenta.replace("Instagram ",""))).map(x=>igPost(D,x,`<div class="ma-k"><span>Visualizaciones <b>${igGr(x.vistas)}</b></span><span>Alcance <b>${igGr(x.alcance)}</b></span><span>Guardados <b>${igGr(x.guard)}</b></span><span>Compartidos <b>${igGr(x.comp)}</b></span><span>Seguidores <b>${igGr(x.seg)}</b></span><span>Visitas al perfil <b>${igGr(x.visitas)}</b></span></div>`)).join("")}</div>
+   ${(D.audiencia||[]).length?`<div class="seccion-t">Audiencia: países y edades</div><div class="ig-aud">${D.audiencia.filter(a=>ok(a.n)).map(a=>`<div><h4 style="color:${IG_COL[a.n]}">${esc(a.n)}</h4>${igBarras(a.paises.map(p=>[p[0],p[1],"",IG_COL[a.n]]))}${a.edad?`<p class="ig-edad">${esc(a.edad)}</p>`:""}</div>`).join("")}</div>`:""}
    <p class="as-nota">${esc(D.nota||"")}</p>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-igdm]");if(b&&st.igDV){st.igDV.met=b.dataset.igdm;pintarIgDash()}});
 
-function pintarIgCapt(){const el=document.getElementById("c-instagram_capt");if(!el||st.dentro!=="instagram")return;const D=st.igCapt;
+function pintarIgCapt(){const el=document.getElementById("c-instagram_capt");if(!el||st.dentro!=="instagram")return;let D=st.igCapt;
   if(!D){el.innerHTML=`<div class="mcab"><div><h2>Capitalización: leads y ventas desde Instagram</h2></div></div><div class="vacio">Eloy está cruzando Instagram con los deals del CRM.</div>`;return}
-  const V=st.igCV||(st.igCV={ver:"deals"}),T=D.totales||{},PM=D.por_mes||[];
+  const V=st.igCV||(st.igCV={ver:"deals",idi:"todos"}),D0=D;D=(D0.idiomas&&D0.idiomas[V.idi])||D0;const PM=D.por_mes||[];
   const ser=[{n:"Deals",c:"#e1306c",v:PM.map(x=>x[1])},{n:"Deals won",c:"#7AA606",v:PM.map(x=>x[2])}];
   const serCR=[{n:"CR",c:"#7AA606",v:PM.map(x=>x[1]?x[2]/x[1]:null)}];
-  el.innerHTML=`<div class="mcab"><div><h2>Capitalización: leads y ventas desde Instagram</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.fuente||"")}</div></div><div class="meta">${D.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>
+  el.innerHTML=`<div class="mcab"><div><h2>Capitalización: leads y ventas desde Instagram</h2><div class="fuente-mc" style="margin-top:6px">${esc(D0.fuente||"")}</div></div><div class="meta">${D0.fecha?`actualizado ${esc(hace(D0.fecha))}`:""}</div></div>
+   ${D0.idiomas?igIdi(V,Object.keys(D0.idiomas).filter(k=>k!=="todos")):""}${D.aviso?`<div class="cn-revw">${esc(D.aviso)}</div>`:""}
    <div class="as-res">${(D.kpis||[]).map(k=>`<div><b>${esc(k[1])}</b><span>${esc(k[0])}</span></div>`).join("")}</div>
    <div class="seccion-t">Evolución de deals y deals won desde Instagram</div>
    <div class="as-modo" style="padding:0 20px"><button class="btn${V.ver==="deals"?" prim":""}" data-igcv="deals">Deals y won</button><button class="btn${V.ver==="cr"?" prim":""}" data-igcv="cr">CR</button></div>
@@ -3969,15 +3977,15 @@ function pintarIgCapt(){const el=document.getElementById("c-instagram_capt");if(
    <div class="ig-dos"><div><h4>${esc(D.estacion_tit||"Por mes")}</h4>${igBarras((D.estacion||[]).map(x=>[x[0],x[1],`${igGr(x[2])} won`,"#e1306c"]))}</div>
    <div><h4>Por día de la semana</h4>${igBarras((D.dias||[]).map(x=>[x[0],x[1],`${igGr(x[2])} won`,"#3d7bff"]))}</div>
    <div><h4>Por hora de entrada (hora de Madrid)</h4>${igBarras((D.horas||[]).map(x=>[x[0],x[1],`${igGr(x[2])} won`,"#7AA606"]))}</div></div>
-   ${(D.epocas||[]).length?`<ol class="ma-sug">${D.epocas.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>`:""}
+   ${(D0.epocas||[]).length&&V.idi==="todos"?`<ol class="ma-sug">${D0.epocas.map(s=>`<li>${esc(s)}</li>`).join("")}</ol>`:""}
    <div class="seccion-t">Por cuenta (idioma del deal) y por enlace</div>
    <div class="ig-dos"><div>${igTabla(["Idioma","Deals","Won","CR","Importe won"],(D.por_idioma||[]).map(x=>[esc(x[0]),igGr(x[1]),igGr(x[2]),igPc(x[1]?x[2]/x[1]:null),igEur(x[3])]))}</div>
    <div>${igTabla(["utm_medium / utm_campaign","Deals","Won","CR"],(D.por_utm||[]).map(x=>[esc(x[0]),igGr(x[1]),igGr(x[2]),igPc(x[1]?x[2]/x[1]:null)]))}</div></div>
    <div class="seccion-t">Publicaciones que generan más leads</div>
-   <p class="as-nota" style="margin-top:0">${esc(D.metodo||"")}</p>
-   <div class="yr-grid">${(D.posts||[]).map(x=>igPost(D,x,`<div class="ma-k"><span>Deals <b>${igGr(x.deals)}</b></span><span>Won <b>${igGr(x.won)}</b></span><span>Importe won <b>${igEur(x.importe)}</b></span><span>Alcance <b>${igGr(x.alcance)}</b></span><span>Visitas al perfil <b>${igGr(x.visitas)}</b></span><span>Índice frente a su mes <b>${x.indice!=null?String(x.indice).replace(".",",")+"×":"–"}</b></span></div>`)).join("")}</div>
+   <p class="as-nota" style="margin-top:0">${esc(D0.metodo||"")}</p>
+   <div class="yr-grid">${(D.posts||[]).map(x=>igPost(D0,x,`<div class="ma-k"><span>Deals <b>${igGr(x.deals)}</b></span><span>Won <b>${igGr(x.won)}</b></span><span>Importe won <b>${igEur(x.importe)}</b></span><span>Alcance <b>${igGr(x.alcance)}</b></span><span>Visitas al perfil <b>${igGr(x.visitas)}</b></span><span>Índice frente a su mes <b>${x.indice!=null?String(x.indice).replace(".",",")+"×":"–"}</b></span></div>`)).join("")}</div>
    ${(D.temas||[]).length?`<div class="seccion-t">Leads por tipo de contenido</div>${igTabla(["Tipo de contenido","Publicaciones","Deals atribuidos","Deals por publicación","Won","Importe won"],D.temas.map(x=>[esc(x[0]),igGr(x[1]),igGr(x[2]),String(x[3]).replace(".",","),igGr(x[4]),igEur(x[5])]))}`:""}
-   <p class="as-nota">${esc(D.nota||"")}</p>`}
+   <p class="as-nota">${esc(D0.nota||"")}</p>`}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-igcv]");if(b&&st.igCV){st.igCV.ver=b.dataset.igcv;pintarIgCapt()}});
 
 const IG_GRAV={alta:"#ff6b3d",media:"#f5d76e",baja:"#8fb3ff"};
@@ -3988,10 +3996,11 @@ function pintarIgErr(){const el=document.getElementById("c-instagram_errores");i
   const sel=(k,n,vs,def)=>`<label>${n} <select data-igef="${k}"><option value="${def}">${def==="todas"?"Todas":"Todos"}</option>${vs.map(v=>`<option${V[k]===v?" selected":""}>${esc(v)}</option>`).join("")}</select></label>`;
   el.innerHTML=`<div class="mcab"><div><h2>Errores en las publicaciones</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.fuente||"")}</div></div><div class="meta">${D.fecha?`revisado ${esc(hace(D.fecha))}`:""}</div></div>
    <p class="ma-alc">${esc(D.resumen||"")}</p>
-   <div class="as-res">${(D.kpis||[]).map(k=>`<div><b>${esc(k[1])}</b><span>${esc(k[0])}</span></div>`).join("")}</div>
-   ${(D.patrones||[]).length?`<div class="seccion-t">Lo que más se repite</div><ol class="ma-sug">${D.patrones.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}
+   ${igIdi({idi:V.cuenta==="todas"?"todos":V.cuenta.replace("Instagram ","")},[...new Set(all.map(x=>x.cuenta.replace("Instagram ","")))].sort())}
+   ${V.cuenta==="todas"?`<div class="as-res">${(D.kpis||[]).map(k=>`<div><b>${esc(k[1])}</b><span>${esc(k[0])}</span></div>`).join("")}</div>`:(()=>{const S=all.filter(x=>x.cuenta===V.cuenta),g=k=>S.filter(x=>x.gravedad===k).length;return`<div class="as-res"><div><b>${S.length}</b><span>errores en ${esc(V.cuenta)}</span></div><div><b>${new Set(S.map(x=>x.url)).size}</b><span>publicaciones con errores</span></div><div><b>${g("alta")}</b><span>de gravedad alta</span></div><div><b>${g("media")}</b><span>de gravedad media</span></div><div><b>${g("baja")}</b><span>de gravedad baja</span></div></div>`})()}
+   ${(D.patrones||[]).length?`<div class="seccion-t">Lo que más se repite</div><ol class="ma-sug">${D.patrones.filter(x=>V.cuenta==="todas"||!/^(DE|EN|ES):/.test(x)||x.includes(V.cuenta.replace("Instagram ","")+":")).map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}
    <div class="seccion-t">Errores uno a uno (${L.length})</div>
-   <div class="ma-ctl">${sel("cuenta","Cuenta",[...new Set(all.map(x=>x.cuenta))].sort(),"todas")}${sel("tipo","Tipo",[...new Set(all.map(x=>x.tipo))].sort(),"todos")}${sel("gravedad","Gravedad",["alta","media","baja"],"todas")}${sel("donde","Dónde",["Creatividad","Texto del post"],"todos")}</div>
+   <div class="ma-ctl">${sel("tipo","Tipo",[...new Set(all.map(x=>x.tipo))].sort(),"todos")}${sel("gravedad","Gravedad",["alta","media","baja"],"todas")}${sel("donde","Dónde",["Creatividad","Texto del post"],"todos")}</div>
    <div class="ig-errs">${L.map(x=>`<div class="ig-err" style="--g:${IG_GRAV[x.gravedad]||"#8fb3ff"}"><a class="yr-img rs-q3 rs-instagram" href="${esc(x.url)}" target="_blank" rel="noopener">${igSpr(D,x)}</a>
      <div class="ig-ed"><div class="ig-et"><span class="ig-g">${esc(x.gravedad)}</span><b>${esc(x.tipo)}</b><small>${esc(x.cuenta)} · ${esc(x.fecha)} · ${esc(x.donde)}</small></div>
      <p class="ig-mal"><span>Pone</span>${esc(x.mal)}</p><p class="ig-bien"><span>Debería poner</span>${esc(x.bien)}</p>${x.nota?`<p class="ig-nota">${esc(x.nota)}</p>`:""}
@@ -4004,14 +4013,14 @@ function pintarRsRanking(sala){const C=RS_RANK[sala],el=document.getElementById(
   if(!A){el.innerHTML=`<div class="mcab"><div><h2>Ranking de publicaciones</h2></div></div><div class="vacio">El equipo está ordenando las publicaciones de ${C.red}.</div>`;return}
   const VK="rsV_"+sala,V=st[VK]||(st[VK]={orden:"vistas",formato:"todos",tema:"todos",cuenta:"todos"});
   const gr=x=>x.replace(/\B(?=(\d{3})+(?!\d))/g,"."),num=n=>gr(String(Math.round(n||0))),pc=x=>x==null||!isFinite(x)?"–":(x*100).toFixed(1).replace(".",",")+" %";
-  const all=A.items||[],inter=x=>x.alcance?(x.likes+x.com+x.comp+(x.guard||0))/x.alcance:null,med=a=>{const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length?(s.length%2?s[m]:(s[m-1]+s[m])/2):0};
+  const all0=A.items||[],all=all0.filter(x=>V.cuenta==="todos"||x.cuenta===V.cuenta),inter=x=>x.alcance?(x.likes+x.com+x.comp+(x.guard||0))/x.alcance:null,med=a=>{const s=[...a].sort((x,y)=>x-y),m=s.length>>1;return s.length?(s.length%2?s[m]:(s[m-1]+s[m])/2):0};
   const refMed=med(all.map(x=>x.vistas)),sumA=all.reduce((t,x)=>t+(x.alcance||0),0),refInt=sumA?all.reduce((t,x)=>t+x.likes+x.com+x.comp+(x.guard||0),0)/sumA:null;
   const col=(v,r)=>v==null||r==null?"":v>=r*1.15?"ma-bien":v<=r*.85?"ma-mal":"";
-  const byId=Object.fromEntries(all.map(x=>[x.id,x])),spr=x=>x&&x.sp&&A.sprites?`<span class="rs-sp" style="background-image:url(img/rs/${A.sprites[x.sp[0]]});background-position:${(x.sp[1]%10)/9*100}% ${Math.floor(x.sp[1]/10)/9*100}%"></span>`:"",fcl=sala==="tiktok"?"t":"q3";
+  const byId=Object.fromEntries(all0.map(x=>[x.id,x])),spr=x=>x&&x.sp&&A.sprites?`<span class="rs-sp" style="background-image:url(img/rs/${A.sprites[x.sp[0]]});background-position:${(x.sp[1]%10)/9*100}% ${Math.floor(x.sp[1]/10)/9*100}%"></span>`:"",fcl=sala==="tiktok"?"t":"q3";
   const mini=id=>{const x=byId[id];return x?`<a class="yr-mini rs-m${fcl}" href="${esc(x.url)}" target="_blank" rel="noopener" title="${esc(x.titulo)}">${spr(x)}<span>${num(x.vistas)}</span></a>`:""};
   const grupo=k=>{const G={};all.forEach(x=>{const g=G[x[k]]||(G[x[k]]={k:x[k],n:0,v:0,a:0,e:0,c:0,lst:[]});g.n++;g.v+=x.vistas;g.a+=x.alcance||0;g.e+=x.likes+x.com+x.comp+(x.guard||0);g.c+=x.com;g.lst.push(x.vistas)});return Object.values(G).sort((a,b)=>med(b.lst)-med(a.lst))};
   const tabla=(L,tit,cab)=>`<div class="seccion-t">${tit}</div><div class="mc-sec"><table class="tabla ma-t"><thead><tr><th style="text-align:left">${cab}</th><th>Publicaciones</th><th>Visualizaciones</th><th>Mediana por publicación</th><th>Alcance</th><th>Comentarios</th><th>Interacción</th></tr></thead><tbody>${L.map(g=>`<tr><td style="text-align:left">${esc(g.k)}</td><td>${g.n}</td><td>${num(g.v)}</td><td class="${col(med(g.lst),refMed)}">${num(med(g.lst))}</td><td>${num(g.a)}</td><td>${num(g.c)}</td><td class="${col(g.a?g.e/g.a:null,refInt)}">${pc(g.a?g.e/g.a:null)}</td></tr>`).join("")}</tbody></table></div>`;
-  const opts=(k,n)=>{const vs=[...new Set(all.map(x=>x[k]))].sort();return vs.length>1?`<label>${n} <select data-rsf="${sala}|${k}"><option value="todos">Todos</option>${vs.map(t=>`<option${V[k]===t?" selected":""}>${esc(t)}</option>`).join("")}</select></label>`:""};
+  const opts=(k,n)=>{if(k==="cuenta")return"";const vs=[...new Set(all.map(x=>x[k]))].sort();return vs.length>1?`<label>${n} <select data-rsf="${sala}|${k}"><option value="todos">Todos</option>${vs.map(t=>`<option${V[k]===t?" selected":""}>${esc(t)}</option>`).join("")}</select></label>`:""};
   const ord={vistas:x=>x.vistas,alcance:x=>x.alcance||0,inter:x=>(x.alcance||0)>=300?inter(x):-1,com:x=>x.com,guard:x=>x.guard||0,seg:x=>x.seg||0,comp:x=>x.comp,fecha:x=>+x.fecha.replace(/-/g,"")};
   const L=all.filter(x=>["formato","tema","cuenta"].every(k=>V[k]==="todos"||x[k]===V[k])).sort((a,b)=>ord[V.orden](b)-ord[V.orden](a));
   const fch=s=>{const[y,m,d]=s.split("-");return`${+d} ${MESN[+m-1]} ${y}`};
@@ -4022,6 +4031,7 @@ function pintarRsRanking(sala){const C=RS_RANK[sala],el=document.getElementById(
     ${(x.alcance||0)<300?`<small class="ma-poco">Menos de 300 de alcance: dato orientativo</small>`:""}</div></div>`;
   const F=grupo("formato"),promo=all.filter(x=>x.gasto>0);
   el.innerHTML=`<div class="mcab"><div><h2>Ranking de publicaciones: qué funciona</h2><div class="fuente-mc" style="margin-top:6px">${esc(A.autor||"")} · ${esc(A.periodo||"")}</div></div><div class="meta">${A.fecha?esc(hace(A.fecha)):""}</div></div>
+   <div class="ig-idi">${["todos",...new Set(all0.map(x=>x.cuenta))].map(c=>`<button class="btn${V.cuenta===c?" prim":""}" data-rsc="${sala}|${esc(c)}">${c==="todos"?"Todos los idiomas":esc(c.replace(/^(Instagram|TikTok) /,""))}</button>`).join("")}</div>
    <p class="ma-alc">${esc(A.alcance||"")}</p>
    <div class="as-res">${F.map(g=>`<div><b>${num(med(g.lst))}</b><span>mediana de visualizaciones · ${esc(g.k)} (${g.n})</span></div>`).join("")}</div>
    <div class="seccion-t">Lo que hemos visto</div><div class="ma-hall">${(A.hallazgos||[]).map((h,i)=>`<div class="ma-h"><h4>${i+1}. ${esc(h.t)}</h4><p>${esc(h.d)}</p><div class="ma-ej">${(h.ej||[]).map(mini).join("")}</div></div>`).join("")}</div>

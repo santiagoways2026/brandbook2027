@@ -1316,7 +1316,7 @@ function cerrarPanel(){
 const chatVisible=()=>!$("#chat").hidden||!$("#panel").hidden;
 function entrar(sala="radar",foco){
   st.dentro=sala;document.body.dataset.dentro=sala;st.marcoSel=foco||sala;pintarCapas();marcarSel();pintarDatos();pintarCompetencia();pintarControl();pintarDiseno();pintarComunidad();pintarSeo();pintarPaid();pintarSalasN();pintarPeticionesDiseno();pintarGA4();if(sala==="comunidad")suscribirComunidad();
-  abrirPanel(sala,foco);
+  suscribirSala(sala);abrirPanel(sala,foco);
   requestAnimationFrame(()=>volarA(caja(MARCOS.find(m=>m.id===sala)),innerWidth<900?20:60));
 }
 function irAModulo(id){const m=MARCOS.find(x=>x.id===id);if(!m||!m.dato)return false;
@@ -4748,11 +4748,29 @@ const inicioRadar=location.hash==="#radar";
 requestAnimationFrame(()=>{if(location.hash==="#diseno")entrar("diseno");else if(location.hash==="#comunidad")entrar("comunidad");else if(location.hash==="#seo")entrar("seo");else if(location.hash==="#paid")entrar("paid");else if(location.hash==="#control")entrar("control");else if(inicioRadar)entrar("radar");else if(location.hash==="#competencia")entrar("competencia");else volarA(cajaTotal(),70,true)});
 setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
 
+/* Suscripciones a documentos: no repintan si el documento llega igual (la entrega periódica puede repetirlo) ni lo vacían por una lectura de caché sin datos */
+function vigilarDoc(p,f,err){let ult;return st.db.doc(p).onSnapshot(s=>{let j;try{j=s.exists?JSON.stringify(s.data()):"null"}catch(_){j=String(Math.random())}
+  if(j==="null"&&s.metadata?.fromCache&&ult&&ult!=="null")return;if(j===ult)return;ult=j;f(s)},err||(e=>console.error(p,e)))}
+/* Documentos que solo usa una sala: se suscriben al entrar en ella para no pasar del máximo de 64 suscripciones por página */
+const SUBS_SALA={
+  googleads:[["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].map(([c,k])=>[c+"/actual",k,()=>pintarGads()]),
+  instagram:[["ig_ranking/actual","igRank",()=>pintarRsRanking("instagram")],["ig_dash/actual","igDash",()=>pintarIgDash()],["ig_capt/actual","igCapt",()=>pintarIgCapt()],["ig_err/actual","igErr",()=>pintarIgErr()]],
+  tiktok:[["tk_ranking/actual","tkRank",()=>pintarRsRanking("tiktok")]],
+  metaads:[["meta_ads/utm","metaUtm",()=>pintarMetaUtm()],["meta_report/actual","metaRep",()=>pintarMetaRep()],["meta_report/checks","metaChk",()=>pintarMetaRep()]]};
+let subsSala={id:null,u:[]};
+function suscribirSala(sala){if(!st.db||!SUBS_SALA[sala]||subsSala.id===sala)return;
+  subsSala.u.forEach(u=>{try{u()}catch(_){}});subsSala={id:sala,u:SUBS_SALA[sala].map(([p,k,f])=>vigilarDoc(p,s=>{st[k]=s.exists?s.data():null;f()}))}}
+/* Al repintar un módulo del panel, la lectura sigue donde estaba (scroll del panel y de las tablas anchas) */
+function guardaScroll(fn){return function(){const pm=document.getElementById("pnMods"),y=pm?pm.scrollTop:0,tw=pm?[...pm.querySelectorAll(".pn-mod[open] .as-tw")].map(t=>t.scrollLeft):[];
+  const r=fn.apply(this,arguments);
+  if(pm){if(Math.abs(pm.scrollTop-y)>1)pm.scrollTop=y;const t2=[...pm.querySelectorAll(".pn-mod[open] .as-tw")];if(t2.length===tw.length)t2.forEach((t,i)=>{if(tw[i])t.scrollLeft=tw[i]})}return r}}
+pintarCanales=guardaScroll(pintarCanales);pintarEvolucion=guardaScroll(pintarEvolucion);pintarMix=guardaScroll(pintarMix);pintarCPA=guardaScroll(pintarCPA);
+pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
 (async()=>{
   const db=await window.claude?.use?.("db");
   st.dl=await window.claude?.use?.("downloads");
   if(!db){$("#barrida").textContent="Abre esta página desde claude.ai para verla en vivo.";return}
-  st.db=db;
+  st.db=db;if(st.dentro)suscribirSala(st.dentro);
   db.collection("radar_prev").limit(500).onSnapshot(s=>{st.prev={};(s.docs||[]).forEach(d=>{const x=d.data();if(x?.img)st.prev[d.id]=x.img});if(st.dentro==="radar")pintarDatos()});
   db.collection("radar").orderBy("detectado","desc").limit(600).onSnapshot(s=>{
     st.conectado=true;st.items=s.docs.map(d=>({id:d.id,...d.data()}));
@@ -4760,11 +4778,11 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
   },()=>{st.conectado=false;pintarDatos()});
   db.collection("control_chat").orderBy("t","asc").limit(300).onSnapshot(s=>{st.chat=s.docs.map(d=>({id:d.id,...d.data()}));pintarChat()});
   db.collection("diseno_piezas").limit(200).onSnapshot(s=>{st.dis.piezas=s.docs.map(d=>({id:d.id,...d.data()}));pintarDiseno()});
-  db.doc("diseno_tendencias/actual").onSnapshot(s=>{st.dis.tend=s.exists?s.data():null;pintarDiseno()});
-  db.doc("paid_analisis/actual").onSnapshot(s=>{st.paid.analisis=s.exists?s.data():null;pintarPaid()});
-  db.doc("paid_analisis/utm").onSnapshot(s=>{st.paid.utm=s.exists?s.data():null;pintarPaid()});
-  db.doc("paid_analisis/google").onSnapshot(s=>{st.paid.google=s.exists?s.data():null;pintarPaid()});
-  db.doc("paid_contexto/briefing").onSnapshot(s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
+  vigilarDoc("diseno_tendencias/actual",s=>{st.dis.tend=s.exists?s.data():null;pintarDiseno()});
+  vigilarDoc("paid_analisis/actual",s=>{st.paid.analisis=s.exists?s.data():null;pintarPaid()});
+  vigilarDoc("paid_analisis/utm",s=>{st.paid.utm=s.exists?s.data():null;pintarPaid()});
+  vigilarDoc("paid_analisis/google",s=>{st.paid.google=s.exists?s.data():null;pintarPaid()});
+  vigilarDoc("paid_contexto/briefing",s=>{st.paid.briefing=s.exists?s.data():null;pintarPaid()});
   /* Todos los documentos de estado en UNA suscripción: la plataforma admite como máximo 64 por página y las que pasan de ahí se rechazan */
   const ESTADO_PINTA={paid:d=>{st.paid.estado=d;pintarPaid()},seo:d=>{st.seo.estado=d;pintarSeo()},comunidad:d=>{st.com.estado=d;pintarComunidad()},diseno:d=>{st.dis.estado=d;pintarDiseno()},control:d=>{st.ctrl.estado=d;pintarControl()},competencia:d=>{st.estadoC=d;pintarCompetencia()},radar:d=>{st.estado=d;if(document.activeElement?.id!=="q")pintarDatos()}},estadoVisto={};
   db.collection("estado").limit(200).onSnapshot(s=>{const docs=Object.fromEntries(s.docs.map(d=>[d.id,d.data()]));let salas=false;
@@ -4772,52 +4790,45 @@ setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
       if(SALAS_N.some(S=>S.id===id)){st.salasN=st.salasN||{};st.salasN[id]={estado:d};salas=true}
       try{ESTADO_PINTA[id]?.(d)}catch(e){console.error("estado/"+id,e)}}
     if(salas)pintarSalasN()},e=>console.error("estado",e));
-  db.doc("youtube_analisis/actual").onSnapshot(s=>{st.yt=s.exists?s.data():null;pintarYouTube()});
-  ["community","lifecycle"].forEach(k=>db.doc("insights/"+k).onSnapshot(s=>{st.insights=st.insights||{};st.insights[k]=s.exists?s.data():null;pintarInsights(k)}));
-  ["instagram","youtube","seo","community","lifecycle"].forEach(k=>db.doc("roadmap/"+k).onSnapshot(s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
-  db.doc("radar_sintesis/actual").onSnapshot(s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
-  db.doc("youtube_analisis/benchmark").onSnapshot(s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
-  db.doc("comercial_asesores/actual").onSnapshot(s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
-  db.doc("comercial_producto/actual").onSnapshot(s=>{st.prod=s.exists?s.data():null;pintarProducto()});
-  db.doc("comercial_embudo/actual").onSnapshot(s=>{st.emb=s.exists?emDec(s.data()):null;pintarEmbudo()});
-  db.doc("captacion_deals/actual").onSnapshot(s=>{st.cap=s.exists?s.data():null;pintarCaptacionVentas()});
-  db.doc("ig_ranking/actual").onSnapshot(s=>{st.igRank=s.exists?s.data():null;pintarRsRanking("instagram")});
-  [["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].forEach(([c,k])=>db.doc(c+"/actual").onSnapshot(s=>{st[k]=s.exists?s.data():null;pintarGads()}));
-  db.doc("ig_dash/actual").onSnapshot(s=>{st.igDash=s.exists?s.data():null;pintarIgDash()});
-  db.doc("ig_capt/actual").onSnapshot(s=>{st.igCapt=s.exists?s.data():null;pintarIgCapt()});
-  db.doc("ig_err/actual").onSnapshot(s=>{st.igErr=s.exists?s.data():null;pintarIgErr()});
-  db.doc("tk_ranking/actual").onSnapshot(s=>{st.tkRank=s.exists?s.data():null;pintarRsRanking("tiktok")});
-  db.doc("youtube_ranking/actual").onSnapshot(s=>{st.ytRank=s.exists?s.data():null;pintarYtRanking()});
-  db.doc("ventas_viajes/actual").onSnapshot(s=>{st.ven=s.exists?s.data():null;pintarVentas();pintarNegocio()});
-  db.doc("comercial_valor/actual").onSnapshot(s=>{st.val=s.exists?s.data():null;pintarValor()});
-  db.doc("comercial_alertas/actual").onSnapshot(s=>{st.ale=s.exists?alDec(s.data()):null;pintarAlertas()});
-  db.doc("meta_ads/utm").onSnapshot(s=>{st.metaUtm=s.exists?s.data():null;pintarMetaUtm()});
-  db.doc("meta_ads/anuncios").onSnapshot(s=>{st.metaAnu=s.exists?s.data():null;pintarMetaAnu();if(st.dentro==="diseno"&&st.dis)try{pintarDiseno()}catch(_){}});db.doc("meta_report/actual").onSnapshot(s=>{st.metaRep=s.exists?s.data():null;pintarMetaRep()});db.doc("meta_report/checks").onSnapshot(s=>{st.metaChk=s.exists?s.data():null;pintarMetaRep()});
-  db.doc("seo_red/actual").onSnapshot(s=>{st.seoRed=s.exists?s.data():null;pintarSeoRed()});
-  db.doc("cr_plan/actual").onSnapshot(s=>{st.crPlan=s.exists?s.data():null;pintarCR()});
-  db.doc("captacion_canales/actual").onSnapshot(s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA();pintarCR()});
-  db.doc("captacion_inversion/actual").onSnapshot(s=>{st.inversion=s.exists?s.data():null;pintarCPA()});
-  db.doc("journey_mapa/actual").onSnapshot(s=>{st.jmapa=s.exists?s.data():null;pintarJourneyMapa()});
-  db.doc("mdirecto_analisis/workflows").onSnapshot(s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
+  vigilarDoc("youtube_analisis/actual",s=>{st.yt=s.exists?s.data():null;pintarYouTube()});
+  ["community","lifecycle"].forEach(k=>vigilarDoc("insights/"+k,s=>{st.insights=st.insights||{};st.insights[k]=s.exists?s.data():null;pintarInsights(k)}));
+  ["instagram","youtube","seo","community","lifecycle"].forEach(k=>vigilarDoc("roadmap/"+k,s=>{st.roadmap=st.roadmap||{};st.roadmap[k]=s.exists?s.data():null;pintarRoadmap(k)}));
+  vigilarDoc("radar_sintesis/actual",s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
+  vigilarDoc("youtube_analisis/benchmark",s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
+  vigilarDoc("comercial_asesores/actual",s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
+  vigilarDoc("comercial_producto/actual",s=>{st.prod=s.exists?s.data():null;pintarProducto()});
+  vigilarDoc("comercial_embudo/actual",s=>{st.emb=s.exists?emDec(s.data()):null;pintarEmbudo()});
+  vigilarDoc("captacion_deals/actual",s=>{st.cap=s.exists?s.data():null;pintarCaptacionVentas()});
+  vigilarDoc("youtube_ranking/actual",s=>{st.ytRank=s.exists?s.data():null;pintarYtRanking()});
+  vigilarDoc("ventas_viajes/actual",s=>{st.ven=s.exists?s.data():null;pintarVentas();pintarNegocio()});
+  vigilarDoc("comercial_valor/actual",s=>{st.val=s.exists?s.data():null;pintarValor()});
+  vigilarDoc("comercial_alertas/actual",s=>{st.ale=s.exists?alDec(s.data()):null;pintarAlertas()});
+  vigilarDoc("meta_ads/anuncios",s=>{st.metaAnu=s.exists?s.data():null;pintarMetaAnu();if(st.dentro==="diseno"&&st.dis)try{pintarDiseno()}catch(_){}});
+  vigilarDoc("seo_red/actual",s=>{st.seoRed=s.exists?s.data():null;pintarSeoRed()});
+  vigilarDoc("cr_plan/actual",s=>{st.crPlan=s.exists?s.data():null;pintarCR()});
+  vigilarDoc("captacion_canales/actual",s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA();pintarCR()});
+  vigilarDoc("captacion_inversion/actual",s=>{st.inversion=s.exists?s.data():null;pintarCPA()});
+  vigilarDoc("journey_mapa/actual",s=>{st.jmapa=s.exists?s.data():null;pintarJourneyMapa()});
+  vigilarDoc("mdirecto_analisis/workflows",s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
   db.collection("peticiones").limit(100).onSnapshot(s=>{st.peticiones=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(b.t||"").localeCompare(a.t||""));pintarWorkflows();pintarPeticionesDiseno()});
-  db.doc("ig_en/actual").onSnapshot(s=>{st.igen=s.exists?s.data():null;pintarGA4()});
-  db.doc("ga4/actual").onSnapshot(s=>{st.ga4=s.exists?s.data():null;pintarGA4()});
-  db.doc("seo_auditoria/actual").onSnapshot(s=>{st.seo.audit=s.exists?s.data():null;pintarSeo()});
-  db.doc("comunidad_analisis/actual").onSnapshot(s=>{st.com.analisis=s.exists?s.data():null;pintarComunidad()});
+  vigilarDoc("ig_en/actual",s=>{st.igen=s.exists?s.data():null;pintarGA4()});
+  vigilarDoc("ga4/actual",s=>{st.ga4=s.exists?s.data():null;pintarGA4()});
+  vigilarDoc("seo_auditoria/actual",s=>{st.seo.audit=s.exists?s.data():null;pintarSeo()});
+  vigilarDoc("comunidad_analisis/actual",s=>{st.com.analisis=s.exists?s.data():null;pintarComunidad()});
   db.collection("comunidad_lotes").orderBy("t","desc").limit(30).onSnapshot(s=>{st.com.lotes=s.docs.map(d=>({id:d.id,...d.data()}));pintarComunidad()});
   db.collection("comunidad_snap").limit(10).onSnapshot(s=>{s.docs.forEach(d=>st.com.snapT[d.id]=d.data().t||"");});
   db.collection("diseno_videos").limit(100).onSnapshot(s=>{st.dis.videos=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden||0)-(b.orden||0));pintarDiseno()});
   db.collection("diseno_biblio").limit(500).onSnapshot(s=>{st.dis.biblio=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden||0)-(b.orden||0));pintarDiseno()});
-  db.doc("control_brief/diseno").onSnapshot(s=>{st.brief=s.exists?s.data():null;pintarBrief();pintarControl()});
-  db.doc("control_briefing/actual").onSnapshot(s=>{st.ctrl.briefing=s.exists?s.data():null;pintarControl()});
+  vigilarDoc("control_brief/diseno",s=>{st.brief=s.exists?s.data():null;pintarBrief();pintarControl()});
+  vigilarDoc("control_briefing/actual",s=>{st.ctrl.briefing=s.exists?s.data():null;pintarControl()});
   db.collection("control_decisiones").orderBy("creado","desc").limit(200).onSnapshot(s=>{st.ctrl.decisiones=s.docs.map(d=>({id:d.id,...d.data()}));pintarControl()});
   db.collection("control_directrices").limit(20).onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());st.ctrl.directrices=o;pintarControl()});
-  db.doc("control_contexto/research").onSnapshot(s=>{st.ctrl.research=s.exists?s.data():null;pintarControl()});
-  db.doc("control_negocio/actual").onSnapshot(s=>{st.neg=s.exists?s.data():null;pintarNegocio()});
-  db.doc("control_cerebro/actual").onSnapshot(s=>{st.ctrl.cerebro=s.exists?s.data():null;pintarControl()});
+  vigilarDoc("control_contexto/research",s=>{st.ctrl.research=s.exists?s.data():null;pintarControl()});
+  vigilarDoc("control_negocio/actual",s=>{st.neg=s.exists?s.data():null;pintarNegocio()});
+  vigilarDoc("control_cerebro/actual",s=>{st.ctrl.cerebro=s.exists?s.data():null;pintarControl()});
   db.collection("players").limit(100).onSnapshot(s=>{st.players=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99));pintarCompetencia()});
   db.collection("comp_cambios").orderBy("detectado","desc").limit(400).onSnapshot(s=>{st.cambios=s.docs.map(d=>({id:d.id,...d.data()}));pintarCompetencia()});
-  db.doc("comp_exploracion/actual").onSnapshot(s=>{st.compExp=s.exists?s.data():null;pintarCompExp()});
+  vigilarDoc("comp_exploracion/actual",s=>{st.compExp=s.exists?s.data():null;pintarCompExp()});
 })();
 /* ===== Diseño SW: toda la página con el brandbook 2027 de Santiago Ways =====
    Blanco de base, verde Ways #7AA606 en botones y líneas, verde sendero #506718 en datos destacados,

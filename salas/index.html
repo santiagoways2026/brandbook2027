@@ -3911,13 +3911,15 @@ document.addEventListener("click",e=>{const b=e.target.closest("[data-igcv]");if
 const IG_GRAV={alta:"#ff6b3d",media:"#f5d76e",baja:"#8fb3ff"};
 function pintarIgErr(){const el=document.getElementById("c-instagram_errores");if(!el||st.dentro!=="instagram")return;const D=st.igErr;
   if(!D){el.innerHTML=`<div class="mcab"><div><h2>Errores</h2></div></div><div class="vacio">Jonas está revisando textos y creatividades.</div>`;return}
-  const V=st.igEV||(st.igEV={cuenta:"todas",tipo:"todos"}),all=D.items||[];
-  const L=all.filter(x=>(V.cuenta==="todas"||x.cuenta===V.cuenta)&&(V.tipo==="todos"||x.tipo===V.tipo));
+  const V=st.igEV||(st.igEV={cuenta:"todas",tipo:"todos",gravedad:"todas",donde:"todos"}),all=D.items||[];
+  const L=all.filter(x=>(V.cuenta==="todas"||x.cuenta===V.cuenta)&&(V.tipo==="todos"||x.tipo===V.tipo)&&(V.gravedad==="todas"||x.gravedad===V.gravedad)&&(V.donde==="todos"||x.donde===V.donde));
   const sel=(k,n,vs,def)=>`<label>${n} <select data-igef="${k}"><option value="${def}">${def==="todas"?"Todas":"Todos"}</option>${vs.map(v=>`<option${V[k]===v?" selected":""}>${esc(v)}</option>`).join("")}</select></label>`;
   el.innerHTML=`<div class="mcab"><div><h2>Errores en las publicaciones</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.fuente||"")}</div></div><div class="meta">${D.fecha?`revisado ${esc(hace(D.fecha))}`:""}</div></div>
    <p class="ma-alc">${esc(D.resumen||"")}</p>
    <div class="as-res">${(D.kpis||[]).map(k=>`<div><b>${esc(k[1])}</b><span>${esc(k[0])}</span></div>`).join("")}</div>
-   <div class="ma-ctl">${sel("cuenta","Cuenta",[...new Set(all.map(x=>x.cuenta))].sort(),"todas")}${sel("tipo","Tipo",[...new Set(all.map(x=>x.tipo))].sort(),"todos")}</div>
+   ${(D.patrones||[]).length?`<div class="seccion-t">Lo que más se repite</div><ol class="ma-sug">${D.patrones.map(x=>`<li>${esc(x)}</li>`).join("")}</ol>`:""}
+   <div class="seccion-t">Errores uno a uno (${L.length})</div>
+   <div class="ma-ctl">${sel("cuenta","Cuenta",[...new Set(all.map(x=>x.cuenta))].sort(),"todas")}${sel("tipo","Tipo",[...new Set(all.map(x=>x.tipo))].sort(),"todos")}${sel("gravedad","Gravedad",["alta","media","baja"],"todas")}${sel("donde","Dónde",["Creatividad","Texto del post"],"todos")}</div>
    <div class="ig-errs">${L.map(x=>`<div class="ig-err" style="--g:${IG_GRAV[x.gravedad]||"#8fb3ff"}"><a class="yr-img rs-q3 rs-instagram" href="${esc(x.url)}" target="_blank" rel="noopener">${igSpr(D,x)}</a>
      <div class="ig-ed"><div class="ig-et"><span class="ig-g">${esc(x.gravedad)}</span><b>${esc(x.tipo)}</b><small>${esc(x.cuenta)} · ${esc(x.fecha)} · ${esc(x.donde)}</small></div>
      <p class="ig-mal"><span>Pone</span>${esc(x.mal)}</p><p class="ig-bien"><span>Debería poner</span>${esc(x.bien)}</p>${x.nota?`<p class="ig-nota">${esc(x.nota)}</p>`:""}

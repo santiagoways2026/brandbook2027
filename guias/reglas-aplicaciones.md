@@ -190,14 +190,15 @@ Plantilla y páginas tipo en `plantillas/word/`.
 
 ---
 
-## 12. Presentaciones y hojas de cálculo
+## 12. Presentaciones
 
-Plantillas en `plantillas/presentacion/` y `plantillas/hoja-de-calculo/`.
+Plantilla en `plantillas/presentacion/`.
 
-- **Mismo estilo sobrio que el Word:** blanco, grafito, verde solo como acento y sin subrayados ni cajas verdes de relleno.
-- **Presentación:** 16:9, Montserrat (títulos en ExtraBold), un mensaje por diapositiva, gráficos nativos en verde Ways y el logo a color en portada y cierre.
-- **Hoja de cálculo:** celdas para rellenar en brote, todo lo demás con fórmulas; cabeceras en mayúsculas con filete grafito y filas con filete niebla; importes en euros sin decimales.
-- **Compatibles con Google:** Presentaciones y Hojas de cálculo de Google abren los archivos y ya incluyen Montserrat.
+- **Con carácter, como la presentación del brandbook y el plan Xacobeo 27** **(feedback: la primera versión era demasiado sobria)**: fotos a sangre, tarjetas blancas con sombra suave, subrayado Ways en la palabra clave del título, diapositivas en verde y en sendero, y la concha arriba a la derecha.
+- **Varias portadas y contraportadas** y muchos tipos de bloque para cargar información **(feedback)**.
+- **Un único estilo de tabla y de gráfico** **(feedback)**: cabecera en mayúsculas con filetes finos; gráfico en verde Ways sin rejilla y con el valor encima.
+- **Recursos para copiar:** la concha (entera, como marca de agua suave), cajas y etiquetas en todos los verdes, y 60 iconos de línea **(feedback)**.
+- La hoja de cálculo queda en pausa **(feedback)**.
 
 ---
 

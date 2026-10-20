@@ -1279,7 +1279,7 @@ const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",communit
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
 MARCOS.push({id:"seo_blog",grupo:"seo",dato:true,nombre:"SEO / Blog: captación por URL",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_blog");
 MARCOS.push({id:"community_rrss",grupo:"community",dato:true,nombre:"Community / Seguimiento RRSS",x:0,y:-9000,w:1300});SALAS_ACT.community.splice(1,0,"community_rrss");
-Object.entries(SEO_DEST).forEach(([k,n])=>{if(!SALAS_ACT[k]||k==="diseno"||k==="captacion"||k==="instagram")return;MARCOS.push({id:"seo_"+k,grupo:k,dato:true,nombre:n+" / Desde SEO",x:0,y:-9000,w:1300});k==="control"?SALAS_ACT[k].push("seo_"+k):SALAS_ACT[k].splice(1,0,"seo_"+k)});
+Object.entries(SEO_DEST).forEach(([k,n])=>{if(!SALAS_ACT[k]||k==="diseno"||k==="captacion"||k==="instagram"||k==="community")return;MARCOS.push({id:"seo_"+k,grupo:k,dato:true,nombre:n+" / Desde SEO",x:0,y:-9000,w:1300});k==="control"?SALAS_ACT[k].push("seo_"+k):SALAS_ACT[k].splice(1,0,"seo_"+k)});
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);

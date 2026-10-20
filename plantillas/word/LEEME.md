@@ -33,7 +33,7 @@ Formato único para los documentos de Word de Santiago Ways, según el Brandbook
 | 16 | Presupuesto | Datos del cliente, conceptos, total y condiciones. |
 | 17 | Equipo y contactos | Personas, cargos, contacto y oficina. |
 | 18 | Modelo de carta | Comunicación formal con membrete. |
-| 19 | Contraportada | Frase de cierre, datos de contacto y logo a color con el aviso legal. Hace pareja con la portada tipográfica. |
+| 19 | Contraportada | Logo a color, frase de cierre, datos de contacto y aviso legal. Hace pareja con la portada tipográfica. |
 
 Las tablas, barras, cifras y el cronograma son tablas de Word: se editan escribiendo encima, y las barras se alargan arrastrando su borde. Las fotos se cambian con clic derecho › *Cambiar imagen*.
 

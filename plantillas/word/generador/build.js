@@ -550,7 +550,8 @@ const carta = [
 
 // 19 · Contraportada
 const contra = [
-  gap(5700, 0),
+  new Paragraph({ spacing: { after: 0 }, children: [LOGO(200)] }),
+  gap(0, 4300),
   rule(680, C.ways, 18),
   S('Cierre', 'Frase de cierre del documento en una o dos líneas'),
   S('Subtitulo', 'Texto breve opcional: un agradecimiento, una invitación o el siguiente paso.', { indent: { right: 1800 } }),
@@ -578,9 +579,7 @@ const emptyF = { default: new Footer({ children: [new Paragraph('')] }) };
 const coverFooter = (indent) => ({ default: new Footer({ children: [metaTable(indent), new Paragraph({ spacing: { after: 0 }, children: [] })] }) });
 const contraFooter = { default: new Footer({ children: [
   metaRowOf([['Web', 'santiagoways.com'], ['Correo', 'correo@santiagoways.com'], ['Teléfono', '+34 000 000 000'], ['Dirección', 'Calle y número', 'Código postal y ciudad']], [2000, 2870, 1900, 2300]),
-  new Paragraph({ spacing: { before: 520, after: 0 }, tabStops: [{ type: TabStopType.RIGHT, position: W }], children: [
-    LOGO(150), run('\t'), run('© 2027 Santiago Ways. Todos los derechos reservados.', { color: C.gris, size: 14 }),
-  ] }),
+  S('Legal', '© 2027 Santiago Ways. Todos los derechos reservados.', { spacing: { before: 360, after: 0 } }),
 ] }) };
 
 const page = { size: { width: PW, height: PH }, margin: { top: 1701, bottom: 1418, left: ML, right: ML, header: 709, footer: 709 } };

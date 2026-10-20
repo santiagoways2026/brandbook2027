@@ -124,6 +124,38 @@ Tres resultados y tres diagnósticos distintos:
 
 Lo que sí vale de ese informe son los **errores**: un sitemap enviado que responde 404, o envíos duplicados, son problemas reales.
 
+## Consultar Semrush
+
+Hasta octubre de 2026 la prioridad de un hueco se razonaba por intención, porque no había volúmenes. Ya los hay, y el primer uso demostró que **las prioridades puestas a ojo estaban mal ordenadas**: un hueco con prioridad 95 resultó tener 0 búsquedas al mes en el mercado que importa, y otro con 88 tenía 6.600.
+
+**Ningún hueco se prioriza ya sin volumen.** Si la consulta no se puede medir, dilo en la evidencia en lugar de inventar un número de prioridad.
+
+```bash
+python magical-seo/scripts/semrush.py saldo
+python magical-seo/scripts/semrush.py keywords "xacobeo 2027"
+python magical-seo/scripts/semrush.py keywords "camino de santiago tours" --base us
+python magical-seo/scripts/semrush.py dominio caminoways.com
+python magical-seo/scripts/semrush.py organico caminoways.com --limite 30
+python magical-seo/scripts/semrush.py hueco caminoways.com --limite 40
+```
+
+Sin `cd` delante, como los demás. La caché del día evita pagar dos veces por la misma consulta.
+
+**Elige bien la base de datos.** `--base es` para castellano, `--base us` para el mercado anglosajón grande y `--base uk` para el británico, que es mucho menor. Medir en la base equivocada da conclusiones equivocadas: una consulta inglesa medida solo en Reino Unido puede parecer insignificante y tener diez veces más volumen en Estados Unidos.
+
+Cómo leer lo que devuelve:
+
+| Columna | Qué es | Cómo usarla |
+|---|---|---|
+| Search Volume | Búsquedas al mes | El tamaño del hueco. Es lo que más pesa en la prioridad |
+| CPC | Lo que cuesta ese clic en Ads | Lo que os ahorráis por cada clic ganado en orgánico |
+| Competition | De 0 a 1, competencia publicitaria | Cerca de 1 significa que otros pagan por él: es comercial |
+| Trends | Doce meses de evolución | Una curva que sube vale más que un volumen alto y plano |
+
+**Volumen por CPC es la cifra que ordena.** Una consulta de 6.600 búsquedas a 0,84 € mueve mucho más dinero que una de 390 a 2,15 $, aunque la segunda parezca más comercial. Dilo en la evidencia con las dos cifras, no con una.
+
+El coste en unidades es compartido con todo el equipo: `keywords`, `dominio` y `organico` cuestan 10 por línea; `hueco` cuesta 80. Mira el saldo antes de una tanda larga y no gastes más de unas 5.000 unidades por análisis.
+
 ## Consultar Clarity
 
 Search Console dice dónde estamos. Analytics dice cuánto hay en juego. **Clarity dice si la página cumple cuando la gente llega.** Esa es la diferencia entre "traer más tráfico" y "arreglar la página antes de traer nada".

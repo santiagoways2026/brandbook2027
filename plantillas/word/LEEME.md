@@ -1,14 +1,29 @@
 # Plantilla de Word
 
-Formato único para cualquier documento de Word de Santiago Ways, según el Brandbook 2027.
+Formato único para los documentos de Word de Santiago Ways, según el Brandbook 2027. Estilo sobrio: blanco, texto en grafito y el verde solo como acento.
 
 | Archivo | Para qué |
 |---|---|
-| `Plantilla_Santiago_Ways.dotx` | La plantilla. Al abrirla con doble clic, Word crea un documento nuevo sin tocar la plantilla. |
-| `Documento_en_blanco_Santiago_Ways.docx` | Portada y una página en blanco, lista para escribir. |
-| `Plantilla_Santiago_Ways.docx` | Muestra con Lorem Ipsum de todos los estilos: títulos, listas, tabla, caja de nota, dato destacado y cita. |
-| `vista-previa/` | Las páginas renderizadas, para ver el resultado sin abrir Word. |
-| `generador/` | Scripts con los que se genera la plantilla (ver abajo). |
+| `Plantilla_Santiago_Ways.dotx` | La plantilla para el día a día: portada y una página en blanco con cabecera y pie. Al abrirla con doble clic, Word crea un documento nuevo sin tocar la plantilla. |
+| `Documento_en_blanco_Santiago_Ways.docx` | Lo mismo, como documento normal. |
+| `Paginas_tipo_Santiago_Ways.docx` | Diez páginas tipo con Lorem Ipsum para inspirarse y copiar la que haga falta. |
+| `vista-previa/` | Las diez páginas renderizadas, para verlas sin abrir Word. |
+| `generador/` | Scripts con los que se genera todo (ver abajo). |
+
+## Páginas tipo
+
+1. **Portada tipográfica:** logo a color, filete verde, antetítulo, título, subtítulo y datos del documento al pie.
+2. **Portada con foto:** foto a sangre arriba y el título debajo.
+3. **Índice:** capítulos numerados con descripción y página.
+4. **Separador:** apertura de capítulo con número grande.
+5. **Solo texto:** entradilla, secciones y cita destacada entre filetes.
+6. **Texto y tabla:** tabla de datos con leyenda y fuente, y caja de nota.
+7. **Infografía:** cifras clave, gráfico de barras y proceso en cuatro pasos.
+8. **Listas:** dos columnas («Incluido» / «No incluido»), ideas numeradas y pasos.
+9. **Imágenes:** foto a ancho completo con pie y foto con texto al lado.
+10. **Contraportada:** logo vertical a color y datos de contacto.
+
+Las tablas, barras y cifras son tablas de Word: se editan escribiendo encima, y las barras se alargan arrastrando su borde. Las fotos se cambian con clic derecho › *Cambiar imagen*.
 
 ## Instalar la plantilla (una sola vez)
 
@@ -27,24 +42,28 @@ Todo se escribe con los estilos de la pestaña Inicio, nunca con formato a mano.
 
 | Estilo | Uso | Formato |
 |---|---|---|
-| Título | Título de portada | ExtraBold 40 pt, grafito |
+| Título | Título de portada | ExtraBold 36 pt, grafito |
 | Título 1 | Apertura de apartado | ExtraBold 28 pt, grafito |
-| Título 2 | Sección | ExtraBold 20 pt, grafito |
-| Título 3 | Subapartado | Bold 14 pt, verde sendero |
-| Antetítulo | Encima de los títulos | Bold 8 pt, mayúsculas, +0,15 em, verde sendero |
-| Entradilla | Primer párrafo del apartado | Regular 13 pt |
-| Normal | Texto de lectura | Regular 10,5 pt, interlineado 1,5, grafito |
+| Título 2 | Sección | ExtraBold 16 pt, grafito |
+| Título 3 | Subapartado | Bold 12 pt, grafito |
+| Antetítulo | Encima de los títulos | Bold 7,5 pt, mayúsculas, +0,15 em, verde sendero |
+| Entradilla | Primer párrafo del apartado | Regular 12,5 pt |
+| Normal | Texto de lectura | Regular 10 pt, interlineado 1,45, grafito |
 | Lista SW | Viñetas y pasos | Viñeta verde Ways, números en sendero |
-| Cita SW / Autor de cita | Citas y testimonios | Bold 14 pt sendero con filete verde Ways |
-| Tabla cabecera / Tabla texto | Tablas de datos | Cabecera blanca sobre verde Ways, filas alternas en brote |
-| Leyenda SW | Título y fuente de tablas e imágenes | Regular 8 pt, gris |
+| Cita SW / Autor de cita | Frase destacada o testimonio | Bold 14 pt entre filetes finos |
+| Tabla cabecera / Tabla texto | Tablas de datos | Cabecera en mayúsculas con filete grafito, filas con filete niebla |
+| Leyenda SW | Título y fuente de tablas, gráficos e imágenes | Regular 7,5 pt, gris |
 | Texto legal | Notas y avisos legales | Regular 7 pt, gris |
 
-- **Índice:** *Referencias › Tabla de contenido*. Los títulos ya están preparados.
-- **Portada:** antetítulo, título, subtítulo y datos de autor, área, fecha y versión. Foto: clic derecho › *Cambiar imagen*.
-- **Cabecera:** doble clic para escribir el título del documento.
-- **Subrayado Ways:** una o dos palabras del título con sombreado verde Ways `#7AA606` y letra blanca. Una sola vez por título. En Word va recto.
-- **Cajas:** la caja de nota (brote con filete verde) y la caja destacada (verde Ways) se copian desde la muestra con Lorem Ipsum. Una caja destacada por documento como máximo.
+El Título 2 y el Título 3 son algo menores que en la escala de impresión del brandbook (20 y 14 pt) para que el documento quede más sobrio.
+
+## Reglas para el Word
+
+- Blanco, texto en grafito y el verde solo como acento: filetes, viñetas, antetítulos y números.
+- **Sin subrayados de color ni cajas verdes** (feedback).
+- Títulos en minúscula de frase. Mayúsculas solo en el antetítulo.
+- En la portada, el logo siempre a color.
+- Índice automático: *Referencias › Tabla de contenido*. Los títulos ya están preparados.
 
 ## Regenerar la plantilla
 
@@ -54,9 +73,9 @@ Si cambia algo del brandbook, se edita `generador/build.js` y se vuelve a genera
 cd plantillas/word/generador
 npm install docx
 # poner Montserrat-400.ttf, Montserrat-700.ttf y Montserrat-800.ttf (Google Fonts) en generador/fonts/
-node build.js lorem raw.docx && python3 post.py raw.docx ../Plantilla_Santiago_Ways.docx
+node build.js recursos raw.docx && python3 post.py raw.docx ../Paginas_tipo_Santiago_Ways.docx
 node build.js blanco rawb.docx && python3 post.py rawb.docx ../Documento_en_blanco_Santiago_Ways.docx
 python3 post.py rawb.docx ../Plantilla_Santiago_Ways.dotx
 ```
 
-`build.js` crea el documento con los estilos; `post.py` incrusta Montserrat y, si la salida es `.dotx`, lo convierte en plantilla.
+`build.js` crea el documento con los estilos y las páginas; `post.py` incrusta Montserrat y, si la salida es `.dotx`, lo convierte en plantilla.

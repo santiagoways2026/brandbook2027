@@ -124,6 +124,34 @@ Tres resultados y tres diagnósticos distintos:
 
 Lo que sí vale de ese informe son los **errores**: un sitemap enviado que responde 404, o envíos duplicados, son problemas reales.
 
+## Trabajar por mercados
+
+Santiago Ways no tiene cinco idiomas: tiene **diez mercados**, definidos en `datos/mercados.json` con su base de Semrush, su código de país para Search Console y su peso real medido. Un idioma no es un mercado: Estados Unidos y Reino Unido comparten lengua y tienen volúmenes, competencia y precios distintos.
+
+```bash
+python magical-seo/scripts/gsc.py mercados
+python magical-seo/scripts/gsc.py posiciones --pais deu --limite 50
+python magical-seo/scripts/semrush.py keywords "jakobsweg" --mercado de-DE
+```
+
+**Un hueco pertenece a un mercado.** Escribe siempre el campo `mercado` con el id correspondiente, y mide el volumen en la base de ese mercado y no en otra. Un hueco sin mercado es un hueco sin tamaño.
+
+Lo medido el 20 de octubre de 2026, que conviene tener presente al priorizar:
+
+| Mercado | Clics/mes | Volumen del término principal |
+|---|---|---|
+| España | 3.058 | 49.500 |
+| Alemania | 972 | 40.500 (`jakobsweg`) |
+| Latinoamérica | 905 | comparte páginas con España |
+| Estados Unidos | 840 | 60.500 |
+| Reino Unido e Irlanda | 691 | el patio de los dos rivales fuertes |
+| Portugal | 329 | 9.900 |
+| Italia | 252 | **90.500**, el mayor de todos |
+
+La lectura incómoda: **Italia tiene el mercado más grande y es del que menos sacamos.** España captura mucho más de un mercado más pequeño. Antes de concluir nada, recuerda que el término principal no es el mercado entero y que los clics vienen de miles de consultas largas, no de una. Pero la diferencia es demasiado grande para no mirarla.
+
+Rota la atención: no analices siempre los mismos dos mercados. Si un análisis se centró en España e Italia, el siguiente debe mirar Alemania y Estados Unidos.
+
 ## Consultar Semrush
 
 Hasta octubre de 2026 la prioridad de un hueco se razonaba por intención, porque no había volúmenes. Ya los hay, y el primer uso demostró que **las prioridades puestas a ojo estaban mal ordenadas**: un hueco con prioridad 95 resultó tener 0 búsquedas al mes en el mercado que importa, y otro con 88 tenía 6.600.
@@ -189,6 +217,7 @@ Dos límites que hay que declarar siempre en `evidencia`: la ventana es de **3 d
 - **doc_id**: slug del tema, minúsculas, solo `a-z0-9-`, máximo 80 caracteres. Por ejemplo `camino-en-5-dias-ingles`.
 - `titulo` (el hueco en una frase corta y accionable)
 - `tipo`: `hueco` | `mejora` | `defensa`
+- `mercado`: el id de `datos/mercados.json` (`es-ES`, `de-DE`, `en-US`...). Obligatorio: sin mercado no hay tamaño
 - `descripcion` (2-3 frases: qué pasa y por qué importa)
 - `keyword` (la consulta principal), `keywordsSecundarias` (array, opcional)
 - `rivalesQueLoCubren` (array de `id` de `rivales`)

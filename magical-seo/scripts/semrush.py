@@ -33,6 +33,24 @@ SALDO = "https://www.semrush.com/users/countapiunits.html"
 CONFIG = os.path.expanduser("~/.config/claude-seo/semrush.json")
 CACHE = os.path.expanduser("~/.config/claude-seo/semrush-cache")
 NUESTRO = "santiagoways.com"
+MERCADOS = os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                        "..", "datos", "mercados.json")
+
+
+def bases_de(mercado):
+    """Las bases de datos de Semrush que sirven a un mercado."""
+    try:
+        with open(MERCADOS, encoding="utf-8") as f:
+            ms = json.load(f)["mercados"]
+    except (IOError, json.JSONDecodeError, KeyError):
+        print(f"No se pudo leer {MERCADOS}", file=sys.stderr)
+        sys.exit(2)
+    for m in ms:
+        if m["id"].lower() == mercado.lower():
+            return m["semrush"], m["nombre"]
+    ids = ", ".join(m["id"] for m in ms)
+    print(f"Mercado desconocido. Los que hay: {ids}", file=sys.stderr)
+    sys.exit(2)
 
 # Coste por linea devuelta, segun la documentacion de Semrush.
 COSTE = {"domain_ranks": 10, "domain_organic": 10, "phrase_this": 10,
@@ -130,6 +148,8 @@ def main():
     p.add_argument("accion", choices=["saldo", "dominio", "keywords", "organico", "hueco"])
     p.add_argument("objetivo", nargs="?", help="dominio o palabra clave")
     p.add_argument("--base", default="es", help="base de datos: es, uk, us, de, it, pt...")
+    p.add_argument("--mercado", default="", help="recorre todas las bases de un mercado "
+                                                 "de datos/mercados.json: es-ES, de-DE, en-US...")
     p.add_argument("--limite", type=int, default=25)
     p.add_argument("--forzar", action="store_true", help="ignora la cache y gasta")
     p.add_argument("--json", action="store_true")
@@ -146,6 +166,20 @@ def main():
         print("Falta el dominio o la palabra clave", file=sys.stderr)
         sys.exit(2)
 
+    if a.mercado:
+        bases, nombre = bases_de(a.mercado)
+        print(f"Mercado {nombre}: {len(bases)} base(s) de datos")
+        print()
+        for b in bases:
+            a.base = b
+            _una(a)
+            print()
+        return
+
+    _una(a)
+
+
+def _una(a):
     if a.accion == "dominio":
         d = informe("domain_ranks", {"domain": a.objetivo}, 1, a.base, a.forzar)
         t = f"Resumen de {a.objetivo} en la base {a.base}"
@@ -165,6 +199,7 @@ def main():
         print(json.dumps(d, ensure_ascii=False, indent=1))
     else:
         imprime(d, t)
+    return
 
 
 if __name__ == "__main__":

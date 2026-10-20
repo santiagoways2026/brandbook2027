@@ -58,14 +58,20 @@ def _filtro(dimension, texto):
                           "expression": texto}]}]
 
 
-def consulta_sc(dimension, contiene, limite, dias):
+def consulta_sc(dimension, contiene, limite, dias, pais=""):
     s = _api("searchconsole", "v1", "gsc_readonly")
     ini, fin = _ventana(dias)
     cuerpo = {"startDate": ini, "endDate": fin, "dimensions": [dimension],
               "rowLimit": min(limite, 25000)}
-    g = _filtro(dimension, contiene)
-    if g:
-        cuerpo["dimensionFilterGroups"] = g
+    filtros = []
+    if contiene:
+        filtros.append({"dimension": dimension, "operator": "contains",
+                        "expression": contiene})
+    if pais:
+        filtros.append({"dimension": "country", "operator": "equals",
+                        "expression": pais.lower()})
+    if filtros:
+        cuerpo["dimensionFilterGroups"] = [{"filters": filtros}]
     r = s.searchanalytics().query(siteUrl=SITIO, body=cuerpo).execute()
     filas = []
     for x in r.get("rows", []):
@@ -119,6 +125,30 @@ def trafico(limite, dias):
     return {"periodo": f"{ini} a {fin}", "canal": "Organic Search", "filas": filas}
 
 
+def por_mercado(dias):
+    """Cruza pais e idioma de la pagina: lo que de verdad define un mercado."""
+    s = _api("searchconsole", "v1", "gsc_readonly")
+    ini, fin = _ventana(dias)
+    r = s.searchanalytics().query(siteUrl=SITIO, body={
+        "startDate": ini, "endDate": fin,
+        "dimensions": ["country", "page"], "rowLimit": 25000}).execute()
+    acc = {}
+    for x in r.get("rows", []):
+        pais, url = x["keys"]
+        trozos = url.replace("https://santiagoways.com/", "").split("/")
+        idioma = trozos[0] if trozos and len(trozos[0]) == 2 else "raiz"
+        d = acc.setdefault((idioma, pais), {"clics": 0, "impresiones": 0, "pos": 0.0, "n": 0})
+        d["clics"] += x["clicks"]; d["impresiones"] += x["impressions"]
+        d["pos"] += x["position"] * x["impressions"]; d["n"] += x["impressions"]
+    filas = []
+    for (idioma, pais), d in acc.items():
+        filas.append({"idioma": idioma, "pais": pais.upper(),
+                      "clics": round(d["clics"]), "impresiones": round(d["impresiones"]),
+                      "posicion": round(d["pos"] / d["n"], 1) if d["n"] else 0})
+    filas.sort(key=lambda f: -f["clics"])
+    return {"periodo": f"{ini} a {fin}", "filtro": "", "filas": filas}
+
+
 def imprime(d):
     filas = d.get("filas") or d.get("sitemaps")
     if not isinstance(filas, list):
@@ -142,18 +172,23 @@ def imprime(d):
 def main():
     p = argparse.ArgumentParser(description="Search Console y Analytics para Magical SEO")
     p.add_argument("accion", choices=["posiciones", "paginas", "inspecciona",
-                                      "sitemaps", "trafico"])
+                                      "sitemaps", "trafico", "paises", "mercados"])
     p.add_argument("url", nargs="?", help="solo para inspecciona")
     p.add_argument("--contiene", default="", help="filtra por texto")
+    p.add_argument("--pais", default="", help="codigo ISO de 3 letras: esp, usa, gbr, deu...")
     p.add_argument("--limite", type=int, default=100)
     p.add_argument("--dias", type=int, default=28)
     p.add_argument("--json", action="store_true")
     a = p.parse_args()
 
     if a.accion == "posiciones":
-        d = consulta_sc("query", a.contiene, a.limite, a.dias)
+        d = consulta_sc("query", a.contiene, a.limite, a.dias, a.pais)
     elif a.accion == "paginas":
-        d = consulta_sc("page", a.contiene, a.limite, a.dias)
+        d = consulta_sc("page", a.contiene, a.limite, a.dias, a.pais)
+    elif a.accion == "paises":
+        d = consulta_sc("country", a.contiene, a.limite, a.dias)
+    elif a.accion == "mercados":
+        d = por_mercado(a.dias)
     elif a.accion == "inspecciona":
         if not a.url:
             print("Falta la URL a inspeccionar", file=sys.stderr)

@@ -1,0 +1,77 @@
+{
+  "_nota": "Mercados de Santiago Ways, construidos sobre el rendimiento real medido en Search Console del 19 de septiembre al 17 de octubre de 2026, no sobre una lista teórica. Un mercado es un idioma en un país: 'inglés' no es un mercado, porque Estados Unidos y Reino Unido tienen volúmenes, competencia y precios distintos.",
+  "_como_usarlo": "El campo semrush es la base de datos a pasar en --base. El campo gscPais es el código ISO de tres letras para --pais. El campo rutas son los prefijos del sitio que sirven a ese mercado.",
+  "_revisar": "Los clics son una foto de un mes. Conviene volver a medirlos con 'gsc.py mercados' cada trimestre y reordenar, porque el peso de un mercado cambia.",
+
+  "mercados": [
+    {
+      "id": "es-ES", "nombre": "España", "idioma": "es", "rutas": ["/es/"],
+      "semrush": ["es"], "gscPais": ["esp"],
+      "clicsMes": 3058, "posicionMedia": 9.6, "peso": 1,
+      "notas": "El mercado principal, con diferencia: más clics que todos los demás juntos salvo uno. Posición media 9,6, que es mejorable para ser el mercado de casa."
+    },
+    {
+      "id": "de-DE", "nombre": "Alemania", "idioma": "de", "rutas": ["/de/"],
+      "semrush": ["de"], "gscPais": ["deu"],
+      "clicsMes": 972, "posicionMedia": 8.6, "peso": 2,
+      "notas": "Segundo mercado y por delante de Estados Unidos. Nadie lo había mirado: la atención se ha ido al frente anglosajón porque los rivales fuertes son irlandeses. Ningún rival vigilado tiene árbol en alemán salvo CaminoWays."
+    },
+    {
+      "id": "es-LATAM", "nombre": "Latinoamérica", "idioma": "es",
+      "rutas": ["/es/"], "semrush": ["mx", "ar", "co", "cl"],
+      "gscPais": ["mex", "arg", "col", "chl", "per"],
+      "clicsMes": 905, "posicionMedia": 6.8, "peso": 3,
+      "notas": "México 363, Argentina 333, Colombia 88, más Chile y Perú. Juntos pesan como Alemania. Las mejores posiciones de todo el sitio, entre la 6 y la 7, porque hay menos competencia local. Comparten las páginas de España: no hay versión propia."
+    },
+    {
+      "id": "en-US", "nombre": "Estados Unidos", "idioma": "en", "rutas": ["/en/"],
+      "semrush": ["us"], "gscPais": ["usa"],
+      "clicsMes": 840, "posicionMedia": 10.3, "peso": 4,
+      "notas": "El mercado inglés grande y el que mejor paga. Macs Adventure y 10Adventures ponen precio en dólares. Medir siempre aquí antes que en Reino Unido: los volúmenes ingleses cambian mucho entre las dos bases."
+    },
+    {
+      "id": "en-UKIE", "nombre": "Reino Unido e Irlanda", "idioma": "en",
+      "rutas": ["/en/"], "semrush": ["uk", "ie"], "gscPais": ["gbr", "irl"],
+      "clicsMes": 691, "posicionMedia": 10.8, "peso": 5,
+      "notas": "Reino Unido 509 e Irlanda 182. Es el patio de casa de CaminoWays y Follow the Camino, los dos rivales más fuertes, y se nota: la posición media de Reino Unido, 11,7, es la peor del sitio."
+    },
+    {
+      "id": "pt-PT", "nombre": "Portugal", "idioma": "pt", "rutas": ["/pt/"],
+      "semrush": ["pt"], "gscPais": ["prt"],
+      "clicsMes": 329, "posicionMedia": 8.0, "peso": 6,
+      "notas": "El portugués es casi todo Portugal, no Brasil. Tiene sentido: el Camino Portugués pasa por aquí y el viajero es de proximidad."
+    },
+    {
+      "id": "en-CAAU", "nombre": "Canadá y Australia", "idioma": "en",
+      "rutas": ["/en/"], "semrush": ["ca", "au"], "gscPais": ["can", "aus"],
+      "clicsMes": 251, "posicionMedia": 11.8, "peso": 7,
+      "notas": "Pequeños pero con rivales propios: UTracks es australiano y 10Adventures canadiense, y los dos venden el Año Santo. Las peores posiciones del sitio, Australia en la 12,3."
+    },
+    {
+      "id": "it-IT", "nombre": "Italia", "idioma": "it", "rutas": ["/it/"],
+      "semrush": ["it"], "gscPais": ["ita"],
+      "clicsMes": 252, "posicionMedia": 10.7, "peso": 8,
+      "notas": "Search Console no tenía vista propia de italiano, así que hasta ahora era invisible en el análisis de posiciones. Rinde como Canadá y Australia juntos."
+    },
+    {
+      "id": "de-ATCH", "nombre": "Austria y Suiza", "idioma": "de",
+      "rutas": ["/de/"], "semrush": ["at", "ch"], "gscPais": ["aut", "che"],
+      "clicsMes": 166, "posicionMedia": 8.7, "peso": 9,
+      "notas": "Austria 110 y Suiza 56. Comparten las páginas de Alemania. Suman un 17 % más sobre el mercado alemán."
+    },
+    {
+      "id": "pt-BR", "nombre": "Brasil", "idioma": "pt", "rutas": ["/pt/"],
+      "semrush": ["br"], "gscPais": ["bra"],
+      "clicsMes": 63, "posicionMedia": 9.9, "peso": 10,
+      "notas": "Mucho menor que Portugal pese a ser un país mucho mayor. O no se ha trabajado, o el viaje transatlántico filtra. Merece una mirada antes de descartarlo."
+    }
+  ],
+
+  "segmento_aparte": {
+    "id": "extranjeros-en-espana",
+    "nombre": "Buscan en su idioma desde España",
+    "clicsMes": 684,
+    "detalle": "Inglés desde España 384, alemán 156, italiano 85, portugués 59.",
+    "notas": "No es un mercado geográfico sino un comportamiento: gente que ya está en España y busca en su idioma. Pesa tanto como Portugal y Brasil juntos. Puede ser el peregrino ya llegado, el residente extranjero o el que planifica desde aquí. Vale la pena entenderlo antes de tratarlo como ruido."
+  }
+}

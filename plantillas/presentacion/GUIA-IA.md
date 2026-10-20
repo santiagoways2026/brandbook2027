@@ -7,8 +7,9 @@ La plantilla está pensada para que una IA (Claude, ChatGPT, Copilot…) la use 
 1. Abre un chat con una IA que pueda leer y crear archivos de PowerPoint (por ejemplo, Claude).
 2. Adjunta `Presentacion_Santiago_Ways.pptx`.
 3. Copia las instrucciones de abajo, añade tu contenido al final y envíalo.
-4. Revisa el resultado: cifras, nombres, fechas y que no quede ningún «Lorem ipsum».
-5. Si vas a trabajar en Google, sube el archivo a Drive y ábrelo con Presentaciones de Google.
+4. Cambia las fotos de ejemplo por las que apliquen en cada caso: clic derecho › Cambiar imagen.
+5. Revisa el resultado: cifras, nombres, fechas y que no quede ningún «Lorem ipsum».
+6. Si vas a trabajar en Google, sube el archivo a Drive y ábrelo con Presentaciones de Google.
 
 ## Instrucciones para pegar en la IA
 
@@ -39,10 +40,13 @@ siguiendo estas reglas:
    siempre entera, nunca recortada ni girada; el logo a color sobre blanco
    y en blanco sobre foto o verde.
 8. Iconos: cópialos de la diapositiva de iconos.
-9. Sustituye todo el texto de ejemplo (Lorem ipsum, «Nombre Apellido»,
-   cifras, precios, fechas). Si te falta un dato, escribe
-   [PENDIENTE: qué falta] en lugar de inventarlo.
-10. Escribe en español de España, con un tono cercano y claro, y sin
+9. Fotos: las de la plantilla son de ejemplo. Sustitúyelas por las que
+   apliquen en cada caso (las que te pase o las del banco de imágenes de la
+   marca), manteniendo el tamaño y el encuadre del hueco.
+10. Sustituye todo el texto de ejemplo (Lorem ipsum, «Nombre Apellido»,
+    cifras, precios, fechas). Si te falta un dato, escribe
+    [PENDIENTE: qué falta] en lugar de inventarlo.
+11. Escribe en español de España, con un tono cercano y claro, y sin
     guiones largos.
 
 Mi contenido:

@@ -35,7 +35,7 @@ Formato único para los documentos de Word de Santiago Ways, según el Brandbook
 | 18 | Modelo de carta | Comunicación formal con membrete. |
 | 19 | Contraportada | Logo a color, frase de cierre, datos de contacto y aviso legal. Hace pareja con la portada tipográfica. |
 
-Las tablas, barras, cifras y el cronograma son tablas de Word: se editan escribiendo encima, y las barras se alargan arrastrando su borde. Las fotos se cambian con clic derecho › *Cambiar imagen*.
+Las tablas, barras, cifras y el cronograma son tablas de Word: se editan escribiendo encima, y las barras se alargan arrastrando su borde. Las fotos son de ejemplo: sustitúyelas por las que apliquen en cada caso con clic derecho › *Cambiar imagen*.
 
 ## Instalar la plantilla (una sola vez)
 

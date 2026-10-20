@@ -7,7 +7,8 @@ La plantilla está pensada para que una IA (Claude, ChatGPT, Copilot en Word…)
 1. Abre un chat con una IA que pueda leer y crear archivos de Word (por ejemplo, Claude).
 2. Adjunta `Paginas_tipo_Santiago_Ways.docx`.
 3. Copia el texto de instrucciones de abajo, añade tu contenido al final (o adjúntalo como otro archivo) y envíalo.
-4. Revisa el resultado: cifras, nombres, fechas y que no quede ningún «Lorem ipsum».
+4. Cambia las fotos de ejemplo por las que apliquen en cada caso: clic derecho › Cambiar imagen.
+5. Revisa el resultado: cifras, nombres, fechas y que no quede ningún «Lorem ipsum».
 
 **Con Copilot dentro de Word:** crea el documento desde la plantilla, copia las páginas tipo que quieras y pide a Copilot que reescriba el texto de cada página con tu contenido («Reescribe esta página con…»). Así se mantiene el diseño.
 
@@ -33,23 +34,26 @@ documento Word (.docx) con mi contenido siguiendo estas reglas:
    documento es para clientes.
 4. Sustituye todo el texto de ejemplo (Lorem ipsum, «Nombre Apellido»,
    precios, cifras, fechas) por mi contenido. No dejes texto de ejemplo.
-5. Escribe solo con los estilos de la plantilla: Título, Título 1, Título 2,
+5. Las fotos son de ejemplo: sustitúyelas por las que apliquen en cada
+   caso (las que te pase o las del banco de imágenes de la marca),
+   manteniendo el tamaño y el encuadre del hueco.
+6. Escribe solo con los estilos de la plantilla: Título, Título 1, Título 2,
    Título 3, Normal, Antetítulo, Entradilla, Lista SW, Cita SW, Autor de cita,
    Tabla cabecera, Tabla texto, Leyenda SW y Texto legal. Nada de formato a
    mano.
-6. Las tablas, las barras de la infografía y el cronograma son tablas de
+7. Las tablas, las barras de la infografía y el cronograma son tablas de
    Word: cambia el texto, añade o quita filas y ajusta el ancho de las barras
    según los datos. Mantén sus bordes y colores.
-7. Reglas de marca: títulos en minúscula de frase; mayúsculas solo en los
+8. Reglas de marca: títulos en minúscula de frase; mayúsculas solo en los
    antetítulos; sin subrayados de color ni cajas verdes; el verde solo como
    acento (filetes, viñetas, antetítulos y números); el logo de la portada
    siempre a color.
-8. Pon el título del documento en la cabecera y actualiza el índice con los
+9. Pon el título del documento en la cabecera y actualiza el índice con los
    capítulos y las páginas reales (o sustitúyelo por Referencias › Tabla de
    contenido).
-9. Si te falta un dato, escribe [PENDIENTE: qué falta] en lugar de
-   inventarlo.
-10. Escribe en español de España, con un tono cercano y claro, y sin guiones
+10. Si te falta un dato, escribe [PENDIENTE: qué falta] en lugar de
+    inventarlo.
+11. Escribe en español de España, con un tono cercano y claro, y sin guiones
     largos.
 
 Mi contenido:

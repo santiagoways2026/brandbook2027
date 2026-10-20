@@ -33,7 +33,7 @@ Presentación 16:9 montada como la del brandbook y el plan Xacobeo 27: fotos a s
 
 - **Fuente:** Montserrat (títulos en ExtraBold). En Google ya está incluida; en PowerPoint hay que instalarla desde [Google Fonts](https://fonts.google.com/specimen/Montserrat).
 - **Duplicar:** clic derecho › *Duplicar diapositiva* y cambiar el texto.
-- **Fotos:** clic derecho › *Cambiar imagen*. **Gráfico:** clic derecho › *Editar datos*.
+- **Fotos:** son de ejemplo; sustitúyelas por las que apliquen en cada caso con clic derecho › *Cambiar imagen*. **Gráfico:** clic derecho › *Editar datos*.
 - **Google:** sube el `.pptx` a Drive y ábrelo con Presentaciones de Google.
 
 ## Regenerar

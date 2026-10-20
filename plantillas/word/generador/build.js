@@ -302,11 +302,11 @@ const kpiRowOf = (items) => grid([KW, KG, KW, KG, KW, KG, KW], [items.flatMap(([
   const c = cell([S('CifraNumero', n), S('CifraTexto', t)], KW, { borders: { top: hair(C.ways, 18) }, margins: { top: 200, bottom: 0, left: 0, right: 0 } });
   return i < items.length - 1 ? [c, cell([P('')], KG)] : [c];
 })]);
-const metaRowOf = (items) => {
-  const w = W / items.length;
-  return grid(items.map(() => w), [items.map(([k, ...v]) => cell([
+const metaRowOf = (items, widths) => {
+  const ws = widths || items.map(() => W / items.length);
+  return grid(ws, [items.map(([k, ...v], i) => cell([
     S('MetaEtiqueta', k), ...v.map((x) => S('MetaValor', x, { spacing: { after: 40 } })),
-  ], w, { borders: { top: hair(C.grafito, 6) }, margins: { top: 160, bottom: 0, left: 0, right: 200 } }))]);
+  ], ws[i], { borders: { top: hair(C.grafito, 6) }, margins: { top: 160, bottom: 0, left: 0, right: 200 } }))]);
 };
 const colsOf = (n, gutter, content) => {
   const w = (W - gutter * (n - 1)) / n;
@@ -550,10 +550,10 @@ const carta = [
 
 // 19 · Contraportada
 const contra = [
-  gap(0, 5600),
-  new Paragraph({ alignment: AlignmentType.CENTER, spacing: { after: 480 }, children: [new ImageRun({ type: 'png', data: logoV, transformation: { width: 150, height: 135 } })] }),
-  S('ContraWeb', 'santiagoways.com', { alignment: AlignmentType.CENTER }),
-  S('ContraTexto', 'Dirección · Teléfono · Correo electrónico', { alignment: AlignmentType.CENTER }),
+  gap(5700, 0),
+  rule(680, C.ways, 18),
+  S('Cierre', 'Frase de cierre del documento en una o dos líneas'),
+  S('Subtitulo', 'Texto breve opcional: un agradecimiento, una invitación o el siguiente paso.', { indent: { right: 1800 } }),
 ];
 
 const blank = [
@@ -576,7 +576,12 @@ const footer = new Footer({ children: [new Paragraph({
 const emptyH = { default: new Header({ children: [new Paragraph('')] }) };
 const emptyF = { default: new Footer({ children: [new Paragraph('')] }) };
 const coverFooter = (indent) => ({ default: new Footer({ children: [metaTable(indent), new Paragraph({ spacing: { after: 0 }, children: [] })] }) });
-const contraFooter = { default: new Footer({ children: [S('Legal', '© 2027 Santiago Ways. Todos los derechos reservados.', { alignment: AlignmentType.CENTER })] }) };
+const contraFooter = { default: new Footer({ children: [
+  metaRowOf([['Web', 'santiagoways.com'], ['Correo', 'correo@santiagoways.com'], ['Teléfono', '+34 000 000 000'], ['Dirección', 'Calle y número', 'Código postal y ciudad']], [2000, 2870, 1900, 2300]),
+  new Paragraph({ spacing: { before: 520, after: 0 }, tabStops: [{ type: TabStopType.RIGHT, position: W }], children: [
+    LOGO(150), run('\t'), run('© 2027 Santiago Ways. Todos los derechos reservados.', { color: C.gris, size: 14 }),
+  ] }),
+] }) };
 
 const page = { size: { width: PW, height: PH }, margin: { top: 1701, bottom: 1418, left: ML, right: ML, header: 709, footer: 709 } };
 const pageCover = { size: { width: PW, height: PH }, margin: { top: 1701, bottom: 1985, left: ML, right: ML, header: 709, footer: 1134 } };
@@ -625,6 +630,7 @@ const styles = {
     ps('IdeaTexto', 'Idea texto', { size: 18, color: C.gris }, sp(0, 276)),
     ps('ContraWeb', 'Contraportada web', { size: 22, bold: true }, sp(80, 240)),
     ps('ContraTexto', 'Contraportada texto', { size: 16, color: C.gris }, sp(0, 240)),
+    ps('Cierre', 'Frase de cierre', { font: FX, size: 52, color: C.grafito }, sp(240, 252)),
     ps('PlanNombre', 'Plan nombre', { size: 22, bold: true }, sp(20, 240)),
     ps('PlanPrecio', 'Plan precio', { size: 16, color: C.gris }, sp(0, 240)),
     ps('Celda', 'Celda centrada', { size: 18 }, { ...sp(0, 240), alignment: AlignmentType.CENTER }),
@@ -659,7 +665,7 @@ const doc = new Document({
       ...resumen, ...soloTexto, ...textoTabla, ...infografia, ...bullets, ...imagen,
       ...itinerario, ...comparativa, ...cronograma, ...testimonios, ...faq, ...presupuesto, ...equipo, ...carta,
     ] },
-    { properties: { page }, headers: emptyH, footers: contraFooter, children: contra },
+    { properties: { page: pageCover }, headers: emptyH, footers: contraFooter, children: contra },
   ],
 });
 

@@ -888,6 +888,28 @@ html[data-tema=sw] .ia-an ul{color:#2E2E2D}
 html[data-tema=sw] .ia-pt{stroke:#fff}
 html[data-tema=sw] .ia-tip{background:#fff;border-color:#DCE6C6;color:#6F6F6E;box-shadow:0 8px 24px rgba(46,46,45,.16)}
 html[data-tema=sw] .ia-tip b{color:#2E2E2D}
+.ia-ok{color:#3ddc97}.ia-ko{color:#ff8a8a}
+.ia-res .ia-k2{display:block}.ia-res .ia-k2 em,.ia-pt small em{font-style:normal;font-weight:700}
+.ia-tag{display:inline-block;font-size:10.5px;line-height:1.5;padding:0 6px;border-radius:8px;background:#1f242c;color:#9aa3ad;margin-left:6px;font-weight:600;vertical-align:1px}
+.btn.prim .ia-tag{background:rgba(0,0,0,.22);color:inherit}
+.ia-plc{flex-wrap:wrap}
+.ia-pt td{vertical-align:top;padding:7px 11px}
+.ia-pt td b{display:block;font-size:14.5px;font-weight:700;color:#f1f3f5}
+.ia-pt td small{display:block;font-size:11.5px;color:#9aa3ad;margin-top:3px}
+.ia-pt td.as-n{font-weight:600;vertical-align:middle}.ia-pt td.as-n small{display:inline;margin:0}
+.ia-pt td.ia-nc{color:#6b7280;font-style:italic;font-size:12px;vertical-align:middle}
+.ia-pt tbody tr[data-iapl]{cursor:pointer}.ia-pt tbody tr[data-iapl]:hover td,.ia-pt tbody tr[data-iapl]:focus td{background:rgba(255,255,255,.035)}
+.ia-pt tbody tr.ia-sel td{background:rgba(57,135,229,.12)}.ia-pt tbody tr.ia-sel td.as-n{background:#16202e;box-shadow:inset 3px 0 0 var(--ia26)}
+.ia-pt tr.ia-subt td{border-top:2px solid #333b47}.ia-pt tr.ia-glob td{border-top:2px solid #333b47}
+.ia-pt tbody tr.ia-fut td{opacity:.55}
+.ia-pt tfoot td b{color:#fff}.ia-pt tfoot td small{color:rgba(255,255,255,.78)}.ia-pt tfoot td small em{color:#fff}
+.ia-ctx{margin:16px 20px 0}.ia-ctx summary{cursor:pointer;font:600 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--tenue);padding:4px 0}.ia-ctx .ia-an{padding:10px 0 0}
+html[data-tema=sw] .ia-ok{color:#1d7a43}html[data-tema=sw] .ia-ko{color:#b3261e}
+html[data-tema=sw] .ia-tag{background:#EEF3E2;color:#5b6b2a}
+html[data-tema=sw] .ia-pt td b{color:#2E2E2D}html[data-tema=sw] .ia-pt td small{color:#6F6F6E}html[data-tema=sw] .ia-pt td.ia-nc{color:#8a8a88}
+html[data-tema=sw] .ia-pt tbody tr.ia-sel td{background:#EEF5FD}html[data-tema=sw] .ia-pt tbody tr.ia-sel td.as-n{background:#E3EEFB}
+html[data-tema=sw] .ia-pt tr.ia-subt td,html[data-tema=sw] .ia-pt tr.ia-glob td{border-top-color:#CBDAAE}
+html[data-tema=sw] .ia-pt tfoot td b,html[data-tema=sw] .ia-pt tfoot td small,html[data-tema=sw] .ia-pt tfoot td small em{color:#fff}
 html[data-tema=sw] .ia-t tbody tr.ia-sel td{background:#F4F8EA}html[data-tema=sw] .ia-t tbody tr.ia-sel td.as-n{background:#EEF4DE}
 html[data-tema=sw] .ia-t tfoot td{background:#F2F7E6;color:#2E2E2D}
 .cn-t td.cr-bar{position:relative}.cn-t td.cr-bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(129,140,248,.18)}
@@ -1134,7 +1156,7 @@ const MARCOS=[
   {id:"tiktok_mision",grupo:"tiktok",dato:true,nombre:"TikTok / Misión, equipo y fuentes",x:0,y:-9000,w:1300},
   {id:"tiktok_datos",grupo:"tiktok",dato:true,nombre:"TikTok / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"captacion",grupo:"captacion",nombre:"Captación",x:0,y:0,w:1200},
-  {id:"captacion_inv",grupo:"captacion",dato:true,nombre:"Captación / Inversión 2025 frente a 2026",x:0,y:-9000,w:1300},
+  {id:"captacion_inv",grupo:"captacion",dato:true,nombre:"Captación / Inversión, CPL y CPA",x:0,y:-9000,w:1300},
   {id:"captacion_canales",grupo:"captacion",dato:true,nombre:"Captación / Deals y CR por canal (UTM)",x:0,y:-9000,w:1300},
   {id:"captacion_evolucion",grupo:"captacion",dato:true,nombre:"Captación / Evolución del CR por canal",x:0,y:-9000,w:1300},
   {id:"captacion_cpa",grupo:"captacion",dato:true,nombre:"Captación / CPA y retorno por canal",x:0,y:-9000,w:1300},
@@ -3308,27 +3330,40 @@ function pintarCPA(){const el=document.getElementById("c-captacion_cpa");if(!el|
 document.addEventListener("change",e=>{const s=e.target.closest("[data-cpf]");if(!s||!st.cpV)return;st.cpV[s.dataset.cpf]=Number(s.value);if(st.cpV.desde>st.cpV.hasta)[st.cpV.desde,st.cpV.hasta]=[st.cpV.hasta,st.cpV.desde];pintarCPA()});
 document.addEventListener("click",e=>{const b=e.target.closest("[data-cppre]");if(b&&st.cpV){const[a,c]=b.dataset.cppre.split("-").map(Number);st.cpV.desde=a;st.cpV.hasta=c;pintarCPA()}});
 
-/* ===== Captación: inversión en Ads 2025 frente a 2026, con deals y facturación (Windsor.ai + Zoho Analytics) ===== */
-const IA_CAN={total:"Google Ads y Meta",google:"Google Ads",meta:"Meta"},IA_PER={anio:"En lo que va de año","3m":"Últimos 3 meses","2m":"Últimos 2 meses",mes:"Mes en curso"};
+/* ===== Captación: inversión por plataforma, 2025 frente a 2026. Inversión de Windsor.ai; leads y ventas de Zoho CRM por Utm_Source ===== */
+const IA_MES=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const IA_PER={mes:"Mes en curso",pasado:"Mes pasado","3m":"Últimos 3 meses",jul:"Desde julio",anio:"En lo que va de año"};
 const iaCorto=n=>n==null?"–":n>=1e6?(n/1e6).toFixed(n>=1e7?0:1).replace(".",",")+" M":n>=1e4?Math.round(n/1e3)+" k":igGr(n);
-const iaVar=(b,a)=>a&&b!=null?b/a-1:null,iaVarTxt=x=>x==null||!isFinite(x)?"–":(x>=0?"▲ +":"▼ −")+Math.abs(x*100).toFixed(0)+" %";
+const iaVar=(b,a)=>a&&b!=null?b/a-1:null,iaVarTxt=x=>x==null||!isFinite(x)?"–":x>9.99?"nuevo":Math.abs(x)<.005?"= 0 %":(x>=0?"▲ +":"▼ −")+Math.abs(x*100).toFixed(0)+" %";
 const iaPc=x=>x==null||!isFinite(x)?"–":(x*100).toFixed(1).replace(".",",")+" %";
-function iaDatos(){const I=st.invAnual;if(!I||!(I.filas||[]).length)return null;const C=st.cap,Vn=st.ven;
-  const V=st.iaV||(st.iaV={canal:"total",per:"anio"});
-  const act=I.corte?.ym||I.filas[I.filas.length-1][0],y1=Math.floor(act/100),y0=y1-1,mAct=act%100;
-  const sel=(g,m)=>V.canal==="google"?g:V.canal==="meta"?m:(g||0)+(m||0);
-  const inv={};I.filas.forEach(([ym,g,m])=>{inv[ym]=sel(g,m)});const pv=I.corte?.prev||{},invCorte=sel(pv.g,pv.m);
-  const de={},dc={},fa={},fc={};(C?.idi||[]).forEach(r=>{de[r[0]]=(de[r[0]]||0)+r[3];dc[r[0]]=(dc[r[0]]||0)+r[5]});
-  (Vn?.filas||[]).forEach(r=>{fa[r[0]]=(fa[r[0]]||0)+r[3];fc[r[0]]=(fc[r[0]]||0)+r[5]});
-  const ini={anio:1,"3m":mAct-2,"2m":mAct-1,mes:mAct}[V.per]||1;
-  const M=MESN.map((n,i)=>{const m=i+1,a=y0*100+m,b=y1*100+m,cur=m===mAct,fut=m>mAct;
-    return{m,n,cur,fut,sel:m>=Math.max(1,ini)&&m<=mAct,i0:cur?invCorte:inv[a],i1:fut?null:inv[b],i0m:inv[a],d0:C?(cur?dc[a]:de[a]):null,d1:C&&!fut?de[b]:null,d0m:de[a],f0:Vn?(cur?fc[a]:fa[a]):null,f1:Vn&&!fut?fa[b]:null,f0m:fa[a]}});
-  const S={i0:0,i1:0,d0:0,d1:0,f0:0,f1:0};M.filter(x=>x.sel).forEach(x=>{for(const k in S)S[k]+=x[k]||0});
-  return st.iaD={I,V,y0,y1,mAct,M,S,hayD:!!C,hayF:!!Vn,diaInv:I.corte?.dia,diaZ:C?.corte||Vn?.corte}}
+const iaEur=n=>n==null||!isFinite(n)?"–":n<100?n.toFixed(2).replace(".",",")+" €":igEur(n);
+/* Qué suma cada vista: la inversión de las plataformas con coste conectado; leads y ventas por UTM, o todos los deals en la vista global */
+function iaSel(I,pl){const PL=I.plataformas||[],con=PL.filter(p=>p.coste),P=PL.find(p=>p.id===pl);
+  if(pl==="todas")return{inv:con.map(p=>p.id),dk:["total"],utm:false,nom:"Global"};
+  if(pl==="pagadas")return{inv:con.map(p=>p.id),dk:con.map(p=>p.id),utm:true,nom:con.map(p=>p.nombre).join(" y ")};
+  return{inv:P&&P.coste?[pl]:[],dk:[pl],utm:true,nom:P?P.nombre:pl}}
+const iaRat=x=>{x.l0=x.i0!=null&&x.d0?x.i0/x.d0:null;x.l1=x.i1!=null&&x.d1?x.i1/x.d1:null;x.a0=x.i0!=null&&x.w0?x.i0/x.w0:null;x.a1=x.i1!=null&&x.w1?x.i1/x.w1:null;
+  x.c0=x.d0&&x.w0!=null?x.w0/x.d0:null;x.c1=x.d1&&x.w1!=null?x.w1/x.d1:null;return x};
+/* Mes a mes. El mes en curso de 2025 se corta en el mismo día; las ventas de cada año, cerradas hasta el mismo día del año */
+function iaSerie(I,s,per){const act=I.corte.ym,y1=Math.floor(act/100),y0=y1-1,mAct=act%100;
+  const sum=(o,ids,ym)=>{let t=0,h=false;ids.forEach(id=>{const v=ym==null?o?.[id]:o?.[id]?.[ym];if(v!=null){t+=v;h=true}});return h?t:null};
+  const iv=ym=>s.inv.length?sum(I.inv,s.inv,ym):null;
+  const ini=Math.max(1,{mes:mAct,pasado:mAct-1,"3m":mAct-2,jul:7,anio:1}[per]||1),fin=Math.max(1,per==="pasado"?mAct-1:mAct);
+  const M=MESN.map((n,i)=>{const m=i+1,a=y0*100+m,b=y1*100+m,cur=m===mAct,fut=m>mAct,nu=s.utm&&a<I.utm_desde;
+    const x={m,n,cur,fut,nu,sel:m>=ini&&m<=fin&&!fut,
+      i0:cur?(s.inv.length?sum(I.inv_corte,s.inv):null):iv(a),i1:fut?null:iv(b),i0m:iv(a),
+      d0:nu?null:cur?sum(I.d_corte,s.dk):sum(I.d,s.dk,a),d1:fut?null:sum(I.d,s.dk,b),d0m:nu?null:sum(I.d,s.dk,a),
+      w0:nu?null:cur?sum(I.w_corte,s.dk):fut?sum(I.wf,s.dk,a):sum(I.w,s.dk,a),w1:fut?null:sum(I.w,s.dk,b),w0f:nu?null:sum(I.wf,s.dk,a)};
+    iaRat(x);x.l0m=x.i0m!=null&&x.d0m?x.i0m/x.d0m:null;x.a0f=x.i0m!=null&&x.w0f?x.i0m/x.w0f:null;return x});
+  return{M,y0,y1,mAct,ini,fin}}
+function iaSuma(L){const S={i0:0,i1:0,d0:0,d1:0,w0:0,w1:0},nul={};
+  if(!L.length)for(const k in S)nul[k]=1;
+  L.forEach(x=>{for(const k in S){if(x[k]==null)nul[k]=1;else S[k]+=x[k]}});
+  for(const k in nul)S[k]=null;S.nu=L.some(x=>x.nu);S.fut=L.length&&L.every(x=>x.fut);S.cur=L.some(x=>x.cur);return iaRat(S)}
 /* Barras agrupadas por mes (2025 y 2026) o líneas; un solo eje; la banda marca el periodo elegido */
 const iaPaso=v=>{const e=Math.pow(10,Math.floor(Math.log10(v))),f=v/e;return(f<=1?1:f<=2?2:f<=2.5?2.5:f<=5?5:10)*e};
 function iaGraf(D,id,tit,sub,k,fmt,tipo){const W=560,H=240,pl=62,pr=8,pt=12,pb=28,gw=(W-pl-pr)/12;
-  const v0=D.M.map(x=>x[k+"0"]),v1=D.M.map(x=>x[k+"1"]),vals=[...v0,...v1].filter(v=>v!=null&&isFinite(v));
+  const v0=D.M.map(x=>x.fut&&(k==="a"||k==="w")?null:x[k+"0"]),v1=D.M.map(x=>x[k+"1"]),vals=[...v0,...v1].filter(v=>v!=null&&isFinite(v));
   if(!vals.length)return`<div class="ia-g"><h4>${tit}</h4><div class="vacio">Sin datos.</div></div>`;
   const paso=iaPaso(Math.max(...vals)/4||1),mx=paso*Math.ceil(Math.max(...vals)/paso||1),y=v=>pt+(H-pt-pb)*(1-v/mx),cx=i=>pl+gw*i+gw/2;
   const ticks=Array.from({length:Math.round(mx/paso)+1},(_,i)=>i*paso);
@@ -3343,15 +3378,14 @@ function iaGraf(D,id,tit,sub,k,fmt,tipo){const W=560,H=240,pl=62,pr=8,pt=12,pb=2
    <div class="ia-ley${tipo==="barras"?"":" lin"}"><span style="--c:var(--ia25)">${D.y0}</span><span style="--c:var(--ia26)">${D.y1}</span></div>
    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tit}: ${D.y0} frente a ${D.y1} por mes">${band}${ticks.map(t=>`<line class="ia-grid" x1="${pl}" x2="${W-pr}" y1="${y(t).toFixed(1)}" y2="${y(t).toFixed(1)}"/><text class="ia-ax" x="${pl-6}" y="${(y(t)+4).toFixed(1)}" text-anchor="end">${fmt(t)}</text>`).join("")}
     ${D.M.map((x,i)=>`<text class="ia-ax${x.sel?" ia-axs":""}" x="${cx(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${x.n}${x.cur?"*":""}</text>`).join("")}${marcas}</svg><div class="ia-tip" hidden></div></div>`}
-const IA_G={inv:["i","Inversión en Ads",x=>igEur(x)],fact:["f","Facturación",x=>igEur(x)],deals:["d","Deals",x=>igGr(x)],ratio:["r","Inversión sobre facturación",x=>iaPc(x)]};
+const IA_G={inv:["i","Inversión",x=>igEur(x)],leads:["d","Leads",x=>igGr(x)],ventas:["w","Ventas",x=>igGr(x)],cpl:["l","CPL",iaEur],cpa:["a","CPA",iaEur]};
 function iaTip(g,h,ev){const D=st.iaD;if(!D)return;const[id,i]=h.dataset.iam.split("|"),x=D.M[+i],[k,tit,f]=IA_G[id]||[];if(!x||!k)return;
-  const val=(x,yy)=>k==="r"?(x["f"+yy]?x["i"+yy]/x["f"+yy]:null):x[k+yy];
-  const a=val(x,0),b=x.fut?null:val(x,1),t=g.querySelector(".ia-tip");if(!t)return;
-  const dia=k==="i"?D.diaInv:D.diaZ,nom=MESN[x.m-1];
-  t.innerHTML=`<div class="ia-tt">${tit} · ${nom}${x.cur?(k==="r"?" (parcial)":` (del 1 al ${dia})`):""}</div>
-   <div><i style="--c:var(--ia26)"></i><b>${b==null?"–":f(b)}</b> ${D.y1}</div><div><i style="--c:var(--ia25)"></i><b>${a==null?"–":f(a)}</b> ${D.y0}${x.cur?" mismos días":""}</div>
-   ${k!=="r"&&a&&b!=null?`<div class="ia-tv">${iaVarTxt(iaVar(b,a))}</div>`:k==="r"&&a!=null&&b!=null?`<div class="ia-tv">${((b-a)*100>=0?"+":"−")+Math.abs((b-a)*100).toFixed(1).replace(".",",")} puntos</div>`:""}
-   ${x.cur&&k!=="r"&&x[k+"0m"]!=null?`<div class="ia-tn">${D.y0} mes completo: ${f(x[k+"0m"])}</div>`:""}`;
+  const a=x[k+"0"],b=x.fut?null:x[k+"1"],t=g.querySelector(".ia-tip");if(!t)return;
+  const v=iaVar(b,a),nom=MESN[x.m-1];
+  const ref=x.fut?(k==="w"||k==="a"?`${D.y0} con todas sus ventas`:""):k==="a"&&x.a0f!=null?`${D.y0} con todas sus ventas: ${f(x.a0f)}`:k==="w"&&x.w0f!=null?`${D.y0} con todas sus ventas: ${f(x.w0f)}`:x.cur&&x[k+"0m"]!=null?`${D.y0} mes completo: ${f(x[k+"0m"])}`:"";
+  t.innerHTML=`<div class="ia-tt">${tit} · ${nom}${x.cur?` (del 1 al ${D.dia})`:""}</div>
+   <div><i style="--c:var(--ia26)"></i><b>${b==null?"–":f(b)}</b> ${D.y1}</div><div><i style="--c:var(--ia25)"></i><b>${a==null?(x.nu&&k!=="i"?"sin UTM":"–"):f(a)}</b> ${D.y0}${x.cur?" mismos días":""}</div>
+   ${v!=null?`<div class="ia-tv">${iaVarTxt(v)}</div>`:""}${ref?`<div class="ia-tn">${ref}</div>`:""}`;
   t.hidden=false;const r=g.getBoundingClientRect(),s=r.width/g.offsetWidth||1,hr=h.getBoundingClientRect();
   const px=ev&&ev.clientX!=null?ev.clientX:hr.left+hr.width/2,py=ev&&ev.clientY!=null?ev.clientY:hr.top+hr.height/2;
   let lx=(px-r.left)/s+14,ly=(py-r.top)/s-10;if(lx+t.offsetWidth>g.offsetWidth-4)lx=(px-r.left)/s-t.offsetWidth-14;t.style.left=Math.max(4,lx)+"px";t.style.top=Math.max(4,Math.min(ly,g.offsetHeight-t.offsetHeight-4))+"px";
@@ -3360,35 +3394,69 @@ function iaTipOff(g){if(!g)return;const t=g.querySelector(".ia-tip");if(t)t.hidd
 {let gAct=null;document.addEventListener("pointermove",e=>{const g=e.target.closest?.(".ia-g"),h=e.target.closest?.("[data-iam]");if(gAct&&gAct!==g)iaTipOff(gAct);gAct=g;if(g&&h)iaTip(g,h,e);else if(g)iaTipOff(g)});
  document.addEventListener("focusin",e=>{const h=e.target.closest?.("[data-iam]");if(h){const g=h.closest(".ia-g");if(gAct&&gAct!==g)iaTipOff(gAct);gAct=g;iaTip(g,h)}});
  document.addEventListener("focusout",e=>{const h=e.target.closest?.("[data-iam]");if(h)iaTipOff(h.closest(".ia-g"))})}
+/* Celda con el valor de este año arriba y el del año pasado con la variación debajo. mejor: "baja" (CPL, CPA) o "sube" (leads, ventas) colorea la variación */
+function iaCel(v1,v0,f,mejor,y0,nu,pts){const x=pts?(v1!=null&&v0!=null?v1-v0:null):iaVar(v1,v0),bien=x==null||!mejor||Math.abs(x)<(pts?.0005:.005)||(!pts&&x>9.99)?"":(mejor==="baja"?x<0:x>0)?"ia-ok":"ia-ko";
+  const vt=x==null||!isFinite(x)||(pts&&Math.abs(x)<.0005)?"":pts?`${x>=0?"▲ +":"▼ −"}${Math.abs(x*100).toFixed(1).replace(".",",")} pt`:iaVarTxt(x);
+  return`<b>${v1==null?"–":f(v1)}</b><small>${y0} ${v0==null?(nu?"sin UTM":"–"):f(v0)}${vt?` · <em class="${bien}">${vt}</em>`:""}</small>`}
 function pintarInvAnual(){const el=document.getElementById("c-captacion_inv");if(!el||st.dentro!=="captacion")return;
-  const D=iaDatos();if(!D){el.innerHTML=`<div class="mcab"><div><h2>Inversión ${new Date().getFullYear()-1} frente a ${new Date().getFullYear()}</h2></div></div><div class="vacio">Álex está cargando la inversión de Google Ads y Meta.</div>`;return}
-  const{V,S,M,y0,y1,mAct}=D,can=IA_CAN[V.canal],dz=D.diaZ,di=D.diaInv,mesAct=MESN[mAct-1];
-  M.forEach(x=>{x.r0=x.f0?x.i0/x.f0:null;x.r1=x.f1?x.i1/x.f1:null});
-  const kpi=(v,lab,a,txt)=>`<div><b>${v}</b><span>${lab}</span><span class="ia-k2">${[txt,a!=null?`${y0}: ${a}`:""].filter(Boolean).join(" · ")}</span></div>`;
-  const r0=S.f0?S.i0/S.f0:null,r1=S.f1?S.i1/S.f1:null;
-  const kpis=`<div class="as-res ia-res">${kpi(igEur(S.i1),`inversión en ${can}`,igEur(S.i0),iaVarTxt(iaVar(S.i1,S.i0)))}
-   ${kpi(D.hayF?igEur(S.f1):"–","facturación (viajes vendidos)",D.hayF?igEur(S.f0):null,D.hayF?iaVarTxt(iaVar(S.f1,S.f0)):"")}
-   ${kpi(D.hayD?igGr(S.d1):"–","deals",D.hayD?igGr(S.d0):null,D.hayD?iaVarTxt(iaVar(S.d1,S.d0)):"")}
-   ${kpi(iaPc(r1),"inversión sobre facturación",iaPc(r0),r0!=null&&r1!=null?`${(r1-r0)*100>=0?"+":"−"}${Math.abs((r1-r0)*100).toFixed(1).replace(".",",")} puntos`:"")}
-   ${kpi(S.i1?(S.f1/S.i1).toFixed(1).replace(".",",")+" €":"–","facturados por cada € invertido",S.i0?(S.f0/S.i0).toFixed(1).replace(".",",")+" €":null,"")}
-   ${kpi(S.d1?igEur(S.i1/S.d1):"–","inversión por deal",S.d0?igEur(S.i0/S.d0):null,"")}</div>`;
-  const per=`${IA_PER[V.per]}: ${V.per==="mes"?mesAct:MESN[(M.find(x=>x.sel)?.m||1)-1]+" a "+mesAct}. ${mesAct} se compara con los mismos días de ${y0}: inversión del 1 al ${di} y deals y facturación del 1 al ${dz}.`;
-  const ctl=`<div class="as-ctl"><div class="as-modo">${Object.entries(IA_CAN).map(([k,n])=>`<button class="btn${V.canal===k?" prim":""}" data-iacanal="${k}">${n}</button>`).join("")}</div>
+  const I=st.invPl;if(!I||!I.inv||!I.corte){el.innerHTML=`<div class="mcab"><div><h2>Inversión, CPL y CPA</h2></div></div><div class="vacio">Álex está cargando la inversión de Google Ads y Meta.</div>`;return}
+  const PL=I.plataformas||[],con=PL.filter(p=>p.coste),sinC=PL.filter(p=>!p.coste);
+  const V=st.iaV&&st.iaV.pl?st.iaV:(st.iaV={pl:"todas",per:"anio",vista:"mes"});
+  if(!["todas","pagadas",...PL.map(p=>p.id)].includes(V.pl))V.pl="todas";if(!IA_PER[V.per])V.per="anio";
+  const s=iaSel(I,V.pl),D=iaSerie(I,s,V.per),{M,y0,y1,mAct}=D,dia=I.corte.dia,mesAct=MESN[mAct-1],S=iaSuma(M.filter(x=>x.sel)),conCoste=s.inv.length>0;
+  st.iaD={...D,dia};
+  const conNom=con.map(p=>p.nombre).join(" y ");
+  /* Cabecera de control */
+  const chip=(id,nom,extra,tt)=>`<button class="btn${V.pl===id?" prim":""}" data-iapl="${id}"${tt?` title="${tt}"`:""}>${nom}${extra||""}</button>`;
+  const ctl=`<div class="as-ctl"><div class="as-modo ia-plc">${chip("todas","Global","",`Inversión de ${conNom} frente a todos los deals y ventas`)}${chip("pagadas",con.map(p=>p.nombre.replace(" Ads","")).join(" + "),"","Suma de las plataformas con coste, con leads y ventas por UTM")}${PL.map(p=>chip(p.id,p.nombre,p.coste?"":`<span class="ia-tag">sin coste</span>`)).join("")}</div>
    <div class="as-modo">${Object.entries(IA_PER).map(([k,n])=>`<button class="btn${V.per===k?" prim":""}" data-iaper="${k}">${n}</button>`).join("")}</div></div>`;
-  const graf=`<div class="ia-graf">${iaGraf(D,"inv","Inversión en Ads",`${can} · coste por mes`,"i",iaCorto,"barras")}${iaGraf(D,"fact","Facturación","Importe de viajes vendidos por mes","f",iaCorto,"barras")}
-   ${iaGraf(D,"deals","Deals","Deals creados por mes","d",iaCorto,"barras")}${iaGraf(D,"ratio","Inversión sobre facturación",`${can} / facturación del mes`,"r",x=>(x*100).toFixed(0)+" %","lineas")}</div>`;
-  const dif=(b,a)=>{const x=iaVar(b,a);return`<td class="ia-dv">${x==null?"–":(x>=0?"+":"−")+Math.abs(x*100).toFixed(0)+" %"}</td>`},e=n=>n==null?"–":igEur(n),g=n=>n==null?"–":igGr(n);
-  const fila=x=>`<tr class="${x.sel?"ia-sel":""}${x.fut?" ia-fut":""}"><td class="as-n">${x.n}${x.cur?` <small>(1 al ${di}/${dz})</small>`:""}</td><td>${e(x.i0)}</td><td>${e(x.i1)}</td>${dif(x.i1,x.i0)}<td>${g(x.d0)}</td><td>${g(x.d1)}</td>${dif(x.d1,x.d0)}<td>${e(x.f0)}</td><td>${e(x.f1)}</td>${dif(x.f1,x.f0)}<td>${iaPc(x.r0)}</td><td>${iaPc(x.r1)}</td></tr>`;
-  const tabla=`<div class="as-tw"><table class="as-t ia-t"><thead><tr><th rowspan="2" class="as-n">Mes</th><th colspan="3">Inversión (${can})</th><th colspan="3">Deals</th><th colspan="3">Facturación</th><th colspan="2">Inversión / facturación</th></tr>
-   <tr>${["i","d","f"].map(()=>`<th>${y0}</th><th>${y1}</th><th>Var.</th>`).join("")}<th>${y0}</th><th>${y1}</th></tr></thead>
-   <tbody>${M.map(fila).join("")}</tbody><tfoot><tr><td class="as-n">${IA_PER[V.per]}</td><td>${e(S.i0)}</td><td>${e(S.i1)}</td>${dif(S.i1,S.i0)}<td>${g(S.d0)}</td><td>${g(S.d1)}</td>${dif(S.d1,S.d0)}<td>${e(S.f0)}</td><td>${e(S.f1)}</td>${dif(S.f1,S.f0)}<td>${iaPc(r0)}</td><td>${iaPc(r1)}</td></tr></tfoot></table></div>`;
-  const A=D.I.analisis,an=A?`<div class="seccion-t">Por qué crece la facturación · análisis del ${esc(A.fecha||"")}</div><div class="ia-an"><div><h4>Qué lo explica</h4><ul>${(A.por_que||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div><div><h4>¿Se mantendrá?</h4><ul>${(A.futuro||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></div>`:"";
-  el.innerHTML=`<div class="mcab"><div><h2>Inversión ${y0} frente a ${y1}</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.I.fuente||"")} Deals y facturación: Zoho Analytics.</div></div><div class="meta">inversión hasta el ${esc(D.I.corte?.fecha||"")}</div></div>
-   ${ctl}<div class="ia-per">${esc(per)} Inversión hasta el ${esc(D.I.corte?.fecha||"")} (Windsor.ai); deals y facturación de Zoho Analytics.</div>${kpis}${graf}
-   <div class="seccion-t">Mes a mes</div>${tabla}${an}
-   <p class="as-nota">Inversión: coste de Google Ads y Meta Ads por mes (Windsor.ai); Bing no está conectado y no entra. Deals: deals de Zoho por mes de creación, todos los canales. Facturación: importe de los viajes vendidos por mes de creación (informe Trips Overview, todos los estados). Inversión sobre facturación y facturación por euro relacionan la inversión en Ads con toda la facturación, también la que llega por canales orgánicos, así que miden la eficiencia del conjunto, no el retorno de un canal. El mes en curso (*) se compara con los mismos días de ${y0}: la inversión hasta el día ${di} (último día completo en Windsor) y deals y facturación hasta el día ${dz}. En las gráficas, las barras claras del mes en curso son parciales y la banda marca el periodo elegido.</p>`}
-document.addEventListener("click",e=>{const c=e.target.closest("[data-iacanal]");if(c&&st.iaV){st.iaV.canal=c.dataset.iacanal;pintarInvAnual();return}
-  const p=e.target.closest("[data-iaper]");if(p&&st.iaV){st.iaV.per=p.dataset.iaper;pintarInvAnual()}});
+  const rango=D.ini===D.fin?IA_MES[D.ini-1]:`${IA_MES[D.ini-1]} a ${IA_MES[D.fin-1]}`,mesL=IA_MES[mAct-1];
+  const lente=V.pl==="todas"?`Vista global: inversión de ${conNom} frente a todos los deals y ventas del CRM, vengan del canal que vengan. Es la única comparación posible en todos los meses.`
+    :conCoste?`Leads y ventas de ${s.nom} según la UTM del deal en Zoho; la inversión es su coste en ${s.inv.length>1?"las dos plataformas":"la plataforma"}.`
+    :`${s.nom} todavía no tiene el coste conectado: se ven sus leads y ventas, pero no la inversión, el CPL ni el CPA.`;
+  const perTxt=`${IA_PER[V.per]}: ${rango}.${D.fin===mAct?` ${mesL[0].toUpperCase()+mesL.slice(1)} se compara con los mismos días de ${y0} (del 1 al ${dia}).`:""}`;
+  const aviso=S.nu?`<div class="cp-aviso"><b>Sin UTM en ${y0} antes de julio.</b> Zoho empezó a guardar la UTM de los deals en junio de ${y0}, así que los leads, el CPL, las ventas y el CPA de ${esc(s.nom)} no tienen con qué compararse en esos meses. Elige «Desde julio» para una comparación limpia, o la vista Global para todo el año.</div>`:"";
+  /* KPI */
+  const kp=(v1,v0,lab,f,mejor,pts)=>`<div>${iaCel(v1,v0,f,mejor,y0,S.nu,pts).replace("<small>",`<span>${lab}</span><small class="ia-k2">`)}</div>`;
+  const kpis=`<div class="as-res ia-res">${kp(S.i1,S.i0,conCoste?"inversión":"inversión (sin conectar)",igEur)}${kp(S.d1,S.d0,V.pl==="todas"?"leads (todos los deals)":"leads (deals)",igGr,"sube")}
+   ${kp(S.l1,S.l0,V.pl==="todas"?"CPL global":"CPL",iaEur,"baja")}${kp(S.w1,S.w0,"ventas (won)",igGr,"sube")}${kp(S.a1,S.a0,V.pl==="todas"?"CPA global":"CPA",iaEur,"baja")}${kp(S.c1,S.c0,"conversión lead a venta",iaPc,"sube",true)}</div>`;
+  /* Tabla por plataforma para el periodo elegido */
+  const filas=[...con.map(p=>[p.id,p.nombre,""]),["pagadas",`${conNom} (atribuido)`,"ia-subt"],...sinC.map(p=>[p.id,p.nombre,"ia-nc-f"]),["todas","Todo el negocio (global)","ia-glob"]];
+  const agr=filas.map(([id])=>{const s2=iaSel(I,id);return[id,s2,iaSuma(iaSerie(I,s2,V.per).M.filter(x=>x.sel))]}),tot=agr.find(a=>a[0]==="pagadas")[2];
+  const nc=`<td class="ia-nc">sin conectar</td>`;
+  const tPl=`<div class="as-tw"><table class="as-t ia-pt"><thead><tr><th class="as-n">Plataforma</th><th>Inversión</th><th>% de la inversión</th><th>Leads</th><th>CPL</th><th>Ventas</th><th>CPA</th><th>Conversión</th></tr></thead><tbody>${agr.map(([id,s2,T],i)=>{const[,nom,cls]=filas[i],cc=s2.inv.length>0;
+    return`<tr data-iapl="${id}" class="${cls}${V.pl===id?" ia-sel":""}" tabindex="0"><td class="as-n">${nom}${cc?"":`<span class="ia-tag">sin coste</span>`}</td>
+     ${cc?`<td>${iaCel(T.i1,T.i0,igEur,null,y0)}</td><td>${iaCel(tot.i1?T.i1/tot.i1:null,tot.i0?T.i0/tot.i0:null,iaPc,null,y0,false,true)}</td>`:nc+nc}
+     <td>${iaCel(T.d1,T.d0,igGr,"sube",y0,T.nu)}</td>${cc?`<td>${iaCel(T.l1,T.l0,iaEur,"baja",y0,T.nu)}</td>`:nc}<td>${iaCel(T.w1,T.w0,igGr,"sube",y0,T.nu)}</td>${cc?`<td>${iaCel(T.a1,T.a0,iaEur,"baja",y0,T.nu)}</td>`:nc}<td>${iaCel(T.c1,T.c0,iaPc,"sube",y0,T.nu,true)}</td></tr>`}).join("")}</tbody></table></div>`;
+  /* Gráficas */
+  const eje=x=>igGr(x)+" €",subD=V.pl==="todas"?"Todos los deals":`Deals con UTM de ${esc(s.nom)}`;
+  const graf=conCoste?`${iaGraf(D,"inv","Inversión",`${esc(s.inv.map(id=>PL.find(p=>p.id===id).nombre).join(" y "))} · coste por mes`,"i",iaCorto,"barras")}${iaGraf(D,"leads","Leads",`${subD} · por mes de creación`,"d",iaCorto,"barras")}
+     ${iaGraf(D,"cpl",V.pl==="todas"?"CPL global":"CPL","Inversión / leads","l",eje,"lineas")}${iaGraf(D,"cpa",V.pl==="todas"?"CPA global":"CPA","Inversión / ventas cerradas hasta el mismo día de cada año","a",eje,"lineas")}`
+    :`${iaGraf(D,"leads","Leads",`${subD} · por mes de creación`,"d",iaCorto,"barras")}${iaGraf(D,"ventas","Ventas","Ventas cerradas hasta el mismo día de cada año","w",iaCorto,"barras")}`;
+  /* Mes a mes o por trimestre */
+  const grupos=V.vista==="tri"?[1,2,3,4].map(q=>{const L=M.filter(x=>x.m>3*q-3&&x.m<=3*q),act=L.filter(x=>!x.fut),T=iaSuma(act.length?act:L);return{n:`T${q}`,T,sel:L.some(x=>x.sel),fut:!act.length,cur:act.some(x=>x.cur),info:act.length&&act.length<3?`${MESN[act[0].m-1]}${act.length>1?" a "+MESN[act[act.length-1].m-1]:""}`:""}})
+    :M.map(x=>({n:x.n,T:x,sel:x.sel,fut:x.fut,cur:x.cur,info:""}));
+  const filaM=g=>{const T=g.T,nu=T.nu,fut=g.fut;return`<tr class="${g.sel?"ia-sel":""}${fut?" ia-fut":""}"><td class="as-n">${g.n}${g.cur?` <small>(${g.info?g.info+", ":""}1 al ${dia})</small>`:g.info?` <small>(${g.info})</small>`:""}</td>
+    ${conCoste?`<td>${iaCel(fut?null:T.i1,T.i0,igEur,null,y0)}</td>`:nc}<td>${iaCel(fut?null:T.d1,T.d0,igGr,"sube",y0,nu)}</td>${conCoste?`<td>${iaCel(fut?null:T.l1,T.l0,iaEur,"baja",y0,nu)}</td>`:nc}
+    <td>${iaCel(fut?null:T.w1,T.w0,igGr,"sube",y0,nu)}</td>${conCoste?`<td>${iaCel(fut?null:T.a1,T.a0,iaEur,"baja",y0,nu)}</td>`:nc}<td>${iaCel(fut?null:T.c1,T.c0,iaPc,"sube",y0,nu,true)}</td></tr>`};
+  const tMes=`<div class="as-ctl"><div class="as-modo">${[["mes","Mes a mes"],["tri","Por trimestre"]].map(([k,n])=>`<button class="btn${V.vista===k?" prim":""}" data-iavista="${k}">${n}</button>`).join("")}</div></div>
+   <div class="as-tw"><table class="as-t ia-pt ia-tm"><thead><tr><th class="as-n">${V.vista==="tri"?"Trimestre":"Mes"}</th><th>Inversión</th><th>Leads</th><th>${V.pl==="todas"?"CPL global":"CPL"}</th><th>Ventas</th><th>${V.pl==="todas"?"CPA global":"CPA"}</th><th>Conversión</th></tr></thead>
+   <tbody>${grupos.map(filaM).join("")}</tbody><tfoot>${filaM({n:IA_PER[V.per],T:S,sel:false,fut:false,cur:false,info:rango}).replace(/<tr class="[^"]*">/,"<tr>")}</tfoot></table></div>`;
+  /* Etiquetado: cuántos deals llegan sin UTM cada año (afecta al CPL por plataforma, no al global) */
+  const suP=ys=>{let a=0,b=0;Object.entries(I.sin_utm||{}).forEach(([ym,n])=>{if(ys(+ym)){a+=n;b+=I.d.total?.[ym]||0}});return b?a/b:null};
+  const su0=suP(ym=>ym>=I.utm_desde&&ym<y1*100),su1=suP(ym=>ym>y1*100);
+  const A=I.analisis,an=A?`<details class="ia-ctx"><summary>Contexto: por qué crece la facturación (análisis del ${esc(A.fecha||"")})</summary><div class="ia-an"><div><h4>Qué lo explica</h4><ul>${(A.por_que||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div><div><h4>¿Se mantendrá?</h4><ul>${(A.futuro||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></div></details>`:"";
+  const fch=`${dia} de ${mesL} de ${y1}`;
+  el.innerHTML=`<div class="mcab"><div><h2>Inversión, CPL y CPA · ${y0} frente a ${y1}</h2><div class="fuente-mc" style="margin-top:6px">${esc(I.fuente||"")}</div></div><div class="meta">datos hasta el ${I.corte.fecha.split("-").reverse().join("/")}</div></div>
+   ${ctl}<div class="ia-per">${esc(perTxt)} ${esc(lente)}</div>${aviso}${kpis}
+   <div class="seccion-t">Por plataforma · ${esc(IA_PER[V.per].toLowerCase())}</div>${agr.some(a=>a[2].nu)?`<div class="ia-per">«${y0} sin UTM»: hasta junio de ${y0} Zoho no guardaba la UTM del deal, así que por plataforma solo se puede comparar desde julio. Con «Desde julio» la tabla compara todas las columnas.</div>`:""}${tPl}
+   <div class="ia-graf">${graf}</div>
+   <div class="seccion-t">${V.vista==="tri"?"Por trimestre":"Mes a mes"} · ${esc(V.pl==="todas"?"global":s.nom)}</div>${tMes}${an}
+   <p class="as-nota">Inversión: coste diario de ${esc(conNom)} en Windsor.ai, sumado por mes, hasta el ${fch}. ${esc(sinC.map(p=>p.nombre).join(", "))} aún no tienen el coste conectado; en cuanto llegue se rellenan solas sus columnas. Leads: deals creados en Zoho en el mes; por plataforma, según la Utm_Source del deal (google; meta, facebook o fb; bing; chatgpt_ads; caminofy), y en la vista global, todos los deals. Ventas: deals Won. Para comparar en igualdad, cada año cuenta las ventas cerradas hasta el mismo día: ${y1} hasta el ${dia} de ${mesL} de ${y1} y ${y0} hasta el ${dia} de ${mesL} de ${y0}; por eso el CPA de los últimos meses sale alto en los dos años y bajará a medida que se cierren ventas. En el gráfico y en los meses que faltan, ${y0} se muestra también con todas sus ventas como referencia. CPL = inversión / leads. CPA = inversión / ventas. Conversión = ventas / leads. Zoho guarda la UTM desde junio de ${y0}: antes no hay atribución por plataforma.${su0!=null&&su1!=null?` Además, de julio a diciembre de ${y0} el ${Math.round(su0*100)} % de los deals llegó sin UTM, frente al ${Math.round(su1*100)} % en ${y1}: parte de la mejora del CPL por plataforma es mejor etiquetado; la vista global no depende de eso.`:""} Pulsa una fila de la tabla por plataforma para verla en detalle.</p>`}
+document.addEventListener("click",e=>{if(!st.iaV)return;const c=e.target.closest("[data-iapl]");if(c&&c.closest("#c-captacion_inv")){st.iaV.pl=c.dataset.iapl;pintarInvAnual();return}
+  const p=e.target.closest("[data-iaper]");if(p){st.iaV.per=p.dataset.iaper;pintarInvAnual();return}
+  const v=e.target.closest("[data-iavista]");if(v){st.iaV.vista=v.dataset.iavista;pintarInvAnual()}});
+document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const r=e.target.closest?.("tr[data-iapl]");if(r&&st.iaV){e.preventDefault();st.iaV.pl=r.dataset.iapl;pintarInvAnual()}});
 
 /* ===== Análisis comercial: rutas y esfuerzo, país, temporada y tamaño de grupo ===== */
 const PR_RN={"Saint Jean Pied de Port":"St Jean Pied de Port","Arzua":"Arzúa","Fromista":"Frómista","Oia":"Oya","Eposende":"Esposende","Aviles":"Avilés","La Guardia":"A Guarda"};
@@ -4887,7 +4955,7 @@ const SUBS_SALA={
   googleads:[["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].map(([c,k])=>[c+"/actual",k,()=>pintarGads()]),
   instagram:[["ig_ranking/actual","igRank",()=>pintarRsRanking("instagram")],["ig_dash/actual","igDash",()=>pintarIgDash()],["ig_capt/actual","igCapt",()=>pintarIgCapt()],["ig_err/actual","igErr",()=>pintarIgErr()]],
   tiktok:[["tk_ranking/actual","tkRank",()=>pintarRsRanking("tiktok")]],
-  captacion:[["inversion_anual/actual","invAnual",()=>pintarInvAnual()]],
+  captacion:[["inversion_plataformas/actual","invPl",()=>pintarInvAnual()]],
   metaads:[["meta_ads/utm","metaUtm",()=>pintarMetaUtm()],["meta_report/actual","metaRep",()=>pintarMetaRep()],["meta_report/checks","metaChk",()=>pintarMetaRep()]]};
 let subsSala={id:null,u:[]};
 function suscribirSala(sala){if(!st.db||!SUBS_SALA[sala]||subsSala.id===sala)return;

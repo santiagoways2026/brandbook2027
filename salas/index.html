@@ -859,6 +859,12 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .ia-axs{fill-opacity:1;font-weight:700}
 .ia-band{fill:currentColor;fill-opacity:.05}
 .ia-bar.ia-b25{fill:var(--ia25)}.ia-bar.ia-b26{fill:var(--ia26)}
+#c-captacion_inv{--ia-google:#3987e5;--ia-meta:#a78bfa;--ia-bing:#2fb5a5;--ia-chatgpt:#e8b93a;--ia-caminofy:#e879f9;--ia-otros:#6b7280}
+.ia-bar.ia-c-google{fill:var(--ia-google)}.ia-bar.ia-c-meta{fill:var(--ia-meta)}.ia-bar.ia-c-bing{fill:var(--ia-bing)}.ia-bar.ia-c-chatgpt{fill:var(--ia-chatgpt)}.ia-bar.ia-c-caminofy{fill:var(--ia-caminofy)}.ia-bar.ia-c-otros{fill:var(--ia-otros)}
+.ia-bar.ia-y0{fill-opacity:.5}.ia-bar.ia-y0.ia-parc{fill-opacity:.28}.ia-bar.ia-y1.ia-parc{fill-opacity:.55}rect.ia-bar{stroke:var(--marco-2);stroke-width:.6}
+.ia-leyp{flex-wrap:wrap;row-gap:4px}.ia-leyp em{font-style:normal;color:var(--tenue);flex-basis:100%;font-size:11.5px}
+.ia-tpl{border-collapse:collapse;margin-top:6px;font-size:11.5px}.ia-tpl th{font-weight:600;color:var(--tenue);text-align:right;padding:0 0 2px 10px}.ia-tpl td{padding:1px 0 1px 10px;text-align:right;white-space:nowrap}.ia-tpl td:first-child{text-align:left;padding-left:0}.ia-tpl i{width:9px!important;height:9px!important;border-radius:2px;margin-right:6px!important}
+html[data-tema=sw] #c-captacion_inv{--ia-google:#2a78d6;--ia-meta:#7c5cd6;--ia-bing:#138a7d;--ia-chatgpt:#a87b00;--ia-caminofy:#b5179e;--ia-otros:#9aa3ad}html[data-tema=sw] rect.ia-bar{stroke:#fff}
 .ia-bar.ia-parc{fill-opacity:.45}
 .ia-lin{fill:none;stroke-width:2;stroke-linejoin:round}.ia-lin.ia-l25{stroke:var(--ia25)}.ia-lin.ia-l26{stroke:var(--ia26)}
 .ia-pt{stroke:var(--marco-2);stroke-width:2}.ia-pt.ia-p25{fill:var(--ia25)}.ia-pt.ia-p26{fill:var(--ia26)}.ia-pt.ia-parc{fill-opacity:.45}
@@ -3429,8 +3435,16 @@ function iaSerie(I,s,per){const act=I.corte.ym,y1=Math.floor(act/100),y0=y1-1,mA
       i0:cur?(s.inv.length?sum(I.inv_corte,s.inv):null):iv(a),i1:fut?null:iv(b),i0m:iv(a),
       d0:nu?null:cur?sum(I.d_corte,s.dk):sum(I.d,s.dk,a),d1:fut?null:sum(I.d,s.dk,b),d0m:nu?null:sum(I.d,s.dk,a),
       w0:nu?null:cur?sum(I.w_corte,s.dk):fut?sum(I.wf,s.dk,a):sum(I.w,s.dk,a),w1:fut?null:sum(I.w,s.dk,b),w0f:nu?null:sum(I.wf,s.dk,a)};
-    iaRat(x);x.l0m=x.i0m!=null&&x.d0m?x.i0m/x.d0m:null;x.a0f=x.i0m!=null&&x.w0f?x.i0m/x.w0f:null;return x});
+    iaRat(x);x.p=iaComp(I,s,a,b,cur,fut,nu);x.l0m=x.i0m!=null&&x.d0m?x.i0m/x.d0m:null;x.a0f=x.i0m!=null&&x.w0f?x.i0m/x.w0f:null;return x});
   return{M,y0,y1,mAct,ini,fin}}
+/* Desglose por plataforma de cada mes, con las mismas reglas que el total (mes en curso cortado al mismo día, ventas cerradas hasta el mismo día). En la vista global, «resto» es todo lo que no viene de una plataforma de pago */
+const IA_PC={google:"Google",meta:"Meta",bing:"Bing",chatgpt:"ChatGPT",caminofy:"Caminofy",otros:"Resto: orgánico y sin UTM"},IA_ORD=["google","meta","bing","chatgpt","caminofy","otros"];
+function iaComp(I,s,a,b,cur,fut,nu){const PL=(I.plataformas||[]).map(p=>p.id),o={i0:{},i1:{},d0:{},d1:{},w0:{},w1:{}},g=(src,id,ym)=>{const v=ym==null?src?.[id]:src?.[id]?.[ym];return v==null?null:v};
+  s.inv.forEach(id=>{const v0=cur?g(I.inv_corte,id):g(I.inv,id,a),v1=fut?null:g(I.inv,id,b);if(v0!=null)o.i0[id]=v0;if(v1!=null)o.i1[id]=v1});
+  const dd=id=>({d0:nu?null:cur?g(I.d_corte,id):g(I.d,id,a),d1:fut?null:g(I.d,id,b),w0:nu?null:cur?g(I.w_corte,id):fut?g(I.wf,id,a):g(I.w,id,a),w1:fut?null:g(I.w,id,b)});
+  const tot=s.dk[0]==="total";(tot?PL:s.dk).forEach(id=>{const v=dd(id);for(const k in v)if(v[k]!=null)o[k][id]=v[k]});
+  if(tot){const t=dd("total");for(const k of["d0","d1","w0","w1"])if(t[k]!=null){const r=t[k]-Object.values(o[k]).reduce((x,y)=>x+y,0);if(r>0)o[k].otros=r}}
+  return o}
 function iaSuma(L){const S={i0:0,i1:0,d0:0,d1:0,w0:0,w1:0},nul={};
   if(!L.length)for(const k in S)nul[k]=1;
   L.forEach(x=>{for(const k in S){if(x[k]==null)nul[k]=1;else S[k]+=x[k]}});
@@ -3443,14 +3457,19 @@ function iaGraf(D,id,tit,sub,k,fmt,tipo){const W=560,H=240,pl=62,pr=8,pt=12,pb=2
   const paso=iaPaso(Math.max(...vals)/4||1),mx=paso*Math.ceil(Math.max(...vals)/paso||1),y=v=>pt+(H-pt-pb)*(1-v/mx),cx=i=>pl+gw*i+gw/2;
   const ticks=Array.from({length:Math.round(mx/paso)+1},(_,i)=>i*paso);
   const selI=D.M.map((x,i)=>x.sel?i:-1).filter(i=>i>=0),band=selI.length?`<rect class="ia-band" x="${pl+gw*selI[0]}" y="${pt}" width="${gw*selI.length}" height="${H-pt-pb}"/>`:"";
-  const barra=(x0,w,v,cls)=>{if(v==null||!isFinite(v)||v<=0)return"";const yy=y(v),h=H-pb-yy,r=Math.min(3,h,w/2);return`<path class="ia-bar ${cls}" d="M${x0.toFixed(1)} ${H-pb}V${(yy+r).toFixed(1)}Q${x0.toFixed(1)} ${yy.toFixed(1)} ${(x0+r).toFixed(1)} ${yy.toFixed(1)}H${(x0+w-r).toFixed(1)}Q${(x0+w).toFixed(1)} ${yy.toFixed(1)} ${(x0+w).toFixed(1)} ${(yy+r).toFixed(1)}V${H-pb}Z"/>`};
+  const barra=(x0,w,v,cls,base=0)=>{if(v==null||!isFinite(v)||v<=base)return"";const yb=y(base),yy=y(v),h=yb-yy,r=Math.min(3,h,w/2);return`<path class="ia-bar ${cls}" d="M${x0.toFixed(1)} ${yb.toFixed(1)}V${(yy+r).toFixed(1)}Q${x0.toFixed(1)} ${yy.toFixed(1)} ${(x0+r).toFixed(1)} ${yy.toFixed(1)}H${(x0+w-r).toFixed(1)}Q${(x0+w).toFixed(1)} ${yy.toFixed(1)} ${(x0+w).toFixed(1)} ${(yy+r).toFixed(1)}V${yb.toFixed(1)}Z"/>`};
+  /* Cada barra se reparte por plataforma: abajo Google, encima Meta, Bing y el resto. El año se distingue por el tono: a la izquierda el año pasado, más claro */
+  const comp=(i,yr)=>{const o=D.M[i].p?.[k+yr];return o&&Object.keys(o).length?o:null},apila=tipo==="barras"&&D.M.some((x,i)=>comp(i,"1")||comp(i,"0"));
+  const uso=new Set();const pila=(x0,w,o,cls)=>{let acc=0,out="";const ks=IA_ORD.filter(id=>o[id]>0);ks.forEach((id,j)=>{uso.add(id);const b0=acc;acc+=o[id];
+      if(j===ks.length-1)out+=barra(x0,w,acc,`ia-c-${id} ${cls}`,b0);else{const y0_=y(b0),y1_=y(acc);out+=`<rect class="ia-bar ia-c-${id} ${cls}" x="${x0.toFixed(1)}" y="${y1_.toFixed(1)}" width="${w.toFixed(1)}" height="${Math.max(0,y0_-y1_).toFixed(1)}"/>`}});return out};
   let marcas="";
-  if(tipo==="barras"){const bw=Math.min(16,gw*.34);marcas=D.M.map((x,i)=>{const c=cx(i),p=x.cur?" ia-parc":"";return`<g class="ia-m" data-iam="${id}|${i}" tabindex="0">${barra(c-bw-1,bw,v0[i],"ia-b25"+p)}${barra(c+1,bw,v1[i],"ia-b26"+p)}<rect class="ia-hit" x="${pl+gw*i}" y="${pt}" width="${gw}" height="${H-pt-pb}"/></g>`}).join("")}
+  if(tipo==="barras"){const bw=Math.min(16,gw*.34);marcas=D.M.map((x,i)=>{const c=cx(i),p=x.cur?" ia-parc":"",o0=v0[i]==null?null:comp(i,"0"),o1=v1[i]==null?null:comp(i,"1");
+    return`<g class="ia-m" data-iam="${id}|${i}" tabindex="0">${apila&&o0?pila(c-bw-1,bw,o0,"ia-y0"+p):barra(c-bw-1,bw,v0[i],"ia-b25"+p)}${apila&&o1?pila(c+1,bw,o1,"ia-y1"+p):barra(c+1,bw,v1[i],"ia-b26"+p)}<rect class="ia-hit" x="${pl+gw*i}" y="${pt}" width="${gw}" height="${H-pt-pb}"/></g>`}).join("")}
   else{const linea=(v,cls)=>{let d="",on=false;v.forEach((t,i)=>{if(t==null||!isFinite(t)){on=false;return}d+=(on?"L":"M")+cx(i).toFixed(1)+" "+y(t).toFixed(1);on=true});return`<path class="ia-lin ${cls}" d="${d}"/>`};
     const pts=(v,cls)=>v.map((t,i)=>t==null||!isFinite(t)?"":`<circle class="ia-pt ${cls}${D.M[i].cur?" ia-parc":""}" cx="${cx(i).toFixed(1)}" cy="${y(t).toFixed(1)}" r="4"/>`).join("");
     marcas=`<line class="ia-x" y1="${pt}" y2="${H-pb}" x1="0" x2="0" visibility="hidden"/>${linea(v0,"ia-l25")}${linea(v1,"ia-l26")}${pts(v0,"ia-p25")}${pts(v1,"ia-p26")}`+D.M.map((x,i)=>`<g class="ia-m" data-iam="${id}|${i}" tabindex="0"><rect class="ia-hit" x="${pl+gw*i}" y="${pt}" width="${gw}" height="${H-pt-pb}"/></g>`).join("")}
   return`<div class="ia-g" data-iag="${id}"><h4>${tit}</h4><div class="ia-sub">${sub}</div>
-   <div class="ia-ley${tipo==="barras"?"":" lin"}"><span style="--c:var(--ia25)">${D.y0}</span><span style="--c:var(--ia26)">${D.y1}</span></div>
+   ${apila?`<div class="ia-ley ia-leyp">${IA_ORD.filter(id=>uso.has(id)).map(id=>`<span style="--c:var(--ia-${id})">${IA_PC[id]}</span>`).join("")}<em>En cada mes, barra izquierda ${D.y0} (tono claro) y derecha ${D.y1}</em></div>`:`<div class="ia-ley${tipo==="barras"?"":" lin"}"><span style="--c:var(--ia25)">${D.y0}</span><span style="--c:var(--ia26)">${D.y1}</span></div>`}
    <svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${tit}: ${D.y0} frente a ${D.y1} por mes">${band}${ticks.map(t=>`<line class="ia-grid" x1="${pl}" x2="${W-pr}" y1="${y(t).toFixed(1)}" y2="${y(t).toFixed(1)}"/><text class="ia-ax" x="${pl-6}" y="${(y(t)+4).toFixed(1)}" text-anchor="end">${fmt(t)}</text>`).join("")}
     ${D.M.map((x,i)=>`<text class="ia-ax${x.sel?" ia-axs":""}" x="${cx(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${x.n}${x.cur?"*":""}</text>`).join("")}${marcas}</svg><div class="ia-tip" hidden></div></div>`}
 const IA_G={inv:["i","Inversión",x=>igEur(x)],leads:["d","Leads",x=>igGr(x)],ventas:["w","Ventas",x=>igGr(x)],cpl:["l","CPL",iaEur],cpa:["a","CPA",iaEur]};
@@ -3460,7 +3479,8 @@ function iaTip(g,h,ev){const D=st.iaD;if(!D)return;const[id,i]=h.dataset.iam.spl
   const ref=x.fut?(k==="w"||k==="a"?`${D.y0} con todas sus ventas`:""):k==="a"&&x.a0f!=null?`${D.y0} con todas sus ventas: ${f(x.a0f)}`:k==="w"&&x.w0f!=null?`${D.y0} con todas sus ventas: ${f(x.w0f)}`:x.cur&&x[k+"0m"]!=null?`${D.y0} mes completo: ${f(x[k+"0m"])}`:"";
   t.innerHTML=`<div class="ia-tt">${tit} · ${nom}${x.cur?` (del 1 al ${D.dia})`:""}</div>
    <div><i style="--c:var(--ia26)"></i><b>${b==null?"–":f(b)}</b> ${D.y1}</div><div><i style="--c:var(--ia25)"></i><b>${a==null?(x.nu&&k!=="i"?"sin UTM":"–"):f(a)}</b> ${D.y0}${x.cur?" mismos días":""}</div>
-   ${v!=null?`<div class="ia-tv">${iaVarTxt(v)}</div>`:""}${ref?`<div class="ia-tn">${ref}</div>`:""}`;
+   ${v!=null?`<div class="ia-tv">${iaVarTxt(v)}</div>`:""}${ref?`<div class="ia-tn">${ref}</div>`:""}${(()=>{if(!["inv","leads","ventas"].includes(id))return"";const o1=x.fut?{}:x.p?.[k+"1"]||{},o0=x.p?.[k+"0"]||{},ks=IA_ORD.filter(q=>o1[q]>0||o0[q]>0);if(ks.length<2)return"";
+     return`<table class="ia-tpl"><tr><th></th><th>${D.y1}</th><th>${D.y0}</th></tr>${ks.map(q=>`<tr><td><i style="--c:var(--ia-${q})"></i>${IA_PC[q]}</td><td>${o1[q]!=null?f(o1[q]):"–"}</td><td>${o0[q]!=null?f(o0[q]):"–"}</td></tr>`).join("")}</table>`})()}`;
   t.hidden=false;const r=g.getBoundingClientRect(),s=r.width/g.offsetWidth||1,hr=h.getBoundingClientRect();
   const px=ev&&ev.clientX!=null?ev.clientX:hr.left+hr.width/2,py=ev&&ev.clientY!=null?ev.clientY:hr.top+hr.height/2;
   let lx=(px-r.left)/s+14,ly=(py-r.top)/s-10;if(lx+t.offsetWidth>g.offsetWidth-4)lx=(px-r.left)/s-t.offsetWidth-14;t.style.left=Math.max(4,lx)+"px";t.style.top=Math.max(4,Math.min(ly,g.offsetHeight-t.offsetHeight-4))+"px";
@@ -5561,6 +5581,7 @@ function temaSW(on,guardar=true){on=!!on;if(on===SW.on&&SW.css)return;SW.on=on;
     SW.obs=new MutationObserver(ms=>{for(const m of ms){if(m.type==="childList")m.addedNodes.forEach(swArbol);else swEl(m.target)}});
     SW.obs.observe(document.body,{subtree:true,childList:true,attributes:true,attributeFilter:["style","fill","stroke","stop-color"]})}
   else{SW.obs?.disconnect();SW.obs=null;delete document.documentElement.dataset.tema;swDeshacer(document.body)}
+  document.querySelectorAll("td.tz-c,th.tz-c").forEach(c=>{c.classList.remove("tz-c");c.style.background=""});if(typeof tzTodo==="function")tzTodo();
   const b=document.getElementById("temaSW");if(b){b.setAttribute("aria-pressed",on);b.querySelector("span").textContent=on?"Diseño original":"Diseño SW";b.title=on?"Volver al diseño oscuro original":"Ver todas las salas con el brandbook de Santiago Ways"}
   if(guardar)try{localStorage.setItem("salas_tema",on?"sw":"original")}catch(e){}}
 document.getElementById("temaSW")?.addEventListener("click",()=>temaSW(!SW.on));

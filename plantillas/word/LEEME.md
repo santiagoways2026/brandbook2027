@@ -6,24 +6,36 @@ Formato único para los documentos de Word de Santiago Ways, según el Brandbook
 |---|---|
 | `Plantilla_Santiago_Ways.dotx` | La plantilla para el día a día: portada y una página en blanco con cabecera y pie. Al abrirla con doble clic, Word crea un documento nuevo sin tocar la plantilla. |
 | `Documento_en_blanco_Santiago_Ways.docx` | Lo mismo, como documento normal. |
-| `Paginas_tipo_Santiago_Ways.docx` | Diez páginas tipo con Lorem Ipsum para inspirarse y copiar la que haga falta. |
-| `vista-previa/` | Las diez páginas renderizadas, para verlas sin abrir Word. |
+| `Paginas_tipo_Santiago_Ways.docx` | Diecinueve páginas tipo con Lorem Ipsum para inspirarse, copiar la que haga falta o pasárselas a una IA. |
+| `GUIA-IA.md` | Cómo pedir a una IA que monte un documento con la plantilla, con las instrucciones listas para copiar. |
+| `vista-previa/` | Las diecinueve páginas renderizadas, para verlas sin abrir Word. |
 | `generador/` | Scripts con los que se genera todo (ver abajo). |
 
 ## Páginas tipo
 
-1. **Portada tipográfica:** logo a color, filete verde, antetítulo, título, subtítulo y datos del documento al pie.
-2. **Portada con foto:** foto a sangre arriba y el título debajo.
-3. **Índice:** capítulos numerados con descripción y página.
-4. **Separador:** apertura de capítulo con número grande.
-5. **Solo texto:** entradilla, secciones y cita destacada entre filetes.
-6. **Texto y tabla:** tabla de datos con leyenda y fuente, y caja de nota.
-7. **Infografía:** cifras clave, gráfico de barras y proceso en cuatro pasos.
-8. **Listas:** dos columnas («Incluido» / «No incluido»), ideas numeradas y pasos.
-9. **Imágenes:** foto a ancho completo con pie y foto con texto al lado.
-10. **Contraportada:** logo vertical a color y datos de contacto.
+| | Página | Contenido |
+|---|---|---|
+| 1 | Portada tipográfica | Logo a color, filete verde, título y datos del documento al pie. |
+| 2 | Portada con foto | Foto a sangre arriba y el título debajo. |
+| 3 | Índice | Capítulos numerados con descripción y página. |
+| 4 | Separador | Apertura de capítulo con número grande. |
+| 5 | Resumen ejecutivo | Tres claves, recomendación, próximos pasos y caja de decisión. |
+| 6 | Solo texto | Entradilla, secciones y cita destacada entre filetes. |
+| 7 | Texto y tabla | Tabla de datos con leyenda y fuente, y caja de nota. |
+| 8 | Infografía | Cifras clave, gráfico de barras y proceso en cuatro pasos. |
+| 9 | Listas | «Incluido» / «No incluido», ideas numeradas y pasos. |
+| 10 | Imágenes | Foto a ancho completo con pie y foto con texto al lado. |
+| 11 | Itinerario | Datos de la ruta y tabla de etapas día a día. |
+| 12 | Comparativa | Tres opciones frente a frente con la recomendada resaltada. |
+| 13 | Plan de trabajo | Cronograma por meses e hitos. |
+| 14 | Testimonios | Opiniones en dos columnas y una destacada. |
+| 15 | Preguntas frecuentes | Preguntas y respuestas separadas por filetes. |
+| 16 | Presupuesto | Datos del cliente, conceptos, total y condiciones. |
+| 17 | Equipo y contactos | Personas, cargos, contacto y oficina. |
+| 18 | Modelo de carta | Comunicación formal con membrete. |
+| 19 | Contraportada | Logo vertical a color y datos de contacto. |
 
-Las tablas, barras y cifras son tablas de Word: se editan escribiendo encima, y las barras se alargan arrastrando su borde. Las fotos se cambian con clic derecho › *Cambiar imagen*.
+Las tablas, barras, cifras y el cronograma son tablas de Word: se editan escribiendo encima, y las barras se alargan arrastrando su borde. Las fotos se cambian con clic derecho › *Cambiar imagen*.
 
 ## Instalar la plantilla (una sola vez)
 

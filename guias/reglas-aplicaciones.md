@@ -184,7 +184,8 @@ Plantilla y páginas tipo en `plantillas/word/`.
 - **Estilo sobrio y elegante** **(feedback)**: blanco, texto en grafito y el verde solo como acento (filetes, viñetas, antetítulos y números).
 - **Sin subrayados verdes ni cajas de color** **(feedback)**. La caja de nota va en brote con un filete fino.
 - **Portadas:** tipográfica o con foto a sangre, siempre con el logo a color. Se descartó la portada con foto enmarcada y bloque verde **(feedback)**.
-- **Variedad de páginas** para inspirarse **(feedback)**: índice, separador, solo texto, texto y tabla, infografía, listas, imágenes y contraportada.
+- **Variedad de páginas** para inspirarse **(feedback)**: 19 páginas tipo, de la portada a la contraportada (resumen, tabla, infografía, itinerario, comparativa, cronograma, presupuesto, carta…).
+- **Pensada para usarse con IA** **(feedback)**: se adjunta `Paginas_tipo_Santiago_Ways.docx` y se pegan las instrucciones de `plantillas/word/GUIA-IA.md`.
 - Montserrat incrustada en el archivo para que se vea igual en cualquier ordenador.
 
 ---

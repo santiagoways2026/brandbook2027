@@ -14,6 +14,9 @@ Repositorio de trabajo del Brandbook 2027: el documento de marca, las aplicacion
 | `entregables/youtube-ano-santo-2027/` | Miniaturas (1280 × 720) del vídeo «Guía del Año Santo 2027» y portadas de 4 Shorts (1080 × 1920). |
 | `entregables/carrusel-100k/` | Carrusel de celebración de los 100K en Instagram: 6 PNG a 1080 × 1350 y PDF para importar en Canva. |
 | `plantillas/word/` | **Plantilla de Word** sobria para todos los documentos: `.dotx` para instalar en Word, documento en blanco, 19 páginas tipo y guía para montar documentos con IA. Instrucciones en `plantillas/word/LEEME.md`. |
+| `plantillas/presentacion/` | **Plantilla de presentación** 16:9 (PowerPoint y Presentaciones de Google): 11 diseños y 17 diapositivas de ejemplo. |
+| `plantillas/hoja-de-calculo/` | **Plantilla de hoja de cálculo** (Excel y Hojas de cálculo de Google): portada, datos, presupuesto, plan, resumen con gráfico y colores. |
+| `plantillas/GUIA-IA-presentacion-y-hoja.md` | Instrucciones para montar presentaciones y hojas con IA a partir de las plantillas. |
 | `emails/` | Email «Tu Camino sin literas ni sorpresas» (subido antes; ver nota en `guias/pendientes.md`). |
 | `guias/reglas-aplicaciones.md` | **Lo más importante**: cómo aplicar la marca en cada canal, con todas las decisiones tomadas a partir del feedback. |
 | `guias/subtitulos-ugc.md` | Especificación del tema de subtítulos para reels UGC. |

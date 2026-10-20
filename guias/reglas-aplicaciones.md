@@ -188,6 +188,15 @@ Plantilla y páginas tipo en `plantillas/word/`.
 - **Pensada para usarse con IA** **(feedback)**: se adjunta `Paginas_tipo_Santiago_Ways.docx` y se pegan las instrucciones de `plantillas/word/GUIA-IA.md`.
 - Montserrat incrustada en el archivo para que se vea igual en cualquier ordenador.
 
+## 12. Presentaciones y hojas de cálculo
+
+Plantillas en `plantillas/presentacion/` y `plantillas/hoja-de-calculo/`.
+
+- **Mismo estilo sobrio que el Word:** blanco, grafito, verde solo como acento y sin subrayados ni cajas verdes de relleno.
+- **Presentación:** 16:9, Montserrat (títulos en ExtraBold), un mensaje por diapositiva, gráficos nativos en verde Ways y el logo a color en portada y cierre.
+- **Hoja de cálculo:** celdas para rellenar en brote, todo lo demás con fórmulas; cabeceras en mayúsculas con filete grafito y filas con filete niebla; importes en euros sin decimales.
+- **Compatibles con Google:** Presentaciones y Hojas de cálculo de Google abren los archivos y ya incluyen Montserrat.
+
 ---
 
 ## 9. Descartado o en pausa

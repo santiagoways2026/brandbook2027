@@ -188,6 +188,8 @@ Plantilla y páginas tipo en `plantillas/word/`.
 - **Pensada para usarse con IA** **(feedback)**: se adjunta `Paginas_tipo_Santiago_Ways.docx` y se pegan las instrucciones de `plantillas/word/GUIA-IA.md`.
 - Montserrat incrustada en el archivo para que se vea igual en cualquier ordenador.
 
+---
+
 ## 12. Presentaciones y hojas de cálculo
 
 Plantillas en `plantillas/presentacion/` y `plantillas/hoja-de-calculo/`.

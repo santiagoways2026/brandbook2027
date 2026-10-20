@@ -974,6 +974,7 @@ html[data-tema=sw] #c-community_rrss .as-t td.rr-hoy{background:#FBF0FC}
 html[data-tema=sw] .rr-dot.ok{background:#1d7a43}html[data-tema=sw] .rr-dot.warn{background:#a87b00}html[data-tema=sw] .rr-dot.ko{background:#b3261e}
 html[data-tema=sw] #c-community_rrss .as-t td.as-n{background:#fff;color:#2E2E2D}
 html[data-tema=sw] #c-community_rrss .as-t tbody tr:nth-child(even) td.as-n{background:#FBFDF6}html[data-tema=sw] #c-community_rrss .ia-t tbody tr.ia-sel td.as-n{background:#EEF4DE}html[data-tema=sw] #c-community_rrss .ia-t tfoot td.as-n{background:#F2F7E6}
+.rr-aviso{margin:10px 20px 0;padding:8px 12px;border-radius:8px;background:rgba(232,185,58,.12);border:1px solid rgba(232,185,58,.4);color:#f1d78a;font-size:12.5px;line-height:1.5}html[data-tema=sw] .rr-aviso{background:#FFF7E0;border-color:#F0D68A;color:#7a5a00}
 .cn-t td.cr-bar{position:relative}.cn-t td.cr-bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(129,140,248,.18)}
 @media (max-width:700px){.cn-rank{grid-template-columns:1fr}}
 .cn-e td.cn-grp{font-weight:800;text-align:left;vertical-align:middle;background:#11151b;font-size:14px}
@@ -986,7 +987,7 @@ html[data-tema=sw] #c-community_rrss .as-t tbody tr:nth-child(even) td.as-n{back
 .cn-fechas{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 20px 0;font-size:13.5px;color:#d6dbe1}
 .cn-fechas select{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:5px 8px;font:13.5px var(--f-ui);margin-left:4px}
 .cn-pres{display:flex;flex-wrap:wrap;gap:6px}.cn-pres .btn{font-size:12.5px;padding:4px 10px}
-.cn-pais{font-weight:600}.cn-paisnota{padding:6px 20px 0;font-size:12.5px;color:var(--tenue)}.cn-paisnota b{color:#e6eaee}html[data-tema=sw] .cn-paisnota b{color:#2E2E2D}
+.cn-mks{align-items:center;margin-right:8px}.cn-mkl{font-weight:600;margin-right:2px}.cn-paisnota{padding:6px 20px 0;font-size:12.5px;color:var(--tenue)}.cn-paisnota b{color:#e6eaee}html[data-tema=sw] .cn-paisnota b{color:#2E2E2D}
 .cn-split{padding:12px 20px 0}.cn-sbar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#1a1f27}
 .cn-sbar .cn-org{background:#3ddc97}.cn-sbar .cn-paid{background:#f97316}
 .cn-sleg{display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-top:7px;font-size:13px;color:#d6dbe1}.cn-sleg .cn-org b:first-child{color:#3ddc97}.cn-sleg .cn-paid b:first-child{color:#f97316}
@@ -3159,19 +3160,15 @@ function cnEstructura(C,num,pct,MIN){const [TD,TW]=C.total,ref=TW/TD,ag={},det={
     <div class="cn-sleg"><div class="cn-org"><b>Organic</b> ${num(O[0])} deals · ${po.toFixed(1).replace(".",",")} % · CR <b>${pct(O[0]?O[1]/O[0]:null)}</b></div><div class="cn-paid"><b>Paid</b> ${num(P[0])} deals · ${(100-po).toFixed(1).replace(".",",")} % · CR <b>${pct(P[0]?P[1]/P[0]:null)}</b></div></div></div>`,
    rank:`<div class="cn-rank"><div class="top"><h4>Mejor convierten</h4><ol>${li(top)}</ol></div><div class="bot"><h4>Peor convierten</h4><ol>${li(bot)}</ol></div></div>`,
    tabla:`<div class="as-tw"><table class="as-t cn-e"><thead><tr><th class="as-n">Canal</th><th>Deals</th><th>% del total</th><th>Won</th><th>CR</th></tr></thead><tbody>${h}</tbody></table></div>`}}
-/* Deals y CR por canal filtrado por país (campo Prefix Country de Zoho). Sin reparto de ventas por fecha de cierre: el CR usa las ventas a día de hoy */
-const CN_PAIS_ES={"Spain":"España","United States":"Estados Unidos","Italy":"Italia","Germany":"Alemania","United Kingdom":"Reino Unido","Canada":"Canadá","Mexico":"México","Ireland":"Irlanda","Argentina":"Argentina","Colombia":"Colombia","Brazil":"Brasil","Australia":"Australia","Portugal":"Portugal","Uruguay":"Uruguay","Puerto Rico":"Puerto Rico","Philippines":"Filipinas","Austria":"Austria","Chile":"Chile","Switzerland":"Suiza","South Africa":"Sudáfrica"};
-const cnPaisN=p=>p==="otros"?"Resto de países":CN_PAIS_ES[p]||p;
-function cnPorPais(C,P,pais){const sm=P.sm||[],fil=k=>(P.filas?.[k]||[]).map(([i,ym,d,w])=>[sm[i]?.[0]??"(sin utm)",sm[i]?.[1]??"(sin medium)",ym,d,w||0,0,null]);
-  if(pais!=="otros")return{...C,filas:fil(pais),pais};
-  const rest={};(C.filas||[]).forEach(f=>{const k=f[0]+"\u0001"+f[1]+"\u0001"+f[2],x=rest[k]||(rest[k]=[f[0],f[1],f[2],0,0,0,null]);x[3]+=f[3];x[4]+=f[4]||0});
-  for(const p of Object.keys(P.filas||{}))fil(p).forEach(f=>{const x=rest[f[0]+"\u0001"+f[1]+"\u0001"+f[2]];if(x){x[3]-=f[3];x[4]-=f[4]}});
-  return{...C,filas:Object.values(rest).filter(f=>f[3]>0).map(f=>{f[4]=Math.max(0,Math.min(f[4],f[3]));return f}),pais}}
-function cnPaisSel(){const P=st.canalesPais,V=st.cnV||{};if(!P?.paises?.length)return"";const p=V.pais||"todos";
-  return`<label class="cn-pais">País <select data-cnpais><option value="todos"${p==="todos"?" selected":""}>Todos los países</option>${P.paises.map(([k,n])=>`<option value="${esc(k)}"${p===k?" selected":""}>${esc(cnPaisN(k))} · ${igGr(n)}</option>`).join("")}<option value="otros"${p==="otros"?" selected":""}>Resto de países</option></select></label>`}
-document.addEventListener("change",e=>{const s=e.target.closest("[data-cnpais]");if(s&&st.cnV){st.cnV.pais=s.value;pintarCanales()}});
+/* Deals y CR por canal filtrado por mercado (campo Language del deal en Zoho: ES, EN, DE, IT y PT). Las ventas llevan su mes de cierre, así que el filtro de Closing Date sigue funcionando */
+const CN_MKN={ES:"ES · español",EN:"EN · inglés",DE:"DE · alemán",IT:"IT · italiano",PT:"PT · portugués"};
+function cnPorMercado(C,M,mk){const sm=M.sm||[];
+  return{...C,filas:(M.filas?.[mk]||[]).map(([i,ym,d,w,cd])=>{const c=cd||{};return[sm[i]?.[0]??"(sin utm)",sm[i]?.[1]??"(sin medium)",ym,d,w||0,c[ym]||0,c]}),mk}}
+function cnMercadoSel(){const M=st.canalesMk,V=st.cnV||{};if(!M?.mercados?.length)return"";const k=V.mk||"todos";
+  return`<div class="cn-pres cn-mks"><span class="cn-mkl">Mercado</span><button class="btn${k==="todos"?" prim":""}" data-cnmk="todos">Todos</button>${M.mercados.map(([m])=>`<button class="btn${k===m?" prim":""}" data-cnmk="${esc(m)}" title="${esc(CN_MKN[m]||m)}">${esc(m)}</button>`).join("")}</div>`}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-cnmk]");if(b&&st.cnV){st.cnV.mk=b.dataset.cnmk;pintarCanales()}});
 function pintarCanales(){const el=document.getElementById("c-captacion_canales");if(!el||st.dentro!=="captacion")return;let C=st.canales;
-  const PZ=st.canalesPais,pz=PZ&&st.cnV?.pais&&st.cnV.pais!=="todos"?st.cnV.pais:null;if(C&&pz)C=cnPorPais(C,PZ,pz);
+  const MK=st.canalesMk,mk=MK&&st.cnV?.mk&&st.cnV.mk!=="todos"?st.cnV.mk:null,C0=C;if(C&&mk)C=cnPorMercado(C,MK,mk);
   if(!C){el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div><div class="as-ctl">${cnActBtn()}</div>${cnActMsg()}<div class="vacio">Álex está leyendo los deals de Zoho.</div>`;return}
   const V=st.cnV||(st.cnV={vista:"grupo",abiertos:new Set(),orden:"vol"}),MIN=C.min_deals||100;if(V.vista==="medium")V.vista="grupo";
   const num=n=>String(n).replace(/\B(?=(\d{3})+(?!\d))/g,"."),pct=x=>x==null?"":(x*100).toFixed(2).replace(".",",")+" %";
@@ -3179,13 +3176,13 @@ function pintarCanales(){const el=document.getElementById("c-captacion_canales")
   if(mens){if(V.desde==null){V.desde=C.desde_defecto||meses[0];V.hasta=meses[meses.length-1]}
     const ag={};C.filas.forEach(f=>{const[s,m,ym,d]=f;if(ym<V.desde||ym>V.hasta)return;const k=s+"\u0001"+m,x=ag[k]||(ag[k]=[s,m,0,0]);x[2]+=d;x[3]+=V.cierre!==false?cnWonHasta(f,V.hasta):(f[4]||0)});
     const fl=Object.values(ag);C={...C,filas:fl,total:[fl.reduce((t,f)=>t+f[2],0),fl.reduce((t,f)=>t+f[3],0)],periodo:V.desde===V.hasta?ymTxt(V.desde):`${ymTxt(V.desde)} a ${ymTxt(V.hasta)}`}}
-  if(pz)C={...C,periodo:(C.periodo?C.periodo+" · ":"")+cnPaisN(pz)};
+  let sinMk=0;if(mk&&mens){const per=f=>f[2]>=V.desde&&f[2]<=V.hasta,tot=(C0.filas||[]).filter(per).reduce((t,f)=>t+f[3],0),mks=Object.keys(MK.filas||{}).reduce((t,m)=>t+(MK.filas[m]||[]).filter(r=>r[1]>=V.desde&&r[1]<=V.hasta).reduce((s,r)=>s+r[2],0),0);sinMk=Math.max(0,tot-mks);C={...C,periodo:(C.periodo?C.periodo+" · ":"")+"mercado "+mk}}
   const [TD,TW]=C.total,ref=TD?TW/TD:0;
   const ult=meses[meses.length-1],y0=Math.floor(ult/100),optM=sel=>meses.map(m=>`<option value="${m}"${m===sel?" selected":""}>${ymTxt(m)}</option>`).join("");
   const resta=(ym,n)=>{let y=Math.floor(ym/100),m=ym%100-n;while(m<1){m+=12;y--}return y*100+m};
   const pres=mens?[["Este año",y0*100+1,ult],["Últimos 3 meses",resta(ult,2),ult],["Mes pasado",resta(ult,1),resta(ult,1)],["Año pasado",(y0-1)*100+1,(y0-1)*100+12],["Todo",meses[0],ult]].filter(p=>meses.includes(p[2])).map(([n,a,b])=>[n,Math.max(a,meses[0]),b]):[];
-  const fechas=mens?`<div class="cn-fechas">${cnPaisSel()}<label>Desde <select data-cnf="desde">${optM(V.desde)}</select></label><label>Hasta <select data-cnf="hasta">${optM(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cnpre="${a}-${b}">${n}</button>`).join("")}</div></div>${pz?`<div class="cn-paisnota">País: <b>${esc(cnPaisN(pz))}</b> (campo Prefix Country de Zoho${pz==="otros"?": todos los deals menos los de los países de la lista":""}). Con país, el CR usa todas las ventas a día de hoy de los deals creados en el periodo: el filtro de Closing Date no se aplica.</div>`:""}`:"";
-  const vistas=`<div class="as-modo"><button class="btn${V.vista==="grupo"?" prim":""}" data-cnvista="grupo">Organic / Paid</button><button class="btn${V.vista==="source"?" prim":""}" data-cnvista="source">Por utm_source</button></div>${mens?(pz?`<button class="btn" disabled title="Por país no hay reparto de las ventas por fecha de cierre">Closing Date: no aplica</button>`:`<button class="btn${V.cierre!==false?" prim":""}" data-cncd title="Aplica o quita el filtro de Closing Date hasta el último mes del periodo">Closing Date: ${V.cierre!==false?"sí":"no"}</button>`):""}`;
+  const fechas=mens?`<div class="cn-fechas">${cnMercadoSel()}<label>Desde <select data-cnf="desde">${optM(V.desde)}</select></label><label>Hasta <select data-cnf="hasta">${optM(V.hasta)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${V.desde===a&&V.hasta===b?" prim":""}" data-cnpre="${a}-${b}">${n}</button>`).join("")}</div></div>${mk?`<div class="cn-paisnota">Mercado: <b>${esc(CN_MKN[mk]||mk)}</b> (campo Language del deal en Zoho).${sinMk?` En este periodo hay ${String(sinMk).replace(/\B(?=(\d{3})+(?!\d))/g,".")} deals sin idioma en Zoho: solo cuentan en «Todos».`:""}</div>`:""}`:"";
+  const vistas=`<div class="as-modo"><button class="btn${V.vista==="grupo"?" prim":""}" data-cnvista="grupo">Organic / Paid</button><button class="btn${V.vista==="source"?" prim":""}" data-cnvista="source">Por utm_source</button></div>${mens?`<button class="btn${V.cierre!==false?" prim":""}" data-cncd title="Aplica o quita el filtro de Closing Date hasta el último mes del periodo">Closing Date: ${V.cierre!==false?"sí":"no"}</button>`:""}`;
   if(!TD){el.innerHTML=`<div class="as-ctl">${vistas}${cnActBtn()}${cnXls("c-captacion_canales")}${zBtn("canales")}</div>${cnActMsg()}${fechas}<div class="vacio">No hay deals en ese periodo.</div>`;return}
   if(V.vista==="grupo"){const E=cnEstructura(C,num,pct,MIN);
     el.innerHTML=`<div class="mcab"><div><h2>Deals y CR por canal</h2></div></div>
@@ -3853,6 +3850,7 @@ function pintarRrss(){const el=document.getElementById("c-community_rrss");if(!e
   el.innerHTML=`<div class="mcab"><div><h2>Seguimiento RRSS</h2><div class="fuente-mc" style="margin-top:6px">${esc(X.archivo||"Excel de seguimiento")} en vivo: Metricool (11 cuentas propias y competidores), Zoho CRM y lecturas de fin de mes</div></div><div class="meta">${estado}</div></div>
     <div class="as-ctl"><div class="as-modo rr-vistas">${Object.entries(RR_V).map(([k,n])=>chip("v",k,n,V.v===k)).join("")}</div></div>
     <div class="ia-per">${MS.length?`De enero a ${rrMesL(hoyYm)} de ${Math.floor(hoyYm/100)} (${rrMesL(hoyYm)} en curso).`:""} CRM de Zoho del ${esc(rrF(String(CRM.fecha).slice(0,10)))}. Próxima lectura de competidores: ${esc(rrF(LM.proxima||""))}.</div>
+    ${(D.avisos||[]).length?`<div class="rr-aviso">⚠ Rutina nocturna: ${D.avisos.map(esc).join("; ")}.${D.avisos.some(x=>/conector/i.test(x))?" Hay que añadir los conectores de Metricool y Zoho CRM a la rutina «Seguimiento RRSS» en claude.ai; mientras, Metricool se lee en vivo al abrir la página y el CRM se queda en la última carga.":""}</div>`:""}
     ${cuerpo}
     <p class="as-nota">${(D.notas||[]).map(esc).join(" ")} Deals CRM: ${esc(CRM.fuente)}.</p>`}
 document.addEventListener("click",e=>{if(!st.rrV)return;const b=e.target.closest("[data-rrv],[data-rrred],[data-rrmet]");if(!b||!b.closest("#c-community_rrss"))return;
@@ -5354,7 +5352,7 @@ const SUBS_SALA={
   googleads:[["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].map(([c,k])=>[c+"/actual",k,()=>pintarGads()]),
   instagram:[["ig_ranking/actual","igRank",()=>pintarRsRanking("instagram")],["ig_dash/actual","igDash",()=>pintarIgDash()],["ig_capt/actual","igCapt",()=>pintarIgCapt()],["ig_err/actual","igErr",()=>pintarIgErr()]],
   tiktok:[["tk_ranking/actual","tkRank",()=>pintarRsRanking("tiktok")]],
-  captacion:[["inversion_plataformas/actual","invPl",()=>pintarInvAnual()],["captacion_canales_pais/actual","canalesPais",()=>pintarCanales()]],
+  captacion:[["inversion_plataformas/actual","invPl",()=>pintarInvAnual()],["captacion_canales_mercado/actual","canalesMk",()=>pintarCanales()]],
   seo:[["seo_blog/actual","seoBlog",()=>pintarSeoBlog()]],
   community:[["rrss_seguimiento/actual","rrss",()=>pintarRrss()]],
   metaads:[["meta_ads/utm","metaUtm",()=>pintarMetaUtm()],["meta_report/actual","metaRep",()=>pintarMetaRep()],["meta_report/checks","metaChk",()=>pintarMetaRep()]]};

@@ -910,6 +910,30 @@ html[data-tema=sw] .ia-pt td b{color:#2E2E2D}html[data-tema=sw] .ia-pt td small{
 html[data-tema=sw] .ia-pt tbody tr.ia-sel td{background:#EEF5FD}html[data-tema=sw] .ia-pt tbody tr.ia-sel td.as-n{background:#E3EEFB}
 html[data-tema=sw] .ia-pt tr.ia-subt td,html[data-tema=sw] .ia-pt tr.ia-glob td{border-top-color:#CBDAAE}
 html[data-tema=sw] .ia-pt tfoot td b,html[data-tema=sw] .ia-pt tfoot td small,html[data-tema=sw] .ia-pt tfoot td small em{color:#fff}
+#c-seo_blog{--sb-b:#3987e5;--sb-w:#d95926}
+#c-seo_blog .as-res>div{min-width:150px}#c-seo_blog .as-res b{font-size:24px}
+.sb-bar{fill:var(--sb-b)}.sb-bar.ia-parc,.sb-pt.ia-parc{fill-opacity:.45}
+.sb-lab{font-size:12px;fill:currentColor;fill-opacity:.85;font-weight:700}.sb-labw{font-size:12px;fill:var(--sb-b);font-weight:700}
+.sb-lin{fill:none;stroke-width:2.2;stroke-linejoin:round}.sb-lin.sb-b{stroke:var(--sb-b)}.sb-lin.sb-w{stroke:var(--sb-w)}
+.sb-pt{stroke:var(--marco-2);stroke-width:2}.sb-pt.sb-b{fill:var(--sb-b)}.sb-pt.sb-w{fill:var(--sb-w)}
+.sb-cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:12px 20px 0}
+.sb-card{background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:12px 14px;color:#c9d0da}
+.sb-card h4{margin:0;font:700 14px var(--f-ui);color:#e6eaee}
+.sb-big{font:700 26px/1.1 var(--f-ui);color:#f1f3f5;margin:10px 0 8px}.sb-big small{font-size:13px;font-weight:400;color:var(--tenue)}
+.sb-kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px}.sb-kv b{text-align:right;color:#e6eaee}
+.sb-url a{display:inline-block;max-width:46ch;overflow:hidden;text-overflow:ellipsis;vertical-align:bottom;color:#9cc3ff;text-decoration:none;font-weight:500}.sb-url a:hover{text-decoration:underline}
+.as-t td.sb-t{text-align:center;color:#c9d0da}
+.sb-spk{display:block;margin-left:auto}.sb-spk path{fill:none;stroke:var(--sb-b);stroke-width:1.8}.sb-spk circle{fill:var(--sb-b)}
+.sb-tt td.sb-off{opacity:.4}
+.sb-tctl input.sb-q{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:6px 10px;font:13.5px var(--f-ui);min-width:240px}
+.sb-n{color:var(--tenue);font-size:12.5px}
+html[data-tema=sw] #c-seo_blog{--sb-b:#2a78d6;--sb-w:#eb6834}
+html[data-tema=sw] .sb-card{background:#fff;border-color:#E3EBD0;color:#6F6F6E}
+html[data-tema=sw] .sb-card h4,html[data-tema=sw] .sb-kv b,html[data-tema=sw] .sb-big{color:#2E2E2D}
+html[data-tema=sw] .sb-url a{color:#1f5fb8}html[data-tema=sw] .as-t td.sb-t{color:#6F6F6E}
+html[data-tema=sw] .sb-pt{stroke:#fff}
+html[data-tema=sw] .sb-tctl input.sb-q{background:#fff;color:#2E2E2D;border-color:#DCE6C6}
+html[data-tema=sw] #c-seo_blog .as-t td.as-n{background:#fff;color:#2E2E2D}html[data-tema=sw] #c-seo_blog .as-t tbody tr:nth-child(even) td.as-n{background:#FBFDF6}html[data-tema=sw] #c-seo_blog .as-t tbody tr.ia-sel td{background:#EEF5FD}
 html[data-tema=sw] .ia-t tbody tr.ia-sel td{background:#F4F8EA}html[data-tema=sw] .ia-t tbody tr.ia-sel td.as-n{background:#EEF4DE}
 html[data-tema=sw] .ia-t tfoot td{background:#F2F7E6;color:#2E2E2D}
 .cn-t td.cr-bar{position:relative}.cn-t td.cr-bar i{position:absolute;left:0;top:0;bottom:0;background:rgba(129,140,248,.18)}
@@ -1207,6 +1231,7 @@ function logoIds(txt){const t=String(txt||"").toLowerCase();return Object.keys(L
 function logosEn(txt,h=18){const ids=logoIds(txt);return ids.length?`<div class="logos-p">${ids.map(i=>logoP(i,h)).join("")}</div>`:""}
 const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",community:"Community",diseno:"Diseño",captacion:"Captación",paid:"Paid Media",lifecycle:"Conversión",cr:"Tasa de conversión (CR)",control:"Sala de Control"};
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
+MARCOS.push({id:"seo_blog",grupo:"seo",dato:true,nombre:"SEO / Blog: captación por URL",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_blog");
 Object.entries(SEO_DEST).forEach(([k,n])=>{if(!SALAS_ACT[k]||k==="diseno"||k==="captacion"||k==="instagram")return;MARCOS.push({id:"seo_"+k,grupo:k,dato:true,nombre:n+" / Desde SEO",x:0,y:-9000,w:1300});k==="control"?SALAS_ACT[k].push("seo_"+k):SALAS_ACT[k].splice(1,0,"seo_"+k)});
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
@@ -3458,6 +3483,95 @@ document.addEventListener("click",e=>{if(!st.iaV)return;const c=e.target.closest
   const v=e.target.closest("[data-iavista]");if(v){st.iaV.vista=v.dataset.iavista;pintarInvAnual()}});
 document.addEventListener("keydown",e=>{if(e.key!=="Enter"&&e.key!==" ")return;const r=e.target.closest?.("tr[data-iapl]");if(r&&st.iaV){e.preventDefault();st.iaV.pl=r.dataset.iapl;pintarInvAnual()}});
 
+/* ===== SEO: el Blog como canal de captación. Deals y ventas de Zoho (Utm_Source = blog_org) por la URL donde se pidió el presupuesto ===== */
+const SB_TIPO={todas:"Todas",articulo:"Artículos",ruta:"Páginas de ruta",otras:"Otras"},SB_TIPO1={articulo:"Artículo",ruta:"Ruta",otras:"Otra"};
+const SB_IDI={todos:"Todos",es:"ES",en:"EN",de:"DE",it:"IT",pt:"PT"},SB_IDIN={es:"Español",en:"Inglés",de:"Alemán",it:"Italiano",pt:"Portugués"};
+const SB_PER={todo:"Desde abril",t2:"Abr a jun",t3:"Jul a sep",mes:"Octubre (en curso)"},SB_PERM={todo:[202604,202605,202606,202607,202608,202609,202610],t2:[202604,202605,202606],t3:[202607,202608,202609],mes:[202610]};
+const SB_ORD={d:"Deals",w:"Ventas",a:"Facturación",c:"Conversión",v:"Vistas"};
+const SB_TR={Organic:"Búsqueda orgánica",Direct:"Directo",Referral:"Desde otra web",Paid:"Publicidad",Social:"Redes sociales"};
+const sbPc=x=>x==null||!isFinite(x)?"–":(x*100).toFixed(1).replace(".",",")+" %",sbE=n=>n?igEur(n):"–";
+const sbTk=t=>{const v=+(t*100).toFixed(1);return(Number.isInteger(v)?v:v.toFixed(1).replace(".",","))+" %"};
+const sbSum=(o,ms)=>ms.reduce((t,m)=>t+(o?.[m]||0),0);
+/* Filas por URL con lo que suma en los meses elegidos. El importe de las ventas solo viene en total por URL, así que se reparte por meses con el número de ventas de cada mes */
+function sbFilas(B,V){const ms=SB_PERM[V.per]||SB_PERM.todo;
+  return(B.urls||[]).map(([p,t,l,dm,wm,imp,vis,org])=>{const wt=Object.values(wm||{}).reduce((a,b)=>a+b,0),d=sbSum(dm,ms),w=sbSum(wm,ms);
+    return{p,t,l,dm,wm,d,w,a:wt?imp*w/wt:0,c:d?w/d:null,v:t==="articulo"?vis:null,org:t==="articulo"?org:null}})
+   .filter(r=>(V.tipo==="todas"||r.t===V.tipo)&&(V.idi==="todos"||r.l===V.idi))}
+function sbSpark(dm,ms){const v=ms.map(m=>dm?.[m]||0),mx=Math.max(1,...v),W=96,H=24;
+  const pts=v.map((x,i)=>[2+i*(W-4)/Math.max(1,v.length-1),H-3-(x/mx)*(H-6)]);
+  return`<svg class="sb-spk" viewBox="0 0 ${W} ${H}" width="${W}" height="${H}" aria-hidden="true"><path d="${pts.map((p,i)=>(i?"L":"M")+p[0].toFixed(1)+" "+p[1].toFixed(1)).join("")}"/>${pts.length?`<circle cx="${pts[pts.length-1][0].toFixed(1)}" cy="${pts[pts.length-1][1].toFixed(1)}" r="2.2"/>`:""}</svg>`}
+/* Barras de deals por mes con las ventas encima; líneas de conversión del blog frente a la web */
+function sbGrafBar(M){const W=560,H=240,pl=48,pr=8,pt=22,pb=42,gw=(W-pl-pr)/M.length,mx=Math.max(1,...M.map(x=>x.d)),paso=iaPaso(mx/4||1),top=paso*Math.ceil(mx/paso),y=v=>pt+(H-pt-pb)*(1-v/top);
+  const ticks=Array.from({length:Math.round(top/paso)+1},(_,i)=>i*paso),bw=Math.min(34,gw*.56);
+  return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Deals y ventas del blog por mes">${ticks.map(t=>`<line class="ia-grid" x1="${pl}" x2="${W-pr}" y1="${y(t).toFixed(1)}" y2="${y(t).toFixed(1)}"/><text class="ia-ax" x="${pl-6}" y="${(y(t)+4).toFixed(1)}" text-anchor="end">${igGr(t)}</text>`).join("")}
+   ${M.map((x,i)=>{const cx=pl+gw*i+gw/2,yy=y(x.d),h=H-pb-yy;return`<g><title>${x.n}: ${igGr(x.d)} deals y ${x.w} ventas</title>${x.d?`<rect class="sb-bar${x.cur?" ia-parc":""}" x="${(cx-bw/2).toFixed(1)}" y="${yy.toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,h).toFixed(1)}" rx="3"/>`:""}<text class="sb-lab" x="${cx.toFixed(1)}" y="${(yy-6).toFixed(1)}" text-anchor="middle">${x.d?igGr(x.d):""}</text><text class="ia-ax" x="${cx.toFixed(1)}" y="${H-24}" text-anchor="middle">${x.n}${x.cur?"*":""}</text><text class="sb-labw" x="${cx.toFixed(1)}" y="${H-6}" text-anchor="middle">${x.w?x.w+" v":"–"}</text></g>`}).join("")}</svg>`}
+function sbGrafLin(M){const W=560,H=230,pl=48,pr=8,pt=14,pb=28,gw=(W-pl-pr)/M.length,vals=M.flatMap(x=>[x.cb,x.cw]).filter(v=>v!=null),mx=Math.max(.01,...vals),paso=iaPaso(mx/4),top=paso*Math.ceil(mx/paso),y=v=>pt+(H-pt-pb)*(1-v/top),cx=i=>pl+gw*i+gw/2;
+  const ticks=Array.from({length:Math.round(top/paso)+1},(_,i)=>i*paso);
+  const lin=(k,cls)=>{let d="",on=false;M.forEach((x,i)=>{const v=x[k];if(v==null){on=false;return}d+=(on?"L":"M")+cx(i).toFixed(1)+" "+y(v).toFixed(1);on=true});return`<path class="sb-lin ${cls}" d="${d}"/>`+M.map((x,i)=>x[k]==null?"":`<circle class="sb-pt ${cls}${x.cur?" ia-parc":""}" cx="${cx(i).toFixed(1)}" cy="${y(x[k]).toFixed(1)}" r="4"><title>${x.n}: ${sbPc(x[k])}</title></circle>`).join("")};
+  return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Conversión del blog frente a la web por mes">${ticks.map(t=>`<line class="ia-grid" x1="${pl}" x2="${W-pr}" y1="${y(t).toFixed(1)}" y2="${y(t).toFixed(1)}"/><text class="ia-ax" x="${pl-6}" y="${(y(t)+4).toFixed(1)}" text-anchor="end">${sbTk(t)}</text>`).join("")}
+   ${lin("cw","sb-w")}${lin("cb","sb-b")}${M.map((x,i)=>`<text class="ia-ax" x="${cx(i).toFixed(1)}" y="${H-8}" text-anchor="middle">${x.n}${x.cur?"*":""}</text>`).join("")}</svg>`}
+function sbTablaHTML(B,V,F){const q=(V.q||"").trim().toLowerCase(),L=F.filter(r=>!q||r.p.toLowerCase().includes(q)),ms=SB_PERM.todo.filter(m=>m!==202610);
+  const k=V.ord||"d",ord=[...L].sort((a,b)=>((b[k]??-1)-(a[k]??-1))||(b.d-a.d)),ver=V.todas?ord:ord.slice(0,40);
+  const fila=r=>`<tr><td class="as-n sb-url">${r.p==="(vacío)"?"(sin URL)":`<a href="https://santiagoways.com${esc(r.p)}" target="_blank" rel="noopener" title="${esc(r.p)}">${esc(r.p)}</a>`}</td><td class="sb-t">${SB_TIPO1[r.t]||""}</td><td class="sb-t">${(r.l||"").toUpperCase()}</td>
+    <td>${igGr(r.d)}</td><td>${r.w||"–"}</td><td>${r.d?sbPc(r.c):"–"}</td><td>${sbE(r.a)}</td><td class="sb-sp">${sbSpark(r.dm,ms)}</td><td>${r.v!=null?igGr(r.v):"–"}</td></tr>`;
+  return{html:ver.map(fila).join("")||`<tr><td colspan="9" class="vacio">Ninguna URL con ese filtro.</td></tr>`,n:L.length,vis:ver.length}}
+function pintarSeoBlog(){const el=document.getElementById("c-seo_blog");if(!el||st.dentro!=="seo")return;const B=st.seoBlog;
+  if(!B||!(B.urls||[]).length){el.innerHTML=`<div class="mcab"><div><h2>Blog: captación por URL</h2></div></div><div class="vacio">Alba está cargando los deals del blog desde Zoho.</div>`;return}
+  const V=st.sbV||(st.sbV={tipo:"todas",idi:"todos",per:"todo",ord:"d",q:"",todas:false});
+  const ms=SB_PERM[V.per]||SB_PERM.todo,F=sbFilas(B,V),T=F.reduce((t,r)=>{t.d+=r.d;t.w+=r.w;t.a+=r.a;return t},{d:0,w:0,a:0});
+  const web=ms.reduce((t,m)=>{const x=B.total_web?.[m]||[0,0],y=B.importe_web?.[m]||[0,0];t.d+=x[0];t.w+=x[1];t.wi+=y[0];t.a+=y[1];return t},{d:0,w:0,wi:0,a:0});
+  const filtro=V.tipo!=="todas"||V.idi!=="todos";
+  const chip=(k,v,lab,act)=>`<button class="btn${act?" prim":""}" data-sb${k}="${v}">${lab}</button>`;
+  const ctl=`<div class="as-ctl"><div class="as-modo">${Object.entries(SB_PER).map(([k,n])=>chip("per",k,n,V.per===k)).join("")}</div>
+   <div class="as-modo">${Object.entries(SB_TIPO).map(([k,n])=>chip("tipo",k,n,V.tipo===k)).join("")}</div>
+   <div class="as-modo">${Object.entries(SB_IDI).map(([k,n])=>chip("idi",k,n,V.idi===k)).join("")}</div></div>`;
+  const kpi=(v,lab,sub)=>`<div><b>${v}</b><span>${lab}</span>${sub?`<small class="ia-k2">${sub}</small>`:""}</div>`;
+  const cw=web.d?web.w/web.d:null,cb=T.d?T.w/T.d:null,tk=T.w?T.a/T.w:null,tkw=web.wi?web.a/web.wi:null;
+  const kpis=`<div class="as-res ia-res">${kpi(igGr(T.d),"deals del blog",`${sbPc(web.d?T.d/web.d:null)} de los deals de la web`)}${kpi(igGr(T.w),"ventas (won)",`${sbPc(web.w?T.w/web.w:null)} de las ventas de la web`)}
+   ${kpi(sbPc(cb),"conversión deal a venta",`web: ${sbPc(cw)}`)}${kpi(sbE(T.a),"facturación de esas ventas","importe de los deals won")}${kpi(tk?igEur(tk):"–","ticket medio",`web: ${tkw?igEur(tkw):"–"}`)}${kpi(igGr(F.filter(r=>r.d).length),"URL con algún deal",`${F.filter(r=>r.w).length} con alguna venta`)}</div>`;
+  /* Evolución: siempre de abril a octubre, con los filtros de tipo e idioma */
+  const FA=sbFilas(B,{...V,per:"todo"}),EV=SB_PERM.todo.map(m=>{const d=FA.reduce((t,r)=>t+(r.dm?.[m]||0),0),w=FA.reduce((t,r)=>t+(r.wm?.[m]||0),0),x=B.total_web?.[m]||[0,0];return{m,n:MESN[m%100-1],cur:m===202610,d,w,cb:d>=20?w/d:null,cw:x[0]?x[1]/x[0]:null}});
+  const graf=`<div class="ia-graf"><div class="ia-g"><h4>Deals y ventas del blog por mes</h4><div class="ia-sub">Barras: deals creados; bajo cada mes, ventas (v)${filtro?" · con el filtro elegido":""}</div>${sbGrafBar(EV)}</div>
+   <div class="ia-g"><h4>Conversión: blog frente a la web</h4><div class="ia-sub">Ventas / deals de cada mes. Sin punto si el blog tiene menos de 20 deals.</div><div class="ia-ley lin"><span style="--c:var(--sb-b)">Blog</span><span style="--c:var(--sb-w)">Toda la web</span></div>${sbGrafLin(EV)}</div></div>`;
+  /* Dónde piden presupuesto los lectores */
+  const FT=sbFilas(B,{...V,tipo:"todas"}),porTipo=["articulo","ruta","otras"].map(t=>{const L=FT.filter(r=>r.t===t);return{t,d:L.reduce((s,r)=>s+r.d,0),w:L.reduce((s,r)=>s+r.w,0),a:L.reduce((s,r)=>s+r.a,0),n:L.filter(r=>r.d).length}}),TT=porTipo.reduce((s,x)=>s+x.d,0);
+  const TIPOX={articulo:["En el propio artículo","El formulario del artículo"],ruta:["En una página de ruta","El lector pasa del artículo a la ruta"],otras:["En otras páginas","Opiniones, contacto o sin URL"]};
+  const cards=`<div class="sb-cards">${porTipo.map(x=>`<div class="sb-card"><h4>${TIPOX[x.t][0]}</h4><div class="ia-sub">${TIPOX[x.t][1]} · ${igGr(x.n)} URL</div>
+    <div class="sb-big">${igGr(x.d)} <small>deals · ${sbPc(TT?x.d/TT:null)}</small></div><div class="sb-kv"><span>Ventas</span><b>${x.w}</b><span>Conversión</span><b>${sbPc(x.d?x.w/x.d:null)}</b><span>Facturación</span><b>${sbE(x.a)}</b><span>Ticket medio</span><b>${x.w?igEur(x.a/x.w):"–"}</b></div></div>`).join("")}</div>`;
+  /* Cómo llegaron al blog (Traffic_Source de Zoho). Este campo no está por URL, así que no sigue los filtros de tipo e idioma */
+  const TR=B.trafico||{},TRW=B.trafico_won||{},trT=Object.values(TR).reduce((s,o)=>s+sbSum(o,ms),0);
+  const tTr=`<div class="as-tw"><table class="as-t sb-tt"><thead><tr><th class="as-n">Cómo llegó al blog</th><th>Deals</th><th>%</th><th>Ventas</th><th>Conversión</th>${SB_PERM.todo.map(m=>`<th>${MESN[m%100-1]}</th>`).join("")}</tr></thead><tbody>${Object.keys(SB_TR).filter(k=>TR[k]).map(k=>{const d=sbSum(TR[k],ms),w=sbSum(TRW[k],ms);
+    return`<tr><td class="as-n">${SB_TR[k]}</td><td>${igGr(d)}</td><td>${sbPc(trT?d/trT:null)}</td><td>${w||"–"}</td><td>${d?sbPc(w/d):"–"}</td>${SB_PERM.todo.map(m=>`<td class="sb-m${ms.includes(m)?"":" sb-off"}">${TR[k][m]||"–"}</td>`).join("")}</tr>`}).join("")}</tbody></table></div>`;
+  const SJ=B.sjpp_trafico||{},sjR=sbSum(SJ.Referral,SB_PERM.todo),sjT=Object.values(SJ).reduce((s,o)=>s+sbSum(o,SB_PERM.todo),0);
+  /* Por idioma */
+  const FI=sbFilas(B,{...V,idi:"todos"}),tIdi=`<div class="as-tw"><table class="as-t"><thead><tr><th class="as-n">Idioma</th><th>URL con deals</th><th>Deals</th><th>Ventas</th><th>Conversión</th><th>Facturación</th><th>% facturación</th><th>Ticket medio</th></tr></thead><tbody>${(()=>{const at=FI.reduce((s,r)=>s+r.a,0);return Object.keys(SB_IDIN).map(l=>{const L=FI.filter(r=>r.l===l),d=L.reduce((s,r)=>s+r.d,0),w=L.reduce((s,r)=>s+r.w,0),a=L.reduce((s,r)=>s+r.a,0);
+    return`<tr${V.idi===l?' class="ia-sel"':""}><td class="as-n">${SB_IDIN[l]}</td><td>${L.filter(r=>r.d).length}</td><td>${igGr(d)}</td><td>${w||"–"}</td><td>${d?sbPc(w/d):"–"}</td><td>${sbE(a)}</td><td>${sbPc(at?a/at:null)}</td><td>${w?igEur(a/w):"–"}</td></tr>`}).join("")})()}</tbody></table></div>`;
+  /* Todas las URL */
+  const TB=sbTablaHTML(B,V,F);
+  const tUrl=`<div class="as-ctl sb-tctl"><label>Ordenar por <select data-sbord>${Object.entries(SB_ORD).map(([k,n])=>`<option value="${k}"${V.ord===k?" selected":""}>${n}</option>`).join("")}</select></label>
+    <input class="sb-q" type="search" placeholder="Buscar en la URL" value="${esc(V.q||"")}" aria-label="Buscar en la URL"><span class="sb-n" id="sbN">${TB.vis} de ${TB.n} URL</span>${TB.n>40?`<button class="btn" data-sbtodas="1">${V.todas?"Ver solo las 40 primeras":`Ver las ${TB.n}`}</button>`:""}</div>
+   <div class="as-tw"><table class="as-t sb-ut"><thead><tr><th class="as-n">URL donde pidió presupuesto</th><th>Tipo</th><th>Idioma</th><th>Deals</th><th>Ventas</th><th>Conversión</th><th>Facturación</th><th>Deals por mes, abr a sep</th><th>Vistas 12 meses</th></tr></thead><tbody id="sbBody">${TB.html}</tbody></table></div>`;
+  /* Artículos con tráfico y sin deals */
+  const SD=(B.sin_deals||[]).filter(r=>V.idi==="todos"||r[0].startsWith("/"+V.idi+"/")).slice(0,12);
+  const tSin=SD.length?`<div class="as-tw"><table class="as-t"><thead><tr><th class="as-n">Artículo sin ningún deal del blog</th><th>Vistas 12 meses</th><th>Sesiones orgánicas 12 meses</th></tr></thead><tbody>${SD.map(([p,v,o])=>`<tr><td class="as-n sb-url"><a href="https://santiagoways.com${esc(p)}" target="_blank" rel="noopener" title="${esc(p)}">${esc(p)}</a></td><td>${igGr(v)}</td><td>${o?igGr(o):"–"}</td></tr>`).join("")}</tbody></table></div>`:"";
+  const A=B.analisis,an=A?`<div class="seccion-t">Análisis · ${esc(A.fecha||"")}</div><div class="ia-an"><div><h4>Qué dicen los datos</h4><ul>${(A.datos||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div><div><h4>Qué haría</h4><ul>${(A.acciones||[]).map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div></div>`:"";
+  const fch=(B.hasta||B.fecha||"").split("-").reverse().join("/");
+  el.innerHTML=`<div class="mcab"><div><h2>Blog: captación por URL</h2><div class="fuente-mc" style="margin-top:6px">${esc(B.fuente||"")}</div></div><div class="meta">datos hasta el ${fch}</div></div>
+   ${ctl}<div class="ia-per">${esc(SB_PER[V.per])}${filtro?` · ${esc(SB_TIPO[V.tipo])} · ${esc(V.idi==="todos"?"todos los idiomas":SB_IDIN[V.idi])}`:""}. Zoho etiqueta el blog (utm_source blog_org) desde abril de 2026; antes no hay datos del canal. Octubre va hasta hoy.</div>${kpis}
+   <div class="seccion-t">Evolución</div>${graf}
+   <div class="seccion-t">Dónde piden presupuesto los lectores del blog</div>${cards}
+   <div class="seccion-t">Cómo llegaron al blog</div><div class="ia-per">Origen de la visita que guarda Zoho en cada deal (Traffic_Source). No está por URL, así que esta tabla no sigue los filtros de tipo e idioma.${sjT?` Ojo: ${sjR} de los ${sjT} deals de las páginas de St Jean Pied de Port llegan desde otra web, casi todos desde julio.`:""}</div>${tTr}
+   <div class="seccion-t">Por idioma</div>${tIdi}
+   <div class="seccion-t">Todas las URL</div>${tUrl}
+   ${tSin?`<div class="seccion-t">Artículos con mucho tráfico y ningún deal del blog</div>${tSin}`:""}
+   ${an}
+   <p class="as-nota">Deals: deals de Zoho con Utm_Source = blog_org, por mes de creación. La URL es la página en la que se pidió el presupuesto (campo URL del deal), sin parámetros: si es una página de ruta, el lector llegó desde el blog y pidió en la ruta; Zoho no guarda qué artículo leyó antes. Ventas: deals en etapa Won, contadas hoy, así que los meses recientes subirán. Facturación: importe (Amount) de esas ventas; por mes se reparte según el número de ventas. Web: todos los deals y ventas de la web en los mismos meses; el ticket de la web viene de Zoho Analytics. Vistas: Google Analytics 4, 12 meses hasta el 5 de octubre de 2026, solo para artículos. Google Analytics y Search Console no están conectados ahora en Windsor, por eso no hay visitas por mes ni posiciones en Google por artículo.</p>`;}
+document.addEventListener("click",e=>{if(!st.sbV)return;const b=e.target.closest("[data-sbper],[data-sbtipo],[data-sbidi],[data-sbtodas]");if(!b||!b.closest("#c-seo_blog"))return;
+  const d=b.dataset;if(d.sbper)st.sbV.per=d.sbper;if(d.sbtipo)st.sbV.tipo=d.sbtipo;if(d.sbidi)st.sbV.idi=d.sbidi;if(d.sbtodas)st.sbV.todas=!st.sbV.todas;pintarSeoBlog()});
+document.addEventListener("change",e=>{const s=e.target.closest("[data-sbord]");if(s&&st.sbV){st.sbV.ord=s.value;pintarSeoBlog()}});
+document.addEventListener("input",e=>{const q=e.target.closest(".sb-q");if(!q||!st.sbV||!st.seoBlog)return;st.sbV.q=q.value;
+  const T=sbTablaHTML(st.seoBlog,st.sbV,sbFilas(st.seoBlog,st.sbV)),bd=document.getElementById("sbBody"),n=document.getElementById("sbN");if(bd)bd.innerHTML=T.html;if(n)n.textContent=`${T.vis} de ${T.n} URL`});
+
 /* ===== Análisis comercial: rutas y esfuerzo, país, temporada y tamaño de grupo ===== */
 const PR_RN={"Saint Jean Pied de Port":"St Jean Pied de Port","Arzua":"Arzúa","Fromista":"Frómista","Oia":"Oya","Eposende":"Esposende","Aviles":"Avilés","La Guardia":"A Guarda"};
 const PR_CN={"":"(sin dato)","ES":"Spain","MX":"Mexico","US":"United States","USA":"United States","GB":"United Kingdom","DE":"Germany","Deutschland":"Germany","BR":"Brazil","AR":"Argentina","AU":"Australia","FR":"France","Italia":"Italy","Irland":"Ireland","mexico":"Mexico","UAE":"United Arab Emirates","Hong Kong":"Hong Kong SAR China","PR":"Puerto Rico","HR":"Croatia","GR":"Greece","DO":"Dominican Republic","EC":"Ecuador","UY":"Uruguay"};
@@ -4452,7 +4566,7 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-cpv]");if
 function pintarVentas(){pintarVentasFact();pintarVentasIdioma();pintarCaptacionVentas()}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-vemet]");if(b&&st.veV){st.veV.met=b.dataset.vemet;pintarVentasFact();return}if(e.target.closest("[data-veact]"))actualizarVentas()});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-veidi]");if(s&&st.veV){st.veV.idi=s.value;pintarVentasFact();return}const p=e.target.closest("[data-veper]");if(p&&st.veI){st.veI.per=p.value;pintarVentasIdioma()}});
-function pintarSalasN(){pintarCR();pintarYtRanking();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarCR();pintarYtRanking();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarSeoBlog();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -4956,6 +5070,7 @@ const SUBS_SALA={
   instagram:[["ig_ranking/actual","igRank",()=>pintarRsRanking("instagram")],["ig_dash/actual","igDash",()=>pintarIgDash()],["ig_capt/actual","igCapt",()=>pintarIgCapt()],["ig_err/actual","igErr",()=>pintarIgErr()]],
   tiktok:[["tk_ranking/actual","tkRank",()=>pintarRsRanking("tiktok")]],
   captacion:[["inversion_plataformas/actual","invPl",()=>pintarInvAnual()]],
+  seo:[["seo_blog/actual","seoBlog",()=>pintarSeoBlog()]],
   metaads:[["meta_ads/utm","metaUtm",()=>pintarMetaUtm()],["meta_report/actual","metaRep",()=>pintarMetaRep()],["meta_report/checks","metaChk",()=>pintarMetaRep()]]};
 let subsSala={id:null,u:[]};
 function suscribirSala(sala){if(!st.db||!SUBS_SALA[sala]||subsSala.id===sala)return;
@@ -4965,7 +5080,7 @@ function guardaScroll(fn){return function(){const pm=document.getElementById("pn
   const r=fn.apply(this,arguments);
   if(pm){if(Math.abs(pm.scrollTop-y)>1)pm.scrollTop=y;const t2=[...pm.querySelectorAll(".pn-mod[open] .as-tw")];if(t2.length===tw.length)t2.forEach((t,i)=>{if(tw[i])t.scrollLeft=tw[i]})}return r}}
 pintarCanales=guardaScroll(pintarCanales);pintarEvolucion=guardaScroll(pintarEvolucion);pintarMix=guardaScroll(pintarMix);pintarCPA=guardaScroll(pintarCPA);
-pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaScroll(pintarInvAnual);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
+pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaScroll(pintarInvAnual);pintarSeoBlog=guardaScroll(pintarSeoBlog);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
 (async()=>{
   const db=await window.claude?.use?.("db");
   st.dl=await window.claude?.use?.("downloads");

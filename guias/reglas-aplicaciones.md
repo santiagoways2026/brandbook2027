@@ -177,6 +177,18 @@ Campaña de referencia: Xacobeo 2027 (en el catálogo, sección «Meta Ads»).
 
 ---
 
+## 11. Documentos de Word
+
+Plantilla y páginas tipo en `plantillas/word/`.
+
+- **Estilo sobrio y elegante** **(feedback)**: blanco, texto en grafito y el verde solo como acento (filetes, viñetas, antetítulos y números).
+- **Sin subrayados verdes ni cajas de color** **(feedback)**. La caja de nota va en brote con un filete fino.
+- **Portadas:** tipográfica o con foto a sangre, siempre con el logo a color. Se descartó la portada con foto enmarcada y bloque verde **(feedback)**.
+- **Variedad de páginas** para inspirarse **(feedback)**: índice, separador, solo texto, texto y tabla, infografía, listas, imágenes y contraportada.
+- Montserrat incrustada en el archivo para que se vea igual en cualquier ordenador.
+
+---
+
 ## 9. Descartado o en pausa
 
 - **Propuestas de slogan** («Live it!», «Live the Camino», «Your Camino awaits»): se probaron y se retiraron. Se mantiene «Tu Camino, sin prisas.» como provisional **(feedback)**.

@@ -942,6 +942,27 @@ html[data-tema=sw] .sb-tctl input.sb-q{background:#fff;color:#2E2E2D;border-colo
 html[data-tema=sw] #c-seo_blog .as-t td.as-n{background:#fff;color:#2E2E2D}html[data-tema=sw] #c-seo_blog .as-t tbody tr:nth-child(even) td.as-n{background:#FBFDF6}html[data-tema=sw] #c-seo_blog .as-t tbody tr.ia-sel td{background:#EEF5FD}
 html[data-tema=sw] .ia-t tbody tr.ia-sel td{background:#F4F8EA}html[data-tema=sw] .ia-t tbody tr.ia-sel td.as-n{background:#EEF4DE}
 html[data-tema=sw] .ia-t tfoot td{background:#F2F7E6;color:#2E2E2D}
+#refDiario{position:fixed;left:16px;bottom:16px;z-index:80;max-width:min(440px,calc(100vw - 32px));background:var(--marco-2);border:1px solid var(--borde);border-left:3px solid #7AA606;border-radius:8px;padding:9px 12px;color:var(--texto);font:500 13px/1.45 var(--f-ui);box-shadow:0 8px 24px rgba(0,0,0,.35)}
+#refDiario.err{border-left-color:#ff6b3d}
+#c-youtube_dash{--ytd-es:#ff5c5c;--ytd-en:#7aa7ff}
+html[data-tema=sw] #c-youtube_dash{--ytd-es:#d23b3b;--ytd-en:#2f63c8}
+#panel .k-grid.ytd-k{grid-template-columns:repeat(2,minmax(0,1fr))!important}
+#panel.full .k-grid.ytd-k{grid-template-columns:repeat(3,minmax(0,1fr))!important}
+#panel:not(.full) .ytd-g{grid-template-columns:minmax(0,1fr)}
+.ytd-k .k-num{font-size:26px}
+.ytd-k p{line-height:1.4}
+#c-youtube_dash .ytd-n-es{color:var(--ytd-es)}#c-youtube_dash .ytd-n-en{color:var(--ytd-en)}
+.ytd-g{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;padding:12px 20px 0}
+.ytd-g figure{margin:0;background:var(--marco-2);border:1px solid var(--borde);border-radius:8px;padding:10px 12px}
+.ytd-g figcaption{font-size:13px;font-weight:600;margin-bottom:6px}
+.ytd-g svg{width:100%;height:auto;display:block}
+@media (max-width:900px){.ytd-g{grid-template-columns:1fr}}
+@media (max-width:700px){#panel .k-grid.ytd-k,#panel.full .k-grid.ytd-k{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media (max-width:520px){#panel .k-grid.ytd-k,#panel.full .k-grid.ytd-k{grid-template-columns:minmax(0,1fr)!important}}
+.ytd-l{fill:none;stroke-width:2.5;stroke-linejoin:round}
+.ytd-l.ytd-es{stroke:var(--ytd-es)}.ytd-l.ytd-en{stroke:var(--ytd-en)}.ytd-l.ytd-prev{stroke:currentColor;stroke-opacity:.4;stroke-dasharray:5 4;stroke-width:2}
+.ytd-p.ytd-es{fill:var(--ytd-es)}.ytd-p.ytd-en{fill:var(--ytd-en)}.ytd-p.ytd-prev{fill:currentColor;fill-opacity:.45}
+.ytd-lt{font-size:13px;font-weight:700}.ytd-lt.ytd-es{fill:var(--ytd-es)}.ytd-lt.ytd-en{fill:var(--ytd-en)}.ytd-lt.ytd-prev{fill:currentColor;fill-opacity:.6}
 #c-community_rrss{--rr-b:#3987e5;--rr-own:#3ddc97;--rr0:#3987e5;--rr1:#d95926;--rr2:#a78bfa;--rr3:#e8b93a;--rr4:#e879f9;--rr5:#22d3ee;--rr6:#9aa3ad}
 #c-community_rrss .as-res>div{min-width:150px}#c-community_rrss .as-res b{font-size:24px;color:#e879f9}
 .rr-vistas{flex-wrap:wrap}
@@ -1269,7 +1290,7 @@ MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]})
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
 const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_producto","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
-/* SEO alimenta a todas las salas: una pestaña «Desde SEO» en cada una y «SEO para cada sala» en la propia sala de SEO */
+/* SEO alimenta a todas las salas por la base de datos (seo_red/actual); sus pestañas de directrices están ocultas */
 const LOGOS={caminoways:{a:["caminoways","camino ways"],ig:["caminoways"]},followthecamino:{a:["follow the camino","followthecamino"],ig:["followthecamino"]},pilgrim:{a:["pilgrim.es","pilgrim"],ig:["pilgrim.es"]},tubuencamino:{a:["tu buen camino","tubuencamino"],ig:["tubuencaminoviajes","tubuencamino"]},viajecamino:{a:["viaje camino","viajecaminodesantiago","viajes camino de santiago"],ig:[]},macsadventure:{a:["macs adventure","macsadventure","macs"],ig:["macsadventure"]},galiwonders:{a:["galiwonders","gali wonders"],ig:["galiwonders"]},mundiplus:{a:["mundiplus"],ig:["mundiplus"]}};
 function logoP(id,h=20){return LOGOS[id]?`<img class="logo-p" src="img/logos/${id}.png?v=1" alt="${esc(id)}" style="height:${h}px">`:""}
 function logoIg(handle,h=16){const k=String(handle||"").toLowerCase().replace(/^@/,"");const id=Object.keys(LOGOS).find(i=>LOGOS[i].ig.includes(k));return id?logoP(id,h):""}
@@ -1279,7 +1300,12 @@ const SEO_DEST={instagram:"Instagram",youtube:"YouTube",tiktok:"TikTok",communit
 MARCOS.push({id:"seo_red",grupo:"seo",dato:true,nombre:"SEO / SEO para cada sala",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_red");
 MARCOS.push({id:"seo_blog",grupo:"seo",dato:true,nombre:"SEO / Blog: captación por URL",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_blog");
 MARCOS.push({id:"community_rrss",grupo:"community",dato:true,nombre:"Community / Seguimiento RRSS",x:0,y:-9000,w:1300});SALAS_ACT.community.splice(1,0,"community_rrss");
-Object.entries(SEO_DEST).forEach(([k,n])=>{if(!SALAS_ACT[k]||k==="diseno"||k==="captacion"||k==="instagram"||k==="community")return;MARCOS.push({id:"seo_"+k,grupo:k,dato:true,nombre:n+" / Desde SEO",x:0,y:-9000,w:1300});k==="control"?SALAS_ACT[k].push("seo_"+k):SALAS_ACT[k].splice(1,0,"seo_"+k)});
+MARCOS.push({id:"youtube_dash",grupo:"youtube",sala:"youtube",dato:true,nombre:"YouTube / Dashboard de canales",x:0,y:-9000,w:1300});SALAS_ACT.youtube.splice(1,0,"youtube_dash");
+/* Las directrices entre salas (Desde SEO, SEO para cada sala, brief de Control a Diseño) siguen circulando por la base de datos y las rutinas, pero sin pestaña.
+   En YouTube, la auditoría y la estrategia Hub & Spoke quedan retiradas de momento */
+const MODS_OCULTOS=new Set(["seo_red","d_brief","youtube_audit","youtube_hub"]);
+for(let i=MARCOS.length-1;i>=0;i--)if(MODS_OCULTOS.has(MARCOS[i].id))MARCOS.splice(i,1);
+Object.values(SALAS_ACT).forEach(a=>{for(let i=a.length-1;i>=0;i--)if(MODS_OCULTOS.has(a[i]))a.splice(i,1)});
 /* Pasillos: trazados en coordenadas del mundo; los paquetes recorren cada pasillo en el sentido del flujo */
 /* Pasillos: esquinas redondeadas y curvas, como un edificio real */
 function ruta(p,r=200){let d=`M${p[0][0]} ${p[0][1]}`;for(let i=1;i<p.length-1;i++){const[a,b,c]=[p[i-1],p[i],p[i+1]];const l1=Math.hypot(b[0]-a[0],b[1]-a[1]),l2=Math.hypot(c[0]-b[0],c[1]-b[1]),k=Math.min(r,l1/2,l2/2);
@@ -3230,7 +3256,7 @@ const cnHojas=(gs,pre=[])=>(gs||[]).flatMap(g=>g.groupings?.length?cnHojas(g.gro
 const cnYm=v=>v?+String(v).slice(0,7).replace("-",""):null;
 async function cnPaginas(nombre,per,alPagina){
   for(let set=1;set<=40;set++){
-    const r=await mc.mcp.callTool("Zoho","ZohoCRM_runSpecificReport",{path_variables:{reportId:CN_REP},query_params:{per_set:per,set}},{cache:false});
+    const r=await mc.mcp.callTool(ZO,"ZohoCRM_runSpecificReport",{path_variables:{reportId:CN_REP},query_params:{per_set:per,set}},{cache:false});
     let p=r.payload;if(typeof p==="string"){try{p=JSON.parse(p)}catch{throw{code:"formato",message:"Zoho devolvió una respuesta que no se puede leer."}}}
     const d=p?.data?.data_map?p.data:p?.data_map?p:null;if(!d)throw{code:"formato",message:"Zoho no devolvió datos del informe."};
     alPagina(d.data_map);cnAct(`Leyendo ${nombre} de Zoho (página ${set})…`);
@@ -3268,10 +3294,10 @@ async function actualizarCanales(){
   const fila=v=>{const s=v[0]??"(sin utm)",m=v[1]??"(sin medium)",ym=cnYm(v[2]);if(!ym)return null;const k=s+"\u0001"+m+"\u0001"+ym;return F[k]||(F[k]=[s,m,ym,0,0,0,{}])};
   try{
     cnAct("Preparando el informe de deals en Zoho…");
-    await mc.mcp.callTool("Zoho","ZohoCRM_updateReports",cnCfg("summary",hasta));
+    await mc.mcp.callTool(ZO,"ZohoCRM_updateReports",cnCfg("summary",hasta));
     await cnPaginas("los deals",2000,dm=>{cnHojas(dm.row_groupings?.groupings).forEach(h=>{const f=fila(h.v);const n=dm[h.k]?.aggregates?.[0]?.value;if(f&&n)f[3]+=+n})});
     cnAct("Preparando el informe de ventas won en Zoho…");
-    await mc.mcp.callTool("Zoho","ZohoCRM_updateReports",cnCfg("matrix",hasta));
+    await mc.mcp.callTool(ZO,"ZohoCRM_updateReports",cnCfg("matrix",hasta));
     await cnPaginas("las ventas won",100,dm=>{const cols=cnHojas(dm.column_groupings?.groupings);
       cnHojas(dm.row_groupings?.groupings).forEach(h=>{const f=fila(h.v);if(!f)return;cols.forEach(c=>{const n=+(dm[h.k+"!"+c.k]?.aggregates?.[0]?.value||0);if(!n)return;f[4]+=n;const cy=cnYm(c.v[0]);if(!cy)return;f[6][cy]=(f[6][cy]||0)+n;if(cy===f[2])f[5]+=n})})});
     const filas=Object.values(F).filter(f=>f[3]||f[4]).sort((a,b)=>a[0].localeCompare(b[0])||a[1].localeCompare(b[1])||a[2]-b[2]);
@@ -3658,7 +3684,7 @@ const rrMes=ym=>MESN[ym%100-1],RR_ML=["enero","febrero","marzo","abril","mayo","
 const rrSg=n=>n==null||!isFinite(n)?"–":(n>0?"+":n<0?"-":"")+igGr(Math.abs(n));
 const rrPv=(a,b)=>a==null||b==null||!b?null:(a-b)/b;
 const rrPs=x=>x==null||!isFinite(x)?"–":(x>0?"+":"")+igPc(x);
-const rrCorto=n=>Math.abs(n)>=10000?(n/1000).toFixed(Math.abs(n)>=100000?0:1).replace(".",",").replace(/,0$/,"")+" mil":igGr(n);
+const rrCorto=n=>Math.abs(n)>=1e6?(n/1e6).toFixed(Math.abs(n)>=1e7?0:1).replace(".",",").replace(/,0$/,"")+" M":Math.abs(n)>=10000?(n/1000).toFixed(Math.abs(n)>=100000?0:1).replace(".",",").replace(/,0$/,"")+" mil":igGr(n);
 const rrSinIco=t=>String(t||"").replace(/^[^\p{L}\p{N}]+/u,"").trim();
 const rrDot=t=>{const s=String(t||"");return/🔴/u.test(s)?"ko":/🟡|⚠/u.test(s)?"warn":/🟢|🥇/u.test(s)?"ok":/📍/u.test(s)?"base":""};
 const rrNorm=s=>String(s||"").toLowerCase().normalize("NFD").replace(/[^a-z0-9]/g,"");
@@ -3886,13 +3912,13 @@ const PR_SQL=["select v.\"Start Place\" as inicio, year(d.\"Created Time\")*100+
   "select year(d.\"Created Time\")*100+month(d.\"Created Time\") as ym, year(v.\"Start Date\")*100+month(v.\"Start Date\") as ymv, count(distinct d.\"Id\") as ventas, sum(datediff(v.\"Start Date\", d.\"Created Time\")) as antelacion from \"Viajes\" v join \"Deals\" d on v.\"Deal\"=d.\"Id\" where d.\"Created Time\" >= '2025-01-01' and d.\"Stage\"='Won' group by 1,2"];
 function prAct(msg,tipo){st.prAct={msg,tipo:tipo||"vivo"};document.querySelectorAll("[data-prmsg]").forEach(b=>{b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")})}
 async function prGrupos(){const hasta=`${new Date().getFullYear()}-12-31T23:59:59+01:00`;
-  await mc.mcp.callTool("Zoho","ZohoCRM_updateReports",{body:{Reports:[{id:CN_REP,name:"Claude · Deals por UTM y mes",folder:{id:"2161768000000011611"},module:{api_name:"Deals"},type:"summary",
+  await mc.mcp.callTool(ZO,"ZohoCRM_updateReports",{body:{Reports:[{id:CN_REP,name:"Claude · Deals por UTM y mes",folder:{id:"2161768000000011611"},module:{api_name:"Deals"},type:"summary",
     group_by:[{field:{api_name:"Adultos"},type:"row",sort_order:"asc"},{field:{api_name:"Created_Time"},type:"row",sort_order:"asc",date_granularity:"month"},{field:{api_name:"Stage"},type:"row",sort_order:"asc"}],
     columns:[{field:{api_name:"Deal_Name"}}],aggregate_functions:[{name:"distinct_count",field:{api_name:"id"}}],filters:{comparator:"equal",field:{api_name:"Deal_Name"},type:"value",value:"${NOTEMPTY}"},
     date_filter:{comparator:"between",field:{api_name:"Created_Time"},type:"value",value:["2025-01-01T00:00:00+01:00",hasta]},show_detail_rows:false,show_grand_total:true,show_sub_totals:false,show_row_count:true,show_wrap_text:true,aggregate_type:"split"}]}});
   const G={};
   for(let set=1;set<=20;set++){prAct(`Leyendo el tamaño de grupo en Zoho CRM (página ${set})…`);
-    const r=await mc.mcp.callTool("Zoho","ZohoCRM_runSpecificReport",{path_variables:{reportId:CN_REP},query_params:{per_set:2000,set}},{cache:false});
+    const r=await mc.mcp.callTool(ZO,"ZohoCRM_runSpecificReport",{path_variables:{reportId:CN_REP},query_params:{per_set:2000,set}},{cache:false});
     let p=r.payload;if(typeof p==="string"){try{p=JSON.parse(p)}catch{throw{code:"formato",message:"Zoho CRM devolvió una respuesta que no se puede leer."}}}
     const d=p?.data?.data_map?p.data:p?.data_map?p:null;if(!d)throw{code:"formato",message:"Zoho CRM no devolvió datos del informe."};const dm=d.data_map;
     (dm.row_groupings?.groupings||[]).forEach(a=>{let pv=a.value;if(pv!=null&&+pv>40)return;pv=pv==null?-1:+pv;
@@ -4194,12 +4220,12 @@ function asFilas(vol,won){const nom=asNombres([...vol,...won].map(r=>(r.asesor||
   won.forEach(r=>{const f=fila(r);const cy=+r.canio*100+ +r.cmes;if(f&&cy)f[5][cy]=(f[5][cy]||0)+(+r.won||0)});
   return Object.values(F).filter(f=>f[3]||f[4])}
 async function asConsulta(sql,paso,msg,clave){msg=msg||asAct;const H={"ZANALYTICS-ORGID":AS_ORG},cfg={cache:false},txt=r=>{let p=r.payload;if(typeof p==="string"){try{p=JSON.parse(p)}catch{return p}}return p};
-  const j=txt(await mc.mcp.callTool("Zoho","ZohoAnalytics_createExportJobSQLQuery",{headers:H,path_variables:{"workspace-id":AS_WS},query_params:{CONFIG:JSON.stringify({sqlQuery:sql,responseFormat:"csv"})}},cfg));
+  const j=txt(await mc.mcp.callTool(ZO,"ZohoAnalytics_createExportJobSQLQuery",{headers:H,path_variables:{"workspace-id":AS_WS},query_params:{CONFIG:JSON.stringify({sqlQuery:sql,responseFormat:"csv"})}},cfg));
   const id=j?.data?.data?.jobId||j?.data?.jobId;if(!id)throw{code:"formato",message:"Zoho Analytics no creó la consulta."};
   for(let i=0;i<40;i++){await new Promise(r=>setTimeout(r,i?2500:1200));msg(`${paso} (esperando a Zoho Analytics)…`);
-    const d=txt(await mc.mcp.callTool("Zoho","ZohoAnalytics_getExportJobDetails",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg));const code=String(d?.data?.data?.jobCode||d?.data?.jobCode||"");
+    const d=txt(await mc.mcp.callTool(ZO,"ZohoAnalytics_getExportJobDetails",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg));const code=String(d?.data?.data?.jobCode||d?.data?.jobCode||"");
     if(code==="1004")break;if(code==="1003"||code==="1005")throw{code:"formato",message:"La consulta falló en Zoho Analytics."};if(i===39)throw{code:"formato",message:"Zoho Analytics tarda demasiado. Prueba de nuevo en unos minutos."}}
-  const r=await mc.mcp.callTool("Zoho","ZohoAnalytics_downloadExportedData",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg);
+  const r=await mc.mcp.callTool(ZO,"ZohoAnalytics_downloadExportedData",{headers:H,path_variables:{"workspace-id":AS_WS,"job-id":id}},cfg);
   const p=txt(r),csv=typeof p==="string"?p:(p?.data?.result??p?.result??r.content?.find(b=>b.type==="text")?.text);
   if(typeof csv!=="string"||!csv.includes(clave||"asesor")&&!(!clave&&csv.includes(",")&&/\r?\n/.test(csv)))throw{code:"formato",message:"Zoho Analytics devolvió un archivo que no se puede leer."};return asCsv(csv)}
 function asAct(msg,tipo){st.asAct={msg,tipo:tipo||"vivo"};const b=document.getElementById("asActMsg");if(b){b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")}}
@@ -4706,6 +4732,73 @@ function pintarYtRanking(){const el=document.getElementById("c-youtube_ranking")
    <div class="yr-grid">${L.map(tarj).join("")}</div>
    <p class="as-nota">Fuente: ${esc(A.fuente||"")} Mediana del canal: ${num(refMed)} visualizaciones; interacción media ${pc(refInt)} ((me gusta + comentarios + compartidos) / visualizaciones). Verde: un 15 % o más por encima; rojo: un 15 % o más por debajo. Pulsa un vídeo para verlo en YouTube.</p>`}
 document.addEventListener("change",e=>{const s=e.target.closest("[data-yrf]");if(!s||!st.yrV)return;st.yrV[s.dataset.yrf]=s.value;pintarYtRanking()});
+/* ===== YouTube: dashboard de los canales ES y EN, en vivo desde Metricool, con la evolución del año ===== */
+const YTD_C=[{id:"es",n:"ES",cuenta:"@santiago_ways",brand:"3306533",url:"https://www.youtube.com/@santiago_ways"},{id:"en",n:"EN",cuenta:"@Santiagoways-EN",brand:"3306535",url:"https://www.youtube.com/@Santiagoways-EN"}];
+const YTD_M=["YTEV01","YTEV02","YTEV04","YTEV05","YTEV06","YTEV14","YTEV16","YTEV18"];
+const ytd={subs:false,guardado:false,t:0};
+const diaMad=t=>new Date(t).toLocaleDateString("sv-SE",{timeZone:"Europe/Madrid"});
+function ytdSuscribir(){if(ytd.subs||!mc.mcp)return;ytd.subs=true;
+  const y=new Date().getFullYear(),to=new Date().toISOString().slice(0,10)+"T23:59:59+00:00";
+  const cb=k=>ev=>{if(ev.type==="data"){const pl=ev.result.payload;mc.datos[k]={rows:Array.isArray(pl?.rows)?pl.rows:[],at:ev.result.cache?.storedAt||Date.now()};delete mc.err[k]}
+    else{mc.err[k]=ev.error;if(DENEGADOS.includes(ev.error.code))delete mc.datos[k]}ytdRepinta()};
+  YTD_C.forEach(c=>mc.mcp.watchTool(MC,MCT,{brandId:c.brand,from:y+"-01-01T00:00:00+00:00",to,metrics:YTD_M},cb("ytd:"+c.id),{refetchInterval:60*60000}));
+  mc.mcp.watchTool(MC,MCT,{brandId:YTD_C[0].brand,from:(y-1)+"-01-01T00:00:00+00:00",to:(y-1)+"-12-31T23:59:59+00:00",metrics:["YTEV01"]},cb("ytd:es_prev"),{refetchInterval:24*3600000})}
+function ytdRepinta(){if(ytd.t)return;ytd.t=setTimeout(()=>{ytd.t=0;pintarYtDash()},300)}
+/* Con los datos en vivo, la copia de la base de datos se renueva una vez al día para quien abre la página sin Metricool */
+function ytdGuardar(){if(ytd.guardado||!st.db)return;const L=["es","en","es_prev"].map(k=>mc.datos["ytd:"+k]?.rows);if(L.some(r=>!r||!r.length))return;
+  ytd.guardado=true;if(st.ytDash?.fecha&&diaMad(st.ytDash.fecha)===diaMad(Date.now()))return;
+  st.db.doc("youtube_dash/actual").set({fecha:new Date().toISOString(),fuente:"Metricool · YouTube Evolution: suscriptores, visualizaciones, vídeos publicados, suscriptores ganados y perdidos, me gusta, comentarios y compartidos por día",filas:{es:L[0],en:L[1],es_prev:L[2]}}).catch(()=>{})}
+/* Filas de Metricool: [suscriptores, visualizaciones, vídeos, ganados, perdidos, me gusta, comentarios, compartidos, "AAAAMMDD"] */
+function ytdSerie(rows){const d=[];for(const r of rows||[]){const f=String(r[r.length-1]||"");if(f.length!==8)continue;d.push({f,v:r.slice(0,-1).map(z=>z==null||z===""?null:+z)})}
+  d.sort((a,b)=>a.f.localeCompare(b.f));const M={};
+  for(const{f,v}of d){const ym=+f.slice(0,6),o=M[ym]||(M[ym]={ym,subs:null,vis:0,vid:0,gan:0,per:0,lk:0,co:0,sh:0,hasta:f});if(v[0]>0)o.subs=v[0];o.vis+=v[1]||0;o.vid+=v[2]||0;o.gan+=v[3]||0;o.per+=v[4]||0;o.lk+=v[5]||0;o.co+=v[6]||0;o.sh+=v[7]||0;o.hasta=f}
+  return{d,meses:Object.values(M).sort((a,b)=>a.ym-b.ym),subs:d.filter(x=>x.v[0]>0).map(x=>[x.f,x.v[0]])}}
+const ytdFecha=f=>`${+f.slice(6,8)} ${MESN[+f.slice(4,6)-1]}`;
+/* Líneas de suscriptores con eje que no empieza en cero (los cambios son pequeños frente al total) */
+function ytdLinea(S,ini,fin,aria){const W=640,H=250,pl=58,pr=104,pt=16,pb=30,dia=f=>Date.UTC(+f.slice(0,4),+f.slice(4,6)-1,+f.slice(6,8))/864e5;
+  const x0=dia(ini),x1=Math.max(x0+1,dia(fin)),vals=S.flatMap(s=>s.pts.map(p=>p[1]));if(!vals.length)return"";
+  let lo=Math.min(...vals),hi=Math.max(...vals);const paso=iaPaso(Math.max(1,(hi-lo)/4));lo=Math.floor(lo/paso)*paso;hi=Math.ceil(hi/paso)*paso;if(hi<=lo)hi=lo+paso;
+  const X=f=>pl+(W-pl-pr)*(dia(f)-x0)/(x1-x0),Y=v=>pt+(H-pt-pb)*(1-(v-lo)/(hi-lo)),ticks=[];for(let t=lo;t<=hi+1e-9;t+=paso)ticks.push(t);
+  const meses=[];{let y=+ini.slice(0,4),m=+ini.slice(4,6);if(+ini.slice(6,8)>1){m++;if(m>12){m=1;y++}}for(;;){const f=y+String(m).padStart(2,"0")+"01";if(f>fin)break;meses.push(f);m++;if(m>12){m=1;y++}}}
+  const cada=meses.length>8?2:1;
+  const labs=S.filter(s=>s.pts.length).map(s=>{const p=s.pts[s.pts.length-1];return{s,p,y:Y(p[1])}}).sort((a,b)=>a.y-b.y);
+  for(let k=1;k<labs.length;k++)if(labs[k].y-labs[k-1].y<16)labs[k].y=labs[k-1].y+16;
+  const fm=(s,i)=>{const p=s.pts[i],q=s.pts[i+1];return!q||q[0].slice(0,6)!==p[0].slice(0,6)};
+  return`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(aria)}">${ticks.map(t=>`<line class="ia-grid" x1="${pl}" x2="${W-pr}" y1="${Y(t).toFixed(1)}" y2="${Y(t).toFixed(1)}"/><text class="ia-ax" x="${pl-6}" y="${(Y(t)+4).toFixed(1)}" text-anchor="end">${rrCorto(t)}</text>`).join("")}
+   ${meses.map((f,i)=>i%cada?"":`<text class="ia-ax" x="${X(f).toFixed(1)}" y="${H-8}" text-anchor="middle">${MESN[+f.slice(4,6)-1]}</text>`).join("")}
+   ${S.map(s=>`<path class="ytd-l ${s.cls}" d="${s.pts.map((p,i)=>(i?"L":"M")+X(p[0]).toFixed(1)+" "+Y(p[1]).toFixed(1)).join("")}"/>${s.pts.map((p,i)=>fm(s,i)?`<circle class="ytd-p ${s.cls}" cx="${X(p[0]).toFixed(1)}" cy="${Y(p[1]).toFixed(1)}" r="3.5"><title>${esc(s.n)} · ${ytdFecha(p[0])}: ${igGr(p[1])} suscriptores</title></circle>`:"").join("")}`).join("")}
+   ${labs.map(l=>`<text class="ytd-lt ${l.s.cls}" x="${(X(l.p[0])+8).toFixed(1)}" y="${(l.y+4).toFixed(1)}">${esc(l.s.n)} · ${igGr(l.p[1])}</text>`).join("")}</svg>`}
+function pintarYtDash(){const el=document.getElementById("c-youtube_dash");if(!el||st.dentro!=="youtube")return;ytdSuscribir();ytdGuardar();
+  const y=new Date().getFullYear(),vivo=YTD_C.some(c=>mc.datos["ytd:"+c.id]),D=st.ytDash,filas=k=>mc.datos["ytd:"+k]?.rows||D?.filas?.[k]||[];
+  const C=YTD_C.map(c=>({...c,...ytdSerie(filas(c.id))})).filter(c=>c.d.length),prev=ytdSerie(filas("es_prev"));
+  const cab=`<div class="mcab"><div><h2>Dashboard de canales</h2><div class="fuente-mc" style="margin-top:6px">Metricool${vivo?" en vivo":""} · canales de YouTube ES y EN · ${y}</div></div><div class="meta">${vivo?`datos de Metricool ${esc(hace(new Date(Math.max(...YTD_C.map(c=>mc.datos["ytd:"+c.id]?.at||0))).toISOString()))}`:D?.fecha?`copia del ${esc(hace(D.fecha))}`:""}</div></div>`;
+  if(!C.length){const e=YTD_C.map(c=>mc.err["ytd:"+c.id]).find(Boolean);el.innerHTML=cab+`<div class="vacio">${e?"No se pudo leer Metricool: "+esc(e.message||e.code||"error"):mc.mcp?"Leyendo los canales en Metricool…":"Abre la página desde claude.ai con Metricool conectado para ver los canales."}</div>`;return}
+  const pc=x=>x==null||!isFinite(x)?"–":(x>0?"+":"")+(x*100).toFixed(1).replace(".",",")+" %",sg=n=>(n>0?"+":"")+igGr(n),suma=(c,k)=>c.meses.reduce((t,m)=>t+m[k],0);
+  const K=C.map(c=>{const s0=c.subs[0],s1=c.subs[c.subs.length-1],ult=c.subs.length?s1[0]:c.d[c.d.length-1].f,conV=c.d.filter(x=>x.v[1]!=null),a=conV.slice(-30),b=conV.slice(-60,-30),sv=L=>L.reduce((t,x)=>t+x.v[1],0);
+    let pr=null;if(c.id==="es"&&prev.subs.length&&s1){const lim=(y-1)+s1[0].slice(4),hasta=prev.subs.filter(p=>p[0]<=lim).pop();if(hasta)pr=hasta[1]-prev.subs[0][1]}
+    return{c,s0,s1,ult,crec:s0&&s1?s1[1]-s0[1]:null,pct:s0&&s1&&s0[1]>=100?(s1[1]-s0[1])/s0[1]:null,pr,vis:suma(c,"vis"),vid:suma(c,"vid"),int:suma(c,"lk")+suma(c,"co")+suma(c,"sh"),v30:sv(a),v30p:b.length===30?sv(b):null,desde:c.d[0].f}});
+  const tot=k=>K.reduce((t,x)=>t+(x[k]||0),0);
+  const res=`<div class="as-res"><div><b>${igGr(K.reduce((t,x)=>t+(x.s1?.[1]||0),0))}</b><span>suscriptores entre los dos canales</span></div><div><b>${sg(tot("crec"))}</b><span>suscriptores nuevos en ${y}</span></div><div><b>${rrCorto(tot("vis"))}</b><span>visualizaciones en ${y}</span></div><div><b>${igGr(tot("vid"))}</b><span>vídeos publicados en ${y}</span></div></div>`;
+  const hoyYm=+new Date().toISOString().slice(0,7).replace("-",""),mesL=m=>RR_ML[m.ym%100-1]+(m.ym===hoyYm?` (hasta el ${+m.hasta.slice(6,8)})`:"");
+  const canal=k=>{const c=k.c,nuevo=k.desde>y+"0110";
+    const S=[{n:String(y),cls:"ytd-"+c.id,pts:c.subs}];if(c.id==="es"&&prev.subs.length)S.push({n:String(y-1),cls:"ytd-prev",pts:prev.subs.filter(p=>p[0].slice(4)<=k.ult.slice(4)).map(p=>[y+p[0].slice(4),p[1]]).filter(p=>p[0].slice(4)!=="0229")});
+    const ini=nuevo?k.desde:y+"0101",M=c.meses.map(m=>({n:MESN[m.ym%100-1],v:m.vis,cur:m.ym===hoyYm,s:m.vid?m.vid+" víd.":"",tt:`${RR_ML[m.ym%100-1]} ${y}: ${igGr(m.vis)} visualizaciones · ${m.vid} vídeos publicados`}));
+    return`<div class="seccion-t">Canal ${c.n} · <a href="${c.url}" target="_blank" rel="noopener">${esc(c.cuenta)}</a>${nuevo?` · datos desde el ${ytdFecha(k.desde)}`:""}</div>
+   <div class="k-grid ytd-k" data-res="1">
+    <div class="k-c"><div class="k-num ytd-n-${c.id}">${k.s1?igGr(k.s1[1]):"–"}</div><p>suscriptores${k.s1?` · ${ytdFecha(k.s1[0])}`:""}</p></div>
+    <div class="k-c"><div class="k-num">${k.crec==null?"–":sg(k.crec)}</div><p>suscriptores ${nuevo?"desde el alta":"en "+y}${k.pct!=null?" · "+pc(k.pct):""}${k.pr!=null?`<br>en ${y-1}, mismas fechas: ${sg(k.pr)}`:""}</p></div>
+    <div class="k-c"><div class="k-num">${rrCorto(k.vis)}</div><p>visualizaciones ${nuevo?"desde el alta":"en "+y}</p></div>
+    <div class="k-c"><div class="k-num">${rrCorto(k.v30)}</div><p>visualizaciones en los últimos 30 días${k.v30p!=null?` · ${pc(k.v30p?(k.v30-k.v30p)/k.v30p:null)} frente a los 30 anteriores`:""}</p></div>
+    <div class="k-c"><div class="k-num">${igGr(k.vid)}</div><p>vídeos publicados</p></div>
+    <div class="k-c"><div class="k-num">${igGr(k.int)}</div><p>interacciones (me gusta, comentarios y compartidos)</p></div>
+   </div>
+   <div class="ytd-g" style="--rr-b:var(--ytd-${c.id})">
+    <figure><figcaption>Suscriptores a lo largo del año${S.length>1?`: ${y} frente a ${y-1}`:""}</figcaption>${ytdLinea(S,ini,k.ult,`Suscriptores del canal ${c.n} en ${y}`)}</figure>
+    <figure><figcaption>Visualizaciones por mes${M.some(m=>m.cur)?" (* mes en curso)":""}</figcaption>${rrBarras(M,`Visualizaciones por mes del canal ${c.n}`)}</figure>
+   </div>
+   <div class="mc-sec as-tw"><table class="tabla"><thead><tr><th style="text-align:left">Mes</th><th>Suscriptores al cierre</th><th>Ganados</th><th>Perdidos</th><th>Visualizaciones</th><th>Vídeos</th><th>Me gusta</th><th>Comentarios</th><th>Compartidos</th></tr></thead>
+    <tbody data-res="1">${c.meses.map(m=>`<tr><td style="text-align:left">${esc(mesL(m))}</td><td>${m.subs?igGr(m.subs):"–"}</td><td>${igGr(m.gan)}</td><td>${igGr(m.per)}</td><td>${igGr(m.vis)}</td><td>${igGr(m.vid)}</td><td>${igGr(m.lk)}</td><td>${igGr(m.co)}</td><td>${igGr(m.sh)}</td></tr>`).join("")}</tbody></table></div>`};
+  el.innerHTML=cab+res+K.map(canal).join("")+`<p class="as-nota">Fuente: ${esc(D?.fuente||"Metricool · YouTube Evolution")}. YouTube redondea los suscriptores de los canales con más de 1.000 (de 10 en 10), así que los ganados y perdidos que da YouTube Analytics no siempre cuadran con la diferencia de suscriptores. Interacciones de los vídeos vistos en cada día.</p>`}
 /* ===== Viajes vendidos: número e importe de viajes vendidos, 2025 frente a 2026 ===== */
 const VE_IDI={English:"Inglés (EN)",Spanish:"Español (ES)",German:"Alemán (DE)",Italian:"Italiano (IT)",Portuguese:"Portugués (PT)"},VE_COL={a:"#7c86e8",b:"#7AA606"};
 const veSQL=dia=>[`select year("Created Time")*100+month("Created Time") as ym, "Language" as idioma, count(*) as viajes, sum("Trip Amount") as importe, sum(case when dayofmonth("Created Time")<=${dia} then 1 else 0 end) as viajes_corte, sum(case when dayofmonth("Created Time")<=${dia} then "Trip Amount" else 0 end) as importe_corte, sum("People") as personas from "Viajes" where "Created Time" >= '2025-01-01' group by 1,2`];
@@ -4869,7 +4962,7 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-cpv]");if
 function pintarVentas(){pintarVentasFact();pintarVentasIdioma();pintarCaptacionVentas()}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-vemet]");if(b&&st.veV){st.veV.met=b.dataset.vemet;pintarVentasFact();return}if(e.target.closest("[data-veact]"))actualizarVentas()});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-veidi]");if(s&&st.veV){st.veV.idi=s.value;pintarVentasFact();return}const p=e.target.closest("[data-veper]");if(p&&st.veI){st.veI.per=p.value;pintarVentasIdioma()}});
-function pintarSalasN(){pintarCR();pintarYtRanking();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarSeoBlog();pintarRrss();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarCR();pintarYtRanking();pintarYtDash();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarSeoBlog();pintarRrss();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -5095,6 +5188,52 @@ document.addEventListener("keydown",e=>{if(e.target.id==="chatTxt"&&e.key==="Ent
 
 /* ---------- Metricool en vivo ---------- */
 const MC="Metricool Social Media Management",MCT="getAnalyticsDataByMetrics";
+/* Conector de Zoho tal como se llama en claude.ai */
+const ZO="zoho crm";
+/* ===== Refresco diario al abrir la página: lo que no sea de hoy se actualiza solo.
+   Las tablas de Zoho, con el conector de quien abre (y solo si puede escribir en la base de datos); los análisis de las salas, lanzando su rutina ===== */
+const RCC="Claude Code Remote";
+const REF_ZOHO=[
+  ["canales","captacion_canales/actual",()=>st.canales,()=>actualizarCanales(),"Captación: deals y CR por canal"],
+  ["deals","captacion_deals/actual",()=>st.cap,()=>actualizarCaptacion(),"Captación: deals y cierres"],
+  ["ventas","ventas_viajes/actual",()=>st.ven,()=>actualizarVentas(),"Viajes vendidos"],
+  ["asesores","comercial_asesores/actual",()=>st.ases,()=>actualizarAsesores(),"Análisis comercial por asesor"],
+  ["producto","comercial_producto/actual",()=>st.prod,()=>actualizarProducto(),"Producto"],
+  ["embudo","comercial_embudo/actual",()=>st.emb,()=>actualizarEmbudo(),"Embudo comercial"],
+  ["valor","comercial_valor/actual",()=>st.val,()=>actualizarValor(),"Valor del cliente"],
+  ["alertas","comercial_alertas/actual",()=>st.ale,()=>actualizarAlertas(),"Alertas comerciales"]];
+const REF_RUT=[
+  ["control_cerebro/actual",()=>st.ctrl?.cerebro,"trig_01HsPDtmQUcow7jRqLkCDkNd","Cerebro"],
+  ["control_negocio/actual",()=>st.neg,"trig_01PD9aSHVcwk1tNZXTqVWtGt","Sala de Control"],
+  ["insights/community",()=>st.insights?.community,"trig_01Cw8hC6UwYp3YAd4b4fErEH","Community"],
+  ["insights/lifecycle",()=>st.insights?.lifecycle,"trig_01JrvskEX69w2b4AxNdPkWiD","Lifecycle"],
+  ["youtube_analisis/benchmark",()=>st.ytb,"trig_01DBa7xzP8AHE9T89g4CL8vZ","YouTube"],
+  ["seo_auditoria/actual",()=>st.seo?.audit,"trig_01SZf26juAUDx95mwxUN9spQ","SEO"]];
+const refD={hecho:false,ta:0};
+function refAviso(t,tipo){let el=document.getElementById("refDiario");if(!el){el=document.createElement("div");el.id="refDiario";el.setAttribute("role","status");document.body.appendChild(el)}
+  el.textContent=t;el.className=tipo||"";clearTimeout(refD.ta);if(tipo)refD.ta=setTimeout(()=>el.remove(),tipo==="ok"?8000:20000)}
+async function refrescoDiario(){
+  if(refD.hecho||!st.db||!mc.mcp)return;refD.hecho=true;
+  const espera=ms=>new Promise(r=>setTimeout(r,ms)),hoy=diaMad(Date.now()),docs=[...REF_ZOHO.map(x=>x[1]),...REF_RUT.map(x=>x[0])];
+  for(let i=0;i<40&&docs.some(p=>!DOCS_VISTOS.has(p));i++)await espera(500);
+  const deHoy=d=>{const f=d?.fecha||d?.actualizado;return!!f&&diaMad(f)===hoy},viejo=(p,g)=>DOCS_VISTOS.has(p)&&!deHoy(g());
+  let R=null;try{const s=await st.db.doc("refresco/diario").get();R=s.exists?s.data():null}catch(_){return}
+  if(R?.fecha!==hoy)R={fecha:hoy,zoho:{},rutinas:{}};
+  if(R.inicio&&!R.fin&&Date.now()-Date.parse(R.inicio)<20*60000)return;
+  const rut=REF_RUT.filter(([p,g,id])=>viejo(p,g)&&!R.rutinas?.[id]),zo=REF_ZOHO.filter(([k,p,g])=>viejo(p,g)&&!R.zoho?.[k]);
+  if(!rut.length&&!zo.length)return;
+  R={fecha:hoy,zoho:R.zoho||{},rutinas:R.rutinas||{},inicio:new Date().toISOString(),fin:null};
+  try{await st.db.doc("refresco/diario").set(R)}catch(_){return}
+  const lanzadas=[];
+  for(const[,,id,n]of rut){try{await mc.mcp.callTool(RCC,"fire_trigger",{trigger_id:id},{cache:false});R.rutinas[id]=new Date().toISOString();lanzadas.push(n)}catch(e){if(DENEGADOS.includes(e?.code))break}}
+  if(lanzadas.length)refAviso(`Actualización diaria: lanzados los análisis de ${lanzadas.join(", ")}. Llegarán en unos minutos.`);
+  let ok=0,fallo="";
+  for(let i=0;i<zo.length;i++){const[k,,g,fn,n]=zo[i];refAviso(`Actualización diaria desde Zoho: ${n} (${i+1} de ${zo.length})…`);
+    try{await fn()}catch(_){}for(let j=0;j<10&&!deHoy(g());j++)await espera(500);
+    if(!deHoy(g())){fallo=n;break}R.zoho[k]=new Date().toISOString();ok++}
+  R.fin=new Date().toISOString();try{await st.db.doc("refresco/diario").set(R)}catch(_){}
+  if(fallo)refAviso(`No se pudo actualizar «${fallo}» desde Zoho. Revisa que el conector «zoho crm» esté conectado y permitido en esta página.`,"err");
+  else refAviso(`Actualización diaria hecha${zo.length?`: ${ok} tablas de Zoho al día`:""}${lanzadas.length?`${zo.length?" y":":"} ${lanzadas.length} análisis en marcha`:""}.`,"ok")}
 const mc={mcp:null,disponible:null,mercado:"es",datos:{},err:{},subs:[]};
 const CONSULTAS={
   ytCanal:["YTEV01","YTEV02","YTEV05","YTEV04"],
@@ -5359,19 +5498,21 @@ async function exportar(){
 /* ---------- Arranque ---------- */
 construir();pintarDatos();pintarMetricool();pintarCompetencia();pintarControl();pintarDiseno();pintarComunidad();pintarSeo();pintarPaid();iniciarMundos();
 (async()=>{sampleFn=await window.claude?.use?.("sample")})();
-(async()=>{const m=await window.claude?.use?.("mcp");mc.mcp=m;mc.disponible=!!m;suscribirMetricool();suscribirMetricoolComp()})();
+(async()=>{const m=await window.claude?.use?.("mcp");mc.mcp=m;mc.disponible=!!m;suscribirMetricool();suscribirMetricoolComp();refrescoDiario()})();
 const inicioRadar=location.hash==="#radar";
 requestAnimationFrame(()=>{if(location.hash==="#diseno")entrar("diseno");else if(location.hash==="#comunidad")entrar("comunidad");else if(location.hash==="#seo")entrar("seo");else if(location.hash==="#paid")entrar("paid");else if(location.hash==="#control")entrar("control");else if(inicioRadar)entrar("radar");else if(location.hash==="#competencia")entrar("competencia");else volarA(cajaTotal(),70,true)});
 setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);
 
 /* Suscripciones a documentos: no repintan si el documento llega igual (la entrega periódica puede repetirlo) ni lo vacían por una lectura de caché sin datos */
-function vigilarDoc(p,f,err){let ult;return st.db.doc(p).onSnapshot(s=>{let j;try{j=s.exists?JSON.stringify(s.data()):"null"}catch(_){j=String(Math.random())}
+const DOCS_VISTOS=new Set();
+function vigilarDoc(p,f,err){let ult;return st.db.doc(p).onSnapshot(s=>{DOCS_VISTOS.add(p);let j;try{j=s.exists?JSON.stringify(s.data()):"null"}catch(_){j=String(Math.random())}
   if(j==="null"&&s.metadata?.fromCache&&ult&&ult!=="null")return;if(j===ult)return;ult=j;f(s)},err||(e=>console.error(p,e)))}
 /* Documentos que solo usa una sala: se suscriben al entrar en ella para no pasar del máximo de 64 suscripciones por página */
 const SUBS_SALA={
   googleads:[["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].map(([c,k])=>[c+"/actual",k,()=>pintarGads()]),
   instagram:[["ig_ranking/actual","igRank",()=>pintarRsRanking("instagram")],["ig_dash/actual","igDash",()=>pintarIgDash()],["ig_capt/actual","igCapt",()=>pintarIgCapt()],["ig_err/actual","igErr",()=>pintarIgErr()]],
   tiktok:[["tk_ranking/actual","tkRank",()=>pintarRsRanking("tiktok")]],
+  youtube:[["youtube_dash/actual","ytDash",()=>pintarYtDash()]],
   captacion:[["inversion_plataformas/actual","invPl",()=>pintarInvAnual()],["captacion_canales_mercado/actual","canalesMk",()=>pintarCanales()]],
   seo:[["seo_blog/actual","seoBlog",()=>pintarSeoBlog()]],
   community:[["rrss_seguimiento/actual","rrss",()=>pintarRrss()]],
@@ -5384,12 +5525,12 @@ function guardaScroll(fn){return function(){const pm=document.getElementById("pn
   const r=fn.apply(this,arguments);
   if(pm){if(Math.abs(pm.scrollTop-y)>1)pm.scrollTop=y;const t2=[...pm.querySelectorAll(".pn-mod[open] .as-tw")];if(t2.length===tw.length)t2.forEach((t,i)=>{if(tw[i])t.scrollLeft=tw[i]})}return r}}
 pintarCanales=guardaScroll(pintarCanales);pintarEvolucion=guardaScroll(pintarEvolucion);pintarMix=guardaScroll(pintarMix);pintarCPA=guardaScroll(pintarCPA);
-pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaScroll(pintarInvAnual);pintarSeoBlog=guardaScroll(pintarSeoBlog);pintarRrss=guardaScroll(pintarRrss);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
+pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaScroll(pintarInvAnual);pintarSeoBlog=guardaScroll(pintarSeoBlog);pintarRrss=guardaScroll(pintarRrss);pintarYtDash=guardaScroll(pintarYtDash);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
 (async()=>{
   const db=await window.claude?.use?.("db");
   st.dl=await window.claude?.use?.("downloads");
   if(!db){$("#barrida").textContent="Abre esta página desde claude.ai para verla en vivo.";return}
-  st.db=db;if(st.dentro)suscribirSala(st.dentro);
+  st.db=db;if(st.dentro)suscribirSala(st.dentro);setTimeout(refrescoDiario,1500);
   db.collection("radar_prev").limit(500).onSnapshot(s=>{st.prev={};(s.docs||[]).forEach(d=>{const x=d.data();if(x?.img)st.prev[d.id]=x.img});if(st.dentro==="radar")pintarDatos()});
   db.collection("radar").orderBy("detectado","desc").limit(600).onSnapshot(s=>{
     st.conectado=true;st.items=s.docs.map(d=>({id:d.id,...d.data()}));

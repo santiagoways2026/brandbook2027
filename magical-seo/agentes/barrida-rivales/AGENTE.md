@@ -109,6 +109,26 @@ Dos cosas que importan:
 - **Cierra siempre `activa: false`**, aunque la barrida acabe mal o incompleta. Si no, la sala muestra una barrida en curso que no existe. Como red de seguridad, la sala da por caducada cualquier barrida de más de 45 minutos, pero no te apoyes en eso.
 - **No abuses de las escrituras.** Una por paso y una por rival recorrido es suficiente. No escribas en bucle.
 
+## El mercado del turno
+
+La barrida cubre todos los rivales, pero **cada ejecución pone el foco en un mercado**. Sin esto la atención se va sola al inglés, que es donde más rivales hay, y los demás quedan a oscuras: así llegamos a tener diez rivales vigilados en inglés y uno en italiano.
+
+El mercado se elige por el día del mes, para que la rotación sea determinista y no dependa de lo que recuerdes:
+
+| Día del mes | Mercado del turno |
+|---|---|
+| Acaba en 1 o 6 | Español |
+| Acaba en 2 o 7 | Inglés |
+| Acaba en 3 o 8 | Alemán |
+| Acaba en 4 o 9 | Italiano |
+| Acaba en 5 o 0 | Portugués |
+
+En el mercado del turno: **recorre a todos sus rivales**, haz las búsquedas abiertas en esa lengua y con los términos de ese mercado, y dedica ahí las consultas de contraste. En los demás mercados basta con detectar lo evidente.
+
+Escribe en la bitácora qué mercado tocaba. Si el foco no se pudo cubrir, dilo: una barrida que avisa de lo que no miró vale más que una que lo calla.
+
+Los términos principales de cada lengua, por si ayudan a construir las consultas: `camino de santiago` en español, el mismo en inglés, `jakobsweg` en alemán, `cammino di santiago` en italiano y `caminho de santiago` en portugués.
+
 ## Si corres en la nube
 
 Esta barrida se ejecuta en dos sitios y no puede hacer lo mismo en los dos. Comprueba dónde estás antes de prometer cobertura.

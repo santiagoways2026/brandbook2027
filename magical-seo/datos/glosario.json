@@ -1,0 +1,120 @@
+{
+  "_que_es": "El término que de verdad se busca en cada mercado para cada concepto del Camino. No es una traducción: es la forma con más volumen de búsqueda real, que a veces coincide con la traducción y a veces es la palabra española sin traducir.",
+  "_como_se_hizo": "Cruzando tres fuentes el 21 de octubre de 2026: las consultas que ya traen impresiones a santiagoways.com por país en Search Console, el volumen de cada candidato en la base de Semrush de ese mercado, y los títulos y URL de las 300 publicaciones rivales registradas en la sala.",
+  "_releer": "Los volúmenes cambian. Conviene rehacerlo cada seis meses, y antes de cualquier campaña grande.",
+
+  "patrones": [
+    {
+      "id": "aleman-no-traduce-rutas",
+      "titulo": "El alemán traduce el Camino pero no las rutas",
+      "detalle": "El término genérico es jakobsweg, con 40.500 búsquedas. Pero los nombres de ruta se buscan en español: camino del norte 3.600 frente a jakobsweg küstenweg 320, camino frances 2.400 frente a französischer jakobsweg 210, camino ingles 1.300 frente a englischer jakobsweg 110. Traducir los nombres de ruta al alemán es escribir para un término que casi nadie busca.",
+      "excepcion": "El Camino Portugués sí tiene forma propia competitiva: jakobsweg portugal empata a 3.600 con camino portugues."
+    },
+    {
+      "id": "italiano-si-traduce",
+      "titulo": "El italiano traduce todo, justo al revés",
+      "detalle": "cammino di santiago francese 3.600 frente a camino frances 390; cammino portoghese 2.900 frente a camino portugues 210; cammino del nord 1.300 frente a camino del norte 590; cammino inglese 880 frente a camino ingles 170. En italiano hay que traducir; en alemán, no. Aplicar la misma regla a los dos es equivocarse en uno."
+    },
+    {
+      "id": "ano-santo-no-existe-fuera",
+      "titulo": "El Año Santo apenas existe como búsqueda fuera del español",
+      "detalle": "xacobeo 2027 tiene 480 búsquedas en España. Fuera: 20 en Alemania, 20 en Italia, 20 en Estados Unidos, 20 en Portugal. heiliges jahr 2027 son 10 y anno santo 2027 son 0.",
+      "consecuencia": "Los rivales que venden paquetes de Holy Year 2027 en inglés y alemán no captan a esa gente por esa consulta: llegan por otras y se les vende el Año Santo una vez dentro. Significa que el Año Santo es argumento de venta, no puerta de entrada. Una landing optimizada para «holy year 2027» pelea por 20 búsquedas al mes."
+    },
+    {
+      "id": "italiano-dos-intenciones",
+      "titulo": "En italiano conviven dos intenciones distintas",
+      "detalle": "cammino di santiago tiene 90.500 búsquedas con un CPC de 0,19 €: es el mayor volumen de los cinco mercados. Pero san giacomo tiene 12.100 con un CPC de 1,07 €, cinco veces más caro. Y nuestras impresiones italianas vienen sobre todo de san giacomo (2.403) y giacomo il maggiore (1.035), no del cammino (520).",
+      "consecuencia": "Estamos captando al que busca al apóstol, que es intención religiosa o cultural, y no al que busca el viaje. Son dos públicos y dos contenidos."
+    },
+    {
+      "id": "portugues-mezcla",
+      "titulo": "El portugués se busca en las dos lenguas",
+      "detalle": "En Portugal, camino de santiago en español trae 1.816 impresiones y caminho de santiago en portugués 1.052. La forma española gana. En volumen de Semrush, caminho portugues de santiago (1.300) supera a caminho portugues (210): el sufijo «de santiago» importa en esta lengua más que en las otras."
+    }
+  ],
+
+  "terminos": [
+    {
+      "concepto": "El Camino de Santiago",
+      "es": {"kw": "camino de santiago", "vol": 49500, "cpc": 0.92, "nuestraPos": 9.6},
+      "en": {"kw": "camino de santiago", "vol": 60500, "cpc": 0.40, "nuestraPos": 6.8},
+      "de": {"kw": "jakobsweg", "vol": 40500, "cpc": 0.41, "nuestraPos": 9.8},
+      "it": {"kw": "cammino di santiago", "vol": 90500, "cpc": 0.19, "nuestraPos": 11.5},
+      "pt": {"kw": "caminho de santiago", "vol": 9900, "cpc": 0.26, "nuestraPos": 12.8},
+      "nota": "El italiano tiene el mayor volumen de los cinco y nuestra peor posición junto al portugués. El inglés supera a España en volumen."
+    },
+    {
+      "concepto": "Camino Francés",
+      "es": {"kw": "camino frances", "vol": 4400, "cpc": 0.32, "nuestraPos": 6.5},
+      "en": {"kw": "camino frances", "vol": 2900, "cpc": 0.45, "nuestraPos": 9.4},
+      "de": {"kw": "camino frances", "vol": 2400, "cpc": 0.31, "nuestraPos": 9.5},
+      "it": {"kw": "cammino di santiago francese", "vol": 3600, "cpc": 0.21, "nuestraPos": null},
+      "pt": {"kw": "caminho frances", "vol": 210, "cpc": 0.35, "nuestraPos": null},
+      "nota": "Inglés y alemán mantienen el nombre español. El italiano usa la forma larga traducida, que casi multiplica por diez a camino frances en esa base."
+    },
+    {
+      "concepto": "Camino Portugués",
+      "es": {"kw": "camino portugues", "vol": 4400, "cpc": 0.46, "nuestraPos": 5.8},
+      "en": {"kw": "camino portugues", "vol": 1000, "cpc": 0.42, "nuestraPos": null},
+      "de": {"kw": "jakobsweg portugal", "vol": 3600, "cpc": 0.36, "nuestraPos": 8.4},
+      "it": {"kw": "cammino portoghese", "vol": 2900, "cpc": 0.23, "nuestraPos": null},
+      "pt": {"kw": "caminho portugues de santiago", "vol": 1300, "cpc": 0.26, "nuestraPos": null},
+      "nota": "La única ruta con forma alemana propia competitiva: jakobsweg portugal empata con camino portugues a 3.600."
+    },
+    {
+      "concepto": "Camino del Norte",
+      "es": {"kw": "camino del norte", "vol": 6600, "cpc": 0.33, "nuestraPos": 8.1},
+      "en": {"kw": "camino del norte", "vol": 2900, "cpc": 0.0, "nuestraPos": 13.6},
+      "de": {"kw": "camino del norte", "vol": 3600, "cpc": 0.0, "nuestraPos": 8.0},
+      "it": {"kw": "cammino del nord", "vol": 1300, "cpc": 0.90, "nuestraPos": 14.5},
+      "pt": {"kw": "caminho do norte", "vol": null, "cpc": null, "nuestraPos": null},
+      "nota": "La ruta de mayor volumen en español, por encima del Francés. En alemán conserva el nombre español con 3.600 búsquedas, once veces más que jakobsweg küstenweg. Nuestra posición en inglés e italiano, 13,6 y 14,5, es de las peores del glosario."
+    },
+    {
+      "concepto": "Camino Primitivo",
+      "es": {"kw": "camino primitivo", "vol": 6600, "cpc": 0.0, "nuestraPos": 8.3},
+      "en": {"kw": "camino primitivo", "vol": 1900, "cpc": 0.0, "nuestraPos": null},
+      "de": {"kw": "camino primitivo", "vol": 2400, "cpc": 0.32, "nuestraPos": null},
+      "it": {"kw": "cammino primitivo", "vol": 1600, "cpc": 0.12, "nuestraPos": null},
+      "pt": {"kw": "caminho primitivo santiago", "vol": null, "cpc": null, "nuestraPos": 10.1},
+      "nota": "Empata con el Norte como ruta más buscada en español. Sin CPC en español ni inglés: nadie puja por ella, lo que la hace barata de ganar en orgánico."
+    },
+    {
+      "concepto": "Camino Inglés",
+      "es": {"kw": "camino ingles", "vol": 2900, "cpc": 0.30, "nuestraPos": null},
+      "en": {"kw": "camino ingles", "vol": 1300, "cpc": 0.56, "nuestraPos": null},
+      "de": {"kw": "camino ingles", "vol": 1300, "cpc": 0.40, "nuestraPos": 6.8},
+      "it": {"kw": "cammino inglese", "vol": 880, "cpc": 0.13, "nuestraPos": null},
+      "pt": {"kw": "caminho ingles santiago", "vol": null, "cpc": null, "nuestraPos": 10.0},
+      "nota": "Buena posición en alemán, 6,8, sobre 1.300 búsquedas. Es de los pocos sitios donde ya defendemos bien fuera de España."
+    },
+    {
+      "concepto": "Año Santo / Xacobeo 2027",
+      "es": {"kw": "xacobeo 2027", "vol": 480, "cpc": 0.67, "nuestraPos": 7.4},
+      "en": {"kw": "holy year 2027", "vol": 20, "cpc": 0.45, "nuestraPos": 5.6},
+      "de": {"kw": "xacobeo 2027", "vol": 20, "cpc": 0.0, "nuestraPos": null},
+      "it": {"kw": "giubileo compostelano", "vol": 20, "cpc": 0.0, "nuestraPos": null},
+      "pt": {"kw": "ano santo compostelano", "vol": 20, "cpc": 0.0, "nuestraPos": null},
+      "nota": "El eje comercial del año tiene 480 búsquedas en España y 20 en cada uno de los demás mercados. Como puerta de entrada no existe fuera del español."
+    },
+    {
+      "concepto": "Últimos 100 km / desde Sarria",
+      "es": {"kw": "camino de santiago desde sarria", "vol": 6600, "cpc": 0.84, "nuestraPos": 9.0},
+      "en": {"kw": "camino de santiago from sarria", "vol": null, "cpc": null, "nuestraPos": null},
+      "de": {"kw": "jakobsweg ab sarria", "vol": 50, "cpc": 0.98, "nuestraPos": null},
+      "it": {"kw": "ultimi 100 km cammino santiago", "vol": 480, "cpc": 0.19, "nuestraPos": null},
+      "pt": {"kw": "caminho de santiago desde sarria", "vol": 20, "cpc": 0.0, "nuestraPos": null},
+      "nota": "El tramo que más vende tiene 6.600 búsquedas en España y 50 en alemán. Fuera del español se busca por ruta, no por tramo: el alemán que quiere los últimos 100 km probablemente busca camino frances."
+    },
+    {
+      "concepto": "El apóstol Santiago",
+      "es": {"kw": "apostol santiago", "vol": null, "cpc": null, "nuestraPos": null},
+      "en": {"kw": "saint james", "vol": null, "cpc": null, "nuestraPos": null},
+      "de": {"kw": "jakobus", "vol": null, "cpc": null, "nuestraPos": null},
+      "it": {"kw": "san giacomo", "vol": 12100, "cpc": 1.07, "nuestraPos": 11.0},
+      "pt": {"kw": "sao tiago", "vol": null, "cpc": null, "nuestraPos": null},
+      "nota": "Solo medido en italiano, donde es el origen real de nuestro tráfico: 2.403 impresiones frente a las 520 del cammino. CPC de 1,07 €, cinco veces el del cammino. Intención religiosa o cultural, no de viaje. Pendiente de medir en los otros cuatro mercados."
+    }
+  ]
+}

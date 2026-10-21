@@ -182,6 +182,26 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .hueco .accion{background:var(--sup2);border-radius:6px;padding:9px 11px;font-size:14.5px;margin-bottom:9px}
 .hueco .accion b{color:var(--ways)}
 
+/* Glosario */
+.gterm{background:var(--sup);border:1px solid var(--borde);border-radius:9px;
+  padding:14px 16px;margin-bottom:10px}
+.gterm h3{font:700 16.5px/1.3 var(--f-ui);margin:0 0 10px}
+.gtabla{width:100%;border-collapse:collapse;font-size:14px}
+.gtabla th{text-align:left;font:600 10.5px/1.3 var(--f-mono);text-transform:uppercase;
+  letter-spacing:.08em;color:var(--tenue);padding:0 10px 7px 0;white-space:nowrap}
+.gtabla td{padding:6px 10px 6px 0;border-top:1px solid var(--borde);vertical-align:baseline}
+.gtabla td:first-child{font:600 13px/1.3 var(--f-mono);text-transform:uppercase;color:var(--ways)}
+.gtabla .kw{font-weight:600}
+.gtabla .num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+.gterm .gnota{margin:11px 0 0;font-size:14px;line-height:1.55;padding-top:10px;
+  border-top:1px solid var(--borde)}
+.gpat{background:var(--sup2);border-left:3px solid var(--ways);border-radius:8px;
+  padding:13px 16px;margin-bottom:10px}
+.gpat h3{font:700 15.5px/1.35 var(--f-ui);margin:0 0 7px}
+.gpat p{margin:0 0 7px;font-size:14px;line-height:1.55}
+.gpat p:last-child{margin:0}
+.gpat b{color:var(--ways)}
+
 /* Bitácora */
 .bitacora{display:flex;flex-direction:column;gap:0;border-left:1px solid var(--borde);padding-left:18px}
 .entrada{position:relative;padding:0 0 14px}
@@ -242,6 +262,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
   <button role="tab" aria-selected="true" data-tab="pubs">Publicaciones<span class="cuenta" id="n-pubs"></span></button>
   <button role="tab" aria-selected="false" data-tab="rivales">Rivales<span class="cuenta" id="n-rivales"></span></button>
   <button role="tab" aria-selected="false" data-tab="huecos">Huecos<span class="cuenta" id="n-huecos"></span></button>
+  <button role="tab" aria-selected="false" data-tab="glosario">Glosario<span class="cuenta" id="n-glosario"></span></button>
   <button role="tab" aria-selected="false" data-tab="bitacora">Bitácora</button>
 </div>
 
@@ -259,6 +280,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 
 <section id="p-rivales" hidden><div class="rivales" id="rivales"></div></section>
 <section id="p-huecos" hidden><div class="huecos" id="huecos"></div></section>
+<section id="p-glosario" hidden><div id="glosario"></div></section>
 <section id="p-bitacora" hidden><div class="bitacora" id="bitacora"></div></section>
 
 <p class="pie" id="pie">Los datos los escriben los agentes de barrida. Cada ficha enlaza a la fuente original: contrasta siempre antes de tomar una decisión.</p>
@@ -295,7 +317,7 @@ const MERCADOS=[
    paises:"Italia 245 · Desde España 85 · Suiza 16",
    nota:"El menos trabajado y el de mayor potencial: «cammino di santiago» tiene 90.500 búsquedas al mes, el volumen más alto de los cinco, y solo recoge 387 clics. Nunca se ha analizado."},
 ];
-const st={pubs:[],rivales:[],huecos:[],estado:null,filtro:"todas",q:"",tab:"pubs",
+const st={pubs:[],rivales:[],huecos:[],glosario:null,estado:null,filtro:"todas",q:"",tab:"pubs",
           mercado:"todos",conectado:false};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -381,10 +403,10 @@ $("#mbar").addEventListener("click",e=>{
 document.querySelectorAll('[role="tab"]').forEach(b=>b.addEventListener("click",()=>{
   st.tab=b.dataset.tab;
   document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute("aria-selected",String(x===b)));
-  ["pubs","rivales","huecos","bitacora"].forEach(t=>{$("#p-"+t).hidden=(t!==st.tab)});
+  ["pubs","rivales","huecos","glosario","bitacora"].forEach(t=>{$("#p-"+t).hidden=(t!==st.tab)});
   if(/^[a-z]+$/.test(st.tab))location.hash=st.tab;
 }));
-if(/^#(pubs|rivales|huecos|bitacora)$/.test(location.hash)){
+if(/^#(pubs|rivales|huecos|glosario|bitacora)$/.test(location.hash)){
   const b=document.querySelector(`[data-tab="${location.hash.slice(1)}"]`);if(b)b.click();
 }
 
@@ -543,6 +565,39 @@ function pintarHuecos(){
     </div></article>`).join("");
 }
 
+function pintarGlosario(){
+  const g=st.glosario;
+  $("#n-glosario").textContent=g?.terminos?.length?`(${g.terminos.length})`:"";
+  if(!g){
+    $("#glosario").innerHTML=`<div class="vacio"><h3>El glosario no está cargado</h3>
+      <p>Vive en el documento <code>glosario/actual</code> de la base de datos, y su copia
+      en disco está en <code>magical-seo/datos/glosario.json</code>.</p></div>`;
+    return;
+  }
+  const IDI=[["es","Español"],["en","Inglés"],["de","Alemán"],["it","Italiano"],["pt","Portugués"]];
+  const n=v=>Number.isFinite(v)?v.toLocaleString("es-ES"):"·";
+  const pats=(g.patrones||[]).map(p=>`<div class="gpat"><h3>${esc(p.titulo)}</h3>
+    <p>${esc(p.detalle)}</p>
+    ${p.excepcion?`<p><b>Excepción:</b> ${esc(p.excepcion)}</p>`:""}
+    ${p.consecuencia?`<p><b>Qué implica:</b> ${esc(p.consecuencia)}</p>`:""}</div>`).join("");
+  const terms=(g.terminos||[]).map(t=>{
+    const filas=IDI.filter(([k])=>t[k]).map(([k,nom])=>{
+      const d=t[k];
+      return `<tr><td>${esc(nom)}</td>
+        <td class="kw">${esc(d.kw||"·")}</td>
+        <td class="num">${n(d.vol)}</td>
+        <td class="num">${Number.isFinite(d.cpc)?d.cpc.toLocaleString("es-ES",{minimumFractionDigits:2}):"·"}</td>
+        <td class="num">${Number.isFinite(d.nuestraPos)?d.nuestraPos.toLocaleString("es-ES",{minimumFractionDigits:1}):"·"}</td></tr>`;
+    }).join("");
+    return `<article class="gterm"><h3>${esc(t.concepto)}</h3>
+      <div style="overflow-x:auto"><table class="gtabla">
+      <thead><tr><th>Mercado</th><th>Lo que se busca</th><th>Búsquedas</th><th>CPC</th><th>Nuestra pos.</th></tr></thead>
+      <tbody>${filas}</tbody></table></div>
+      ${t.nota?`<p class="gnota">${esc(t.nota)}</p>`:""}</article>`;
+  }).join("");
+  $("#glosario").innerHTML=pats+terms;
+}
+
 function pintarBitacora(){
   const b=st.estado?.bitacora||[];
   if(!b.length){
@@ -663,7 +718,7 @@ function pintarCifras(){
     if(el)el.textContent=d?`${d.hallazgos??0} hallazgos · ${d.ultima?fecha(d.ultima):"sin fecha"}`:"A la espera";
   });
 }
-function pintar(){latido();pintarProgreso();pintarMercados();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarBitacora()}
+function pintar(){latido();pintarProgreso();pintarMercados();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarGlosario();pintarBitacora()}
 pintar();
 
 (async()=>{
@@ -680,6 +735,8 @@ pintar();
     .onSnapshot(seguro(s=>{st.rivales=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99))}));
   db.collection("huecos").orderBy("prioridad","desc").limit(200)
     .onSnapshot(seguro(s=>{st.huecos=s.docs.map(d=>({id:d.id,...d.data()}))}));
+  db.doc("glosario/actual")
+    .onSnapshot(seguro(s=>{st.glosario=s.exists?s.data():null}));
   db.doc("estado/magicalseo")
     .onSnapshot(seguro(s=>{st.estado=s.exists?s.data():null}));
 })();

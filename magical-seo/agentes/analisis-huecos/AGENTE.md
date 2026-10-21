@@ -156,6 +156,21 @@ Tres cosas que la medición por idioma ha dejado claras y conviene tener present
 
 Rota la atención entre mercados: si un análisis se centró en español e inglés, el siguiente mira alemán o italiano. Si no, el sesgo se perpetúa solo.
 
+## El glosario, antes de medir nada
+
+`datos/glosario.json`, y su copia viva en el documento `glosario/actual` de la sala, dice **qué se busca de verdad en cada mercado para cada concepto del Camino**. No es una traducción: es la forma con más volumen real.
+
+**Consúltalo antes de medir una consulta en un mercado que no sea el español.** Medir la traducción literal en vez del término que se busca invalida el resultado.
+
+Dos reglas opuestas que el glosario ya tiene comprobadas:
+
+- **En alemán no se traducen los nombres de ruta.** `camino del norte` tiene 3.600 búsquedas y `jakobsweg küstenweg` 320. Solo el genérico se traduce: `jakobsweg`, 40.500.
+- **En italiano se traduce todo.** `cammino di santiago francese` tiene 3.600 y `camino frances` 390.
+
+Aplicar la misma regla a los dos es equivocarse en uno de los dos, siempre.
+
+**Amplíalo cuando descubras un término nuevo.** Si al analizar un hueco encuentras la forma que se busca de verdad para un concepto que no está en el glosario, añádela con `update` a `glosario/actual`: concepto, la clave por mercado con su volumen, su CPC y nuestra posición si la conoces, y una nota. Es el activo que más se revaloriza con el uso.
+
 ## Consultar Semrush
 
 Hasta octubre de 2026 la prioridad de un hueco se razonaba por intención, porque no había volúmenes. Ya los hay, y el primer uso demostró que **las prioridades puestas a ojo estaban mal ordenadas**: un hueco con prioridad 95 resultó tener 0 búsquedas al mes en el mercado que importa, y otro con 88 tenía 6.600.

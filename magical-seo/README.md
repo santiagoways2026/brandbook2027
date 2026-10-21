@@ -55,6 +55,7 @@ Esa separación es deliberada. Si mañana quieres otra interfaz, la cambias y lo
 | `rivales` | Persona (vigilados) y agente (propuestos) | Quién compite, su web, su blog, sus idiomas |
 | `publicaciones` | Barrida diaria | Cada artículo o página nueva detectada |
 | `huecos` | Análisis semanal | Dónde perdemos y qué hacer |
+| `glosario/actual` | Análisis semanal | Qué se busca de verdad en cada mercado para cada concepto |
 | `estado/magicalseo` | Ambos | Última barrida, estado de cada agente y la bitácora |
 
 ### `rivales`

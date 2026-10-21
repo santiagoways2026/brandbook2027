@@ -106,6 +106,8 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .mficha dt{font:600 10.5px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--tenue)}
 .mficha dd{margin:3px 0 0;font:700 19px/1 var(--f-ui);font-variant-numeric:tabular-nums}
 .mficha p{margin:0;font-size:14px;line-height:1.55}
+.mficha .mpaises{font:500 13px/1.5 var(--f-mono);color:var(--tenue);margin-bottom:8px;
+  padding-bottom:8px;border-bottom:1px solid var(--borde)}
 
 /* Pestañas */
 .pestanas{display:flex;gap:4px;border-bottom:1px solid var(--borde);margin-bottom:18px;overflow-x:auto;scrollbar-width:thin}
@@ -273,28 +275,25 @@ const EQUIPO=[
   {id:"jefa",n:"Olenna",rol:"Jefa: prioriza, puntúa amenaza y escribe la bitácora",c:"#6F9E5A"},
 ];
 /* Espejo de datos/mercados.json. Si aquel cambia, hay que republicar la sala.
-   Los clics son los medidos en Search Console el 20 de octubre de 2026. */
+   Un mercado es un IDIOMA, no un pais: el sitio sirve las mismas paginas a todos
+   los paises de una lengua, asi que separarlos aqui solo duplicaba. El desglose
+   por pais vive en la ficha, que es donde informa sin ensuciar. */
 const MERCADOS=[
-  {id:"es-ES",   n:"España",          idi:"es", clics:3058, pos:9.6,
-   nota:"El mercado principal con diferencia. Posición media 9,6, mejorable para ser el de casa."},
-  {id:"de-DE",   n:"Alemania",        idi:"de", clics:972,  pos:8.6,
-   nota:"Segundo mercado, por delante de Estados Unidos, y nadie lo había mirado. Solo CaminoWays compite en alemán."},
-  {id:"es-LATAM",n:"Latinoamérica",   idi:"es", clics:905,  pos:6.8,
-   nota:"México, Argentina, Colombia y Chile. Las mejores posiciones del sitio: hay menos competencia local. Comparten las páginas de España."},
-  {id:"en-US",   n:"Estados Unidos",  idi:"en", clics:840,  pos:10.3,
-   nota:"El mercado inglés grande y el que mejor paga. Medir siempre aquí antes que en Reino Unido."},
-  {id:"en-UKIE", n:"Reino Unido e Irlanda", idi:"en", clics:691, pos:10.8,
-   nota:"El patio de CaminoWays y Follow the Camino, y se nota: la peor posición media del sitio."},
-  {id:"pt-PT",   n:"Portugal",        idi:"pt", clics:329,  pos:8.0,
-   nota:"El portugués es casi todo Portugal, no Brasil. El Camino Portugués pasa por aquí."},
-  {id:"it-IT",   n:"Italia",          idi:"it", clics:252,  pos:10.7,
-   nota:"El mayor volumen de búsqueda de todos los mercados, 90.500 al mes, y del que menos sacamos. Sin analizar nunca."},
-  {id:"en-CAAU", n:"Canadá y Australia", idi:"en", clics:251, pos:11.8,
-   nota:"Pequeños pero con rivales propios: UTracks es australiano y 10Adventures canadiense."},
-  {id:"de-ATCH", n:"Austria y Suiza", idi:"de", clics:166,  pos:8.7,
-   nota:"Comparten las páginas de Alemania y le suman un 17 %."},
-  {id:"pt-BR",   n:"Brasil",          idi:"pt", clics:63,   pos:9.9,
-   nota:"Mucho menor que Portugal pese a ser un país mucho mayor. Merece una mirada antes de descartarlo."},
+  {id:"es", n:"Español",   clics:4335, pos:8.9,
+   paises:"España 3.027 · México 355 · Argentina 343 · EE. UU. 122 · Colombia 89",
+   nota:"El mercado principal. España son siete de cada diez clics, pero Latinoamérica aporta casi 800 con las mejores posiciones del sitio. Comparten página: nadie ha escrito nunca para el lector latinoamericano."},
+  {id:"en", n:"Inglés",    clics:3149, pos:10.2,
+   paises:"EE. UU. 836 · Reino Unido 500 · Desde España 373 · Irlanda 184 · Canadá 128",
+   nota:"Segundo por clics y el que peor posiciona. Terreno de CaminoWays y Follow the Camino, y el que mejor paga: los CPC rondan los 2 dólares frente a los 0,84 € del español."},
+  {id:"de", n:"Alemán",    clics:1334, pos:8.5,
+   paises:"Alemania 971 · Desde España 147 · Austria 112 · Suiza 57",
+   nota:"Alemania sola supera a Estados Unidos y nadie lo había mirado. Solo CaminoWays compite en alemán. «jakobsweg» tiene 40.500 búsquedas al mes con competencia baja."},
+  {id:"pt", n:"Portugués", clics:486,  pos:8.8,
+   paises:"Portugal 328 · Brasil 63 · Desde España 56",
+   nota:"Casi todo Portugal y no Brasil, pese a ser un país mucho mayor: el Camino Portugués es viaje de proximidad. Buena posición sobre un mercado pequeño."},
+  {id:"it", n:"Italiano",  clics:387,  pos:10.1,
+   paises:"Italia 245 · Desde España 85 · Suiza 16",
+   nota:"El menos trabajado y el de mayor potencial: «cammino di santiago» tiene 90.500 búsquedas al mes, el volumen más alto de los cinco, y solo recoge 387 clics. Nunca se ha analizado."},
 ];
 const st={pubs:[],rivales:[],huecos:[],estado:null,filtro:"todas",q:"",tab:"pubs",
           mercado:"todos",conectado:false};
@@ -348,9 +347,8 @@ $("#fichas").innerHTML=EQUIPO.map(a=>`<article class="ficha" style="--c:${a.c}" 
    que es lo mas fino que permite el dato de una pieza rival. */
 const mercadoDe=id=>MERCADOS.find(m=>m.id===id);
 function cuentaMercado(id){
-  const m=mercadoDe(id); if(!m)return{h:0,p:0};
-  return {h:st.huecos.filter(x=>x.mercado===id&&x.estado!=="cerrado").length,
-          p:st.pubs.filter(x=>x.idioma===m.idi).length};
+  return {h:st.huecos.filter(x=>(x.mercado||"").startsWith(id)&&x.estado!=="cerrado").length,
+          p:st.pubs.filter(x=>x.idioma===id).length};
 }
 function pintarMercados(){
   const hay=st.huecos.some(h=>h.mercado);
@@ -369,7 +367,8 @@ function pintarMercados(){
     <div><dt>Clics al mes</dt><dd>${m.clics.toLocaleString("es-ES")}</dd></div>
     <div><dt>Posición media</dt><dd>${m.pos.toLocaleString("es-ES",{minimumFractionDigits:1})}</dd></div>
     <div><dt>Huecos abiertos</dt><dd>${c.h}</dd></div>
-    <div><dt>Piezas en ${esc(m.idi)}</dt><dd>${c.p}</dd></div></dl>
+    <div><dt>Piezas detectadas</dt><dd>${c.p}</dd></div></dl>
+    <p class="mpaises">${esc(m.paises)}</p>
     <p>${esc(m.nota)}</p>`;
 }
 $("#mbar").addEventListener("click",e=>{
@@ -399,7 +398,7 @@ $("#q").addEventListener("input",e=>{st.q=e.target.value.toLowerCase().trim();pi
 
 function pasaFiltro(p){
   const m=mercadoDe(st.mercado);
-  if(m&&p.idioma!==m.idi)return false;
+  if(m&&p.idioma!==m.id)return false;
   const f=st.filtro;
   if(f==="alta"&&p.amenaza!=="alta")return false;
   if(f==="blog"&&p.tipo!=="blog")return false;
@@ -518,7 +517,7 @@ $("#rivales").addEventListener("click",e=>{
 
 function pintarHuecos(){
   const m=mercadoDe(st.mercado);
-  const vis=m?st.huecos.filter(h=>h.mercado===m.id):st.huecos;
+  const vis=m?st.huecos.filter(h=>(h.mercado||"").startsWith(m.id)):st.huecos;
   $("#n-huecos").textContent=st.huecos.length?`(${vis.length})`:"";
   if(m&&st.huecos.length&&!vis.length){
     $("#huecos").innerHTML=`<div class="vacio"><h3>Sin huecos en ${esc(m.n)}</h3>

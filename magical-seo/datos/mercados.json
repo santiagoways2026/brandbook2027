@@ -1,77 +1,75 @@
 {
-  "_nota": "Mercados de Santiago Ways, construidos sobre el rendimiento real medido en Search Console del 19 de septiembre al 17 de octubre de 2026, no sobre una lista teórica. Un mercado es un idioma en un país: 'inglés' no es un mercado, porque Estados Unidos y Reino Unido tienen volúmenes, competencia y precios distintos.",
-  "_como_usarlo": "El campo semrush es la base de datos a pasar en --base. El campo gscPais es el código ISO de tres letras para --pais. El campo rutas son los prefijos del sitio que sirven a ese mercado.",
-  "_revisar": "Los clics son una foto de un mes. Conviene volver a medirlos con 'gsc.py mercados' cada trimestre y reordenar, porque el peso de un mercado cambia.",
+  "_nota": "Los mercados de Santiago Ways se organizan por IDIOMA, no por país, porque el sitio sirve las mismas páginas a todos los países de una lengua: España y Latinoamérica comparten /es/, y Estados Unidos, Reino Unido, Canadá y Australia comparten /en/. Separarlos en la sala solo duplicaba.",
+  "_pero": "Para MEDIR sí hay que bajar al país. Semrush tiene una base por país y los volúmenes cambian mucho: 'camino de santiago guided tours' son 390 búsquedas al mes en Estados Unidos y 70 en Reino Unido. Por eso cada idioma lleva sus bases ordenadas por peso: mide en la primera salvo que analices un país concreto.",
+  "_medido": "Search Console, 19 de septiembre a 17 de octubre de 2026. Volver a medir con 'gsc.py mercados' cada trimestre.",
 
-  "mercados": [
+  "idiomas": [
     {
-      "id": "es-ES", "nombre": "España", "idioma": "es", "rutas": ["/es/"],
-      "semrush": ["es"], "gscPais": ["esp"],
-      "clicsMes": 3058, "posicionMedia": 9.6, "peso": 1,
-      "notas": "El mercado principal, con diferencia: más clics que todos los demás juntos salvo uno. Posición media 9,6, que es mejorable para ser el mercado de casa."
+      "id": "es", "nombre": "Español", "ruta": "/es/",
+      "clicsMes": 4335, "impresionesMes": 611251, "posicionMedia": 8.9,
+      "semrush": ["es", "mx", "ar", "co", "cl"],
+      "paises": [
+        {"gsc": "esp", "nombre": "España", "clics": 3027},
+        {"gsc": "mex", "nombre": "México", "clics": 355},
+        {"gsc": "arg", "nombre": "Argentina", "clics": 343},
+        {"gsc": "usa", "nombre": "Estados Unidos", "clics": 122},
+        {"gsc": "col", "nombre": "Colombia", "clics": 89}
+      ],
+      "notas": "El mercado principal. España es siete de cada diez clics, pero Latinoamérica aporta casi 800 y con las mejores posiciones del sitio, entre la 6 y la 7, porque hay menos competencia local. Comparten página: nadie ha escrito nunca para el lector latinoamericano."
     },
     {
-      "id": "de-DE", "nombre": "Alemania", "idioma": "de", "rutas": ["/de/"],
-      "semrush": ["de"], "gscPais": ["deu"],
-      "clicsMes": 972, "posicionMedia": 8.6, "peso": 2,
-      "notas": "Segundo mercado y por delante de Estados Unidos. Nadie lo había mirado: la atención se ha ido al frente anglosajón porque los rivales fuertes son irlandeses. Ningún rival vigilado tiene árbol en alemán salvo CaminoWays."
+      "id": "en", "nombre": "Inglés", "ruta": "/en/",
+      "clicsMes": 3149, "impresionesMes": 333586, "posicionMedia": 10.2,
+      "semrush": ["us", "uk", "ca", "au", "ie"],
+      "paises": [
+        {"gsc": "usa", "nombre": "Estados Unidos", "clics": 836},
+        {"gsc": "gbr", "nombre": "Reino Unido", "clics": 500},
+        {"gsc": "esp", "nombre": "Desde España", "clics": 373},
+        {"gsc": "irl", "nombre": "Irlanda", "clics": 184},
+        {"gsc": "can", "nombre": "Canadá", "clics": 128}
+      ],
+      "notas": "Segundo por clics y el que peor posiciona, 10,2. Es el terreno de CaminoWays y Follow the Camino, irlandeses, y el que mejor paga: los CPC rondan los 2 dólares frente a los 0,84 € del español. Mide siempre en la base us antes que en uk: los volúmenes se multiplican por cinco entre una y otra."
     },
     {
-      "id": "es-LATAM", "nombre": "Latinoamérica", "idioma": "es",
-      "rutas": ["/es/"], "semrush": ["mx", "ar", "co", "cl"],
-      "gscPais": ["mex", "arg", "col", "chl", "per"],
-      "clicsMes": 905, "posicionMedia": 6.8, "peso": 3,
-      "notas": "México 363, Argentina 333, Colombia 88, más Chile y Perú. Juntos pesan como Alemania. Las mejores posiciones de todo el sitio, entre la 6 y la 7, porque hay menos competencia local. Comparten las páginas de España: no hay versión propia."
+      "id": "de", "nombre": "Alemán", "ruta": "/de/",
+      "clicsMes": 1334, "impresionesMes": 119949, "posicionMedia": 8.5,
+      "semrush": ["de", "at", "ch"],
+      "paises": [
+        {"gsc": "deu", "nombre": "Alemania", "clics": 971},
+        {"gsc": "esp", "nombre": "Desde España", "clics": 147},
+        {"gsc": "aut", "nombre": "Austria", "clics": 112},
+        {"gsc": "che", "nombre": "Suiza", "clics": 57}
+      ],
+      "notas": "Tercero por clics y segundo por país individual: Alemania sola supera a Estados Unidos. Nadie lo había mirado, porque la atención se fue al frente anglosajón. Solo CaminoWays compite en alemán. El término principal, jakobsweg, tiene 40.500 búsquedas al mes con competencia baja."
     },
     {
-      "id": "en-US", "nombre": "Estados Unidos", "idioma": "en", "rutas": ["/en/"],
-      "semrush": ["us"], "gscPais": ["usa"],
-      "clicsMes": 840, "posicionMedia": 10.3, "peso": 4,
-      "notas": "El mercado inglés grande y el que mejor paga. Macs Adventure y 10Adventures ponen precio en dólares. Medir siempre aquí antes que en Reino Unido: los volúmenes ingleses cambian mucho entre las dos bases."
+      "id": "pt", "nombre": "Portugués", "ruta": "/pt/",
+      "clicsMes": 486, "impresionesMes": 37386, "posicionMedia": 8.8,
+      "semrush": ["pt", "br"],
+      "paises": [
+        {"gsc": "prt", "nombre": "Portugal", "clics": 328},
+        {"gsc": "bra", "nombre": "Brasil", "clics": 63},
+        {"gsc": "esp", "nombre": "Desde España", "clics": 56}
+      ],
+      "notas": "Casi todo Portugal, no Brasil, pese a que Brasil es un país mucho mayor: el Camino Portugués es viaje de proximidad. Buena posición media, 8,8, sobre un mercado pequeño: 9.900 búsquedas para el término principal."
     },
     {
-      "id": "en-UKIE", "nombre": "Reino Unido e Irlanda", "idioma": "en",
-      "rutas": ["/en/"], "semrush": ["uk", "ie"], "gscPais": ["gbr", "irl"],
-      "clicsMes": 691, "posicionMedia": 10.8, "peso": 5,
-      "notas": "Reino Unido 509 e Irlanda 182. Es el patio de casa de CaminoWays y Follow the Camino, los dos rivales más fuertes, y se nota: la posición media de Reino Unido, 11,7, es la peor del sitio."
-    },
-    {
-      "id": "pt-PT", "nombre": "Portugal", "idioma": "pt", "rutas": ["/pt/"],
-      "semrush": ["pt"], "gscPais": ["prt"],
-      "clicsMes": 329, "posicionMedia": 8.0, "peso": 6,
-      "notas": "El portugués es casi todo Portugal, no Brasil. Tiene sentido: el Camino Portugués pasa por aquí y el viajero es de proximidad."
-    },
-    {
-      "id": "en-CAAU", "nombre": "Canadá y Australia", "idioma": "en",
-      "rutas": ["/en/"], "semrush": ["ca", "au"], "gscPais": ["can", "aus"],
-      "clicsMes": 251, "posicionMedia": 11.8, "peso": 7,
-      "notas": "Pequeños pero con rivales propios: UTracks es australiano y 10Adventures canadiense, y los dos venden el Año Santo. Las peores posiciones del sitio, Australia en la 12,3."
-    },
-    {
-      "id": "it-IT", "nombre": "Italia", "idioma": "it", "rutas": ["/it/"],
-      "semrush": ["it"], "gscPais": ["ita"],
-      "clicsMes": 252, "posicionMedia": 10.7, "peso": 8,
-      "notas": "Search Console no tenía vista propia de italiano, así que hasta ahora era invisible en el análisis de posiciones. Rinde como Canadá y Australia juntos."
-    },
-    {
-      "id": "de-ATCH", "nombre": "Austria y Suiza", "idioma": "de",
-      "rutas": ["/de/"], "semrush": ["at", "ch"], "gscPais": ["aut", "che"],
-      "clicsMes": 166, "posicionMedia": 8.7, "peso": 9,
-      "notas": "Austria 110 y Suiza 56. Comparten las páginas de Alemania. Suman un 17 % más sobre el mercado alemán."
-    },
-    {
-      "id": "pt-BR", "nombre": "Brasil", "idioma": "pt", "rutas": ["/pt/"],
-      "semrush": ["br"], "gscPais": ["bra"],
-      "clicsMes": 63, "posicionMedia": 9.9, "peso": 10,
-      "notas": "Mucho menor que Portugal pese a ser un país mucho mayor. O no se ha trabajado, o el viaje transatlántico filtra. Merece una mirada antes de descartarlo."
+      "id": "it", "nombre": "Italiano", "ruta": "/it/",
+      "clicsMes": 387, "impresionesMes": 51502, "posicionMedia": 10.1,
+      "semrush": ["it"],
+      "paises": [
+        {"gsc": "ita", "nombre": "Italia", "clics": 245},
+        {"gsc": "esp", "nombre": "Desde España", "clics": 85},
+        {"gsc": "che", "nombre": "Suiza", "clics": 16}
+      ],
+      "notas": "El menos trabajado y el de mayor potencial: cammino di santiago tiene 90.500 búsquedas al mes, el volumen más alto de los cinco idiomas, y solo recoge 387 clics. CPC de 0,19 €, el más barato. Nunca se ha analizado."
     }
   ],
 
-  "segmento_aparte": {
-    "id": "extranjeros-en-espana",
-    "nombre": "Buscan en su idioma desde España",
-    "clicsMes": 684,
-    "detalle": "Inglés desde España 384, alemán 156, italiano 85, portugués 59.",
-    "notas": "No es un mercado geográfico sino un comportamiento: gente que ya está en España y busca en su idioma. Pesa tanto como Portugal y Brasil juntos. Puede ser el peregrino ya llegado, el residente extranjero o el que planifica desde aquí. Vale la pena entenderlo antes de tratarlo como ruido."
+  "observacion": {
+    "titulo": "Buscan en su idioma desde España",
+    "clicsMes": 661,
+    "detalle": "Inglés 373, alemán 147, italiano 85, portugués 56.",
+    "notas": "No es un mercado, es un comportamiento, y por eso no tiene pestaña propia: ya está contado dentro de cada idioma. Pero son más clics que todo el portugués junto. Puede ser el peregrino ya llegado, el residente extranjero o quien planifica desde aquí. Nadie lo ha mirado."
   }
 }

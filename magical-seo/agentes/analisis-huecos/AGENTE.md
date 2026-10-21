@@ -126,31 +126,35 @@ Lo que sí vale de ese informe son los **errores**: un sitemap enviado que respo
 
 ## Trabajar por mercados
 
-Santiago Ways no tiene cinco idiomas: tiene **diez mercados**, definidos en `datos/mercados.json` con su base de Semrush, su código de país para Search Console y su peso real medido. Un idioma no es un mercado: Estados Unidos y Reino Unido comparten lengua y tienen volúmenes, competencia y precios distintos.
+Un mercado es **un idioma**, no un país. El sitio sirve las mismas páginas a todos los países de una lengua: España y Latinoamérica comparten `/es/`, y Estados Unidos, Reino Unido, Canadá y Australia comparten `/en/`. Separarlos daría huecos duplicados sobre la misma página.
+
+Cinco mercados, definidos en `datos/mercados.json` y medidos el 20 de octubre de 2026:
+
+| Mercado | Clics/mes | Posición | De dónde vienen |
+|---|---|---|---|
+| Español | 4.335 | 8,9 | España 3.027, México 355, Argentina 343 |
+| Inglés | 3.149 | 10,2 | EE. UU. 836, Reino Unido 500, desde España 373 |
+| Alemán | 1.334 | 8,5 | Alemania 971, desde España 147, Austria 112 |
+| Portugués | 486 | 8,8 | Portugal 328, Brasil 63 |
+| Italiano | 387 | 10,1 | Italia 245, desde España 85 |
+
+**Un hueco pertenece a un idioma.** Escribe el campo `mercado` con `es`, `en`, `de`, `pt` o `it`. Sin mercado, un hueco no tiene tamaño.
+
+**Pero para medir hay que bajar al país.** Semrush tiene una base por país y los volúmenes cambian mucho: «camino de santiago guided tours» son 390 búsquedas al mes en `us` y 70 en `uk`. Cada idioma lleva en `mercados.json` sus bases ordenadas por peso: **mide en la primera** salvo que estés analizando un país concreto.
 
 ```bash
 python magical-seo/scripts/gsc.py mercados
 python magical-seo/scripts/gsc.py posiciones --pais deu --limite 50
-python magical-seo/scripts/semrush.py keywords "jakobsweg" --mercado de-DE
+python magical-seo/scripts/semrush.py keywords "jakobsweg" --base de
 ```
 
-**Un hueco pertenece a un mercado.** Escribe siempre el campo `mercado` con el id correspondiente, y mide el volumen en la base de ese mercado y no en otra. Un hueco sin mercado es un hueco sin tamaño.
+Tres cosas que la medición por idioma ha dejado claras y conviene tener presentes:
 
-Lo medido el 20 de octubre de 2026, que conviene tener presente al priorizar:
+- **El alemán rinde más que el inglés por país.** Alemania sola supera a Estados Unidos, y solo CaminoWays compite en alemán. Es el mercado con menos competencia vigilada.
+- **El italiano es el de mayor potencial sin tocar.** 90.500 búsquedas al mes para el término principal, el volumen más alto de los cinco, y solo 387 clics. Nunca se ha analizado.
+- **Latinoamérica no tiene página propia.** Casi 800 clics al mes leyendo páginas escritas para España, y con las mejores posiciones del sitio porque hay menos competencia local.
 
-| Mercado | Clics/mes | Volumen del término principal |
-|---|---|---|
-| España | 3.058 | 49.500 |
-| Alemania | 972 | 40.500 (`jakobsweg`) |
-| Latinoamérica | 905 | comparte páginas con España |
-| Estados Unidos | 840 | 60.500 |
-| Reino Unido e Irlanda | 691 | el patio de los dos rivales fuertes |
-| Portugal | 329 | 9.900 |
-| Italia | 252 | **90.500**, el mayor de todos |
-
-La lectura incómoda: **Italia tiene el mercado más grande y es del que menos sacamos.** España captura mucho más de un mercado más pequeño. Antes de concluir nada, recuerda que el término principal no es el mercado entero y que los clics vienen de miles de consultas largas, no de una. Pero la diferencia es demasiado grande para no mirarla.
-
-Rota la atención: no analices siempre los mismos dos mercados. Si un análisis se centró en España e Italia, el siguiente debe mirar Alemania y Estados Unidos.
+Rota la atención entre mercados: si un análisis se centró en español e inglés, el siguiente mira alemán o italiano. Si no, el sesgo se perpetúa solo.
 
 ## Consultar Semrush
 
@@ -217,7 +221,7 @@ Dos límites que hay que declarar siempre en `evidencia`: la ventana es de **3 d
 - **doc_id**: slug del tema, minúsculas, solo `a-z0-9-`, máximo 80 caracteres. Por ejemplo `camino-en-5-dias-ingles`.
 - `titulo` (el hueco en una frase corta y accionable)
 - `tipo`: `hueco` | `mejora` | `defensa`
-- `mercado`: el id de `datos/mercados.json` (`es-ES`, `de-DE`, `en-US`...). Obligatorio: sin mercado no hay tamaño
+- `mercado`: el idioma, uno de `es`, `en`, `de`, `pt`, `it`. Obligatorio: sin mercado no hay tamaño
 - `descripcion` (2-3 frases: qué pasa y por qué importa)
 - `keyword` (la consulta principal), `keywordsSecundarias` (array, opcional)
 - `rivalesQueLoCubren` (array de `id` de `rivales`)

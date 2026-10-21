@@ -3735,7 +3735,7 @@ function rrSuscribir(){if(rr.subs||!mc.mcp||!st.rrss)return;rr.subs=true;
   for(const[cid,red,mk]of st.rrss.cuentas||[])if(RR_Q[red]&&RR_BR[mk])mc.mcp.watchTool(MC,MCT,{brandId:RR_BR[mk],from:r.from,to:r.to,metrics:RR_Q[red]},cb("rr:"+cid),{refetchInterval:30*60000});
   mc.mcp.watchTool(MC,MCT,{brandId:RR_BR.es,from:r7.from,to:r7.to,metrics:["IGCO01","IGCO02","IGCO07"]},cb("rr:igc"),{refetchInterval:60*60000});
   mc.mcp.watchTool(MC,MCT,{brandId:RR_BR.es,from:r7.from,to:r7.to,metrics:["FBCO01","FBCO13","FBCO06"]},cb("rr:fbc"),{refetchInterval:60*60000})}
-function rrRepinta(){if(rr.t)return;rr.t=setTimeout(()=>{rr.t=0;pintarRrss()},300)}
+function rrRepinta(){if(rr.t)return;rr.t=setTimeout(()=>{rr.t=0;pintarRrss();rrLecturaDia1()},300)}
 /* Filas diarias de Metricool: [métricas..., "AAAAMMDD"]. Publicaciones e interacciones se suman por mes; seguidores, el valor de cada día */
 function rrVivo(cid,red){const x=mc.datos["rr:"+cid];if(!x)return null;if(x._p)return x._p;const men={},dias={};
   for(const r of x.rows){const f=String(r[r.length-1]||"");if(f.length!==8)continue;const v=r.slice(0,-1).map(z=>z==null||z===""?null:+z),ym=+f.slice(0,6),k=f.slice(0,4)+"-"+f.slice(4,6)+"-"+f.slice(6);
@@ -3761,6 +3761,24 @@ function rrHoyCuenta(D,red,c,CH){if(c==="sw_total"){let t=0,f=null,viv=true;for(
   return(CH||rrCompHoy(D,red))[c]||null}
 function rrLect(D,red){const L=(D.lecturas||[]).filter(r=>r[1]===red),fechas=[...new Set(L.map(r=>r[0]))].sort(),by={};
   for(const r of L)(by[r[2]]||(by[r[2]]={}))[r[0]]={v:r[3],src:r[4],xl:r[5]};return{fechas,by}}
+/* Lectura del día 1 de cada mes (cierre del mes anterior). Con Metricool en vivo, quien puede escribir deja registrados los seguidores de ese día
+   de las cuentas propias y de los competidores de Instagram y Facebook; el resto de competidores lo añade la rutina mensual desde sus perfiles públicos */
+function rrCompEn(D,red,f){const x=mc.datos[red==="instagram"?"rr:igc":"rr:fbc"],H=D.comp_handles?.[red]||{},out={};if(!x?.rows?.length)return out;
+  for(const r of x.rows){const nm=rrNorm(r[1]),fol=+r[2],d=String(r[0]||""),fi=d.length===8?d.slice(0,4)+"-"+d.slice(4,6)+"-"+d.slice(6):"";if(!nm||!(fol>0)||!fi||fi>f)continue;
+    const id=Object.keys(H).find(k=>{const h=rrNorm(H[k]);return h&&(h===nm||nm.startsWith(h)||h.startsWith(nm))});
+    if(!id||(red==="facebook"&&id==="caminoways"&&fol<1000))continue;if(!out[id]||fi>=out[id].f)out[id]={v:fol,f:fi}}
+  return out}
+async function rrLecturaDia1(){const D=st.rrss,hoy=diaMad(Date.now()),f1=hoy.slice(0,8)+"01";if(!D||!st.db||rr.dia1===f1||+hoy.slice(8)>7)return;
+  const cuentas=D.cuentas||[];if(!cuentas.length||cuentas.some(([cid])=>!mc.datos["rr:"+cid])||!mc.datos["rr:igc"]||!mc.datos["rr:fbc"])return;
+  rr.dia1=f1;const L=D.lecturas||[],hay=new Set(L.map(r=>r[0]+"|"+r[1]+"|"+r[2])),nuevas=[],add=(red,c,v)=>{if(v>0&&!hay.has(f1+"|"+red+"|"+c))nuevas.push([f1,red,c,Math.round(v),"Metricool"])};
+  for(const red of Object.keys(RR_RED)){let tot=0,n=0;for(const[cid,r]of cuentas){if(r!==red)continue;const v=rrSegEn(D,cid,red,f1);if(v>0){add(red,"sw_"+cid.split("_")[1],v);tot+=v;n++}}
+    if(red==="instagram"||red==="facebook"){if(n===3)add(red,"sw_total",tot);for(const[id,o]of Object.entries(rrCompEn(D,red,f1)))add(red,id,o.v)}}
+  if(!nuevas.length)return;const ym=+f1.slice(0,4)*100+ +f1.slice(5,7),sg=rrSig(ym);
+  try{await st.db.doc("rrss_seguimiento/actual").update({lecturas:[...L,...nuevas],lectura_mensual:{...(D.lectura_mensual||{}),regla:"Día 1 de cada mes (cierre del mes anterior)",ultima:f1,proxima:`${Math.floor(sg/100)}-${String(sg%100).padStart(2,"0")}-01`}})}catch(_){}}
+/* En la primera semana del mes se cargan los datos de Metricool al abrir la página, aunque no se entre en Community, para registrar la lectura del día 1 */
+async function rrDia1Arranque(){if(!st.db||!mc.mcp||rr.arr)return;const hoy=diaMad(Date.now()),f1=hoy.slice(0,8)+"01";if(+hoy.slice(8)>7)return;rr.arr=true;
+  if(!st.rrss){try{const s=await st.db.doc("rrss_seguimiento/actual").get();if(s.exists&&!st.rrss)st.rrss=s.data()}catch(_){return}}
+  if(!st.rrss||(st.rrss.lecturas||[]).some(r=>r[0]===f1&&r[4]==="Metricool"))return;rrSuscribir()}
 /* Deals y ventas de RRSS: el documento los trae de Zoho; si el informe de canales de Captación es más reciente, se toman de ahí (el importe sigue siendo el del documento) */
 function rrCrm(D){const C=D.crm||{},out={meses:{},red:{},fecha:C.actualizado||D.fecha||"",fuente:C.fuente||""};
   for(const[ym,v]of Object.entries(C.meses||{}))out.meses[ym]=[v[0]||0,v[1]||0,v[2]||0];
@@ -3894,10 +3912,11 @@ function pintarRrss(){const el=document.getElementById("c-community_rrss");if(!e
     const ult=c=>{for(let i=fechas.length-1;i>=0;i--)if(by[c]?.[fechas[i]])return by[c][fechas[i]].v;return CH[c]?.v||0};
     comp.sort((a,b)=>ult(b)-ult(a));
     const hoyDe=c=>rrHoyCuenta(D,red,c,CH),hayHoy=[...own,...comp].some(c=>hoyDe(c));
-    const fila=(c,cls)=>{const o=by[c]||{},h=hoyDe(c),vs=fechas.map(f=>o[f]?.v),idx=vs.map((v,i)=>v!=null?i:-1).filter(i=>i>=0),uI=idx[idx.length-1],pI=idx[idx.length-2],fI=idx[0];
+    const ultL=o=>{for(let i=fechas.length-1;i>=0;i--)if(o[fechas[i]])return{f:fechas[i],v:o[fechas[i]].v,src:o[fechas[i]].src};return null};
+    const fila=(c,cls)=>{const o=by[c]||{},h=hoyDe(c),hl=h?null:ultL(o),vs=fechas.map(f=>o[f]?.v),idx=vs.map((v,i)=>v!=null?i:-1).filter(i=>i>=0),uI=idx[idx.length-1],pI=idx[idx.length-2],fI=idx[0];
       const dM=uI!=null&&pI!=null?vs[uI]-vs[pI]:null,dT=uI!=null&&fI!=null&&uI!==fI?vs[uI]-vs[fI]:null;
-      return`<tr${cls?` class="${cls}"`:""}><td class="as-n">${c.startsWith("sw_")?"★ ":""}${esc(rrNom(D,c))}</td>${fechas.map(f=>rrCelda(o[f],f)).join("")}${hayHoy?`<td class="rr-hoy"${h?` title="${h.vivo?"Metricool en vivo":"Última lectura de Metricool"}, ${rrF(h.f)}"`:` title="Sin lectura automática diaria: se registra el último día de cada mes"`}>${h?igGr(h.v):"–"}</td>`:""}<td>${dM!=null?rrSg(dM):"–"}</td><td>${dT!=null?rrSg(dT):"–"}</td><td>${dT!=null&&vs[fI]?rrPs(dT/vs[fI]):"–"}</td></tr>`};
-    const tabla=`<div class="as-tw"><table class="as-t ia-t rr-ct"><thead><tr><th class="as-n">Cuenta</th>${fechas.map(f=>`<th${f.endsWith("-10-01")?' title="Cierre de septiembre"':""}>${rrF(f)}</th>`).join("")}${hayHoy?"<th>Hoy</th>":""}<th>Último mes</th><th>Desde la 1.ª</th><th>Crec.</th></tr></thead>
+      return`<tr${cls?` class="${cls}"`:""}><td class="as-n">${c.startsWith("sw_")?"★ ":""}${esc(rrNom(D,c))}</td>${fechas.map(f=>rrCelda(o[f],f)).join("")}${hayHoy?`<td class="rr-hoy${hl?" rr-cur":""}"${h?` title="${h.vivo?"Metricool en vivo":"Última lectura de Metricool"}, ${rrF(h.f)}"`:hl?` title="Sin dato diario: última lectura del ${rrF(hl.f)} (${esc(hl.src||"")}); se actualiza el día 1 de cada mes"`:` title="Sin dato diario: se registra el día 1 de cada mes"`}>${h?igGr(h.v):hl?igGr(hl.v):"–"}</td>`:""}<td>${dM!=null?rrSg(dM):"–"}</td><td>${dT!=null?rrSg(dT):"–"}</td><td>${dT!=null&&vs[fI]?rrPs(dT/vs[fI]):"–"}</td></tr>`};
+    const tabla=`<div class="as-tw"><table class="as-t ia-t rr-ct"><thead><tr><th class="as-n">Cuenta</th>${fechas.map(f=>`<th${f.endsWith("-10-01")?' title="Cierre de septiembre"':""}>${rrF(f)}</th>`).join("")}${hayHoy?"<th>Hoy</th>":""}<th>Frente a la anterior</th><th>Desde la 1.ª</th><th>Crec.</th></tr></thead>
       <tbody>${own.map(c=>fila(c,c===ref?"ia-sel":"rr-own")).join("")}${comp.map(c=>fila(c)).join("")}</tbody></table></div>`;
     const Xs=fechas.map(f=>({n:rrF(f),t:rrF(f)})),con=hayHoy&&(hoyDe(ref)||comp.some(c=>CH[c]));
     if(con)Xs.push({n:"hoy",t:"hoy"});
@@ -3906,7 +3925,7 @@ function pintarRrss(){const el=document.getElementById("c-community_rrss");if(!e
     const notas=(X.notas?.[red]||[]),C1=rrConsol(D,red);
     const desc=red==="facebook"?(D.actual?.descartes||[]):[];
     cuerpo=`<div class="as-ctl"><div class="as-modo">${Object.entries(RR_RED).map(([k,n])=>chip("red",k,n,V.red===k)).join("")}</div></div>
-      <div class="ia-per">Lecturas de seguidores del 28 abr al 1 oct según el Excel (el 1 oct es el cierre de septiembre); desde octubre se registran solas el último día de cada mes. Cuentas propias con el valor exacto de Metricool de ese día (el del Excel, al pasar el ratón).</div>
+      <div class="ia-per">Lecturas de seguidores del 28 abr al 1 oct según el Excel (el 1 oct es el cierre de septiembre) y del 21 oct con el dato de ese día; desde noviembre se registran solas el día 1 de cada mes, como cierre del mes anterior. En «Hoy», atenuado, la última lectura de quien no tiene dato diario. Cuentas propias con el valor exacto de Metricool de ese día (el del Excel, al pasar el ratón).</div>
       ${C1?`<div class="rr-cons"><div class="rr-cc ${C1.cls}"><h4><span class="rr-dot ${C1.cls}"></span>${RR_RED[red]} · ${rrF(C1.fecha)}</h4>${C1.t.map(x=>`<p>${esc(x)}</p>`).join("")}</div></div>`:""}
       ${tabla}${graf}
       ${notas.length?`<div class="seccion-t">Notas del equipo (Excel)</div><div class="rr-notas"><ul>${notas.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></div>`:""}
@@ -5085,6 +5104,8 @@ function bqLineaPos(M,aria){if((M||[]).length<2)return"";const W=680,A=230,pl=46
    ${M.map((m,i)=>`<text class="ia-ax" x="${X(i).toFixed(1)}" y="${A-8}" text-anchor="middle">${MESN[m[0]%100-1]}${i===0||m[0]%100===1?" "+String(m[0]).slice(2,4):""}</text>`).join("")}
    <path class="bq-l bq-nos" style="stroke:var(--bq-1)" d="${M.map((m,i)=>m[3]>0?(i&&M[i-1][3]>0?"L":"M")+X(i).toFixed(1)+" "+Y(m[3]).toFixed(1):"").join("")}"/>
    ${M.map((m,i)=>m[3]>0?`<circle class="bq-pt" cx="${X(i).toFixed(1)}" cy="${Y(m[3]).toFixed(1)}" r="4" style="fill:var(--bq-1)"><title>${RR_ML[m[0]%100-1]} ${String(m[0]).slice(0,4)}: posición media ${String(m[3]).replace(".",",")} · ${igGr(m[1])} clics · ${igGr(m[2])} impresiones</title></circle>`:"").join("")}</svg>`}
+const bqGrandeQue=g=>{const p=g.pos||0,c=(g.urls||[]).length>1?` Además, ${g.urls.length} URL nuestras compiten entre sí: quedarse con una.`:"";
+  return(p&&p<=3?"Defender: ya estamos arriba.":p<=10?"A tiro del top 3: reforzar esta página (título, contenido y enlaces internos).":p<=20?"A tiro de la primera página: ampliar el contenido y enlazarla desde las páginas fuertes.":"Lejos: hace falta una página pensada para esta búsqueda.")+c};
 function pintarSeoBrecha(){const el=document.getElementById("c-seo_brecha");if(!el||st.dentro!=="seo")return;const S=st.seoSem,V=st.bqV||(st.bqV={m:"es"});
   const U=S?.unidades||{},ym=new Date().toISOString().slice(0,7).replace("-",""),gasto=U.gasto_mes?.[ym]||0;
   const cab=`<div class="mcab"><div><h2>Brecha de palabras clave</h2><div class="fuente-mc" style="margin-top:6px">Semrush (con tope de gasto) y Google Search Console · Jaime · posiciones en Google frente a la competencia</div></div><div class="meta">${S?.fecha?`Semrush ${esc(hace(S.fecha))}`:""}</div></div>`;
@@ -5114,6 +5135,11 @@ function pintarSeoBrecha(){const el=document.getElementById("c-seo_brecha");if(!
    <div class="ia-ley bq-ley">${BQ_CUBOS.map(([k,n])=>`<span style="--c:var(--bq-s${k})">${n}</span>`).join("")}</div></div>`;
   const graf=`<div class="ia-graf"><div class="ia-g"><h4>¿Vamos para arriba o para abajo?</h4><div class="ia-sub">Visitas orgánicas estimadas al mes en ${BQ_MERC[V.m]}, últimos 12 meses (Semrush)</div>${ley}${bqLineas(H,doms,`Visitas orgánicas estimadas al mes de Santiago Ways y su competencia en ${BQ_MERC[V.m]}`)}</div>
    <div class="ia-g"><h4>Visibilidad en las palabras clave principales</h4><div class="ia-sub">Parte de los clics posibles que se lleva cada dominio según su posición en las ${F.length} palabras clave del mercado</div>${barras}<h4 style="margin-top:14px">Dónde está cada uno</h4><div class="ia-sub">Número de palabras clave en cada tramo de posiciones</div>${dist}</div></div>`;
+  /* Las búsquedas de más volumen del mercado en las que aparecemos, con nuestra posición */
+  const GR=(S.grandes?.mercados||{})[V.m]||[];
+  const grandes=GR.length?`<div class="seccion-t">Las búsquedas más grandes: en qué posición aparecemos</div><div class="bq-nota2" style="padding-top:6px">Las búsquedas con más volumen en ${BQ_MERC[V.m]} que contienen «${V.m==="de"?"jakobsweg":"camino"}» y en las que estamos en el top 100 de Google, ordenadas por búsquedas al mes (Semrush, ${esc(String(S.grandes.fecha||"").split("-").reverse().join("/"))}).</div>
+   <div class="as-tw"><table class="as-t bq-t"><thead><tr><th class="as-n">Búsqueda</th><th>Búsquedas al mes</th><th title="Dificultad de 0 a 100 según Semrush">Dificultad</th><th>Nuestra posición</th><th>Posición anterior</th><th class="bq-pa">Página que posiciona</th><th class="bq-pa">Qué hacer</th></tr></thead><tbody>${GR.map(g=>{const d=g.prev&&g.pos?g.prev-g.pos:null;
+    return`<tr><td class="as-n">${esc(g.kw)}</td><td>${igGr(g.vol)}</td><td>${g.kd??"–"}</td><td class="bq-p bq-c${bqCubo(g.pos)} bq-pn">${bqPos(g.pos)}</td><td class="${d>0?"bq-sube":d<0?"bq-baja":""}">${g.prev?g.prev+(d?` (${d>0?"▲":"▼"} ${Math.abs(d)})`:""):"–"}</td><td class="bq-pa"><a href="${esc(safeUrl(g.url))}" target="_blank" rel="noopener" title="${esc(g.url)}">${esc(corta(String(g.url||"").replace(/^https?:\/\/(www\.)?santiagoways\.com/,""),52))}</a></td><td class="bq-pa">${esc(bqGrandeQue(g))}</td></tr>`}).join("")}</tbody></table></div>`:"";
   /* Matriz: posición de cada dominio en cada palabra clave */
   const filas=[...F].sort((a,b)=>(b.vol||0)-(a.vol||0)),cel=(f,d)=>{const p=f.pos[d]||0,u=f.urls?.[d];return`<td class="bq-p bq-c${bqCubo(p)}${d===BQ_NOS?" bq-pn":""}" title="${esc(bqNom(d))}: ${p?`posición ${p}`:"fuera del top 100"}${u?" · "+esc(u):""}">${bqPos(p)}</td>`};
   const tabla=`<div class="as-tw"><table class="as-t bq-t"><thead><tr><th class="as-n">Palabra clave</th><th>Búsquedas al mes</th><th title="Dificultad de 0 a 100 según Semrush">Dificultad</th>${doms.map(d=>`<th class="bq-th"><i style="background:${bqC(d)}"></i>${esc(bqNom(d))}</th>`).join("")}${antes?"<th>Frente al mes anterior</th>":""}<th>Situación</th><th class="bq-pa">Qué hacer</th></tr></thead>
@@ -5134,7 +5160,7 @@ function pintarSeoBrecha(){const el=document.getElementById("c-seo_brecha");if(!
     ${(G.kws||[]).length?`<div class="as-tw"><table class="as-t bq-t"><thead><tr><th class="as-n">Búsqueda</th><th>Clics (28 días)</th><th>Impresiones</th><th>Posición</th><th>Hace 28 días</th><th>En enero</th></tr></thead><tbody>${G.kws.map(k=>{const d=k.pos_prev&&k.pos?k.pos_prev-k.pos:null;return`<tr><td class="as-n">${esc(k.kw)}</td><td>${igGr(k.clics)}</td><td>${igGr(k.impr)}</td><td>${String(k.pos??"–").replace(".",",")}</td><td class="${d>0?"bq-sube":d<0?"bq-baja":""}">${k.pos_prev?String(k.pos_prev).replace(".",","):"–"}${d?` (${d>0?"▲":"▼"} ${String(Math.abs(+d.toFixed(1))).replace(".",",")})`:""}</td><td>${k.pos_ini?String(k.pos_ini).replace(".",","):"–"}</td></tr>`}).join("")}</tbody></table></div>`:""}`
    :`<div class="k-aviso">Search Console todavía no está conectado. Cuando lo esté (en Windsor.ai, sin coste), aquí saldrá la posición real en Google de cada búsqueda, por mercado y mes, con 16 meses de historia, también para Italia y Portugal.</div>`;
   const pie=`<div class="bq-nota2">Semrush: ${igGr(gasto)} unidades gastadas este mes de un tope de ${igGr(U.mes_inicial===ym?7000:(U.tope_mes||3500))}; saldo ${igGr(U.saldo||0)}. Se pausa solo si el saldo baja de ${igGr(U.suelo||40000)}.${(S.avisos||[]).length?" Avisos: "+esc(S.avisos.join("; ")):""}</div>`;
-  el.innerHTML=cab+ctl+veredicto+kpis+graf+`<div class="seccion-t">Palabras clave principales frente a la competencia</div>`+tabla+faltan+pautas+gsc+pie}
+  el.innerHTML=cab+ctl+veredicto+kpis+grandes+graf+`<div class="seccion-t">Palabras clave principales frente a la competencia</div>`+tabla+faltan+pautas+gsc+pie}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-bqm]");if(!b||!b.closest("#c-seo_brecha")||!st.bqV)return;st.bqV.m=b.dataset.bqm;pintarSeoBrecha()});
 
 /* ---------- SEO técnico: velocidad (Lighthouse, gratis), Site Audit de Semrush, rastreo propio y CMS ---------- */
@@ -5379,7 +5405,7 @@ const refD={hecho:false,ta:0};
 function refAviso(t,tipo){let el=document.getElementById("refDiario");if(!el){el=document.createElement("div");el.id="refDiario";el.setAttribute("role","status");document.body.appendChild(el)}
   el.textContent=t;el.className=tipo||"";clearTimeout(refD.ta);if(tipo)refD.ta=setTimeout(()=>el.remove(),tipo==="ok"?8000:20000)}
 async function refrescoDiario(){
-  if(refD.hecho||!st.db||!mc.mcp)return;refD.hecho=true;
+  rrDia1Arranque();if(refD.hecho||!st.db||!mc.mcp)return;refD.hecho=true;
   const espera=ms=>new Promise(r=>setTimeout(r,ms)),hoy=diaMad(Date.now()),docs=[...REF_ZOHO.map(x=>x[1]),...REF_RUT.map(x=>x[0])];
   for(let i=0;i<40&&docs.some(p=>!DOCS_VISTOS.has(p));i++)await espera(500);
   const deHoy=d=>{const f=d?.fecha||d?.actualizado;return!!f&&diaMad(f)===hoy},viejo=(p,g)=>DOCS_VISTOS.has(p)&&!deHoy(g());

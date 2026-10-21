@@ -1,8 +1,7 @@
 {
   "_que_es": "El término que de verdad se busca en cada mercado para cada concepto del Camino. No es una traducción: es la forma con más volumen de búsqueda real, que a veces coincide con la traducción y a veces es la palabra española sin traducir.",
   "_como_se_hizo": "Cruzando tres fuentes el 21 de octubre de 2026: las consultas que ya traen impresiones a santiagoways.com por país en Search Console, el volumen de cada candidato en la base de Semrush de ese mercado, y los títulos y URL de las 300 publicaciones rivales registradas en la sala.",
-  "_releer": "Los volúmenes cambian. Conviene rehacerlo cada seis meses, y antes de cualquier campaña grande.",
-
+  "_releer": "Los volumenes cambian. Rehacerlo cada seis meses y antes de cualquier campana grande. Actualizado el 21 de octubre de 2026 con 14 conceptos y 6 patrones.",
   "patrones": [
     {
       "id": "aleman-no-traduce-rutas",
@@ -31,90 +30,490 @@
       "id": "portugues-mezcla",
       "titulo": "El portugués se busca en las dos lenguas",
       "detalle": "En Portugal, camino de santiago en español trae 1.816 impresiones y caminho de santiago en portugués 1.052. La forma española gana. En volumen de Semrush, caminho portugues de santiago (1.300) supera a caminho portugues (210): el sufijo «de santiago» importa en esta lengua más que en las otras."
+    },
+    {
+      "id": "intencion-antes-que-volumen",
+      "titulo": "Volumen alto no es oportunidad si la intencion es otra",
+      "detalle": "«saint james» tiene 22.200 busquedas en Estados Unidos y «sao tiago» 9.900 en Portugal, pero los dos son tambien nombres de lugares, personas y marcas sin relacion con el Camino. Y «albergues camino de santiago» tiene 1.900 en espanol con el CPC mas caro de su lengua, pero lo busca quien quiere dormir barato: lo contrario de lo que vendemos.",
+      "consecuencia": "Antes de perseguir un volumen alto, mira los resultados reales de esa consulta y pregunta si quien la escribe es nuestro cliente. Un volumen grande con intencion equivocada cuesta lo mismo de ganar y no vende."
     }
   ],
-
   "terminos": [
     {
       "concepto": "El Camino de Santiago",
-      "es": {"kw": "camino de santiago", "vol": 49500, "cpc": 0.92, "nuestraPos": 9.6},
-      "en": {"kw": "camino de santiago", "vol": 60500, "cpc": 0.40, "nuestraPos": 6.8},
-      "de": {"kw": "jakobsweg", "vol": 40500, "cpc": 0.41, "nuestraPos": 9.8},
-      "it": {"kw": "cammino di santiago", "vol": 90500, "cpc": 0.19, "nuestraPos": 11.5},
-      "pt": {"kw": "caminho de santiago", "vol": 9900, "cpc": 0.26, "nuestraPos": 12.8},
+      "es": {
+        "kw": "camino de santiago",
+        "vol": 49500,
+        "cpc": 0.92,
+        "nuestraPos": 9.6
+      },
+      "en": {
+        "kw": "camino de santiago",
+        "vol": 60500,
+        "cpc": 0.4,
+        "nuestraPos": 6.8
+      },
+      "de": {
+        "kw": "jakobsweg",
+        "vol": 40500,
+        "cpc": 0.41,
+        "nuestraPos": 9.8
+      },
+      "it": {
+        "kw": "cammino di santiago",
+        "vol": 90500,
+        "cpc": 0.19,
+        "nuestraPos": 11.5
+      },
+      "pt": {
+        "kw": "caminho de santiago",
+        "vol": 9900,
+        "cpc": 0.26,
+        "nuestraPos": 12.8
+      },
       "nota": "El italiano tiene el mayor volumen de los cinco y nuestra peor posición junto al portugués. El inglés supera a España en volumen."
     },
     {
       "concepto": "Camino Francés",
-      "es": {"kw": "camino frances", "vol": 4400, "cpc": 0.32, "nuestraPos": 6.5},
-      "en": {"kw": "camino frances", "vol": 2900, "cpc": 0.45, "nuestraPos": 9.4},
-      "de": {"kw": "camino frances", "vol": 2400, "cpc": 0.31, "nuestraPos": 9.5},
-      "it": {"kw": "cammino di santiago francese", "vol": 3600, "cpc": 0.21, "nuestraPos": null},
-      "pt": {"kw": "caminho frances", "vol": 210, "cpc": 0.35, "nuestraPos": null},
+      "es": {
+        "kw": "camino frances",
+        "vol": 4400,
+        "cpc": 0.32,
+        "nuestraPos": 6.5
+      },
+      "en": {
+        "kw": "camino frances",
+        "vol": 2900,
+        "cpc": 0.45,
+        "nuestraPos": 9.4
+      },
+      "de": {
+        "kw": "camino frances",
+        "vol": 2400,
+        "cpc": 0.31,
+        "nuestraPos": 9.5
+      },
+      "it": {
+        "kw": "cammino di santiago francese",
+        "vol": 3600,
+        "cpc": 0.21,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "caminho frances",
+        "vol": 210,
+        "cpc": 0.35,
+        "nuestraPos": null
+      },
       "nota": "Inglés y alemán mantienen el nombre español. El italiano usa la forma larga traducida, que casi multiplica por diez a camino frances en esa base."
     },
     {
       "concepto": "Camino Portugués",
-      "es": {"kw": "camino portugues", "vol": 4400, "cpc": 0.46, "nuestraPos": 5.8},
-      "en": {"kw": "camino portugues", "vol": 1000, "cpc": 0.42, "nuestraPos": null},
-      "de": {"kw": "jakobsweg portugal", "vol": 3600, "cpc": 0.36, "nuestraPos": 8.4},
-      "it": {"kw": "cammino portoghese", "vol": 2900, "cpc": 0.23, "nuestraPos": null},
-      "pt": {"kw": "caminho portugues de santiago", "vol": 1300, "cpc": 0.26, "nuestraPos": null},
+      "es": {
+        "kw": "camino portugues",
+        "vol": 4400,
+        "cpc": 0.46,
+        "nuestraPos": 5.8
+      },
+      "en": {
+        "kw": "camino portugues",
+        "vol": 1000,
+        "cpc": 0.42,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "jakobsweg portugal",
+        "vol": 3600,
+        "cpc": 0.36,
+        "nuestraPos": 8.4
+      },
+      "it": {
+        "kw": "cammino portoghese",
+        "vol": 2900,
+        "cpc": 0.23,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "caminho portugues de santiago",
+        "vol": 1300,
+        "cpc": 0.26,
+        "nuestraPos": null
+      },
       "nota": "La única ruta con forma alemana propia competitiva: jakobsweg portugal empata con camino portugues a 3.600."
     },
     {
       "concepto": "Camino del Norte",
-      "es": {"kw": "camino del norte", "vol": 6600, "cpc": 0.33, "nuestraPos": 8.1},
-      "en": {"kw": "camino del norte", "vol": 2900, "cpc": 0.0, "nuestraPos": 13.6},
-      "de": {"kw": "camino del norte", "vol": 3600, "cpc": 0.0, "nuestraPos": 8.0},
-      "it": {"kw": "cammino del nord", "vol": 1300, "cpc": 0.90, "nuestraPos": 14.5},
-      "pt": {"kw": "caminho do norte", "vol": null, "cpc": null, "nuestraPos": null},
+      "es": {
+        "kw": "camino del norte",
+        "vol": 6600,
+        "cpc": 0.33,
+        "nuestraPos": 8.1
+      },
+      "en": {
+        "kw": "camino del norte",
+        "vol": 2900,
+        "cpc": 0.0,
+        "nuestraPos": 13.6
+      },
+      "de": {
+        "kw": "camino del norte",
+        "vol": 3600,
+        "cpc": 0.0,
+        "nuestraPos": 8.0
+      },
+      "it": {
+        "kw": "cammino del nord",
+        "vol": 1300,
+        "cpc": 0.9,
+        "nuestraPos": 14.5
+      },
+      "pt": {
+        "kw": "caminho do norte",
+        "vol": 210,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
       "nota": "La ruta de mayor volumen en español, por encima del Francés. En alemán conserva el nombre español con 3.600 búsquedas, once veces más que jakobsweg küstenweg. Nuestra posición en inglés e italiano, 13,6 y 14,5, es de las peores del glosario."
     },
     {
       "concepto": "Camino Primitivo",
-      "es": {"kw": "camino primitivo", "vol": 6600, "cpc": 0.0, "nuestraPos": 8.3},
-      "en": {"kw": "camino primitivo", "vol": 1900, "cpc": 0.0, "nuestraPos": null},
-      "de": {"kw": "camino primitivo", "vol": 2400, "cpc": 0.32, "nuestraPos": null},
-      "it": {"kw": "cammino primitivo", "vol": 1600, "cpc": 0.12, "nuestraPos": null},
-      "pt": {"kw": "caminho primitivo santiago", "vol": null, "cpc": null, "nuestraPos": 10.1},
+      "es": {
+        "kw": "camino primitivo",
+        "vol": 6600,
+        "cpc": 0.0,
+        "nuestraPos": 8.3
+      },
+      "en": {
+        "kw": "camino primitivo",
+        "vol": 1900,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "camino primitivo",
+        "vol": 2400,
+        "cpc": 0.32,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "cammino primitivo",
+        "vol": 1600,
+        "cpc": 0.12,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "caminho primitivo",
+        "vol": 260,
+        "cpc": 0.0,
+        "nuestraPos": 10.1
+      },
       "nota": "Empata con el Norte como ruta más buscada en español. Sin CPC en español ni inglés: nadie puja por ella, lo que la hace barata de ganar en orgánico."
     },
     {
       "concepto": "Camino Inglés",
-      "es": {"kw": "camino ingles", "vol": 2900, "cpc": 0.30, "nuestraPos": null},
-      "en": {"kw": "camino ingles", "vol": 1300, "cpc": 0.56, "nuestraPos": null},
-      "de": {"kw": "camino ingles", "vol": 1300, "cpc": 0.40, "nuestraPos": 6.8},
-      "it": {"kw": "cammino inglese", "vol": 880, "cpc": 0.13, "nuestraPos": null},
-      "pt": {"kw": "caminho ingles santiago", "vol": null, "cpc": null, "nuestraPos": 10.0},
+      "es": {
+        "kw": "camino ingles",
+        "vol": 2900,
+        "cpc": 0.3,
+        "nuestraPos": null
+      },
+      "en": {
+        "kw": "camino ingles",
+        "vol": 1300,
+        "cpc": 0.56,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "camino ingles",
+        "vol": 1300,
+        "cpc": 0.4,
+        "nuestraPos": 6.8
+      },
+      "it": {
+        "kw": "cammino inglese",
+        "vol": 880,
+        "cpc": 0.13,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "caminho ingles",
+        "vol": 390,
+        "cpc": 0.0,
+        "nuestraPos": 10.0
+      },
       "nota": "Buena posición en alemán, 6,8, sobre 1.300 búsquedas. Es de los pocos sitios donde ya defendemos bien fuera de España."
     },
     {
       "concepto": "Año Santo / Xacobeo 2027",
-      "es": {"kw": "xacobeo 2027", "vol": 480, "cpc": 0.67, "nuestraPos": 7.4},
-      "en": {"kw": "holy year 2027", "vol": 20, "cpc": 0.45, "nuestraPos": 5.6},
-      "de": {"kw": "xacobeo 2027", "vol": 20, "cpc": 0.0, "nuestraPos": null},
-      "it": {"kw": "giubileo compostelano", "vol": 20, "cpc": 0.0, "nuestraPos": null},
-      "pt": {"kw": "ano santo compostelano", "vol": 20, "cpc": 0.0, "nuestraPos": null},
+      "es": {
+        "kw": "xacobeo 2027",
+        "vol": 480,
+        "cpc": 0.67,
+        "nuestraPos": 7.4
+      },
+      "en": {
+        "kw": "holy year 2027",
+        "vol": 20,
+        "cpc": 0.45,
+        "nuestraPos": 5.6
+      },
+      "de": {
+        "kw": "xacobeo 2027",
+        "vol": 20,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "giubileo compostelano",
+        "vol": 20,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "ano santo compostelano",
+        "vol": 20,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
       "nota": "El eje comercial del año tiene 480 búsquedas en España y 20 en cada uno de los demás mercados. Como puerta de entrada no existe fuera del español."
     },
     {
       "concepto": "Últimos 100 km / desde Sarria",
-      "es": {"kw": "camino de santiago desde sarria", "vol": 6600, "cpc": 0.84, "nuestraPos": 9.0},
-      "en": {"kw": "camino de santiago from sarria", "vol": null, "cpc": null, "nuestraPos": null},
-      "de": {"kw": "jakobsweg ab sarria", "vol": 50, "cpc": 0.98, "nuestraPos": null},
-      "it": {"kw": "ultimi 100 km cammino santiago", "vol": 480, "cpc": 0.19, "nuestraPos": null},
-      "pt": {"kw": "caminho de santiago desde sarria", "vol": 20, "cpc": 0.0, "nuestraPos": null},
+      "es": {
+        "kw": "camino de santiago desde sarria",
+        "vol": 6600,
+        "cpc": 0.84,
+        "nuestraPos": 9.0
+      },
+      "en": {
+        "kw": "camino de santiago from sarria",
+        "vol": null,
+        "cpc": null,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "jakobsweg ab sarria",
+        "vol": 50,
+        "cpc": 0.98,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "ultimi 100 km cammino santiago",
+        "vol": 480,
+        "cpc": 0.19,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "caminho de santiago desde sarria",
+        "vol": 20,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
       "nota": "El tramo que más vende tiene 6.600 búsquedas en España y 50 en alemán. Fuera del español se busca por ruta, no por tramo: el alemán que quiere los últimos 100 km probablemente busca camino frances."
     },
     {
       "concepto": "El apóstol Santiago",
-      "es": {"kw": "apostol santiago", "vol": null, "cpc": null, "nuestraPos": null},
-      "en": {"kw": "saint james", "vol": null, "cpc": null, "nuestraPos": null},
-      "de": {"kw": "jakobus", "vol": null, "cpc": null, "nuestraPos": null},
-      "it": {"kw": "san giacomo", "vol": 12100, "cpc": 1.07, "nuestraPos": 11.0},
-      "pt": {"kw": "sao tiago", "vol": null, "cpc": null, "nuestraPos": null},
-      "nota": "Solo medido en italiano, donde es el origen real de nuestro tráfico: 2.403 impresiones frente a las 520 del cammino. CPC de 1,07 €, cinco veces el del cammino. Intención religiosa o cultural, no de viaje. Pendiente de medir en los otros cuatro mercados."
+      "es": {
+        "kw": "santiago apostol",
+        "vol": 8100,
+        "cpc": 0.04,
+        "nuestraPos": null
+      },
+      "en": {
+        "kw": "saint james",
+        "vol": 22200,
+        "cpc": 1.08,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "jakobus",
+        "vol": 1000,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "san giacomo",
+        "vol": 12100,
+        "cpc": 1.07,
+        "nuestraPos": 11.0
+      },
+      "pt": {
+        "kw": "sao tiago",
+        "vol": 9900,
+        "cpc": 0.35,
+        "nuestraPos": null
+      },
+      "nota": "Volumen alto en los cinco, pero OJO con la intencion: «saint james» en Estados Unidos y «sao tiago» en Portugal son nombres de muchos sitios, personas y marcas, asi que su volumen no es todo Camino. El unico medido con certeza es el italiano, donde nuestras impresiones vienen de ahi: 2.403 de «san giacomo» frente a 520 del «cammino». Antes de tratar esto como oportunidad hay que mirar los resultados reales de cada consulta."
+    },
+    {
+      "concepto": "Etapas del Camino",
+      "es": {
+        "kw": "camino de santiago etapas",
+        "vol": 1600,
+        "cpc": 0.13,
+        "nuestraPos": null
+      },
+      "en": {
+        "kw": "camino de santiago stages",
+        "vol": 50,
+        "cpc": 0.11,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "jakobsweg etappen",
+        "vol": 320,
+        "cpc": 0.44,
+        "nuestraPos": 4.1
+      },
+      "it": {
+        "kw": "cammino di santiago tappe",
+        "vol": 2400,
+        "cpc": 0.05,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "caminho de santiago etapas",
+        "vol": 260,
+        "cpc": 0.22,
+        "nuestraPos": null
+      },
+      "nota": "El italiano busca etapas MAS que el espanol, 2.400 frente a 1.600, y con un CPC de 0,05 €, practicamente regalado. En ingles no se busca asi: 50 busquedas. Buena posicion alemana, 4,1, sobre 320."
+    },
+    {
+      "concepto": "Credencial del peregrino",
+      "es": {
+        "kw": "credencial del peregrino",
+        "vol": 1300,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "en": {
+        "kw": "pilgrim passport",
+        "vol": 140,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "pilgerausweis",
+        "vol": 480,
+        "cpc": 0.49,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "credenziale del pellegrino",
+        "vol": 210,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "credencial do peregrino",
+        "vol": 260,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "nota": "Consulta informativa de quien ya ha decidido ir: util para captar antes de la reserva. Sin CPC salvo en aleman, asi que nadie puja: barata de ganar en organico."
+    },
+    {
+      "concepto": "La Compostela",
+      "es": {
+        "kw": "la compostela",
+        "vol": 390,
+        "cpc": 0.19,
+        "nuestraPos": null
+      },
+      "en": {
+        "kw": "compostela certificate",
+        "vol": 170,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "compostela urkunde",
+        "vol": 110,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "compostela certificato",
+        "vol": 20,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "compostela certificado",
+        "vol": 20,
+        "cpc": 0.0,
+        "nuestraPos": null
+      },
+      "nota": "Volumen pequeno en todos. Follow the Camino tiene pieza propia y la mantiene destacada desde enero, asi que a ellos les funciona para algo. Como captacion es marginal."
+    },
+    {
+      "concepto": "Albergues",
+      "es": {
+        "kw": "albergues camino de santiago",
+        "vol": 1900,
+        "cpc": 0.94,
+        "nuestraPos": null
+      },
+      "en": {
+        "kw": "camino de santiago albergues",
+        "vol": 20,
+        "cpc": 1.41,
+        "nuestraPos": null
+      },
+      "de": {
+        "kw": "herbergen jakobsweg",
+        "vol": 110,
+        "cpc": 0.47,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "ostelli cammino di santiago",
+        "vol": 320,
+        "cpc": 0.3,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "albergues caminho de santiago",
+        "vol": 210,
+        "cpc": 0.62,
+        "nuestraPos": null
+      },
+      "nota": "1.900 busquedas en espanol con CPC de 0,94 €, el mas caro del glosario en esa lengua: hay dinero detras. Y es la consulta de quien piensa dormir barato, justo lo contrario de lo que vendemos. Merece pensar si se capta para reconvertir o se deja."
+    },
+    {
+      "concepto": "Transporte de mochilas",
+      "es": {
+        "kw": "transporte de mochilas camino de santiago",
+        "vol": 390,
+        "cpc": 0.26,
+        "nuestraPos": null
+      },
+      "en": {
+        "kw": "luggage transfer camino de santiago",
+        "vol": 20,
+        "cpc": 1.68,
+        "nuestraPos": 1.0
+      },
+      "de": {
+        "kw": "gepacktransport jakobsweg",
+        "vol": null,
+        "cpc": null,
+        "nuestraPos": null
+      },
+      "it": {
+        "kw": "trasporto bagagli cammino di santiago",
+        "vol": 30,
+        "cpc": 0.36,
+        "nuestraPos": null
+      },
+      "pt": {
+        "kw": "transporte de mochilas caminho de santiago",
+        "vol": null,
+        "cpc": null,
+        "nuestraPos": null
+      },
+      "nota": "Volumen bajo en todas partes pero el CPC ingles es 1,68 €, el mas alto del glosario: poca gente y muy comercial. Ya estamos en la posicion 1 en ingles. Es un servicio, no una puerta de entrada."
     }
   ]
 }

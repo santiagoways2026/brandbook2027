@@ -201,6 +201,12 @@ Cuando las haya, Semrush entra **solo en el protocolo semanal**, nunca en el dia
 
 Cuatro vistas, y cada una se puede marcar directamente en el navegador añadiendo `#pubs`, `#rivales`, `#huecos` o `#bitacora` al final de la dirección.
 
+**El selector de mercado.** Encima de las pestañas. Elige uno y la sala se filtra entera: las publicaciones por idioma y los huecos por su mercado asignado. La ficha que aparece debajo trae los clics al mes de ese mercado, su posición media, cuántos huecos tiene abiertos y una nota de contexto.
+
+Vuelve a pulsarlo para quitar el filtro, o pulsa **Todos**.
+
+Santiago Ways no tiene cinco idiomas, tiene **diez mercados**: un idioma en un país. Estados Unidos y Reino Unido comparten lengua y tienen volúmenes, competencia y precios distintos. Están definidos en `datos/mercados.json`, con su base de Semrush y su código de país para Search Console, y el espejo que usa la sala está dentro de `index.html`: **si cambias uno, actualiza el otro y republica**.
+
 **La barra de progreso.** Aparece en la cabecera solo mientras hay una barrida en curso, y desaparece sola al terminar. Muestra la etapa en la que está, el paso de ocho, cuántos rivales lleva recorridos, cuántas publicaciones nuevas ha encontrado y el tiempo transcurrido. El tiempo restante solo sale cuando hay histórico de barridas anteriores para estimarlo; en las primeras lo dice abiertamente en lugar de inventar una cifra.
 
 Si una barrida muere a medias sin cerrar su estado, la sala la da por caducada a los 45 minutos y oculta la barra.

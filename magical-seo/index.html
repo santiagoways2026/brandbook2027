@@ -90,6 +90,23 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .ficha span{display:block;font-size:13.5px;color:var(--tenue);margin-top:3px;line-height:1.4}
 .ficha em{display:block;font:500 13px/1.4 var(--f-mono);color:var(--c,var(--ways));margin-top:7px;font-style:normal}
 
+/* Mercados */
+.mercados{margin-bottom:20px}
+.mbar{display:flex;gap:6px;overflow-x:auto;padding-bottom:4px;scrollbar-width:thin}
+.mbar button{flex:none;padding:7px 13px;border:1px solid var(--borde2);border-radius:7px;
+  background:var(--sup);font:600 13.5px/1.2 var(--f-ui);color:var(--texto);white-space:nowrap;
+  display:flex;align-items:baseline;gap:7px;transition:border-color .15s,background .15s}
+.mbar button:hover{border-color:var(--ways)}
+.mbar button small{font:500 11.5px/1 var(--f-mono);color:var(--tenue);font-variant-numeric:tabular-nums}
+.mbar button[aria-pressed="true"]{background:var(--ways);border-color:var(--ways);color:#fff}
+.mbar button[aria-pressed="true"] small{color:#fff;opacity:.85}
+.mficha{margin-top:11px;padding:13px 15px;background:var(--sup);border:1px solid var(--borde);
+  border-left:3px solid var(--ways);border-radius:8px}
+.mficha dl{display:flex;gap:22px;flex-wrap:wrap;margin:0 0 9px}
+.mficha dt{font:600 10.5px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.08em;color:var(--tenue)}
+.mficha dd{margin:3px 0 0;font:700 19px/1 var(--f-ui);font-variant-numeric:tabular-nums}
+.mficha p{margin:0;font-size:14px;line-height:1.55}
+
 /* Pestañas */
 .pestanas{display:flex;gap:4px;border-bottom:1px solid var(--borde);margin-bottom:18px;overflow-x:auto;scrollbar-width:thin}
 .pestanas button{padding:10px 14px;font:600 15px/1 var(--f-ui);color:var(--tenue);white-space:nowrap;
@@ -213,6 +230,12 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
   <div class="fichas" id="fichas"></div>
 </section>
 
+<section class="mercados" aria-label="Mercados">
+  <h2 class="tit-sec">Mercado</h2>
+  <div class="mbar" id="mbar"></div>
+  <div class="mficha" id="mficha" hidden></div>
+</section>
+
 <div class="pestanas" role="tablist">
   <button role="tab" aria-selected="true" data-tab="pubs">Publicaciones<span class="cuenta" id="n-pubs"></span></button>
   <button role="tab" aria-selected="false" data-tab="rivales">Rivales<span class="cuenta" id="n-rivales"></span></button>
@@ -249,7 +272,32 @@ const EQUIPO=[
   {id:"huecos",n:"Arya",rol:"Huecos: lo que cubren ellos y nosotros no",c:"#E4572E"},
   {id:"jefa",n:"Olenna",rol:"Jefa: prioriza, puntúa amenaza y escribe la bitácora",c:"#6F9E5A"},
 ];
-const st={pubs:[],rivales:[],huecos:[],estado:null,filtro:"todas",q:"",tab:"pubs",conectado:false};
+/* Espejo de datos/mercados.json. Si aquel cambia, hay que republicar la sala.
+   Los clics son los medidos en Search Console el 20 de octubre de 2026. */
+const MERCADOS=[
+  {id:"es-ES",   n:"España",          idi:"es", clics:3058, pos:9.6,
+   nota:"El mercado principal con diferencia. Posición media 9,6, mejorable para ser el de casa."},
+  {id:"de-DE",   n:"Alemania",        idi:"de", clics:972,  pos:8.6,
+   nota:"Segundo mercado, por delante de Estados Unidos, y nadie lo había mirado. Solo CaminoWays compite en alemán."},
+  {id:"es-LATAM",n:"Latinoamérica",   idi:"es", clics:905,  pos:6.8,
+   nota:"México, Argentina, Colombia y Chile. Las mejores posiciones del sitio: hay menos competencia local. Comparten las páginas de España."},
+  {id:"en-US",   n:"Estados Unidos",  idi:"en", clics:840,  pos:10.3,
+   nota:"El mercado inglés grande y el que mejor paga. Medir siempre aquí antes que en Reino Unido."},
+  {id:"en-UKIE", n:"Reino Unido e Irlanda", idi:"en", clics:691, pos:10.8,
+   nota:"El patio de CaminoWays y Follow the Camino, y se nota: la peor posición media del sitio."},
+  {id:"pt-PT",   n:"Portugal",        idi:"pt", clics:329,  pos:8.0,
+   nota:"El portugués es casi todo Portugal, no Brasil. El Camino Portugués pasa por aquí."},
+  {id:"it-IT",   n:"Italia",          idi:"it", clics:252,  pos:10.7,
+   nota:"El mayor volumen de búsqueda de todos los mercados, 90.500 al mes, y del que menos sacamos. Sin analizar nunca."},
+  {id:"en-CAAU", n:"Canadá y Australia", idi:"en", clics:251, pos:11.8,
+   nota:"Pequeños pero con rivales propios: UTracks es australiano y 10Adventures canadiense."},
+  {id:"de-ATCH", n:"Austria y Suiza", idi:"de", clics:166,  pos:8.7,
+   nota:"Comparten las páginas de Alemania y le suman un 17 %."},
+  {id:"pt-BR",   n:"Brasil",          idi:"pt", clics:63,   pos:9.9,
+   nota:"Mucho menor que Portugal pese a ser un país mucho mayor. Merece una mirada antes de descartarlo."},
+];
+const st={pubs:[],rivales:[],huecos:[],estado:null,filtro:"todas",q:"",tab:"pubs",
+          mercado:"todos",conectado:false};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
 /* Todo se guarda en UTC y se muestra en hora de Canarias, pase lo que pase
@@ -296,6 +344,40 @@ function reloj(iso){const t=Date.parse(iso);return isFinite(t)
 $("#fichas").innerHTML=EQUIPO.map(a=>`<article class="ficha" style="--c:${a.c}" id="f-${a.id}">
   <b>${esc(a.n)}</b><span>${esc(a.rol)}</span><em data-est="${a.id}">A la espera</em></article>`).join("");
 
+/* Mercados: filtra huecos por su campo mercado y publicaciones por idioma,
+   que es lo mas fino que permite el dato de una pieza rival. */
+const mercadoDe=id=>MERCADOS.find(m=>m.id===id);
+function cuentaMercado(id){
+  const m=mercadoDe(id); if(!m)return{h:0,p:0};
+  return {h:st.huecos.filter(x=>x.mercado===id&&x.estado!=="cerrado").length,
+          p:st.pubs.filter(x=>x.idioma===m.idi).length};
+}
+function pintarMercados(){
+  const hay=st.huecos.some(h=>h.mercado);
+  $("#mbar").innerHTML=
+    `<button type="button" data-m="todos" aria-pressed="${st.mercado==="todos"}">Todos</button>`+
+    MERCADOS.map(m=>{
+      const c=cuentaMercado(m.id);
+      const eti=hay?`${c.h} huecos`:`${c.p} piezas`;
+      return `<button type="button" data-m="${m.id}" aria-pressed="${st.mercado===m.id}">${esc(m.n)}<small>${eti}</small></button>`;
+    }).join("");
+  const f=$("#mficha"), m=mercadoDe(st.mercado);
+  if(!m){f.hidden=true;return}
+  const c=cuentaMercado(m.id);
+  f.hidden=false;
+  f.innerHTML=`<dl>
+    <div><dt>Clics al mes</dt><dd>${m.clics.toLocaleString("es-ES")}</dd></div>
+    <div><dt>Posición media</dt><dd>${m.pos.toLocaleString("es-ES",{minimumFractionDigits:1})}</dd></div>
+    <div><dt>Huecos abiertos</dt><dd>${c.h}</dd></div>
+    <div><dt>Piezas en ${esc(m.idi)}</dt><dd>${c.p}</dd></div></dl>
+    <p>${esc(m.nota)}</p>`;
+}
+$("#mbar").addEventListener("click",e=>{
+  const b=e.target.closest("[data-m]"); if(!b)return;
+  st.mercado=b.dataset.m===st.mercado?"todos":b.dataset.m;
+  pintar();
+});
+
 /* Pestañas */
 document.querySelectorAll('[role="tab"]').forEach(b=>b.addEventListener("click",()=>{
   st.tab=b.dataset.tab;
@@ -316,6 +398,8 @@ document.querySelectorAll(".chip").forEach(c=>c.addEventListener("click",()=>{
 $("#q").addEventListener("input",e=>{st.q=e.target.value.toLowerCase().trim();pintarPubs()});
 
 function pasaFiltro(p){
+  const m=mercadoDe(st.mercado);
+  if(m&&p.idioma!==m.idi)return false;
   const f=st.filtro;
   if(f==="alta"&&p.amenaza!=="alta")return false;
   if(f==="blog"&&p.tipo!=="blog")return false;
@@ -433,18 +517,27 @@ $("#rivales").addEventListener("click",e=>{
 });
 
 function pintarHuecos(){
-  $("#n-huecos").textContent=st.huecos.length?`(${st.huecos.length})`:"";
+  const m=mercadoDe(st.mercado);
+  const vis=m?st.huecos.filter(h=>h.mercado===m.id):st.huecos;
+  $("#n-huecos").textContent=st.huecos.length?`(${vis.length})`:"";
+  if(m&&st.huecos.length&&!vis.length){
+    $("#huecos").innerHTML=`<div class="vacio"><h3>Sin huecos en ${esc(m.n)}</h3>
+      <p>Hay ${st.huecos.length} huecos en total, pero ninguno asignado a este mercado todavía.
+      El análisis semanal les va poniendo mercado a medida que los revisa.</p></div>`;
+    return;
+  }
   if(!st.huecos.length){
     $("#huecos").innerHTML=`<div class="vacio"><h3>Sin huecos analizados</h3>
       <p>Un hueco es un tema que cubren los rivales y vosotros no, o que cubrís peor. Los detecta el protocolo <code>agentes/analisis-huecos/AGENTE.md</code>.</p></div>`;
     return;
   }
-  $("#huecos").innerHTML=st.huecos.map(h=>`<article class="hueco">
+  $("#huecos").innerHTML=vis.map(h=>`<article class="hueco">
     <h3>${esc(h.titulo)}</h3>
     ${h.descripcion?`<p>${esc(h.descripcion)}</p>`:""}
     ${h.accion?`<div class="accion"><b>Acción:</b> ${esc(h.accion)}</div>`:""}
     <div class="etiquetas">
       ${h.tipo?`<span class="tag">${esc(h.tipo)}</span>`:""}
+      ${h.mercado&&mercadoDe(h.mercado)?`<span class="tag">${esc(mercadoDe(h.mercado).n)}</span>`:""}
       ${h.keyword?`<span class="tag">${esc(h.keyword)}</span>`:""}
       ${Number.isFinite(h.prioridad)?`<span class="tag rel">prio ${h.prioridad}</span>`:""}
       ${(h.rivalesQueLoCubren||[]).map(x=>`<span class="tag">${esc(nombreRival(x))}</span>`).join("")}
@@ -571,7 +664,7 @@ function pintarCifras(){
     if(el)el.textContent=d?`${d.hallazgos??0} hallazgos · ${d.ultima?fecha(d.ultima):"sin fecha"}`:"A la espera";
   });
 }
-function pintar(){latido();pintarProgreso();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarBitacora()}
+function pintar(){latido();pintarProgreso();pintarMercados();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarBitacora()}
 pintar();
 
 (async()=>{

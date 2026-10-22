@@ -1513,13 +1513,26 @@ function resumir(raiz){if(!raiz)return;
 function modoResumen(on){const pn=$("#panel");pn.classList.toggle("resumen",on);const b=$("#pnRes");if(b){b.textContent=on?"Ver todo":"Ver resumen";b.setAttribute("aria-pressed",String(on))}try{localStorage.setItem("pnResumen",on?"1":"0")}catch(e){}}
 {let t=0;new MutationObserver(()=>{clearTimeout(t);t=setTimeout(()=>resumir($("#pnMods")),40)}).observe(document.getElementById("pnMods"),{childList:true,subtree:true});
  let r=true;try{r=localStorage.getItem("pnResumen")!=="0"}catch(e){}modoResumen(r)}
+/* El panel no sube solo: recuerda dónde lo deja la persona y, si algo lo mueve hacia arriba sin que ella toque nada (repintados, cambios de altura, recortes de texto), lo devuelve a su sitio en cuanto el contenido lo permite */
+const pnPos={y:0,u:0,nav:0,abajo:false};
+{const pm=document.getElementById("pnMods"),toca=()=>{pnPos.u=performance.now()};
+ ["wheel","touchstart","touchmove","pointerdown","mousedown"].forEach(t=>pm.addEventListener(t,toca,{passive:true}));
+ pm.addEventListener("pointerdown",()=>{pnPos.abajo=true});addEventListener("pointerup",()=>{pnPos.abajo=false;toca()});addEventListener("pointercancel",()=>{pnPos.abajo=false});
+ pm.addEventListener("touchstart",()=>{pnPos.abajo=true},{passive:true});addEventListener("touchend",()=>{pnPos.abajo=false;toca()});
+ addEventListener("keydown",e=>{if([" ","PageDown","PageUp","Home","End","ArrowDown","ArrowUp"].includes(e.key))toca()});
+ const libre=()=>pnPos.abajo||performance.now()-pnPos.u<900||performance.now()-pnPos.nav<1500;
+ const reponer=()=>{if(libre()||$("#panel").hidden)return;const y=Math.min(pnPos.y,pm.scrollHeight-pm.clientHeight);if(pm.scrollTop<y-2)pm.scrollTop=y};
+ pm.addEventListener("scroll",()=>{if(libre()||pm.scrollTop>pnPos.y){pnPos.y=pm.scrollTop;return}requestAnimationFrame(reponer)},{passive:true});
+ let t=0;new MutationObserver(()=>{requestAnimationFrame(reponer);clearTimeout(t);t=setTimeout(reponer,250)}).observe(pm,{childList:true,subtree:true,attributes:true,attributeFilter:["open","style","class"]})}
+const pnNav=()=>{pnPos.nav=performance.now()};
 function marcarNav(){const ab=[...document.querySelectorAll("#pnMods .pn-mod")].find(d=>d.open);document.querySelectorAll("#pnNav [data-pnir]").forEach(b=>b.setAttribute("aria-current",String(!!ab&&b.dataset.pnir===ab.dataset.mod)))}
-function irModulo(id){document.querySelectorAll("#pnMods .pn-mod").forEach(d=>d.open=d.dataset.mod===id);marcarNav();const d=$("#pnMods").querySelector(`[data-mod="${id}"]`);if($("#panel").classList.contains("full"))$("#pnMods").scrollTop=0;else d?.scrollIntoView({block:"start",behavior:"smooth"});$(`#pnNav [data-pnir="${id}"]`)?.scrollIntoView({block:"nearest",inline:"nearest"})}
-function pantallaCompleta(on,silencio){const pn=$("#panel");pn.classList.toggle("full",on);const b=$("#pnFull");if(b){b.querySelector("span").textContent=on?"Minimizar":"Pantalla completa";b.title=on?"Volver al panel lateral (Esc)":"Ver a pantalla completa (F)";b.setAttribute("aria-pressed",String(on))}
+function irModulo(id){pnNav();document.querySelectorAll("#pnMods .pn-mod").forEach(d=>d.open=d.dataset.mod===id);marcarNav();const d=$("#pnMods").querySelector(`[data-mod="${id}"]`);if($("#panel").classList.contains("full"))$("#pnMods").scrollTop=0;else d?.scrollIntoView({block:"start",behavior:"smooth"});$(`#pnNav [data-pnir="${id}"]`)?.scrollIntoView({block:"nearest",inline:"nearest"})}
+function pantallaCompleta(on,silencio){pnNav();const pn=$("#panel");pn.classList.toggle("full",on);const b=$("#pnFull");if(b){b.querySelector("span").textContent=on?"Minimizar":"Pantalla completa";b.title=on?"Volver al panel lateral (Esc)":"Ver a pantalla completa (F)";b.setAttribute("aria-pressed",String(on))}
   if(on&&![...document.querySelectorAll("#pnMods .pn-mod")].some(d=>d.open)){const f=document.querySelector("#pnMods .pn-mod");if(f)f.open=true}
   if(on){const abiertos=[...document.querySelectorAll("#pnMods .pn-mod")].filter(d=>d.open);abiertos.slice(1).forEach(d=>d.open=false)}
   marcarNav();try{localStorage.setItem("pnFull",on?"1":"0")}catch(e){}if(!silencio&&typeof encuadrar==="function")encuadrar()}
 function abrirPanel(sala,foco){
+  pnNav();pnPos.y=0;
   const pn=$("#panel"),mods=$("#pnMods");pn.dataset.sala=sala;
   devolverModulos();
   const ids=(SALAS_ACT[sala]||[]).filter(id=>id!==sala);
@@ -1543,7 +1556,7 @@ function abrirPanel(sala,foco){
   let pmin=false;try{pmin=localStorage.getItem("pnChatMin")==="1"}catch(e){}
   ch.classList.toggle("min",pmin);const pb=ch.querySelector("#pnMin span");if(pb)pb.textContent=pmin?"Abrir chat":"Minimizar";
   src.hidden=true;st.chatSala=CHAT_SALAS[sala]?sala:"control";pn.hidden=false;pintarChat();
-  if(foco&&foco!==sala)setTimeout(()=>mods.querySelector(`[data-mod="${foco}"]`)?.scrollIntoView({block:"start",behavior:"smooth"}),60);
+  if(foco&&foco!==sala)setTimeout(()=>pnNav()||mods.querySelector(`[data-mod="${foco}"]`)?.scrollIntoView({block:"start",behavior:"smooth"}),60);
 }
 function devolverModulos(){
   document.querySelectorAll("#pnMods .cont").forEach(c=>{const id=c.id.slice(2);const sec=document.getElementById("m-"+id);if(sec)sec.appendChild(c)});
@@ -4617,7 +4630,7 @@ function pintarGads(){pintarGadsUtm();pintarGadsGen("gads_pmax");pintarGadsCamp(
 const TZ_MODS=["c-captacion_inv","c-meta_rep","c-gads_camp","c-comercial_asesores","c-captacion_canales","c-captacion_evolucion","c-captacion_cpa"];
 const tzLee=id=>{try{return localStorage.getItem("tz_"+id)||"fit"}catch(e){return"fit"}},tzGuarda=(id,v)=>{try{localStorage.setItem("tz_"+id,v)}catch(e){}};
 function tzAplica(el){const modo=tzLee(el.id);let zs=[];
-  el.querySelectorAll("table.tabla,table.as-t").forEach(t=>{const w=t.parentElement;if(!w||!t.offsetParent)return;t.style.zoom=1;const pw=t.style.width;t.style.width="max-content";const cs=getComputedStyle(w),real=t.getBoundingClientRect().width;t.style.width=pw;const disp=(w.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight))*.98;
+  el.querySelectorAll("table.tabla,table.as-t").forEach(t=>{const w=t.parentElement;if(!w||!t.offsetParent)return;const tk=w.clientWidth+"|"+modo;if(t.dataset.tzk===tk&&t.style.zoom){zs.push(Number(t.style.zoom)||1);return}t.dataset.tzk=tk;t.style.zoom=1;const pw=t.style.width;t.style.width="max-content";const cs=getComputedStyle(w),real=t.getBoundingClientRect().width;t.style.width=pw;const disp=(w.clientWidth-parseFloat(cs.paddingLeft)-parseFloat(cs.paddingRight))*.98;
     const z=modo==="fit"?Math.max(.82,Math.min(1,disp/real)):Number(modo)||1;t.style.zoom=z;zs.push(z);
     if(getComputedStyle(w).overflowX==="visible")w.style.overflowX="auto";t.classList.add("tz-fix");
     t.querySelectorAll("tr").forEach(r=>{const c=r.firstElementChild;if(!c||c.classList.contains("tz-c"))return;if((c.colSpan||1)>3)return;c.classList.add("tz-c");

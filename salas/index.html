@@ -79,7 +79,7 @@ body[data-dentro] .marco.dato{display:none!important}
 .res-mas{display:block;margin:8px 20px 0;background:none;border:1px dashed var(--borde-2);border-radius:6px;color:#c9d0da;font:500 14px/1 var(--f-ui);padding:10px 12px;cursor:pointer;text-align:left}
 .res-mas:hover{border-color:var(--sel);color:#fff}#panel:not(.resumen) .res-mas{display:none}
 #pnRes{display:inline-flex;align-items:center;gap:6px}
-.p-txt{font-size:34px!important}.p-sub{font-size:24px!important}.grupo-titulo small{font-size:24px!important}
+.p-txt{font-size:34px!important}.p-sub{font-size:24px!important}.grupo-titulo small{font-size:30px!important;max-width:1500px;overflow:hidden;text-overflow:ellipsis}
 
 #pnFull{display:inline-flex;align-items:center;gap:6px}#pnFull svg{width:15px;height:15px}#pnFull .ico-min,#panel.full #pnFull .ico-max{display:none}#panel.full #pnFull .ico-min{display:block}
 .pn-nav{display:flex;gap:6px;overflow-x:auto;padding:10px 12px;border-bottom:1px solid var(--borde);scrollbar-width:thin;flex:none}
@@ -1387,6 +1387,8 @@ const MARCOS=[
   {id:"ventas_capt",grupo:"ventas",dato:true,nombre:"Viajes vendidos / Captación",x:0,y:-9000,w:1300},
   {id:"fidelizacion",grupo:"fidelizacion",nombre:"Fidelización & Journey",obra:"Fidelización, repetición, reseñas y journey del cliente",x:0,y:0,w:1200},
   {id:"brand",grupo:"brand",nombre:"Brand / Awareness",obra:"Marca, notoriedad y awareness en todos los mercados",x:0,y:0,w:1200},
+  {id:"cro",grupo:"cro",nombre:"CRO",obra:"Conversión de la web: formularios, landings y pruebas A/B",x:0,y:0,w:1200},
+  {id:"app",grupo:"app",nombre:"Santiago Ways App",obra:"Descargas, uso y papel de la app en el viaje",x:0,y:0,w:1200},
   {id:"cr",grupo:"cr",nombre:"Tasa de conversión (CR)",x:0,y:0,w:1200},
   {id:"metaads",grupo:"metaads",nombre:"Meta Ads",x:0,y:0,w:1200},
   {id:"meta_rep",grupo:"metaads",dato:true,nombre:"Meta Ads / Campañas activas",x:0,y:-9000,w:1500},{id:"meta_anu",grupo:"metaads",dato:true,nombre:"Meta Ads / Anuncios",x:0,y:-9000,w:1500},{id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
@@ -1404,7 +1406,7 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-200,6000],comercial:[1450,6000],ventas:[-1950,6000],cr:[3100,6000],metaads:[5600,4000],googleads:[7200,4000],openaiads:[8800,4000],mdirecto:[5600,5100],producto:[5000,7800]};
+const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-200,6000],comercial:[1450,6000],ventas:[-1950,6000],cr:[3100,6000],metaads:[5600,4000],googleads:[7200,4000],openaiads:[8800,4000],cro:[7000,400],app:[8600,400],mdirecto:[5600,5100],producto:[5000,7800]};
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
@@ -1704,8 +1706,8 @@ function pintarMapa(){
 /* ---------- Construcción del mundo ---------- */
 const ICO_MARCO=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 0v12M9 0v12M0 3h12M0 9h12"/></svg>`;
 function construir(){
-  const TIT=[["radar","Radar Viral","#e8eaed","● Sala activa"," · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT"],["diseno","Diseño","#a3cf2e","● Activa"," · 6 creativos · piezas con el brandbook 2027"],["control","Sala de Control","#f5d76e","● Activa"," · 17 personas y Cerebro · dirección de negocio: sintetiza todas las salas"],["competencia","Competencia","#e8eaed","● Sala activa"," · 6 investigadores · webs, precios, noticias, redes y alianzas"],["seo","SEO","#5eead4","● Activa"," · 6 especialistas · auditoría, palabras clave y analítica"],["paid","Paid Media","#f9a8d4","● Activa"," · 7 especialistas · Meta Ads y Google Ads"],...SALAS_N.map(S=>[S.id,S.nombre,S.color,"● Nueva",` · ${S.equipo.length} especialistas · `+S.sub])];
-  let h=svgPasillos()+TIT.map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);return`<div class="grupo-titulo" style="left:${m.x}px;top:${m.y-230}px;font-size:${id==="control"?96:id==="radar"?72:56}px;color:${c}">${esc(n)}<small><span class="ok">${ok}</span>${esc(sub)}</small></div>`}).join("");
+  const TIT=[["radar","Radar Viral","#e8eaed","● Sala activa"," · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT"],["diseno","Diseño","#a3cf2e","● Activa"," · 6 creativos · piezas con el brandbook 2027"],["control","Sala de Control","#f5d76e","● Activa"," · 17 personas y Cerebro · dirección de negocio: sintetiza todas las salas"],["competencia","Competencia","#e8eaed","● Sala activa"," · 6 investigadores · webs, precios, noticias, redes y alianzas"],["seo","SEO","#5eead4","● Activa"," · 6 especialistas · auditoría, palabras clave y analítica"],["paid","Paid Media","#f9a8d4","● Activa"," · 7 especialistas · Meta Ads y Google Ads"],...SALAS_N.map(S=>[S.id,S.nombre,S.color,"● Nueva",` · ${S.equipo.length} especialistas · `+S.sub]),...MARCOS.filter(m=>m.obra).map(m=>[m.id,m.nombre,"#e8eaed","● En construcción"," · "+m.obra])];
+  let h=svgPasillos()+TIT.map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);const fs=id==="control"?140:id==="radar"?112:96;return`<div class="grupo-titulo" style="left:${m.x}px;top:${m.y-fs-204}px;font-size:${fs}px;color:${c}">${esc(n)}<small><span class="ok"${ok.includes("construcción")?' style="color:#f5c518"':""}>${ok}</span>${esc(sub)}</small></div>`}).join("");
   for(const m of MARCOS){
     h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}${!m.dato&&PERSONALIDAD[m.id]?`;border-color:${PERSONALIDAD[m.id].c}66;box-shadow:0 0 0 1px ${PERSONALIDAD[m.id].c}22,0 30px 80px rgba(0,0,0,.6),0 0 160px ${PERSONALIDAD[m.id].c}1f`:""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
   }
@@ -1776,9 +1778,9 @@ function svgPasillos(){
     <rect x="700" y="6900" width="600" height="90" rx="10" fill="#05070a" stroke="#3d7bff" stroke-opacity=".6" stroke-width="3"/><text x="1000" y="6958" text-anchor="middle" class="p-txt">ENTRADA PRINCIPAL</text>`;
   // Plantas de cada sala con su suelo propio
   for(const[k,P]of Object.entries(PERSONALIDAD)){const m=MARCOS.find(x=>x.id===k);if(!m||OCULTAS.includes(k))continue;const x=m.x,y=m.y,w=m.w,h=altoSala(m);
-    d+=`<g class="planta"><rect x="${x-140}" y="${y-310}" width="${w+280}" height="${h+460}" rx="70" fill="#090c11" stroke="${P.c}" stroke-opacity=".35" stroke-width="6"/>
-      <rect x="${x-140}" y="${y-310}" width="${w+280}" height="${h+460}" rx="70" fill="url(#sl-${P.suelo})" opacity=".13"/>
-      <rect x="${x-118}" y="${y-288}" width="${w+236}" height="${h+416}" rx="54" fill="none" stroke="${P.c}" stroke-opacity=".18" stroke-width="2" stroke-dasharray="14 10"/>
+    d+=`<g class="planta"><rect x="${x-140}" y="${y-360}" width="${w+280}" height="${h+510}" rx="70" fill="#090c11" stroke="${P.c}" stroke-opacity=".35" stroke-width="6"/>
+      <rect x="${x-140}" y="${y-360}" width="${w+280}" height="${h+510}" rx="70" fill="url(#sl-${P.suelo})" opacity=".13"/>
+      <rect x="${x-118}" y="${y-338}" width="${w+236}" height="${h+466}" rx="54" fill="none" stroke="${P.c}" stroke-opacity=".18" stroke-width="2" stroke-dasharray="14 10"/>
 
       <g transform="translate(${x+w+35} ${y-170})">${objetoSala(P.obj,P.c)}</g></g>`}
   // Patio central

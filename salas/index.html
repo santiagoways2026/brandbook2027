@@ -6120,12 +6120,12 @@ async function refrescoDiario(){
   const lanzadas=[];
   for(const[,,id,n]of rut){try{await mc.mcp.callTool(RCC,"fire_trigger",{trigger_id:id},{cache:false});R.rutinas[id]=new Date().toISOString();lanzadas.push(n)}catch(e){if(DENEGADOS.includes(e?.code))break}}
   if(lanzadas.length)refAviso(`Actualización diaria: lanzados los análisis de ${lanzadas.join(", ")}. Llegarán en unos minutos.`);
-  let ok=0,fallo="";
+  let ok=0,fallo="";mc.ultErr=null;
   for(let i=0;i<zo.length;i++){const[k,,g,fn,n]=zo[i];refAviso(`Actualización diaria desde Zoho: ${n} (${i+1} de ${zo.length})…`);
     try{await fn()}catch(_){}for(let j=0;j<10&&!deHoy(g());j++)await espera(500);
-    if(!deHoy(g())){fallo=n;break}R.zoho[k]=new Date().toISOString();ok++}
-  R.fin=new Date().toISOString();try{await st.db.doc("refresco/diario").set(R)}catch(_){}
-  if(fallo)refAviso(`No se pudo actualizar «${fallo}» desde Zoho. Revisa que el conector «zoho crm» esté conectado y permitido en esta página.`,"err");
+    if(!deHoy(g())){fallo=n;R.error={tabla:n,...(mc.ultErr||{code:"sin_llamada",mensaje:"La actualización terminó sin llamar a Zoho o sin guardar datos de hoy."})};break}R.zoho[k]=new Date().toISOString();ok++}
+  if(!fallo)delete R.error;R.fin=new Date().toISOString();try{await st.db.doc("refresco/diario").set(R)}catch(_){}
+  if(fallo)refAviso(`No se pudo actualizar «${fallo}» desde Zoho. Revisa que el conector «${ZO}» esté conectado y permitido en esta página${R.error?.code?` (código: ${R.error.code})`:""}.`,"err");
   else refAviso(`Actualización diaria hecha${zo.length?`: ${ok} tablas de Zoho al día`:""}${lanzadas.length?`${zo.length?" y":":"} ${lanzadas.length} análisis en marcha`:""}.`,"ok")}
 const mc={mcp:null,disponible:null,mercado:"es",datos:{},err:{},subs:[]};
 const CONSULTAS={
@@ -6391,7 +6391,10 @@ async function exportar(){
 /* ---------- Arranque ---------- */
 construir();pintarDatos();pintarMetricool();pintarCompetencia();pintarControl();pintarDiseno();pintarComunidad();pintarSeo();pintarPaid();iniciarMundos();
 (async()=>{sampleFn=await window.claude?.use?.("sample")})();
-(async()=>{const m=await window.claude?.use?.("mcp");mc.mcp=m;mc.disponible=!!m;suscribirMetricool();suscribirMetricoolComp();refrescoDiario();if(st.dentro==="cro"&&st.croDoc){suscribirPageSense();pintarCro()}})();
+(async()=>{const m=await window.claude?.use?.("mcp");
+  /* Guarda el último error de cada llamada a un conector, para saber desde un chat por qué falla el refresco diario */
+  if(m)try{const ct=m.callTool.bind(m);m.callTool=async(...a)=>{try{return await ct(...a)}catch(e){mc.ultErr={servidor:a[0],herramienta:a[1],code:String(e?.code||""),mensaje:String(e?.message||e||"").slice(0,300),t:new Date().toISOString()};throw e}}}catch(_){}
+  mc.mcp=m;mc.disponible=!!m;suscribirMetricool();suscribirMetricoolComp();refrescoDiario();if(st.dentro==="cro"&&st.croDoc){suscribirPageSense();pintarCro()}})();
 const inicioRadar=location.hash==="#radar";
 requestAnimationFrame(()=>{if(location.hash==="#diseno")entrar("diseno");else if(location.hash==="#comunidad")entrar("comunidad");else if(location.hash==="#seo")entrar("seo");else if(location.hash==="#paid")entrar("paid");else if(location.hash==="#control")entrar("control");else if(inicioRadar)entrar("radar");else if(location.hash==="#competencia")entrar("competencia");else volarA(cajaTotal(),70,true)});
 setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);

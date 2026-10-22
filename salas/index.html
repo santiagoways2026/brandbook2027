@@ -1201,6 +1201,7 @@ html[data-tema=sw] #c-cro_dash,html[data-tema=sw] #c-cro_backlog,html[data-tema=
 .cro-pt{margin-top:8px;height:8px}
 .cro-paso ol{list-style:none;margin:8px 0 0;padding:0;display:grid;gap:5px}
 .cro-paso li{display:grid;grid-template-columns:18px 1fr;gap:4px;line-height:1.35}.cro-paso li small{grid-column:2;color:var(--tenue);font-size:11.5px}
+.cro-ps{margin:12px 20px 0;font-size:13px;line-height:1.5;color:var(--tenue);display:flex;gap:10px;align-items:baseline;flex-wrap:wrap}.cro-ps .vivo{flex:none}.cro-psd{color:var(--cro-2)!important;font-weight:600}.cro-tot{background:color-mix(in srgb,var(--cro-1) 6%,transparent);border-radius:6px;padding-left:8px;padding-right:8px}.cro-ps{display:flex!important;-webkit-line-clamp:unset!important;overflow:visible!important;max-height:none!important}
 .cro-paso li.hecho>span{color:var(--cro-3);font-weight:700}.cro-paso li:not(.hecho)>span{color:var(--tenue)}
 #c-cro_dash .pi-card p,#c-cro_analytics .pi-card p,#c-cro_result .pi-card p,.cro-lect,.cro-seo-b p,.cro-nota,.cro-hip{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important;max-height:none!important}
 @media (max-width:1100px){.cro-kan{grid-template-columns:repeat(3,minmax(0,1fr))}.cro-minis{grid-template-columns:1fr 1fr}}
@@ -5628,6 +5629,44 @@ function croLinea(S,{alto=250,ancho=1000,etq,marcas=[],fmt=v=>croP(v,1),aria="CR
 function croAB(v){const mx=Math.max(v.cra,v.crb,.1)*1.15,w=x=>Math.max(1,x/mx*100).toFixed(1);
   return`<div class="cro-ab"><div class="cro-abf"><span>Control</span><span class="cro-abt"><span style="width:${w(v.cra)}%;background:var(--cro-g)"></span></span><b>${croP(v.cra)}</b></div><div class="cro-abf"><span>Variante</span><span class="cro-abt"><span style="width:${w(v.crb)}%;background:${v.uplift>0?"var(--cro-3)":v.uplift<0?"var(--cro-5)":"var(--cro-g)"}"></span></span><b>${croP(v.crb)}</b></div></div>`}
 function croVeredicto(v){if(v.na<300||v.nb<300)return["Muestra pequeña","cro-v-gris"];if(v.cra===v.crb&&v.na===v.nb&&v.ca===v.cb)return["Revisar datos","cro-v-rojo"];if(v.conf>=95)return[(v.uplift>0?"Gana la variante":"Pierde la variante")+(v.muestra_necesaria&&v.na<v.muestra_necesaria?", sin muestra completa":""),v.uplift>0?"cro-v-verde":"cro-v-rojo"];if(v.conf>=90)return["Tendencia, sin confirmar","cro-v-ambar"];return["Sin diferencia clara","cro-v-gris"]}
+/* PageSense en directo: informe «summary» de cada test EXP por el conector Zoho Suite (lista de tests en cro/actual.pagesense) */
+const PS_TOOL="ZohoPageSense_getAbTestReport",psV={vivo:{},err:{},ini:false,t:0};
+const psErfc=x=>{const k=1/(1+.3275911*x);return k*(.254829592+k*(-.284496736+k*(1.421413741+k*(-1.453152027+k*1.061405429))))*Math.exp(-x*x)};
+function psStats(na,ca,nb,cb){const cra=na?100*ca/na:0,crb=nb?100*cb/nb:0,p=(ca+cb)/((na+nb)||1),se=Math.sqrt(p*(1-p)*(1/(na||1)+1/(nb||1))),z=se?(crb-cra)/100/se:0,up=cra?(crb/cra-1)*100:null,d=cra/100*(up||0)/100;
+  return{na,ca,nb,cb,cra,crb,uplift:up,z,conf:100*(1-.5*psErfc(Math.abs(z)/Math.SQRT2)),muestra_necesaria:d?Math.round(7.85*2*(cra/100)*(1-cra/100)/(d*d)):null}}
+/* De la respuesta de PageSense, las dos filas del objetivo principal: original (baseline) y variante */
+function psFila(T,pl){const R=(pl?.data?.reports||pl?.reports||[]).filter(r=>r.goal_link_name===T.goal),a=R.find(r=>r.variation_link_name===T.base),b=R.find(r=>r.variation_link_name!==T.base);
+  if(!a||!b)return null;return{na:+a.unique_visitor_count||0,ca:+a.unique_goal_achieved_count||0,nb:+b.unique_visitor_count||0,cb:+b.unique_goal_achieved_count||0,ps:{dec:b.decision,win:!!b.is_winner,lose:!!b.is_loser,insig:!!b.is_insignificant}}}
+const PS_RETIRA=["needs_reauth","server_not_connected","server_not_found","selection_required","blocked_by_policy","approval_required","not_in_manifest","not_granted","capability_disabled","capability_removed"];
+function psRepinta(){clearTimeout(psV.t);psV.t=setTimeout(()=>{if(st.dentro==="cro")pintarCro()},200)}
+function suscribirPageSense(){const P=st.croDoc?.pagesense;if(psV.ini||!mc.mcp||!P?.tests?.length)return;psV.ini=true;
+  const d=new Date(),hoy=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
+  P.tests.forEach(T=>{const input={path_variables:{domain_name:P.portal,experiment_link_name:T.link},body:{reports:{report_type:"summary",baseline:T.base,start_date:T.inicio,end_date:T.fin||hoy}}};
+    mc.mcp.watchTool(P.servidor||ZO,PS_TOOL,input,ev=>{
+      if(ev.type==="data"){const f=psFila(T,ev.result?.payload);if(f){psV.vivo[T.link]={...f,en:ev.result.cache?.storedAt||Date.now()};delete psV.err[T.link]}else psV.err[T.link]={code:"formato",message:"PageSense no devolvió el objetivo principal del test."}}
+      else{psV.err[T.link]=ev.error||{code:"upstream_error"};if(PS_RETIRA.includes(ev.error?.code))delete psV.vivo[T.link]}
+      psRepinta()},{refetchInterval:15*60000})})}
+/* Filas de la pestaña: dato en directo si lo hay; si no, la última lectura guardada. Más los totales por grupo (EXP-004 por idioma) */
+function psValidacion(P){const filas=[],grupos={};let vivos=0,max=0;const foto=Date.parse(P.foto_fecha||"")||0;
+  P.tests.forEach(T=>{const L=psV.vivo[T.link],F=(P.foto||{})[T.link],s=L||F;if(!s)return;if(L)vivos++;const en=L?L.en:foto;max=Math.max(max,en);
+    const v={id:T.id,var:T.var,inicio:T.inicio,...psStats(s.na,s.ca,s.nb,s.cb),ps:s.ps,fuente:L?"vivo":"foto",en};filas.push(v);
+    if(T.grupo){const g=grupos[T.grupo]||(grupos[T.grupo]={id:T.id,var:T.grupo,inicio:T.inicio,na:0,ca:0,nb:0,cb:0,n:0});g.na+=s.na;g.ca+=s.ca;g.nb+=s.nb;g.cb+=s.cb;g.n++;if(T.inicio<g.inicio)g.inicio=T.inicio}});
+  Object.values(grupos).forEach(g=>filas.push({id:g.id,var:g.var,inicio:g.inicio,...psStats(g.na,g.ca,g.nb,g.cb),total:g.n}));
+  const errs=Object.values(psV.err);return{filas,vivos,total:P.tests.length,errs,fecha:max?new Date(max).toISOString():P.foto_fecha}}
+function psEstado(PV,P){const srv=P.servidor||ZO,ff=esc(hace(P.foto_fecha||PV.fecha||"")),dur=PV.errs.find(e=>PS_RETIRA.includes(e?.code)||e?.code==="tool_error"),c=dur?.code,fallo=PV.errs.length>0;
+  const msg=!mc.mcp?`Fuera de claude.ai no se puede leer PageSense: se ve la última lectura guardada (${ff}).`
+   :c==="needs_reauth"?`Hay que volver a conectar «${esc(srv)}» en claude.ai, Ajustes, Conectores. Mientras, se ve la última lectura guardada (${ff}).`
+   :c==="server_not_connected"||c==="server_not_found"?`Para ver PageSense en directo, añade y conecta «${esc(srv)}» en claude.ai, Ajustes, Conectores. Mientras, se ve la última lectura guardada (${ff}).`
+   :c==="selection_required"?`Elige qué conector «${esc(srv)}» usar en el aviso de claude.ai. Mientras, se ve la última lectura guardada (${ff}).`
+   :c==="not_in_manifest"||c==="not_granted"?`No has permitido «${esc(srv)}» en esta página; puedes activarlo en el menú Permisos de la página. Mientras, se ve la última lectura guardada (${ff}).`
+   :c==="blocked_by_policy"||c==="approval_required"?`Tu organización exige aprobar a mano esta herramienta de «${esc(srv)}» y la página no puede pedirlo. Se ve la última lectura guardada (${ff}).`
+   :c==="capability_disabled"||c==="capability_removed"?`Esta vista no puede usar conectores: se ve la última lectura guardada (${ff}).`
+   :c==="tool_error"?`PageSense respondió con un error: ${esc(String(dur.message||"").slice(0,160))}. ${PV.vivos?`${PV.vivos} de ${PV.total} tests sí se leen en directo; el resto`:"Se ve"}, de la última lectura guardada (${ff}).`
+   :PV.vivos===PV.total?`${PV.vivos} tests leídos de PageSense ${esc(hace(PV.fecha))}. Se actualiza solo cada 15 minutos mientras la sala está abierta.`
+   :PV.vivos?`${PV.vivos} de ${PV.total} tests leídos de PageSense; el resto, de la última lectura guardada (${ff}).${fallo?" Se vuelve a intentar cada 15 minutos.":""}`
+   :fallo?`PageSense no responde ahora: se ve la última lectura guardada (${ff}). Se vuelve a intentar cada 15 minutos.`:`Leyendo PageSense…`;
+  const ok=PV.vivos&&!c;return`<p class="cro-ps"><span class="vivo${ok?"":" off"}">${ok?"En directo":"PageSense"}</span> ${msg}</p>`}
+const psDecision=ps=>!ps?"":ps.win?"PageSense: gana la variante":ps.lose?"PageSense: pierde la variante":ps.insig||ps.dec===2?"PageSense: sin diferencia significativa":ps.dec===3?"PageSense: aún sin datos suficientes":"";
 function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_dash","cro_backlog","cro_tests","cro_analytics","cro_result"];
   if(!D){ids.forEach(id=>{const el=document.getElementById("c-"+id);if(el)el.innerHTML=`<div class="vacio">Leire está cruzando los tests de PageSense con Analytics.</div>`});return}
   const G=D.ga4||{},L=(a,f)=>(a||[]).map(f).join(""),VAL=D.validacion||[],BK=D.backlog||[];
@@ -5650,14 +5689,15 @@ function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_das
        ${b.met?`<p class="cro-met"><b>Métrica:</b> ${esc(b.met)}</p>`:""}${b.notas?`<p class="cro-nota">${esc(b.notas)}</p>`:""}</div>`};
     el.innerHTML=croCab("Backlog y priorización","Hoja «1. Backlog y scoring» del Excel Growth Lab: el score decide el orden y el estado, la columna",D)+`<div class="cro-kan">${cols.map(c=>{const B=BK.filter(b=>grupo(b.estado)===c).sort((a,b)=>(b.score||0)-(a.score||0));return`<div class="cro-col"><div class="cro-col-h" style="--c:${CRO_ES[c][1]}"><b>${esc(CRO_ES[c][0])}</b><span>${B.length}</span></div>${B.map(card).join("")||`<div class="cro-vacia">Nada aquí todavía</div>`}</div>`}).join("")}</div>
      <p class="as-nota">${esc(D.nota_backlog||"")}</p>`}
-  /* 3. Tests en validación */
-  el=document.getElementById("c-cro_tests");if(el){const porExp={};VAL.forEach(v=>(porExp[v.id]=porExp[v.id]||[]).push(v));
-    const fila=v=>{const [vt,vc]=croVeredicto(v),need=v.muestra_necesaria,prog=need?Math.min(100,100*v.na/need):null;
-      return`<div class="cro-tv"><div class="cro-tv-n"><b>${esc(v.var)}</b><small>${croN(v.na)} y ${croN(v.nb)} visitantes · ${croN(v.ca)} y ${croN(v.cb)} conversiones</small></div>${croAB(v)}
-       <div class="cro-tv-m"><span class="cro-up ${v.uplift>0?"pos":v.uplift<0?"neg":""}">${v.uplift==null?"–":croS(v.uplift)+" %"}</span><span class="cro-conf"><span class="cro-conft"><span style="width:${Math.min(100,v.conf||0)}%"></span><i style="left:95%"></i></span><small>${croP(v.conf,1)} de confianza</small></span>
-       ${prog!=null?`<span class="cro-mues"><span class="cro-muest"><span style="width:${prog.toFixed(0)}%"></span></span><small>${prog>=100?"muestra suficiente":`${prog.toFixed(0)} % de la muestra necesaria`}</small></span>`:`<span class="cro-mues"><small>sin diferencia que medir</small></span>`}
+  /* 3. Tests en validación: en directo desde PageSense (Zoho Suite); si no se puede, la última lectura guardada; sin configuración, el Excel */
+  el=document.getElementById("c-cro_tests");if(el){const P=D.pagesense?.tests?.length?D.pagesense:null;if(P)suscribirPageSense();const PV=P?psValidacion(P):null,VV=PV?PV.filas:VAL,porExp={};VV.forEach(v=>(porExp[v.id]=porExp[v.id]||[]).push(v));
+    const fila=v=>{const [vt,vc]=croVeredicto(v),need=v.muestra_necesaria,prog=need?Math.min(100,100*v.na/need):null,pd=psDecision(v.ps);
+      return`<div class="cro-tv${v.total?" cro-tot":""}"><div class="cro-tv-n"><b>${esc(v.var)}</b><small>${croN(v.na)} y ${croN(v.nb)} visitantes · ${croN(v.ca)} y ${croN(v.cb)} conversiones${v.total?` · suma de ${v.total} tests`:""}</small>${pd?`<small class="cro-psd">${esc(pd)}</small>`:""}</div>${croAB(v)}
+       <div class="cro-tv-m"><span class="cro-up ${v.uplift>0?"pos":v.uplift<0?"neg":""}">${v.uplift==null?"–":croS(v.uplift)+" %"}</span><span class="cro-conf"><span class="cro-conft"><span style="width:${Math.min(100,v.conf||0)}%"></span><i style="left:95%"></i></span><small>${croP(v.conf,1)} de confianza</small></span>
+       ${prog!=null?`<span class="cro-mues"><span class="cro-muest"><span style="width:${prog.toFixed(0)}%"></span></span><small>${prog>=100?"muestra suficiente":`${prog.toFixed(0)} % de la muestra necesaria`}</small></span>`:`<span class="cro-mues"><small>sin diferencia que medir</small></span>`}
        <span class="cro-v ${vc}">${esc(vt)}</span></div></div>`};
-    el.innerHTML=croCab("Tests en validación","Hoja «2. Validación» del Excel: visitantes y conversiones de PageSense. Uplift, confianza y muestra necesaria recalculados aquí",D)+`<div class="pi-ver cro-ver"><b>${esc(D.tests_titular||"")}</b> ${esc(D.tests_texto||"")}</div>
+    const sub=P?`Zoho PageSense en directo (conector «${P.servidor||ZO}»): visitantes únicos y conversiones del objetivo principal de cada test, desde que empezó. Uplift, confianza y muestra necesaria se calculan aquí`:"Hoja «2. Validación» del Excel: visitantes y conversiones de PageSense. Uplift, confianza y muestra necesaria recalculados aquí";
+    el.innerHTML=croCab("Tests en validación",sub,P?{fecha:PV.fecha}:D)+(P?psEstado(PV,P):"")+`<div class="pi-ver cro-ver"><b>${esc(D.tests_titular||"")}</b> ${esc(D.tests_texto||"")}</div>
      ${Object.entries(porExp).map(([id,V])=>{const b=BK.find(x=>x.id===id)||{},es=CRO_ES[b.estado]||[b.estado||"","var(--cro-g)"];return`<div class="cro-exp"><div class="cro-exp-h"><span class="cro-id">${esc(id)}</span><h3>${esc(b.nombre||id)}</h3><span class="cro-est" style="--c:${es[1]}">${esc(es[0])}</span>${V[0].inicio?`<span class="cro-ini">desde el ${esc(V[0].inicio.split("-").reverse().join("/"))}</span>`:""}</div>${b.hip?`<p class="cro-hip">${esc(b.hip)}</p>`:""}${V.map(fila).join("")}${(D.notas_tests||{})[id]?`<p class="cro-nota">${esc(D.notas_tests[id])}</p>`:""}</div>`}).join("")}
      <p class="as-nota">${esc(D.nota_tests||"")}</p>`}
   /* 4. Analytics de los tests */
@@ -6006,8 +6046,8 @@ document.addEventListener("keydown",e=>{if(e.target.id==="chatTxt"&&e.key==="Ent
 
 /* ---------- Metricool en vivo ---------- */
 const MC="Metricool Social Media Management",MCT="getAnalyticsDataByMetrics";
-/* Conector de Zoho tal como se llama en claude.ai */
-const ZO="zoho crm";
+/* Conector de Zoho tal como se llama en claude.ai (antes «zoho crm»; desde el 22 de octubre de 2026, «Zoho Suite», con CRM, Analytics y PageSense) */
+const ZO="Zoho Suite";
 /* ===== Refresco diario al abrir la página: lo que no sea de hoy se actualiza solo.
    Las tablas de Zoho, con el conector de quien abre (y solo si puede escribir en la base de datos); los análisis de las salas, lanzando su rutina ===== */
 const RCC="Claude Code Remote";
@@ -6315,7 +6355,7 @@ async function exportar(){
 /* ---------- Arranque ---------- */
 construir();pintarDatos();pintarMetricool();pintarCompetencia();pintarControl();pintarDiseno();pintarComunidad();pintarSeo();pintarPaid();iniciarMundos();
 (async()=>{sampleFn=await window.claude?.use?.("sample")})();
-(async()=>{const m=await window.claude?.use?.("mcp");mc.mcp=m;mc.disponible=!!m;suscribirMetricool();suscribirMetricoolComp();refrescoDiario()})();
+(async()=>{const m=await window.claude?.use?.("mcp");mc.mcp=m;mc.disponible=!!m;suscribirMetricool();suscribirMetricoolComp();refrescoDiario();if(st.dentro==="cro"&&st.croDoc){suscribirPageSense();pintarCro()}})();
 const inicioRadar=location.hash==="#radar";
 requestAnimationFrame(()=>{if(location.hash==="#diseno")entrar("diseno");else if(location.hash==="#comunidad")entrar("comunidad");else if(location.hash==="#seo")entrar("seo");else if(location.hash==="#paid")entrar("paid");else if(location.hash==="#control")entrar("control");else if(inicioRadar)entrar("radar");else if(location.hash==="#competencia")entrar("competencia");else volarA(cajaTotal(),70,true)});
 setInterval(()=>{if(document.activeElement?.id!=="q")pintarDatos()},60000);

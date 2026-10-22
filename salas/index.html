@@ -1139,6 +1139,7 @@ html[data-tema=sw] #c-comercial_correos{--cor-1:#2a78d6;--cor-2:#eb6834;--cor-3:
 .cor-g1 .ia-g{min-width:0}.cor-g1 .pi-svg{max-width:1000px}
 html[data-tema=sw] .cor-pa{stroke:#fff}html[data-tema=sw] .cor-pb{fill:#fff}
 @media (max-width:760px){.cor-def{grid-template-columns:1fr 1fr}.cor-mf{grid-template-columns:110px 1fr}}
+.cro-grp{margin:18px 20px 0;border:1px solid var(--borde);border-radius:12px;padding:0 14px}.cro-grp .cro-res{margin:12px 0 0}.cro-grp>summary{cursor:pointer;list-style:none;display:flex;flex-wrap:wrap;align-items:baseline;gap:10px;padding:14px 0;font-size:15px}.cro-grp>summary::-webkit-details-marker{display:none}.cro-grp>summary::before{content:"▸";transition:transform .15s}.cro-grp[open]>summary::before{transform:rotate(90deg)}.cro-grp>summary small{opacity:.7;flex-basis:100%;margin-left:22px}.cro-grp[open]{padding-bottom:14px}@media(max-width:600px){.cro-grp{margin:14px 0 0;padding:0 10px}}
 #c-cro_dash,#c-cro_backlog,#c-cro_tests,#c-cro_analytics,#c-cro_result{--cro-1:#3987e5;--cro-2:#9085e9;--cro-3:#199e70;--cro-4:#c98500;--cro-5:#e5603a;--cro-g:#7c8591;--cro-s0:#262c36}
 html[data-tema=sw] #c-cro_dash,html[data-tema=sw] #c-cro_backlog,html[data-tema=sw] #c-cro_tests,html[data-tema=sw] #c-cro_analytics,html[data-tema=sw] #c-cro_result{--cro-1:#2a78d6;--cro-2:#6250d6;--cro-3:#1baf7a;--cro-4:#b98600;--cro-5:#d23b3b;--cro-g:#8a939e;--cro-s0:#eceff2}
 .cro-ver{border-left-color:var(--cro-1)}
@@ -5736,24 +5737,26 @@ function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_das
   /* 5. Resultados de las implementaciones */
   el=document.getElementById("c-cro_result");if(el){const RS=D.resultados||{},P=RS.paginas||[];
     const sg=x=>x>0?"+":x<0?"−":"",cl=x=>x>0?"pos":x<0?"neg":"",pp=x=>sg(x)+Math.abs(x).toFixed(2).replace(".",",")+"\u00a0p.",pr=x=>sg(x)+Math.abs(x).toFixed(0)+"\u00a0%";
-    const tarjeta=p=>{const v=p.var||{},mx=Math.max(p.pre.cr,p.post.cr,.1)*1.15,dd=p.diario||{};
+    const kk=(x,t)=>x==null?`<div><b>—</b><span>${esc(t)}: aún sin datos</span></div>`:`<div class="${cl(x)}"><b>${pr(x)}</b><span>${esc(t)}</span></div>`;
+    const tarjeta=p=>{const v=p.var||{},mx=Math.max(p.pre.cr,p.post.cr,.1)*1.15,dd=p.diario||{},ent=p.medida==="entrada";
       const bar=(n,w,c,sub)=>`<div class="cro-b4f"><span>${esc(n)}<small>${esc(sub)}</small></span><span class="cro-abt"><span style="width:${Math.max(1,w.cr/mx*100).toFixed(1)}%;background:${c}"></span></span><b>${croP(w.cr)}</b><small>${croN(w.l)} deals · ${croN(w.s)} sesiones</small></div>`;
       return`<div class="cro-res"><div class="cro-res-h"><div><h3>${esc(p.nombre)}</h3><a href="${esc(p.url)}" target="_blank" rel="noopener">${esc(p.url.replace("https://santiagoways.com",""))}</a></div><div class="cro-res-f"><b>${esc(p.fecha_txt)}</b><span>${esc(p.dias_txt)}</span></div></div>
       <div class="cro-res-b"><div><div class="cro-b4">${bar("Antes",p.pre,"var(--cro-g)",p.pre.desde.slice(8)+"/"+p.pre.desde.slice(5,7)+" a "+p.pre.hasta.slice(8)+"/"+p.pre.hasta.slice(5,7))}${bar("Después",p.post,"var(--cro-1)",p.post.desde.slice(8)+"/"+p.post.desde.slice(5,7)+" a "+p.post.hasta.slice(8)+"/"+p.post.hasta.slice(5,7))}</div>
-        <p class="cro-cambio">Cambio del CR: <b class="${cl(v.pp)}">${pp(v.pp)}</b> (${pr(v.rel)}) · confianza ${croP(v.conf,0)}${v.conf<95?" · <span>sin diferencia estadística</span>":""}</p></div>
+        ${v.pp==null?`<p class="cro-cambio">Cambio del CR: <span>pendiente, aún no hay días suficientes después del cambio</span></p>`:`<p class="cro-cambio">Cambio del CR: <b class="${cl(v.pp)}">${pp(v.pp)}</b> (${pr(v.rel)}) · confianza ${croP(v.conf,0)}${v.conf<95?" · <span>sin diferencia estadística</span>":""}</p>`}</div>
        <div class="cro-res-k">
-        <div class="${cl(v.web26)}"><b>${pr(v.web26)}</b><span>CR de toda la web en esas semanas de 2026</span></div>
-        <div class="${cl(v.web25)}"><b>${pr(v.web25)}</b><span>CR de toda la web en las mismas semanas de 2025: la temporada</span></div>
-        <div class="${cl(v.ses)}"><b>${pr(v.ses)}</b><span>sesiones de la ficha frente a 2025 (mismos días)</span></div>
-        <div class="${cl(v.org)}"><b>${pr(v.org)}</b><span>sesiones orgánicas frente a 2025 (mismos días)</span></div></div></div>
-      ${dd.cr?`<div class="ia-graf pi-graf cro-g2"><div class="ia-g"><h4>CR a deal de la ficha, media de 7 días</h4><div class="ia-sub">2026 · la línea vertical es el cambio</div>${croLinea([{n:"CR 2026",c:"var(--cro-1)",grueso:1,v:dd.cr}],{alto:210,ancho:640,etq:dd.etq,marcas:[{i:dd.impl,t:"cambio"}],aria:"CR diario de "+p.nombre})}</div>
+        ${kk(v.web26,"CR de toda la web en esas semanas de 2026")}
+        ${kk(v.web25,"CR de toda la web en las mismas semanas de 2025: la temporada")}
+        ${kk(v.ses,ent?"sesiones de entrada frente a 2025 (28 días previos)":"sesiones de la ficha frente a 2025 (mismos días)")}
+        ${kk(v.org,ent?"sesiones orgánicas de entrada frente a 2025 (28 días previos)":"sesiones orgánicas frente a 2025 (mismos días)")}</div></div>
+      ${dd.cr?`<div class="ia-graf pi-graf cro-g2"><div class="ia-g"><h4>${ent?"CR a deal de las sesiones que entran por la página, media de 7 días":"CR a deal de la ficha, media de 7 días"}</h4><div class="ia-sub">${dd.cr25?"2026 frente a 2025 (mismos días) · la línea vertical es el cambio":"2026 · sin línea de 2025: ese año el deal no se registraba en la ficha · la línea vertical es el cambio"}</div>${croLinea([{n:"CR 2026",c:"var(--cro-1)",grueso:1,v:dd.cr},...(dd.cr25?[{n:"CR 2025",c:"var(--cro-g)",v:dd.cr25}]:[])],{alto:210,ancho:640,etq:dd.etq,marcas:[{i:dd.impl,t:"cambio"}],aria:"CR diario de "+p.nombre})}</div>
         <div class="ia-g"><h4>Sesiones de 7 días: 2026 frente a 2025</h4><div class="ia-sub">mismos días del año</div>${croLinea([{n:"2026",c:"var(--cro-1)",grueso:1,v:dd.s26},{n:"2025",c:"var(--cro-g)",v:dd.s25}],{alto:210,ancho:640,etq:dd.etq,marcas:[{i:dd.impl,t:"cambio"}],fmt:x=>croN(x),aria:"Sesiones de "+p.nombre})}</div></div>`:""}
       ${p.seo?`<div class="cro-seo-b"><span class="pi-area">Posicionamiento</span><p>${esc(p.seo)}</p></div>`:""}
       <p class="cro-lect">${esc(p.lectura||"")}</p></div>`};
-    const IMP=D.implementacion||{};
-    el.innerHTML=croCab("Resultados de las implementaciones","Páginas donde ya está el ganador de EXP-001 (acordeón): Analytics antes y después, frente a los mismos días de 2025",D)+`<div class="pi-ver cro-ver"><b>${esc(RS.titular||"")}</b> ${esc(RS.texto||"")}</div>
+    const IMP=D.implementacion||{},EXN=Object.fromEntries((IMP.resumen||[]).map(r=>[r.id,r.nombre])),EXS=[...new Set(P.map(p=>p.exp||"EXP-001"))];
+    const grupoExp=x=>{const ps=P.filter(p=>(p.exp||"EXP-001")===x);return`<details class="cro-grp" open><summary><span class="cro-id">${esc(x)}</span><b>${esc(EXN[x]||"")}</b><small>${ps.length} ${ps.length===1?"página":"páginas"}: ${esc(ps.map(p=>p.nombre).join(", "))}</small></summary>${ps.map(tarjeta).join("")}</details>`};
+    el.innerHTML=croCab("Resultados de las implementaciones","Páginas con cambios ya implementados, agrupadas por test: Analytics antes y después, frente a los mismos días de 2025",D)+`<div class="pi-ver cro-ver"><b>${esc(RS.titular||"")}</b> ${esc(RS.texto||"")}</div>
      <div class="as-res bq-res pi-res">${L(RS.kpis,croKpi)}</div>
-     ${P.map(tarjeta).join("")}
+     ${EXS.map(grupoExp).join("")}
      <h3 class="pi-h">Avance de la implementación</h3>
      <div class="cro-pasos">${(IMP.resumen||[]).map(r=>{const ps=(IMP.pasos||[]).filter(p=>p[0]===r.id),h=ps.filter(p=>p[3]).length;return`<div class="cro-paso"><div class="cro-paso-h"><span class="cro-id">${esc(r.id)}</span><b>${esc(r.nombre)}</b><span class="cro-pct">${ps.length?Math.round(100*h/ps.length):0} %</span></div><span class="cro-abt cro-pt"><span style="width:${ps.length?100*h/ps.length:0}%;background:var(--cro-3)"></span></span><ol>${ps.map(p=>`<li class="${p[3]?"hecho":""}"><span>${p[3]?"✓":"○"}</span>${esc(p[2])}<small>${esc(p[4])} · ${esc(p[5])}</small></li>`).join("")}</ol></div>`}).join("")}</div>
      <div class="pi-diag">${L(RS.lecturas,l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`)}</div>

@@ -1104,7 +1104,18 @@ html[data-tema=sw] .pi-ver,html[data-tema=sw] .pi-card,html[data-tema=sw] .pi-di
 .cor-pcg{display:inline-block;width:44px;height:7px;border-radius:4px;background:var(--bq-s0,#262c36);margin-right:6px;vertical-align:1px;overflow:hidden}.cor-pcg>span{display:block;height:100%;background:#818cf8}.cor-t tr.cor-vet td{color:var(--tenue)}.cor-t tr.cor-vet td.as-n{color:var(--texto)}html[data-tema=sw] .cor-pcg{background:#eceff2}
 #c-cr_tiempo{--crt-1:#3987e5;--crt-2:#d95926;--crt-g:#7c8591}
 html[data-tema=sw] #c-cr_tiempo{--crt-1:#2a78d6;--crt-2:#eb6834;--crt-g:#8a939e}
-.crt-g .ia-g{min-width:0}.crt-g .pi-svg{max-width:1000px}.crt-lv{font-size:12px;font-weight:700;fill:currentColor}.crt-tr{font-weight:600;fill-opacity:.85}
+.crt-g .ia-g{min-width:0}.crt-g .pi-svg{max-width:1000px}#c-cr_tiempo{--crt-ok:#2bb07f}html[data-tema=sw] #c-cr_tiempo{--crt-ok:#178a5c}
+.crt-dec{margin:14px 20px 4px;padding:16px 18px;border:1px solid var(--borde);border-left:5px solid var(--crt-ok);border-radius:10px;background:var(--marco-2)}
+.crt-dec .eye{font:600 11px/1 var(--f-mono);letter-spacing:.1em;text-transform:uppercase;color:var(--crt-ok)}
+.crt-dec h3{margin:8px 0 6px;font:700 20px/1.3 var(--f-ui)}.crt-dec>p{margin:0 0 8px;font-size:14.5px;line-height:1.5}
+.crt-reglas{margin:6px 0 12px;padding-left:20px;display:grid;gap:6px;font-size:14px;line-height:1.45;list-style:disc}.crt-reglas li::marker{color:var(--crt-ok)}
+.crt-dcap{margin:4px 0 0!important;font:500 12px/1.4 var(--f-mono)!important;color:var(--tenue)}
+.crt-dt td.crt-dc{text-align:center;vertical-align:middle}.crt-dt td.as-n small{display:block;color:var(--tenue);font-size:11.5px;font-weight:400}
+.crt-dv{display:inline-block;font-size:12px;font-weight:700;border-radius:10px;padding:3px 9px;border:1px solid currentColor;white-space:nowrap}
+.crt-dc small{display:block;margin-top:4px;font-size:11.5px;color:var(--tenue)}
+.crt-d-elab .crt-dv{color:var(--crt-ok);background:color-mix(in srgb,var(--crt-ok) 12%,transparent)}.crt-d-igual .crt-dv{color:var(--crt-g)}.crt-d-sin .crt-dv{color:var(--tenue);border-style:dashed;font-weight:500}
+.crt-dec p,.crt-reglas li{display:block!important;-webkit-line-clamp:unset!important;overflow:visible!important;max-height:none!important}
+.crt-lv{font-size:12px;font-weight:700;fill:currentColor}.crt-tr{font-weight:600;fill-opacity:.85}
 .crt-t td{text-align:center;font-variant-numeric:tabular-nums}.crt-t th{white-space:normal;line-height:1.2;vertical-align:middle}.crt-t td small{display:block;color:var(--tenue);font-size:11px}.crt-t td.crt-cr{font-weight:700}.crt-t tr.crt-foco td{background:rgba(57,135,229,.08)}
 .crt-grupos{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:0 12px}.crt-grupos .as-tw{min-width:0}
 @media (max-width:900px){.crt-grupos{grid-template-columns:1fr}}
@@ -5851,6 +5862,15 @@ function crtBarras(T){const W=1000,H=280,pl=46,pr=10,pt=14,pb=46,F=T.filter(t=>t
     if(j===1)s+=`<text x="${(x+bw/2).toFixed(1)}" y="${(y(v)-6).toFixed(1)}" text-anchor="middle" class="crt-lv">${crtP(v)}</text>`});
    s+=`<text x="${(pl+i*gw+gw/2).toFixed(1)}" y="${H-24}" text-anchor="middle" class="pi-ax crt-tr">${esc(t.nom)}</text><text x="${(pl+i*gw+gw/2).toFixed(1)}" y="${H-8}" text-anchor="middle" class="pi-ax">${crtN(t.todos[0])} deals</text>`});
   return s+`</svg><div class="ia-ley">${CRT_S.map(sr=>`<span style="--c:${sr[2]}">${esc(sr[1])}</span>`).join("")}</div>`}
+/* La decisión: ¿presupuesto en menos de 1 hora o elaborado en el día?, por mercado y temporada */
+function crtDecision(A){const L=(a,f)=>(a||[]).map(f).join(""),LB=A.leyenda||{},CC={elab:"var(--crt-ok)",igual:"var(--crt-g)",sin:"var(--tenue)"};
+  const cel=c=>`<td class="crt-dc crt-d-${esc(c.v)}" title="${esc(c.razon||"")}"><span class="crt-dv">${esc(LB[c.v]||"")}</span><small>${c.r!=null?crtP(c.r):"–"} → ${c.l!=null?crtP(c.l):"–"}</small></td>`;
+  return`<div class="crt-dec"><div class="eye">${esc(A.eye||"")}</div><h3>${esc(A.titulo||"")}</h3><p>${esc(A.texto||"")}</p>
+   <ul class="crt-reglas">${L(A.reglas,r=>`<li>${esc(r)}</li>`)}</ul>
+   <p class="crt-dcap">CR con el presupuesto en menos de 1 hora → entre 4 y 24 horas</p>
+   <div class="as-tw"><table class="as-t crt-dt"><thead><tr><th class="as-n">Mercado</th>${L(A.cols,c=>`<th>${esc(c)}</th>`)}</tr></thead><tbody>${L(A.filas,f=>`<tr><td class="as-n">${esc(f.mercado)}<small>${crtN(f.deals)} deals</small></td>${L(f.celdas,cel)}</tr>`)}</tbody></table></div>
+   <div class="ia-ley">${Object.entries(LB).map(([k,v])=>`<span style="--c:${CC[k]||"var(--tenue)"}">${esc(v)}</span>`).join("")}</div>
+   <p class="as-nota">${esc(A.nota||"")}</p></div>`}
 /* Dentro de Tarificación: qué hay detrás de que convierta más lo que tarda (por tarificador, mes, importe, hora y región) */
 function crtTarif(A,grupo){const L=(a,f)=>(a||[]).map(f).join("");
   return`<div class="seccion-t">${esc(A.seccion||"")}</div>
@@ -5867,6 +5887,7 @@ function pintarCRTiempo(){const el=document.getElementById("c-cr_tiempo");if(!el
   const grupo=(tit,G,lab)=>`<div class="as-tw"><table class="as-t crt-t"><thead><tr><th class="as-n">${esc(tit)}</th><th>Menos de 1 hora</th><th>De 1 a 4 horas</th><th>De 4 a 24 horas</th><th>De 1 a 3 días</th></tr></thead><tbody>${L(G,g=>`<tr><td class="as-n">${esc(lab(g.i))}</td>${g.v.map(v=>`<td>${v[0]>=80?crtP(crtCR(v),1):"–"}<small>${crtN(v[0])}</small></td>`).join("")}</tr>`)}</tbody></table></div>`;
   const IDN={English:"Inglés",Spanish:"Español",German:"Alemán",Italian:"Italiano",Portuguese:"Portugués",Paid:"Pago",Organic:"Orgánico"};
   el.innerHTML=`<div class="mcab"><div><h2>Tiempo hasta el presupuesto</h2><div class="fuente-mc" style="margin-top:6px">${esc(D.autor||"")} · ${esc(D.fuente||"")}</div></div><div class="meta">${D.fecha?esc(hace(D.fecha)):""}</div></div>
+   ${D.decision?crtDecision(D.decision):""}
    <div class="titular bf-titular"><div class="eye">Diagnóstico</div><h3>${esc(D.titular||"")}</h3><p>${esc(D.resumen||"")}</p></div>
    <div class="bf-kpis">${L(D.kpis,k=>`<div><b>${esc(k.hoy)}</b><span>${esc(k.nombre)}</span><small>${esc(k.fuente||"")}</small></div>`)}</div>
    <div class="seccion-t">CR según el tiempo hasta el primer presupuesto, separando quién lo hace</div>

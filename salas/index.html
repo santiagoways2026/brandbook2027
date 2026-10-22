@@ -1029,6 +1029,26 @@ html[data-tema=sw] .pi-bt{background:#eceff2}
 .pi-res{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr))}.pi-res>div{min-width:0}.pi-res b{font-size:20px;white-space:nowrap}
 html[data-tema=sw] .pi-ver,html[data-tema=sw] .pi-card,html[data-tema=sw] .pi-disp>div,html[data-tema=sw] .pi-det{background:#fff;border-color:#E3EBD0}
 @media (max-width:760px){.pi-fcab>div{min-width:0}.pi-tw td:first-child{min-width:180px}.pi-diag,.pi-merc,.pi-disp{grid-template-columns:1fr}.pi-bf{grid-template-columns:minmax(70px,90px) 1fr 60px}.pi-fcab{flex-wrap:wrap}}
+#c-comercial_correos{--cor-1:#3987e5;--cor-2:#d95926;--cor-3:#199e70;--cor-4:#c98500;--cor-5:#d55181;--cor-6:#008300;--cor-7:#9085e9;--cor-g:#7c8591}
+html[data-tema=sw] #c-comercial_correos{--cor-1:#2a78d6;--cor-2:#eb6834;--cor-3:#1baf7a;--cor-4:#eda100;--cor-5:#e87ba4;--cor-6:#008300;--cor-7:#6250d6;--cor-g:#8a939e}
+.cor-ver{border-left-color:#818cf8}
+.cor-int{margin:6px 20px 0;font-size:13.5px;line-height:1.55;color:var(--texto)}
+.cor-t td{text-align:center;font-variant-numeric:tabular-nums}.cor-t th{white-space:normal;line-height:1.2;vertical-align:middle}.cor-t td.as-n small{display:block;color:var(--tenue);font-size:11.5px;margin-top:2px}
+.cor-t tr.cor-top td.as-n{box-shadow:inset 3px 0 0 #818cf8}.cor-t tr.cor-bot td.as-n{box-shadow:inset 3px 0 0 var(--cor-g)}.cor-t tr.cor-tot td{font-weight:700;border-top:2px solid var(--borde-2)}
+.cor-t td.cor-q{white-space:normal;min-width:240px;text-align:left;font-size:12.5px;line-height:1.45}
+.cor-mz{display:grid;gap:7px;margin-top:8px}
+.cor-mf{display:grid;grid-template-columns:minmax(150px,190px) 1fr;align-items:center;gap:10px}
+.cor-mn{display:flex;flex-direction:column;line-height:1.2;font-size:13px}.cor-mn small{color:var(--tenue);font-size:11.5px}
+.cor-st{display:flex;gap:2px;height:16px;min-width:0}.cor-st>span{display:block;min-width:2px;height:100%}.cor-st>span:first-child{border-radius:4px 0 0 4px}.cor-st>span:last-child{border-radius:0 4px 4px 0}
+.cor-lt{font-size:12.5px;fill:currentColor}.cor-dif{font-weight:700}
+.cor-ln{stroke:currentColor;stroke-opacity:.35;stroke-width:2}
+.cor-pa{fill:#818cf8;stroke:var(--fondo-mc,#0d1117);stroke-width:2}.cor-pb{fill:var(--fondo-mc,#0d1117);stroke:currentColor;stroke-width:2}
+.cor-ley-a::before,.cor-ley-b::before{content:"";display:inline-block;width:9px;height:9px;border-radius:50%;margin-right:6px;vertical-align:-1px}.cor-ley-a::before{background:#818cf8}.cor-ley-b::before{border:2px solid currentColor;width:7px;height:7px}
+.cor-base{stroke:currentColor;stroke-opacity:.6;stroke-width:1.5;stroke-dasharray:3 3}
+.cor-def{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;padding:12px 20px 0}.cor-def .pi-card h4{display:flex;align-items:center}.cor-ej{color:var(--tenue);font-size:12px;font-style:italic}
+.cor-g1 .ia-g{min-width:0}.cor-g1 .pi-svg{max-width:1000px}
+html[data-tema=sw] .cor-pa{stroke:#fff}html[data-tema=sw] .cor-pb{fill:#fff}
+@media (max-width:760px){.cor-def{grid-template-columns:1fr 1fr}.cor-mf{grid-template-columns:110px 1fr}}
 #c-oai_dash,#c-oai_camp,#c-oai_anu,#c-oai_crm,#c-oai_plan{--oai-1:#10a37f;--oai-2:#3987e5;--oai-3:#d95926;--oai-4:#9085e9;--oai-g:#7c8591}
 html[data-tema=sw] #c-oai_dash,html[data-tema=sw] #c-oai_camp,html[data-tema=sw] #c-oai_anu,html[data-tema=sw] #c-oai_crm,html[data-tema=sw] #c-oai_plan{--oai-1:#0e8a6c;--oai-2:#2a78d6;--oai-3:#eb6834;--oai-4:#6250d6;--oai-g:#8a939e}
 .oai-ver{border-left-color:var(--oai-1)}
@@ -1350,7 +1370,7 @@ const MARCOS=[
   {id:"journey_datos",grupo:"journey",dato:true,nombre:"Journey de cliente / Lo que ya sabemos",x:0,y:-9000,w:1300},
   {id:"comercial",grupo:"comercial",nombre:"Análisis comercial",x:6000,y:4000,w:1200},
   {id:"comercial_asesores",grupo:"comercial",dato:true,nombre:"Análisis comercial / Análisis por asesor",x:0,y:-9000,w:1300},
-  {id:"comercial_producto",grupo:"comercial",dato:true,nombre:"Análisis comercial / Producto, mercado y temporada",x:0,y:-9000,w:1300},
+  {id:"comercial_correos",grupo:"comercial",dato:true,nombre:"Análisis comercial / Correos de los asesores",x:0,y:-9000,w:1300},
   {id:"comercial_embudo",grupo:"comercial",dato:true,nombre:"Análisis comercial / Embudo y proceso",x:0,y:-9000,w:1300},
   {id:"comercial_valor",grupo:"comercial",dato:true,nombre:"Análisis comercial / Valor por asesor",x:0,y:-9000,w:1300},
   {id:"comercial_alertas",grupo:"comercial",dato:true,nombre:"Análisis comercial / Alertas automáticas",x:0,y:-9000,w:1300},
@@ -1380,7 +1400,7 @@ const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],t
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_producto","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_correos","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas por la base de datos (seo_red/actual); sus pestañas de directrices están ocultas */
 const LOGOS={caminoways:{a:["caminoways","camino ways"],ig:["caminoways"]},followthecamino:{a:["follow the camino","followthecamino"],ig:["followthecamino"]},pilgrim:{a:["pilgrim.es","pilgrim"],ig:["pilgrim.es"]},tubuencamino:{a:["tu buen camino","tubuencamino"],ig:["tubuencaminoviajes","tubuencamino"]},viajecamino:{a:["viaje camino","viajecaminodesantiago","viajes camino de santiago"],ig:[]},macsadventure:{a:["macs adventure","macsadventure","macs"],ig:["macsadventure"]},galiwonders:{a:["galiwonders","gali wonders"],ig:["galiwonders"]},mundiplus:{a:["mundiplus"],ig:["mundiplus"]}};
 function logoP(id,h=20){return LOGOS[id]?`<img class="logo-p" src="img/logos/${id}.png?v=1" alt="${esc(id)}" style="height:${h}px">`:""}
@@ -5105,7 +5125,7 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-cpv]");if
 function pintarVentas(){pintarVentasFact();pintarVentasIdioma();pintarCaptacionVentas()}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-vemet]");if(b&&st.veV){st.veV.met=b.dataset.vemet;pintarVentasFact();return}if(e.target.closest("[data-veact]"))actualizarVentas()});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-veidi]");if(s&&st.veV){st.veV.idi=s.value;pintarVentasFact();return}const p=e.target.closest("[data-veper]");if(p&&st.veI){st.veI.per=p.value;pintarVentasIdioma()}});
-function pintarSalasN(){pintarCR();pintarPlanItpt();pintarOai();pintarYtRanking();pintarYtDash();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarProducto();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarSeoBlog();pintarSeoBrecha();pintarSeoTec();pintarRrss();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarCR();pintarPlanItpt();pintarOai();pintarYtRanking();pintarYtDash();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarCorreos();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarSeoBlog();pintarSeoBrecha();pintarSeoTec();pintarRrss();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -5398,6 +5418,61 @@ function pintarOai(){if(st.dentro!=="openaiads")return;const P=st.oaiDoc,ids=["o
   el=document.getElementById("c-oai_plan");if(el)el.innerHTML=oaiCab("Análisis y plan","Candela y su equipo · qué falla, qué funciona y qué hacer",P)+`<h3 class="pi-h">Lo que vemos</h3><div class="pi-diag">${(P.hallazgos||[]).map(h=>`<div class="pi-card"><div class="pi-area">${esc(h.area)}</div><h4>${esc(h.titulo)}</h4><p>${esc(h.texto)}</p></div>`).join("")}</div>
     <h3 class="pi-h">Qué hacer</h3><div class="as-tw"><table class="as-t pi-t pi-tw"><thead><tr><th>Acción</th><th>Prioridad</th><th>Quién</th></tr></thead><tbody>${(P.plan||[]).map(a=>`<tr><td><b>${esc(a.titulo)}</b><small>${esc(a.detalle)}</small></td><td class="pi-s"><span class="oai-pr oai-${esc(a.prioridad)}">${esc(a.prioridad)}</span></td><td class="pi-s">${esc(a.quien)}</td></tr>`).join("")}</tbody></table></div>
     ${(P.no_medido||[]).length?`<details class="bq-otras"><summary>Lo que no se puede medir todavía (${P.no_medido.length})</summary><ul class="pi-ul">${P.no_medido.map(t=>`<li>${esc(t)}</li>`).join("")}</ul></details>`:""}<div style="height:16px"></div>`}
+/* ---------- Análisis comercial: correos de los asesores (Zoho CRM) ---------- */
+const COR_G=[["presupuesto","Presupuesto","var(--cor-1)"],["datos","Petición de datos","var(--cor-2)"],["cambio","Cambio de presupuesto","var(--cor-3)"],["seguimiento","Seguimiento","var(--cor-4)"],["descuento","Descuento","var(--cor-5)"],["reserva","Reserva, pago y viaje","var(--cor-6)"],["auto","Automáticos","var(--cor-7)"],["otros","Otros asuntos","var(--cor-g)"]];
+const corN=(v,t)=>v==null||!isFinite(v)?"–":t==="pc"?(+v).toFixed(1).replace(".",",")+"\u00a0%":t==="pc0"?Math.round(v)+"\u00a0%":t==="x"?(+v).toFixed(2).replace(".",",")+"×":t==="d1"?(+v).toFixed(1).replace(".",","):igGr(Math.round(v));
+const corLey=()=>`<div class="ia-ley lin">${COR_G.map(g=>`<span style="--c:${g[2]}">${esc(g[1])}</span>`).join("")}</div>`;
+/* Barras 100 % apiladas: qué tipo de correo pesa en cada asesor */
+function corMezcla(A){return`<div class="cor-mz">${A.map(a=>{const T=COR_G.reduce((t,g)=>t+(a.mix?.[g[0]]||0),0)||1;
+  return`<div class="cor-mf"><span class="cor-mn"><b>${esc(a.n)}</b><small>CR ${corN(a.cr,"pc")}</small></span><span class="cor-st">${COR_G.map(g=>{const v=a.mix?.[g[0]]||0;if(!v)return"";const p=100*v/T;
+   return`<span style="flex:${p.toFixed(2)} 0 0;background:${g[2]}" title="${esc(`${a.n} · ${g[1]}: ${corN(p,"pc")} (${corN(v)} correos)`)}"></span>`}).join("")}</span></div>`}).join("")}</div>${corLey()}`}
+/* Mancuernas: % de cada tipo en los que mejor convierten frente a los que peor */
+function corMancuerna(F,nA,nB){const W=1000,rh=34,pl=210,pr=120,H=F.length*rh+30,mx=Math.max(...F.flatMap(f=>[f.a,f.b]),1),xm=Math.ceil(mx/10)*10,x=v=>pl+(W-pl-pr)*v/xm;
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="pi-svg" role="img" aria-label="Peso de cada tipo de correo: asesores que mejor convierten frente a los que peor">`;
+  for(let v=0;v<=xm;v+=10)s+=`<line x1="${x(v)}" x2="${x(v)}" y1="4" y2="${H-22}" class="pi-grid"/><text x="${x(v)}" y="${H-6}" text-anchor="middle" class="pi-ax">${v} %</text>`;
+  F.forEach((f,i)=>{const y=14+i*rh,g=COR_G.find(c=>c[0]===f.k);
+   s+=`<text x="0" y="${y+4}" class="cor-lt"><tspan style="fill:${g?.[2]||"currentColor"}">■</tspan> ${esc(g?.[1]||f.k)}</text><line x1="${x(Math.min(f.a,f.b))}" x2="${x(Math.max(f.a,f.b))}" y1="${y}" y2="${y}" class="cor-ln"/>
+    <circle cx="${x(f.b)}" cy="${y}" r="6" class="cor-pb"><title>${esc(`${nB}: ${corN(f.b,"pc")}`)}</title></circle><circle cx="${x(f.a)}" cy="${y}" r="6" class="cor-pa"><title>${esc(`${nA}: ${corN(f.a,"pc")}`)}</title></circle>
+    <text x="${W-pr+10}" y="${y+4}" class="cor-lt cor-dif">${(f.a-f.b>=0?"+":"−")+Math.abs(f.a-f.b).toFixed(1).replace(".",",")} p.</text>`});
+  return s+`</svg><div class="ia-ley lin"><span class="cor-ley-a" style="--c:#818cf8">${esc(nA)}</span><span class="cor-ley-b">${esc(nB)}</span></div>`}
+/* Índice de conversión por tipo: parte de sus correos que va a deals ganados frente a la media */
+function corIndice(F){const W=1000,rh=34,pl=210,pr=200,H=F.length*rh+30,mx=Math.max(2,...F.map(f=>f.lift||0)),xm=Math.ceil(mx*2)/2,x=v=>pl+(W-pl-pr)*v/xm;
+  let s=`<svg viewBox="0 0 ${W} ${H}" class="pi-svg" role="img" aria-label="Índice de conversión de cada tipo de correo">`;
+  for(let v=0;v<=xm+1e-9;v+=.5)s+=`<line x1="${x(v)}" x2="${x(v)}" y1="4" y2="${H-22}" class="pi-grid"/><text x="${x(v)}" y="${H-6}" text-anchor="middle" class="pi-ax">${v.toFixed(1).replace(".",",")}×</text>`;
+  s+=`<line x1="${x(1)}" x2="${x(1)}" y1="2" y2="${H-22}" class="cor-base"/>`;
+  F.forEach((f,i)=>{const y=8+i*rh,g=COR_G.find(c=>c[0]===f.k),a=Math.min(x(1),x(f.lift)),b=Math.max(x(1),x(f.lift));
+   s+=`<text x="0" y="${y+12}" class="cor-lt">${esc(g?.[1]||f.k)}</text><rect x="${a.toFixed(1)}" y="${y+2}" width="${Math.max(2,b-a).toFixed(1)}" height="14" rx="3" style="fill:${g?.[2]||"var(--cor-g)"}"><title>${esc(`${g?.[1]}: ${corN(f.won)} correos en deals ganados y ${corN(f.lost)} en perdidos · índice ${corN(f.lift,"x")}`)}</title></rect>
+    <text x="${W-pr+10}" y="${y+13}" class="cor-lt"><tspan font-weight="700">${corN(f.lift,"x")}</tspan> · ${esc(f.fase==="post"?"tras la venta":"antes de la venta")}</text>`});
+  return s+`</svg>`}
+function pintarCorreos(){const el=document.getElementById("c-comercial_correos");if(!el||st.dentro!=="comercial")return;const D=st.corDoc;
+  const cab=`<div class="mcab"><div><h2>Correos de los asesores</h2><div class="fuente-mc" style="margin-top:6px">${esc(D?.fuente||"Zoho CRM: correos enviados desde el CRM y buzones de Gmail sincronizados")}</div></div><div class="meta">${D?.fecha?`Actualizado ${esc(hace(D.fecha))}`:""}</div></div>`;
+  if(!D){el.innerHTML=cab+`<div class="vacio">Gabriel está leyendo los correos de los asesores en Zoho.</div>`;return}
+  const A=D.asesores||[],K=D.kpis||[],kpi=k=>`<div><b>${esc(k[1])}</b><span>${esc(k[0])}</span>${k[2]?`<small class="ia-k2">${esc(k[2])}</small>`:""}</div>`;
+  const filaT=a=>`<tr${a.grupo==="top"?' class="cor-top"':a.grupo==="bot"?' class="cor-bot"':""}><td class="as-n">${esc(a.n)}<small>${esc(a.mercados||"")}</small></td><td>${corN(a.deals)}</td><td>${corN(a.ventas)}</td><td>${corN(a.cr,"pc")}</td><td>${corN(a.idx,"x")}</td><td>${corN(a.crm)}</td><td>${corN(a.crm_deal,"d1")}</td><td>${corN(a.re_pc,"pc0")}</td><td>${corN(a.por_won,"d1")}</td><td>${corN(a.por_lost,"d1")}</td><td>${corN(a.gm_env)}</td><td>${corN(a.gm_rec)}</td><td>${corN(a.gm_cli)}</td><td>${corN(a.gm_ratio,"d1")}</td></tr>`;
+  const tipos=`<div class="as-tw"><table class="as-t cor-t"><thead><tr><th class="as-n">Asesor</th>${COR_G.map(g=>`<th><i class="oai-dot" style="background:${g[2]}"></i>${esc(g[1])}</th>`).join("")}<th>Correos</th></tr></thead><tbody>${A.map(a=>{const T=COR_G.reduce((t,g)=>t+(a.mix?.[g[0]]||0),0)||1;return`<tr${a.grupo==="top"?' class="cor-top"':a.grupo==="bot"?' class="cor-bot"':""}><td class="as-n">${esc(a.n)}</td>${COR_G.map(g=>`<td>${corN(100*(a.mix?.[g[0]]||0)/T,"pc0")}</td>`).join("")}<td>${corN(a.crm)}</td></tr>`}).join("")}${D.equipo?`<tr class="cor-tot"><td class="as-n">Equipo</td>${COR_G.map(g=>`<td>${corN(D.equipo.pc?.[g[0]],"pc0")}</td>`).join("")}<td>${corN(D.equipo.crm)}</td></tr>`:""}</tbody></table></div>`;
+  const M=D.muestra||{},MA=M.asesores||[];
+  el.innerHTML=cab+`<div class="as-ctl">${cnXls("c-comercial_correos")}</div><div class="pi-ver cor-ver"><b>${esc(D.veredicto?.titular||"")}</b> ${esc(D.veredicto?.texto||"")}</div>
+   <div class="as-res bq-res pi-res">${K.map(kpi).join("")}</div>
+   <h3 class="pi-h">1. Enviados y recibidos por asesor</h3><p class="as-nota cor-int">${esc(D.notas?.tabla||"")}</p>
+   <div class="as-tw"><table class="as-t cor-t"><thead><tr><th class="as-n">Asesor</th><th>Deals 2026</th><th>Ventas</th><th>CR ene-jun</th><th>CR frente a su mercado</th><th>Correos desde el CRM</th><th>Correos por deal</th><th>Respuestas</th><th>Correos por deal ganado</th><th>Correos por deal perdido</th><th>Gmail: enviados</th><th>Gmail: recibidos</th><th>Gmail: de clientes</th><th>Enviados por cada recibido</th></tr></thead><tbody>${A.map(filaT).join("")}</tbody></table></div>
+   <p class="as-nota">${esc(D.notas?.columnas||"")}</p>
+   <h3 class="pi-h">2. Qué tipo de correo manda cada asesor</h3><p class="as-nota cor-int">${esc(D.notas?.tipos||"")}</p>
+   <div class="ia-graf pi-graf cor-g1"><div class="ia-g"><h4>Peso de cada tipo en los correos de 2026</h4><div class="ia-sub">Ordenados de mejor a peor conversión frente a su mercado; pasa el ratón por cada tramo</div>${corMezcla(A)}</div></div>
+   ${tipos}
+   <div class="cor-def">${(D.grupos||[]).map(g=>{const c=COR_G.find(x=>x[0]===g.k);return`<div class="pi-card"><h4><i class="oai-dot" style="background:${c?.[2]}"></i>${esc(c?.[1]||g.k)}</h4><p>${esc(g.desc)}</p>${g.ej?`<p class="cor-ej">${esc(g.ej)}</p>`:""}</div>`}).join("")}</div>
+   <h3 class="pi-h">3. Qué mandan los que mejor convierten</h3><p class="as-nota cor-int">${esc(D.comparacion?.texto||"")}</p>
+   <div class="ia-graf pi-graf cor-g1"><div class="ia-g"><h4>Peso de cada tipo de correo</h4><div class="ia-sub">${esc(D.comparacion?.sub||"")}</div>${corMancuerna(D.comparacion?.filas||[],D.comparacion?.nA||"Mejor conversión",D.comparacion?.nB||"Peor conversión")}</div></div>
+   ${D.comparacion?.extra?`<div class="as-tw"><table class="as-t cor-t"><thead><tr><th class="as-n">Indicador</th><th>${esc(D.comparacion.nA)}</th><th>${esc(D.comparacion.nB)}</th><th class="as-n">Qué quiere decir</th></tr></thead><tbody>${D.comparacion.extra.map(r=>`<tr><td class="as-n">${esc(r[0])}</td><td>${esc(r[1])}</td><td>${esc(r[2])}</td><td class="as-n cor-q">${esc(r[3])}</td></tr>`).join("")}</tbody></table></div>`:""}
+   <h3 class="pi-h">4. Qué mensajes facilitan la conversión</h3><p class="as-nota cor-int">${esc(D.conversion?.texto||"")}</p>
+   <div class="ia-graf pi-graf cor-g1"><div class="ia-g"><h4>Índice de conversión de cada tipo de correo</h4><div class="ia-sub">${esc(D.conversion?.sub||"")}</div>${corIndice(D.conversion?.filas||[])}</div></div>
+   <div class="pi-diag">${(D.conversion?.lecturas||[]).map(l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`).join("")}</div>
+   <h3 class="pi-h">5. Lo que dicen los asuntos</h3><p class="as-nota cor-int">${esc(M.texto||"")}</p>
+   ${MA.length?`<div class="as-tw"><table class="as-t cor-t"><thead><tr><th class="as-n">Asesor</th><th>Correos leídos</th><th>Nuevos</th><th>Respuestas</th><th>Reenvíos</th><th>Con adjunto</th><th>Desde su propio buzón</th><th class="as-n">Lo que más manda como correo nuevo</th></tr></thead><tbody>${MA.map(m=>`<tr><td class="as-n">${esc(m.n)}</td><td>${corN(m.leidos)}</td><td>${corN(m.nuevos,"pc0")}</td><td>${corN(m.re,"pc0")}</td><td>${corN(m.fwd,"pc0")}</td><td>${corN(m.adj,"pc0")}</td><td>${corN(m.propio,"pc0")}</td><td class="as-n cor-q">${esc(m.top||"")}</td></tr>`).join("")}</tbody></table></div>`:""}
+   <div class="pi-diag">${(D.hallazgos||[]).map(h=>`<div class="pi-card"><span class="pi-area">${esc(h.area)}</span><h4>${esc(h.t)}</h4><p>${esc(h.d)}</p></div>`).join("")}</div>
+   <h3 class="pi-h">6. Qué hacer</h3>
+   <div class="as-tw"><table class="as-t pi-tw"><thead><tr><th class="as-n">Acción</th><th class="as-n">Por qué</th><th>Quién</th><th>Cuándo</th></tr></thead><tbody>${(D.plan||[]).map(p=>`<tr><td><b>${esc(p.a)}</b></td><td>${esc(p.p)}</td><td class="pi-s">${esc(p.q)}</td><td class="pi-s">${esc(p.c)}</td></tr>`).join("")}</tbody></table></div>
+   <h3 class="pi-h">Lo que todavía no se puede medir</h3><ul class="pi-ul">${(D.no_medido||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`;
+  if(typeof tzAplica==="function")try{tzAplica(el)}catch(_){}}
 /* ---------- Cerebro de la Sala de Control ---------- */
 function pintarCerebro(){
   const el=document.getElementById("c-cerebro");if(!el)return;const K=st.ctrl.cerebro;
@@ -5585,7 +5660,6 @@ const REF_ZOHO=[
   ["deals","captacion_deals/actual",()=>st.cap,()=>actualizarCaptacion(),"Captación: deals y cierres"],
   ["ventas","ventas_viajes/actual",()=>st.ven,()=>actualizarVentas(),"Viajes vendidos"],
   ["asesores","comercial_asesores/actual",()=>st.ases,()=>actualizarAsesores(),"Análisis comercial por asesor"],
-  ["producto","comercial_producto/actual",()=>st.prod,()=>actualizarProducto(),"Producto"],
   ["embudo","comercial_embudo/actual",()=>st.emb,()=>actualizarEmbudo(),"Embudo comercial"],
   ["valor","comercial_valor/actual",()=>st.val,()=>actualizarValor(),"Valor del cliente"],
   ["alertas","comercial_alertas/actual",()=>st.ale,()=>actualizarAlertas(),"Alertas comerciales"]];
@@ -5914,7 +5988,7 @@ function guardaScroll(fn){return function(){const pm=document.getElementById("pn
   const r=fn.apply(this,arguments);
   if(pm){if(Math.abs(pm.scrollTop-y)>1)pm.scrollTop=y;const t2=[...pm.querySelectorAll(".pn-mod[open] .as-tw")];if(t2.length===tw.length)t2.forEach((t,i)=>{if(tw[i])t.scrollLeft=tw[i]})}return r}}
 pintarCanales=guardaScroll(pintarCanales);pintarEvolucion=guardaScroll(pintarEvolucion);pintarMix=guardaScroll(pintarMix);pintarCPA=guardaScroll(pintarCPA);
-pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaScroll(pintarInvAnual);pintarSeoBlog=guardaScroll(pintarSeoBlog);pintarSeoBrecha=guardaScroll(pintarSeoBrecha);pintarSeoTec=guardaScroll(pintarSeoTec);pintarPlanItpt=guardaScroll(pintarPlanItpt);pintarOai=guardaScroll(pintarOai);pintarRrss=guardaScroll(pintarRrss);pintarYtDash=guardaScroll(pintarYtDash);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
+pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaScroll(pintarInvAnual);pintarSeoBlog=guardaScroll(pintarSeoBlog);pintarSeoBrecha=guardaScroll(pintarSeoBrecha);pintarSeoTec=guardaScroll(pintarSeoTec);pintarPlanItpt=guardaScroll(pintarPlanItpt);pintarOai=guardaScroll(pintarOai);pintarCorreos=guardaScroll(pintarCorreos);pintarRrss=guardaScroll(pintarRrss);pintarYtDash=guardaScroll(pintarYtDash);pintarVentasFact=guardaScroll(pintarVentasFact);pintarVentasIdioma=guardaScroll(pintarVentasIdioma);
 (async()=>{
   const db=await window.claude?.use?.("db");
   st.dl=await window.claude?.use?.("downloads");
@@ -5945,7 +6019,7 @@ pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaS
   vigilarDoc("radar_sintesis/actual",s=>{st.rsint=s.exists?s.data():null;pintarSintesis()});
   vigilarDoc("youtube_analisis/benchmark",s=>{st.ytb=s.exists?s.data():null;pintarYouTube();pintarCompRRSS()});
   vigilarDoc("comercial_asesores/actual",s=>{st.ases=s.exists?s.data():null;pintarAsesores();pintarCR()});
-  vigilarDoc("comercial_producto/actual",s=>{st.prod=s.exists?s.data():null;pintarProducto()});
+  vigilarDoc("comercial_correos/actual",s=>{st.corDoc=s.exists?s.data():null;pintarCorreos()});
   vigilarDoc("comercial_embudo/actual",s=>{st.emb=s.exists?emDec(s.data()):null;pintarEmbudo()});
   vigilarDoc("captacion_deals/actual",s=>{st.cap=s.exists?s.data():null;pintarCaptacionVentas();pintarInvAnual()});
   vigilarDoc("youtube_ranking/actual",s=>{st.ytRank=s.exists?s.data():null;pintarYtRanking()});

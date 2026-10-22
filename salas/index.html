@@ -5639,13 +5639,17 @@ function psFila(T,pl){const R=(pl?.data?.reports||pl?.reports||[]).filter(r=>r.g
   if(!a||!b)return null;return{na:+a.unique_visitor_count||0,ca:+a.unique_goal_achieved_count||0,nb:+b.unique_visitor_count||0,cb:+b.unique_goal_achieved_count||0,ps:{dec:b.decision,win:!!b.is_winner,lose:!!b.is_loser,insig:!!b.is_insignificant}}}
 const PS_RETIRA=["needs_reauth","server_not_connected","server_not_found","selection_required","blocked_by_policy","approval_required","not_in_manifest","not_granted","capability_disabled","capability_removed"];
 function psRepinta(){clearTimeout(psV.t);psV.t=setTimeout(()=>{if(st.dentro==="cro")pintarCro()},200)}
+/* Deja constancia en la base de datos de cómo ha ido la lectura en directo (solo quien puede escribir), para poder revisarla desde un chat */
+function psDiag(){clearTimeout(psV.td);psV.td=setTimeout(()=>{const P=st.croDoc?.pagesense;if(!st.db||!P)return;const errs={};Object.values(psV.err).forEach(e=>{const c=e?.code||"desconocido";errs[c]=(errs[c]||0)+1});
+  const vivos=Object.keys(psV.vivo).length,firma=vivos+"|"+JSON.stringify(errs);if(firma===psV.firma)return;psV.firma=firma;const m=Object.values(psV.err)[0];
+  st.db.doc("cro_pagesense/estado_vivo").set({t:new Date().toISOString(),servidor:P.servidor||ZO,vivos,total:P.tests.length,errores:errs,mensaje:m?String(m.message||"").slice(0,300):""}).catch(()=>{})},4000)}
 function suscribirPageSense(){const P=st.croDoc?.pagesense;if(psV.ini||!mc.mcp||!P?.tests?.length)return;psV.ini=true;
   const d=new Date(),hoy=`${d.getFullYear()}-${String(d.getMonth()+1).padStart(2,"0")}-${String(d.getDate()).padStart(2,"0")}`;
   P.tests.forEach(T=>{const input={path_variables:{domain_name:P.portal,experiment_link_name:T.link},body:{reports:{report_type:"summary",baseline:T.base,start_date:T.inicio,end_date:T.fin||hoy}}};
     mc.mcp.watchTool(P.servidor||ZO,PS_TOOL,input,ev=>{
       if(ev.type==="data"){const f=psFila(T,ev.result?.payload);if(f){psV.vivo[T.link]={...f,en:ev.result.cache?.storedAt||Date.now()};delete psV.err[T.link]}else psV.err[T.link]={code:"formato",message:"PageSense no devolvió el objetivo principal del test."}}
       else{psV.err[T.link]=ev.error||{code:"upstream_error"};if(PS_RETIRA.includes(ev.error?.code))delete psV.vivo[T.link]}
-      psRepinta()},{refetchInterval:15*60000})})}
+      psRepinta();psDiag()},{refetchInterval:15*60000})})}
 /* Filas de la pestaña: dato en directo si lo hay; si no, la última lectura guardada. Más los totales por grupo (EXP-004 por idioma) */
 function psValidacion(P){const filas=[],grupos={};let vivos=0,max=0;const foto=Date.parse(P.foto_fecha||"")||0;
   P.tests.forEach(T=>{const L=psV.vivo[T.link],F=(P.foto||{})[T.link],s=L||F;if(!s)return;if(L)vivos++;const en=L?L.en:foto;max=Math.max(max,en);

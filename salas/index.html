@@ -5851,6 +5851,16 @@ function crtBarras(T){const W=1000,H=280,pl=46,pr=10,pt=14,pb=46,F=T.filter(t=>t
     if(j===1)s+=`<text x="${(x+bw/2).toFixed(1)}" y="${(y(v)-6).toFixed(1)}" text-anchor="middle" class="crt-lv">${crtP(v)}</text>`});
    s+=`<text x="${(pl+i*gw+gw/2).toFixed(1)}" y="${H-24}" text-anchor="middle" class="pi-ax crt-tr">${esc(t.nom)}</text><text x="${(pl+i*gw+gw/2).toFixed(1)}" y="${H-8}" text-anchor="middle" class="pi-ax">${crtN(t.todos[0])} deals</text>`});
   return s+`</svg><div class="ia-ley">${CRT_S.map(sr=>`<span style="--c:${sr[2]}">${esc(sr[1])}</span>`).join("")}</div>`}
+/* Dentro de Tarificación: qué hay detrás de que convierta más lo que tarda (por tarificador, mes, importe, hora y región) */
+function crtTarif(A,grupo){const L=(a,f)=>(a||[]).map(f).join("");
+  return`<div class="seccion-t">${esc(A.seccion||"")}</div>
+   <div class="titular bf-titular"><div class="eye">${esc(A.eye||"")}</div><h3>${esc(A.titular||"")}</h3><p>${esc(A.resumen||"")}</p></div>
+   <div class="bf-kpis">${L(A.kpis,k=>`<div><b>${esc(k.hoy)}</b><span>${esc(k.nombre)}</span><small>${esc(k.fuente||"")}</small></div>`)}</div>
+   <div class="crt-grupos">${L(A.cortes,c=>grupo(c.tit,c.filas,i=>i))}</div>
+   <p class="as-nota">${esc(A.nota_cortes||"")}</p>
+   <div class="pi-diag crt-lec">${L(A.hallazgos,l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`)}</div>
+   <div class="seccion-t">${esc(A.acciones_tit||"Qué hacer con esto")}</div><ol class="prios">${L(A.acciones,x=>`<li class="prio"><div><h4>${esc(x.titulo)}</h4><p>${esc(x.dato)}</p><div class="imeta"><span>${esc(x.quien||"")}</span>${x.plazo?`<span>${esc(x.plazo)}</span>`:""}${x.mide?`<span>Mide: ${esc(x.mide)}</span>`:""}</div></div></li>`)}</ol>
+   ${A.limites?`<p class="as-nota">${esc(A.limites)}</p>`:""}`}
 function pintarCRTiempo(){const el=document.getElementById("c-cr_tiempo");if(!el||st.dentro!=="cr")return;const D=st.crTiempo;
   if(!D){el.innerHTML=`<div class="mcab"><div><h2>Tiempo hasta el presupuesto</h2></div></div><div class="vacio">Beatriz está cruzando el historial de etapas con las ventas.</div>`;return}
   const L=(a,f)=>(a||[]).map(f).join(""),T=D.tramos||[],cel=v=>`<td>${crtN(v?.[0])}</td><td class="crt-cr">${v&&v[0]>=50?crtP(crtCR(v),2):"–"}</td>`;
@@ -5865,9 +5875,10 @@ function pintarCRTiempo(){const el=document.getElementById("c-cr_tiempo");if(!el
     <tbody>${L(T,t=>`<tr${t.t===2||t.t===3?' class="crt-foco"':""}><td class="as-n">${esc(t.nom)}</td>${cel(t.todos)}${cel(t.tarif)}${cel(t.ases)}${cel(t.contacto)}</tr>`)}</tbody>
     <tfoot><tr><td class="as-n">Total</td><td>${crtN(D.total?.[0])}</td><td class="crt-cr">${crtP(crtCR(D.total),2)}</td><td colspan="6"></td></tr></tfoot></table></div>
    <p class="as-nota">${esc(D.nota_tabla||"")}</p>
-   <div class="seccion-t">Dentro de Tarificación, el tiempo no cambia el CR en ningún corte</div>
+   <div class="seccion-t">Dentro de Tarificación, esperar no empeora el CR en ningún corte</div>
    <div class="crt-grupos">${grupo("Idioma del deal",D.idiomas,i=>IDN[i]||i)}${grupo("Canal",D.utm,i=>IDN[i]||i)}${grupo("Cuándo entra el deal",D.fuera,i=>i?"Fuera de horario (noche o fin de semana)":"En horario de oficina")}${grupo("Trimestre de entrada",D.tri,i=>`${i}.º trimestre de 2026`)}</div>
    <p class="as-nota">CR de los deals de Tarificación sin contacto previo; debajo de cada CR, el número de deals. «–» si hay menos de 80 deals.</p>
+   ${D.tarif?crtTarif(D.tarif,grupo):""}
    <div class="seccion-t">Qué quiere decir</div>
    <div class="pi-diag crt-lec">${L(D.lecturas,l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`)}</div>
    <div class="seccion-t">Qué hacer</div><ol class="prios">${L(D.plan,x=>`<li class="prio"><div><h4>${esc(x.titulo)}</h4><p>${esc(x.dato)}</p><div class="imeta"><span>${esc(x.quien||"")}</span>${x.plazo?`<span>${esc(x.plazo)}</span>`:""}</div></div></li>`)}</ol>

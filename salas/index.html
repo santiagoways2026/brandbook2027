@@ -6123,7 +6123,7 @@ async function refrescoDiario(){
   let ok=0,fallo="";mc.ultErr=null;
   for(let i=0;i<zo.length;i++){const[k,,g,fn,n]=zo[i];refAviso(`Actualización diaria desde Zoho: ${n} (${i+1} de ${zo.length})…`);
     try{await fn()}catch(_){}for(let j=0;j<10&&!deHoy(g());j++)await espera(500);
-    if(!deHoy(g())){fallo=n;R.error={tabla:n,...(mc.ultErr||{code:"sin_llamada",mensaje:"La actualización terminó sin llamar a Zoho o sin guardar datos de hoy."})};break}R.zoho[k]=new Date().toISOString();ok++}
+    if(!deHoy(g())){fallo=n;R.error={tabla:n,...(mc.ultErr||{code:"sin_llamada",mensaje:"La actualización terminó sin llamar a Zoho o sin guardar datos de hoy."}),avisos:Object.fromEntries(Object.entries(st).filter(([k,v])=>/Act$/.test(k)&&v?.msg).map(([k,v])=>[k,String(v.msg).slice(0,300)]))};break}R.zoho[k]=new Date().toISOString();ok++}
   if(!fallo)delete R.error;R.fin=new Date().toISOString();try{await st.db.doc("refresco/diario").set(R)}catch(_){}
   if(fallo)refAviso(`No se pudo actualizar «${fallo}» desde Zoho. Revisa que el conector «${ZO}» esté conectado y permitido en esta página${R.error?.code?` (código: ${R.error.code})`:""}.`,"err");
   else refAviso(`Actualización diaria hecha${zo.length?`: ${ok} tablas de Zoho al día`:""}${lanzadas.length?`${zo.length?" y":":"} ${lanzadas.length} análisis en marcha`:""}.`,"ok")}

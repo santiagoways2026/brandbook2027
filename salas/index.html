@@ -782,7 +782,7 @@ body:has(#panel:not([hidden])) #herr{left:calc((100vw - min(760px,100vw)) / 2)}
 .jm-rama{display:grid;gap:4px;align-content:start;border-left:2px dashed #3a3150;padding-left:10px}
 .jm-ramas:not(.multi) .jm-rama{border-left:0;padding-left:0;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:8px}.jm-ramas:not(.multi) .jm-fl{display:none}
 .jm-si{font:600 12px/1.3 var(--f-mono);color:#c4b5fd;padding:2px 0 4px}.jm-si::before{content:"Si: "}
-.jm-fl{color:#5b5470;font-size:12px;line-height:1;padding-left:14px}.jm-cel{display:grid;gap:2px;min-width:0}.jm-cel>.jm-nodo{display:flex}.jm-junto{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:end}.jm-ramas.multi .jm-rama:has(.jm-junto){grid-column:span 2}
+.jm-fl{color:#5b5470;font-size:12px;line-height:1;padding-left:14px}.jm-cel{display:grid;gap:2px;min-width:0}.jm-cel>.jm-nodo{display:flex}.jm-junto{display:grid;grid-template-columns:1fr 1fr;gap:6px;align-items:stretch}.jm-junto:has(.jm-aviso){margin-top:18px}.jm-junto .jm-cel{position:relative;display:flex}.jm-junto .jm-cel>.jm-aviso{position:absolute;bottom:100%;left:0;right:0;margin:0 0 3px!important}.jm-junto .jm-nodo{flex:1;box-sizing:border-box}.jm-ramas.multi .jm-rama:has(.jm-junto){grid-column:span 2}.jm-ramas.multi .jm-rama:has(.jm-j3){grid-column:span 3}
 .jm-nodo{all:unset;cursor:pointer;display:flex;gap:9px;align-items:center;background:#0e0c14;border:1px solid #2a2438;border-left:4px solid var(--c);border-radius:7px;padding:8px 10px;transition:transform .12s,border-color .12s}
 .jm-nodo:hover,.jm-nodo:focus-visible{transform:translateX(2px);border-color:var(--c)}
 .jm-nodo.inactivo{opacity:.5;border-style:dashed}.jm-nodo.falta{background:#1a0e09;border-style:dashed}.jm-nodo.revisar{background:#240b0e;border-color:#ff4d4f}.jm-nodo.atender{background:#241606;border-color:#ff9f1c}.jm-rev{font:700 10.5px/1 var(--f-mono);color:#fff;background:#d9363e;padding:4px 6px;border-radius:4px;margin-left:auto;white-space:nowrap}
@@ -3430,7 +3430,7 @@ function calendarioRM(C){if(!C)return"";
 const JM_CANAL={email:{n:"Email",i:"✉",c:"#a78bfa"},sms:{n:"SMS",i:"▤",c:"#38bdf8"},whatsapp:{n:"WhatsApp",i:"◉",c:"#3ddc97"},hueco:{n:"Hueco",i:"!",c:"#ff6b3d"}};
 const JM_OBJ={deal:{c:"#f5c518",i:"€"},viaje:{c:"#3ddc97",i:"✈"},contacto:{c:"#38bdf8",i:"☺"}};
 function jmAgrupa(ns,f){const g=[];ns.forEach(n=>{const h=`<div class="jm-cel">${f(n)}</div>`;if(n.junto&&g.length)g[g.length-1].push(h);else g.push([h])});
-  return g.map(x=>x.length>1?`<div class="jm-junto">${x.join("")}</div>`:x[0]).join(`<div class="jm-fl">↓</div>`)}
+  return g.map(x=>x.length>1?`<div class="jm-junto${x.length>2?" jm-j3":""}" style="grid-template-columns:repeat(${x.length},minmax(0,1fr))">${x.join("")}</div>`:x[0]).join(`<div class="jm-fl">↓</div>`)}
 function pintarJourneyMapa(){const el=document.getElementById("c-journey_mapa");if(!el||st.dentro!=="journey")return;const M=st.jmapa;
   if(!M){el.innerHTML=`<div class="mcab"><div><h2>Mapa de workflows e impactos</h2></div></div><div class="vacio">Nerea está dibujando el mapa con los workflows de Zoho.</div>`;return}
   const OB=M.objetos||{};const todos=M.etapas.flatMap(e=>e.ramas.flatMap(r=>r.nodos.map(n=>({...n,obj:e.objeto}))));

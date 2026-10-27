@@ -1293,6 +1293,7 @@ html[data-tema=sw] #c-community_rrss .as-t tbody tr:nth-child(even) td.as-n{back
 .cn-e th.cn-ac{background:#c9b400;color:#111;text-align:left}
 .cn-fechas{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 20px 0;font-size:13.5px;color:#d6dbe1}
 .cn-fechas select{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:5px 8px;font:13.5px var(--f-ui);margin-left:4px}
+.ci-lista{margin:0;padding:0 0 0 18px;font-size:13px;line-height:1.4}.ci-lista li{margin:0 0 8px}.ci-lista small{color:var(--tenue)}
 .ti-h3{margin:18px 20px 0;font:700 15px var(--f-ui)}.ti-h3 small{font-weight:400;color:var(--tenue);margin-left:8px;font-size:12.5px}.ti-t td,.ti-m td{white-space:nowrap}.ti-t td.ti-cens{opacity:.55}.as-t td.bueno{color:#3ddc97;font-weight:700}.as-t td.malo{color:#f87171;font-weight:700}
 .cn-pres{display:flex;flex-wrap:wrap;gap:6px}.cn-pres .btn{font-size:12.5px;padding:4px 10px}
 .cn-mks{align-items:center;margin-right:8px}.cn-mkl{font-weight:600;margin-right:2px}.cn-paisnota{padding:6px 20px 0;font-size:12.5px;color:var(--tenue)}.cn-paisnota b{color:#e6eaee}html[data-tema=sw] .cn-paisnota b{color:#2E2E2D}
@@ -1592,6 +1593,7 @@ MARCOS.push({id:"youtube_dash",grupo:"youtube",sala:"youtube",dato:true,nombre:"
 MARCOS.push({id:"seo_brecha",grupo:"seo",dato:true,nombre:"SEO / Brecha de palabras clave",x:0,y:-9000,w:1300},{id:"seo_tecnico",grupo:"seo",dato:true,nombre:"SEO / SEO técnico",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_brecha","seo_tecnico");
 MARCOS.push({id:"plan_itpt",grupo:"control",dato:true,nombre:"Sala de Control / Plan de contingencia IT y PT",x:0,y:-9000,w:1300});SALAS_ACT.control.splice(1,0,"plan_itpt");
 MARCOS.push({id:"control_prioridades",grupo:"control",dato:true,nombre:"Sala de Control / Prioridades de dirección",x:0,y:-9000,w:1300});SALAS_ACT.control.splice(1,0,"control_prioridades");
+MARCOS.push({id:"control_instagram",grupo:"control",dato:true,nombre:"Sala de Control / Instagram: de comentario a venta",x:0,y:-9000,w:1300});SALAS_ACT.control.splice(1,0,"control_instagram");
 SALAS_ACT.openaiads=["openaiads","oai_dash","oai_camp","oai_anu","oai_crm","oai_plan"];SALAS_ACT.cro=["cro","cro_dash","cro_backlog","cro_tests","cro_analytics","cro_result"];
 /* Las directrices entre salas (Desde SEO, SEO para cada sala, brief de Control a Diseño) siguen circulando por la base de datos y las rutinas, pero sin pestaña.
    En YouTube, la auditoría y la estrategia Hub & Spoke quedan retiradas de momento */
@@ -2398,6 +2400,38 @@ function negVentas(){const R=veResumen();if(!R)return"";const{A1,A0,y0,y1,dia,fi
   return`<button type="button" class="neg-v" data-entrar="ventas"><span class="neg-area">Importe de viajes vendidos · 1 de enero al ${fin}</span>
    <span class="neg-v-fila"><b class="neg-v-dif ${cls(dif)}">${sg(dif)}${num(Math.abs(dif))} €</b><span class="neg-v-txt">${dif>=0?"más":"menos"} que en el mismo periodo de ${y0} <i class="${cls(dif)}">${pct(A0.a?dif/A0.a:null)}</i></span></span>
    <span class="neg-v-det"><span><b>${eur(A1.a)}</b> en ${y1} frente a ${eur(A0.a)} en ${y0}</span><span><b>${num(A1.n)}</b> viajes vendidos (${sg(dn)}${num(Math.abs(dn))})</span><span>${meses[mAct-1]}, del 1 al ${dia}: <b class="${cls(dm)}">${sg(dm)}${num(Math.abs(dm))} €</b></span></span></button>`}
+/* ===== Sala de Control: Instagram, de comentario a venta (comentarios de Windsor, bot de Manychat, GA4 y deals del CRM) ===== */
+function pintarInstagramCtrl(){const el=document.getElementById("c-control_instagram");if(!el)return;const D=st.ctrlIg;
+  const cab=`<div class="mcab"><div><h2>Instagram: de comentario a venta</h2><div class="fuente-mc" style="margin-top:6px">Comentarios y mensajes automáticos, tráfico web y deals del CRM · ${esc(D?.periodo||"")}</div></div><div class="meta">${D?.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>`;
+  if(!D){el.innerHTML=`${cab}<div class="vacio">Álex está cruzando los comentarios de Instagram con el CRM.</div>`;return}
+  const num=n=>n==null?"–":String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,"."),pc=(a,b)=>b?Math.round(a/b*100)+" %":"–";
+  const ymT=y=>`${MESN[y%100-1]} ${String(Math.floor(y/100)).slice(2)}`;
+  const tabla=(cols,filas,cls="")=>`<div class="as-tw"><table class="as-t ${cls}"><thead><tr>${cols.map((c,i)=>`<th${i?"":' class="as-n"'}>${c}</th>`).join("")}</tr></thead><tbody>${filas.map(f=>`<tr>${f.map((c,i)=>`<td${i?"":' class="as-n"'}>${c}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`;
+  const E=(D.embudo||[]).filter(e=>e[1]||e[14]);
+  const embudo=tabla(["Mes","Comentarios","Solo bot","Humana","Sin respuesta","Respuestas a stories","Toques en el perfil","Sesiones web","Deals CRM","Won"],E.map(e=>[ymT(e[0]),num(e[1]),`${num(e[7])} <small>${pc(e[7],e[1])}</small>`,num(e[8]),num(e[9]),num(e[10]),num(e[11]),num(e[12]),`<b>${num(e[14])}</b>`,num(e[15])]));
+  const A=D.atencion||[],tot=A.reduce((t,a)=>t+a[1],0);
+  const atencion=tabla(["Qué escriben","Comentarios","% del total","Solo el bot","Respuesta humana","Sin respuesta"],A.map(a=>[esc(a[0]),num(a[1]),pc(a[1],tot),`${num(a[2])} <small>${pc(a[2],a[1])}</small>`,num(a[3]),`<span class="${a[4]>a[1]*.2?"malo":""}">${num(a[4])}</span>`]));
+  const cuentas=tabla(["Cuenta","Comentarios","Palabra clave","Preguntas","Quejas","Solo el bot","Humana","Sin respuesta"],(D.cuentas||[]).sort((a,b)=>b[1]-a[1]).map(c=>[`@${esc(c[0])}`,num(c[1]),num(c[2]),num(c[3]),num(c[4]),`${num(c[7])} <small>${pc(c[7],c[1])}</small>`,num(c[8]),num(c[9])]));
+  const barras=(xs,col)=>igBarras(xs.map(x=>[x[0],x[1],"",col]));
+  const posts=tabla(["Publicación","Cuenta","Comentarios","Palabra clave","Preguntas","Quejas"],(D.posts||[]).map(p=>[`<a href="${esc(p[1])}" target="_blank" rel="noopener">${esc(p[1].replace("https://www.instagram.com/",""))}</a>`,`@${esc(p[0])}`,num(p[2]),num(p[3]),num(p[4]),num(p[5])]));
+  const enlace=tabla(["Por dónde llega el deal (utm_campaign)","Deals 2026","Won","CR"],(D.por_enlace||[]).map(e=>[esc(e[0]),num(e[1]),num(e[2]),pc(e[2],e[1])]));
+  const lista=(xs,f)=>`<ul class="ci-lista">${xs.map(f).join("")}</ul>`;
+  el.innerHTML=`${cab}${D.titular?`<p class="neg-tit">${esc(D.titular)}</p>`:""}
+   <div class="as-res">${(D.kpis||[]).map(k=>`<div><b>${esc(k[1])}</b><span>${esc(k[0])}</span></div>`).join("")}</div>
+   <div class="seccion-t">Embudo mes a mes: comentarios, atención, web y CRM</div>${embudo}
+   <p class="as-nota">Comentarios: solo los de primer nivel (las respuestas no cuentan), en las tres cuentas. Solo bot: respondidos únicamente por Manychat («¡Revisa tus mensajes!»), que además envía un mensaje directo. Sesiones web: GA4, fuente que contiene «instagram». Deals: Zoho CRM con utm_source instagram_org (todas las campañas). Los won de los últimos meses siguen subiendo.</p>
+   <div class="seccion-t">Qué nos escriben y cómo se atiende</div>${atencion}
+   <div class="ig-dos"><div><h4>Palabras clave que disparan el bot</h4>${barras(D.palabras||[],"#e1306c")}</div><div><h4>Sobre qué preguntan</h4>${barras(D.temas_preguntas||[],"#3d7bff")}</div></div>
+   <div class="seccion-t">Por cuenta</div>${cuentas}
+   <div class="seccion-t">Qué pasa después en el CRM (deals de Instagram en 2026)</div>
+   <div class="ig-dos"><div><h4>Etapa actual</h4>${barras(D.etapas||[],"#7AA606")}</div><div><h4>Motivo de pérdida</h4>${barras(D.motivos||[],"#f97316")}</div></div>${enlace}
+   <p class="as-nota">${esc(D.etapas_nota||"")}</p>
+   <div class="seccion-t">Publicaciones con más comentarios</div>${posts}
+   <div class="ig-dos"><div><h4>Preguntas que solo contestó el bot (muestra)</h4>${lista(D.preguntas_sin_respuesta||[],q=>`<li><small>@${esc(q[0])} · ${esc(q[1])}</small><br>${esc(q[2])}</li>`)}</div>
+   <div><h4>Quejas y cómo se atendieron (muestra)</h4>${lista(D.quejas||[],q=>`<li><small>@${esc(q[0])} · ${esc(q[1])} · <b class="${q[2]==="humana"?"":"malo"}">${esc(q[2])}</b></small><br>${esc(q[3])}</li>`)}</div></div>
+   <div class="seccion-t">Hallazgos</div><ol class="ma-sug">${(D.hallazgos||[]).map(h=>`<li>${esc(h)}</li>`).join("")}</ol>
+   <div class="seccion-t">Qué haría para cualificar más desde redes</div><ol class="ma-sug">${(D.recomendaciones||[]).map(h=>`<li>${esc(h)}</li>`).join("")}</ol>
+   <p class="as-nota"><b>Límites.</b> ${esc(D.limites||"")}<br>Fuentes: ${esc(D.fuentes||"")}</p>`}
 function pintarNegocio(){const el=document.getElementById("c-control_negocio");if(!el)return;const N=st.neg;
   if(!N){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando de negocio</h2></div></div><div class="vacio">Bea está consolidando los datos de todas las salas.</div>`;return}
   const fl={sube:"▲",baja:"▼",igual:"■"};
@@ -2408,7 +2442,7 @@ function pintarNegocio(){const el=document.getElementById("c-control_negocio");i
    ${(N.decisiones||[]).length?`<div class="seccion-t">Decisiones de esta semana</div><div class="neg-dec">${N.decisiones.map((d,i)=>`<div class="neg-d"><span>${i+1}</span><div><h4>${esc(d.titulo)}</h4>${d.porque?`<p>${esc(d.porque)}</p>`:""}<p class="neg-quien">${esc([d.sala?SALA_N[d.sala]||d.sala:"",d.quien].filter(Boolean).join(" · "))}</p></div></div>`).join("")}</div>`:""}
    ${(N.salas||[]).length?`<div class="seccion-t">Estado de cada sala</div><div class="neg-salas">${N.salas.map(x=>{const e=SEM[x.estado]||SEM.vigilar;return`<button type="button" class="neg-s" data-entrar="${esc(x.sala)}" style="--e:${e[0]}"><b>${esc(SALA_N[x.sala]||x.sala)}<i>${e[1]}</i></b><span>${esc(x.resumen||"")}</span></button>`}).join("")}</div>`:""}
    <div class="neg-2">${(N.riesgos||[]).length?`<div><div class="seccion-t">Riesgos</div><ul class="neg-l r">${N.riesgos.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}${(N.oportunidades||[]).length?`<div><div class="seccion-t">Oportunidades</div><ul class="neg-l o">${N.oportunidades.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div>`:""}</div>`}
-function pintarControl(){pintarNegocio();
+function pintarControl(){pintarNegocio();pintarInstagramCtrl();
   const C=st.ctrl,e=C.estado||{},set=(id,v)=>{const el=document.getElementById(id);if(el)el.textContent=v};
   const abiertas=C.decisiones.filter(d=>d.estado==="propuesta"||d.estado==="aprobada");
   set("ctrlN",`${abiertas.length} decisiones abiertas`);set("ctrlUlt",e.ultimaRevision?`Última revisión ${hace(e.ultimaRevision)}`:"");
@@ -6654,6 +6688,7 @@ pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaS
   db.collection("control_directrices").limit(20).onSnapshot(s=>{const o={};s.docs.forEach(d=>o[d.id]=d.data());st.ctrl.directrices=o;pintarControl()});
   vigilarDoc("control_contexto/research",s=>{st.ctrl.research=s.exists?s.data():null;pintarControl()});
   vigilarDoc("control_negocio/actual",s=>{st.neg=s.exists?s.data():null;pintarNegocio()});
+  vigilarDoc("control_instagram/actual",s=>{st.ctrlIg=s.exists?s.data():null;pintarInstagramCtrl()});
   vigilarDoc("control_cerebro/actual",s=>{st.ctrl.cerebro=s.exists?s.data():null;pintarControl()});
   db.collection("players").limit(100).onSnapshot(s=>{st.players=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99));pintarCompetencia()});
   db.collection("comp_cambios").orderBy("detectado","desc").limit(400).onSnapshot(s=>{st.cambios=s.docs.map(d=>({id:d.id,...d.data()}));pintarCompetencia()});
@@ -6798,5 +6833,5 @@ document.getElementById("temaSW")?.addEventListener("click",()=>temaSW(!SW.on));
 try{if(localStorage.getItem("salas_tema")==="sw")temaSW(true,false)}catch(e){}
 
 /* Si un módulo falla al pintarse (por ejemplo, porque su sala no está montada y busca elementos que aún no existen), el error no interrumpe al resto */
-for(const n of ["pintarActualidad", "pintarAlertas", "pintarAsesores", "pintarBenchYT", "pintarBiblio", "pintarBrief", "pintarCPA", "pintarCR", "pintarCREvol", "pintarCRImpacto", "pintarCRPlan", "pintarCRTiempo", "pintarCanales", "pintarTiempo", "pintarCapas", "pintarCaptacionVentas", "pintarCerebro", "pintarChat", "pintarCompExp", "pintarCompRRSS", "pintarCompetencia", "pintarComunidad", "pintarControl", "pintarCorreos", "pintarCro", "pintarDatos", "pintarDiseno", "pintarEmbudo", "pintarEvolucion", "pintarFuente", "pintarGA4", "pintarGads", "pintarGadsCamp", "pintarGadsGen", "pintarGadsUtm", "pintarIG", "pintarIgCapt", "pintarIgDash", "pintarIgErr", "pintarInsights", "pintarInsp", "pintarInvAnual", "pintarJourneyMapa", "pintarKVivo", "pintarListado", "pintarMapa", "pintarMetaAnu", "pintarMetaRep", "pintarMetaUtm", "pintarMetricool", "pintarMix", "pintarNegocio", "pintarOai", "pintarPaid", "pintarPeticionesDiseno", "pintarPlanItpt", "pintarPrio", "pintarProducto", "pintarRoadmap", "pintarRrss", "pintarRsRanking", "pintarSalasN", "pintarSeo", "pintarSeoBlog", "pintarSeoBrecha", "pintarSeoRed", "pintarSeoTec", "pintarSintesis", "pintarValor", "pintarVentas", "pintarVentasFact", "pintarVentasIdioma", "pintarVideos", "pintarWorkflows", "pintarYouTube", "pintarYtDash", "pintarYtRanking"]){const f=window[n];if(typeof f==="function")window[n]=function(){try{return f.apply(this,arguments)}catch(e){console.warn("pintar",n,e.message)}}}
+for(const n of ["pintarActualidad", "pintarAlertas", "pintarAsesores", "pintarBenchYT", "pintarBiblio", "pintarBrief", "pintarCPA", "pintarCR", "pintarCREvol", "pintarCRImpacto", "pintarCRPlan", "pintarCRTiempo", "pintarCanales", "pintarTiempo", "pintarInstagramCtrl", "pintarCapas", "pintarCaptacionVentas", "pintarCerebro", "pintarChat", "pintarCompExp", "pintarCompRRSS", "pintarCompetencia", "pintarComunidad", "pintarControl", "pintarCorreos", "pintarCro", "pintarDatos", "pintarDiseno", "pintarEmbudo", "pintarEvolucion", "pintarFuente", "pintarGA4", "pintarGads", "pintarGadsCamp", "pintarGadsGen", "pintarGadsUtm", "pintarIG", "pintarIgCapt", "pintarIgDash", "pintarIgErr", "pintarInsights", "pintarInsp", "pintarInvAnual", "pintarJourneyMapa", "pintarKVivo", "pintarListado", "pintarMapa", "pintarMetaAnu", "pintarMetaRep", "pintarMetaUtm", "pintarMetricool", "pintarMix", "pintarNegocio", "pintarOai", "pintarPaid", "pintarPeticionesDiseno", "pintarPlanItpt", "pintarPrio", "pintarProducto", "pintarRoadmap", "pintarRrss", "pintarRsRanking", "pintarSalasN", "pintarSeo", "pintarSeoBlog", "pintarSeoBrecha", "pintarSeoRed", "pintarSeoTec", "pintarSintesis", "pintarValor", "pintarVentas", "pintarVentasFact", "pintarVentasIdioma", "pintarVideos", "pintarWorkflows", "pintarYouTube", "pintarYtDash", "pintarYtRanking"]){const f=window[n];if(typeof f==="function")window[n]=function(){try{return f.apply(this,arguments)}catch(e){console.warn("pintar",n,e.message)}}}
 </script>

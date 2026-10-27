@@ -1593,7 +1593,7 @@ MARCOS.push({id:"youtube_dash",grupo:"youtube",sala:"youtube",dato:true,nombre:"
 MARCOS.push({id:"seo_brecha",grupo:"seo",dato:true,nombre:"SEO / Brecha de palabras clave",x:0,y:-9000,w:1300},{id:"seo_tecnico",grupo:"seo",dato:true,nombre:"SEO / SEO técnico",x:0,y:-9000,w:1300});SALAS_ACT.seo.splice(1,0,"seo_brecha","seo_tecnico");
 MARCOS.push({id:"plan_itpt",grupo:"control",dato:true,nombre:"Sala de Control / Plan de contingencia IT y PT",x:0,y:-9000,w:1300});SALAS_ACT.control.splice(1,0,"plan_itpt");
 MARCOS.push({id:"control_prioridades",grupo:"control",dato:true,nombre:"Sala de Control / Prioridades de dirección",x:0,y:-9000,w:1300});SALAS_ACT.control.splice(1,0,"control_prioridades");
-MARCOS.push({id:"control_instagram",grupo:"control",dato:true,nombre:"Sala de Control / Instagram: de comentario a venta",x:0,y:-9000,w:1300});SALAS_ACT.control.splice(1,0,"control_instagram");
+MARCOS.push({id:"control_instagram",grupo:"control",dato:true,directo:true,nombre:"Sala de Control / Instagram: de comentario a venta",x:0,y:-9000,w:1300});SALAS_ACT.control.splice(1,0,"control_instagram");
 SALAS_ACT.openaiads=["openaiads","oai_dash","oai_camp","oai_anu","oai_crm","oai_plan"];SALAS_ACT.cro=["cro","cro_dash","cro_backlog","cro_tests","cro_analytics","cro_result"];
 /* Las directrices entre salas (Desde SEO, SEO para cada sala, brief de Control a Diseño) siguen circulando por la base de datos y las rutinas, pero sin pestaña.
    En YouTube, la auditoría y la estrategia Hub & Spoke quedan retiradas de momento */
@@ -1785,8 +1785,8 @@ function abrirPanel(sala,foco){
 const miniPoster=p=>String(p).replace(/^videos\/([^\/?]+)\.jpg$/,"videos/mini/$1.jpg");
 const HTML_NATIVO=Object.getOwnPropertyDescriptor(Element.prototype,"innerHTML");
 function pintadoPerezoso(el,sala){Object.defineProperty(el,"innerHTML",{configurable:true,get(){return HTML_NATIVO.get.call(el)},
-  set(v){if(st.dentro===sala){HTML_NATIVO.set.call(el,v);delete el.dataset.sucio}else el.dataset.sucio="1"}})}
-function vaciarSala(sala){if(!sala)return;MARCOS.filter(m=>m.dato&&m.y<=-5000&&(m.sala||m.grupo)===sala).forEach(m=>{const c=document.getElementById("c-"+m.id);if(c){HTML_NATIVO.set.call(c,"");c.dataset.sucio="1"}})}
+  set(v){if(st.dentro===sala||el.closest("#panel")){HTML_NATIVO.set.call(el,v);delete el.dataset.sucio}else el.dataset.sucio="1"}})}
+function vaciarSala(sala){if(!sala||!HTML_NATIVO?.set)return;MARCOS.filter(m=>m.dato&&m.y<=-5000&&!m.directo&&(m.sala||m.grupo)===sala).forEach(m=>{const c=document.getElementById("c-"+m.id);if(c){HTML_NATIVO.set.call(c,"");c.dataset.sucio="1"}})}
 function devolverModulos(){
   document.querySelectorAll("#pnMods .cont").forEach(c=>{const id=c.id.slice(2);const sec=document.getElementById("m-"+id);if(sec)sec.appendChild(c)});
 }
@@ -1892,7 +1892,7 @@ function construir(){
   }
   mundo.innerHTML=h;
   /* Los módulos de datos (los que van al panel) solo se montan dentro de su sala: los datos siguen llegando y se guardan en st; el HTML se pinta al entrar */
-  for(const m of MARCOS)if(m.dato&&m.y<=-5000){const el=document.getElementById("c-"+m.id);if(el)pintadoPerezoso(el,m.sala||m.grupo)}
+  if(HTML_NATIVO?.set)for(const m of MARCOS)if(m.dato&&m.y<=-5000&&!m.directo){const el=document.getElementById("c-"+m.id);if(el)pintadoPerezoso(el,m.sala||m.grupo)}
   $("#c-radar").innerHTML=`<div class="mcab"><div><h2>Radar Viral · RRSS</h2></div><div class="meta"><span class="vivo off" id="vivoSala">Conectando</span><span id="salaN">0 en el radar</span><span id="salaUlt"></span><span class="entrar-pista">Pulsa para entrar</span><button class="btn" data-abrirchat="radar">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-radar">${svgRadar()}</div>`;
   $("#c-control").innerHTML=`<div class="mcab"><div><h2>Sala de Control · Dirección de negocio</h2></div><div class="meta"><span class="vivo off" id="vivoCtrl">Conectando</span><span id="ctrlN">0 decisiones</span><span id="ctrlUlt"></span><span class="entrar-pista" style="background:#c9a227;color:#000">Pulsa para entrar</span><button class="btn" data-abrirchat="control">Hablar con la dirección</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-control">${svgControl()}</div>`;
   $("#c-diseno").innerHTML=`<div class="mcab"><div><h2>Diseño · Estudio creativo</h2></div><div class="meta"><span class="vivo off" id="vivoDis">Conectando</span><span id="disN">0 piezas</span><span class="entrar-pista" style="background:#7AA606">Pulsa para entrar</span><button class="btn" data-abrirchat="diseno">Hablar con el equipo</button><button class="btn salir" data-salir>← Salir de la sala</button></div></div><div class="plano" id="plano-diseno">${svgDiseno()}</div>`;
@@ -2401,7 +2401,8 @@ function negVentas(){const R=veResumen();if(!R)return"";const{A1,A0,y0,y1,dia,fi
    <span class="neg-v-fila"><b class="neg-v-dif ${cls(dif)}">${sg(dif)}${num(Math.abs(dif))} €</b><span class="neg-v-txt">${dif>=0?"más":"menos"} que en el mismo periodo de ${y0} <i class="${cls(dif)}">${pct(A0.a?dif/A0.a:null)}</i></span></span>
    <span class="neg-v-det"><span><b>${eur(A1.a)}</b> en ${y1} frente a ${eur(A0.a)} en ${y0}</span><span><b>${num(A1.n)}</b> viajes vendidos (${sg(dn)}${num(Math.abs(dn))})</span><span>${meses[mAct-1]}, del 1 al ${dia}: <b class="${cls(dm)}">${sg(dm)}${num(Math.abs(dm))} €</b></span></span></button>`}
 /* ===== Sala de Control: Instagram, de comentario a venta (comentarios de Windsor, bot de Manychat, GA4 y deals del CRM) ===== */
-function pintarInstagramCtrl(){const el=document.getElementById("c-control_instagram");if(!el)return;const D=st.ctrlIg;
+function pintarInstagramCtrl(){const el=document.getElementById("c-control_instagram");if(!el)return;const D=st.ctrlIg;try{pintarInstagramCtrl2(el,D)}catch(e){el.innerHTML=`<div class="vacio"><b>No se pudo pintar el análisis</b>${esc(e.message||e)}. Recarga la página; si sigue así, avisa a Álvaro.</div>`}}
+function pintarInstagramCtrl2(el,D){
   const cab=`<div class="mcab"><div><h2>Instagram: de comentario a venta</h2><div class="fuente-mc" style="margin-top:6px">Comentarios y mensajes automáticos, tráfico web y deals del CRM · ${esc(D?.periodo||"")}</div></div><div class="meta">${D?.fecha?`actualizado ${esc(hace(D.fecha))}`:""}</div></div>`;
   if(!D){el.innerHTML=`${cab}<div class="vacio">Álex está cruzando los comentarios de Instagram con el CRM.</div>`;return}
   const num=n=>n==null?"–":String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,"."),pc=(a,b)=>b?Math.round(a/b*100)+" %":"–";

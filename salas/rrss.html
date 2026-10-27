@@ -1931,7 +1931,7 @@ function pintarCapas(){
       const ord=SALAS_ACT[id]||[],hijos=MARCOS.filter(m=>m.grupo===id).sort((a,b)=>(ord.indexOf(a.id)+1||99)-(ord.indexOf(b.id)+1||99)),ab=st.capasAb[id]??(st.dentro===id);
       return `<div class="capa-fila">${hijos.length?`<button class="capa-fl" data-capafl="${id}" aria-expanded="${ab}" aria-label="${ab?"Plegar":"Desplegar"} ${esc(n)}">${CHEV_CAPA}</button>`:`<span class="capa-fl" aria-hidden="true"></span>`}<button class="capa-it" data-entrar="${id}" style="padding-left:4px">${ICO_MARCO}${n}<span class="t" style="color:var(--vivo)">${st.dentro===id?"Dentro":"Activa"}</span></button></div>
       ${ab?hijos.map(m=>`<button class="capa-it hijo${st.marcoSel===m.id?" sel":""}" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre.split(" / ")[1]||m.nombre)}</button>`).join(""):""}`}).join("")}
-    ${MARCOS.filter(m=>m.obra).map(m=>`<button class="capa-it" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}<span class="t">Obras</span></button>`).join("")}`;
+    ${MARCOS.filter(m=>m.obra&&!OCULTAS.includes(m.id)).map(m=>`<button class="capa-it" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}<span class="t">Obras</span></button>`).join("")}`;
 }
 function plegarCapas(pl){$("#capas").classList.toggle("plegado",pl);$("#capasTog").setAttribute("aria-expanded",String(!pl));try{localStorage.setItem("capasPlegado",pl?"1":"0")}catch(e){}}
 try{if(localStorage.getItem("capasPlegado")==="1")plegarCapas(true)}catch(e){}

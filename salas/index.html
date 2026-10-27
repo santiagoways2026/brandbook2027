@@ -2426,6 +2426,13 @@ function pintarInstagramCtrl(){const el=document.getElementById("c-control_insta
    <div class="seccion-t">Qué pasa después en el CRM (deals de Instagram en 2026)</div>
    <div class="ig-dos"><div><h4>Etapa actual</h4>${barras(D.etapas||[],"#7AA606")}</div><div><h4>Motivo de pérdida</h4>${barras(D.motivos||[],"#f97316")}</div></div>${enlace}
    <p class="as-nota">${esc(D.etapas_nota||"")}</p>
+   ${D.dm?`<div class="seccion-t">Mensajes directos (DM): lo que se puede ver</div>
+   <p class="as-nota" style="padding-top:10px">${esc(D.dm.resumen||"")}</p>
+   <div class="as-res">${(D.dm.kpis||[]).map(k=>`<div><b>${esc(k[1])}</b><span>${esc(k[0])}</span></div>`).join("")}</div>
+   ${tabla(D.dm.por_mes_cols||[],(D.dm.por_mes||[]).filter(r=>r[1]||r[3]).map(r=>[ymT(r[0]),num(r[1]),num(r[2]),`<b>${num(r[3])}</b>`,num(r[4]),num(r[5]),num(r[6]),num(r[7])]))}
+   <div class="ig-dos"><div><h4>Qué escriben en el formulario tras el DM (${num(D.dm.con_texto)} de ${num(D.dm.n)} lo rellenan)</h4>${barras(D.dm.temas||[],"#e1306c")}</div><div><h4>En qué etapa están los ${num(D.dm.n)} deals del DM</h4>${barras(D.dm.etapas||[],"#7AA606")}<h4 style="margin-top:12px">Idioma</h4>${barras(D.dm.idiomas||[],"#3d7bff")}</div></div>
+   <h4 style="margin:14px 20px 0">Muestra de lo que escriben</h4>${lista(D.dm.muestras||[],m=>`<li><small>${ymT(m[0])} · <b>${esc(m[1])}</b></small><br>${esc(m[2])}</li>`)}
+   <p class="as-nota">${esc(D.dm.nota||"")}<br><b>Cómo verlo entero.</b> ${esc(D.dm.como_verlo||"")}</p>`:""}
    <div class="seccion-t">Publicaciones con más comentarios</div>${posts}
    <div class="ig-dos"><div><h4>Preguntas que solo contestó el bot (muestra)</h4>${lista(D.preguntas_sin_respuesta||[],q=>`<li><small>@${esc(q[0])} · ${esc(q[1])}</small><br>${esc(q[2])}</li>`)}</div>
    <div><h4>Quejas y cómo se atendieron (muestra)</h4>${lista(D.quejas||[],q=>`<li><small>@${esc(q[0])} · ${esc(q[1])} · <b class="${q[2]==="humana"?"":"malo"}">${esc(q[2])}</b></small><br>${esc(q[3])}</li>`)}</div></div>

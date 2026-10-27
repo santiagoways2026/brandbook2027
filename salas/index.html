@@ -42,8 +42,8 @@ a{color:inherit}
   font:500 12px/1 var(--f-ui);color:var(--tenue);cursor:pointer;display:flex;gap:6px;align-items:center}
 .marco.sel .etiqueta,.etiqueta:hover{color:var(--sel)}
 .etiqueta svg{width:11px;height:11px}
-.grupo-titulo{position:absolute;z-index:1;text-shadow:0 0 18px #030405,0 0 6px #030405;font:800 72px/1 var(--f-ui);letter-spacing:-.03em;color:var(--texto);white-space:nowrap;pointer-events:none}
-.grupo-titulo small{display:block;font:500 18px/1.4 var(--f-mono);letter-spacing:.04em;color:var(--tenue);margin-top:12px;text-transform:uppercase}
+.grupo-titulo{position:absolute;z-index:1;transform:translateY(-100%);text-shadow:0 0 22px #030405,0 0 8px #030405,0 2px 4px #030405;font:800 72px/1 var(--f-ui);letter-spacing:-.03em;color:var(--texto);white-space:nowrap;pointer-events:none}
+.grupo-titulo small{display:block;font:600 20px/1.4 var(--f-mono);letter-spacing:.04em;color:#aab4c3;margin-top:14px;text-transform:uppercase;white-space:normal}
 .grupo-titulo .ok{color:var(--vivo)}
 .marco.dato{display:none}
 body[data-dentro="radar"] .marco.dato[data-sala="radar"],body[data-dentro="competencia"] .marco.dato[data-sala="competencia"],body[data-dentro="control"] .marco.dato[data-sala="control"],body[data-dentro="diseno"] .marco.dato[data-sala="diseno"],body[data-dentro="comunidad"] .marco.dato[data-sala="comunidad"],body[data-dentro="seo"] .marco.dato[data-sala="seo"],body[data-dentro="paid"] .marco.dato[data-sala="paid"]{display:block;animation:entra .45s ease-out both}
@@ -1574,7 +1574,7 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-200,6000],comercial:[1450,6000],ventas:[-1950,6000],cr:[3100,6000],metaads:[5600,4000],googleads:[7200,4000],openaiads:[8800,4000],cro:[7000,400],app:[8600,400],mdirecto:[5600,5100],producto:[5000,7800]};
+const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-400,6500],comercial:[1800,6500],ventas:[-2600,6500],cr:[4000,6500],metaads:[5600,4000],googleads:[7200,4000],openaiads:[8800,4000],cro:[7000,400],app:[8600,400],mdirecto:[5600,5100],producto:[5000,7800]};
 /* ===== Edificios: una misma página sirve dos edificios. «camino» (Salas del Camino, sin Diseño) y «rrss» (Instagram, YouTube, TikTok, Community, Radar Viral, Competencia y Diseño).
    El edificio se elige con <meta name="edificio" content="rrss">; rrss.html se genera desde index.html con build_rrss.py. Los datos viajan entre los dos por la rutina «Espejo RRSS» ===== */
 const EDIFICIO=document.querySelector('meta[name="edificio"]')?.content||"camino";
@@ -1638,9 +1638,9 @@ const PASILLOS_DEF=[
   {id:"pa4",d:"M1700 4300 V2632",c:"#22d3ee",txt:"Conversión → Control",sub:"embudo · de lead a venta · valor del cliente",lx:1760,ly:3450},
   {id:"pa7",d:"M1400 2632 V4300",c:"#f5d76e",txt:"Directrices → Conversión",sub:"control.directrices.lifecycle",lx:620,ly:3450,fin:true},
   {id:"pa50",d:ruta([[-2000,4300],[-2000,3300],[-300,3300],[-300,2632]],220),c:"#a78bfa",txt:"Fidelización & Journey ↔ Control",sub:"en construcción",lx:-1900,ly:3240},
-  {id:"pa51",d:ruta([[400,6000],[400,5600],[1500,5600],[1500,5132]],160),c:"#a78bfa",txt:"Journey ↔ Conversión",sub:"etapas del cliente · fricciones",lx:-140,ly:5540},
+  {id:"pa51",d:ruta([[200,6500],[200,5850],[1500,5850],[1500,5132]],160),c:"#a78bfa",txt:"Journey ↔ Conversión",sub:"etapas del cliente · fricciones",lx:-340,ly:5790},
   {id:"pa53",d:"M2050 6000 V5132",c:"#818cf8",txt:"Comercial ↔ Conversión",sub:"ventas por idioma · embudo (Zoho)",lx:2110,ly:5700},
-  {id:"pa54",d:ruta([[3700,6000],[3700,5600],[2600,5600],[2600,5132]],160),c:"#a3e635",txt:"CR ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:3760,ly:5540},
+  {id:"pa54",d:ruta([[4600,6500],[4600,5850],[2600,5850],[2600,5132]],160),c:"#a3e635",txt:"CR ↔ Conversión",sub:"CR por canal, mercado y asesor",lx:4660,ly:5790},
   {id:"pa55",d:"M1000 6333 H1450",c:"#c084fc",txt:"",sub:"",lx:0,ly:0},
   {id:"pa56",d:"M2650 6333 H3100",c:"#a3e635",txt:"",sub:"",lx:0,ly:0},
   {id:"pa8",d:"M-600 1500 C-1700 1200 -2800 1200 -4000 1500",c:"#f5d76e",txt:"Prioridades y learnings → Diseño",sub:"control.briefing · 3 veces al día",lx:-2900,ly:1170},
@@ -1902,7 +1902,7 @@ function pintarMapa(){
 const ICO_MARCO=`<svg viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M3 0v12M9 0v12M0 3h12M0 9h12"/></svg>`;
 function construir(){
   const TIT=[["radar","Radar Viral","#e8eaed","● Sala activa"," · Redes sociales · 11 especialistas · vídeo primero · ES EN DE IT PT"],["diseno","Diseño","#a3cf2e","● Activa"," · 6 creativos · piezas con el brandbook 2027"],["control","Sala de Control","#f5d76e","● Activa"," · 17 personas y Cerebro · dirección de negocio: sintetiza todas las salas"],["competencia","Competencia","#e8eaed","● Sala activa"," · 6 investigadores · webs, precios, noticias, redes y alianzas"],["seo","SEO","#5eead4","● Activa"," · 6 especialistas · auditoría, palabras clave y analítica"],["paid","Paid Media","#f9a8d4","● Activa"," · 7 especialistas · Meta Ads y Google Ads"],...SALAS_N.map(S=>[S.id,S.nombre,S.color,"● Nueva",` · ${S.equipo.length} especialistas · `+S.sub]),...MARCOS.filter(m=>m.obra).map(m=>[m.id,m.nombre,"#e8eaed","● En construcción"," · "+m.obra])];
-  let h=svgPasillos()+TIT.filter(([id])=>!OCULTAS.includes(id)).map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);const fs=id==="control"?140:id==="radar"?112:96;return`<div class="grupo-titulo" style="left:${m.x}px;top:${m.y-fs-204}px;font-size:${fs}px;color:${c}">${esc(n)}<small><span class="ok"${ok.includes("construcción")?' style="color:#f5c518"':""}>${ok}</span>${esc(sub)}</small></div>`}).join("");
+  let h=svgPasillos()+TIT.filter(([id])=>!OCULTAS.includes(id)).map(([id,n,c,ok,sub])=>{const m=MARCOS.find(x=>x.id===id);const fs=id==="control"?140:id==="radar"?120:104;return`<div class="grupo-titulo" style="left:${m.x-100}px;top:${m.y-410}px;max-width:${m.w+280}px;font-size:${fs}px;color:${c}">${esc(n)}<small><span class="ok"${ok.includes("construcción")?' style="color:#f5c518"':""}>${ok}</span>${esc(sub)}</small></div>`}).join("");
   for(const m of MARCOS){
     h+=`<section class="marco${m.dato?" dato":""}" ${m.dato?`data-sala="${m.sala}"`:""} id="m-${m.id}" style="left:${m.x}px;top:${m.y}px;width:${m.w}px${m.arriba?";transform:translateY(-100%)":""}${!m.dato&&PERSONALIDAD[m.id]?`;border-color:${PERSONALIDAD[m.id].c}66;box-shadow:0 0 0 1px ${PERSONALIDAD[m.id].c}22,0 30px 80px rgba(0,0,0,.6),0 0 160px ${PERSONALIDAD[m.id].c}1f`:""}"><div class="etiqueta" data-ir="${m.id}">${ICO_MARCO}${esc(m.nombre)}</div><div class="cont" id="c-${m.id}"></div></section>`;
   }
@@ -1970,7 +1970,7 @@ function svgPasillos(){
     ${Object.entries(PERSONALIDAD).map(([k,P])=>SUELOS[P.suelo](P.c)).join("")}
     <radialGradient id="patioG"><stop offset="0" stop-color="#3ddc97" stop-opacity=".16"/><stop offset="1" stop-color="#3ddc97" stop-opacity="0"/></radialGradient></defs>`;
   // Fachada del edificio
-  const F=ED.fachada||{x:-5750,y:-3350,w:15100,h:10300,ex:700,ey:6900};
+  const F=ED.fachada||{x:-5750,y:-3350,w:15100,h:11100,ex:700,ey:7620};
   d+=`<rect x="${F.x}" y="${F.y}" width="${F.w}" height="${F.h}" rx="260" fill="#06080b" stroke="#1b222c" stroke-width="16"/>
     <rect x="${F.x+32}" y="${F.y+32}" width="${F.w-64}" height="${F.h-64}" rx="236" fill="none" stroke="#24405f" stroke-opacity=".45" stroke-width="8" stroke-dasharray="160 70"/>
     <rect x="${F.ex}" y="${F.ey}" width="600" height="90" rx="10" fill="#05070a" stroke="#3d7bff" stroke-opacity=".6" stroke-width="3"/><text x="${F.ex+300}" y="${F.ey+58}" text-anchor="middle" class="p-txt">ENTRADA PRINCIPAL</text>`;

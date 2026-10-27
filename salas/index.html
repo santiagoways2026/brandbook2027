@@ -1293,6 +1293,7 @@ html[data-tema=sw] #c-community_rrss .as-t tbody tr:nth-child(even) td.as-n{back
 .cn-e th.cn-ac{background:#c9b400;color:#111;text-align:left}
 .cn-fechas{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 20px 0;font-size:13.5px;color:#d6dbe1}
 .cn-fechas select{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:5px 8px;font:13.5px var(--f-ui);margin-left:4px}
+.ti-h3{margin:18px 20px 0;font:700 15px var(--f-ui)}.ti-h3 small{font-weight:400;color:var(--tenue);margin-left:8px;font-size:12.5px}.ti-t td,.ti-m td{white-space:nowrap}.ti-t td.ti-cens{opacity:.55}.as-t td.bueno{color:#3ddc97;font-weight:700}.as-t td.malo{color:#f87171;font-weight:700}
 .cn-pres{display:flex;flex-wrap:wrap;gap:6px}.cn-pres .btn{font-size:12.5px;padding:4px 10px}
 .cn-mks{align-items:center;margin-right:8px}.cn-mkl{font-weight:600;margin-right:2px}.cn-paisnota{padding:6px 20px 0;font-size:12.5px;color:var(--tenue)}.cn-paisnota b{color:#e6eaee}html[data-tema=sw] .cn-paisnota b{color:#2E2E2D}
 .cn-split{padding:12px 20px 0}.cn-sbar{display:flex;height:12px;border-radius:6px;overflow:hidden;background:#1a1f27}
@@ -1529,6 +1530,7 @@ const MARCOS=[
   {id:"captacion",grupo:"captacion",nombre:"Captación",x:0,y:0,w:1200},
   {id:"captacion_inv",grupo:"captacion",dato:true,nombre:"Captación / Inversión, CPL y CPA",x:0,y:-9000,w:1300},
   {id:"captacion_canales",grupo:"captacion",dato:true,nombre:"Captación / Deals y CR por canal (UTM)",x:0,y:-9000,w:1300},
+  {id:"captacion_tiempo",grupo:"captacion",dato:true,nombre:"Captación / Tiempo de conversión por canal",x:0,y:-9000,w:1300},
   {id:"captacion_evolucion",grupo:"captacion",dato:true,nombre:"Captación / Evolución del CR por canal",x:0,y:-9000,w:1300},
   {id:"captacion_cpa",grupo:"captacion",dato:true,nombre:"Captación / CPA y retorno por canal",x:0,y:-9000,w:1300},
   {id:"captacion_mix",grupo:"captacion",dato:true,nombre:"Captación / Mix Paid / Organic",x:0,y:-9000,w:1300},
@@ -1575,7 +1577,7 @@ const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],t
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_correos","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_tiempo","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_correos","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_tiempo","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_tiempo","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas por la base de datos (seo_red/actual); sus pestañas de directrices están ocultas */
 const LOGOS={caminoways:{a:["caminoways","camino ways"],ig:["caminoways"]},followthecamino:{a:["follow the camino","followthecamino"],ig:["followthecamino"]},pilgrim:{a:["pilgrim.es","pilgrim"],ig:["pilgrim.es"]},tubuencamino:{a:["tu buen camino","tubuencamino"],ig:["tubuencaminoviajes","tubuencamino"]},viajecamino:{a:["viaje camino","viajecaminodesantiago","viajes camino de santiago"],ig:[]},macsadventure:{a:["macs adventure","macsadventure","macs"],ig:["macsadventure"]},galiwonders:{a:["galiwonders","gali wonders"],ig:["galiwonders"]},mundiplus:{a:["mundiplus"],ig:["mundiplus"]}};
 function logoP(id,h=20){return LOGOS[id]?`<img loading="lazy" class="logo-p" src="img/logos/${id}.png?v=1" alt="${esc(id)}" style="height:${h}px">`:""}
@@ -3609,12 +3611,12 @@ const cnCfg=(tipo,hasta)=>({body:{Reports:[{id:CN_REP,name:"Claude · Deals por 
   show_detail_rows:false,show_grand_total:true,show_sub_totals:false,show_row_count:true,show_wrap_text:true,aggregate_type:"split"}]}});
 const cnHojas=(gs,pre=[])=>(gs||[]).flatMap(g=>g.groupings?.length?cnHojas(g.groupings,pre.concat(g.value??null)):[{k:g.key,v:pre.concat(g.value??null)}]);
 const cnYm=v=>v?+String(v).slice(0,7).replace("-",""):null;
-async function cnPaginas(nombre,per,alPagina){
+async function cnPaginas(nombre,per,alPagina,msg){
   for(let set=1;set<=40;set++){
     const r=await mc.mcp.callTool(ZO,"ZohoCRM_runSpecificReport",{path_variables:{reportId:CN_REP},query_params:{per_set:per,set}},{cache:false});
     let p=r.payload;if(typeof p==="string"){try{p=JSON.parse(p)}catch{throw{code:"formato",message:"Zoho devolvió una respuesta que no se puede leer."}}}
     const d=p?.data?.data_map?p.data:p?.data_map?p:null;if(!d)throw{code:"formato",message:"Zoho no devolvió datos del informe."};
-    alPagina(d.data_map);cnAct(`Leyendo ${nombre} de Zoho (página ${set})…`);
+    alPagina(d.data_map);(msg||cnAct)(`Leyendo ${nombre} de Zoho (página ${set})…`);
     if(!d.info?.more_data)return}
   throw{code:"formato",message:"El informe tiene demasiadas páginas."}}
 function cnAct(msg,tipo){st.cnAct={msg,tipo:tipo||"vivo"};document.querySelectorAll("[data-cnmsg]").forEach(b=>{b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")})}
@@ -3678,6 +3680,110 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-cnf]");if
 document.addEventListener("click",e=>{const b=e.target.closest("[data-cnpre]");if(b&&st.cnV){const[a,c]=b.dataset.cnpre.split("-").map(Number);st.cnV.desde=a;st.cnV.hasta=c;pintarCanales();return}
   const r=e.target.closest("[data-cnpar]");if(r&&st.cnV){const k=r.dataset.cnpar,c=st.cnV.cerrados||(st.cnV.cerrados=new Set());c.has(k)?c.delete(k):c.add(k);pintarCanales()}});
 
+/* ===== Captación: tiempo de conversión por canal (días desde que entra el deal hasta que se cierra Won) =====
+   Dos fuentes: Zoho Analytics (tabla Deals: UTM Organic/Paid, idioma, mes y tramos de días) para el momento del año y el punto actual por mercado,
+   y el informe del CRM «Claude · Deals por UTM y mes» (Utm_Source / Utm_Medium) para la media de días por medio */
+const TI_TRAMOS=[3,7,14,21,30,45,60,90,180];
+const TI_SQL=campo=>`select year("${campo}")*100+month("${campo}") as ym, "UTM" as canal, "Language" as idioma, count(*) as won, sum("Sales Cycle Duration") as dias, median("Sales Cycle Duration") as med, ${TI_TRAMOS.map(t=>`sum(case when "Sales Cycle Duration" <= ${t} then 1 else 0 end) as d${t}`).join(", ")} from "Deals" where "Stage"='Won' and "${campo}" >= '2024-01-01' group by 1,2,3`;
+const TI_MET={med:"Mediana de días",media:"Media de días",p7:"% que cierra en 7 días",p30:"% que cierra en 30 días"};
+/* Acumula filas [ym,canal,mk,won,dias,med,d3…d180] */
+function tiAcum(filas){const a={n:0,dias:0,med:null,k:0,c:TI_TRAMOS.map(()=>0)};filas.forEach(f=>{a.n+=f[3];a.dias+=f[4];a.k++;a.med=f[5];TI_TRAMOS.forEach((t,i)=>a.c[i]+=f[6+i]||0)});if(a.k!==1)a.med=null;return a}
+/* Mediana: la exacta de Zoho si solo entra una fila; si no, interpolada dentro del tramo de días donde cae la mitad de los deals */
+function tiMediana(a){if(!a.n)return null;if(a.med!=null)return a.med;const h=a.n/2;let lo=0,cp=0;
+  for(let i=0;i<TI_TRAMOS.length;i++){const hi=TI_TRAMOS[i],c=a.c[i];if(c>=h)return c===cp?hi:lo+(h-cp)/(c-cp)*(hi-lo);lo=hi;cp=c}return 180}
+function tiVal(a,met){if(!a.n)return null;return met==="media"?a.dias/a.n:met==="p7"?a.c[1]/a.n*100:met==="p30"?a.c[4]/a.n*100:tiMediana(a)}
+const tiTxt=(v,met)=>v==null?"–":met==="p7"||met==="p30"?Math.round(v)+" %":(Math.round(v*10)/10).toLocaleString("es-ES",{maximumFractionDigits:1})+" d";
+/* Rápido = bueno. Con días, menos es mejor; con porcentajes, más es mejor */
+const tiCol=(v,ref,met)=>v==null||ref==null||!ref?"":(met==="p7"||met==="p30"?(v>=ref*1.15?"bueno":v<=ref*.85?"malo":""):(v<=ref*.85?"bueno":v>=ref*1.15?"malo":""));
+const tiMesAnt=(ym,n)=>{let y=Math.floor(ym/100),m=ym%100-n;while(m<1){m+=12;y--}return y*100+m};
+function tiMercadoSel(V){const mks=["ES","EN","DE","IT","PT"];
+  return`<div class="cn-pres cn-mks"><span class="cn-mkl">Mercado</span><button class="btn${V.mk==="todos"?" prim":""}" data-timk="todos">Todos</button>${mks.map(m=>`<button class="btn${V.mk===m?" prim":""}" data-timk="${m}" title="${esc(CN_MKN[m]||m)}">${m}</button>`).join("")}</div>`}
+function pintarTiempo(){const el=document.getElementById("c-captacion_tiempo");if(!el||st.dentro!=="captacion")return;const T=st.tiempo;
+  const cab=`<div class="mcab"><div><h2>Tiempo de conversión por canal</h2><div class="fuente-mc" style="margin-top:6px">Días desde que entra el deal hasta que se cierra Won (campo Sales Cycle Duration de Zoho)</div></div><div class="meta">${T?.actualizado?`datos del ${esc(T.actualizado)}`:""}</div></div>`;
+  if(!T?.entrada?.length){el.innerHTML=`${cab}<div class="as-ctl">${tiActBtn()}</div>${tiActMsg()}<div class="vacio">Álex todavía no ha leído los tiempos de conversión de Zoho. Pulsa «Actualizar a día de hoy».</div>`;return}
+  const V=st.tiV||(st.tiV={mk:"todos",met:"med",vista:"entrada"}),met=V.met,mk=V.mk==="todos"?null:V.mk;
+  const num=n=>String(Math.round(n)).replace(/\B(?=(\d{3})+(?!\d))/g,"."),porMk=f=>!mk||f[2]===mk;
+  const E=T.entrada.filter(porMk),C=T.cierre.filter(porMk);
+  const hoy=new Date(),ym0=hoy.getFullYear()*100+hoy.getMonth()+1,ultC=Math.max(ym0,...T.cierre.map(f=>f[0]).filter(y=>y<=ym0)),antC=tiMesAnt(ultC,1);
+  /* 1. Punto actual: deals cerrados en el mes en curso y el anterior */
+  const act=(canal)=>tiAcum(C.filter(f=>f[0]>=antC&&f[0]<=ultC&&(canal==null||f[1]===canal))),aO=act("Organic"),aP=act("Paid"),aT=act(null),aA=tiAcum(C.filter(f=>f[0]>=antC-100&&f[0]<=ultC-100));
+  const refAct=tiVal(aT,met);
+  const filaAct=(n,a,cls,ref)=>`<tr class="${cls||""}"><td class="as-n">${n}</td><td>${num(a.n)}</td><td class="${ref?tiCol(tiMediana(a),ref.m,"med"):""}"><b>${tiTxt(tiMediana(a),"med")}</b></td><td>${tiTxt(tiVal(a,"media"),"media")}</td><td>${tiTxt(tiVal(a,"p7"),"p7")}</td><td>${tiTxt(tiVal(a,"p30"),"p30")}</td></tr>`;
+  const refT={m:tiMediana(aT)};
+  const periodoAct=`${ymTxt(antC)} y ${ymTxt(ultC)}`;
+  const ahora=`<h3 class="ti-h3">Ahora mismo <small>deals cerrados en ${periodoAct}${mk?` · mercado ${mk}`:""}</small></h3>
+   <div class="as-res"><div><b>${tiTxt(tiMediana(aT),"med")}</b><span>mediana de días hasta la venta</span></div><div><b>${tiTxt(tiMediana(aO),"med")}</b><span>Organic</span></div><div><b>${tiTxt(tiMediana(aP),"med")}</b><span>Paid</span></div><div><b>${tiTxt(tiMediana(aA),"med")}</b><span>hace un año (${ymTxt(antC-100)} y ${ymTxt(ultC-100)})</span></div></div>
+   <div class="as-tw"><table class="as-t cn-e"><thead><tr><th class="as-n">Canal</th><th>Won</th><th>Mediana</th><th>Media</th><th>Cierra en 7 d</th><th>Cierra en 30 d</th></tr></thead><tbody>
+   ${filaAct('<span class="cn-dot" style="background:#3ddc97"></span>Organic',aO,"",refT)}${filaAct('<span class="cn-dot" style="background:#f97316"></span>Paid',aP,"",refT)}${filaAct("Total",aT,"cn-gen")}${filaAct(`Total hace un año (${ymTxt(antC-100)} y ${ymTxt(ultC-100)})`,aA,"",refT)}</tbody></table></div>`;
+  /* 2. Momento del año: por mes, con filas por año y canal */
+  const D=(V.vista==="cierre"?C:E).filter(f=>f[0]<=ym0),anios=[...new Set(D.map(f=>Math.floor(f[0]/100)))].sort((a,b)=>b-a);
+  const filasAnio=anios.flatMap(y=>{const F=D.filter(f=>Math.floor(f[0]/100)===y),tot=F.reduce((s,f)=>s+f[3],0),con=["Organic","Paid"].filter(c=>F.filter(f=>f[1]===c).reduce((s,f)=>s+f[3],0)>=tot*.2);
+    return[...con.map(c=>({n:`${c} ${y}`,y,cls:c==="Organic"?"cn-org":"cn-paid",F:F.filter(f=>f[1]===c)})),{n:`Total ${y}`,y,cls:"cn-gen",F}]});
+  const refAnual=f=>tiVal(tiAcum(f),met);
+  const celda=(F,m,y,ref)=>{const a=tiAcum(F.filter(f=>f[0]%100===m)),ym=y*100+m;const v=a.n>=5?tiVal(a,met):null,cens=V.vista!=="cierre"&&ym>=tiMesAnt(ym0,2)&&ym<=ym0;return`<td class="${tiCol(v,ref,met)}${cens?" ti-cens":""}" title="${a.n} deals${cens?" · mes aún incompleto: faltan los deals que todavía no se han cerrado":""}">${tiTxt(v,met)}${cens&&v!=null?"*":""}</td>`};
+  const tabla=`<div class="as-tw"><table class="as-t cn-e ti-t"><thead><tr><th class="as-n">Canal y año</th>${MESN.map(m=>`<th>${m}</th>`).join("")}<th>Año</th></tr></thead><tbody>${filasAnio.map(r=>{const ref=refAnual(r.F);return`<tr class="${r.cls}"><td class="as-n">${r.cls!=="cn-gen"?`<span class="cn-dot"></span>`:""}${esc(r.n)}</td>${MESN.map((_,i)=>celda(r.F,i+1,r.y,ref)).join("")}<td><b>${tiTxt(ref,met)}</b></td></tr>`}).join("")}</tbody></table></div>`;
+  const ctl=`<div class="as-ctl">${tiMercadoSel(V)}<label>Métrica <select data-timet>${Object.entries(TI_MET).map(([k,n])=>`<option value="${k}"${met===k?" selected":""}>${n}</option>`).join("")}</select></label><div class="as-modo"><button class="btn${V.vista!=="cierre"?" prim":""}" data-tivista="entrada" title="Mes en que entró el deal">Por mes de entrada</button><button class="btn${V.vista==="cierre"?" prim":""}" data-tivista="cierre" title="Mes en que se cerró la venta">Por mes de cierre</button></div>${tiActBtn()}${cnXls("c-captacion_tiempo")}${zBtn("canales")}</div>${tiActMsg()}`;
+  const anio=`<h3 class="ti-h3">A lo largo del año <small>${V.vista==="cierre"?"deals según el mes en que se cerraron":"deals según el mes en que entraron"}${mk?` · mercado ${mk}`:""} · ${TI_MET[met].toLowerCase()}</small></h3>${tabla}
+   <p class="as-nota">${V.vista==="cierre"?"Por mes de cierre: cada deal cuenta en el mes en que se cerró la venta, aunque entrara meses antes. Es la vista buena para el punto actual.":"Por mes de entrada: cada deal cuenta en el mes en que entró. Los últimos tres meses (con *) salen más rápidos de lo que acabarán siendo, porque los deals de esos meses que todavía no se han cerrado no cuentan."} Antes de 2026 los deals no llevaban UTM en Zoho, así que esos años solo tienen la fila Total. Verde: un 15 % o más rápido que la media del año de esa fila; rojo: un 15 % o más lento. Celdas con menos de 5 deals: –.</p>`;
+  /* 3. Por medio (estructura Organic / Paid de la pestaña de CR), con la media de días del informe del CRM */
+  const M=T.medios_entrada||[],MC=T.medios_cierre||[],anioM=T.anio_medios||hoy.getFullYear();
+  const ultM=Math.max(...MC.map(f=>f[2]),0),antM=ultM?tiMesAnt(ultM,1):0;
+  const ag={};const suma=(filas,i)=>filas.forEach(([s,m,ym,w,avg,mx])=>{const k=cnClasif(s,m).join("|"),x=ag[k]||(ag[k]=[[0,0,0],[0,0,0]]);if(i===1&&!(ym>=antM&&ym<=ultM))return;x[i][0]+=w;x[i][1]+=w*avg;x[i][2]=Math.max(x[i][2],mx||0)});
+  suma(M,0);suma(MC,1);
+  const g=k=>ag[k]||[[0,0,0],[0,0,0]],sumK=ks=>ks.reduce((t,k)=>{const x=g(k);return[[t[0][0]+x[0][0],t[0][1]+x[0][1],Math.max(t[0][2],x[0][2])],[t[1][0]+x[1][0],t[1][1]+x[1][1],Math.max(t[1][2],x[1][2])]]},[[0,0,0],[0,0,0]]);
+  const totM=sumK(Object.keys(ag)),refM=totM[0][0]?totM[0][1]/totM[0][0]:null,refMC=totM[1][0]?totM[1][1]/totM[1][0]:null;
+  const med=(x,ref)=>x[0]?`<td class="${tiCol(x[1]/x[0],ref,"media")}">${tiTxt(x[1]/x[0],"media")}</td>`:"<td>–</td>";
+  const datosM=x=>`<td>${num(x[0][0])}</td>${med(x[0],refM)}<td>${num(x[1][0])}</td>${med(x[1],refMC)}<td>${x[0][2]?num(x[0][2])+" d":"–"}</td>`;
+  let h="";for(const grp of ["ORGANIC","PAID"]){const kk=Object.keys(ag).filter(k=>k.startsWith(grp+"|")),cls=grp==="PAID"?"cn-paid":"cn-org";if(!kk.length)continue;
+    h+=`<tr class="cn-gh ${cls}"><td><span class="cn-dot"></span>${grp}</td>${datosM(sumK(kk))}</tr>`;
+    (grp==="PAID"?CN_PAID:CN_ORG).forEach(it=>{if(Array.isArray(it)){const ks=it[1].map(sb=>[grp,it[0],sb].join("|")).filter(k=>g(k)[0][0]||g(k)[1][0]);if(!ks.length)return;
+        h+=`<tr class="cn-par ${cls} abierto"><td class="cn-l1">${it[0]}${ks.length>1?` <small>${ks.length} medios</small>`:""}</td>${datosM(sumK(ks))}</tr>`;
+        if(ks.length>1)ks.forEach(k=>{h+=`<tr class="cn-ch ${cls}"><td class="cn-l2${k.endsWith("SIN DATA")?" cn-sd":""}">${esc(k.split("|")[2])}</td>${datosM(g(k))}</tr>`})}
+      else{const k=grp+"|"+it;if(!(g(k)[0][0]||g(k)[1][0]))return;h+=`<tr class="cn-lf ${cls}"><td class="cn-l1${it==="SIN DATA"?" cn-sd":""}">${it}</td>${datosM(g(k))}</tr>`}})}
+  h+=`<tr class="cn-gen"><td>TOTAL GENERAL</td>${datosM(totM)}</tr>`;
+  const medios=M.length?`<h3 class="ti-h3">Por medio <small>todos los mercados · media de días del informe del CRM</small></h3>
+   <div class="as-tw"><table class="as-t cn-e ti-m"><thead><tr><th class="as-n">Canal</th><th>Won entrados en ${anioM}</th><th>Media días</th><th>Won cerrados ${ultM?`${ymTxt(antM)} y ${ymTxt(ultM)}`:""}</th><th>Media días (ahora)</th><th>Máx ${anioM}</th></tr></thead><tbody>${h}</tbody></table></div>
+   <p class="as-nota">Misma estructura Organic / Paid que la pestaña de CR por canal. Media de días: deals Won que entraron en ${anioM}, según su utm_source y utm_medium. Ahora: deals cerrados en ${ultM?`${ymTxt(antM)} y ${ymTxt(ultM)}`:"los dos últimos meses"}, entraran cuando entraran. El informe del CRM solo da la media, no la mediana, así que un deal de 400 días sube mucho la media de un medio pequeño: mira también la columna Máx. SIN DATA son deals sin utm_source. Este cuadro no se filtra por mercado.</p>`:"";
+  el.innerHTML=`${cab}${ctl}${ahora}${anio}${medios}`}
+document.addEventListener("click",e=>{const b=e.target.closest("[data-timk]");if(b&&st.tiV){st.tiV.mk=b.dataset.timk;pintarTiempo();return}
+  const v=e.target.closest("[data-tivista]");if(v&&st.tiV){st.tiV.vista=v.dataset.tivista;pintarTiempo();return}
+  if(e.target.closest("[data-tiact]"))actualizarTiempo()});
+document.addEventListener("change",e=>{const s=e.target.closest("[data-timet]");if(s&&st.tiV){st.tiV.met=s.value;pintarTiempo()}});
+function tiAct(msg,tipo){st.tiAct={msg,tipo:tipo||"vivo"};const b=document.getElementById("tiActMsg");if(b){b.textContent=msg;b.className="cn-actmsg "+(tipo||"vivo")}}
+const tiActBtn=()=>mc.disponible===false?"":`<button class="btn prim" data-tiact${st.tiAct?.tipo==="vivo"?" disabled":""}>↻ Actualizar a día de hoy</button>`;
+const tiActMsg=()=>`<div id="tiActMsg" class="cn-actmsg ${st.tiAct?.tipo||""}">${esc(st.tiAct?.msg||"")}</div>`;
+/* Informe del CRM como resumen por Utm_Source, Utm_Medium y mes (de entrada o de cierre) con la media y el máximo del ciclo de venta */
+const tiCfg=(campo,anio)=>({body:{Reports:[{id:CN_REP,name:"Claude · Deals por UTM y mes",folder:{id:"2161768000000011611"},module:{api_name:"Deals"},type:"summary",
+  group_by:[{field:{api_name:"Utm_Source"},type:"row",sort_order:"asc"},{field:{api_name:"Utm_Medium"},type:"row",sort_order:"asc"},{field:{api_name:campo},type:"row",sort_order:"asc",date_granularity:"month"}],
+  columns:[{field:{api_name:"Deal_Name"}}],aggregate_functions:[{name:"distinct_count",field:{api_name:"id"}},{name:"avg",field:{api_name:"Sales_Cycle_Duration"}},{name:"max",field:{api_name:"Sales_Cycle_Duration"}}],
+  filters:{comparator:"equal",field:{api_name:"Stage"},type:"value",value:"Won"},
+  date_filter:{comparator:"between",field:{api_name:campo},type:"value",value:campo==="Closing_Date"?[`${anio}-01-01`,`${anio}-12-31`]:[`${anio}-01-01T00:00:00+01:00`,`${anio}-12-31T23:59:59+01:00`]},
+  show_detail_rows:false,show_grand_total:true,show_sub_totals:false,show_row_count:true,show_wrap_text:true,aggregate_type:"split"}]}});
+function tiZohoErr(e){const c=e?.code;
+  return c==="server_not_connected"||c==="needs_reauth"||c==="selection_required"?"Conecta Zoho en claude.ai, Ajustes → Conectores, y vuelve a pulsar.":
+    c==="not_in_manifest"||c==="not_granted"?"Esta página no tiene permiso para usar Zoho. Actívalo en el menú Permisos del artifact.":
+    c==="blocked_by_policy"||c==="approval_required"?"La política de tu organización no deja usar Zoho desde aquí.":
+    c==="permission-denied"||c==="not_writer"?"Solo quien puede editar la página puede guardar datos nuevos.":
+    c==="server_unavailable"||c==="upstream_error"?"Zoho no responde ahora mismo. Prueba de nuevo en un minuto.":
+    "No se pudo actualizar: "+(e?.message||"error desconocido")}
+async function actualizarTiempo(){
+  if(st.tiAct?.tipo==="vivo")return;
+  if(!mc.mcp||!st.db){tiAct("Abre la página desde claude.ai para actualizar los datos.","err");return}
+  const hoy=new Date(),anio=hoy.getFullYear(),hasta=`${anio}-12-31T23:59:59+01:00`;
+  const fila=r=>{const ym=+r.ym;if(!ym)return null;return[ym,r.canal||"",AS_LANG[r.idioma]||"",+r.won||0,+r.dias||0,r.med===""||r.med==null?null:+r.med,...TI_TRAMOS.map(t=>+r["d"+t]||0)]};
+  const medios=async campo=>{const F=[];await cnPaginas(`los medios por ${campo==="Closing_Date"?"mes de cierre":"mes de entrada"}`,2000,dm=>{cnHojas(dm.row_groupings?.groupings).forEach(h=>{const a=dm[h.k]?.aggregates,ym=cnYm(h.v[2]);if(!a||!ym)return;const w=+a[0]?.value||0;if(w)F.push([h.v[0]??"(sin utm)",h.v[1]??"(sin medium)",ym,w,+a[2]?.value||0,+a[3]?.value||0])})},tiAct);return F};
+  try{
+    tiAct("Pidiendo a Zoho Analytics los días hasta la venta por mes de entrada…");const ent=(await asConsulta(TI_SQL("Created Time"),"Leyendo por mes de entrada",tiAct,"canal")).map(fila).filter(Boolean);
+    tiAct("Pidiendo a Zoho Analytics los días hasta la venta por mes de cierre…");const cie=(await asConsulta(TI_SQL("Closing Date"),"Leyendo por mes de cierre",tiAct,"canal")).map(fila).filter(Boolean);
+    if(!ent.length||!cie.length)throw{code:"formato",message:"Zoho Analytics no devolvió ningún deal."};
+    tiAct("Preparando el informe del CRM por medio y mes de entrada…");await mc.mcp.callTool(ZO,"ZohoCRM_updateReports",tiCfg("Created_Time",anio));const mE=await medios("Created_Time");
+    tiAct("Preparando el informe del CRM por medio y mes de cierre…");await mc.mcp.callTool(ZO,"ZohoCRM_updateReports",tiCfg("Closing_Date",anio));const mC=await medios("Closing_Date");
+    tiAct("Dejando el informe del CRM como estaba…");await mc.mcp.callTool(ZO,"ZohoCRM_updateReports",cnCfg("matrix",hasta));
+    const T=st.tiempo||{},fecha=hoy.toISOString().slice(0,10);
+    tiAct("Guardando los datos nuevos…");
+    await st.db.doc("captacion_tiempo/actual").set({fuente:T.fuente||"Zoho Analytics, tabla Deals (Sales Cycle Duration, UTM, Language, Created Time y Closing Date) e informe del CRM «Claude · Deals por UTM y mes» (Utm_Source, Utm_Medium)",actualizado:fecha,tramos:TI_TRAMOS,anio_medios:anio,entrada:ent,cierre:cie,medios_entrada:mE,medios_cierre:mC});
+    tiAct(`Datos actualizados a ${fecha}: ${ent.reduce((t,f)=>t+f[3],0).toLocaleString("es-ES")} ventas desde enero de 2024.`,"ok");pintarTiempo()
+  }catch(e){tiAct(tiZohoErr(e),"err")}}
 /* ===== Captación: evolución mensual del CR por canal y mix Paid / Organic (mes de creación del deal) ===== */
 /* Won de una fila con Closing Date hasta el último mes del periodo (incluido). Sin reparto por cierre, el won total */
 const cnWonCierre=(f,i,h)=>f[i]?Object.entries(f[i]).reduce((t,[cy,n])=>+cy<=h?t+n:t,0):(f[4]||0),cnWonHasta=(f,h)=>cnWonCierre(f,6,h);
@@ -5370,7 +5476,7 @@ document.addEventListener("change",e=>{const s=e.target.closest("[data-cpv]");if
 function pintarVentas(){pintarVentasFact();pintarVentasIdioma();pintarCaptacionVentas()}
 document.addEventListener("click",e=>{const b=e.target.closest("[data-vemet]");if(b&&st.veV){st.veV.met=b.dataset.vemet;pintarVentasFact();return}if(e.target.closest("[data-veact]"))actualizarVentas()});
 document.addEventListener("change",e=>{const s=e.target.closest("[data-veidi]");if(s&&st.veV){st.veV.idi=s.value;pintarVentasFact();return}const p=e.target.closest("[data-veper]");if(p&&st.veI){st.veI.per=p.value;pintarVentasIdioma()}});
-function pintarSalasN(){pintarCR();pintarPlanItpt();pintarPrio();pintarOai();pintarCro();pintarYtRanking();pintarYtDash();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarCorreos();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarSeoBlog();pintarSeoBrecha();pintarSeoTec();pintarRrss();pintarCanales();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
+function pintarSalasN(){pintarCR();pintarPlanItpt();pintarPrio();pintarOai();pintarCro();pintarYtRanking();pintarYtDash();pintarRsRanking("instagram");pintarRsRanking("tiktok");pintarIgDash();pintarIgCapt();pintarIgErr();pintarGads();pintarVentas();pintarSeoRed();pintarMetaUtm();pintarMetaRep();pintarMetaAnu();pintarJourneyMapa();pintarAsesores();pintarCorreos();pintarEmbudo();pintarValor();pintarAlertas();pintarInvAnual();pintarSeoBlog();pintarSeoBrecha();pintarSeoTec();pintarRrss();pintarCanales();pintarTiempo();pintarEvolucion();pintarMix();pintarCPA();if(["community","lifecycle"].includes(st.dentro)){pintarRoadmap(st.dentro);pintarInsights(st.dentro)}if(st.dentro==="instagram"||st.dentro==="youtube")pintarRoadmap(st.dentro);pintarYouTube();pintarWorkflows();if(st.dentro==="instagram"){suscribirIG();pintarIG()}
   for(const S of SALAS_N){
     const v=document.getElementById("vivo-"+S.id);if(v){v.classList.toggle("off",!st.conectado);v.textContent=st.conectado?"En directo":"Conectando"}
     if(st.dentro!==S.id)continue;
@@ -6149,6 +6255,7 @@ const ZO="Zoho Suite";
 const RCC="Claude Code Remote";
 const REF_ZOHO=[
   ["canales","captacion_canales/actual",()=>st.canales,()=>actualizarCanales(),"Captación: deals y CR por canal"],
+  ["tiempo","captacion_tiempo/actual",()=>st.tiempo,()=>actualizarTiempo(),"Captación: tiempo de conversión por canal"],
   ["deals","captacion_deals/actual",()=>st.cap,()=>actualizarCaptacion(),"Captación: deals y cierres"],
   ["ventas","ventas_viajes/actual",()=>st.ven,()=>actualizarVentas(),"Viajes vendidos"],
   ["asesores","comercial_asesores/actual",()=>st.ases,()=>actualizarAsesores(),"Análisis comercial por asesor"],
@@ -6527,6 +6634,7 @@ pintarCaptacionVentas=guardaScroll(pintarCaptacionVentas);pintarInvAnual=guardaS
   vigilarDoc("cr_plan/actual",s=>{st.crPlan=s.exists?s.data():null;pintarCR()});
   vigilarDoc("cr_tiempo/actual",s=>{st.crTiempo=s.exists?s.data():null;pintarCRTiempo()});
   vigilarDoc("captacion_canales/actual",s=>{st.canales=s.exists?s.data():null;pintarCanales();pintarEvolucion();pintarMix();pintarCPA();pintarCR()});
+  vigilarDoc("captacion_tiempo/actual",s=>{st.tiempo=s.exists?s.data():null;pintarTiempo()});
   vigilarDoc("captacion_inversion/actual",s=>{st.inversion=s.exists?s.data():null;pintarCPA()});
   vigilarDoc("journey_mapa/actual",s=>{st.jmapa=s.exists?s.data():null;pintarJourneyMapa()});
   vigilarDoc("mdirecto_analisis/workflows",s=>{st.mkd=s.exists?s.data():null;pintarWorkflows()});
@@ -6690,5 +6798,5 @@ document.getElementById("temaSW")?.addEventListener("click",()=>temaSW(!SW.on));
 try{if(localStorage.getItem("salas_tema")==="sw")temaSW(true,false)}catch(e){}
 
 /* Si un módulo falla al pintarse (por ejemplo, porque su sala no está montada y busca elementos que aún no existen), el error no interrumpe al resto */
-for(const n of ["pintarActualidad", "pintarAlertas", "pintarAsesores", "pintarBenchYT", "pintarBiblio", "pintarBrief", "pintarCPA", "pintarCR", "pintarCREvol", "pintarCRImpacto", "pintarCRPlan", "pintarCRTiempo", "pintarCanales", "pintarCapas", "pintarCaptacionVentas", "pintarCerebro", "pintarChat", "pintarCompExp", "pintarCompRRSS", "pintarCompetencia", "pintarComunidad", "pintarControl", "pintarCorreos", "pintarCro", "pintarDatos", "pintarDiseno", "pintarEmbudo", "pintarEvolucion", "pintarFuente", "pintarGA4", "pintarGads", "pintarGadsCamp", "pintarGadsGen", "pintarGadsUtm", "pintarIG", "pintarIgCapt", "pintarIgDash", "pintarIgErr", "pintarInsights", "pintarInsp", "pintarInvAnual", "pintarJourneyMapa", "pintarKVivo", "pintarListado", "pintarMapa", "pintarMetaAnu", "pintarMetaRep", "pintarMetaUtm", "pintarMetricool", "pintarMix", "pintarNegocio", "pintarOai", "pintarPaid", "pintarPeticionesDiseno", "pintarPlanItpt", "pintarPrio", "pintarProducto", "pintarRoadmap", "pintarRrss", "pintarRsRanking", "pintarSalasN", "pintarSeo", "pintarSeoBlog", "pintarSeoBrecha", "pintarSeoRed", "pintarSeoTec", "pintarSintesis", "pintarValor", "pintarVentas", "pintarVentasFact", "pintarVentasIdioma", "pintarVideos", "pintarWorkflows", "pintarYouTube", "pintarYtDash", "pintarYtRanking"]){const f=window[n];if(typeof f==="function")window[n]=function(){try{return f.apply(this,arguments)}catch(e){console.warn("pintar",n,e.message)}}}
+for(const n of ["pintarActualidad", "pintarAlertas", "pintarAsesores", "pintarBenchYT", "pintarBiblio", "pintarBrief", "pintarCPA", "pintarCR", "pintarCREvol", "pintarCRImpacto", "pintarCRPlan", "pintarCRTiempo", "pintarCanales", "pintarTiempo", "pintarCapas", "pintarCaptacionVentas", "pintarCerebro", "pintarChat", "pintarCompExp", "pintarCompRRSS", "pintarCompetencia", "pintarComunidad", "pintarControl", "pintarCorreos", "pintarCro", "pintarDatos", "pintarDiseno", "pintarEmbudo", "pintarEvolucion", "pintarFuente", "pintarGA4", "pintarGads", "pintarGadsCamp", "pintarGadsGen", "pintarGadsUtm", "pintarIG", "pintarIgCapt", "pintarIgDash", "pintarIgErr", "pintarInsights", "pintarInsp", "pintarInvAnual", "pintarJourneyMapa", "pintarKVivo", "pintarListado", "pintarMapa", "pintarMetaAnu", "pintarMetaRep", "pintarMetaUtm", "pintarMetricool", "pintarMix", "pintarNegocio", "pintarOai", "pintarPaid", "pintarPeticionesDiseno", "pintarPlanItpt", "pintarPrio", "pintarProducto", "pintarRoadmap", "pintarRrss", "pintarRsRanking", "pintarSalasN", "pintarSeo", "pintarSeoBlog", "pintarSeoBrecha", "pintarSeoRed", "pintarSeoTec", "pintarSintesis", "pintarValor", "pintarVentas", "pintarVentasFact", "pintarVentasIdioma", "pintarVideos", "pintarWorkflows", "pintarYouTube", "pintarYtDash", "pintarYtRanking"]){const f=window[n];if(typeof f==="function")window[n]=function(){try{return f.apply(this,arguments)}catch(e){console.warn("pintar",n,e.message)}}}
 </script>

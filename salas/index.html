@@ -1574,7 +1574,7 @@ for(let i=MARCOS.length-1;i>=0;i--)if(["producto","mdirecto"].includes(MARCOS[i]
 MARCOS.forEach(m=>{if(m.dato)m.sala=m.grupo});
 /* Planta del edificio: salas más separadas */
 const TAM={control:2400,community:1500,lifecycle:1500};
-const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-400,6500],comercial:[1800,6500],ventas:[-2600,6500],cr:[4000,6500],metaads:[5600,4000],googleads:[7200,4000],openaiads:[8800,4000],cro:[7000,400],app:[8600,400],mdirecto:[5600,5100],producto:[5000,7800]};
+const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],tiktok:[-400,-2600],radar:[1200,-2600],community:[-1900,-900],comunidad:[800,-1900],diseno:[-5200,1300],control:[-600,1300],seo:[5400,400],paid:[5600,2600],lifecycle:[1300,4300],competencia:[-5200,-2600],fidelizacion:[-2600,4300],brand:[2400,-700],journey:[-400,6500],comercial:[1800,6500],ventas:[-2600,6500],cr:[4000,6500],metaads:[5600,4700],googleads:[7500,4700],openaiads:[9400,4700],cro:[7000,400],app:[8600,400],mdirecto:[5600,5100],producto:[5000,7800]};
 /* ===== Edificios: una misma página sirve dos edificios. «camino» (Salas del Camino, sin Diseño) y «rrss» (Instagram, YouTube, TikTok, Community, Radar Viral, Competencia y Diseño).
    El edificio se elige con <meta name="edificio" content="rrss">; rrss.html se genera desde index.html con build_rrss.py. Los datos viajan entre los dos por la rutina «Espejo RRSS» ===== */
 const EDIFICIO=document.querySelector('meta[name="edificio"]')?.content||"camino";
@@ -1632,9 +1632,9 @@ const PASILLOS_DEF=[
   {id:"pa40",d:ruta([[5400,900],[2200,900],[2200,1450],[1800,1450]],200),c:"#2dd4bf",txt:"SEO → Control y todas las salas",sub:"lo que se busca · fichas de destino · palabras clave",lx:3600,ly:860},
   {id:"pa14",d:ruta([[4300,1600],[4300,1250],[5800,1250],[5800,1066]],200),c:"#2dd4bf",txt:"Captación ↔ SEO",sub:"búsquedas · tráfico orgánico · leads",lx:4400,ly:1210},
   {id:"pa15",d:ruta([[4600,2100],[5000,2100],[5000,2900],[5600,2900]],260),c:"#f472b6",txt:"Captación ↔ Paid Media",sub:"Google Ads · Meta Ads · coste por lead",lx:5060,ly:2450},
-  {id:"pa41",d:"M6200 3266 V4000",c:"#3b82f6",txt:"Paid Media ↔ Meta Ads",sub:"campañas del Business Manager",lx:6230,ly:3600},
-  {id:"pa42",d:"M6800 4333 H7200",c:"#4285f4",txt:"Meta Ads ↔ Google Ads",sub:"el mismo euro, dos subastas",lx:6820,ly:4300},
-  {id:"pa43",d:ruta([[6800,2933],[7800,2933],[7800,4000]],200),c:"#4285f4",txt:"Paid Media ↔ Google Ads",sub:"Search · Performance Max · Demand Gen",lx:7000,ly:2900},
+  {id:"pa41",d:"M6200 3266 V4700",c:"#3b82f6",txt:"Paid Media ↔ Meta Ads",sub:"campañas del Business Manager",lx:6230,ly:3950},
+  {id:"pa42",d:"M6800 5033 H7500",c:"#4285f4",txt:"Meta Ads ↔ Google Ads",sub:"el mismo euro, dos subastas",lx:6850,ly:5000},
+  {id:"pa43",d:ruta([[6800,2933],[8100,2933],[8100,4700]],200),c:"#4285f4",txt:"Paid Media ↔ Google Ads",sub:"Search · Performance Max · Demand Gen",lx:7000,ly:2900},
   {id:"pa4",d:"M1700 4300 V2632",c:"#22d3ee",txt:"Conversión → Control",sub:"embudo · de lead a venta · valor del cliente",lx:1760,ly:3450},
   {id:"pa7",d:"M1400 2632 V4300",c:"#f5d76e",txt:"Directrices → Conversión",sub:"control.directrices.lifecycle",lx:620,ly:3450,fin:true},
   {id:"pa50",d:ruta([[-2000,4300],[-2000,3300],[-300,3300],[-300,2632]],220),c:"#a78bfa",txt:"Fidelización & Journey ↔ Control",sub:"en construcción",lx:-1900,ly:3240},
@@ -1970,7 +1970,7 @@ function svgPasillos(){
     ${Object.entries(PERSONALIDAD).map(([k,P])=>SUELOS[P.suelo](P.c)).join("")}
     <radialGradient id="patioG"><stop offset="0" stop-color="#3ddc97" stop-opacity=".16"/><stop offset="1" stop-color="#3ddc97" stop-opacity="0"/></radialGradient></defs>`;
   // Fachada del edificio
-  const F=ED.fachada||{x:-5750,y:-3350,w:15100,h:11100,ex:700,ey:7620};
+  const F=ED.fachada||{x:-5750,y:-3350,w:16800,h:11100,ex:700,ey:7620};
   d+=`<rect x="${F.x}" y="${F.y}" width="${F.w}" height="${F.h}" rx="260" fill="#06080b" stroke="#1b222c" stroke-width="16"/>
     <rect x="${F.x+32}" y="${F.y+32}" width="${F.w-64}" height="${F.h-64}" rx="236" fill="none" stroke="#24405f" stroke-opacity=".45" stroke-width="8" stroke-dasharray="160 70"/>
     <rect x="${F.ex}" y="${F.ey}" width="600" height="90" rx="10" fill="#05070a" stroke="#3d7bff" stroke-opacity=".6" stroke-width="3"/><text x="${F.ex+300}" y="${F.ey+58}" text-anchor="middle" class="p-txt">ENTRADA PRINCIPAL</text>`;

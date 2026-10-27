@@ -1579,7 +1579,7 @@ const POS={captacion:[3400,1600],instagram:[-3600,-2600],youtube:[-2000,-2600],t
    El edificio se elige con <meta name="edificio" content="rrss">; rrss.html se genera desde index.html con build_rrss.py. Los datos viajan entre los dos por la rutina «Espejo RRSS» ===== */
 const EDIFICIO=document.querySelector('meta[name="edificio"]')?.content||"camino";
 const EDIFICIOS={
-  camino:{titulo:"Salas del Camino",ocultas:["diseno"],pasillosNo:["pa8","pa9","pr1","pr2","pr3"]},
+  camino:{titulo:"Salas del Camino",ocultas:["diseno","brand","fidelizacion"],pasillosNo:["pa8","pa9","pa50","pa52","pr1","pr2","pr3"]},
   rrss:{titulo:"RRSS · Santiago Ways",salas:["instagram","youtube","tiktok","community","radar","competencia","diseno"],pos:{diseno:[-5200,-900]},
     pasillos:["pa11","pa22","pa32","pa28","pa20","pa33","pa29","pr1","pr2","pr3"],modsNo:["cambios","comp_nuevos","comp_bp"],
     fachada:{x:-5550,y:-3350,w:8500,h:3750,ex:-1900,ey:280}}};

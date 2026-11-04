@@ -54,7 +54,8 @@ def bases_de(mercado):
 
 # Coste por linea devuelta, segun la documentacion de Semrush.
 COSTE = {"domain_ranks": 10, "domain_organic": 10, "phrase_this": 10,
-         "phrase_related": 40, "domain_domains": 80, "domain_organic_organic": 40}
+         "phrase_related": 40, "domain_domains": 80, "domain_organic_organic": 40,
+         "phrase_kdi": 50, "phrase_organic": 10}
 
 
 def clave():
@@ -113,6 +114,10 @@ def informe(tipo, extra, limite, base, forzar):
     elif tipo == "domain_organic":
         p["export_columns"] = "Ph,Po,Nq,Cp,Co,Tr,Ur"
         p["display_sort"] = "tr_desc"
+    elif tipo == "phrase_kdi":
+        p["export_columns"] = "Ph,Kd"
+    elif tipo == "phrase_organic":
+        p["export_columns"] = "Dn,Ur,Po"
     elif tipo == "phrase_this":
         p["export_columns"] = "Ph,Nq,Cp,Co,Nr,Td"
     elif tipo == "domain_organic_organic":
@@ -147,7 +152,8 @@ def imprime(d, titulo):
 
 def main():
     p = argparse.ArgumentParser(description="Semrush para Magical SEO")
-    p.add_argument("accion", choices=["saldo", "dominio", "keywords", "organico", "hueco", "competidores"])
+    p.add_argument("accion", choices=["saldo", "dominio", "keywords", "organico", "hueco", "competidores",
+                                      "dificultad", "serp"])
     p.add_argument("objetivo", nargs="?", help="dominio o palabra clave")
     p.add_argument("--base", default="es", help="base de datos: es, uk, us, de, it, pt...")
     p.add_argument("--mercado", default="", help="recorre todas las bases de un mercado "
@@ -191,6 +197,12 @@ def _una(a):
     elif a.accion == "organico":
         d = informe("domain_organic", {"domain": a.objetivo}, a.limite, a.base, a.forzar)
         t = f"Lo que posiciona {a.objetivo} en la base {a.base}"
+    elif a.accion == "dificultad":
+        d = informe("phrase_kdi", {"phrase": a.objetivo}, 1, a.base, a.forzar)
+        t = f"Dificultad de «{a.objetivo}» en la base {a.base}"
+    elif a.accion == "serp":
+        d = informe("phrase_organic", {"phrase": a.objetivo}, a.limite, a.base, a.forzar)
+        t = f"Quien ocupa el buscador para «{a.objetivo}» en la base {a.base}"
     elif a.accion == "competidores":
         d = informe("domain_organic_organic", {"domain": a.objetivo or NUESTRO},
                     a.limite, a.base, a.forzar)

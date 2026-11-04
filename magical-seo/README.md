@@ -56,6 +56,7 @@ Esa separación es deliberada. Si mañana quieres otra interfaz, la cambias y lo
 | `publicaciones` | Barrida diaria | Cada artículo o página nueva detectada |
 | `huecos` | Análisis semanal | Dónde perdemos y qué hacer |
 | `glosario/actual` | Análisis semanal | Qué se busca de verdad en cada mercado para cada concepto |
+| `topics` | Protocolo de topics | Encargos listos para el copywriter, con intención y opción de top 3 |
 | `estado/magicalseo` | Ambos | Última barrida, estado de cada agente y la bitácora |
 
 ### `rivales`

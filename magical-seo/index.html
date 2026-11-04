@@ -182,6 +182,30 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 .hueco .accion{background:var(--sup2);border-radius:6px;padding:9px 11px;font-size:14.5px;margin-bottom:9px}
 .hueco .accion b{color:var(--ways)}
 
+/* Topics */
+.topic{background:var(--sup);border:1px solid var(--borde);border-left:4px solid var(--borde2);
+  border-radius:9px;padding:14px 16px;margin-bottom:10px}
+.topic.alta{border-left-color:var(--baja)}
+.topic.media{border-left-color:var(--media)}
+.topic.baja{border-left-color:var(--alta)}
+.topic h3{font:700 16.5px/1.35 var(--f-ui);margin:0 0 8px}
+.tcab{display:flex;gap:7px;flex-wrap:wrap;align-items:center;margin-bottom:9px}
+.tsello{font:600 10.5px/1 var(--f-mono);text-transform:uppercase;letter-spacing:.07em;
+  padding:5px 8px;border-radius:5px;background:var(--sup2);color:var(--texto)}
+.tsello.op-alta{background:color-mix(in srgb,var(--baja) 20%,transparent);color:var(--baja)}
+.tsello.op-media{background:color-mix(in srgb,var(--media) 22%,transparent);color:var(--media)}
+.tsello.op-baja{background:color-mix(in srgb,var(--alta) 18%,transparent);color:var(--alta)}
+.tcifras{display:flex;gap:20px;flex-wrap:wrap;margin:0 0 10px;padding:9px 0;
+  border-top:1px solid var(--borde);border-bottom:1px solid var(--borde)}
+.tcifras div{min-width:74px}
+.tcifras dt{font:600 10px/1.3 var(--f-mono);text-transform:uppercase;letter-spacing:.07em;color:var(--tenue)}
+.tcifras dd{margin:3px 0 0;font:700 17px/1 var(--f-ui);font-variant-numeric:tabular-nums}
+.tangulo{background:var(--sup2);border-radius:7px;padding:11px 13px;margin:0 0 9px;font-size:14.5px;line-height:1.55}
+.tangulo b{color:var(--ways);display:block;font:600 10.5px/1 var(--f-mono);
+  text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}
+.topic p.tmenor{margin:0 0 7px;font-size:13.5px;line-height:1.5;color:var(--texto)}
+.ttop3{font:500 13px/1.5 var(--f-mono);color:var(--tenue)}
+
 /* Glosario */
 .gterm{background:var(--sup);border:1px solid var(--borde);border-radius:9px;
   padding:14px 16px;margin-bottom:10px}
@@ -262,6 +286,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
   <button role="tab" aria-selected="true" data-tab="pubs">Publicaciones<span class="cuenta" id="n-pubs"></span></button>
   <button role="tab" aria-selected="false" data-tab="rivales">Rivales<span class="cuenta" id="n-rivales"></span></button>
   <button role="tab" aria-selected="false" data-tab="huecos">Huecos<span class="cuenta" id="n-huecos"></span></button>
+  <button role="tab" aria-selected="false" data-tab="topics">Topics<span class="cuenta" id="n-topics"></span></button>
   <button role="tab" aria-selected="false" data-tab="glosario">Glosario<span class="cuenta" id="n-glosario"></span></button>
   <button role="tab" aria-selected="false" data-tab="bitacora">Bitácora</button>
 </div>
@@ -280,6 +305,7 @@ header{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:va
 
 <section id="p-rivales" hidden><div class="rivales" id="rivales"></div></section>
 <section id="p-huecos" hidden><div class="huecos" id="huecos"></div></section>
+<section id="p-topics" hidden><div id="topics"></div></section>
 <section id="p-glosario" hidden><div id="glosario"></div></section>
 <section id="p-bitacora" hidden><div class="bitacora" id="bitacora"></div></section>
 
@@ -317,7 +343,7 @@ const MERCADOS=[
    paises:"Italia 245 · Desde España 85 · Suiza 16",
    nota:"El menos trabajado y el de mayor potencial: «cammino di santiago» tiene 90.500 búsquedas al mes, el volumen más alto de los cinco, y solo recoge 387 clics. Nunca se ha analizado."},
 ];
-const st={pubs:[],rivales:[],huecos:[],glosario:null,estado:null,filtro:"todas",q:"",tab:"pubs",
+const st={pubs:[],rivales:[],huecos:[],topics:[],glosario:null,estado:null,filtro:"todas",q:"",tab:"pubs",
           mercado:"todos",conectado:false};
 const $=s=>document.querySelector(s);
 const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
@@ -403,10 +429,10 @@ $("#mbar").addEventListener("click",e=>{
 document.querySelectorAll('[role="tab"]').forEach(b=>b.addEventListener("click",()=>{
   st.tab=b.dataset.tab;
   document.querySelectorAll('[role="tab"]').forEach(x=>x.setAttribute("aria-selected",String(x===b)));
-  ["pubs","rivales","huecos","glosario","bitacora"].forEach(t=>{$("#p-"+t).hidden=(t!==st.tab)});
+  ["pubs","rivales","huecos","topics","glosario","bitacora"].forEach(t=>{$("#p-"+t).hidden=(t!==st.tab)});
   if(/^[a-z]+$/.test(st.tab))location.hash=st.tab;
 }));
-if(/^#(pubs|rivales|huecos|glosario|bitacora)$/.test(location.hash)){
+if(/^#(pubs|rivales|huecos|topics|glosario|bitacora)$/.test(location.hash)){
   const b=document.querySelector(`[data-tab="${location.hash.slice(1)}"]`);if(b)b.click();
 }
 
@@ -565,6 +591,52 @@ function pintarHuecos(){
     </div></article>`).join("");
 }
 
+function pintarTopics(){
+  const m=mercadoDe(st.mercado);
+  const vis=m?st.topics.filter(t=>t.mercado===m.id):st.topics;
+  $("#n-topics").textContent=st.topics.length?`(${vis.length})`:"";
+  if(!st.topics.length){
+    $("#topics").innerHTML=`<div class="vacio"><h3>Todavía no hay topics</h3>
+      <p>Son los encargos listos para el copywriter: qué escribir, para qué mercado, con qué ángulo
+      y con qué opción de llegar al top 3. Los genera el protocolo
+      <code>agentes/topics/AGENTE.md</code>.</p></div>`;
+    return;
+  }
+  if(!vis.length){
+    $("#topics").innerHTML=`<div class="vacio"><h3>Sin topics en ${esc(m.n)}</h3>
+      <p>Hay ${st.topics.length} en total. Quita el filtro de mercado para verlos.</p></div>`;
+    return;
+  }
+  const n=v=>Number.isFinite(v)?v.toLocaleString("es-ES"):"·";
+  $("#topics").innerHTML=vis.map(t=>{
+    const op=(t.opcionTop3||"").toLowerCase();
+    return `<article class="topic ${esc(op)}">
+      <div class="tcab">
+        <span class="tsello">${t.tipo==="curacion"?"Curación":"Nuevo"}</span>
+        ${t.mercado&&mercadoDe(t.mercado)?`<span class="tsello">${esc(mercadoDe(t.mercado).n)}</span>`:""}
+        ${t.intencion?`<span class="tsello">${esc(t.intencion)}</span>`:""}
+        ${op?`<span class="tsello op-${esc(op)}">Top 3: opción ${esc(op)}</span>`:""}
+      </div>
+      <h3>${esc(t.titulo)}</h3>
+      <dl class="tcifras">
+        <div><dt>Búsquedas</dt><dd>${n(t.volumen)}</dd></div>
+        <div><dt>Dificultad</dt><dd>${n(t.dificultad)}</dd></div>
+        <div><dt>CPC</dt><dd>${Number.isFinite(t.cpc)?t.cpc.toLocaleString("es-ES",{minimumFractionDigits:2}):"·"}</dd></div>
+        <div><dt>Nuestra pos.</dt><dd>${Number.isFinite(t.nuestraPosicion)?t.nuestraPosicion.toLocaleString("es-ES",{minimumFractionDigits:1}):"·"}</dd></div>
+        <div><dt>Impresiones</dt><dd>${n(t.impresiones)}</dd></div>
+      </dl>
+      ${t.angulo?`<div class="tangulo"><b>El encargo</b>${esc(t.angulo)}</div>`:""}
+      ${t.opcionTop3Razon?`<p class="tmenor"><strong>Por qué esa opción:</strong> ${esc(t.opcionTop3Razon)}</p>`:""}
+      ${t.porQue?`<p class="tmenor"><strong>Por qué ahora:</strong> ${esc(t.porQue)}</p>`:""}
+      ${(t.top3||[]).length?`<p class="ttop3">Ahora mandan: ${esc(t.top3.join(" · "))}</p>`:""}
+      <div class="etiquetas" style="margin-top:9px">
+        <span class="tag">${esc(t.keyword||"")}</span>
+        ${(t.keywordsSecundarias||[]).slice(0,3).map(k=>`<span class="tag">${esc(k)}</span>`).join("")}
+        ${Number.isFinite(t.prioridad)?`<span class="tag rel">prio ${t.prioridad}</span>`:""}
+      </div></article>`;
+  }).join("");
+}
+
 function pintarGlosario(){
   const g=st.glosario;
   $("#n-glosario").textContent=g?.terminos?.length?`(${g.terminos.length})`:"";
@@ -718,7 +790,7 @@ function pintarCifras(){
     if(el)el.textContent=d?`${d.hallazgos??0} hallazgos · ${d.ultima?fecha(d.ultima):"sin fecha"}`:"A la espera";
   });
 }
-function pintar(){latido();pintarProgreso();pintarMercados();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarGlosario();pintarBitacora()}
+function pintar(){latido();pintarProgreso();pintarMercados();pintarCifras();pintarPubs();pintarRivales();pintarHuecos();pintarTopics();pintarGlosario();pintarBitacora()}
 pintar();
 
 (async()=>{
@@ -735,6 +807,8 @@ pintar();
     .onSnapshot(seguro(s=>{st.rivales=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>(a.orden??99)-(b.orden??99))}));
   db.collection("huecos").orderBy("prioridad","desc").limit(200)
     .onSnapshot(seguro(s=>{st.huecos=s.docs.map(d=>({id:d.id,...d.data()}))}));
+  db.collection("topics").orderBy("prioridad","desc").limit(200)
+    .onSnapshot(seguro(s=>{st.topics=s.docs.map(d=>({id:d.id,...d.data()}))}));
   db.doc("glosario/actual")
     .onSnapshot(seguro(s=>{st.glosario=s.exists?s.data():null}));
   db.doc("estado/magicalseo")

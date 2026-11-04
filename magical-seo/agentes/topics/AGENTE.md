@@ -24,9 +24,21 @@ Cadencia recomendada: **quincenal**. Un copywriter no consume más.
 
 2. **Saca candidatos nuevos** de las colecciones `huecos` (los de tipo `hueco`, no `mejora`) y `publicaciones` (temas que atacan tres o más rivales y nosotros no tocamos).
 
-3. **Consulta el glosario** antes de medir nada fuera del español. Medir la traducción literal en vez del término que se busca invalida el resultado.
+3. **Saca los huecos de verdad comparando keywords con un rival.** Esto es lo que mas candidatos buenos da, y Search Console no lo puede ver: una consulta donde no aparecemos no genera impresiones, asi que es invisible ahi. Comprobado el 4 de noviembre de 2026: en todo el sitio solo habia **una** consulta con mas de 400 impresiones por debajo de la posicion 15. Los huecos no son «estamos lejos», son «no estamos».
 
-4. **Mide cada candidato:**
+   ```bash
+   python magical-seo/scripts/semrush.py hueco gronze.com --base es --limite 60
+   ```
+
+   Devuelve, por cada keyword, la posicion del rival, la nuestra y el volumen. Quedate con las de mas de 1.000 busquedas donde estemos por encima de la posicion 15 o no aparezcamos.
+
+   **Cuesta 80 unidades por fila**, asi que una comparacion de 60 son 4.800. Haz una o dos por ejecucion, no cinco. Elige el rival segun lo que busques: una referencia como Gronze da huecos informativos de mucho volumen; un operador como viajecaminodesantiago.com da huecos comerciales.
+
+   Mira tambien las **variantes con y sin tilde**: Google las trata como consultas distintas. En «camino de santiago frances» estabamos en la 4 y en «camino de santiago frances» con tilde en la 14, con 4.400 busquedas cada una.
+
+4. **Consulta el glosario** antes de medir nada fuera del español. Medir la traducción literal en vez del término que se busca invalida el resultado.
+
+5. **Mide cada candidato:**
 
    ```bash
    python magical-seo/scripts/semrush.py keywords "<consulta>" --base <base>
@@ -36,15 +48,15 @@ Cadencia recomendada: **quincenal**. Un copywriter no consume más.
 
    Volumen y CPC, dificultad de 0 a 100, y quién ocupa de verdad las tres primeras posiciones.
 
-5. **Clasifica la intención** mirando qué tipo de página ocupa el top 3, no la consulta en abstracto: si Google premia guías, la intención es informacional aunque la consulta suene comercial.
+6. **Clasifica la intención** mirando qué tipo de página ocupa el top 3, no la consulta en abstracto: si Google premia guías, la intención es informacional aunque la consulta suene comercial.
 
    `informacional` · `comercial` (compara antes de comprar) · `transaccional` (quiere reservar) · `navegacional`
 
-6. **Juzga la opción de llegar al top 3** con la tabla de abajo.
+7. **Juzga la opción de llegar al top 3** con la tabla de abajo.
 
-7. **Escribe el encargo**, no el diagnóstico. El campo `angulo` es lo que lee el copywriter: qué debe aportar la pieza que las tres de arriba no aportan.
+8. **Escribe el encargo**, no el diagnóstico. El campo `angulo` es lo que lee el copywriter: qué debe aportar la pieza que las tres de arriba no aportan.
 
-8. Guarda en la colección `topics` y cierra `estado/magicalseo` como los demás protocolos.
+9. Guarda en la colección `topics` y cierra `estado/magicalseo` como los demás protocolos.
 
 ## Cómo juzgar la opción de top 3
 

@@ -558,7 +558,7 @@ body.oculto *{animation-play-state:paused!important}
 
 /* Capas fijas */
 .capa{position:fixed;z-index:10;background:rgba(10,12,16,.92);border:1px solid var(--borde);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px)}
-.avatares{min-width:0;overflow:hidden}.tema-sw{flex:none;display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--borde-2);background:var(--marco-2);color:var(--texto);font:600 12.5px var(--f-ui);cursor:pointer;white-space:nowrap}.tema-sw:hover{border-color:#7AA606}.tema-sw i{width:10px;height:10px;border-radius:50%;background:#7AA606;flex:none}
+.avatares{min-width:0;overflow:hidden}.tema-sw{flex:none;display:inline-flex;align-items:center;gap:7px;height:30px;padding:0 12px;border-radius:999px;border:1px solid var(--borde-2);background:var(--marco-2);color:var(--texto);font:600 12.5px var(--f-ui);cursor:pointer;white-space:nowrap}.tema-sw:hover{border-color:#7AA606}.tema-sw i{width:10px;height:10px;border-radius:50%;background:#7AA606;flex:none} #ligeroSW i{background:var(--tenue,#8792a2)} #ligeroSW.on{background:#7AA606;border-color:#7AA606;color:#fff} #ligeroSW.on i{background:#fff} html[data-tema=sw] #ligeroSW:not(.on){background:#fff;border-color:#DCE6C6;color:#2E2E2D} html[data-tema=sw] #ligeroSW:not(.on) i{background:#9aa3ad}
 #barra{top:0;left:0;right:0;height:calc(48px + env(safe-area-inset-top,0px));padding:env(safe-area-inset-top,0px) 12px 0;border-width:0 0 1px;display:flex;align-items:center;gap:12px}
 .logo{display:flex;align-items:center;gap:10px;font-weight:600;white-space:nowrap}
 .logo svg{flex:none}.logo-c{flex:none;width:34px;height:34px;border-radius:50%;background:#000;border:1px solid #2a3240;display:grid;place-items:center;box-shadow:0 0 0 2px rgba(255,255,255,.08)}.logo-c img{width:22px;height:auto;display:block;margin-top:2px}
@@ -1389,7 +1389,7 @@ a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.
   </div>
   <div class="ruta" id="ruta">/ <b>Edificio</b></div>
   <div class="centro"><span class="vivo off" id="vivo">Conectando</span><span class="txt" id="barrida"></span></div>
-  <button id="temaSW" class="tema-sw" aria-pressed="false" title="Ver todas las salas con el brandbook de Santiago Ways"><i></i><span>Diseño SW</span></button>
+  <button id="temaSW" class="tema-sw" aria-pressed="false" title="Ver todas las salas con el brandbook de Santiago Ways"><i></i><span>Diseño SW</span></button>   <button id="ligeroSW" class="tema-sw" aria-pressed="false" title="Apaga las animaciones decorativas para gastar menos (útil en reuniones). Los datos siguen en vivo."><i></i><span>Modo ligero</span></button>
   <div class="avatares" id="avatares" title="Especialistas conectados"></div>
   <span id="zoomtxt">100%</span>
 </header>
@@ -2179,13 +2179,29 @@ function iniciarMundos(){
 let mundoObs=null,mundoN=0;
 /* Un plano cuenta como visible si está en pantalla y se ve a un tamaño en el que se distingue a la gente (no en la vista general del edificio) */
 function mundoVisible(w){if(!w.enPantalla||!w.cont)return false;const r=w.cont.getBoundingClientRect();return r.width>=220&&r.bottom>0&&r.top<innerHeight&&r.right>0&&r.left<innerWidth}
-function arrancarMundos(){if(rafM||document.hidden)return;mundos.forEach(w=>w.vivo=mundoVisible(w));if(!mundos.some(w=>w.vivo))return;
+function arrancarMundos(){if(rafM||document.hidden||ahorro?.pausa)return;mundos.forEach(w=>w.vivo=mundoVisible(w));if(!mundos.some(w=>w.vivo))return;
   ultM=performance.now();mundoN=0;
-  const loop=ts=>{rafM=0;if(document.hidden)return;if(++mundoN%30===0)mundos.forEach(w=>w.vivo=mundoVisible(w));const vivos=mundos.filter(w=>w.vivo);if(!vivos.length)return;
+  const loop=ts=>{rafM=0;if(document.hidden||ahorro?.pausa)return;if(++mundoN%30===0)mundos.forEach(w=>w.vivo=mundoVisible(w));const vivos=mundos.filter(w=>w.vivo);if(!vivos.length)return;
     const dt=Math.min(.05,(ts-ultM)/1000);ultM=ts;vivos.forEach(w=>w.tick(ts,dt));rafM=requestAnimationFrame(loop)};
   rafM=requestAnimationFrame(loop)}
-document.addEventListener("visibilitychange",()=>{document.body.classList.toggle("oculto",document.hidden);if(!document.hidden)arrancarMundos()});
-setInterval(arrancarMundos,1000);
+/* ===== Ahorro (9 nov 2026): los adornos animados (pantallas, iconos de sala y gente) solo se mueven mientras se usa la página.
+   Se paran al pasar a otra ventana (por ejemplo, una reunión de Meet), con la pestaña oculta, tras 60 s sin tocar nada o con el modo ligero.
+   Los datos y las suscripciones siguen igual; vuelven a moverse al mover el ratón o pulsar una tecla. ===== */
+var ahorro={pausa:null,ult:performance.now(),foco:true};
+const modoLigero=()=>{try{return localStorage.getItem("modoLigero")==="1"}catch(_){return false}};
+const enPausa=()=>document.hidden||modoLigero()||!ahorro.foco||performance.now()-ahorro.ult>60000;
+function aplicarAhorro(){const p=enPausa();
+  if(p)document.querySelectorAll("svg").forEach(v=>{try{if(!v.animationsPaused())v.pauseAnimations()}catch(_){}});
+  if(p===ahorro.pausa)return;ahorro.pausa=p;document.body.classList.toggle("oculto",p);
+  if(!p){document.querySelectorAll("svg").forEach(v=>{try{v.unpauseAnimations()}catch(_){}});arrancarMundos()}
+  else{cancelAnimationFrame(rafM);rafM=0}
+  const b=document.getElementById("ligeroSW");if(b){const l=modoLigero();b.setAttribute("aria-pressed",String(l));b.classList.toggle("on",l)}}
+const despertar=()=>{ahorro.ult=performance.now();ahorro.foco=true;if(ahorro.pausa)aplicarAhorro()};
+["pointermove","pointerdown","keydown","wheel","touchstart"].forEach(t=>addEventListener(t,despertar,{passive:true,capture:true}));
+addEventListener("focus",despertar);addEventListener("blur",()=>{ahorro.foco=false;aplicarAhorro()});
+document.addEventListener("visibilitychange",()=>{if(!document.hidden)ahorro.ult=performance.now();aplicarAhorro()});
+document.addEventListener("click",e=>{if(!e.target.closest("#ligeroSW"))return;try{localStorage.setItem("modoLigero",modoLigero()?"0":"1")}catch(_){}ahorro.pausa=null;aplicarAhorro();toast(modoLigero()?"Modo ligero: animaciones apagadas":"Animaciones encendidas")});
+setInterval(()=>{aplicarAhorro();if(!ahorro.pausa)arrancarMundos()},1000);
 
 /* ---------- Sala de Competencia ---------- */
 const EQUIPO_C=[

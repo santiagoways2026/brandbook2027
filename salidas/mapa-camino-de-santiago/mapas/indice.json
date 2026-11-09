@@ -1,0 +1,312 @@
+{
+ "general": {
+  "titulo": "Mapa del Camino de Santiago con todas sus rutas",
+  "desc": "Mapa de las rutas del Camino de Santiago en la península ibérica: Camino Francés, del Norte, Primitivo, Inglés, Portugués Central, Portugués por la Costa, Vía de la Plata con el Sanabrés y Camino de Finisterre y Muxía, todas confluyendo en Santiago de Compostela.",
+  "web": {
+   "svg": "mapa-caminos-de-santiago.svg",
+   "ancho": 1200,
+   "alto": 1204
+  },
+  "movil": {
+   "svg": "mapa-caminos-de-santiago-movil.svg",
+   "ancho": 560,
+   "alto": 695
+  }
+ },
+ "frances": {
+  "nombre": "Camino Francés",
+  "titulo": "Mapa del Camino Francés",
+  "desc": "Mapa del Camino Francés: 766 km de Saint-Jean-Pied-de-Port a Santiago de Compostela. Pasa por Roncesvalles, Pamplona, Logroño, Burgos, Sahagún, León, Astorga, Ponferrada, O Cebreiro, Sarria. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud del Camino Francés",
+  "desc_perfil": "Perfil de altitud del Camino Francés: 766 km, altitud entre 166 y 1508 m y unos 10 074 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "camino-frances.gpx",
+  "km": 765.7,
+  "subida": 10074,
+  "max": 1508,
+  "min": 166,
+  "origen": "Saint-Jean-Pied-de-Port",
+  "web": {
+   "mapa": {
+    "svg": "mapa-camino-frances.svg",
+    "ancho": 1200,
+    "alto": 660
+   },
+   "perfil": {
+    "svg": "perfil-camino-frances.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-camino-frances-movil.svg",
+    "ancho": 560,
+    "alto": 598
+   },
+   "perfil": {
+    "svg": "perfil-camino-frances-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ },
+ "portugues": {
+  "nombre": "Camino Portugués Central",
+  "titulo": "Mapa del Camino Portugués Central",
+  "desc": "Mapa del Camino Portugués Central: 622 km de Lisboa a Santiago de Compostela. Pasa por Santarém, Tomar, Coimbra, Porto, Barcelos, Ponte de Lima, Valença, Tui, Pontevedra. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud del Camino Portugués Central",
+  "desc_perfil": "Perfil de altitud del Camino Portugués Central: 622 km, altitud entre 0 y 476 m y unos 6283 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "camino-portugues.gpx",
+  "km": 621.8,
+  "subida": 6283,
+  "max": 476,
+  "min": 0,
+  "origen": "Lisboa",
+  "web": {
+   "mapa": {
+    "svg": "mapa-camino-portugues.svg",
+    "ancho": 1200,
+    "alto": 1500
+   },
+   "perfil": {
+    "svg": "perfil-camino-portugues.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-camino-portugues-movil.svg",
+    "ancho": 560,
+    "alto": 1035
+   },
+   "perfil": {
+    "svg": "perfil-camino-portugues-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ },
+ "costa": {
+  "nombre": "Camino Portugués por la Costa",
+  "titulo": "Mapa del Camino Portugués por la Costa",
+  "desc": "Mapa del Camino Portugués por la Costa: 269 km de Porto a Santiago de Compostela. Pasa por Viana do Castelo, A Guarda, Baiona, Vigo, Pontevedra. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud del Camino Portugués por la Costa",
+  "desc_perfil": "Perfil de altitud del Camino Portugués por la Costa: 269 km, altitud entre 0 y 257 m y unos 2737 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "camino-portugues-costa.gpx",
+  "km": 269.1,
+  "subida": 2737,
+  "max": 257,
+  "min": 0,
+  "origen": "Porto",
+  "web": {
+   "mapa": {
+    "svg": "mapa-camino-portugues-costa.svg",
+    "ancho": 1200,
+    "alto": 1500
+   },
+   "perfil": {
+    "svg": "perfil-camino-portugues-costa.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-camino-portugues-costa-movil.svg",
+    "ancho": 560,
+    "alto": 1035
+   },
+   "perfil": {
+    "svg": "perfil-camino-portugues-costa-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ },
+ "norte": {
+  "nombre": "Camino del Norte",
+  "titulo": "Mapa del Camino del Norte",
+  "desc": "Mapa del Camino del Norte: 830 km de Irún a Santiago de Compostela. Pasa por San Sebastián, Bilbao, Santander, Llanes, Gijón, Avilés, Luarca, Ribadeo, Arzúa. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud del Camino del Norte",
+  "desc_perfil": "Perfil de altitud del Camino del Norte: 830 km, altitud entre 0 y 709 m y unos 13 885 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "camino-norte.gpx",
+  "km": 829.7,
+  "subida": 13885,
+  "max": 709,
+  "min": 0,
+  "origen": "Irún",
+  "web": {
+   "mapa": {
+    "svg": "mapa-camino-norte.svg",
+    "ancho": 1200,
+    "alto": 660
+   },
+   "perfil": {
+    "svg": "perfil-camino-norte.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-camino-norte-movil.svg",
+    "ancho": 560,
+    "alto": 598
+   },
+   "perfil": {
+    "svg": "perfil-camino-norte-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ },
+ "primitivo": {
+  "nombre": "Camino Primitivo",
+  "titulo": "Mapa del Camino Primitivo",
+  "desc": "Mapa del Camino Primitivo: 312 km de Oviedo a Santiago de Compostela. Pasa por Tineo, Grandas de Salime, A Fonsagrada, Lugo, Melide. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud del Camino Primitivo",
+  "desc_perfil": "Perfil de altitud del Camino Primitivo: 312 km, altitud entre 38 y 1141 m y unos 6780 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "camino-primitivo.gpx",
+  "km": 312.2,
+  "subida": 6780,
+  "max": 1141,
+  "min": 38,
+  "origen": "Oviedo",
+  "web": {
+   "mapa": {
+    "svg": "mapa-camino-primitivo.svg",
+    "ancho": 1200,
+    "alto": 660
+   },
+   "perfil": {
+    "svg": "perfil-camino-primitivo.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-camino-primitivo-movil.svg",
+    "ancho": 560,
+    "alto": 598
+   },
+   "perfil": {
+    "svg": "perfil-camino-primitivo-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ },
+ "ingles": {
+  "nombre": "Camino Inglés",
+  "titulo": "Mapa del Camino Inglés",
+  "desc": "Mapa del Camino Inglés: 112 km de Ferrol a Santiago de Compostela. Pasa por Pontedeume, Betanzos. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud del Camino Inglés",
+  "desc_perfil": "Perfil de altitud del Camino Inglés: 112 km, altitud entre 0 y 459 m y unos 1723 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "camino-ingles.gpx",
+  "km": 112.2,
+  "subida": 1723,
+  "max": 459,
+  "min": 0,
+  "origen": "Ferrol",
+  "web": {
+   "mapa": {
+    "svg": "mapa-camino-ingles.svg",
+    "ancho": 1200,
+    "alto": 1500
+   },
+   "perfil": {
+    "svg": "perfil-camino-ingles.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-camino-ingles-movil.svg",
+    "ancho": 560,
+    "alto": 1035
+   },
+   "perfil": {
+    "svg": "perfil-camino-ingles-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ },
+ "plata": {
+  "nombre": "Vía de la Plata y Camino Sanabrés",
+  "titulo": "Mapa de la Vía de la Plata y Camino Sanabrés",
+  "desc": "Mapa de la Vía de la Plata y Camino Sanabrés: 974 km de Sevilla a Santiago de Compostela. Pasa por Mérida, Cáceres, Salamanca, Zamora, Puebla de Sanabria, Ourense. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud de la Vía de la Plata y Camino Sanabrés",
+  "desc_perfil": "Perfil de altitud de la Vía de la Plata y Camino Sanabrés: 974 km, altitud entre 2 y 1358 m y unos 10 914 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "via-de-la-plata.gpx",
+  "km": 973.8,
+  "subida": 10914,
+  "max": 1358,
+  "min": 2,
+  "origen": "Sevilla",
+  "web": {
+   "mapa": {
+    "svg": "mapa-via-de-la-plata.svg",
+    "ancho": 1200,
+    "alto": 1500
+   },
+   "perfil": {
+    "svg": "perfil-via-de-la-plata.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-via-de-la-plata-movil.svg",
+    "ancho": 560,
+    "alto": 1035
+   },
+   "perfil": {
+    "svg": "perfil-via-de-la-plata-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ },
+ "fisterra": {
+  "nombre": "Camino de Finisterre y Muxía",
+  "titulo": "Mapa del Camino de Finisterre y Muxía",
+  "desc": "Mapa del Camino de Finisterre y Muxía: 90 km de Santiago de Compostela a Fisterra. Pasa por Negreira, Olveiroa, Fisterra. Trazado de la ruta señalizada, según OpenStreetMap.",
+  "titulo_perfil": "Perfil de altitud del Camino de Finisterre",
+  "desc_perfil": "Perfil de altitud del Camino de Finisterre: 90 km, altitud entre 2 y 474 m y unos 1452 m de desnivel positivo acumulado. Altitud: modelo digital EU-DEM.",
+  "gpx": "camino-finisterre-muxia.gpx",
+  "km": 90.5,
+  "subida": 1452,
+  "max": 474,
+  "min": 2,
+  "origen": "Santiago de Compostela",
+  "web": {
+   "mapa": {
+    "svg": "mapa-camino-finisterre-muxia.svg",
+    "ancho": 1200,
+    "alto": 864
+   },
+   "perfil": {
+    "svg": "perfil-camino-finisterre-muxia.svg",
+    "ancho": 1200,
+    "alto": 470
+   }
+  },
+  "movil": {
+   "mapa": {
+    "svg": "mapa-camino-finisterre-muxia-movil.svg",
+    "ancho": 560,
+    "alto": 598
+   },
+   "perfil": {
+    "svg": "perfil-camino-finisterre-muxia-movil.svg",
+    "ancho": 560,
+    "alto": 460
+   }
+  }
+ }
+}

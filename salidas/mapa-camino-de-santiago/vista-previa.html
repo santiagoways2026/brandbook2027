@@ -1,0 +1,601 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Vista previa · Mapa del Camino de Santiago</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../../design-system/bloques.css">
+<link rel="stylesheet" href="../../design-system/tabla-responsive.css">
+<link rel="stylesheet" href="../../design-system/mapa.css">
+<style>
+/* Solo para la vista previa: imita la columna de texto del blog. En WordPress la pone el tema. */
+body{margin:0;background:#FFFFFF;color:#2E2E2D;font-family:Montserrat,system-ui,sans-serif;font-size:16px;line-height:1.6}
+main{max-width:820px;margin:0 auto;padding:40px 16px 80px}
+h1{font-size:40px;line-height:1.1;font-weight:800;margin:0 0 24px}
+h2{font-size:30px;line-height:1.15;font-weight:700;margin:56px 0 16px}
+h3{font-size:22px;line-height:1.2;font-weight:700;margin:36px 0 12px}
+a{color:#506718}
+.aviso{background:#FAFFEE;border-radius:12px;padding:14px 18px;font-size:14px;margin-bottom:32px}
+@media (max-width:600px){h1{font-size:30px}h2{font-size:24px}}
+</style>
+</head>
+<body>
+<main>
+<p class="aviso">Vista previa local. En WordPress el título lo pone el tema y las imágenes apuntan a <code>https://santiagoways.com/wp-content/uploads/2026/11/</code>.</p>
+<h1>Mapa del Camino de Santiago: todas las rutas, perfiles y tracks GPX</h1>
+<p>El mapa del Camino de Santiago reúne un conjunto de rutas históricas que atraviesan la península y Europa hasta la catedral de Santiago de Compostela. Aunque solemos hablar del Camino como si fuera una sola ruta, hay varios itinerarios, cada uno con su recorrido, su dificultad y su paisaje.</p>
+
+<p>En esta guía tienes el mapa de las ocho rutas más recorridas, una por una, con su perfil de altitud y su track GPX para descargar. Los trazados son los de las rutas señalizadas y las cifras salen de medirlos sobre el terreno.</p>
+
+<h2>Mapa de las rutas del Camino de Santiago</h2>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/mapa-caminos-de-santiago.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-caminos-de-santiago-movil.svg" width="560" height="695" /><img class="mapa__img" src="./mapas/mapa-caminos-de-santiago.svg" alt="Mapa del Camino de Santiago con todas sus rutas: Camino Francés, del Norte, Primitivo, Inglés, Portugués, Portugués por la Costa, Vía de la Plata y Camino de Finisterre y Muxía" width="1200" height="1204" loading="eager" fetchpriority="high" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino de Santiago con todas sus rutas</span>
+<span class="mapa__text">Los ocho itinerarios de esta guía. Todos terminan en la catedral de Santiago, salvo el de Finisterre y Muxía, que sale de ella hacia el Atlántico.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/mapa-caminos-de-santiago.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<p>Fíjate en cómo se juntan las rutas al acercarse a Santiago: el Primitivo se une al Francés en Melide y el del Norte, en Arzúa. Por eso los últimos días del Camino Francés son los más concurridos.</p>
+
+<h2>Las rutas del Camino de Santiago, comparadas</h2>
+
+<div class="tabla-responsive-wrap">
+<table class="tabla-responsive">
+<thead>
+<tr>
+<th>Ruta</th>
+<th>Inicio</th>
+<th>Distancia</th>
+<th>Desnivel positivo</th>
+<th>Punto más alto</th>
+<th>Dificultad</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Camino Francés</strong></td>
+<td data-label="Inicio">Saint-Jean-Pied-de-Port</td>
+<td data-label="Distancia"><strong>766 km</strong></td>
+<td data-label="Desnivel positivo">+10 100 m</td>
+<td data-label="Punto más alto">1508 m</td>
+<td data-label="Dificultad">Media</td>
+</tr>
+<tr>
+<td><strong>Camino Portugués Central</strong></td>
+<td data-label="Inicio">Lisboa</td>
+<td data-label="Distancia"><strong>622 km</strong></td>
+<td data-label="Desnivel positivo">+6300 m</td>
+<td data-label="Punto más alto">476 m</td>
+<td data-label="Dificultad">Media-baja</td>
+</tr>
+<tr>
+<td><strong>Camino Portugués por la Costa</strong></td>
+<td data-label="Inicio">Oporto</td>
+<td data-label="Distancia"><strong>269 km</strong></td>
+<td data-label="Desnivel positivo">+2700 m</td>
+<td data-label="Punto más alto">257 m</td>
+<td data-label="Dificultad">Baja</td>
+</tr>
+<tr>
+<td><strong>Camino del Norte</strong></td>
+<td data-label="Inicio">Irún</td>
+<td data-label="Distancia"><strong>830 km</strong></td>
+<td data-label="Desnivel positivo">+13 900 m</td>
+<td data-label="Punto más alto">709 m</td>
+<td data-label="Dificultad">Alta</td>
+</tr>
+<tr>
+<td><strong>Camino Primitivo</strong></td>
+<td data-label="Inicio">Oviedo</td>
+<td data-label="Distancia"><strong>312 km</strong></td>
+<td data-label="Desnivel positivo">+6800 m</td>
+<td data-label="Punto más alto">1141 m</td>
+<td data-label="Dificultad">Alta</td>
+</tr>
+<tr>
+<td><strong>Camino Inglés</strong></td>
+<td data-label="Inicio">Ferrol</td>
+<td data-label="Distancia"><strong>112 km</strong></td>
+<td data-label="Desnivel positivo">+1700 m</td>
+<td data-label="Punto más alto">459 m</td>
+<td data-label="Dificultad">Media</td>
+</tr>
+<tr>
+<td><strong>Vía de la Plata y Camino Sanabrés</strong></td>
+<td data-label="Inicio">Sevilla</td>
+<td data-label="Distancia"><strong>974 km</strong></td>
+<td data-label="Desnivel positivo">+10 900 m</td>
+<td data-label="Punto más alto">1358 m</td>
+<td data-label="Dificultad">Alta</td>
+</tr>
+<tr>
+<td><strong>Camino de Finisterre y Muxía</strong></td>
+<td data-label="Inicio">Santiago</td>
+<td data-label="Distancia"><strong>90 km</strong></td>
+<td data-label="Desnivel positivo">+1500 m</td>
+<td data-label="Punto más alto">474 m</td>
+<td data-label="Dificultad">Media</td>
+</tr>
+</tbody>
+</table>
+</div>
+
+<p>Las distancias están medidas sobre el trazado señalizado y los desniveles, sobre un modelo digital del terreno: tómalos como aproximados. Las guías oficiales pueden dar unos kilómetros de más o de menos según las variantes que cuenten.</p>
+
+<h2>Qué muestra el mapa del Camino de Santiago</h2>
+
+<p>El mapa general sirve para ver cómo se reparten las rutas jacobeas y dónde confluyen antes de llegar a Santiago. Existen muchas variantes históricas y ramales secundarios, pero en la práctica se habla de rutas cuando están señalizadas, tienen tradición jacobea reconocida y cuentan con servicios para peregrinos.</p>
+
+<p>En los mapas de cada ruta, la línea verde es el itinerario y los puntos son las poblaciones y finales de etapa más habituales. En gris aparecen el resto de caminos, para que veas con cuáles se cruza. Debajo de cada mapa va su perfil de altitud: la forma más rápida de saber dónde están las subidas.</p>
+
+<h2>Mapa del Camino Francés</h2>
+
+<p>El Camino Francés es la ruta más conocida y transitada del Camino de Santiago, y la única declarada Patrimonio de la Humanidad por la Unesco como itinerario. Sale de Saint-Jean-Pied-de-Port, en Francia, cruza los Pirineos por Roncesvalles y atraviesa el norte peninsular hasta Santiago.</p>
+
+<div class="stats">
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">766 km</div>
+<div class="stats__label">Distancia</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">+10 100 m</div>
+<div class="stats__label">Desnivel</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">1508 m</div>
+<div class="stats__label">Punto más alto</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">Media</div>
+<div class="stats__label">Dificultad</div>
+</div>
+</div>
+</div>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/mapa-camino-frances.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-camino-frances-movil.svg" width="560" height="598" /><img class="mapa__img" src="./mapas/mapa-camino-frances.svg" alt="Mapa del Camino Francés de Saint-Jean-Pied-de-Port a Santiago de Compostela, por Pamplona, Logroño, Burgos, León, Ponferrada, O Cebreiro y Sarria" width="1200" height="660" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino Francés</span>
+<span class="mapa__text">766 km de Saint-Jean-Pied-de-Port a Santiago de Compostela. En verde, la ruta; en gris, el resto de caminos que llegan a Santiago.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/camino-frances.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-camino-frances.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h3>Recorrido del Camino Francés</h3>
+
+<p>Son unos 766 km desde Saint-Jean-Pied-de-Port. Pasa por Pamplona, Logroño, Burgos, León, Astorga, Ponferrada, O Cebreiro y Sarria, y en su tramo final se le unen otras rutas.</p>
+
+<p>Su tramo más popular es el <a href="https://santiagoways.com/es/camino-de-santiago/camino-frances/de-sarria-a-santiago/">Camino Francés desde Sarria</a>: son los últimos 115 km, algo más de la distancia mínima a pie para conseguir la Compostela.</p>
+
+<h3>Perfil del Camino Francés</h3>
+
+<p>No es la ruta más fácil ni la más exigente. Combina etapas de montaña, zonas onduladas y largos tramos de llanura en la meseta castellana. Las tres subidas que marcan el perfil son el paso de los Pirineos hasta Roncesvalles, la Cruz de Ferro, techo del Camino con 1508 m, y el ascenso a O Cebreiro, ya a las puertas de Galicia.</p>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-camino-frances.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-camino-frances-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-camino-frances.svg" alt="Perfil de altitud del Camino Francés: 766 km, punto más alto en Cruz de Ferro, 1508 m y unos 10 100 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud del Camino Francés</span>
+<span class="mapa__text">Unos 10 100 m de desnivel positivo acumulado. Punto más alto: Cruz de Ferro, 1508 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-camino-frances.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h2>Mapa del Camino Portugués</h2>
+
+<p>El Camino Portugués es la segunda ruta más recorrida. Tiene dos grandes variantes, la Central y la de la Costa, que atraviesan Portugal de sur a norte, entran en Galicia y se juntan en Redondela. Son rutas amables en lo físico y con buenos servicios.</p>
+
+<h3>Camino Portugués Central</h3>
+
+<p>Sale tradicionalmente de Lisboa, aunque mucha gente empieza en Oporto o en Tui. Entra en España por el puente internacional entre Valença y Tui y sigue por O Porriño, Redondela, Pontevedra, Caldas de Reis y Padrón.</p>
+
+<div class="stats">
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">622 km</div>
+<div class="stats__label">Distancia</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">+6300 m</div>
+<div class="stats__label">Desnivel</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">476 m</div>
+<div class="stats__label">Punto más alto</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">Media-baja</div>
+<div class="stats__label">Dificultad</div>
+</div>
+</div>
+</div>
+
+<figure class="mapa mapa--vertical">
+<a class="mapa__media" href="./mapas/mapa-camino-portugues.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-camino-portugues-movil.svg" width="560" height="1035" /><img class="mapa__img" src="./mapas/mapa-camino-portugues.svg" alt="Mapa del Camino Portugués Central de Lisboa a Santiago de Compostela, por Santarém, Coimbra, Oporto, Ponte de Lima, Tui y Pontevedra" width="1200" height="1500" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino Portugués Central</span>
+<span class="mapa__text">622 km de Lisboa a Santiago de Compostela. En verde, la ruta; en gris, el resto de caminos que llegan a Santiago.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/camino-portugues.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-camino-portugues.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<p>Desde Lisboa son unos 622 km. No tiene grandes puertos: el punto más alto apenas pasa de 476 m, en el tramo entre Santarém y Coimbra. Por eso es una de las rutas más recomendables para un primer Camino.</p>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-camino-portugues.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-camino-portugues-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-camino-portugues.svg" alt="Perfil de altitud del Camino Portugués Central: 622 km, punto más alto en 476 m y unos 6300 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud del Camino Portugués Central</span>
+<span class="mapa__text">Unos 6300 m de desnivel positivo acumulado. Punto más alto: 476 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-camino-portugues.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h3>Camino Portugués por la Costa</h3>
+
+<p>Nace en Oporto y sube junto al Atlántico por Vila do Conde, Esposende y Viana do Castelo hasta cruzar el Miño entre Caminha y A Guarda. Sigue por la costa gallega, por Baiona y Vigo, y se une al trazado central en Redondela.</p>
+
+<div class="stats">
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">269 km</div>
+<div class="stats__label">Distancia</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">+2700 m</div>
+<div class="stats__label">Desnivel</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">257 m</div>
+<div class="stats__label">Punto más alto</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">Baja</div>
+<div class="stats__label">Dificultad</div>
+</div>
+</div>
+</div>
+
+<figure class="mapa mapa--vertical">
+<a class="mapa__media" href="./mapas/mapa-camino-portugues-costa.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-camino-portugues-costa-movil.svg" width="560" height="1035" /><img class="mapa__img" src="./mapas/mapa-camino-portugues-costa.svg" alt="Mapa del Camino Portugués por la Costa de Oporto a Santiago de Compostela, por Viana do Castelo, A Guarda, Baiona, Vigo y Pontevedra" width="1200" height="1500" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino Portugués por la Costa</span>
+<span class="mapa__text">269 km de Oporto a Santiago de Compostela. En verde, la ruta; en gris, el resto de caminos que llegan a Santiago.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/camino-portugues-costa.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-camino-portugues-costa.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<p>Son unos 269 km desde Oporto. Casi todo el recorrido va a baja altitud y el punto más alto es la propia llegada a Santiago. Es de las rutas más cómodas, y una buena opción para caminar en verano con la brisa del mar.</p>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-camino-portugues-costa.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-camino-portugues-costa-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-camino-portugues-costa.svg" alt="Perfil de altitud del Camino Portugués por la Costa: 269 km, punto más alto en 257 m y unos 2700 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud del Camino Portugués por la Costa</span>
+<span class="mapa__text">Unos 2700 m de desnivel positivo acumulado. Punto más alto: 257 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-camino-portugues-costa.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h2>Mapa del Camino del Norte</h2>
+
+<p>El Camino del Norte, también llamado de la Costa, sale de Irún y recorre toda la cornisa cantábrica hasta Galicia. Es una de las rutas más espectaculares: mar, acantilados, pueblos marineros y etapas muy variadas. En Arzúa se une al Camino Francés.</p>
+
+<div class="stats">
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">830 km</div>
+<div class="stats__label">Distancia</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">+13 900 m</div>
+<div class="stats__label">Desnivel</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">709 m</div>
+<div class="stats__label">Punto más alto</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">Alta</div>
+<div class="stats__label">Dificultad</div>
+</div>
+</div>
+</div>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/mapa-camino-norte.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-camino-norte-movil.svg" width="560" height="598" /><img class="mapa__img" src="./mapas/mapa-camino-norte.svg" alt="Mapa del Camino del Norte de Irún a Santiago de Compostela, por San Sebastián, Bilbao, Santander, Gijón, Ribadeo y Arzúa" width="1200" height="660" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino del Norte</span>
+<span class="mapa__text">830 km de Irún a Santiago de Compostela. En verde, la ruta; en gris, el resto de caminos que llegan a Santiago.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/camino-norte.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-camino-norte.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h3>Recorrido del Camino del Norte</h3>
+
+<p>Son unos 830 km por el País Vasco, Cantabria, Asturias y Galicia, pasando por San Sebastián, Bilbao, Santander, Gijón y Ribadeo. Está menos concurrido que el Francés y tiene mucha identidad local.</p>
+
+<h3>Perfil del Camino del Norte</h3>
+
+<p>Ningún puerto es muy alto, pero el perfil no da tregua: el sube y baja constante de la costa suma unos 13 900 m de desnivel positivo, el mayor de todas las rutas. A eso se añaden etapas largas y algo menos de infraestructura que en el Francés o el Portugués.</p>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-camino-norte.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-camino-norte-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-camino-norte.svg" alt="Perfil de altitud del Camino del Norte: 830 km, punto más alto en 709 m y unos 13 900 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud del Camino del Norte</span>
+<span class="mapa__text">Unos 13 900 m de desnivel positivo acumulado. Punto más alto: 709 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-camino-norte.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h2>Mapa del Camino Primitivo</h2>
+
+<p>El Camino Primitivo sale de Oviedo y está considerado la ruta jacobea más antigua. Cruza el interior montañoso de Asturias y Galicia, pasa por Lugo y su muralla romana y se une al Camino Francés en Melide.</p>
+
+<div class="stats">
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">312 km</div>
+<div class="stats__label">Distancia</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">+6800 m</div>
+<div class="stats__label">Desnivel</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">1141 m</div>
+<div class="stats__label">Punto más alto</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">Alta</div>
+<div class="stats__label">Dificultad</div>
+</div>
+</div>
+</div>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/mapa-camino-primitivo.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-camino-primitivo-movil.svg" width="560" height="598" /><img class="mapa__img" src="./mapas/mapa-camino-primitivo.svg" alt="Mapa del Camino Primitivo de Oviedo a Santiago de Compostela, por Grado, Tineo, Grandas de Salime, A Fonsagrada, Lugo y Melide" width="1200" height="660" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino Primitivo</span>
+<span class="mapa__text">312 km de Oviedo a Santiago de Compostela. En verde, la ruta; en gris, el resto de caminos que llegan a Santiago.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/camino-primitivo.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-camino-primitivo.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h3>Recorrido del Camino Primitivo</h3>
+
+<p>Son unos 312 km por zonas rurales, de montaña y pueblos pequeños: un Camino más tranquilo y menos concurrido que los más populares.</p>
+
+<h3>Perfil del Camino Primitivo</h3>
+
+<p>Es la ruta más dura de las grandes, por cómo concentra el desnivel. El paso clave es el Puerto del Palo, a 1141 m, seguido del descenso al embalse de Salime y la subida a A Fonsagrada. Se recomienda a quien ya tiene experiencia o busca un Camino deportivo y de naturaleza.</p>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-camino-primitivo.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-camino-primitivo-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-camino-primitivo.svg" alt="Perfil de altitud del Camino Primitivo: 312 km, punto más alto en Puerto del Palo, 1141 m y unos 6800 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud del Camino Primitivo</span>
+<span class="mapa__text">Unos 6800 m de desnivel positivo acumulado. Punto más alto: Puerto del Palo, 1141 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-camino-primitivo.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h2>Otras rutas del Camino de Santiago</h2>
+
+<p>Además de las rutas más populares, el mapa del Camino incluye otros itinerarios históricos que merecen atención.</p>
+
+<h3>La Vía de la Plata y el Camino Sanabrés</h3>
+
+<p>La Vía de la Plata es la ruta jacobea más larga: cruza la península de sur a norte desde Sevilla, por Mérida, Cáceres, Salamanca y Zamora. En Granja de Moreruela se separa el Camino Sanabrés, que entra en Galicia por Puebla de Sanabria y Ourense. En total, unos 974 km.</p>
+
+<div class="stats">
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">974 km</div>
+<div class="stats__label">Distancia</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">+10 900 m</div>
+<div class="stats__label">Desnivel</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">1358 m</div>
+<div class="stats__label">Punto más alto</div>
+</div>
+</div>
+<div class="stats__card">
+<div class="stats__bar"></div>
+<div class="stats__body">
+<div class="stats__value">Alta</div>
+<div class="stats__label">Dificultad</div>
+</div>
+</div>
+</div>
+
+<figure class="mapa mapa--vertical">
+<a class="mapa__media" href="./mapas/mapa-via-de-la-plata.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-via-de-la-plata-movil.svg" width="560" height="1035" /><img class="mapa__img" src="./mapas/mapa-via-de-la-plata.svg" alt="Mapa de la Vía de la Plata y Camino Sanabrés de Sevilla a Santiago de Compostela, por Mérida, Cáceres, Salamanca, Zamora, Puebla de Sanabria y Ourense" width="1200" height="1500" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa de la Vía de la Plata y Camino Sanabrés</span>
+<span class="mapa__text">974 km de Sevilla a Santiago de Compostela. En verde, la ruta; en gris, el resto de caminos que llegan a Santiago.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/via-de-la-plata.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-via-de-la-plata.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<p>Es una ruta solitaria y de fondo. El punto más alto es el Alto de Padornelo, a 1358 m, ya en la sierra de Sanabria.</p>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-via-de-la-plata.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-via-de-la-plata-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-via-de-la-plata.svg" alt="Perfil de altitud de la Vía de la Plata y Camino Sanabrés: 974 km, punto más alto en Alto de Padornelo, 1358 m y unos 10 900 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud de la Vía de la Plata y Camino Sanabrés</span>
+<span class="mapa__text">Unos 10 900 m de desnivel positivo acumulado. Punto más alto: Alto de Padornelo, 1358 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-via-de-la-plata.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h3>El Camino Inglés</h3>
+
+<p>Es la ruta más corta: unos 112 km desde Ferrol, por Pontedeume y Betanzos. Supera los 100 km que pide la Compostela y cabe en una semana, así que es buena opción si tienes pocos días.</p>
+
+<figure class="mapa mapa--vertical">
+<a class="mapa__media" href="./mapas/mapa-camino-ingles.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-camino-ingles-movil.svg" width="560" height="1035" /><img class="mapa__img" src="./mapas/mapa-camino-ingles.svg" alt="Mapa del Camino Inglés de Ferrol a Santiago de Compostela, por Pontedeume, Betanzos y Hospital de Bruma" width="1200" height="1500" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino Inglés</span>
+<span class="mapa__text">112 km de Ferrol a Santiago de Compostela. En verde, la ruta; en gris, el resto de caminos que llegan a Santiago.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/camino-ingles.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-camino-ingles.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-camino-ingles.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-camino-ingles-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-camino-ingles.svg" alt="Perfil de altitud del Camino Inglés: 112 km, punto más alto en 459 m y unos 1700 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud del Camino Inglés</span>
+<span class="mapa__text">Unos 1700 m de desnivel positivo acumulado. Punto más alto: 459 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-camino-ingles.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h3>El Camino de Finisterre y Muxía</h3>
+
+<p>Es el único que sale de Santiago en vez de llegar a ella. Va hacia la Costa da Morte por Negreira y Olveiroa: unos 90 km hasta el faro de Fisterra, con un ramal que se separa en Hospital hacia Muxía. Mucha gente lo hace después de llegar a Compostela, para terminar el Camino en el mar.</p>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/mapa-camino-finisterre-muxia.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/mapa-camino-finisterre-muxia-movil.svg" width="560" height="598" /><img class="mapa__img" src="./mapas/mapa-camino-finisterre-muxia.svg" alt="Mapa del Camino de Finisterre y Muxía desde Santiago de Compostela, por Negreira, Olveiroa y Cee" width="1200" height="864" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino de Finisterre y Muxía</span>
+<span class="mapa__text">90 km de Santiago a Fisterra, con el ramal que se separa en Hospital hacia Muxía.</span>
+<span class="mapa__links"><a class="mapa__link" href="./gpx/camino-finisterre-muxia.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="./mapas/mapa-camino-finisterre-muxia.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<figure class="mapa">
+<a class="mapa__media" href="./mapas/perfil-camino-finisterre-muxia.svg"><picture><source media="(max-width: 760px)" srcset="./mapas/perfil-camino-finisterre-muxia-movil.svg" width="560" height="460" /><img class="mapa__img" src="./mapas/perfil-camino-finisterre-muxia.svg" alt="Perfil de altitud del Camino de Finisterre y Muxía: 90 km, punto más alto en 474 m y unos 1500 m de desnivel positivo" width="1200" height="470" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Perfil de altitud del Camino de Finisterre</span>
+<span class="mapa__text">Unos 1500 m de desnivel positivo acumulado. Punto más alto: 474 m.</span>
+<span class="mapa__links"><a class="mapa__link" href="./mapas/perfil-camino-finisterre-muxia.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
+
+<h2>Qué ruta del Camino de Santiago elegir según tu perfil</h2>
+
+<p>Depende del tiempo que tengas, de tu forma física, de la época del año y del paisaje que prefieras. De forma general:</p>
+
+<ul>
+<li><strong>Camino Francés:</strong> la opción más clásica y completa.</li>
+<li><strong><a href="https://santiagoways.com/es/camino-de-santiago/camino-frances/de-sarria-a-santiago/">Camino Francés desde Sarria</a>:</strong> ideal para una primera vez y para conseguir la Compostela en pocos días.</li>
+<li><strong>Camino Portugués Central:</strong> equilibrado, cómodo y con mucha tradición.</li>
+<li><strong>Camino Portugués por la Costa:</strong> el más suave, siempre cerca del mar.</li>
+<li><strong>Camino del Norte:</strong> paisajístico, exigente y menos concurrido.</li>
+<li><strong>Camino Primitivo:</strong> el más duro y uno de los más auténticos.</li>
+<li><strong>Camino Inglés:</strong> perfecto si tienes pocos días.</li>
+</ul>
+
+<h2>Descarga los tracks GPX del Camino de Santiago</h2>
+
+<p>Cada mapa lleva su track GPX. Sirve para llevar el trazado en el móvil o en el reloj, y para verlo sobre Google Maps: en Google My Maps, crea un mapa nuevo y usa «Importar» para cargar el archivo. También se abre en Wikiloc, Organic Maps o cualquier GPS de montaña.</p>
+
+<ul>
+<li><a href="./gpx/camino-frances.gpx" download>Track GPX del Camino Francés</a> (766 km)</li>
+<li><a href="./gpx/camino-portugues.gpx" download>Track GPX del Camino Portugués Central</a> (622 km)</li>
+<li><a href="./gpx/camino-portugues-costa.gpx" download>Track GPX del Camino Portugués por la Costa</a> (269 km)</li>
+<li><a href="./gpx/camino-norte.gpx" download>Track GPX del Camino del Norte</a> (830 km)</li>
+<li><a href="./gpx/camino-primitivo.gpx" download>Track GPX del Camino Primitivo</a> (312 km)</li>
+<li><a href="./gpx/camino-ingles.gpx" download>Track GPX del Camino Inglés</a> (112 km)</li>
+<li><a href="./gpx/via-de-la-plata.gpx" download>Track GPX de la Vía de la Plata y Camino Sanabrés</a> (974 km)</li>
+<li><a href="./gpx/camino-finisterre-muxia.gpx" download>Track GPX del Camino de Finisterre y Muxía</a> (90 km)</li>
+</ul>
+
+<p>Los tracks están simplificados para orientarse, no para seguirlos metro a metro. En el terreno manda siempre la señalización: las flechas amarillas y los mojones con la concha.</p>
+
+<h2>Consejos para usar un mapa del Camino de Santiago</h2>
+
+<p>Consultar el mapa antes de viajar ayuda a entender el recorrido, calcular etapas, comparar rutas y ver cómo se conectan los itinerarios. Además del mapa general, revisa siempre la información práctica de cada ruta: kilómetros, desnivel, servicios, alojamientos, clima y puntos de inicio habituales.</p>
+
+<p>Si vas a caminar varios días, lleva el track GPX en el móvil y descarga los mapas para usarlos sin conexión: en algunas etapas de montaña la cobertura falla.</p>
+
+<h2>Preguntas frecuentes sobre el mapa del Camino de Santiago</h2>
+
+<h3>¿Cuál es la ruta más corta del Camino de Santiago?</h3>
+
+<p>El Camino Inglés desde Ferrol, con unos 112 km. Le sigue el Camino Francés desde Sarria, con unos 115 km.</p>
+
+<h3>¿Desde dónde hay que empezar para conseguir la Compostela?</h3>
+
+<p>Hay que recorrer al menos los últimos 100 km a pie, o 200 km en bicicleta. Por eso los inicios más habituales son Sarria en el Camino Francés, Tui en el Portugués y Ferrol en el Inglés.</p>
+
+<h3>¿Cuál es la ruta más dura?</h3>
+
+<p>El Camino Primitivo, por la forma en que concentra las subidas. El del Norte suma más desnivel en total, pero lo reparte en muchos más kilómetros.</p>
+
+<h3>¿Puedo ver estos mapas en Google Maps?</h3>
+
+<p>Sí. Descarga el track GPX de la ruta e impórtalo en Google My Maps: verás el trazado sobre el mapa de Google y podrás consultarlo desde el móvil.</p>
+
+<div class="cta-box">
+<h3 class="cta-box__title">¿Te organizamos el Camino?</h3>
+<p class="cta-box__text">En Santiago Ways organizamos <strong>viajes autoguiados</strong> por todas estas rutas, con alojamientos seleccionados, traslado de equipaje y asistencia 24 horas, para que solo tengas que caminar a tu ritmo.</p>
+<a class="cta-box__button" href="/?page_id=67170">Solicitar presupuesto</a>
+</div>
+
+</main>
+</body>
+</html>

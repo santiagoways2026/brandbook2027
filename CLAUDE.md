@@ -51,6 +51,7 @@ app/               la herramienta: selector de módulos y generador en el navega
   modulos/         un archivo por módulo, más _comun.js e index.js (el registro)
 design-system/
   bloques.css      hoja de estilos ORIGINAL del cliente ← la fuente de verdad
+  mapa.css         hoja del bloque mapa, el único creado en este proyecto
   inventario.md    lista cerrada de clases, generada desde bloques.css
   catalogo.md      qué es cada bloque, cuándo se usa y sus reglas de marcado
   paleta.md        paleta real vs. Brandbook 2027, con avisos de contraste
@@ -60,12 +61,13 @@ bloques/           un .html por componente, con su markup de referencia
 tools/
   servidor.py      servidor de desarrollo sin caché
   inventario.py    regenera inventario.md desde las hojas de design-system/
+  mapas/           genera los mapas SVG, perfiles y GPX del Camino (ver su LEEME)
 inbox/             aquí deja el usuario HTML nuevo sin catalogar
 salidas/           HTML generado
 emails/            pieza heredada de email. Fuera del alcance de este proyecto.
 ```
 
-Si cambia `bloques.css`, hay que lanzar `python tools/inventario.py`.
+Si cambia `bloques.css` o `mapa.css`, hay que lanzar `python tools/inventario.py`.
 Si cambia un bloque o un módulo, hay que lanzar `node tools/contexto.mjs`, que regenera
 `design-system/contexto-ia.md`: el documento que se pega en otras IAs para que puedan
 producir estos bloques. Ese archivo **no se edita a mano**.

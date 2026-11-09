@@ -1,11 +1,11 @@
 # Inventario de clases
 
 **Generado automáticamente.** No editar a mano: se regenera con `python tools/inventario.py`
-a partir de [`bloques.css`](bloques.css) y [`tabla-responsive.css`](tabla-responsive.css).
+a partir de [`bloques.css`](bloques.css) y [`tabla-responsive.css`](tabla-responsive.css) y [`mapa.css`](mapa.css).
 
 Esta es la **lista cerrada**: cualquier clase que no aparezca aquí no existe y no se puede usar.
 
-24 bloques · 210 clases.
+25 bloques · 219 clases.
 
 | Bloque | Clases | Modificadores |
 |---|---:|---|
@@ -21,6 +21,7 @@ Esta es la **lista cerrada**: cualquier clase que no aparezca aquí no existe y 
 | `gr-planner` | 16 | `gr-planner__item--done` |
 | `guides` | 8 | — |
 | `heroblogsw` | 8 | — |
+| `mapa` | 9 | `mapa--vertical` |
 | `mistakes` | 9 | — |
 | `note` | 1 | — |
 | `prep` | 11 | — |
@@ -202,6 +203,20 @@ Hero de artículo con imagen de fondo y overlay
 - `.heroblogsw__img`
 - `.heroblogsw__overlay`
 - `.heroblogsw__title`
+
+## `.mapa`
+
+Mapa o perfil de altitud en SVG, con pie y enlaces
+
+- `.mapa`
+- `.mapa--vertical` · **modificador**
+- `.mapa__caption`
+- `.mapa__img`
+- `.mapa__link`
+- `.mapa__links`
+- `.mapa__media`
+- `.mapa__text`
+- `.mapa__title`
 
 ## `.mistakes`
 

@@ -1,6 +1,6 @@
 # Bloques de Santiago Ways · contexto para IA
 
-Documento autocontenido con los **24 bloques** de santiagoways.com: para qué
+Documento autocontenido con los **25 bloques** de santiagoways.com: para qué
 sirve cada uno, qué opciones admite y su marcado exacto.
 
 **Para qué es.** Pégalo como contexto en cualquier IA. A partir de ahí basta con pedirle
@@ -10,7 +10,7 @@ tendrá todo lo que necesita para devolver el HTML correcto.
 Si solo vas a trabajar con uno o dos bloques, pega la sección «Reglas generales» más el
 apartado de esos bloques: el documento entero es largo.
 
-Generado el 2026-10-13 desde el código real del proyecto.
+Generado el 2026-11-09 desde el código real del proyecto.
 
 ---
 
@@ -104,6 +104,7 @@ Todos están ya en el CSS: no hay que escribirlos nunca en el HTML.
 | 22 | Características | `.features` | Rejilla de tarjetas blancas con un icono en imagen, un título y una línea de texto. |
 | 23 | Listas de comprobación | `.checklist` | Caja verde claro con un titular, una entradilla y tarjetas blancas, cada una con su lista. |
 | 24 | Recorrido de etapas | `.roadmap` | Las paradas de una ruta sobre una línea, con la salida y la llegada destacadas. |
+| 25 | Mapa o perfil | `.mapa` | Mapa o perfil de altitud de una ruta, en SVG, sobre tarjeta con sombra y con su pie: título, texto y enlaces al track GPX y a la vista a pantalla completa. |
 
 ---
 
@@ -1216,6 +1217,41 @@ estructura con `<section class="roads roads--alt">`.
     </div>
   </div>
 </div>
+```
+
+---
+
+## 25. Mapa o perfil · `.mapa`
+
+**Para qué.** Mapa o perfil de altitud de una ruta, en SVG, sobre tarjeta con sombra y con su pie: título, texto y enlaces al track GPX y a la vista a pantalla completa. Los SVG salen de tools/mapas/generar.py.
+
+**Opciones.**
+
+| Modificador | Qué cambia |
+|---|---|
+| `.mapa--vertical` | Para mapas más altos que anchos: en escritorio limita el mapa a 640 px de ancho. El módulo lo pone solo |
+
+**Reglas.**
+
+- La imagen es un <img> con el SVG, no un SVG pegado en el HTML: así Google Imágenes la indexa y el SVG trae dentro su fuente y su animación.
+- width y height son las medidas reales del SVG. Sin ellas la página salta mientras carga.
+- loading="lazy" en todos menos en el primero de la página, que va con «primero: sí» (eager y fetchpriority alto).
+- El enlace de la imagen abre el SVG a pantalla completa: en móvil es la manera de hacer zoom.
+- Si el mapa es más de un 10 % más alto que ancho se añade mapa--vertical, que en escritorio lo limita a 640 px. El módulo lo pone solo.
+- Cada SVG tiene su versión -movil, compuesta para leerse en un teléfono. Va en un <source> del <picture> hasta 760 px, con sus propios width y height.
+- La flecha de .mapa__link la pone el CSS (::after). No se escribe.
+
+**Contenido que necesita.** 
+
+```html
+<figure class="mapa">
+<a class="mapa__media" href="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances.svg"><picture><source media="(max-width: 760px)" srcset="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances-movil.svg" width="560" height="598" /><img class="mapa__img" src="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances.svg" alt="Mapa del Camino Francés de Saint-Jean-Pied-de-Port a Santiago de Compostela, por Pamplona, Logroño, Burgos, León, Ponferrada, O Cebreiro y Sarria" width="1200" height="660" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino Francés</span>
+<span class="mapa__text">766 km de Saint-Jean-Pied-de-Port a Santiago de Compostela por el norte peninsular.</span>
+<span class="mapa__links"><a class="mapa__link" href="https://santiagoways.com/wp-content/uploads/2026/11/camino-frances.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>
 ```
 
 ---

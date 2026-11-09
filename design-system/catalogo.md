@@ -14,7 +14,7 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 
 ---
 
-## Los 24 bloques
+## Los 25 bloques
 
 | # | Bloque | Para qué | Estado |
 |---|---|---|---|
@@ -42,6 +42,7 @@ La lista exacta de clases está en [`inventario.md`](inventario.md), generado de
 | 20 | `gr-ficha` | Ficha de datos: foto + pares etiqueta/valor | CSS ✓ HTML ✓ |
 | 21 | `gr-planner` | Promo del planificador, con columna oscura y checklist | CSS ✓ HTML ✓ |
 | 22 | `tabla-responsive` | Tabla de datos. En móvil cada fila es una tarjeta | CSS ✓ HTML ✓ |
+| 23 | `mapa` | Mapa o perfil de altitud de una ruta, en SVG, con pie y enlaces. **Bloque propio**, no viene de la web | CSS ✓ HTML ✓ |
 
 ---
 
@@ -286,6 +287,29 @@ mano en `tabla-responsive.css` y hay que cambiarlo ahí si hace falta otro valor
 En móvil `thead` se esconde con `clip: rect(0 0 0 0)`, no con `display:none`: los lectores
 de pantalla siguen leyéndola. Por eso los `<th>` tienen que llevar texto real aunque en
 móvil no se vean.
+
+### `mapa` · el único bloque creado aquí
+No viene de la web: se creó para sustituir los mapas JPG de 2019 de
+[/es/mapa-camino-de-santiago/](https://santiagoways.com/es/mapa-camino-de-santiago/). Su CSS vive
+aparte, en [`mapa.css`](mapa.css), igual que la tabla. **Hay que subir `mapa.css` a la web** (o
+pegar su contenido en la hoja del tema) antes de publicar el primer mapa.
+
+- La imagen es un `<img>` con el SVG, no SVG pegado en el HTML. Así Google Imágenes la indexa y
+  el SVG trae dentro su fuente y su animación, sin `<style>` en la página.
+- `width` y `height` son las medidas reales del SVG; están en
+  `salidas/mapa-camino-de-santiago/mapas/indice.json`.
+- `loading="lazy"` en todos menos en el primero de la página, que va con `loading="eager"` y
+  `fetchpriority="high"` porque suele ser el elemento más grande de la pantalla.
+- Mapa más de un 10 % más alto que ancho → `mapa--vertical`. El módulo lo deduce de las medidas.
+- La flecha de `.mapa__link` la pone el CSS.
+- Cada SVG tiene su versión `-movil`, compuesta aparte para leerse en un teléfono (sin leyenda ni
+  localizador y con la letra mayor). Va en un `<source media="(max-width: 760px)">` del `<picture>`,
+  con su propio `width` y `height`. Sin ella, el mapa grande reducido a 360 px deja la letra en 5 px.
+  El `<picture>` no lleva clase: el CSS lo coge con `.mapa__media picture`.
+- **WordPress no acepta SVG por defecto.** Hace falta un plugin que los sanee al subirlos
+  (Safe SVG) o subirlos por FTP a `wp-content/uploads`.
+
+Los SVG y los GPX se generan con `tools/mapas/` (ver su LEEME).
 
 ---
 

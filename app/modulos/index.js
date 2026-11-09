@@ -30,6 +30,7 @@ import guides from './guides.js';
 import features from './features.js';
 import checklist from './checklist.js';
 import roadmap from './roadmap.js';
+import mapa from './mapa.js';
 
 export const MODULOS = [
   tablaResponsive,
@@ -56,6 +57,7 @@ export const MODULOS = [
   features,
   checklist,
   roadmap,
+  mapa,
 ];
 
 /* Bloques que tienen CSS pero todavía no tienen módulo.

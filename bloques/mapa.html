@@ -1,0 +1,23 @@
+<!-- BLOQUE · mapa · markup de referencia, creado en este proyecto (no viene de la web).
+     Mapa o perfil de altitud de una ruta. El SVG lo genera tools/mapas/generar.py
+     y va como <img>: así Google Imágenes lo indexa y la página no carga nada más.
+     · La imagen siempre lleva width y height reales del SVG: reservan el hueco
+       y evitan que la página salte al cargar.
+     · loading="lazy" en todos menos en el primero de la página, que va con
+       loading="eager" y fetchpriority="high".
+     · Cada SVG tiene su versión -movil, compuesta para leerse en un teléfono. La sirve
+       el <source> del <picture> hasta 760 px, también con sus width y height.
+     · El enlace de la imagen abre el SVG grande a pantalla completa: en móvil es la
+       forma de hacer zoom.
+     · .mapa__links es opcional. La flecha la pone el CSS.
+     · Para mapas más de un 10 % más altos que anchos se añade mapa--vertical.
+     Ver reglas en design-system/catalogo.md -->
+
+<figure class="mapa">
+<a class="mapa__media" href="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances.svg"><picture><source media="(max-width: 760px)" srcset="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances-movil.svg" width="560" height="598" /><img class="mapa__img" src="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances.svg" alt="Mapa del Camino Francés de Saint-Jean-Pied-de-Port a Santiago de Compostela, por Pamplona, Logroño, Burgos, León, Ponferrada, O Cebreiro y Sarria" width="1200" height="660" loading="lazy" decoding="async" /></picture></a>
+<figcaption class="mapa__caption">
+<span class="mapa__title">Mapa del Camino Francés</span>
+<span class="mapa__text">766 km de Saint-Jean-Pied-de-Port a Santiago de Compostela por el norte peninsular.</span>
+<span class="mapa__links"><a class="mapa__link" href="https://santiagoways.com/wp-content/uploads/2026/11/camino-frances.gpx" download>Descargar el track GPX</a><a class="mapa__link" href="https://santiagoways.com/wp-content/uploads/2026/11/mapa-camino-frances.svg">Ver el mapa a pantalla completa</a></span>
+</figcaption>
+</figure>

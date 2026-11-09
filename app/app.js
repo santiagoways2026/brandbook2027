@@ -19,6 +19,7 @@ const HOJAS = [
   RAIZ + 'design-system/tokens.css',
   RAIZ + 'design-system/bloques.css',
   RAIZ + 'design-system/tabla-responsive.css',
+  RAIZ + 'design-system/mapa.css',
 ];
 
 /* Anchura de pantalla que simula cada vista. 1120 cae por encima de todos

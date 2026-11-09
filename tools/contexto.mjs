@@ -21,7 +21,7 @@ const { MODULOS } = await import('file://' + join(RAIZ, 'app/modulos/index.js'))
 
 /* ---------- modificadores y variables, leídos del CSS ---------- */
 
-const CSS = ['design-system/bloques.css', 'design-system/tabla-responsive.css']
+const CSS = ['design-system/bloques.css', 'design-system/tabla-responsive.css', 'design-system/mapa.css']
   .map((f) => readFileSync(join(RAIZ, f), 'utf8'))
   .join('\n');
 
@@ -39,6 +39,7 @@ for (const m of CSS.matchAll(/\.([A-Za-z][A-Za-z0-9_-]*--[A-Za-z0-9_-]+)/g)) {
 
 /* Qué hace cada modificador, para la tabla de opciones de su bloque. */
 const PIE = {
+  'mapa--vertical': 'Para mapas más altos que anchos: en escritorio limita el mapa a 640 px de ancho. El módulo lo pone solo',
   'steps__number--final': 'Pinta el círculo en verde noche. Marca el paso que cierra el recorrido. **No es automático**: se pone a mano',
   'roads--alt': 'Cambia el fondo de crema (#FAF8F2) a verde claro (#F4F8EC). Para alternar cuando van dos secciones seguidas',
   'roadmap__dot--start': 'Punto de salida: relleno en verde Ways y más grande',

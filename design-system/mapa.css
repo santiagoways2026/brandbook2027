@@ -1,0 +1,86 @@
+/* ============================================================
+   Bloque mapa · Santiago Ways
+   Mapa o perfil de altitud de una ruta, publicado como <img> SVG,
+   con su pie: título, texto y enlaces (track GPX, pantalla completa).
+   Cada SVG tiene su versión móvil, compuesta para leerse a 360 px, que
+   se sirve con <picture>: aquí no hace falta ninguna regla para móvil.
+
+   Los SVG salen del generador de tools/mapas. Llevan dentro la fuente,
+   la animación del trazado y su <title>: aquí solo se maqueta el marco.
+
+   Colores del Brandbook 2027: grafito #2E2E2D, gris #6F6F6E,
+   verde sendero #506718 para el texto en verde. Verde Ways #7AA606
+   nunca como texto.
+   ============================================================ */
+
+.mapa {
+  margin: 32px 0;
+}
+
+.mapa__media {
+  display: block;
+  background: #FFFFFF;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(46, 46, 45, 0.12);
+}
+
+/* El <picture> no lleva clase: sirve la versión móvil del SVG hasta 760 px. */
+.mapa__media picture {
+  display: block;
+}
+
+.mapa__img {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+/* Mapas más altos que anchos (Portugués, Inglés): en escritorio no se
+   estiran a todo el ancho de la columna, que los haría larguísimos. */
+.mapa--vertical .mapa__media {
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.mapa__caption {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  margin-top: 14px;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #6F6F6E;
+}
+
+.mapa__title {
+  font-size: 15px;
+  font-weight: 700;
+  color: #2E2E2D;
+}
+
+.mapa__text {
+  max-width: 68ch;
+}
+
+.mapa__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 20px;
+  margin-top: 6px;
+}
+
+.mapa__link {
+  font-size: 14px;
+  font-weight: 700;
+  color: #506718;
+  text-decoration: none;
+}
+
+.mapa__link::after {
+  content: " →";
+}
+
+.mapa__link:hover {
+  text-decoration: underline;
+}

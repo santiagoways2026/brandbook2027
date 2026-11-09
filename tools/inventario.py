@@ -13,6 +13,7 @@ RAIZ = pathlib.Path(__file__).resolve().parent.parent
 HOJAS = [
     RAIZ / "design-system" / "bloques.css",
     RAIZ / "design-system" / "tabla-responsive.css",
+    RAIZ / "design-system" / "mapa.css",
 ]
 SALIDA = RAIZ / "design-system" / "inventario.md"
 
@@ -42,6 +43,7 @@ NOMBRES = {
     "gr-ficha":     "Ficha de datos · imagen + pares etiqueta/valor",
     "gr-planner":   "Promo del planificador · columna oscura con checklist",
     "tabla-responsive": "Tabla de datos · en móvil cada fila es una tarjeta",
+    "mapa":         "Mapa o perfil de altitud en SVG, con pie y enlaces",
 }
 
 # Raíces que conviven en el mismo apartado del CSS.

@@ -46,6 +46,7 @@ En ese caso hay que **decirlo en una línea** al entregar: la estructura está s
 | Llegada a Santiago, Compostela | `arrival` |
 | Datos de una ruta en pares etiqueta/valor | `gr-ficha` |
 | Promo del planificador | `gr-planner` |
+| Mapa o perfil de altitud de una ruta (SVG de `tools/mapas`) | `mapa` |
 
 Si no encaja con ninguno: **no inventes clases**. Dilo en una frase, propón qué bloque
 haría falta y pregunta si lo creamos.

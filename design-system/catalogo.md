@@ -307,7 +307,9 @@ pegar su contenido en la hoja del tema) antes de publicar el primer mapa.
   con su propio `width` y `height`. Sin ella, el mapa grande reducido a 360 px deja la letra en 5 px.
   El `<picture>` no lleva clase: el CSS lo coge con `.mapa__media picture`.
 - **WordPress no acepta SVG por defecto.** Hace falta un plugin que los sanee al subirlos
-  (Safe SVG) o subirlos por FTP a `wp-content/uploads`.
+  (Safe SVG) o subirlos por FTP a `wp-content/uploads`. Sin eso, se usa la versión WebP:
+  `python tools/mapas/raster.py <nombre>` la saca a doble resolución con el estado final de la
+  animación. El marcado del bloque es el mismo; solo cambian las URL y se pierde la animación.
 
 Los SVG y los GPX se generan con `tools/mapas/` (ver su LEEME).
 

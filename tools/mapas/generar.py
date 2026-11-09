@@ -753,8 +753,8 @@ def mapa_ruta(clave, trazados, perfiles, base, todos=True):
                           f'stroke-linecap="round" stroke-linejoin="round" d="{"".join(otras)}"/>')
 
     # La ruta: casing blanco y trazo verde animado
-    principal = ruta_px(L, t["linea"])
-    ramales = [ruta_px(L, rm) for rm in t["ramales"]]
+    principal = ruta_px(L, t["linea"], 1.2)
+    ramales = [ruta_px(L, rm, 1.2) for rm in t["ramales"]]
     acum = longitudes(principal)
     total = acum[-1]
     for pts in [principal] + ramales:

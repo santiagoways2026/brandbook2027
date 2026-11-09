@@ -40,6 +40,7 @@ Montserrat se bajan a `.cache/fuentes/` desde Fontsource (`@fontsource/montserra
 | `generar.py` | Dibuja los SVG (versión web y versión móvil), los mapas satélite, los perfiles y los GPX |
 | `articulo.py` | Monta el artículo con los bloques `mapa`, `stats`, `tabla-responsive` y `cta-box` |
 | `og.mjs` | La imagen de 1200 × 630 para redes |
+| `raster.py` y `raster.mjs` | Versión WebP a doble resolución de cualquier SVG, para cuando WordPress no admite SVG |
 | `concha.svg` | El isotipo, vectorizado desde el PDF del brandbook |
 | `datos/` | Lo procesado: trazados, perfiles, lugares y base. Se sube al repositorio |
 | `.cache/` | Lo descargado en bruto. No se sube |

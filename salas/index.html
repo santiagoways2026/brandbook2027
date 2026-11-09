@@ -1389,7 +1389,7 @@ a.zlink{display:inline-block;margin-left:auto;text-decoration:none;font-size:12.
   </div>
   <div class="ruta" id="ruta">/ <b>Edificio</b></div>
   <div class="centro"><span class="vivo off" id="vivo">Conectando</span><span class="txt" id="barrida"></span></div>
-  <button id="temaSW" class="tema-sw" aria-pressed="false" title="Ver todas las salas con el brandbook de Santiago Ways"><i></i><span>Diseño SW</span></button>   <button id="ligeroSW" class="tema-sw" aria-pressed="false" title="Apaga las animaciones decorativas para gastar menos (útil en reuniones). Los datos siguen en vivo."><i></i><span>Modo ligero</span></button>
+  <button id="ligeroSW" class="tema-sw" aria-pressed="false" title="Apaga las animaciones decorativas para gastar menos (útil en reuniones). Los datos siguen en vivo."><i></i><span>Modo ligero</span></button>
   <div class="avatares" id="avatares" title="Especialistas conectados"></div>
   <span id="zoomtxt">100%</span>
 </header>
@@ -7041,8 +7041,8 @@ function temaSW(on,guardar=true){on=!!on;if(on===SW.on&&SW.css)return;SW.on=on;
   document.querySelectorAll("td.tz-c,th.tz-c").forEach(c=>{c.classList.remove("tz-c");c.style.background=""});if(typeof tzTodo==="function")tzTodo();
   const b=document.getElementById("temaSW");if(b){b.setAttribute("aria-pressed",on);b.querySelector("span").textContent=on?"Diseño original":"Diseño SW";b.title=on?"Volver al diseño oscuro original":"Ver todas las salas con el brandbook de Santiago Ways"}
   if(guardar)try{localStorage.setItem("salas_tema",on?"sw":"original")}catch(e){}}
-document.getElementById("temaSW")?.addEventListener("click",()=>temaSW(!SW.on));
-try{if(localStorage.getItem("salas_tema")==="sw")temaSW(true,false)}catch(e){}
+/* Botón «Diseño SW» retirado el 9 nov 2026 a petición de Álvaro: siempre diseño original */
+try{localStorage.removeItem("salas_tema")}catch(e){}
 
 /* Si un módulo falla al pintarse (por ejemplo, porque su sala no está montada y busca elementos que aún no existen), el error no interrumpe al resto */
 for(const n of ["pintarActualidad", "pintarAlertas", "pintarAsesores", "pintarBenchYT", "pintarBiblio", "pintarBrief", "pintarCPA", "pintarCR", "pintarCREvol", "pintarCRImpacto", "pintarCRPlan", "pintarCRTiempo", "pintarCanales", "pintarTiempo", "pintarInstagramCtrl", "pintarCompItpt", "pintarCapas", "pintarCaptacionVentas", "pintarCerebro", "pintarChat", "pintarCompExp", "pintarCompRRSS", "pintarCompetencia", "pintarComunidad", "pintarControl", "pintarCorreos", "pintarCro", "pintarDatos", "pintarDiseno", "pintarEmbudo", "pintarEvolucion", "pintarFuente", "pintarGA4", "pintarGads", "pintarGadsCamp", "pintarGadsGen", "pintarGadsUtm", "pintarIG", "pintarIgCapt", "pintarIgDash", "pintarIgErr", "pintarInsights", "pintarInsp", "pintarInvAnual", "pintarJourneyMapa", "pintarKVivo", "pintarListado", "pintarMapa", "pintarMetaAnu", "pintarMetaRep", "pintarMetaUtm", "pintarMetricool", "pintarMix", "pintarNegocio", "pintarOai", "pintarBing", "pintarPaid", "pintarPeticionesDiseno", "pintarPlanItpt", "pintarPrio", "pintarProducto", "pintarRoadmap", "pintarRrss", "pintarRsRanking", "pintarSalasN", "pintarSeo", "pintarSeoBlog", "pintarSeoBrecha", "pintarSeoRed", "pintarSeoTec", "pintarSintesis", "pintarValor", "pintarVentas", "pintarVentasFact", "pintarVentasIdioma", "pintarVideos", "pintarWorkflows", "pintarYouTube", "pintarYtDash", "pintarYtRanking"]){const f=window[n];if(typeof f==="function")window[n]=function(){try{return f.apply(this,arguments)}catch(e){console.warn("pintar",n,e.message)}}}

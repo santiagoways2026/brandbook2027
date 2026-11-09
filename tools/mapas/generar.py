@@ -48,6 +48,14 @@ ANCHO = 1200
 MOVIL = False
 ESCALA = 1.0
 FORMATOS = {"web": (1200, 1.0), "movil": (487, 560 / 487)}
+# Mapas satélite: fondo Sentinel-2 cloudless 2016 de EOX (CC BY 4.0), en Mercator porque
+# así vienen los teselados. Rótulos en blanco con halo grafito: sobre foto, el brandbook pide
+# el blanco para la concha y el texto.
+SATELITE = False
+TESELAS = "https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless_3857/default/g/{z}/{y}/{x}.jpg"
+ATRIB_SAT = ["Imagen: Sentinel-2 cloudless 2016 · EOX IT Services GmbH (datos Copernicus Sentinel 2016 modificados)",
+             "Trazado © colaboradores de OpenStreetMap"]
+ATRIB_SAT_CORTA = "Imagen © EOX, Copernicus Sentinel 2016 · © OpenStreetMap"
 
 
 # ============================================================ utilidades
@@ -151,7 +159,20 @@ class Lambert:
         return 6371.0 * rho * math.sin(th), 6371.0 * (self.rho0 - rho * math.cos(th))
 
 
-PROY = Lambert()
+class Mercator:
+    """Mercator esférica (EPSG:3857), la de los teselados de satélite. Salida en km de proyección."""
+    R = 6378.137
+
+    def __call__(self, lon, lat):
+        return self.R * math.radians(lon), self.R * math.log(math.tan(math.pi / 4 + math.radians(lat) / 2))
+
+    def inversa(self, x, y):
+        return math.degrees(x / self.R), math.degrees(2 * math.atan(math.exp(y / self.R)) - math.pi / 2)
+
+
+LAMBERT = Lambert()
+MERCATOR = Mercator()
+PROY = LAMBERT
 
 
 class Lienzo:
@@ -166,13 +187,21 @@ class Lienzo:
         self.ox = izq + util_w / 2 - cx * self.s
         self.oy = arr + util_h / 2 + cy * self.s
         self.ancho, self.alto = ancho, alto
+        # En Mercator un km de proyección no es un km del terreno: se corrige con el coseno de
+        # la latitud del centro para que la barra de escala diga la verdad.
+        self.factor = 1.0
+        if isinstance(PROY, Mercator):
+            self.factor = math.cos(math.radians(PROY.inversa(cx, cy)[1]))
 
     def __call__(self, lon, lat):
         x, y = PROY(lon, lat)
         return self.ox + x * self.s, self.oy - y * self.s
 
+    def a_proyeccion(self, px, py):
+        return (px - self.ox) / self.s, (self.oy - py) / self.s
+
     def km_por_px(self):
-        return 1 / self.s
+        return self.factor / self.s
 
 
 # ============================================================ recorte
@@ -423,6 +452,79 @@ def capas_base(L, base, ocupado, T, rotular=True, con_rios=True):
     return "\n".join(partes)
 
 
+def tesela(z, x, y):
+    """Una tesela de Sentinel-2 cloudless 2016, con caché en disco."""
+    import time
+    import urllib.request
+    destino = AQUI / ".cache" / "sat" / str(z) / str(x) / f"{y}.jpg"
+    if destino.exists():
+        return destino
+    destino.parent.mkdir(parents=True, exist_ok=True)
+    for intento in range(5):
+        try:
+            req = urllib.request.Request(TESELAS.format(z=z, x=x, y=y),
+                                         headers={"User-Agent": "santiagoways-mapas/1.0"})
+            destino.write_bytes(urllib.request.urlopen(req, timeout=60).read())
+            time.sleep(0.05)
+            return destino
+        except Exception:
+            if intento == 4:
+                raise
+            time.sleep(2 ** (intento + 1))
+
+
+def capa_satelite(L, base, puntos_por_unidad):
+    """Mosaico de satélite recortado exactamente al lienzo, como JPEG incrustado.
+
+    El lienzo está en Mercator, igual que las teselas, así que el recorte es un simple
+    rectángulo: no hace falta reproyectar la imagen.
+    """
+    from PIL import Image, ImageEnhance
+    W, H = L.ancho, L.alto
+    ancho_img, alto_img = round(W * puntos_por_unidad), round(H * puntos_por_unidad)
+    x0, y1 = L.a_proyeccion(0, 0)
+    x1, y0 = L.a_proyeccion(W, H)
+    km_px = (x1 - x0) / ancho_img
+    mundo = 2 * math.pi * MERCATOR.R
+    z = 0
+    while mundo / (256 * 2 ** z) > km_px and z < 14:
+        z += 1
+    res = mundo / (256 * 2 ** z)
+    a_px = lambda x, y: ((x + mundo / 2) / res, (mundo / 2 - y) / res)  # noqa: E731
+    px0, py0 = a_px(x0, y1)
+    px1, py1 = a_px(x1, y0)
+    tx0, ty0, tx1, ty1 = int(px0 // 256), int(py0 // 256), int(px1 // 256), int(py1 // 256)
+    mosaico = Image.new("RGB", ((tx1 - tx0 + 1) * 256, (ty1 - ty0 + 1) * 256))
+    for tx in range(tx0, tx1 + 1):
+        for ty in range(ty0, ty1 + 1):
+            mosaico.paste(Image.open(tesela(z, tx, ty)).convert("RGB"), ((tx - tx0) * 256, (ty - ty0) * 256))
+    caja = (px0 - tx0 * 256, py0 - ty0 * 256, px1 - tx0 * 256, py1 - ty0 * 256)
+    img = mosaico.resize((ancho_img, alto_img), Image.LANCZOS, box=caja)
+    img = ImageEnhance.Color(img).enhance(1.12)
+    img = ImageEnhance.Contrast(img).enhance(1.06)
+    buf = io.BytesIO()
+    img.save(buf, "JPEG", quality=72, optimize=True, progressive=True)
+    b64 = base64.b64encode(buf.getvalue()).decode()
+    print(f"   satélite: zoom {z}, {(tx1 - tx0 + 1) * (ty1 - ty0 + 1)} teselas, {len(buf.getvalue()) // 1024} KB")
+
+    partes = [f'<image href="data:image/jpeg;base64,{b64}" x="0" y="0" width="{W}" height="{H}" '
+              f'preserveAspectRatio="none"/>',
+              # un velo grafito muy suave para que el verde y el blanco destaquen sobre la foto
+              f'<rect width="{W}" height="{H}" fill="{GRAFITO}" opacity=".14"/>']
+    fronteras = []
+    for l in base["fronteras"]:
+        pts = [L(lon, lat) for lon, lat in l["linea"]]
+        for trozo in recortar_linea(pts, -30, -30, W + 30, H + 30):
+            fronteras.append(d_linea(rdp_xy(trozo, 0.6)))
+    partes.append(f'<path fill="none" stroke="{BLANCO}" stroke-width="1.6" stroke-dasharray="6 4" opacity=".7" '
+                  f'd="{"".join(fronteras)}"/>')
+    return "\n".join(partes)
+
+
+CSS_SATELITE = (f".halo{{stroke:{GRAFITO};stroke-opacity:.85;stroke-width:3.5px}}"
+                f"text.halo{{fill:{BLANCO}}}.geo{{fill:{BLANCO};opacity:.85}}")
+
+
 def etiquetas_geo(L, ocupado, T):
     out = []
     for texto, tam, posiciones in ETIQUETAS_GEO:
@@ -435,7 +537,7 @@ def etiquetas_geo(L, ocupado, T):
                 ocupado.poner(caja, "geo")
                 T.usar(rot, 700)
                 out.append(f'<text x="{x:.0f}" y="{y:.0f}" text-anchor="middle" font-size="{tam}" '
-                           f'font-weight="700" letter-spacing="2.4" fill="{GRIS}" opacity=".75">{esc(rot)}</text>')
+                           f'font-weight="700" letter-spacing="2.4" fill="{GRIS}" opacity=".75" class="geo">{esc(rot)}</text>')
                 break
     return "\n".join(out)
 
@@ -523,9 +625,10 @@ def leyenda(L, x, y, nombre, T, ocupado, otras=True):
     filas = [("ruta", nombre), ("punto", "Poblaciones y finales de etapa")]
     if otras:
         filas.append(("otra", "Otras rutas del Camino"))
-    attrib = "Trazado © colaboradores de OpenStreetMap · Base © EuroGeographics, Natural Earth"
-    w = max(max(ancho_texto(t, 13, 500) for _, t in filas) + 52, ancho_texto(attrib, 10, 500) + 32, 250)
-    h = 26 + len(filas) * 22 + 48
+    attribs = ATRIB_SAT if SATELITE else ["Trazado © colaboradores de OpenStreetMap · Base © EuroGeographics, Natural Earth"]
+    w = max(max(ancho_texto(t, 13, 500) for _, t in filas) + 52,
+            max(ancho_texto(a, 10, 500) for a in attribs) + 32, 250)
+    h = 26 + len(filas) * 22 + 34 + 14 * len(attribs)
     y0 = y - h
     partes = [f'<g transform="translate({x} {y0:.0f})">',
               f'<rect width="{w:.0f}" height="{h}" rx="12" fill="{BLANCO}" filter="url(#sombra)"/>']
@@ -534,6 +637,9 @@ def leyenda(L, x, y, nombre, T, ocupado, otras=True):
         T.usar(texto, 500)
         if tipo == "ruta":
             partes.append(f'<path d="M16,{yy - 4}h26" stroke="{VERDE}" stroke-width="5" stroke-linecap="round"/>')
+        elif tipo == "otra" and SATELITE:
+            partes.append(f'<path d="M16,{yy - 4}h26" stroke="{GRAFITO}" stroke-width="5" stroke-linecap="round"/>'
+                          f'<path d="M16,{yy - 4}h26" stroke="{BLANCO}" stroke-width="2.5" stroke-linecap="round"/>')
         elif tipo == "otra":
             partes.append(f'<path d="M16,{yy - 4}h26" stroke="{GRIS}" stroke-opacity=".45" stroke-width="2.5" '
                           f'stroke-linecap="round"/>')
@@ -543,8 +649,10 @@ def leyenda(L, x, y, nombre, T, ocupado, otras=True):
         yy += 22
     barra, _ = escala(L, 16, yy + 2, T)
     partes.append(barra)
-    T.usar(attrib, 500)
-    partes.append(f'<text x="16" y="{h - 12}" font-size="10" font-weight="500" fill="{GRIS}">{esc(attrib)}</text>')
+    for i, a in enumerate(attribs):
+        T.usar(a, 500)
+        partes.append(f'<text x="16" y="{h - 12 - 14 * (len(attribs) - 1 - i)}" font-size="10" font-weight="500" '
+                      f'fill="{GRIS}">{esc(a)}</text>')
     partes.append("</g>")
     ocupado.poner((x - 6, y0 - 6, x + w + 6, y + 6), "panel")
     return "\n".join(partes), w
@@ -620,7 +728,10 @@ def mapa_ruta(clave, trazados, perfiles, base, todos=True):
     L = Lienzo(caja, ANCHO, alto, margen)
     ocupado = Ocupado(ANCHO, alto)
 
-    cuerpo = [capas_base(L, base, ocupado, T)]
+    if SATELITE:
+        cuerpo = [capa_satelite(L, base, ESCALA * (1.5 if MOVIL else 1.0))]
+    else:
+        cuerpo = [capas_base(L, base, ocupado, T)]
 
     # Otras rutas, en gris, para dar contexto
     if todos:
@@ -632,8 +743,14 @@ def mapa_ruta(clave, trazados, perfiles, base, todos=True):
                 pts = ruta_px(L, l, 0.8)
                 for trozo in recortar_linea(pts, -20, -20, ANCHO + 20, alto + 20):
                     otras.append(d_linea(trozo))
-        cuerpo.append(f'<path fill="none" stroke="{GRIS}" stroke-opacity=".42" stroke-width="2.5" '
-                      f'stroke-linecap="round" stroke-linejoin="round" d="{"".join(otras)}"/>')
+        if SATELITE:
+            cuerpo.append(f'<path fill="none" stroke="{GRAFITO}" stroke-opacity=".55" stroke-width="5" '
+                          f'stroke-linecap="round" stroke-linejoin="round" d="{"".join(otras)}"/>')
+            cuerpo.append(f'<path fill="none" stroke="{BLANCO}" stroke-opacity=".8" stroke-width="2.2" '
+                          f'stroke-linecap="round" stroke-linejoin="round" d="{"".join(otras)}"/>')
+        else:
+            cuerpo.append(f'<path fill="none" stroke="{GRIS}" stroke-opacity=".42" stroke-width="2.5" '
+                          f'stroke-linecap="round" stroke-linejoin="round" d="{"".join(otras)}"/>')
 
     # La ruta: casing blanco y trazo verde animado
     principal = ruta_px(L, t["linea"])
@@ -659,21 +776,25 @@ def mapa_ruta(clave, trazados, perfiles, base, todos=True):
     if MOVIL:
         linea_cab = f"Desde {origen} · {km_es(t['km'])} km" if clave != "fisterra" else \
             f"A Fisterra y Muxía · {km_es(t['km'])} km"
-        cuerpo.append(cabecera_svg(T, ocupado, 16, 16, "Mapa del Camino", r["nombre"], linea_cab))
-        concha, alto_c = concha_svg(ANCHO - 16 - 40, 22, 40)
+        ante = "Mapa satélite" if SATELITE else "Mapa del Camino"
+        cuerpo.append(cabecera_svg(T, ocupado, 16, 16, ante, r["nombre"], linea_cab))
+        concha, alto_c = concha_svg(ANCHO - 16 - 40, 22, 40, BLANCO if SATELITE else VERDE)
         cuerpo.append(concha)
         ocupado.poner((ANCHO - 64, 12, ANCHO - 8, 22 + alto_c + 10), "panel")
+        attrib = ATRIB_SAT_CORTA if SATELITE else "© OpenStreetMap · © EuroGeographics"
+        T.usar(attrib, 500)
+        if SATELITE:
+            # sobre la foto, escala y créditos van sobre una franja blanca para leerse
+            cuerpo.append(f'<rect x="0" y="{alto - 46}" width="{ANCHO}" height="46" fill="{BLANCO}" opacity=".9"/>')
         barra, _ = escala(L, 16, alto - 34, T)
         cuerpo.append(barra)
-        ocupado.poner((10, alto - 40, 150, alto - 8), "panel")
-        attrib = "© OpenStreetMap · © EuroGeographics"
-        T.usar(attrib, 500)
+        ocupado.poner((0, alto - 46, ANCHO, alto), "panel")
         cuerpo.append(f'<text x="{ANCHO - 12}" y="{alto - 14}" text-anchor="end" font-size="9" font-weight="500" '
                       f'fill="{GRIS}">{attrib}</text>')
-        ocupado.poner((ANCHO - 200, alto - 26, ANCHO - 8, alto - 8), "panel")
     else:
-        cuerpo.append(cabecera_svg(T, ocupado, 32, 32, "Mapa del Camino de Santiago", r["nombre"], linea_cab))
-        concha, alto_c = concha_svg(ANCHO - 32 - 54, 34, 54)
+        ante = "Mapa satélite del Camino de Santiago" if SATELITE else "Mapa del Camino de Santiago"
+        cuerpo.append(cabecera_svg(T, ocupado, 32, 32, ante, r["nombre"], linea_cab))
+        concha, alto_c = concha_svg(ANCHO - 32 - 54, 34, 54, BLANCO if SATELITE else VERDE)
         cuerpo.append(concha)
         ocupado.poner((ANCHO - 100, 20, ANCHO - 20, 34 + alto_c + 12), "panel")
         ley, _ = leyenda(L, 32, alto - 32, r["nombre"], T, ocupado)
@@ -731,10 +852,15 @@ def mapa_ruta(clave, trazados, perfiles, base, todos=True):
     titulo = f"Mapa del {r['nombre']}" if not r["nombre"].startswith("Vía") else f"Mapa de la {r['nombre']}"
     if clave == "fisterra":
         titulo = "Mapa del Camino de Finisterre y Muxía"
+    if SATELITE:
+        titulo = titulo.replace("Mapa ", "Mapa satélite ", 1)
     nombres = [m["nombre"] for m in p["marcas"] if m["nivel"] <= 2]
     desc = (f"{titulo}: {km_es(t['km'])} km de {origen} a {destino}. Pasa por "
             + ", ".join(nombres[1:-1]) + ". Trazado de la ruta señalizada, según OpenStreetMap.")
-    return envolver(ANCHO, alto, titulo, desc, "\n".join(cuerpo), T), alto, titulo, desc
+    if SATELITE:
+        desc += " Imagen de satélite Sentinel-2 cloudless 2016 de EOX."
+    return envolver(ANCHO, alto, titulo, desc, "\n".join(cuerpo), T,
+                    CSS_SATELITE if SATELITE else ""), alto, titulo, desc
 
 
 # ============================================================ perfil
@@ -1086,7 +1212,7 @@ ARCHIVOS = {
 
 
 def main():
-    global ANCHO, MOVIL, ESCALA
+    global ANCHO, MOVIL, ESCALA, PROY, SATELITE
     trazados = json.loads((DATOS / "trazados.json").read_text(encoding="utf-8"))
     perfiles = json.loads((DATOS / "perfiles.json").read_text(encoding="utf-8"))
     base = json.loads((DATOS / "base.json").read_text(encoding="utf-8"))
@@ -1130,6 +1256,18 @@ def main():
             if not MOVIL:
                 (SALIDA / "gpx" / f"{base_nombre}.gpx").write_text(gpx(clave, trazados, perfiles), encoding="utf-8")
             print(f"· {formato} · {clave} · mapa {len(svg) / 1024:.0f} KB · perfil {len(svg2) / 1024:.0f} KB")
+
+            # La misma ruta sobre imagen de satélite
+            PROY, SATELITE = MERCATOR, True
+            try:
+                svg3, alto3, titulo3, desc3 = mapa_ruta(clave, trazados, perfiles, base)
+            finally:
+                PROY, SATELITE = LAMBERT, False
+            (SALIDA / "mapas" / f"satelite-{base_nombre}{sufijo}.svg").write_text(svg3, encoding="utf-8")
+            e[formato]["satelite"] = {"svg": f"satelite-{base_nombre}{sufijo}.svg", "ancho": medida(alto3)[0],
+                                      "alto": medida(alto3)[1]}
+            e["titulo_satelite"], e["desc_satelite"] = titulo3, desc3
+            print(f"· {formato} · {clave} · satélite {len(svg3) / 1024:.0f} KB")
     (SALIDA / "mapas" / "indice.json").write_text(json.dumps(indice, ensure_ascii=False, indent=1), encoding="utf-8")
 
 

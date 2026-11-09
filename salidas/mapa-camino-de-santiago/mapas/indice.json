@@ -35,8 +35,15 @@
     "svg": "perfil-camino-frances.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-camino-frances.svg",
+    "ancho": 1200,
+    "alto": 660
    }
   },
+  "titulo_satelite": "Mapa satélite del Camino Francés",
+  "desc_satelite": "Mapa satélite del Camino Francés: 766 km de Saint-Jean-Pied-de-Port a Santiago de Compostela. Pasa por Roncesvalles, Pamplona, Logroño, Burgos, Sahagún, León, Astorga, Ponferrada, O Cebreiro, Sarria. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-camino-frances-movil.svg",
@@ -47,6 +54,11 @@
     "svg": "perfil-camino-frances-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-camino-frances-movil.svg",
+    "ancho": 560,
+    "alto": 598
    }
   }
  },
@@ -72,8 +84,15 @@
     "svg": "perfil-camino-portugues.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-camino-portugues.svg",
+    "ancho": 1200,
+    "alto": 1500
    }
   },
+  "titulo_satelite": "Mapa satélite del Camino Portugués Central",
+  "desc_satelite": "Mapa satélite del Camino Portugués Central: 622 km de Lisboa a Santiago de Compostela. Pasa por Santarém, Tomar, Coimbra, Porto, Barcelos, Ponte de Lima, Valença, Tui, Pontevedra. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-camino-portugues-movil.svg",
@@ -84,6 +103,11 @@
     "svg": "perfil-camino-portugues-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-camino-portugues-movil.svg",
+    "ancho": 560,
+    "alto": 1035
    }
   }
  },
@@ -109,8 +133,15 @@
     "svg": "perfil-camino-portugues-costa.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-camino-portugues-costa.svg",
+    "ancho": 1200,
+    "alto": 1500
    }
   },
+  "titulo_satelite": "Mapa satélite del Camino Portugués por la Costa",
+  "desc_satelite": "Mapa satélite del Camino Portugués por la Costa: 269 km de Porto a Santiago de Compostela. Pasa por Viana do Castelo, A Guarda, Baiona, Vigo, Pontevedra. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-camino-portugues-costa-movil.svg",
@@ -121,6 +152,11 @@
     "svg": "perfil-camino-portugues-costa-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-camino-portugues-costa-movil.svg",
+    "ancho": 560,
+    "alto": 1035
    }
   }
  },
@@ -146,8 +182,15 @@
     "svg": "perfil-camino-norte.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-camino-norte.svg",
+    "ancho": 1200,
+    "alto": 660
    }
   },
+  "titulo_satelite": "Mapa satélite del Camino del Norte",
+  "desc_satelite": "Mapa satélite del Camino del Norte: 830 km de Irún a Santiago de Compostela. Pasa por San Sebastián, Bilbao, Santander, Llanes, Gijón, Avilés, Luarca, Ribadeo, Arzúa. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-camino-norte-movil.svg",
@@ -158,6 +201,11 @@
     "svg": "perfil-camino-norte-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-camino-norte-movil.svg",
+    "ancho": 560,
+    "alto": 598
    }
   }
  },
@@ -183,8 +231,15 @@
     "svg": "perfil-camino-primitivo.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-camino-primitivo.svg",
+    "ancho": 1200,
+    "alto": 660
    }
   },
+  "titulo_satelite": "Mapa satélite del Camino Primitivo",
+  "desc_satelite": "Mapa satélite del Camino Primitivo: 312 km de Oviedo a Santiago de Compostela. Pasa por Tineo, Grandas de Salime, A Fonsagrada, Lugo, Melide. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-camino-primitivo-movil.svg",
@@ -195,6 +250,11 @@
     "svg": "perfil-camino-primitivo-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-camino-primitivo-movil.svg",
+    "ancho": 560,
+    "alto": 598
    }
   }
  },
@@ -220,8 +280,15 @@
     "svg": "perfil-camino-ingles.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-camino-ingles.svg",
+    "ancho": 1200,
+    "alto": 1500
    }
   },
+  "titulo_satelite": "Mapa satélite del Camino Inglés",
+  "desc_satelite": "Mapa satélite del Camino Inglés: 112 km de Ferrol a Santiago de Compostela. Pasa por Pontedeume, Betanzos. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-camino-ingles-movil.svg",
@@ -232,6 +299,11 @@
     "svg": "perfil-camino-ingles-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-camino-ingles-movil.svg",
+    "ancho": 560,
+    "alto": 1035
    }
   }
  },
@@ -257,8 +329,15 @@
     "svg": "perfil-via-de-la-plata.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-via-de-la-plata.svg",
+    "ancho": 1200,
+    "alto": 1500
    }
   },
+  "titulo_satelite": "Mapa satélite de la Vía de la Plata y Camino Sanabrés",
+  "desc_satelite": "Mapa satélite de la Vía de la Plata y Camino Sanabrés: 974 km de Sevilla a Santiago de Compostela. Pasa por Mérida, Cáceres, Salamanca, Zamora, Puebla de Sanabria, Ourense. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-via-de-la-plata-movil.svg",
@@ -269,6 +348,11 @@
     "svg": "perfil-via-de-la-plata-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-via-de-la-plata-movil.svg",
+    "ancho": 560,
+    "alto": 1035
    }
   }
  },
@@ -294,8 +378,15 @@
     "svg": "perfil-camino-finisterre-muxia.svg",
     "ancho": 1200,
     "alto": 470
+   },
+   "satelite": {
+    "svg": "satelite-camino-finisterre-muxia.svg",
+    "ancho": 1200,
+    "alto": 813
    }
   },
+  "titulo_satelite": "Mapa satélite del Camino de Finisterre y Muxía",
+  "desc_satelite": "Mapa satélite del Camino de Finisterre y Muxía: 90 km de Santiago de Compostela a Fisterra. Pasa por Negreira, Olveiroa, Fisterra. Trazado de la ruta señalizada, según OpenStreetMap. Imagen de satélite Sentinel-2 cloudless 2016 de EOX.",
   "movil": {
    "mapa": {
     "svg": "mapa-camino-finisterre-muxia-movil.svg",
@@ -306,6 +397,11 @@
     "svg": "perfil-camino-finisterre-muxia-movil.svg",
     "ancho": 560,
     "alto": 460
+   },
+   "satelite": {
+    "svg": "satelite-camino-finisterre-muxia-movil.svg",
+    "ancho": 560,
+    "alto": 598
    }
   }
  }

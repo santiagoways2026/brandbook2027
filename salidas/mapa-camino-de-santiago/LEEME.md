@@ -10,7 +10,9 @@ Sustituyen los 16 JPG de 2019 por 17 mapas y perfiles en SVG, cada uno con versi
 | `articulo.html` | El cuerpo del post. Se pega entero en un bloque «HTML personalizado» de WordPress |
 | `schema.html` | El JSON-LD. Va en la cabecera o en el campo de schema del plugin de SEO, no en el post |
 | `og-mapa-camino-de-santiago.jpg` | La imagen para redes y para la imagen destacada del post, a 1200 × 630 |
-| `mapas/` | Los 34 SVG: 17 piezas, cada una con su versión `-movil` |
+| `mapas/` | Los 50 SVG: 17 mapas y perfiles más 8 mapas satélite (`satelite-…`), cada uno con su versión `-movil` |
+| `briefing-cambio-01-frances.md` | Prompt para la extensión de Claude en WordPress: cambia solo el primer mapa del Francés |
+| `cambio-01-mapa-frances.html` | El HTML de ese cambio |
 | `gpx/` | Los 8 tracks GPX |
 | `vista-previa.html` | El artículo montado en local, para revisarlo antes de publicar |
 | `animacion-camino-frances.gif` | Muestra de cómo se anima un mapa al cargar. No se publica |

@@ -37,7 +37,7 @@ Montserrat se bajan a `.cache/fuentes/` desde Fontsource (`@fontsource/montserra
 |---|---|
 | `rutas.py` | Las ocho rutas: relaciones de OSM, puntos de paso, pueblos que se marcan y correcciones a mano |
 | `descargar.py` | Baja los trazados, elige el camino más corto que pasa por los puntos de paso, mide la altitud cada 200 m y prepara la base cartográfica |
-| `generar.py` | Dibuja los SVG (versión web y versión móvil), los perfiles y los GPX |
+| `generar.py` | Dibuja los SVG (versión web y versión móvil), los mapas satélite, los perfiles y los GPX |
 | `articulo.py` | Monta el artículo con los bloques `mapa`, `stats`, `tabla-responsive` y `cta-box` |
 | `og.mjs` | La imagen de 1200 × 630 para redes |
 | `concha.svg` | El isotipo, vectorizado desde el PDF del brandbook |
@@ -52,6 +52,7 @@ Montserrat se bajan a `.cache/fuentes/` desde Fontsource (`@fontsource/montserra
 | Altitud | OpenTopoData, modelo EU-DEM 25 m | Uso libre con atribución a Copernicus |
 | Costa, fronteras y provincias | Eurostat GISCO 1:1 millón | «© EuroGeographics» en cada mapa |
 | Ríos | Natural Earth 1:10 millones | Dominio público |
+| Imagen de satélite | Sentinel-2 cloudless 2016 de EOX IT Services GmbH | CC BY 4.0, según la ficha de la capa en su servicio WMTS. Las ediciones de 2018 en adelante no son libres para uso comercial: no usar otra capa sin licencia |
 | Tipografía | Montserrat | SIL Open Font License |
 
 Las atribuciones ya van dentro de cada SVG. No se pueden quitar.

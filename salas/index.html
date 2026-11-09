@@ -1295,6 +1295,7 @@ html[data-tema=sw] #c-community_rrss .as-t tbody tr:nth-child(even) td.as-n{back
 .cn-e tr.cn-gen td{background:#40291a;color:#ffe2cc;font-weight:800}.cn-e tr.cn-gen td:first-child{text-align:left}
 .cn-e th.cn-ac{background:#c9b400;color:#111;text-align:left}
 .cn-fechas{display:flex;flex-wrap:wrap;gap:10px;align-items:center;padding:10px 20px 0;font-size:13.5px;color:#d6dbe1}
+.cn-fechas input[type=date]{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:4px 8px;font:13.5px var(--f-ui);margin-left:4px;color-scheme:dark}
 .cn-fechas select{background:#0b0e13;color:#f1f3f5;border:1px solid var(--borde-2);border-radius:6px;padding:5px 8px;font:13.5px var(--f-ui);margin-left:4px}
 .ci-lista{margin:0;padding:0 0 0 18px;font-size:13px;line-height:1.4}.ci-lista li{margin:0 0 8px}.ci-lista small{color:var(--tenue)}
 .ti-h3{margin:18px 20px 0;font:700 15px var(--f-ui)}.ti-h3 small{font-weight:400;color:var(--tenue);margin-left:8px;font-size:12.5px}.ti-t td,.ti-m td{white-space:nowrap}.ti-t td.ti-cens{opacity:.55}.as-t td.bueno{color:#3ddc97;font-weight:700}.as-t td.malo{color:#f87171;font-weight:700}
@@ -6019,12 +6020,48 @@ function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_das
      <div class="pi-diag">${L(RS.lecturas,l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`)}</div>
      <h3 class="pi-h">Cómo se ha medido</h3><ol class="bf-list">${L(RS.metodo,m=>`<li>${esc(m)}</li>`)}</ol>`}
   ids.forEach(id=>{const e=document.getElementById("c-"+id);if(e&&typeof tzAplica==="function")try{tzAplica(e)}catch(_){}})}
+/* ===== Filtro de fechas en OpenAI Ads y Bing Ads (9 nov 2026) ===== */
+const fxE=v=>{const[e,d]=(+v).toFixed(2).split(".");return e.replace(/\B(?=(\d{3})+(?!\d))/g,".")+","+d+" €"};
+const fxMesN=["enero","febrero","marzo","abril","mayo","junio","julio","agosto","septiembre","octubre","noviembre","diciembre"];
+const fxDia=s=>{const[y,m,d]=s.split("-").map(Number);return`${d} de ${fxMesN[m-1]} de ${y}`};
+const fxYm=ym=>`${fxMesN[ym%100-1]} ${Math.floor(ym/100)}`;
+const fxFin=(y,m)=>{const d=new Date(Date.UTC(y,m,0)).getUTCDate();return`${y}-${String(m).padStart(2,"0")}-${String(d).padStart(2,"0")}`};
+function oaiFiltro(P){const D=P.diario||[];if(!D.length)return"";const mn=D[0][0],mx=D[D.length-1][0];
+  const F=st.oaiF||(st.oaiF={de:mn,ha:mx});if(F.de<mn)F.de=mn;if(F.ha>mx)F.ha=mx;if(F.de>F.ha)[F.de,F.ha]=[F.ha,F.de];
+  const[y,m]=mx.split("-").map(Number),pm=m===1?[y-1,12]:[y,m-1],ini=a=>`${a[0]}-${String(a[1]).padStart(2,"0")}-01`;
+  const pres=[["Mes pasado",ini(pm)<mn?mn:ini(pm),fxFin(pm[0],pm[1])],["Este mes",ini([y,m]),mx],["Todo",mn,mx]];
+  const R=D.filter(d=>d[0]>=F.de&&d[0]<=F.ha),K=["G","US","UK","CA"],N=P.campanas_nom||{};
+  const g=R.reduce((t,d)=>t+d[1]+d[2]+d[3]+d[4],0),cl=R.reduce((t,d)=>t+(d[5]||0),0),cv=R.reduce((t,d)=>t+(d[6]||0),0);
+  const por=K.map((k,i)=>[N[k]||k,R.reduce((t,d)=>t+(d[i+1]||0),0)]).filter(x=>x[1]>0);
+  const meses=[...new Set(R.map(d=>Number(d[0].slice(0,7).replace("-",""))))],CM=(P.crm?.mensual||[]).filter(r=>meses.includes(r[0]));
+  const dl=CM.reduce((t,r)=>t+(r[1]||0),0),vt=CM.reduce((t,r)=>t+(r[2]||0),0),im=CM.reduce((t,r)=>t+(r[3]||0),0);
+  const kpi=(v,l,s)=>`<div><b>${v}</b><span>${esc(l)}</span>${s?`<small class="ia-k2">${esc(s)}</small>`:""}</div>`;
+  return`<div class="cn-fechas"><label>Desde <input type="date" data-oaif="de" value="${F.de}" min="${mn}" max="${mx}"></label><label>Hasta <input type="date" data-oaif="ha" value="${F.ha}" min="${mn}" max="${mx}"></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${F.de===a&&F.ha===b?" prim":""}" data-oaipre="${a}|${b}">${n}</button>`).join("")}</div></div>
+   <div class="seccion-t">Del ${esc(fxDia(F.de))} al ${esc(fxDia(F.ha))}</div>
+   <div class="as-res bq-res pi-res">${kpi(fxE(g),"invertido",`${por.map(x=>`${x[0]}: ${fxE(x[1])}`).join(" · ")}`)}${kpi(oaiN(cl),"clics",`CPC ${cl?oaiN(g/cl,"eur2"):"–"}`)}${kpi(oaiN(cv),"conversiones en OpenAI",cv?`${oaiN(g/cv,"eur2")} cada una`:"")}${kpi(oaiN(dl),"deals en Zoho",`${dl?oaiN(g/dl,"eur2")+" por deal · ":""}${vt} ventas · ${oaiN(im,"eur")}`)}</div>
+   <p class="as-nota">El gasto, los clics y las conversiones son de los días elegidos. Los deals y ventas de Zoho van por mes completo de creación (${esc(meses.map(fxYm).join(", "))}). Datos por día hasta el ${esc(fxDia(mx))}.</p>`}
+function bingFiltro(P){const M=(P.mensual||[]).filter(m=>m[0]>=202501);if(!M.length)return"";const L=M.map(m=>m[0]),mn=L[0],mx=L[L.length-1];
+  const F=st.bingF||(st.bingF={de:Math.floor(mx/100)*100+1,ha:mx});if(F.de>F.ha)[F.de,F.ha]=[F.ha,F.de];
+  const pv=L[L.length-2]||mx,pres=[["Mes pasado",pv,pv],["Este mes",mx,mx],["Últimos 3 meses",L[Math.max(0,L.length-3)],mx],["Este año",Math.floor(mx/100)*100+1,mx],["Todo",mn,mx]];
+  const R=M.filter(m=>m[0]>=F.de&&m[0]<=F.ha),s=i=>R.reduce((t,m)=>t+(m[i]||0),0),g=s(1),im=s(2),cl=s(3),cv=s(4),dl=s(5),vt=s(6),ing=s(7);
+  const opt=v=>L.map(x=>`<option value="${x}"${x===v?" selected":""}>${fxYm(x)}</option>`).join("");
+  const kpi=(v,l,sb)=>`<div><b>${v}</b><span>${esc(l)}</span>${sb?`<small class="ia-k2">${esc(sb)}</small>`:""}</div>`;
+  const DD=(P.diario||[]).filter(d=>{const ym=Number(d[0].slice(0,7).replace("-",""));return ym>=F.de&&ym<=F.ha});
+  return`<div class="cn-fechas"><label>Desde <select data-bingf="de">${opt(F.de)}</select></label><label>Hasta <select data-bingf="ha">${opt(F.ha)}</select></label><div class="cn-pres">${pres.map(([n,a,b])=>`<button class="btn${F.de===a&&F.ha===b?" prim":""}" data-bingpre="${a}|${b}">${n}</button>`).join("")}</div></div>
+   <div class="seccion-t">${F.de===F.ha?esc(fxYm(F.de)):`De ${esc(fxYm(F.de))} a ${esc(fxYm(F.ha))}`}</div>
+   <div class="as-res bq-res pi-res">${kpi(fxE(g),"invertido",`${oaiN(cl)} clics · CPC ${cl?oaiN(g/cl,"eur2"):"–"}`)}${kpi(cl&&im?oaiN(100*cl/im,"pc"):"–","CTR",`${oaiN(im)} impresiones`)}${kpi(oaiN(Math.round(cv)),"conversiones en Bing",cv?`${oaiN(g/cv,"eur2")} cada una`:"")}${kpi(oaiN(dl),"deals en Zoho",dl?`${oaiN(g/dl,"eur2")} por deal`:"")}${kpi(oaiN(vt),"ventas",`${oaiN(ing,"eur")}${vt?" · "+oaiN(g/vt,"eur")+" por venta":""}`)}${kpi(g?oaiN(ing/g,"x"):"–","retorno","ingresos de ventas / invertido")}</div>
+   ${DD.length?`<div class="ia-g" style="margin:10px 20px 0"><h4>Gasto diario por mercado en el periodo</h4><div class="ia-sub">Hay datos por día desde el 1 de septiembre de 2026</div>${bingDiario(DD)}</div>`:""}
+   <p class="as-nota">Gasto, clics y conversiones de Microsoft Ads por mes; deals y ventas de Zoho por mes de creación del deal (las de los dos últimos meses todavía subirán). Datos hasta el ${esc(P.actualizado||"")}.</p>`}
+document.addEventListener("change",e=>{const a=e.target.closest("[data-oaif]");if(a&&st.oaiF&&a.value){st.oaiF[a.dataset.oaif]=a.value;pintarOai();return}
+  const b=e.target.closest("[data-bingf]");if(b&&st.bingF){st.bingF[b.dataset.bingf]=Number(b.value);pintarBing()}});
+document.addEventListener("click",e=>{const a=e.target.closest("[data-oaipre]");if(a){const[x,y]=a.dataset.oaipre.split("|");st.oaiF={de:x,ha:y};pintarOai();return}
+  const b=e.target.closest("[data-bingpre]");if(b){const[x,y]=b.dataset.bingpre.split("|").map(Number);st.bingF={de:x,ha:y};pintarBing()}});
 function pintarOai(){if(st.dentro!=="openaiads")return;const P=st.oaiDoc,ids=["oai_dash","oai_camp","oai_anu","oai_crm","oai_plan"];
   if(!P){ids.forEach(id=>{const el=document.getElementById("c-"+id);if(el)el.innerHTML=`<div class="vacio">Candela está leyendo la cuenta de OpenAI Ads.</div>`});return}
   const K=Object.fromEntries((P.kpis||[]).map(k=>[k[0],k])),kv=n=>K[n]?oaiN(K[n][1],K[n][2]):"–",kpi=(v,l,s)=>`<div><b>${v}</b><span>${esc(l)}</span>${s?`<small class="ia-k2">${esc(s)}</small>`:""}</div>`;
   const C=P.comparativa||{},CF=C.filas||[];
   /* 1. Resumen del canal */
-  let el=document.getElementById("c-oai_dash");if(el)el.innerHTML=oaiCab("Resumen del canal",P.fuente||"",P)+`<div class="pi-ver oai-ver"><b>${esc(P.veredicto?.titular||"")}</b> ${esc(P.veredicto?.texto||"")}</div>
+  let el=document.getElementById("c-oai_dash");if(el)el.innerHTML=oaiCab("Resumen del canal",P.fuente||"",P)+oaiFiltro(P)+`<div class="seccion-t">Todo el periodo</div><div class="pi-ver oai-ver"><b>${esc(P.veredicto?.titular||"")}</b> ${esc(P.veredicto?.texto||"")}</div>
     <div class="as-res bq-res pi-res">${kpi(kv("Invertido"),"invertido",`${kv("Clics")} clics · CPC ${kv("CPC")}`)}${kpi(kv("CTR"),"CTR",`${kv("Impresiones")} impresiones`)}${kpi(kv("Conversiones en OpenAI"),"conversiones en OpenAI",`${kv("Coste por conversión (OpenAI)")} cada una`)}${kpi(kv("Deals en Zoho"),"deals en Zoho",`${kv("Coste por deal")} por deal`)}${kpi(kv("Ventas"),"ventas",`${kv("Ingresos")} · ${kv("Coste por venta")} por venta`)}${kpi(kv("Retorno"),"retorno","ingresos de ventas / invertido")}</div>
     <div class="ia-graf pi-graf"><div class="ia-g"><h4>Gasto diario por campaña</h4><div class="ia-sub">Cada barra es un día; los puntos, las conversiones que cuenta OpenAI</div>${oaiDiario(P.diario||[],P.campanas_nom||{})}</div>
      <div class="ia-g"><h4>Frente a los otros canales de pago</h4><div class="ia-sub">Coste por deal en Zoho</div>${oaiBarras(CF,1,v=>oaiN(v,"eur2"))}<h4 style="margin-top:14px">Coste por venta</h4><div class="ia-sub">Gasto entre ventas de Zoho; la de ChatGPT Ads es una sola venta y aún es pronto</div>${oaiBarras(CF,2,v=>oaiN(v,"eur"))}<h4 style="margin-top:14px">Retorno</h4><div class="ia-sub">Ingresos de las ventas entre lo invertido</div>${oaiBarras(CF,4,v=>oaiN(v,"x"))}</div></div>${C.nota?`<p class="as-nota">${esc(C.nota)}</p>`:""}`;
@@ -6076,7 +6113,7 @@ function pintarBing(){if(st.dentro!=="bingads")return;const P=st.bingDoc,ids=["b
   const K=Object.fromEntries((P.kpis||[]).map(k=>[k[0],k])),kv=n=>K[n]?oaiN(K[n][1],K[n][2]):"–",kpi=(v,l,s)=>`<div><b>${v}</b><span>${esc(l)}</span>${s?`<small class="ia-k2">${esc(s)}</small>`:""}</div>`;
   const cab=(t,sub)=>oaiCab(t,sub,P),CF=(st.oaiDoc?.comparativa?.filas)||P.comparativa?.filas||[],M=P.mensual||[];
   /* 1. Resumen */
-  let el=document.getElementById("c-bing_dash");if(el)el.innerHTML=cab("Resumen del canal",P.fuente||"")+`<div class="pi-ver bing-ver"><b>${esc(P.veredicto?.titular||"")}</b> ${esc(P.veredicto?.texto||"")}</div>
+  let el=document.getElementById("c-bing_dash");if(el)el.innerHTML=cab("Resumen del canal",P.fuente||"")+bingFiltro(P)+`<div class="seccion-t">Todo 2026</div><div class="pi-ver bing-ver"><b>${esc(P.veredicto?.titular||"")}</b> ${esc(P.veredicto?.texto||"")}</div>
     <div class="as-res bq-res pi-res">${kpi(kv("Invertido"),"invertido en 2026",`${kv("Clics")} clics · CPC ${kv("CPC")}`)}${kpi(kv("CTR"),"CTR",`${kv("Impresiones")} impresiones`)}${kpi(kv("Deals en Zoho"),"deals en Zoho",`${kv("Coste por deal")} por deal`)}${kpi(kv("Ventas"),"ventas",`${kv("Ingresos")} · ${kv("Coste por venta")} por venta`)}${kpi(kv("Conversión a venta"),"conversión a venta","ventas sobre deals")}${kpi(kv("Retorno"),"retorno","ingresos de ventas / invertido")}</div>
     <div class="ia-graf pi-graf"><div class="ia-g"><h4>Gasto al mes y coste por venta</h4><div class="ia-sub">Desde enero de 2025; las ventas de los dos últimos meses todavía subirán</div>${bingMensual(M.filter(m=>m[0]>=202501))}</div>
      <div class="ia-g"><h4>Frente a los otros canales de pago</h4><div class="ia-sub">Coste por deal en Zoho (2026)</div>${bingBarras(CF,1,v=>oaiN(v,"eur2"))}<h4 style="margin-top:14px">Coste por venta</h4>${bingBarras(CF,2,v=>oaiN(v,"eur"))}<h4 style="margin-top:14px">Retorno</h4><div class="ia-sub">Ingresos de las ventas entre lo invertido</div>${bingBarras(CF,4,v=>oaiN(v,"x"))}</div></div>${P.comparativa?.nota?`<p class="as-nota">${esc(P.comparativa.nota)}</p>`:""}`;

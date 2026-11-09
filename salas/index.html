@@ -1569,13 +1569,13 @@ const MARCOS=[
   {id:"app",grupo:"app",nombre:"Santiago Ways App",obra:"Descargas, uso y papel de la app en el viaje",x:0,y:0,w:1200},
   {id:"cr",grupo:"cr",nombre:"CR",x:0,y:0,w:1200},
   {id:"metaads",grupo:"metaads",nombre:"Meta Ads",x:0,y:0,w:1200},
-  {id:"meta_rep",grupo:"metaads",dato:true,nombre:"Meta Ads / Campañas activas",x:0,y:-9000,w:1500},{id:"meta_anu",grupo:"metaads",dato:true,nombre:"Meta Ads / Anuncios",x:0,y:-9000,w:1500},{id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
+  {id:"meta_cm",grupo:"metaads",dato:true,nombre:"Meta Ads / Cuadro de mando",x:0,y:-9000,w:1500},{id:"meta_rep",grupo:"metaads",dato:true,nombre:"Meta Ads / Campañas activas",x:0,y:-9000,w:1500},{id:"meta_anu",grupo:"metaads",dato:true,nombre:"Meta Ads / Anuncios",x:0,y:-9000,w:1500},{id:"meta_utm",grupo:"metaads",dato:true,nombre:"Meta Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},
   {id:"googleads",grupo:"googleads",nombre:"Google Ads",x:0,y:0,w:1200},
   {id:"openaiads",grupo:"openaiads",nombre:"OpenAI Ads",x:0,y:0,w:1200},
   {id:"oai_dash",grupo:"openaiads",dato:true,nombre:"OpenAI Ads / Resumen del canal",x:0,y:-9000,w:1400},{id:"oai_camp",grupo:"openaiads",dato:true,nombre:"OpenAI Ads / Campañas y tráfico",x:0,y:-9000,w:1500},{id:"oai_anu",grupo:"openaiads",dato:true,nombre:"OpenAI Ads / Anuncios",x:0,y:-9000,w:1300},{id:"oai_crm",grupo:"openaiads",dato:true,nombre:"OpenAI Ads / Ventas en el CRM",x:0,y:-9000,w:1300},{id:"oai_plan",grupo:"openaiads",dato:true,nombre:"OpenAI Ads / Análisis y plan",x:0,y:-9000,w:1300},
   {id:"bingads",grupo:"bingads",nombre:"Bing Ads",x:0,y:0,w:1200},
   {id:"bing_dash",grupo:"bingads",dato:true,nombre:"Bing Ads / Resumen del canal",x:0,y:-9000,w:1400},{id:"bing_camp",grupo:"bingads",dato:true,nombre:"Bing Ads / Campañas y mercados",x:0,y:-9000,w:1500},{id:"bing_crm",grupo:"bingads",dato:true,nombre:"Bing Ads / Ventas en el CRM",x:0,y:-9000,w:1300},{id:"bing_plan",grupo:"bingads",dato:true,nombre:"Bing Ads / Análisis y plan",x:0,y:-9000,w:1300},
-  {id:"gads_camp",grupo:"googleads",dato:true,nombre:"Google Ads / Campañas",x:0,y:-9000,w:1500},{id:"gads_kw",grupo:"googleads",dato:true,nombre:"Google Ads / Búsquedas y palabras clave",x:0,y:-9000,w:1500},{id:"gads_anu",grupo:"googleads",dato:true,nombre:"Google Ads / Anuncios",x:0,y:-9000,w:1500},{id:"gads_med",grupo:"googleads",dato:true,nombre:"Google Ads / Medición y seguimiento",x:0,y:-9000,w:1300},{id:"gads_utm",grupo:"googleads",dato:true,nombre:"Google Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},{id:"gads_pmax",grupo:"googleads",dato:true,nombre:"Google Ads / Performance Max y vídeos",x:0,y:-9000,w:1400},
+  {id:"gads_cm",grupo:"googleads",dato:true,nombre:"Google Ads / Cuadro de mando",x:0,y:-9000,w:1500},{id:"gads_camp",grupo:"googleads",dato:true,nombre:"Google Ads / Campañas",x:0,y:-9000,w:1500},{id:"gads_kw",grupo:"googleads",dato:true,nombre:"Google Ads / Búsquedas y palabras clave",x:0,y:-9000,w:1500},{id:"gads_anu",grupo:"googleads",dato:true,nombre:"Google Ads / Anuncios",x:0,y:-9000,w:1500},{id:"gads_med",grupo:"googleads",dato:true,nombre:"Google Ads / Medición y seguimiento",x:0,y:-9000,w:1300},{id:"gads_utm",grupo:"googleads",dato:true,nombre:"Google Ads / Auditoría de UTMs",x:0,y:-9000,w:1300},{id:"gads_pmax",grupo:"googleads",dato:true,nombre:"Google Ads / Performance Max y vídeos",x:0,y:-9000,w:1400},
   {id:"cr_evolucion",grupo:"cr",dato:true,nombre:"CR / Evolución del CR",x:0,y:-9000,w:1300},
   {id:"cr_impacto",grupo:"cr",dato:true,nombre:"CR / Dónde está el impacto",x:0,y:-9000,w:1300},
   {id:"cr_tiempo",grupo:"cr",dato:true,nombre:"CR / Tiempo hasta el presupuesto",x:0,y:-9000,w:1300},
@@ -1600,7 +1600,7 @@ Object.assign(POS,ED.pos||{});
 MARCOS.forEach(m=>{if(POS[m.id])[m.x,m.y]=POS[m.id];if(TAM[m.id])m.w=TAM[m.id]});
 const altoSala=m=>Math.round(m.w/1200*666);
 {const st0=document.createElement("style");st0.textContent=Object.entries(TAM).map(([k,w])=>`#m-${k}>.cont{zoom:${w/1200}}`).join("");document.head.appendChild(st0)}
-const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_correos","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_tiempo","cr_plan"],metaads:["metaads","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_tiempo","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
+const SALAS_ACT={instagram:["instagram","instagram_dash","instagram_ranking","instagram_capt","instagram_errores","instagram_cuentas","instagram_comp","i_instagram","instagram_mision"],youtube:["youtube","youtube_ranking","youtube_roadmap","youtube_audit","youtube_bench","youtube_hub","youtube_mision","youtube_datos"],diseno:["diseno","d_meta","d_ig","d_reel","d_yt","d_li","d_tk","d_insp","d_tend","d_pet","g_diseno","d_brief"],control:["control","control_negocio","briefing","decisiones","brujula","cerebro","g_control"],radar:["radar","metricas","listado","radar_sintesis","radar_actualidad","bitacora"],competencia:["competencia","cambios","comp_nuevos","comp_bp","comprrss","compbit","players"],comunidad:["comunidad","k_formatos","k_preguntas","k_ideas","k_vivo","g_comunidad","i_comunidad"],seo:["seo","seo_roadmap","o_audit","o_plan","g_seo"],paid:["paid","p_utm","p_rend","p_google","p_plan","p_brief","g_paid"],mdirecto:["mdirecto","mdirecto_wf","mdirecto_mision","mdirecto_datos","g_mdirecto"],producto:["producto","producto_mision","producto_datos","g_producto"],comercial:["comercial","comercial_asesores","comercial_correos","comercial_embudo","comercial_valor","comercial_alertas"],ventas:["ventas","ventas_fact","ventas_idioma","ventas_capt"],cr:["cr","cr_evolucion","cr_impacto","cr_tiempo","cr_plan"],metaads:["metaads","meta_cm","meta_rep","meta_anu","meta_utm"],googleads:["googleads","gads_cm","gads_camp","gads_pmax","gads_kw","gads_anu","gads_med","gads_utm"],lifecycle:["lifecycle","lifecycle_insights","lifecycle_roadmap"],tiktok:["tiktok","tiktok_ranking","tiktok_mision","tiktok_datos"],captacion:["captacion","captacion_inv","captacion_canales","captacion_tiempo","captacion_evolucion","captacion_mix","captacion_cpa"],community:["community","community_insights","community_roadmap"],journey:["journey","journey_mapa","journey_mision","journey_datos"]};
 /* SEO alimenta a todas las salas por la base de datos (seo_red/actual); sus pestañas de directrices están ocultas */
 const LOGOS={caminoways:{a:["caminoways","camino ways"],ig:["caminoways"]},followthecamino:{a:["follow the camino","followthecamino"],ig:["followthecamino"]},pilgrim:{a:["pilgrim.es","pilgrim"],ig:["pilgrim.es"]},tubuencamino:{a:["tu buen camino","tubuencamino"],ig:["tubuencaminoviajes","tubuencamino"]},viajecamino:{a:["viaje camino","viajecaminodesantiago","viajes camino de santiago"],ig:[]},macsadventure:{a:["macs adventure","macsadventure","macs"],ig:["macsadventure"]},galiwonders:{a:["galiwonders","gali wonders"],ig:["galiwonders"]},mundiplus:{a:["mundiplus"],ig:["mundiplus"]}};
 function logoP(id,h=20){return LOGOS[id]?`<img loading="lazy" class="logo-p" src="img/logos/${id}.png?v=1" alt="${esc(id)}" style="height:${h}px">`:""}
@@ -6815,8 +6815,140 @@ const DOCS_VISTOS=new Set();
 function vigilarDoc(p,f,err){let ult;return st.db.doc(p).onSnapshot(s=>{DOCS_VISTOS.add(p);let j;try{j=s.exists?JSON.stringify(s.data()):"null"}catch(_){j=String(Math.random())}
   if(j==="null"&&s.metadata?.fromCache&&ult&&ult!=="null")return;if(j===ult)return;ult=j;f(s)},err||(e=>console.error(p,e)))}
 /* Documentos que solo usa una sala: se suscriben al entrar en ella para no pasar del máximo de 64 suscripciones por página */
+/* ===== Cuadro de mando de paid (Meta y Google), 9 nov 2026: CPL, coste por deal, CPA, conversión y retorno en el tiempo.
+   Lee paid_cm/actual: por plataforma, segmentos (campañas o mercados) con {AAAAMM:[coste, leads, deals, won, importe]}. ===== */
+const PCM={google:{mod:"gads_cm",sala:"googleads",c:"#4285f4",segN:"Campaña"},meta:{mod:"meta_cm",sala:"metaads",c:"#3b82f6",segN:"Mercado"}};
+const pcmV={google:{seg:"todos",ord:"coste",asc:false,q:""},meta:{seg:"todos",ord:"coste",asc:false,q:""}};
+const pcmMil=t=>t.replace(/^(-?\d+)(\d{3})(?=,|$)/,"$1.$2"),pcmNF={format:v=>pcmMil(new Intl.NumberFormat("es-ES",{maximumFractionDigits:0}).format(v))},pcmNF1={format:v=>pcmMil(new Intl.NumberFormat("es-ES",{maximumFractionDigits:1}).format(v))};
+const pcmE=v=>v==null||!isFinite(v)?"·":pcmNF.format(Math.round(v))+" €",pcmN=v=>v==null||!isFinite(v)?"·":pcmNF.format(Math.round(v)),
+  pcmP=v=>v==null||!isFinite(v)?"·":pcmNF1.format(v*100)+" %",pcmX=v=>v==null||!isFinite(v)?"·":pcmNF1.format(v)+"×";
+const PCM_MES=["ene","feb","mar","abr","may","jun","jul","ago","sep","oct","nov","dic"];
+const pcmMes=ym=>PCM_MES[+String(ym).slice(4)-1]+" "+String(ym).slice(2,4);
+const pcmSig=ym=>{let y=+String(ym).slice(0,4),m=+String(ym).slice(4)+1;if(m>12){m=1;y++}return""+y+String(m).padStart(2,"0")};
+function pcmSerie(P,plat,seg){const D=P[plat];if(!D)return{};const out={},add=m=>{for(const[ym,a]of Object.entries(m||{})){const o=out[ym]||(out[ym]=[0,0,0,0,0]);a.forEach((v,i)=>o[i]+=+v||0)}};
+  if(plat==="meta"&&seg==="todos"){add(D.total);return out}
+  for(const s of D.segs){if(seg==="todos"||s.id===seg||(seg.startsWith("t:")&&s.t===seg.slice(2)))add(s.m)}return out}
+function pcmSuma(S,meses){const t=[0,0,0,0,0];meses.forEach(ym=>(S[ym]||[]).forEach((v,i)=>t[i]+=v));return t}
+function pcmKpi(t,cl,cc){const[c,l,d,w,imp]=t;cl=cl??c;cc=cc??c;return{coste:c,leads:l,cpl:l?cl/l:null,deals:d,cpd:d?cc/d:null,won:w,cpa:w?cc/w:null,cr:d?w/d:null,ld:l?d/l:null,ret:cc&&imp?imp/cc:null}}
+/* Ratios con el coste solo de los meses en que existe el dato del otro lado (leads de la plataforma o deals del CRM) */
+function pcmKpiP(S,meses,ld,cd){const t=pcmSuma(S,meses),cl=ld?pcmSuma(S,meses.filter(m=>m>=ld))[0]:null,cc=cd?pcmSuma(S,meses.filter(m=>m>=cd))[0]:null;return pcmKpi(t,cl,cc)}
+function pcmMeses(P,plat){const S=pcmSerie(P,plat,"todos");const ks=Object.keys(S).filter(k=>S[k].some(v=>v)).sort();return ks}
+/* Gráfico pequeño: barras o línea, con los dos últimos meses completos marcados como «en maduración» si la métrica depende de ventas */
+function pcmMini(tit,meses,vals,fmt,{tipo="linea",c="#3b82f6",madura=0,parcial=null,menosMejor=false}={}){
+  const W=340,H=150,L=8,R=8,T=26,B=22,n=meses.length,ok=vals.filter(v=>v!=null&&isFinite(v));
+  const ult=[...vals].reverse().find((v,j)=>v!=null&&isFinite(v)&&meses[n-1-j]!==parcial);
+  if(!ok.length)return`<div class="pcm-g"><div class="pcm-gt">${tit}</div><div class="pcm-gv">·</div><div class="pcm-vac">Sin datos en el periodo</div></div>`;
+  const mx=Math.max(...ok)*1.12||1,mn=tipo==="barras"?0:Math.min(0,Math.min(...ok)),x=i=>L+(n<=1?(W-L-R)/2:i*(W-L-R)/(n-1)),bw=Math.max(3,Math.min(22,(W-L-R)/n*.62)),
+    y=v=>T+(H-T-B)*(1-(v-mn)/(mx-mn||1)),xb=i=>L+(i+.5)*(W-L-R)/n;
+  let g="";
+  const paso=Math.max(1,Math.ceil(n/5)),tick=i=>i===n-1||(i%paso===0&&n-1-i>=paso*.6);
+  meses.forEach((ym,i)=>{if(tick(i)){const xx=tipo==="barras"?xb(i):x(i),an=tipo==="barras"?"middle":i===0?"start":i===n-1?"end":"middle";g+=`<text x="${xx.toFixed(1)}" y="${H-6}" class="pcm-ax" text-anchor="${an}">${pcmMes(ym)}</text>`}});
+  if(tipo==="barras")vals.forEach((v,i)=>{if(v==null||!isFinite(v))return;const tenue=meses[i]===parcial||i>=n-madura;g+=`<rect x="${(xb(i)-bw/2).toFixed(1)}" y="${y(v).toFixed(1)}" width="${bw.toFixed(1)}" height="${Math.max(0,y(0)-y(v)).toFixed(1)}" rx="2" fill="${c}" opacity="${tenue?.38:.9}"><title>${pcmMes(meses[i])}: ${fmt(v)}${meses[i]===parcial?" (mes en curso)":i>=n-madura?" (en maduración)":""}</title></rect>`});
+  else{let seg=[],tr=[];vals.forEach((v,i)=>{if(v==null||!isFinite(v)){if(seg.length)tr.push(seg);seg=[];return}seg.push([x(i),y(v),i])});if(seg.length)tr.push(seg);
+    tr.forEach(s=>{const fi=s.filter(p=>p[2]<n-madura&&meses[p[2]]!==parcial),te=s.filter(p=>p[2]>=n-madura-1||meses[p[2]]===parcial);
+      if(fi.length>1)g+=`<polyline points="${fi.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")}" fill="none" stroke="${c}" stroke-width="2.2" stroke-linejoin="round"/>`;
+      if((madura||parcial)&&te.length>1)g+=`<polyline points="${te.map(p=>p[0].toFixed(1)+","+p[1].toFixed(1)).join(" ")}" fill="none" stroke="${c}" stroke-width="2" stroke-dasharray="4 4" opacity=".55"/>`;
+      s.forEach(p=>{const tenue=p[2]>=n-madura||meses[p[2]]===parcial;g+=`<circle cx="${p[0].toFixed(1)}" cy="${p[1].toFixed(1)}" r="${n>14?2.4:3.2}" fill="${c}" opacity="${tenue?.45:1}"><title>${pcmMes(meses[p[2]])}: ${fmt(vals[p[2]])}${meses[p[2]]===parcial?" (mes en curso)":tenue?" (en maduración)":""}</title></circle>`})})}
+  const mid=ok.length>2?ok.slice().sort((a,b)=>a-b)[Math.floor(ok.length/2)]:null;
+  if(mid!=null&&tipo!=="barras")g=`<line x1="${L}" x2="${W-R}" y1="${y(mid).toFixed(1)}" y2="${y(mid).toFixed(1)}" class="pcm-med"><title>Mediana del periodo: ${fmt(mid)}</title></line>`+g;
+  return`<div class="pcm-g"><div class="pcm-gt">${tit}</div><div class="pcm-gv">${fmt(ult)}<small>último mes cerrado${madura?" · en maduración":""}</small></div><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(tit)}">${g}</svg></div>`}
+function pcmDelta(a,b,menosMejor){if(a==null||b==null||!isFinite(a)||!isFinite(b)||!b)return"";const d=(a-b)/Math.abs(b),bien=menosMejor?d<0:d>0,f=Math.abs(d)<.03;
+  return`<span class="pcm-d ${f?"":bien?"bien":"mal"}">${d>0?"▲":"▼"} ${pcmNF.format(Math.abs(d*100))} %</span>`}
+function pintarPaidCM(plat){const C=PCM[plat],el=document.getElementById("c-"+C.mod);if(!el||st.dentro!==C.sala)return;const P=st.paidCm;
+  if(!P||!P[plat]){el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando</h2></div></div><div class="vacio">Preparando el cuadro de mando.</div>`;return}
+  const D=P[plat],V=pcmV[plat],todos=pcmMeses(P,plat);if(!todos.length){el.innerHTML=`<div class="vacio">Sin datos.</div>`;return}
+  const ultimo=todos[todos.length-1],hoyYm=(()=>{const d=new Date();return""+d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")})(),parcial=ultimo>=hoyYm?ultimo:null;
+  const completos=todos.filter(m=>m!==parcial);
+  if(!V.d||!todos.includes(V.d))V.d=todos.includes(D.desde)?D.desde:todos[0];if(!V.h||!todos.includes(V.h))V.h=completos[completos.length-1]||ultimo;if(V.d>V.h)[V.d,V.h]=[V.h,V.d];
+  const segCrm0=plat==="meta"&&V.seg!=="todos"?D.seg_crm_desde:D.crm_desde,LD=D.leads_desde||null;
+  const meses=todos.filter(m=>m>=V.d&&m<=V.h),S=pcmSerie(P,plat,V.seg),K=pcmKpiP(S,meses,LD,segCrm0);
+  const prev=(()=>{const i=todos.indexOf(V.d),n=meses.length;return i-n>=0?todos.slice(i-n,i):[]})(),Kp=prev.length?pcmKpiP(S,prev,LD,segCrm0):null;
+  const madN=completos.slice(-2),mad=meses.filter(m=>madN.includes(m)).length;
+  const serie=f=>meses.map(ym=>{const a=S[ym]||[0,0,0,0,0],k=pcmKpi(a,LD&&ym<LD?0:a[0],segCrm0&&ym<segCrm0?0:a[0]);return f(k)});
+  const segCrm=plat==="meta"&&V.seg!=="todos"?D.seg_crm_desde:null,leadsN=D.leads_n||"Leads";
+  /* Selector de segmento */
+  const tipos=[...new Set(D.segs.map(s=>s.t).filter(Boolean))];
+  const opt=(v,t)=>`<option value="${esc(v)}"${V.seg===v?" selected":""}>${esc(t)}</option>`;
+  const selSeg=`<select data-pcm="${plat}|seg">${opt("todos",plat==="meta"?"Todos los mercados":"Todas las campañas")}${plat==="google"&&tipos.length>1?`<optgroup label="Por tipo">${tipos.map(t=>opt("t:"+t,t)).join("")}</optgroup>`:""}<optgroup label="${C.segN}">${D.segs.map(s=>opt(s.id,s.n)).join("")}</optgroup></select>`;
+  const selM=k=>`<select data-pcm="${plat}|${k}">${todos.map(m=>`<option value="${m}"${V[k]===m?" selected":""}>${pcmMes(m)}${m===parcial?" (en curso)":""}</option>`).join("")}</select>`;
+  const pres=[["3","Últimos 3 meses"],["6","Últimos 6"],["12","Últimos 12"],["ano","Este año"],["todo","Todo"]];
+  /* KPI */
+  const k=(t,v,f,key,menos,sub)=>`<div class="pcm-k"><span>${t}</span><b>${f(v)}</b>${Kp?pcmDelta(v,Kp[key],menos):""}${sub?`<small>${sub}</small>`:""}</div>`;
+  const kpis=`<div class="pcm-ks">${k("Inversión",K.coste,pcmE,"coste",false)}${k(leadsN,K.leads,pcmN,"leads",false)}${k("CPL",K.cpl,pcmE,"cpl",true)}${k("Deals CRM",K.deals,pcmN,"deals",false)}${k("Coste por deal",K.cpd,pcmE,"cpd",true)}${k("Ventas",K.won,pcmN,"won",false)}${k("CPA",K.cpa,pcmE,"cpa",true,mad?"meses recientes aún suben":"")}${k("Deal a venta",K.cr,pcmP,"cr",false)}${k("Retorno",K.ret,pcmX,"ret",false,"importe vendido / inversión")}</div>`;
+  /* Gráficos */
+  const g=`<div class="pcm-gs">${pcmMini("Inversión",meses,serie(k=>k.coste||null),pcmE,{tipo:"barras",c:C.c,parcial})}${pcmMini("CPL",meses,serie(k=>k.cpl),pcmE,{c:"#f5b041",parcial})}${pcmMini("Coste por deal",meses,serie(k=>k.cpd),pcmE,{c:"#a78bfa",parcial})}${pcmMini("CPA (coste por venta)",meses,serie(k=>k.cpa),pcmE,{c:"#ef6b5b",madura:mad,parcial})}${pcmMini("Deal a venta",meses,serie(k=>k.cr),pcmP,{c:"#3ddc97",madura:mad,parcial})}${pcmMini("Retorno",meses,serie(k=>k.ret),pcmX,{c:"#38bdf8",madura:mad,parcial})}</div>`;
+  /* Acciones */
+  const sc=plat==="meta"?D.seg_crm_desde:D.crm_desde,mT=meses.filter(m=>!sc||m>=sc);
+  const filas=D.segs.map(s=>{const kk=pcmKpiP(s.m,mT,LD,sc),sp=mT.slice(-6).map(ym=>{const a=s.m[ym]||[0,0,0,0,0];return pcmKpi(a).cpa});return{id:s.id,n:s.n,t:s.t,e:s.e,...kk,sp}}).filter(f=>f.coste||f.deals);
+  const tot=plat==="meta"?pcmKpiP(Object.fromEntries(Object.entries(pcmSerie(P,plat,"todos")).map(([k,v])=>[k,[v[0],v[1],v[2],v[3],0]])),mT,LD,sc):pcmKpiP(pcmSerie(P,plat,"todos"),mT,LD,sc),acc=[];
+  const totT=plat==="meta"?(()=>{const sm={};D.segs.forEach(s=>Object.entries(s.m).forEach(([k,v])=>{const o=sm[k]||(sm[k]=[0,0,0,0,0]);v.forEach((x,i)=>o[i]+=x)}));return pcmKpiP(sm,mT,LD,sc)})():tot;
+  const conCoste=filas.filter(f=>f.coste>=.03*totT.coste);
+  const mejor=conCoste.filter(f=>f.won>=8&&f.ret).sort((a,b)=>b.ret-a.ret)[0];
+  const mejor2=[mejor,plat==="meta"?conCoste.filter(f=>f.won>=3&&f.cpa).sort((a,b)=>a.cpa-b.cpa)[0]:null].find(f=>f&&totT.cpa&&f.cpa<totT.cpa*.9);
+  if(mejor2&&totT.cpa)acc.push(["subir",`Escalar <b>${esc(mejor2.n)}</b>`,`${mejor2.ret?"Retorno "+pcmX(mejor2.ret)+" y ":""}CPA ${pcmE(mejor2.cpa)} (${pcmNF.format(Math.round((mejor2.cpa/totT.cpa-1)*100))} % frente a la media).`]);
+  const peor=conCoste.filter(f=>f!==mejor2&&f.coste>=.05*totT.coste&&((f.won<3&&f.deals>=10)||(totT.cpa&&f.cpa>=1.5*totT.cpa))).sort((a,b)=>(b.cpa||1e9)-(a.cpa||1e9))[0];
+  if(peor)acc.push(["bajar",`Revisar <b>${esc(peor.n)}</b>`,peor.won?`${pcmE(peor.coste)} invertidos con CPA ${pcmE(peor.cpa)}, ${pcmNF.format(Math.round((peor.cpa/totT.cpa-1)*100))} % sobre la media.`:`${pcmE(peor.coste)} invertidos, ${pcmN(peor.deals)} deals y ${peor.won?pcmN(peor.won)+" ventas":"ninguna venta"}${mT.length!==meses.length?" desde "+pcmMes(mT[0]):""}.`]);
+  {const cm=meses.filter(m=>m!==parcial),a=cm.slice(-3),b=cm.slice(-6,-3);if(a.length===3&&b.length===3){const ka=pcmKpiP(S,a,LD,segCrm0),kb=pcmKpiP(S,b,LD,segCrm0);
+    if(ka.cpl&&kb.cpl&&ka.cpd&&kb.cpd&&ka.cpl<kb.cpl*.95&&ka.cpd>kb.cpd*1.05)acc.push(["ojo","Leads más baratos, deals más caros",`CPL ${pcmDelta(ka.cpl,kb.cpl,true)} pero coste por deal ${pcmDelta(ka.cpd,kb.cpd,true)} en los últimos 3 meses: revisar la calidad del lead.`]);
+    else if(ka.cpd&&kb.cpd)acc.push([Math.abs(ka.cpd/kb.cpd-1)<.05?"ojo":ka.cpd<=kb.cpd?"subir":"bajar",`Coste por deal ${Math.abs(ka.cpd/kb.cpd-1)<.05?"estable":ka.cpd<=kb.cpd?"a la baja":"al alza"}`,`${pcmE(ka.cpd)} en ${pcmMes(a[0])} a ${pcmMes(a[2])} frente a ${pcmE(kb.cpd)} los 3 meses anteriores ${pcmDelta(ka.cpd,kb.cpd,true)}.`])}}
+  const acciones=acc.length?`<div class="pcm-acc">${acc.slice(0,3).map(([t,h,p])=>`<div class="pcm-a ${t}"><i></i><div><b>${h}</b><p>${p}</p></div></div>`).join("")}</div>`:"";
+  /* Tabla */
+  const cols=[["n",C.segN,0],["coste","Inversión",pcmE],["leads",leadsN,pcmN],["cpl","CPL",pcmE],["deals","Deals",pcmN],["cpd","€/deal",pcmE],["won","Ventas",pcmN],["cpa","CPA",pcmE],["cr","Deal a venta",pcmP],["ret","Retorno",pcmX]];
+  const q=V.q.trim().toLowerCase(),vis=filas.filter(f=>!q||f.n.toLowerCase().includes(q)||(f.t||"").toLowerCase().includes(q));
+  vis.sort((a,b)=>{const x=a[V.ord],y2=b[V.ord];if(V.ord==="n")return V.asc?String(x).localeCompare(y2):String(y2).localeCompare(x);const xa=x==null?(V.asc?1e15:-1e15):x,ya=y2==null?(V.asc?1e15:-1e15):y2;return V.asc?xa-ya:ya-xa});
+  const sem=(f,k)=>{if(!totT[k]||f[k]==null)return"";const r=f[k]/totT[k],menos=["cpl","cpd","cpa"].includes(k);if(["cpl","cpd","cpa","cr","ret"].indexOf(k)<0)return"";const bien=menos?r<=.85:r>=1.15,mal=menos?r>=1.3:r<=.7;return bien?"pcm-ok":mal?"pcm-ko":""};
+  const spark=sp=>{const v=sp.filter(x=>x!=null&&isFinite(x));if(v.length<2)return"";const mx=Math.max(...v),mn=Math.min(...v),w=64,h=18;return`<svg class="pcm-sp" viewBox="0 0 ${w} ${h}"><polyline points="${sp.map((x,i)=>x==null||!isFinite(x)?null:`${(i*(w-4)/(sp.length-1)+2).toFixed(1)},${(h-2-(x-mn)/(mx-mn||1)*(h-4)).toFixed(1)}`).filter(Boolean).join(" ")}" fill="none" stroke="currentColor" stroke-width="1.6"/></svg>`};
+  const tabla=`<div class="pcm-tb"><div class="pcm-tbh"><b>${C.segN==="Campaña"?"Campañas":"Mercados"}${mT.length!==meses.length&&mT.length?` <small class="pcm-st">${pcmMes(mT[0])} a ${pcmMes(mT[mT.length-1])}: el CRM separa por ${C.segN.toLowerCase()} desde ${pcmMes(sc)}</small>`:""}</b><input type="search" placeholder="Filtrar…" value="${esc(V.q)}" data-pcm="${plat}|q"><span>Pulsa una fila para ver ${C.segN==="Campaña"?"solo esa campaña":"solo ese mercado"} · colores frente a la media: <i class="pcm-ok">mejor</i> <i class="pcm-ko">peor</i></span></div>
+    <div class="as-tw"><table class="tabla pcm-t"><thead><tr>${cols.map(([k2,t])=>`<th data-pcmord="${plat}|${k2}" class="${V.ord===k2?"on":""}">${t}${V.ord===k2?(V.asc?" ↑":" ↓"):""}</th>`).join("")}<th>CPA 6 meses</th></tr></thead><tbody>
+    ${vis.map(f=>`<tr data-pcmseg="${plat}|${esc(f.id)}" class="${V.seg===f.id?"sel":""}">${cols.map(([k2,,fm])=>k2==="n"?`<td>${esc(f.n)}${f.e&&f.e!=="Activa"?` <small class="pcm-st">${esc(f.e)}</small>`:""}</td>`:`<td class="${sem(f,k2)}">${fm(f[k2])}</td>`).join("")}<td>${spark(f.sp)}</td></tr>`).join("")}
+    <tr class="pcm-tot"><td>Total${mT.length!==meses.length?" desde "+pcmMes(mT[0]||sc):" del periodo"}</td>${cols.slice(1).map(([k2,,fm])=>`<td>${fm(totT[k2])}</td>`).join("")}<td></td></tr></tbody></table></div></div>`;
+  el.innerHTML=`<div class="mcab"><div><h2>Cuadro de mando</h2><div class="fuente-mc">${esc(D.fuente||"")}</div></div></div>
+   <div class="pcm-fil">${selSeg}<label>De ${selM("d")}</label><label>a ${selM("h")}</label><span class="pcm-pres">${pres.map(([v,t])=>`<button type="button" data-pcmpre="${plat}|${v}">${t}</button>`).join("")}</span>${V.seg!=="todos"?`<button type="button" class="pcm-x" data-pcmseg="${plat}|todos">Quitar filtro ✕</button>`:""}</div>
+   ${Kp?`<div class="pcm-cmp">Flechas: frente a ${pcmMes(prev[0])} a ${pcmMes(prev[prev.length-1])} (mismo número de meses justo antes).</div>`:""}
+   ${kpis}${acciones}${g}
+   <div class="pcm-nota">${esc(P.nota||"")}${segCrm?` Deals y ventas por mercado desde ${pcmMes(segCrm)}.`:""}${plat==="meta"?" Los leads de Meta solo existen desde enero de 2026.":""}</div>
+   ${tabla}`;
+  if(typeof tzAplica==="function")try{tzAplica(el)}catch(_){}}
+pintarPaidCM=guardaScroll(pintarPaidCM);
+document.addEventListener("change",e=>{const t=e.target.closest("[data-pcm]");if(!t||t.tagName!=="SELECT")return;const[plat,k]=t.dataset.pcm.split("|");pcmV[plat][k]=t.value;pintarPaidCM(plat)});
+document.addEventListener("input",e=>{const t=e.target.closest("[data-pcm]");if(!t||t.tagName!=="INPUT")return;const[plat]=t.dataset.pcm.split("|");pcmV[plat].q=t.value;clearTimeout(pcmV[plat].tq);pcmV[plat].tq=setTimeout(()=>{pintarPaidCM(plat);const i=document.querySelector(`[data-pcm="${plat}|q"]`);if(i){i.focus();i.setSelectionRange(i.value.length,i.value.length)}},250)});
+document.addEventListener("click",e=>{let t=e.target.closest("[data-pcmord]");if(t){const[plat,k]=t.dataset.pcmord.split("|"),V=pcmV[plat];if(V.ord===k)V.asc=!V.asc;else{V.ord=k;V.asc=["cpl","cpd","cpa","n"].includes(k)}pintarPaidCM(plat);return}
+  t=e.target.closest("[data-pcmseg]");if(t){const[plat,id]=t.dataset.pcmseg.split("|");pcmV[plat].seg=pcmV[plat].seg===id?"todos":id;pintarPaidCM(plat);document.getElementById("c-"+PCM[plat].mod)?.scrollIntoView({block:"start",behavior:"smooth"});return}
+  t=e.target.closest("[data-pcmpre]");if(t){const[plat,v]=t.dataset.pcmpre.split("|"),P=st.paidCm,todos=pcmMeses(P,plat),V=pcmV[plat],hy=(()=>{const d=new Date();return""+d.getFullYear()+String(d.getMonth()+1).padStart(2,"0")})(),cmp=todos.filter(m=>m<hy),ult=v==="todo"||!cmp.length?todos[todos.length-1]:cmp[cmp.length-1];
+    if(v==="todo"){V.d=todos[0];V.h=ult}else if(v==="ano"){V.h=ult;V.d=todos.find(m=>m.startsWith(ult.slice(0,4)))||todos[0]}else{const n=+v,i=todos.indexOf(ult);V.h=ult;V.d=todos[Math.max(0,i-n+1)]}pintarPaidCM(plat)}});
+
+(()=>{const css=document.createElement("style");css.textContent=`
+.pcm-fil{display:flex;flex-wrap:wrap;gap:8px 12px;align-items:center;padding:14px 20px 4px}
+.pcm-fil select,.pcm-tbh input{background:var(--marco-2);color:var(--texto);border:1px solid var(--borde-2);border-radius:8px;height:32px;padding:0 10px;font:500 13px var(--f-ui)}
+.pcm-fil label{display:inline-flex;gap:6px;align-items:center;font:500 12.5px var(--f-ui);color:var(--tenue)}
+.pcm-pres{display:inline-flex;gap:4px;flex-wrap:wrap}.pcm-pres button,.pcm-x{background:transparent;border:1px solid var(--borde-2);color:var(--texto);border-radius:999px;height:28px;padding:0 11px;font:500 12px var(--f-ui);cursor:pointer}
+.pcm-pres button:hover,.pcm-x:hover{border-color:#7AA606}.pcm-x{border-color:#ef6b5b;color:#ef6b5b}
+.pcm-cmp{padding:2px 20px 0;font:500 11.5px var(--f-ui);color:var(--tenue)}
+.pcm-ks{display:grid;grid-template-columns:repeat(auto-fit,minmax(118px,1fr));gap:10px;padding:12px 20px}
+.pcm-k{background:var(--marco-2);border:1px solid var(--borde);border-radius:10px;padding:10px 12px;display:flex;flex-direction:column;gap:3px;min-width:0}
+.pcm-k span{font:600 11px var(--f-ui);color:var(--tenue);text-transform:uppercase;letter-spacing:.05em}.pcm-k b{font:700 clamp(15px,1.35vw,20px) var(--f-ui);color:var(--texto);white-space:nowrap}
+.pcm-k small{font:500 10.5px var(--f-ui);color:var(--tenue)}
+.pcm-d{font:600 11.5px var(--f-ui);color:var(--tenue)}.pcm-d.bien{color:#3ddc97}.pcm-d.mal{color:#ef6b5b}
+.pcm-acc{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:10px;padding:2px 20px 10px}
+.pcm-a{display:flex;gap:10px;border:1px solid var(--borde);border-radius:10px;padding:10px 12px;background:var(--marco-2)}.pcm-a i{flex:none;width:6px;border-radius:3px;background:#f5b041}
+.pcm-a.subir i{background:#3ddc97}.pcm-a.bajar i{background:#ef6b5b}.pcm-a b{font:600 13.5px var(--f-ui);color:var(--texto)}.pcm-a p{margin:3px 0 0;font:500 12.5px/1.4 var(--f-ui);color:var(--tenue)}
+.pcm-gs{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;padding:4px 20px 8px}
+.pcm-g{background:var(--marco-2);border:1px solid var(--borde);border-radius:10px;padding:10px 12px 6px;min-width:0}
+.pcm-gt{font:600 12px var(--f-ui);color:var(--tenue);text-transform:uppercase;letter-spacing:.05em}.pcm-gv{font:700 18px var(--f-ui);color:var(--texto);margin-top:2px}.pcm-gv small{font:500 10.5px var(--f-ui);color:var(--tenue);margin-left:6px}
+.pcm-g svg{width:100%;height:auto;display:block}.pcm-ax{font:500 10px var(--f-ui);fill:var(--tenue)}.pcm-med{stroke:var(--tenue);stroke-dasharray:2 4;opacity:.6}
+.pcm-vac{font:500 12px var(--f-ui);color:var(--tenue);padding:30px 0}
+.pcm-nota{padding:2px 20px 10px;font:500 11.5px/1.45 var(--f-ui);color:var(--tenue)}
+.pcm-tb{padding:4px 20px 20px}.pcm-tbh{display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;margin-bottom:8px}.pcm-tbh b{font:700 14px var(--f-ui);color:var(--texto)}
+.pcm-tbh span{font:500 11.5px var(--f-ui);color:var(--tenue)}.pcm-tbh i{font-style:normal;padding:1px 6px;border-radius:4px}
+.pcm-t th{cursor:pointer;white-space:nowrap;user-select:none}.pcm-t th.on{color:var(--texto)}.pcm-t td:not(:first-child),.pcm-t th:not(:first-child){text-align:right;white-space:nowrap}
+.pcm-t tbody tr[data-pcmseg]{cursor:pointer}.pcm-t tbody tr[data-pcmseg]:hover td{background:rgba(122,166,6,.08)}.pcm-t tr.sel td{background:rgba(122,166,6,.16)}
+.pcm-t tr.pcm-tot td{font-weight:700;border-top:2px solid var(--borde-2)}.pcm-ok{color:#3ddc97}.pcm-ko{color:#ef6b5b}i.pcm-ok{background:rgba(61,220,151,.12)}i.pcm-ko{background:rgba(239,107,91,.12)}
+.pcm-sp{width:64px;height:18px;color:var(--tenue)}.pcm-st{font:500 10.5px var(--f-ui);color:var(--tenue);border:1px solid var(--borde-2);border-radius:999px;padding:0 6px}
+@media (max-width:900px){.pcm-gs{grid-template-columns:1fr}}
+`;document.head.appendChild(css)})();
+
 const SUBS_SALA={
-  googleads:[["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].map(([c,k])=>[c+"/actual",k,()=>pintarGads()]),
+  googleads:[["gads_pmax","gadsPmax"],["gads_camp","gadsCamp"],["gads_kw","gadsKw"],["gads_anu","gadsAnu"],["gads_med","gadsMed"],["gads_utm","gadsUtm"]].map(([c,k])=>[c+"/actual",k,()=>pintarGads()]).concat([["paid_cm/actual","paidCm",()=>pintarPaidCM("google")]]),
   instagram:[["ig_ranking/actual","igRank",()=>pintarRsRanking("instagram")],["ig_dash/actual","igDash",()=>pintarIgDash()],["ig_capt/actual","igCapt",()=>pintarIgCapt()],["ig_err/actual","igErr",()=>pintarIgErr()]],
   tiktok:[["tk_ranking/actual","tkRank",()=>pintarRsRanking("tiktok")]],
   youtube:[["youtube_dash/actual","ytDash",()=>pintarYtDash()]],
@@ -6827,7 +6959,7 @@ const SUBS_SALA={
   bingads:[["bing_ads/actual","bingDoc",()=>pintarBing()],["openai_ads/actual","oaiDoc",()=>pintarBing()]],
   cro:[["cro/actual","croDoc",()=>pintarCro()]],
   control:[["plan_itpt/actual","planItpt",()=>pintarPlanItpt()],["control_prioridades/actual","prioDoc",()=>pintarPrio()]],
-  metaads:[["meta_ads/utm","metaUtm",()=>pintarMetaUtm()],["meta_report/actual","metaRep",()=>pintarMetaRep()],["meta_report/checks","metaChk",()=>pintarMetaRep()]]};
+  metaads:[["meta_ads/utm","metaUtm",()=>pintarMetaUtm()],["meta_report/actual","metaRep",()=>pintarMetaRep()],["meta_report/checks","metaChk",()=>pintarMetaRep()],["paid_cm/actual","paidCm",()=>pintarPaidCM("meta")]]};
 let subsSala={id:null,u:[]};
 function suscribirSala(sala){if(!st.db||!SUBS_SALA[sala]||subsSala.id===sala)return;
   subsSala.u.forEach(u=>{try{u()}catch(_){}});subsSala={id:sala,u:SUBS_SALA[sala].map(([p,k,f])=>vigilarDoc(p,s=>{st[k]=s.exists?s.data():null;f()}))}}

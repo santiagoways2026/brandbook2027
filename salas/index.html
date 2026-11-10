@@ -5509,7 +5509,8 @@ function pintarVentasIdioma(){const el=document.getElementById("c-ventas_idioma"
    <div class="cr-chart"><div class="cr-leg"><span><i style="background:${VE_COL.a}"></i>Importe de viajes vendidos ${y0}</span><span><i style="background:${VE_COL.b}"></i>Importe de viajes vendidos ${y1}</span></div><svg viewBox="0 0 ${W} ${H}" class="cr-svg" role="img" aria-label="Importe de viajes vendidos por idioma, ${y0} frente a ${y1}">${barras}</svg></div>
    <p class="as-nota">Periodo: ${per} de cada año. Idioma del viaje en Zoho (campo Language). Mismo criterio que el informe Trips Overview: mes de creación del viaje, Trip Amount y todos los estados.</p>`}
 /* ===== Viajes vendidos / Captación: deals, cerrados y CR (dashboard «Deals Cerrados Overview») ===== */
-const CP_SQL=(dia,mes)=>{const c=`dayofmonth("Created Time")<=${dia}`,dc=Math.max(1,dia-1);return[
+/* Corte en días completos: hoy va a medias, así que el mes en curso se compara del 1 a ayer con el mismo tramo del año anterior */
+const CP_SQL=(dia,mes)=>{const dc=Math.max(1,dia-1),c=`dayofmonth("Created Time")<=${dc}`;return[
   `select year("Created Time")*100+month("Created Time") as ym, "Language" as idioma, "UTM" as canal, count(*) as deals, sum(case when "Stage"='Won' then 1 else 0 end) as won, sum(case when ${c} then 1 else 0 end) as deals_corte, sum(case when "Stage"='Won' and ${c} then 1 else 0 end) as won_corte from "Deals" where "Created Time" >= '2025-01-01' group by 1,2,3`,
   `select year("Created Time")*100+month("Created Time") as ym, "Prefix Country" as pais, count(*) as deals, sum(case when "Stage"='Won' then 1 else 0 end) as won, sum(case when ${c} then 1 else 0 end) as deals_corte, sum(case when "Stage"='Won' and ${c} then 1 else 0 end) as won_corte from "Deals" where "Created Time" >= '2025-01-01' group by 1,2`,
   `select year("Created Time")*100+month("Created Time") as ym, "Lost Reason" as motivo, count(*) as perdidos, sum(case when ${c} then 1 else 0 end) as perdidos_corte from "Deals" where "Created Time" >= '2025-01-01' and "Stage"='Lost' group by 1,2`,
@@ -5521,7 +5522,7 @@ function cpDoc(r,hoy,dia,fuente){const v=(x,k)=>Math.round(caNum(caCol(x,k))),t=
   const hoyCR=r[3]?{mes:hoy.getMonth()+1,dia:Math.max(1,dia-1),filas:r[3].map(x=>[v(x,"anio"),t(x,"idioma"),v(x,"deals"),v(x,"won")])}:null;
   const pais=r[1].filter(x=>top.has(t(x,"pais"))).map(x=>[v(x,"ym"),t(x,"pais"),v(x,"deals"),v(x,"won"),v(x,"deals_corte"),v(x,"won_corte")]).filter(f=>f[0]>=202501);
   const perd=r[2].map(x=>[v(x,"ym"),t(x,"motivo"),v(x,"perdidos"),v(x,"perdidos_corte")]).filter(f=>f[0]>=202501);
-  return{fecha:hoy.toISOString(),hoy:hoy.getFullYear()*10000+(hoy.getMonth()+1)*100+dia,corte:dia,fuente:fuente||"Zoho Analytics, tabla Deals: deals por mes de creación (Created Time); cerrados = Stage Won; CR = cerrados / deals. Mismo criterio que el dashboard Deals Cerrados Overview.",idi,pais,perd,...(hoyCR?{hoyCR}:{})}}
+  return{fecha:hoy.toISOString(),hoy:hoy.getFullYear()*10000+(hoy.getMonth()+1)*100+dia,corte:Math.max(1,dia-1),fuente:fuente||"Zoho Analytics, tabla Deals: deals por mes de creación (Created Time); cerrados = Stage Won; CR = cerrados / deals. Mismo criterio que el dashboard Deals Cerrados Overview.",idi,pais,perd,...(hoyCR?{hoyCR}:{})}}
 async function actualizarCaptacion(){if(st.cpAct?.tipo==="vivo")return;
   if(!mc.mcp||!st.db){cpAct("Abre la página desde claude.ai para actualizar los datos.","err");return}
   try{const hoy=new Date(),dia=hoy.getDate(),Q=CP_SQL(dia,hoy.getMonth()+1),out=[];

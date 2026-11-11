@@ -1,0 +1,13 @@
+{
+  "norte-san-sebastian-zarautz": {
+    "idioma": "en",
+    "etapa": "San Sebastián to Zarautz",
+    "ruta": "Camino del Norte",
+    "pueblos": [
+      ["San Sebastián", [1, 1, 1, 1, 1, 1, 1]],
+      ["Igueldo",       [0, 0, 0, 0, 0, 0, 0]],
+      ["Orio",          [1, 1, 1, 1, 1, 1, 0]],
+      ["Zarautz",       [1, 1, 1, 1, 1, 1, 1]]
+    ]
+  }
+}

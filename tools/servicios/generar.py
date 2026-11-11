@@ -196,7 +196,7 @@ def descripcion(datos, rot):
             if not si:
                 partes.append(f"{pueblo} has no services")
             elif len(si) == len(servicios):
-                partes.append(f"{pueblo} has all of them")
+                partes.append(f"{pueblo} has all seven services")
             else:
                 partes.append(f"{pueblo} has {', '.join(si[:-1])} and {si[-1]}")
         desc = f"{titulo}. " + "; ".join(partes) + "."
@@ -208,7 +208,7 @@ def descripcion(datos, rot):
             if not si:
                 partes.append(f"{pueblo} no tiene servicios")
             elif len(si) == len(servicios):
-                partes.append(f"{pueblo} los tiene todos")
+                partes.append(f"{pueblo} tiene los siete servicios")
             else:
                 partes.append(f"{pueblo} tiene {', '.join(si[:-1])} y {si[-1]}")
         desc = f"{titulo}. " + "; ".join(partes) + "."

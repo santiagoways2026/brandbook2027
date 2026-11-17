@@ -1189,6 +1189,23 @@ html[data-tema=sw] #c-cro_dash,html[data-tema=sw] #c-cro_backlog,html[data-tema=
 .cro-score b{font:700 16px/1 var(--f-ui)}.cro-score span{font-size:9px;color:var(--tenue)}
 .cro-met{margin:8px 0 0}.cro-nota{margin:6px 0 0;color:var(--tenue);font-size:12px}
 .cro-vacia{font-size:12px;color:var(--tenue);padding:8px;border:1px dashed var(--borde);border-radius:8px;text-align:center}
+.cro-bl{margin:12px 20px 0;border:1px solid var(--borde);border-radius:10px;overflow:hidden}
+.cro-blh,.cro-blr{display:grid;grid-template-columns:52px minmax(0,2.6fr) 128px 110px 96px minmax(0,1.2fr);gap:12px;align-items:center;padding:10px 14px}
+.cro-blh{font-size:11px;text-transform:uppercase;letter-spacing:.04em;color:var(--tenue);background:var(--marco-2)}
+.cro-blr{border-top:1px solid var(--borde);box-shadow:inset 3px 0 0 var(--c);font-size:12.5px;line-height:1.45}
+.cro-blr.sig{background:color-mix(in srgb,var(--cro-1) 6%,transparent)}
+.cro-blo{font:700 17px/1 var(--f-ui);color:var(--tenue);text-align:center}.cro-blr.sig .cro-blo{color:var(--cro-1)}
+.cro-bln b{font-size:13.5px}.cro-bln .cro-nota,.cro-bln .cro-met{margin:4px 0 0}
+.cro-bls{display:flex;flex-direction:column}.cro-bls b{font:700 16px/1.1 var(--f-ui)}.cro-bls small{font-size:11px;color:var(--tenue)}
+@media(max-width:860px){.cro-blh{display:none}.cro-blr{grid-template-columns:34px minmax(0,1fr)}.cro-blr>*:nth-child(n+3){grid-column:2}}
+details.cro-exp>summary{cursor:pointer;list-style:none}details.cro-exp>summary::-webkit-details-marker{display:none}
+.cro-car{display:inline-block;transition:transform .15s;color:var(--tenue)}details.cro-exp[open] .cro-car{transform:rotate(90deg)}
+.cro-sres{margin-left:auto;display:flex;align-items:center;gap:8px}.cro-sres .cro-up{font-size:16px}.cro-sres small{font-size:11.5px;color:var(--tenue)}
+.cro-exp.cro-t-verde{background:color-mix(in srgb,var(--cro-3) 7%,transparent);border-color:color-mix(in srgb,var(--cro-3) 40%,var(--borde))}
+.cro-exp.cro-t-rojo{background:color-mix(in srgb,var(--cro-5) 9%,transparent);border-color:color-mix(in srgb,var(--cro-5) 45%,var(--borde))}
+.cro-exp.cro-t-ambar{background:color-mix(in srgb,var(--cro-4) 6%,transparent);border-color:color-mix(in srgb,var(--cro-4) 35%,var(--borde))}
+details.cro-exp[open]>summary{margin-bottom:6px}
+.cro-kr{margin-left:auto;display:flex;flex-wrap:wrap;gap:6px 22px;align-items:center}.cro-kr>span{display:flex;flex-direction:column;line-height:1.2}.cro-kr b{font:700 15px/1.2 var(--f-ui);font-variant-numeric:tabular-nums}.cro-kr b.pos{color:var(--cro-3)}.cro-kr b.neg{color:var(--cro-5)}.cro-kr small{font-size:11px;color:var(--tenue)}
 .cro-exp{margin:16px 20px 0;border:1px solid var(--borde);border-radius:10px;padding:12px 14px}
 .cro-exp-h{display:flex;flex-wrap:wrap;gap:8px;align-items:center}.cro-exp-h h3{margin:0;font:700 15px/1.3 var(--f-ui)}
 .cro-est{font-size:11.5px;font-weight:700;color:var(--c);border:1px solid var(--c);border-radius:10px;padding:2px 8px}.cro-ini{font-size:12px;color:var(--tenue)}
@@ -6046,6 +6063,7 @@ function psEstado(PV,P){const srv=P.servidor||ZO,ff=esc(hace(P.foto_fecha||PV.fe
    :fallo?`PageSense no responde ahora: se ve la última lectura guardada (${ff}). Se vuelve a intentar cada 15 minutos.`:`Leyendo PageSense…`;
   const ok=PV.vivos&&!c;return`<p class="cro-ps"><span class="vivo${ok?"":" off"}">${ok?"En directo":"PageSense"}</span> ${msg}</p>`}
 const psDecision=ps=>!ps?"":ps.win?"PageSense: gana la variante":ps.lose?"PageSense: pierde la variante":ps.insig||ps.dec===2?"PageSense: sin diferencia significativa":ps.dec===3?"PageSense: aún sin datos suficientes":"";
+window.croTog=e=>{const S=st.croAb||(st.croAb=new Set());e.open?S.add(e.dataset.id):S.delete(e.dataset.id)};
 function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_dash","cro_backlog","cro_tests","cro_analytics","cro_result"];
   if(!D){ids.forEach(id=>{const el=document.getElementById("c-"+id);if(el)el.innerHTML=`<div class="vacio">Leire está cruzando los tests de PageSense con Analytics.</div>`});return}
   const G=D.ga4||{},L=(a,f)=>(a||[]).map(f).join(""),VAL=D.validacion||[],BK=D.backlog||[];
@@ -6060,13 +6078,15 @@ function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_das
      <div class="ia-graf pi-graf cro-g1"><div class="ia-g"><h4>CR a deal de toda la web, semana a semana</h4><div class="ia-sub">${esc(D.sub_global||"")}</div>${croLinea([{n:"2026",c:"var(--cro-1)",grueso:1,v:(D.semanas_26||[]).map(r=>croCR([r[1],r[2]])),extra:(D.semanas_26||[]).map(r=>`${croN(r[2])} deals de ${croN(r[1])} sesiones`)},{n:"2025",c:"var(--cro-g)",v:(D.semanas_25||[]).map(r=>croCR([r[1],r[2]])),extra:(D.semanas_25||[]).map(r=>`${croN(r[2])} deals de ${croN(r[1])} sesiones`)}],{etq:D.etq_semanas||[],marcas:D.marcas_semana||[],aria:"CR a deal semanal de la web, 2026 frente a 2025"})}</div></div>
      <div class="pi-diag">${L(D.lecturas_resumen,l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`)}</div>`}
   /* 2. Backlog y priorización */
-  el=document.getElementById("c-cro_backlog");if(el){const cols=["Idea","Priorizado","Rodando","Ganador","No concluyente"],grupo=e=>cols.includes(e)?e:e==="Implementado"?"Ganador":"Idea";
-    const card=b=>{const sc=b.score,es=CRO_ES[b.estado]||[b.estado,"var(--cro-g)"],ice=["i","c","f"].filter(k=>b[k]!=null);
-      return`<div class="cro-card" style="--c:${es[1]}"><div class="cro-card-h"><span class="cro-id">${esc(b.id)}</span>${b.prio?`<span class="cro-prio">${esc(b.prio)}</span>`:""}${b.seo?`<span class="cro-seo cro-seo-${esc(b.seo)}">SEO ${esc(b.seo)}</span>`:""}</div><h4>${esc(b.nombre)}</h4>
-       <div class="cro-chips">${[b.sup,b.disp,b.merc].filter(Boolean).map(c=>`<span>${esc(c)}</span>`).join("")}</div>
-       ${ice.length?`<div class="cro-ice">${ice.map(k=>`<div><span>${{i:"Impacto",c:"Confianza",f:"Facilidad"}[k]}</span><span class="cro-icet"><span style="width:${b[k]*10}%"></span></span><b>${b[k]}</b></div>`).join("")}${sc!=null?`<div class="cro-score"><b>${sc}</b><span>score</span></div>`:""}</div>`:""}
-       ${b.met?`<p class="cro-met"><b>Métrica:</b> ${esc(b.met)}</p>`:""}${b.notas?`<p class="cro-nota">${esc(b.notas)}</p>`:""}</div>`};
-    el.innerHTML=croCab("Backlog y priorización","Hoja «1. Backlog y scoring» del Excel Growth Lab: el score decide el orden y el estado, la columna",D)+`<div class="cro-kan">${cols.map(c=>{const B=BK.filter(b=>grupo(b.estado)===c).sort((a,b)=>(b.score||0)-(a.score||0));return`<div class="cro-col"><div class="cro-col-h" style="--c:${CRO_ES[c][1]}"><b>${esc(CRO_ES[c][0])}</b><span>${B.length}</span></div>${B.map(card).join("")||`<div class="cro-vacia">Nada aquí todavía</div>`}</div>`}).join("")}</div>
+  el=document.getElementById("c-cro_backlog");if(el){const ORD=["Rodando","En análisis","En diseño / QA","Priorizado","Idea","Ganador","Implementado","No concluyente","Perdedor","Descartado"],BKV=BK.filter(b=>!b.fuera).sort((a,b)=>(a.orden??99)-(b.orden??99)||ORD.indexOf(a.estado)-ORD.indexOf(b.estado)||(b.score||0)-(a.score||0));
+    const fila=b=>{const es=CRO_ES[b.estado]||[b.estado,"var(--cro-g)"],ice=["i","c","f"].filter(k=>b[k]!=null);
+      return`<div class="cro-blr${b.orden===1?" sig":""}" style="--c:${es[1]}"><span class="cro-blo">${b.estado==="Rodando"?"▶":b.orden!=null?b.orden:"–"}</span>
+       <div class="cro-bln"><div><span class="cro-id">${esc(b.id)}</span> <b>${esc(b.nombre)}</b>${b.etiqueta?` <span class="cro-prio">${esc(b.etiqueta)}</span>`:""}</div>${b.notas?`<p class="cro-nota">${esc(b.notas)}</p>`:""}${b.met?`<p class="cro-met"><b>Métrica:</b> ${esc(b.met)}</p>`:""}</div>
+       <span><span class="cro-est" style="--c:${es[1]}">${esc(es[0])}</span></span>
+       <span class="cro-blp">${b.prio?`<span class="cro-prio">${esc(b.prio)}</span>`:""}${b.seo?` <span class="cro-seo cro-seo-${esc(b.seo)}">SEO ${esc(b.seo)}</span>`:""}</span>
+       <span class="cro-bls">${b.score!=null?`<b>${b.score}</b>`:"–"}${ice.length?`<small>${ice.map(k=>`${{i:"I",c:"C",f:"F"}[k]} ${b[k]}`).join(" · ")}</small>`:""}</span>
+       <div class="cro-chips">${[b.sup,b.disp,b.merc].filter(Boolean).map(c=>`<span>${esc(c)}</span>`).join("")}</div></div>`};
+    el.innerHTML=croCab("Backlog y priorización","Orden de activación decidido por Growth; el score (impacto, confianza y facilidad del Excel Growth Lab) ordena el resto",D)+`<div class="cro-bl"><div class="cro-blh"><span>Orden</span><span>Experimento</span><span>Estado</span><span>Prioridad</span><span>Score</span><span>Dónde</span></div>${BKV.map(fila).join("")||`<div class="cro-vacia">Nada aquí todavía</div>`}</div>
      <p class="as-nota">${esc(D.nota_backlog||"")}</p>`}
   /* 3. Tests en validación: en directo desde PageSense (Zoho Suite); si no se puede, la última lectura guardada; sin configuración, el Excel */
   el=document.getElementById("c-cro_tests");if(el){const P=D.pagesense?.tests?.length?D.pagesense:null;if(P)suscribirPageSense();const PV=P?psValidacion(P):null,VV=PV?PV.filas:VAL,porExp={};VV.forEach(v=>(porExp[v.id]=porExp[v.id]||[]).push(v));
@@ -6077,7 +6097,8 @@ function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_das
        <span class="cro-v ${vc}">${esc(vt)}</span></div></div>`};
     const sub=P?`Zoho PageSense en directo (conector «${P.servidor||ZO}»): visitantes únicos y conversiones del objetivo principal de cada test, desde que empezó. Uplift, confianza y muestra necesaria se calculan aquí`:"Hoja «2. Validación» del Excel: visitantes y conversiones de PageSense. Uplift, confianza y muestra necesaria recalculados aquí";
     el.innerHTML=croCab("Tests en validación",sub,P?{fecha:PV.fecha}:D)+(P?psEstado(PV,P):"")+`<div class="pi-ver cro-ver"><b>${esc(D.tests_titular||"")}</b> ${esc(D.tests_texto||"")}</div>
-     ${Object.entries(porExp).map(([id,V])=>{const b=BK.find(x=>x.id===id)||{},es=CRO_ES[b.estado]||[b.estado||"","var(--cro-g)"];return`<div class="cro-exp"><div class="cro-exp-h"><span class="cro-id">${esc(id)}</span><h3>${esc(b.nombre||id)}</h3><span class="cro-est" style="--c:${es[1]}">${esc(es[0])}</span>${V[0].inicio?`<span class="cro-ini">desde el ${esc(V[0].inicio.split("-").reverse().join("/"))}</span>`:""}</div>${b.hip?`<p class="cro-hip">${esc(b.hip)}</p>`:""}${V.map(fila).join("")}${(D.notas_tests||{})[id]?`<p class="cro-nota">${esc(D.notas_tests[id])}</p>`:""}</div>`}).join("")}
+     ${Object.entries(porExp).map(([id,V])=>{const b=BK.find(x=>x.id===id)||{},es=CRO_ES[b.estado]||[b.estado||"","var(--cro-g)"],T=V.find(v=>v.total)||V[0],tn=v=>{const c=croVeredicto(v)[1];return c==="cro-v-verde"?"verde":c==="cro-v-rojo"&&v.uplift<0?"rojo":"ambar"},ts=(V.find(v=>v.total)?[T]:V).map(tn),tono=ts.includes("verde")&&!ts.includes("rojo")?"verde":ts.includes("rojo")&&!ts.includes("verde")?"rojo":"ambar",ab=(st.croAb||new Set()).has(id);
+      return`<details class="cro-exp cro-t-${tono}" data-id="${esc(id)}"${ab?" open":""} ontoggle="croTog(this)"><summary class="cro-exp-h"><span class="cro-car">▸</span><span class="cro-id">${esc(id)}</span><h3>${esc(b.nombre||id)}</h3><span class="cro-est" style="--c:${es[1]}">${esc(es[0])}</span>${V[0].inicio?`<span class="cro-ini">desde el ${esc(V[0].inicio.split("-").reverse().join("/"))}</span>`:""}<span class="cro-sres"><span class="cro-up ${T.uplift>0?"pos":T.uplift<0?"neg":""}">${T.uplift==null?"–":croS(T.uplift)+" %"}</span><small>${esc(croVeredicto(T)[0])}${V.length>1?` · ${V.length} variantes`:""}</small></span></summary>${b.hip?`<p class="cro-hip">${esc(b.hip)}</p>`:""}${V.map(fila).join("")}${(D.notas_tests||{})[id]?`<p class="cro-nota">${esc(D.notas_tests[id])}</p>`:""}</details>`}).join("")}
      <p class="as-nota">${esc(D.nota_tests||"")}</p>`}
   /* 4. Analytics de los tests */
   el=document.getElementById("c-cro_analytics");if(el){const GM=G.global_mes||[],GR=G.grupos||{},A=D.analytics||{};
@@ -6116,14 +6137,13 @@ function pintarCro(){if(st.dentro!=="cro")return;const D=st.croDoc,ids=["cro_das
       ${p.seo?`<div class="cro-seo-b"><span class="pi-area">Posicionamiento</span><p>${esc(p.seo)}</p></div>`:""}
       <p class="cro-lect">${esc(p.lectura||"")}</p></div>`};
     const IMP=D.implementacion||{},EXN=Object.fromEntries((IMP.resumen||[]).map(r=>[r.id,r.nombre])),EXS=[...new Set(P.map(p=>p.exp||"EXP-001"))];
-    const grupoExp=x=>{const ps=P.filter(p=>(p.exp||"EXP-001")===x);return`<details class="cro-grp" open><summary><span class="cro-id">${esc(x)}</span><b>${esc(EXN[x]||"")}</b><small>${ps.length} ${ps.length===1?"página":"páginas"}: ${esc(ps.map(p=>p.nombre).join(", "))}</small></summary>${ps.map(tarjeta).join("")}</details>`};
+    const grupoExp=x=>{const ps=P.filter(p=>(p.exp||"EXP-001")===x),sm=(k,f)=>ps.reduce((t,p)=>t+(+p[k][f]||0),0),cA=sm("pre","s")?100*sm("pre","l")/sm("pre","s"):null,cD=sm("post","s")?100*sm("post","l")/sm("post","s"):null,dpp=cA!=null&&cD!=null?cD-cA:null,sig=ps.filter(p=>(p.var||{}).conf>=95),sp=sig.filter(p=>p.var.pp>0).length,sn=sig.filter(p=>p.var.pp<0).length,tono=sp&&!sn?"verde":sn&&!sp?"rojo":"ambar",k="r:"+x,ab=(st.croAb||new Set()).has(k);
+      return`<details class="cro-exp cro-grp cro-t-${tono}" data-id="${esc(k)}"${ab?" open":""} ontoggle="croTog(this)"><summary class="cro-exp-h"><span class="cro-car">▸</span><span class="cro-id">${esc(x)}</span><h3>${esc(EXN[x]||"")}</h3><small class="cro-ini">${ps.length} ${ps.length===1?"página":"páginas"}</small>
+       <span class="cro-kr"><span><b>${cA==null?"–":croP(cA)} → ${cD==null?"–":croP(cD)}</b><small>CR antes y después</small></span><span><b class="${cl(dpp||0)}">${dpp==null?"–":pp(dpp)}</b><small>cambio (${dpp==null||!cA?"–":pr(100*dpp/cA)})</small></span><span><b>${sp} de ${ps.length}</b><small>páginas que ganan con confianza</small></span><span><b>${croN(sm("post","s"))}</b><small>sesiones después</small></span></span></summary>${ps.map(tarjeta).join("")}</details>`};
     el.innerHTML=croCab("Resultados de las implementaciones","Páginas con cambios ya implementados, agrupadas por test: Analytics antes y después, frente a los mismos días de 2025",D)+`<div class="pi-ver cro-ver"><b>${esc(RS.titular||"")}</b> ${esc(RS.texto||"")}</div>
      <div class="as-res bq-res pi-res">${L(RS.kpis,croKpi)}</div>
      ${EXS.map(grupoExp).join("")}
-     <h3 class="pi-h">Avance de la implementación</h3>
-     <div class="cro-pasos">${(IMP.resumen||[]).map(r=>{const ps=(IMP.pasos||[]).filter(p=>p[0]===r.id),h=ps.filter(p=>p[3]).length;return`<div class="cro-paso"><div class="cro-paso-h"><span class="cro-id">${esc(r.id)}</span><b>${esc(r.nombre)}</b><span class="cro-pct">${ps.length?Math.round(100*h/ps.length):0} %</span></div><span class="cro-abt cro-pt"><span style="width:${ps.length?100*h/ps.length:0}%;background:var(--cro-3)"></span></span><ol>${ps.map(p=>`<li class="${p[3]?"hecho":""}"><span>${p[3]?"✓":"○"}</span>${esc(p[2])}<small>${esc(p[4])} · ${esc(p[5])}</small></li>`).join("")}</ol></div>`}).join("")}</div>
-     <div class="pi-diag">${L(RS.lecturas,l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`)}</div>
-     <h3 class="pi-h">Cómo se ha medido</h3><ol class="bf-list">${L(RS.metodo,m=>`<li>${esc(m)}</li>`)}</ol>`}
+     <details class="cro-exp cro-mas"><summary class="cro-exp-h"><span class="cro-car">▸</span><h3>Lecturas y cómo se ha medido</h3></summary><div class="pi-diag">${L(RS.lecturas,l=>`<div class="pi-card"><span class="pi-area">${esc(l.area)}</span><h4>${esc(l.t)}</h4><p>${esc(l.d)}</p></div>`)}</div><ol class="bf-list">${L(RS.metodo,m=>`<li>${esc(m)}</li>`)}</ol></details>`}
   ids.forEach(id=>{const e=document.getElementById("c-"+id);if(e&&typeof tzAplica==="function")try{tzAplica(e)}catch(_){}})}
 /* ===== Filtro de fechas en OpenAI Ads y Bing Ads (9 nov 2026) ===== */
 const fxE=v=>{const[e,d]=(+v).toFixed(2).split(".");return e.replace(/\B(?=(\d{3})+(?!\d))/g,".")+","+d+" €"};

@@ -3463,8 +3463,8 @@ function jmAgrupa(ns,f){const g=[];ns.forEach(n=>{const h=`<div class="jm-cel">$
   return g.map(x=>x.length>1?`<div class="jm-junto${x.length>2?" jm-j3":""}" style="grid-template-columns:repeat(${x.length},minmax(0,1fr))">${x.join("")}</div>`:x[0]).join(`<div class="jm-fl">↓</div>`)}
 function pintarJourneyMapa(){const el=document.getElementById("c-journey_mapa");if(!el||st.dentro!=="journey")return;const M=st.jmapa;
   if(!M){el.innerHTML=`<div class="mcab"><div><h2>Mapa de workflows e impactos</h2></div></div><div class="vacio">Nerea está dibujando el mapa con los workflows de Zoho.</div>`;return}
-  const OB=M.objetos||{};const todos=M.etapas.flatMap(e=>e.ramas.flatMap(r=>r.nodos.map(n=>({...n,obj:e.objeto}))));
-  const solo=st.jmFiltro||"todos",obj=st.jmObj||"todos";const ver=n=>solo==="todos"||n.canal===solo||(solo==="email"&&n.canal==="hueco");
+  const OB=M.objetos||{};const todos=M.etapas.flatMap(e=>e.ramas.flatMap(r=>r.nodos.filter(n=>!["inactivo","eliminado"].includes(n.estado)).map(n=>({...n,obj:e.objeto}))));
+  const solo=st.jmFiltro||"todos",obj=st.jmObj||"todos";const ver=n=>!["inactivo","eliminado"].includes(n.estado)&&(solo==="todos"||n.canal===solo||(solo==="email"&&n.canal==="hueco"));
   const cnt=(o,c)=>todos.filter(n=>n.obj===o&&n.estado!=="inactivo"&&(!c||n.canal===c)&&n.canal!=="hueco").length;
   const grupos=[];M.etapas.forEach((e,i)=>{e._i=i;const g=grupos[grupos.length-1];if(g&&g.o===e.objeto)g.et.push(e);else grupos.push({o:e.objeto,et:[e]})});
   const etapa=e=>{const ramas=e.ramas.map(r=>({...r,nodos:r.nodos.filter(ver)})).filter(r=>r.nodos.length);if(!ramas.length)return"";
